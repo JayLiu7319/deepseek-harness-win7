@@ -1,0 +1,52 @@
+{
+  "id": "RUN-RELEASE-STARTUP-CI-20261011-018F3389",
+  "kind": "diagnostic",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "018f33896255e2c16ffb4254915f0ca51962f1d1",
+  "commands": [
+    "GitHub release-environment.yml scope=startup, run 38085082159",
+    ".venv/Scripts/python.exe scripts/diagnose_windows_startup.py: constant-child observations, diagnostic physical exit 0"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub hosted windows-2022"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-STARTUP-CI-20261011-018F3389.zip",
+      "sha256": "addd8481234dfd71a6506d6896d642c179691e81125fc13f2f9a4b46c9efec6c"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-STARTUP-BINDING-20261011-018F3389.zip",
+      "sha256": "d4c22bf0643d2aaaadb519ee30869fd739abadd2f25ec99827bf3b504a0afa74"
+    }
+  ],
+  "observations": {
+    "redirectedProbes": 64,
+    "workerFailures": 0,
+    "originalFlags13ChildFailures": 32,
+    "diagnosticFlags9ChildSuccesses": 32,
+    "console": false,
+    "explicitDesktopDidNotResolve": true,
+    "baseInterpreterDidNotResolve": true,
+    "pipeStdinDidNotResolve": true
+  },
+  "local": {
+    "defaultDaclProbes": 16,
+    "physicalExit": 0,
+    "childFailures": 0,
+    "scope": "Proposed dirty diagnostic only; actual CI default-DACL cause still pending"
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 50,
+    "removedBytes": 113670,
+    "removedLocalDirectories": 37,
+    "scope": "Closed own workers/empty fixtures and completed transfer duplicates only; original bytes sealed"
+  },
+  "scope": "Passed means diagnostic executed and retained. All 32 original LUA/write-capability children failed; no release or Source parity qualification, no production flag change or native Win7 certification."
+}

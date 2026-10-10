@@ -1,6 +1,7 @@
 """Read desktop/token context and exercise owned runner fixtures; no desktop ACL edits."""
 import ctypes as c
 from ctypes import wintypes as w
+from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
@@ -11,6 +12,36 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from dsh.sandbox import windows_acl
+
+
+def token_description(api, token):
+    user = api.token_info(token, 1)
+    user_sid = windows_acl.SidAttributes.from_buffer(user).sid
+    convert_sid = api.advapi.ConvertSidToStringSidW
+    convert_sid.argtypes = [c.c_void_p, c.POINTER(c.c_void_p)]
+    sid_text = c.c_void_p()
+    api.check(convert_sid(user_sid, c.byref(sid_text)), 'ConvertSidToStringSid')
+    try:
+        account = c.wstring_at(sid_text)
+    finally:
+        api.LocalFree(sid_text)
+    default = api.token_info(token, 6)
+    acl = c.c_void_p.from_buffer(default)
+    descriptor = c.create_string_buffer(64)
+    initialize = api.advapi.InitializeSecurityDescriptor
+    initialize.argtypes = [c.c_void_p, w.DWORD]
+    api.check(initialize(descriptor, 1), 'InitializeSecurityDescriptor')
+    set_dacl = api.advapi.SetSecurityDescriptorDacl
+    set_dacl.argtypes = [c.c_void_p, w.BOOL, c.c_void_p, w.BOOL]
+    api.check(set_dacl(descriptor, True, acl, False), 'SetSecurityDescriptorDacl')
+    convert = api.advapi.ConvertSecurityDescriptorToStringSecurityDescriptorW
+    convert.argtypes = [c.c_void_p, w.DWORD, w.DWORD, c.POINTER(c.c_void_p), c.POINTER(w.DWORD)]
+    text = c.c_void_p()
+    api.check(convert(descriptor, 1, 4, c.byref(text), None), 'ConvertSecurityDescriptor')
+    try:
+        return dict(accountSid=account, defaultDacl=c.wstring_at(text))
+    finally:
+        api.LocalFree(text)
 
 
 def worker():
@@ -50,6 +81,27 @@ def worker():
     api.kernel.GetFileType.argtypes = [c.c_void_p]
     result = dict(mode=mode, flags=flags, explicitDesktop=explicit, desktop=names,
                   console=bool(api.kernel.GetConsoleWindow()), stdinType=api.kernel.GetFileType(api.GetStdHandle(-10)))
+    original_token = windows_acl.WinApi.restricted_token
+    account_grant = sys.argv[7:8] == ['account']
+    result['accountGrant'] = account_grant
+    @contextmanager
+    def token_with_diagnostics(instance, writes):
+        with original_token(instance, writes) as token:
+            result['before'] = token_description(instance, token)
+            if account_grant:
+                user = instance.token_info(token, 1)
+                sid = windows_acl.SidAttributes.from_buffer(user).sid
+                default = instance.token_info(token, 6)
+                old, new = c.c_void_p.from_buffer(default), c.c_void_p()
+                entry = instance.entry(sid, permissions=0x1f01ff)
+                instance.status(instance.SetEntriesInAclW(1, c.byref(entry), old, c.byref(new)), 'SetEntriesInAclW account diagnostic')
+                try:
+                    instance.check(instance.SetTokenInformation(token, 6, c.byref(new), c.sizeof(new)), 'SetTokenInformation account diagnostic')
+                finally:
+                    instance.LocalFree(new)
+            result['after'] = token_description(instance, token)
+            yield token
+    windows_acl.WinApi.restricted_token = token_with_diagnostics
     payload_kind = sys.argv[6]
     executable = sys.executable if payload_kind == 'current' else getattr(sys, '_base_executable', sys.executable)
     result.update(payloadKind=payload_kind, executable=executable)
@@ -68,6 +120,33 @@ def worker():
                                                 '--mode', 'workspace-write', '--'] + payload)
     output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     return 0
+
+
+def dacl_main():
+    output = Path(sys.argv[2]).resolve()
+    directory = output.with_name(output.stem + '-workers')
+    directory.mkdir(exist_ok=False)
+    result = dict(scope='Default object ACL first/second access-check diagnosis only; fixed 0xd and unchanged restricting SIDs', probes=[])
+    for mode in ('api', 'runner'):
+        for payload in ('current', 'base'):
+            for stdin in ('nul', 'pipe'):
+                for grant in ('none', 'account'):
+                    name = '-'.join((mode, payload, stdin, grant))
+                    report = directory / (name + '.json')
+                    command = [sys.executable, str(Path(__file__).resolve()), '--worker', str(report), mode, '13', '0', payload, grant]
+                    options = dict(cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=15, creationflags=0x08000000)
+                    if stdin == 'nul':
+                        options['stdin'] = subprocess.DEVNULL
+                    else:
+                        options['input'] = b''
+                    completed = subprocess.run(command, **options)
+                    (directory / (name + '.stdout')).write_bytes(completed.stdout)
+                    (directory / (name + '.stderr')).write_bytes(completed.stderr)
+                    row = json.loads(report.read_text(encoding='utf-8')) if report.exists() else {}
+                    row.update(workerExit=completed.returncode, parentStdin=stdin)
+                    result['probes'].append(row)
+                    print(json.dumps(row), flush=True)
+    output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
 
 
 def main():
@@ -149,4 +228,7 @@ def main():
 if __name__ == '__main__':
     if sys.argv[1:2] == ['--worker']:
         sys.exit(worker())
+    if sys.argv[1:2] == ['--dacl']:
+        dacl_main()
+        sys.exit(0)
     main()

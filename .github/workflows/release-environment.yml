@@ -5,7 +5,7 @@ on:
       scope:
         description: Diagnostic scope
         type: choice
-        options: [consumers, startup]
+        options: [consumers, startup, default-dacl]
         default: consumers
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.8.10'
       - uses: actions/setup-node@v4
-        if: inputs.scope != 'startup'
+        if: inputs.scope == 'consumers'
         with:
           node-version: '22.22.2'
       - name: Allocate owned diagnostic output
@@ -37,19 +37,24 @@ jobs:
           .venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements-dev.lock
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare cold pinned Source and original build carrier
-        if: inputs.scope != 'startup'
+        if: inputs.scope == 'consumers'
         run: |
           .venv/Scripts/python.exe -c "from scripts.verify_release import prepare_node_dependencies; from pathlib import Path; import os; prepare_node_dependencies(Path('.goose/out/release-environment').resolve(), dict(os.environ))"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python scripts/browser108_gate.py --prepare .goose/tools/chromium108
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Read actual hosted Windows startup context
-        if: always()
+        if: always() && inputs.scope != 'default-dacl'
         run: |
           .venv/Scripts/python.exe scripts/diagnose_windows_startup.py .goose/out/release-environment/windows-startup.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Inspect default object ACL with fixed LUA and write restriction
+        if: inputs.scope == 'default-dacl'
+        run: |
+          .venv/Scripts/python.exe scripts/diagnose_windows_startup.py --dacl .goose/out/release-environment/windows-default-dacl.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Run direct cold-environment consumers
-        if: inputs.scope != 'startup'
+        if: inputs.scope == 'consumers'
         run: |
           $env:DSH_TEST_CHROMIUM = Join-Path ${env:ProgramFiles(x86)} 'Microsoft/Edge/Application/msedge.exe'
           $env:DSH_TEST_CHROMIUM108 = (Resolve-Path .goose/tools/chromium108/chrome-win/chrome.exe).Path
