@@ -1,8 +1,10 @@
 import io
 import json
 import os
+from pathlib import Path
 import subprocess
 import sys
+from types import SimpleNamespace
 import zipfile
 
 import pytest
@@ -14,6 +16,7 @@ def test_diagnostics_keeps_failures_hidden_files_and_empty_directories(tmp_path)
     source = tmp_path / 'observations'
     source.mkdir()
     (source / '.hidden').write_bytes(b'raw failed observation')
+    (source / 'original.exe').write_bytes(b'MZ synthetic executable bytes')
     (source / 'empty').mkdir()
     (source / 'pytest.xml').write_text('<testsuites><testsuite><testcase name="broken"><failure>original stack</failure></testcase><testcase name="skip"><skipped/></testcase></testsuite></testsuites>', encoding='utf-8')
     stream = io.StringIO()
@@ -25,6 +28,7 @@ def test_diagnostics_keeps_failures_hidden_files_and_empty_directories(tmp_path)
     with zipfile.ZipFile(str(destination)) as archive:
         assert archive.testzip() is None
         assert archive.read('.hidden') == b'raw failed observation'
+        assert archive.read('original.exe') == b'MZ synthetic executable bytes'
         assert 'empty/' in archive.namelist()
         assert 'original stack' in archive.read('pytest.xml').decode('utf-8')
         inventory = json.loads(archive.read(diagnostics.MANIFEST))
@@ -117,3 +121,40 @@ def test_missing_or_truncated_xml_preserves_raw_carrier_without_invented_counts(
         assert archive.testzip() is None
         if xml is not None:
             assert archive.read('pytest.xml') == xml
+
+
+def test_executable_bit_adaptation_still_refuses_changed_byte_identity(tmp_path, monkeypatch):
+    source = tmp_path / 'observations'
+    source.mkdir()
+    original = source / 'original.exe'
+    original.write_bytes(b'MZ original bytes')
+    fstat = os.fstat
+
+    def changed_size(handle):
+        actual = fstat(handle)
+        return SimpleNamespace(st_dev=actual.st_dev, st_ino=actual.st_ino, st_mode=actual.st_mode,
+                               st_size=actual.st_size + 1, st_mtime_ns=actual.st_mtime_ns)
+
+    monkeypatch.setattr(diagnostics.os, 'fstat', changed_size)
+    destination = tmp_path / 'diagnostics.zip'
+    with pytest.raises(ValueError, match='file changed before reading: original.exe'):
+        diagnostics.package(source, destination)
+    assert not destination.exists() and Path(str(destination) + '.partial').is_file()
+    assert original.read_bytes() == b'MZ original bytes'
+
+
+def test_primary_report_fallback_preserves_xml_and_discloses_omitted_nested_fixtures(tmp_path):
+    source = tmp_path / 'observations'
+    source.mkdir()
+    (source / 'pytest.xml').write_bytes(b'<failed original XML bytes>')
+    (source / 'pytest-workspace').mkdir()
+    (source / 'pytest-workspace' / 'nested.exe').write_bytes(b'MZ raw nested fixture')
+    destination = tmp_path / 'primary.zip'
+    manifest = diagnostics.package(source, destination, reports_only=True)
+    assert manifest['reports_only'] is True
+    assert next(row for row in manifest['members'] if row['path'] == 'pytest-workspace')['kind'] == 'directory-omitted'
+    with zipfile.ZipFile(str(destination)) as archive:
+        assert archive.testzip() is None
+        assert archive.read('pytest.xml') == b'<failed original XML bytes>'
+        assert not any(name.startswith('pytest-workspace') for name in archive.namelist())
+    assert (source / 'pytest-workspace' / 'nested.exe').read_bytes() == b'MZ raw nested fixture'

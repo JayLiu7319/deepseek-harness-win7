@@ -10,6 +10,10 @@ jobs:
     runs-on: windows-2022
     timeout-minutes: 180
     steps:
+      - name: Use Windows materialized Git symlink inputs
+        run: |
+          git config --global core.symlinks false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -29,6 +33,10 @@ jobs:
           .venv/Scripts/python.exe -m pip install pip==25.0.1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements-dev.lock
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Check actual Source materialized input identity
+        run: |
+          .venv/Scripts/python.exe -c "from scripts.agent_dependencies_oracle import source_inputs, ROOT; print('Actual Source guarded inputs:', len(source_inputs(ROOT / 'reference')))"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare pinned inputs, build, and verify
         id: gate
@@ -53,13 +61,19 @@ jobs:
         if: always()
         run: |
           python scripts/package_release_diagnostics.py --source .goose/out/release-gate --archive .goose/out/release-diagnostics.zip
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $diagnosticExit = $LASTEXITCODE
+          if ($diagnosticExit -ne 0) {
+            python scripts/package_release_diagnostics.py --source .goose/out/release-gate --archive .goose/out/release-primary-diagnostics.zip --reports-only
+            exit $diagnosticExit
+          }
       - name: Preserve raw observations and regression diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: parity-diagnostics
-          path: .goose/out/release-diagnostics.zip
+          path: |
+            .goose/out/release-diagnostics.zip
+            .goose/out/release-primary-diagnostics.zip
           if-no-files-found: error
       - name: Upload verified portable
         uses: actions/upload-artifact@v4

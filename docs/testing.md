@@ -64,4 +64,6 @@ FS公共值配对的物理夹具由 `scripts/fs_fixture_workspace.py` 分配到�
 
 CI诊断先由 `scripts/package_release_diagnostics.py` 封装，再只上传单一ZIP，避免上传器遍历测试链接。普通文件保留原字节和清单，symlink/junction/reparse自身记录原始目标或reparse数据而不跟随；原工作区不删除。失败摘要在封装前直接输出到CI日志；缺失/截断XML不得推断最终计数。GitHub artifact 下载ZIP包含这个诊断ZIP，消费时应分别绑定外层传输校验和与内层原始诊断载体，不把传输封装误当成新的验收。
 
+完整封装失败时另以 `--reports-only` 保留根目录XML/日志/观察，清单明确披露未保留的嵌套目录，封装步骤仍返回原失败并阻止发布。Windows可执行文件的lstat由扩展名合成执行位，fstat不含该位；身份核对比较对象类型、设备/inode、尺寸及时间，而不要求这两类权限位相同，尺寸变化仍拒绝。CI检出前固定 `core.symlinks=false`，绑定Windows源码符号链接文本落盘方式；依赖准备后先实际核验Source全部guarded输入，避免到全量pytest才发现目录链接读取失败。
+
 后续 CI 改造应单独实现普通 PR 的相关验证与稳定整合/发布的完整门禁，评估 runner 的实际耗时，并保持正式回执、必需 lane 和精确 ZIP 发布约束。在 CI 改造完成前，应按现有工作流实际结果报告。

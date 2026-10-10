@@ -762,6 +762,7 @@ Evidence:
 - RUN-PROFILE-METADATA-QUALIFICATION-20261007-88AC1FAE: verification / passed / current
 - RUN-PROVIDER-UCRT-COMPOSITION-RESEARCH-20261010-3DCA2A32: research / passed / historical
 - RUN-RELEASE-CI-ATTEMPT3-20261011-E98A604D: verification / failed / historical
+- RUN-RELEASE-CI-ENVIRONMENT-FIX-20261011-BE739D74: verification / failed / historical
 - RUN-REMOTE-LFS-SYNC-20261007-B529A990: verification / passed / current
 - RUN-RUNTIME-CONTEXT-20261006-ACP-CONFIG-OUTPUT-004: acceptance / passed / stale-inputs
 - RUN-RUNTIME-CONTEXT-20261006-ACP-MCP-009: acceptance / passed / stale-inputs

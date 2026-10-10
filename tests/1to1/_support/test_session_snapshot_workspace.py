@@ -69,9 +69,10 @@ class TestWorkspaceSnapshots:
         ]
 
     def test_treats_nul_bearing_utf8_as_binary_workspace_state(self, temp_dir):
-        with open(os.path.join(temp_dir, "nul.bin"), "wb") as f:
+        # NUL.<extension> names the Windows device, not an ordinary file.
+        with open(os.path.join(temp_dir, "nul-bytes.bin"), "wb") as f:
             f.write(bytes([0x61, 0x00, 0x62]))
 
         assert captureWorkspaceSnapshot(temp_dir) == [
-            {"path": "nul.bin", "kind": "binary", "base64": "YQBi"},
+            {"path": "nul-bytes.bin", "kind": "binary", "base64": "YQBi"},
         ]

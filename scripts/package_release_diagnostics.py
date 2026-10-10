@@ -27,7 +27,9 @@ def linked(info):
 
 
 def identity(info):
-    return info.st_dev, info.st_ino, info.st_mode, info.st_size, info.st_mtime_ns
+    # Windows lstat synthesizes executable bits from a filename extension;
+    # fstat of the same handle does not. Compare object type and byte identity.
+    return info.st_dev, info.st_ino, stat.S_IFMT(info.st_mode), info.st_size, info.st_mtime_ns
 
 
 def raw_reparse(path):
@@ -90,15 +92,19 @@ def print_summary(source, stream=None):
     skipped = sum(case.find('skipped') is not None for case in cases)
     print(json.dumps(dict(collected=len(cases), failed_or_error=len(failures), skipped=skipped)),
           file=stream, flush=True)
-    for case, failure in failures[:20]:
-        print('REGRESSION ' + failure.tag + ': ' + case.get('classname', '') + '::' + case.get('name', ''),
+    groups = {}
+    for case, failure in failures:
+        key = (failure.tag, failure.text or failure.get('message', ''))
+        groups.setdefault(key, []).append(case)
+    for (tag, traceback), grouped in groups.items():
+        case = grouped[0]
+        print('REGRESSION ' + tag + ': ' + case.get('classname', '') + '::' + case.get('name', '') +
+              ' (same traceback cases: ' + str(len(grouped)) + ')',
               file=stream, flush=True)
-        print((failure.text or failure.get('message', ''))[:8192], file=stream, flush=True)
-    if len(failures) > 20:
-        print('Further failures remain in the original XML and diagnostics carrier.', file=stream, flush=True)
+        print(traceback[:8192], file=stream, flush=True)
 
 
-def package(source, destination):
+def package(source, destination, reports_only=False):
     source = Path(os.path.abspath(str(source)))
     destination = Path(os.path.abspath(str(destination)))
     if os.path.normcase(str(source)) != os.path.normcase(os.path.realpath(str(source))):
@@ -144,15 +150,19 @@ def package(source, destination):
                     if identity(os.lstat(entry.path)) != identity(info):
                         raise ValueError('Diagnostics link changed')
                 elif stat.S_ISDIR(info.st_mode):
-                    row['kind'] = 'directory'
-                    archive.writestr(name + '/', b'')
-                    stack.append((entry.path, name + '/'))
+                    if reports_only:
+                        row['kind'] = 'directory-omitted'
+                        row['reason'] = 'Explicit primary-report fallback; nested raw fixtures not retained in this carrier'
+                    else:
+                        row['kind'] = 'directory'
+                        archive.writestr(name + '/', b'')
+                        stack.append((entry.path, name + '/'))
                 elif stat.S_ISREG(info.st_mode):
                     row['kind'] = 'file'
                     sha = hashlib.sha256()
                     with open(entry.path, 'rb') as stream:
                         if identity(os.fstat(stream.fileno())) != identity(info):
-                            raise ValueError('Diagnostics file changed before reading')
+                            raise ValueError('Diagnostics file changed before reading: ' + name)
                         with archive.open(name, 'w', force_zip64=True) as output:
                             for chunk in iter(lambda: stream.read(1024 * 1024), b''):
                                 output.write(chunk)
@@ -169,7 +179,8 @@ def package(source, destination):
             if identity(os.lstat(folder)) != identity(before):
                 raise ValueError('Diagnostics directory changed during enumeration')
         manifest = dict(format='dsh-release-diagnostics@1', source=str(source), members=rows,
-                        scope='Regular bytes retained; links recorded without following targets; no source cleanup.')
+                        reports_only=reports_only,
+                        scope='Regular bytes retained; links recorded without following targets; no source cleanup. Primary-report fallback omits nested directories explicitly when selected.')
         write_inventory(archive, manifest)
     del archive
     if identity(os.lstat(root)) != identity(initial):
@@ -187,9 +198,10 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--archive', type=Path, required=True)
+    parser.add_argument('--reports-only', action='store_true', help='Fallback: retain root reports, explicitly record omitted fixture directories')
     args = parser.parse_args(argv)
     print_summary(args.source)
-    manifest = package(args.source, args.archive)
+    manifest = package(args.source, args.archive, reports_only=args.reports_only)
     print(json.dumps(dict(archive=str(args.archive), files=sum(row['kind'] == 'file' for row in manifest['members']),
                           opaque_links=sum(row['kind'] == 'opaque-link' for row in manifest['members']))), flush=True)
     return 0

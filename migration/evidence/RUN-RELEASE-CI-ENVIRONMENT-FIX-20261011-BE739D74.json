@@ -1,0 +1,53 @@
+{
+  "id": "RUN-RELEASE-CI-ENVIRONMENT-FIX-20261011-BE739D74",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "be739d745af1d7de6a1cde9cce5e1ac76659b29d",
+  "commands": [
+    "GitHub Release CI run38067153107: complete verify_release.py rejected",
+    "Diagnostic stdout first20 original failures and aggregate counters preserved; packaging rejected stat/fstat executable-mode difference",
+    "Targeted package/snapshot/Cosmokit81pass; new actual realm observer initial2fail/1pass twice retained; pinned Node22.22.2 actual realms/Agent consumers68pass; final package9pass"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub windows-2022 rejected; local Windows targeted checks",
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7"
+  },
+  "exit_code": 1,
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ENVIRONMENT-FIX-20261011-BE739D74.zip",
+      "sha256": "e648de2bf282fdd753ad996b5a0891bd115bb1d3838c8677bb96e67dd79894d2"
+    }
+  ],
+  "originalFailure": {
+    "candidate": "be739d745af1d7de6a1cde9cce5e1ac76659b29d",
+    "ciRun": 38067153107,
+    "status": "failed-with-diagnostic-gap",
+    "regressionExit": 1,
+    "reportedXmlSummary": {
+      "collected": 10534,
+      "failed_or_error": 1889,
+      "skipped": 2
+    },
+    "fullXmlRetained": false,
+    "fullFixtureCarrierRetained": false,
+    "published": false,
+    "observedCauses": [
+      "Source inputs read directory symlink reference/.claude/skills as file",
+      "Three China timezone unit snapshots used UTC runner local inputs",
+      "nul.bin addresses the Windows NUL device",
+      "Diagnostic lstat/fstat identity compares Windows synthesized executable bits"
+    ],
+    "scope": "CI stdout retained the first20 failure traces and aggregate XML counters. Complete XML/raw fixtures unavailable after packaging refusal; counts do not prove all failure causes. Original attempt3 remains unclassified."
+  },
+  "targeted": {
+    "environment81": true,
+    "pinnedRealmsAndAgent68": true,
+    "diagnostic9": true,
+    "fullReleaseQualified": false
+  }
+}

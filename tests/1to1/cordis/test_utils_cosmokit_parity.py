@@ -50,6 +50,34 @@ import weakref
 
 import pytest
 
+from dsh.cordis import utils as cosmokit_utils
+
+
+@pytest.fixture
+def china_snapshot_timezone(monkeypatch):
+    """Bind the explicit China-zone goldens to their recorded host inputs.
+
+    Actual paired Source/native observers continue using their real host zone.
+    These three unit snapshots contain localized China names and UTC+8 walls.
+    """
+    class SnapshotClock:
+        daylight = 0
+        timezone = -28800
+        altzone = -28800
+        tzname = ('中国标准时间', '中国标准时间')
+
+        def __getattr__(self, name):
+            return getattr(time, name)
+
+    epoch = datetime.datetime(1970, 1, 1)
+    monkeypatch.setattr(cosmokit_utils, 'time', SnapshotClock())
+    monkeypatch.setattr(cosmokit_utils, '_datetime_from_epoch',
+                        lambda seconds: epoch + datetime.timedelta(seconds=seconds, hours=8))
+    monkeypatch.setattr(cosmokit_utils, '_epoch_seconds_of',
+                        lambda value: value.timestamp() if value.tzinfo is not None else
+                        (value - epoch).total_seconds() - 28800)
+    monkeypatch.setattr(Time, '_timezone_offset', -480)
+
 from dsh.cordis.utils import (
     Binary,
     DisposableList,
@@ -536,7 +564,7 @@ def test_c21_snake_case_and_token_aliases():
     assert hyphenate('fooBar') == 'foo-bar'
 
 
-def test_c22_format_property_matches_member_access_and_json_quoting():
+def test_c22_format_property_matches_member_access_and_json_quoting(china_snapshot_timezone):
     """string.ts:99-103 - identifier regex plus JSON.stringify for the bracket form."""
     assert formatProperty('foo') == '.foo'
     assert format_property('$a') == '.$a'
@@ -957,7 +985,7 @@ def test_c34_template_replaces_the_first_occurrence_of_each_token():
     assert Time.template('no tokens', moment) == 'no tokens'
 
 
-def test_c35_date_numbers_use_the_supplied_offset():
+def test_c35_date_numbers_use_the_supplied_offset(china_snapshot_timezone):
     """time.ts:20-30 - getDateNumber/fromDateNumber over a minute-based offset."""
     moment = datetime.datetime(2026, 9, 3, 14, 30, 45)
     assert Time.getDateNumber(moment, 0) == int(
@@ -2021,7 +2049,7 @@ def test_c57_parse_date_legacy_punctuation_and_signs():
     ))
 
 
-def test_c58_parse_date_legacy_zone_grammar():
+def test_c58_parse_date_legacy_zone_grammar(china_snapshot_timezone):
     """time.ts:36-61 - V8's timezone names and numeric offsets.
 
     Only `UT`, `UTC`, `GMT`, `EST`/`EDT`, `CST`/`CDT`, `MST`/`MDT`,
