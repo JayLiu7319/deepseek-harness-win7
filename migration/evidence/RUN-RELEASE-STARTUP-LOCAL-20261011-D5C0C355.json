@@ -1,0 +1,44 @@
+{
+  "id": "RUN-RELEASE-STARTUP-LOCAL-20261011-D5C0C355",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "product_commit": "d5c0c3559c0caa076b2fe3f9ab672974c84d94e9",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "commands": [
+    ".venv/Scripts/python.exe -B scripts/diagnose_windows_startup.py .goose/out/release-environment-d5-20261011/windows-startup-interpreter-local-v2.json"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Local Windows 11",
+    "checkout": "Dirty diagnostic proposal after d5c0c355"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-STARTUP-LOCAL-20261011-D5C0C355.zip",
+      "sha256": "0412fd2d61cfffac37cf630ceaea6f1a595af624fc8c7535ac26bf09337cafba"
+    }
+  ],
+  "scope": "Local Win11/Python 3.8 diagnostic only; no hosted environment, full gate or native Win7 qualification",
+  "targeted": {
+    "finalRedirectedProbes": 64,
+    "finalChildFailures": 0,
+    "previousInvocation": {
+      "exit": 1,
+      "cause": "Fresh worker-output guard refused existing startup-workers",
+      "rawStdout": "windows-startup-interpreter-local.log",
+      "stderr": "Observed tool stderr reported FileExistsError; no separate original stderr file retained"
+    }
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 288,
+    "removedBytes": 34144,
+    "removedDirectories": 146,
+    "archive": "migration/evidence/artifacts/RELEASE-STARTUP-LOCAL-20261011-D5C0C355.zip",
+    "archiveSha256": "0412fd2d61cfffac37cf630ceaea6f1a595af624fc8c7535ac26bf09337cafba",
+    "scope": "Only physically closed own startup worker outputs and fixtures; exact raw bytes remain sealed, no unknown files"
+  }
+}

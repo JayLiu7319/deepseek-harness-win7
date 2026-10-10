@@ -1,6 +1,12 @@
 name: Release environment targeted diagnostics
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Diagnostic scope
+        type: choice
+        options: [consumers, startup]
+        default: consumers
 permissions:
   contents: read
 jobs:
@@ -18,9 +24,10 @@ jobs:
         with:
           python-version: '3.8.10'
       - uses: actions/setup-node@v4
+        if: inputs.scope != 'startup'
         with:
           node-version: '22.22.2'
-      - name: Prepare cold pinned Source and original build carrier
+      - name: Allocate owned diagnostic output
         run: |
           New-Item -ItemType Directory .goose/out/release-environment -ErrorAction Stop | Out-Null
           python -m venv .venv
@@ -29,6 +36,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements-dev.lock
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Prepare cold pinned Source and original build carrier
+        if: inputs.scope != 'startup'
+        run: |
           .venv/Scripts/python.exe -c "from scripts.verify_release import prepare_node_dependencies; from pathlib import Path; import os; prepare_node_dependencies(Path('.goose/out/release-environment').resolve(), dict(os.environ))"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python scripts/browser108_gate.py --prepare .goose/tools/chromium108
@@ -39,6 +49,7 @@ jobs:
           .venv/Scripts/python.exe scripts/diagnose_windows_startup.py .goose/out/release-environment/windows-startup.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Run direct cold-environment consumers
+        if: inputs.scope != 'startup'
         run: |
           $env:DSH_TEST_CHROMIUM = Join-Path ${env:ProgramFiles(x86)} 'Microsoft/Edge/Application/msedge.exe'
           $env:DSH_TEST_CHROMIUM108 = (Resolve-Path .goose/tools/chromium108/chrome-win/chrome.exe).Path

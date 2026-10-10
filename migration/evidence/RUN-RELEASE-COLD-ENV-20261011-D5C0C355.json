@@ -1,0 +1,69 @@
+{
+  "id": "RUN-RELEASE-COLD-ENV-20261011-D5C0C355",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "d5c0c3559c0caa076b2fe3f9ab672974c84d94e9",
+  "exit_code": 1,
+  "commands": [
+    "GitHub workflow_dispatch release-environment.yml, run 38083165936, head d5c0c3559c0caa076b2fe3f9ab672974c84d94e9",
+    "scripts/check_release_environment.py: 894 selected cases, physical pytest exit 1",
+    "scripts/diagnose_windows_startup.py: actual hosted objects and six constant-child probes"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub hosted windows-2022",
+    "node": "22.22.2",
+    "sourceManager": "pnpm 11.7.0"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-COLD-ENV-20261011-D5C0C355.zip",
+      "sha256": "14d2c048d89dbec97a26cea5573ba79ad5837811dc3abb29f064966f91827f7b"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-COLD-ENV-BINDING-20261011-D5C0C355.zip",
+      "sha256": "a10ebc49e3fbaabc92c44ef8f472be2c8bc4a031ec3d6d087704c1f5274cb0e6"
+    }
+  ],
+  "targeted": {
+    "collected": 894,
+    "passed": 886,
+    "failed": 8,
+    "skipped": 0,
+    "failureModules": {
+      "tests.test_windows_acl_runner": 4,
+      "tests.test_windows_confined_console": 1,
+      "tests.test_local_sandbox_provider": 1,
+      "tests.test_pwsh_executor": 1,
+      "tests.test_canonical_pwsh_tool": 1
+    },
+    "scope": "Cold Source/runtime preparation, original frontend provenance, UTC/China fixtures, direct Source/native consumers, actual ACL/terminal/HTTP/browser checks only"
+  },
+  "observations": "Cold locked Source install, Host build and sealed frontend restoration passed. Original flags 0xd direct startup probes passed for inherited and explicit desktop. Eight real piped runner/terminal tests still fail; redirected invocation cause remains unresolved. No ACL or token-policy weakening, full release qualification, Portable publication or native Win7 claim.",
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 29011334,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-environment-d5-20261011\\release-environment.zip",
+        "bytes": 14633256,
+        "sha256": "14d2c048d89dbec97a26cea5573ba79ad5837811dc3abb29f064966f91827f7b",
+        "originalCarrier": "migration/evidence/artifacts/RELEASE-COLD-ENV-20261011-D5C0C355.zip",
+        "originalSha256": "14d2c048d89dbec97a26cea5573ba79ad5837811dc3abb29f064966f91827f7b"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-environment-d5-20261011\\diagnostics-transfer.zip",
+        "bytes": 14378078,
+        "sha256": "c0c5d27c6e3b745f021b17ccc3af355f27cb1f9f082eaf43f45f14792948f0de",
+        "originalCarrier": "migration/evidence/artifacts/RELEASE-COLD-ENV-20261011-D5C0C355.zip",
+        "originalSha256": "14d2c048d89dbec97a26cea5573ba79ad5837811dc3abb29f064966f91827f7b"
+      }
+    ],
+    "scope": "Exact completed owned GitHub transfer duplicates only; original failed raw carrier and binding remain sealed"
+  },
+  "scope": "Failed targeted CI evidence for its exact clean candidate; never stitched into release acceptance or historical task receipts."
+}
