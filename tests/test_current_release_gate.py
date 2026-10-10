@@ -2997,6 +2997,41 @@ def test_current_gate_includes_recent_contracts_and_only_uploads_receipt_archive
     assert 'archive_sha256' in workflow and 'publishable' in workflow
 
 
+@pytest.mark.skipif(os.name != 'nt' or not shutil.which('pwsh'), reason='CI uses PowerShell 7')
+@pytest.mark.parametrize('damage', ['none', 'preview', 'failed', 'archive-changed'])
+def test_actual_ci_receipt_binding_accepts_empty_json_keys_and_keeps_refusals(tmp_path, damage):
+    archive = tmp_path / 'portable with spaces.zip'
+    archive.write_bytes(b'qualified archive')
+    summary = dict(result='passed', publishable=True, archive=str(archive),
+                   archive_sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
+                   sourceInputs={'': {'': 'root identity'}})
+    if damage == 'preview':
+        summary['publishable'] = False
+    elif damage == 'failed':
+        summary['result'] = 'failed'
+    elif damage == 'archive-changed':
+        archive.write_bytes(b'changed after qualification')
+    report = tmp_path / '.goose/out/release-gate/summary.json'
+    report.parent.mkdir(parents=True)
+    report.write_text(json.dumps(summary), encoding='utf-8')
+    output = tmp_path / 'github-output.txt'
+    environment = dict(os.environ, GITHUB_OUTPUT=str(output))
+    workflow = (ROOT / '.github/workflows/verify.yml').read_text(encoding='utf-8')
+    start = workflow.index('          $receipt = ')
+    end = workflow.index('\n      - name:', start)
+    script = '\n'.join(line[10:] for line in workflow[start:end].splitlines())
+    process = subprocess.run([shutil.which('pwsh'), '-NoProfile', '-NonInteractive',
+                              '-Command', "$ErrorActionPreference = 'Stop'\n" + script],
+                             cwd=str(tmp_path), env=environment, capture_output=True,
+                             encoding='utf-8', timeout=30)
+    if damage == 'none':
+        assert process.returncode == 0, process.stderr
+        assert output.read_text(encoding='utf-8').strip() == 'archive=' + str(archive)
+    else:
+        assert process.returncode != 0
+        assert not output.exists()
+
+
 @pytest.mark.parametrize('damage', ['omit', 'skip', 'duplicate', 'failure'])
 def test_subprocess_ownership_source_lane_cannot_be_optional(tmp_path, damage):
     path = tmp_path / 'pytest.xml'

@@ -52,7 +52,7 @@ jobs:
           $browser108 = (Resolve-Path .goose/tools/chromium108/chrome-win/chrome.exe).Path
           .venv/Scripts/python.exe scripts/verify_release.py --prepare --browser $browser --browser108 $browser108
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $receipt = Get-Content -Encoding utf8 .goose/out/release-gate/summary.json | ConvertFrom-Json
+          $receipt = Get-Content -Encoding utf8 .goose/out/release-gate/summary.json | ConvertFrom-Json -AsHashtable
           if ($receipt.result -ne 'passed' -or $receipt.publishable -ne $true) { throw 'Candidate is not publishable' }
           $digest = (Get-FileHash -LiteralPath $receipt.archive -Algorithm SHA256).Hash.ToLowerInvariant()
           if ($digest -ne $receipt.archive_sha256) { throw 'Verified archive changed before upload' }

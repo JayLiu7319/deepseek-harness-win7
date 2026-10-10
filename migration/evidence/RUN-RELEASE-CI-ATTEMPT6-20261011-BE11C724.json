@@ -1,0 +1,71 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT6-20261011-BE11C724",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "be11c72494862bf594f76dcae4aa4fed1108461e",
+  "exit_code": 1,
+  "commands": [
+    "GitHub Release CI38087830275 complete verify_release.py --prepare physically0 and passed/publishable; post-gate PowerShell ConvertFrom-Json refused original empty dictionary keys, no product artifact uploaded",
+    "Diagnostics packager and uploader succeeded; independently downloaded exact archive and verified SHA/CRC/full XML"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT6-20261011-BE11C724.zip",
+      "sha256": "208b756bd9a02fac8b28b749902786167882951c5c8d93f577ffb27b06174a05"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT6-BINDING-20261011-BE11C724.zip",
+      "sha256": "35081d8843ee1786c98480704c45414e450b71dba8f0ade6676eb25b4f28696d"
+    }
+  ],
+  "originalFailure": {
+    "run": 38087830275,
+    "counts": {
+      "collected": 10543,
+      "passed": 10541,
+      "failedOrError": 0,
+      "skipped": 2
+    },
+    "fullXmlRetained": true,
+    "rawFixtureCarrierRetained": true,
+    "published": false,
+    "observations": [
+      "Actual complete gate passed; same candidate frozen inputs remained unchanged",
+      "22 Source configurations, 83 paired contracts, real extracted own runtime and modern/fixed108 journeys passed",
+      "Original PowerShell post-gate JSON parser cannot preserve empty dictionary keys",
+      "No verified-portable transfer artifact or original qualified product ZIP survived the hosted job"
+    ],
+    "scope": "Original complete receipt preserved separately from failed post-gate workflow. Archive hash known, exact qualified product carrier unavailable; never rebuild/relabel it as the original."
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 751096294,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt6-20261011\\attempt6-release-diagnostics.zip",
+        "bytes": 387257726,
+        "sha256": "208b756bd9a02fac8b28b749902786167882951c5c8d93f577ffb27b06174a05"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt6-20261011\\attempt6-diagnostics-transfer.zip",
+        "bytes": 363838568,
+        "sha256": "cd13c860b36fe356f33132dc742556471f39313743dd2d2f8dfad085d3611a09"
+      }
+    ],
+    "preservation": {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT6-20261011-BE11C724.zip",
+      "sha256": "208b756bd9a02fac8b28b749902786167882951c5c8d93f577ffb27b06174a05"
+    },
+    "scope": "Only own completed transfer duplicates; exact failed diagnostic carrier remains in formal evidence"
+  },
+  "scope": "Exact complete verification passed but workflow/publication failed after it. No original qualified carrier to recover. Earlier attempts and f90 qualifications are unchanged; no stitched acceptance or native Win7 certification."
+}
