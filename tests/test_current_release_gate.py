@@ -3055,8 +3055,10 @@ def test_node_setup_runs_each_locked_workspace_without_prefix_root_ambiguity(tmp
     monkeypatch.setattr(GATE.shutil, 'which', lambda name: 'npm.cmd')
     monkeypatch.setattr(GATE, 'run', lambda command, name, output, **kwargs: calls.append((command, kwargs)))
     GATE.prepare_node_dependencies(tmp_path, {'PATH': 'pinned-node'})
-    assert [entry[1]['cwd'] for entry in calls] == [ROOT / 'scripts/oracles', ROOT / 'scripts/oracles/official']
-    assert all(entry[0][0:2] == ['npm.cmd', 'ci'] and '--prefix' not in entry[0] for entry in calls)
+    assert [entry[1]['cwd'] for entry in calls[:3]] == [ROOT / 'scripts/oracles', ROOT / 'scripts/oracles/official', ROOT / 'scripts/source-runtime']
+    assert all(entry[0][0:2] == ['npm.cmd', 'ci'] and '--prefix' not in entry[0] for entry in calls[:3])
+    assert calls[3][0] == [str(ROOT / '.venv/Scripts/python.exe'), 'scripts/prepare_reference.py',
+                          '--output', str(tmp_path / 'reference-preparation')]
     assert all(entry[1]['env'] == {'PATH': 'pinned-node'} for entry in calls)
 
 

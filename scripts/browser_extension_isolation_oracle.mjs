@@ -28,6 +28,7 @@ async function observe(disabled) {
   args.splice(args.length - 1, 0, '--enable-automation', `--load-extension=${fixture}`);
   const browser = spawn(browserPath, args, {windowsHide:true});
   const report = {disabled, profile, args, contexts:[], console:[], exceptions:[]};
+  result.observations.push(report);
   let socket;
   const pending = new Map();
   let next = 1;
@@ -63,8 +64,8 @@ async function observe(disabled) {
     await call('Runtime.enable'); await call('Page.enable');
     report.commandLine = await call('Browser.getBrowserCommandLine');
     report.version = await call('Browser.getVersion');
-    await call('Page.navigate', {url:'edge://extensions/'});
-    await until(() => evaluate('typeof chrome.developerPrivate?.getExtensionsInfo === "function"'), 'extension inventory API');
+    await call('Page.navigate', {url:'chrome://extensions/'});
+    await until(() => evaluate('typeof globalThis.chrome?.developerPrivate?.getExtensionsInfo === "function"'), 'extension inventory API');
     report.inventory = await evaluate('new Promise(resolve => chrome.developerPrivate.getExtensionsInfo({includeDisabled:true, includeTerminated:true}, resolve))');
     await call('Page.navigate', {url});
     await until(() => evaluate('document.readyState === "complete" && location.href === ' + JSON.stringify(url)), 'local complete page');
@@ -82,7 +83,7 @@ async function observe(disabled) {
 }
 const result = {kind:'controlled-browser-extension-isolation', fixture, url, observations:[]};
 try {
-  for (const disabled of [false, true]) result.observations.push(await observe(disabled));
+  for (const disabled of [false, true]) await observe(disabled);
   assert.equal(result.observations[0].marker, 'loaded');
   assert.equal(result.observations[1].marker, null);
   assert(result.observations[0].exceptions.some(event => event.exceptionDetails.exception?.description?.includes('DSH_CONTROLLED_EXTENSION_EXCEPTION')));
@@ -102,4 +103,4 @@ try {
   result.passed = true;
 } catch (error) {result.passed = false; result.failure = error.stack; process.exitCode = 1;}
 finally {await writeFile(output, JSON.stringify(result, null, 2) + '\n', 'utf8'); server.close();}
-console.log(JSON.stringify({passed:result.passed, failure:result.failure, observations:result.observations.map(item => ({disabled:item.disabled, marker:item.marker, extensions:item.inventory.map(extension => ({id:extension.id, name:extension.name, state:extension.state}))}))}));
+console.log(JSON.stringify({passed:result.passed, failure:result.failure, observations:result.observations.map(item => ({disabled:item.disabled, marker:item.marker, profile:item.profile, extensions:(item.inventory ?? []).map(extension => ({id:extension.id, name:extension.name, state:extension.state}))}))}));

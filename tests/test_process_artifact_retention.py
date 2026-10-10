@@ -153,6 +153,13 @@ def test_actual_gate_teardown_prunes_finished_test_before_next_test(tmp_path, pl
             assert workspace.name.startswith('g-' if placement == 'owned' else 'gate-external-')
             for parent, directories, names in os.walk(str(workspace), followlinks=False):
                 for path in [Path(parent)] + [Path(parent) / name for name in directories + names]:
+                    if path.is_symlink():
+                        target = path.resolve()
+                        assert path.name in ('test_firstcurrent', 'test_secondcurrent')
+                        assert target.parent == workspace and target.is_dir()
+                        assert target.name.startswith(path.name[:-7]) and target.name[len(path.name[:-7]):].isdigit()
+                        path.unlink()  # Remove this owned pytest alias only; never its target.
+                        continue
                     assert not path.is_symlink() and not getattr(path.lstat(), 'st_file_attributes', 0) & 0x400
             shutil.rmtree(str(workspace))
             if owner is not None:

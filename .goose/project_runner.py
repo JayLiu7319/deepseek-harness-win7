@@ -12,6 +12,7 @@ import subprocess
 import sys
 import threading
 import time
+import uuid
 
 from parity_runner import Runner, Stream, git, snapshot, changed, safe_path, save_json, run_process, ROOT, SCHEMA, parse_result, valid_changed_files, judge_verdict, open_issues
 from project_store import Store, digest
@@ -942,7 +943,7 @@ class Project:
                 return
             config = load_config(self.root)
             role = config['roles']['architect']
-            stem = 'plan-repair-' + digest(group['ids'])[:12] + '-' + str(time.time_ns())
+            stem = 'plan-repair-' + digest(group['ids'])[:12] + '-' + uuid.uuid4().hex
             trace = self.folder / 'plan-repairs' / stem
             trace.mkdir(parents=True)
             feedback['plan_repair_run'] = str(trace)

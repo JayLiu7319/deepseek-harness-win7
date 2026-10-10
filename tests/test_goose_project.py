@@ -741,6 +741,7 @@ def test_historical_plan_error_routes_before_task_runner(repo, monkeypatch):
 
 
 def test_repair_exhaustion_retains_evidence_for_arbitration(repo, monkeypatch):
+    monkeypatch.setattr(project.time, 'time_ns', lambda: 123)
     p = make_project(repo)
     p.store.apply_plan(plan(task('a')))
     group = p.store.claim('w')
@@ -754,6 +755,7 @@ def test_repair_exhaustion_retains_evidence_for_arbitration(repo, monkeypatch):
     assert row['feedback']['plan_repair_attempts'] == 2
     assert row['feedback']['review']['summary'] == 'keep'
     assert row['round'] == 3
+    assert len(list((p.folder / 'plan-repairs').iterdir())) == 2
 
 
 def test_phase_reads_current_allocation_and_records_requested_model(repo, monkeypatch):

@@ -997,7 +997,7 @@ def test_c35_date_numbers_use_the_supplied_offset(china_snapshot_timezone):
     assert (restored.year, restored.month, restored.day) == (2026, 9, 3)
     assert Time.fromDateNumber(number, -480) == restored
     # fromDateNumber builds `value * day + offset * minute` milliseconds.
-    assert Time.from_date_number(0, 480) == _local_wall_clock(28800)
+    assert Time.from_date_number(0, 480) == datetime.datetime(1970, 1, 1, 16)
     assert Time.getDateNumber(0, 0) == 0
 
 

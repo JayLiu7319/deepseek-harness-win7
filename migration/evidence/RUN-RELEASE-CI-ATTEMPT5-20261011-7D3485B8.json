@@ -1,0 +1,75 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT5-20261011-7D3485B8",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "7d3485b8466e4bd0e2900b18d2be6ad41a8c175e",
+  "exit_code": 1,
+  "commands": [
+    "GitHub Release CI38072054385 complete verify_release.py --prepare: pytest exit1; subsequent Source/paired/extracted release stages did not execute",
+    "Diagnostics packager and uploader succeeded; independently downloaded exact archive and verified SHA/CRC/full XML"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT5-20261011-7D3485B8.zip",
+      "sha256": "4458b862063f289cb12845a361910a4137875947d06fe109a2346478bcf10dac"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT5-BINDING-20261011-7D3485B8.zip",
+      "sha256": "c5ed0fcbd0f71d031f155d4b9df4b84494c31d336a41719ddb386852d00f4649"
+    }
+  ],
+  "originalFailure": {
+    "run": 38072054385,
+    "counts": {
+      "collected": 10539,
+      "passed": 8767,
+      "failedOrError": 1770,
+      "skipped": 2
+    },
+    "fullXmlRetained": true,
+    "rawFixtureCarrierRetained": true,
+    "published": false,
+    "observations": [
+      "Missing ignored reference/node_modules/tsx and actual Source dependencies",
+      "Missing ignored original frontend build record",
+      "Explicit China snapshot compared against ambient UTC helper",
+      "Restricted hosted Python/PowerShell child initialization exits3221225794; cause not yet established",
+      "Plan repair trace collision at equal Windows clock ticks",
+      "Owned pytest current symlinks rejected during cleanup",
+      "Hardcoded Edge extension inventory route on Chrome",
+      "Two supplied250ms request deadlines exhausted in hosted environment"
+    ],
+    "scope": "Full original XML and per-observer logs retained. Several fixture errors fan out; not a claim that every failed case is independently diagnosed. Built product ZIP is not available as a verified artifact."
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 537594124,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-20261010-v1\\attempt5-release-diagnostics.zip",
+        "bytes": 277251659,
+        "sha256": "4458b862063f289cb12845a361910a4137875947d06fe109a2346478bcf10dac"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-20261010-v1\\attempt5-diagnostics-transfer.zip",
+        "bytes": 260342465,
+        "sha256": "caa2385ea27ffcfc3e5c151337da6c7a5403010c4735a0fc298e415014578abc"
+      }
+    ],
+    "preservation": {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT5-20261011-7D3485B8.zip",
+      "sha256": "4458b862063f289cb12845a361910a4137875947d06fe109a2346478bcf10dac"
+    },
+    "scope": "Only own completed transfer duplicates; exact failed diagnostic carrier remains in formal evidence"
+  },
+  "scope": "Failed exact CI candidate only. Earlier attempts and f90 qualifications are unchanged; no stitched acceptance or native Win7 certification."
+}

@@ -1555,9 +1555,12 @@ def prepare_node_dependencies(output, environment):
     npm = shutil.which('npm.cmd')
     if not npm:
         raise RuntimeError('pinned npm must be on PATH for the development oracle')
-    for folder in ('scripts/oracles', 'scripts/oracles/official'):
+    for folder in ('scripts/oracles', 'scripts/oracles/official', 'scripts/source-runtime'):
         run([npm, 'ci', '--legacy-peer-deps', '--no-audit', '--no-fund'],
             'node-' + Path(folder).name, output, env=environment, timeout=1200, cwd=ROOT / folder)
+    run([str(ROOT / '.venv/Scripts/python.exe'), 'scripts/prepare_reference.py', '--output',
+         str(output / 'reference-preparation')], 'reference-preparation', output,
+        env=environment, timeout=3600)
 
 
 def validate_regression(path):
@@ -2146,6 +2149,7 @@ def verify(args, output):
         adapter_sha256=digest(ROOT / 'dsh/host/browser_compat/compat.js'))
     python = str(ROOT / '.venv/Scripts/python.exe')
     environment = release_environment(browser)
+    environment['DSH_TEST_CHROMIUM108'] = str(Path(browser108).resolve())
     if args.prepare:
         if not Path(python).is_file():
             run([sys.executable, '-m', 'venv', str(ROOT / '.venv')], 'venv', output, env=environment)

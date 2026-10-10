@@ -45,7 +45,7 @@ jobs:
           New-Item -ItemType Directory -Path $releaseTemp -ErrorAction Stop | Out-Null
           $env:TEMP = $releaseTemp
           $env:TMP = $releaseTemp
-          $browser = Join-Path $env:ProgramFiles 'Google/Chrome/Application/chrome.exe'
+          $browser = Join-Path ${env:ProgramFiles(x86)} 'Microsoft/Edge/Application/msedge.exe'
           if (-not (Test-Path -LiteralPath $browser)) { throw 'Required Chromium observer is missing' }
           python scripts/browser108_gate.py --prepare .goose/tools/chromium108
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -59,7 +59,7 @@ def endpoint(tmp_path, monkeypatch):
                 for offset in range(0, len(body), 8):
                     self.wfile.write(body[offset:offset + 8])
                     self.wfile.flush()
-                    time.sleep(0.04)
+                    time.sleep(0.4)
                 return
             self.wfile.write(body)
         def reply(self, status, value):
@@ -125,7 +125,9 @@ async def test_extension_request_idle_watchdog_tracks_partial_wire_activity(tmp_
     url, state = endpoint
     state["mode"] = "slow-bytes"
     ctx, adapter, _ = await setup(tmp_path, url)
-    adapter.config["streamIdleTimeoutMs"] = 250
+    # Keep every wire gap below the supplied budget while the whole stream
+    # exceeds it; allow cold hosted-runner startup before its first byte.
+    adapter.config["streamIdleTimeoutMs"] = 2500
     try:
         chunks = [chunk async for chunk in adapter.stream({"model": "vision", "messages": []})]
         assert chunks[-1]["type"] == "finish"
@@ -149,7 +151,7 @@ async def test_extension_idle_watchdog_does_not_charge_settled_reader_delivery(t
             async for chunk in reader:
                 if not delivered:
                     delivered.append(chunk['type'])
-                    await asyncio.sleep(0.35)
+                    await asyncio.sleep(3.5)
                     assert not controller.signal.aborted
                 yield chunk
         finally:
@@ -158,7 +160,7 @@ async def test_extension_idle_watchdog_does_not_charge_settled_reader_delivery(t
     monkeypatch.setattr(deepseek_request, 'iter_chunks', delayed_delivery)
     url, state = endpoint
     ctx, adapter, _ = await setup(tmp_path, url)
-    adapter.config['streamIdleTimeoutMs'] = 250
+    adapter.config['streamIdleTimeoutMs'] = 2500
     try:
         chunks = [chunk async for chunk in adapter.stream({'model': 'vision', 'messages': []})]
         assert delivered == ['block-start']
