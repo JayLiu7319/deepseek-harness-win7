@@ -5,7 +5,7 @@ on:
       scope:
         description: Diagnostic scope
         type: choice
-        options: [consumers, startup, default-dacl]
+        options: [consumers, startup, default-dacl, windows]
         default: consumers
 permissions:
   contents: read
@@ -44,7 +44,7 @@ jobs:
           python scripts/browser108_gate.py --prepare .goose/tools/chromium108
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Read actual hosted Windows startup context
-        if: always() && inputs.scope != 'default-dacl'
+        if: always() && (inputs.scope == 'consumers' || inputs.scope == 'startup')
         run: |
           .venv/Scripts/python.exe scripts/diagnose_windows_startup.py .goose/out/release-environment/windows-startup.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -63,6 +63,16 @@ jobs:
           $env:TEMP = $targetTemp
           $env:TMP = $targetTemp
           .venv/Scripts/python.exe scripts/check_release_environment.py .goose/out/release-environment
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run original Windows failures and adjacent native consumers
+        if: inputs.scope == 'windows'
+        run: |
+          $env:DSH_TEST_CHROMIUM = Join-Path ${env:ProgramFiles(x86)} 'Microsoft/Edge/Application/msedge.exe'
+          $targetTemp = Join-Path (Split-Path -Parent $env:GITHUB_WORKSPACE) ('dsh-environment-temp-' + $env:GITHUB_RUN_ID)
+          New-Item -ItemType Directory -Path $targetTemp -ErrorAction Stop | Out-Null
+          $env:TEMP = $targetTemp
+          $env:TMP = $targetTemp
+          .venv/Scripts/python.exe -c "from scripts import check_release_environment as gate; import sys; gate.NODES = ['tests/test_windows_acl_runner.py', 'tests/test_windows_confined_console.py', 'tests/test_local_sandbox_provider.py', 'tests/test_pwsh_executor.py', 'tests/test_canonical_pwsh_tool.py']; sys.argv = ['check_release_environment.py', '.goose/out/release-environment']; sys.exit(gate.main())"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Package owned diagnostics
         if: always()

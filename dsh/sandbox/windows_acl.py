@@ -234,13 +234,20 @@ class WinApi:
                 entries = (SidAttributes * len(sids))(*[SidAttributes(sid, 0) for sid in sids])
                 self.check(self.CreateRestrictedToken(current, 0xd, 0, None, 0, None,
                            len(sids), entries, c.byref(restricted)), "CreateRestrictedToken")
-                # New pipes need an ACE recognized by the second token access check.
+                # New objects need an enabled account for the first access
+                # check and a capability for the restricting-SID check. An
+                # administrator-only inherited DACL loses its allow trustee
+                # under LUA; adding only the capability makes DLL init fail.
                 original = self.token_info(restricted, 6)
                 old = P.from_buffer(original)
                 self.check(old.value, "TokenDefaultDacl")
+                account = self.token_info(restricted, 1)
+                account_sid = SidAttributes.from_buffer(account).sid
+                self.check(account_sid, "TokenUser")
                 new = P()
-                entry = self.entry(writes[0] if writes else world, permissions=0x1f01ff)
-                self.status(self.SetEntriesInAclW(1, c.byref(entry), old, c.byref(new)), "SetEntriesInAclW token")
+                entries = (Access * 2)(self.entry(account_sid, permissions=0x1f01ff),
+                                       self.entry(writes[0] if writes else world, permissions=0x1f01ff))
+                self.status(self.SetEntriesInAclW(2, entries, old, c.byref(new)), "SetEntriesInAclW token")
                 try:
                     self.check(self.SetTokenInformation(restricted, 6, c.byref(new), c.sizeof(new)), "SetTokenInformation")
                 finally:

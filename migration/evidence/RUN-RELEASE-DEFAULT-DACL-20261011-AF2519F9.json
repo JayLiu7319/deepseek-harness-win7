@@ -1,0 +1,80 @@
+{
+  "id": "RUN-RELEASE-DEFAULT-DACL-20261011-AF2519F9",
+  "kind": "diagnostic",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "af2519f90ffd009885ad5efbaf26a0eb9d233c5d",
+  "commands": [
+    "GitHub release-environment.yml scope=default-dacl, run 38086016666, physical exit 0",
+    "Local original-provider synthetic missing-account regression: 1 failed, exit 3221225794 retained",
+    "Local proposed account/default-DACL fix: final five native consumer modules 25 passed, physical exit 0"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub windows-2022 diagnosis and separate local Windows 11 regression"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-DEFAULT-DACL-CI-20261011-AF2519F9.zip",
+      "sha256": "e0b356a12b0eb45701dca496a5ec0f563122f6e22fefd9ae22cdea62041e8301"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-DEFAULT-DACL-BINDING-20261011-AF2519F9.zip",
+      "sha256": "c9a018dc1a4d1b5d7c941ccb1c1e9347f5348bc90b97ce0db89f0381dcea75d2"
+    }
+  ],
+  "observations": {
+    "fixedFlags": 13,
+    "probes": 16,
+    "originalChildFailures": 8,
+    "accountGrantSuccesses": 8,
+    "defaultDacl": "BA/SY full plus logon-read, missing current account; account entry restores first access check under LUA"
+  },
+  "local": {
+    "parentCandidate": "af2519f90ffd009885ad5efbaf26a0eb9d233c5d",
+    "checkout": "Dirty provider fix and regression",
+    "beforeExit": 1,
+    "afterSingleExit": 0,
+    "afterBoundaryExit": 0,
+    "finalCollected": 25,
+    "finalPassed": 25,
+    "finalExit": 0,
+    "preserved": [
+      "LUA/WRITE_RESTRICTED flags",
+      "restricting SID list",
+      "outside-write refusal",
+      "existing-file read-only downgrade",
+      "Job ownership"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFixtureFiles": 10,
+    "removedFixtureBytes": 11557,
+    "removedLinks": 0,
+    "removedDirectories": 45,
+    "removedTransferFiles": 2,
+    "removedTransferBytes": 34673,
+    "transfers": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-default-dacl-af25-20261011\\release-environment.zip",
+        "bytes": 24002,
+        "sha256": "e0b356a12b0eb45701dca496a5ec0f563122f6e22fefd9ae22cdea62041e8301"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-default-dacl-af25-20261011\\diagnostics-transfer.zip",
+        "bytes": 10671,
+        "sha256": "3d1e0dd3b93b61a57b4078926a356261d9465a330c828d13ed1a0683d2af5185"
+      }
+    ],
+    "inventory": {
+      "archive": "migration/evidence/artifacts/RELEASE-DEFAULT-DACL-BINDING-20261011-AF2519F9.zip",
+      "member": "binding.json"
+    },
+    "scope": "Physically closed own small regression fixtures and completed transfer duplicates; exact failed/raw observations sealed"
+  },
+  "scope": "Diagnostic success and targeted local fix only; original failures preserved. Actual fixed hosted consumers and complete release gate still pending; no native Win7 or new Source-bug exception."
+}
