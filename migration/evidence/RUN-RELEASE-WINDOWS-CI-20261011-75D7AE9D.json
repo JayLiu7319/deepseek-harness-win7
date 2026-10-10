@@ -1,0 +1,69 @@
+{
+  "id": "RUN-RELEASE-WINDOWS-CI-20261011-75D7AE9D",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "75d7ae9dc711b65fc11251bd0a2fe112d43fd787",
+  "commands": [
+    "GitHub release-environment.yml scope=windows, run 38087040576, exact head 75d7ae9dc711b65fc11251bd0a2fe112d43fd787",
+    "Five direct native provider/consumer modules including the original eight hosted failing cases and missing-account ACL regression"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-WINDOWS-CI-20261011-75D7AE9D.zip",
+      "sha256": "aea762df4d8d8abcff7e4c215021e21725feb6380620b4cb68c8367967b0adcc"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-WINDOWS-BINDING-20261011-75D7AE9D.zip",
+      "sha256": "097e6a9f02a879361a39733e64a35677467126245b9eaba039721daa2f9f573a"
+    }
+  ],
+  "targeted": {
+    "collected": 25,
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "physicalExit": 0,
+    "seconds": 23.015000000000043,
+    "checks": [
+      "fixed LUA/write restriction",
+      "workspace write",
+      "outside write refusal",
+      "existing-file read-only downgrade",
+      "private TEMP",
+      "piped grandchildren",
+      "kill-on-close Jobs",
+      "PTY state/timeout/cancel",
+      "actual PowerShell tool"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 18700,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-windows-75d7-20261011\\release-environment.zip",
+        "bytes": 12468,
+        "sha256": "aea762df4d8d8abcff7e4c215021e21725feb6380620b4cb68c8367967b0adcc",
+        "original": "migration/evidence/artifacts/RELEASE-WINDOWS-CI-20261011-75D7AE9D.zip"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-windows-75d7-20261011\\diagnostics-transfer.zip",
+        "bytes": 6232,
+        "sha256": "333a2e368d52f109aab318e09b4daf661c819620719f311e95a2b5f63fa351ed",
+        "original": "migration/evidence/artifacts/RELEASE-WINDOWS-CI-20261011-75D7AE9D.zip"
+      }
+    ],
+    "scope": "Only completed own transfer duplicates; actual closed hosted pytest observations remain in original carrier"
+  },
+  "scope": "Targeted actual fixed hosted native regression only. Previous original failures remain unchanged; complete release gate and native Win7 certification not implied. No stitched receipt or task-state promotion."
+}
