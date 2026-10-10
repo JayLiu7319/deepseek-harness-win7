@@ -62,4 +62,6 @@ FS公共值配对的物理夹具由 `scripts/fs_fixture_workspace.py` 分配到�
 
 当前 `.github/workflows/verify.yml` 仍在 PR、手工调用及发布复用时执行完整发行门禁，整体job期限为180分钟；先准备固定Chromium108观察器，与现代浏览器共同传入发行入口。完整入口新增同ZIP包内Python的108三预设fresh/cold功能旅程和输入/模块/缺lane拒绝；这不替代其他realm/CSS审计或Win7认证。`.github/workflows/release.yml` 的发布依赖同一验收产物和精确ZIP散列，不另行重建。
 
+CI诊断先由 `scripts/package_release_diagnostics.py` 封装，再只上传单一ZIP，避免上传器遍历测试链接。普通文件保留原字节和清单，symlink/junction/reparse自身记录原始目标或reparse数据而不跟随；原工作区不删除。失败摘要在封装前直接输出到CI日志；缺失/截断XML不得推断最终计数。GitHub artifact 下载ZIP包含这个诊断ZIP，消费时应分别绑定外层传输校验和与内层原始诊断载体，不把传输封装误当成新的验收。
+
 后续 CI 改造应单独实现普通 PR 的相关验证与稳定整合/发布的完整门禁，评估 runner 的实际耗时，并保持正式回执、必需 lane 和精确 ZIP 发布约束。在 CI 改造完成前，应按现有工作流实际结果报告。

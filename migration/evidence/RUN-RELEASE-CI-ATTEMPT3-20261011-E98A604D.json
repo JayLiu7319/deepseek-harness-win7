@@ -1,0 +1,41 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT3-20261011-E98A604D",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "e98a604dae894c91ca47bd76952fffbedb68d47d",
+  "commands": [
+    "GitHub Release CI run38057576666: .venv/Scripts/python.exe scripts/verify_release.py --prepare",
+    "actions/upload-artifact@v4 .goose/out/release-gate failed with JavaScript heap exhaustion",
+    ".venv/Scripts/python.exe -B .goose/out/release-v0.1.1-20261010-v1/preserve-ci-attempt3.py"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "exit_code": 1,
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT3-20261011-E98A604D.zip",
+      "sha256": "976fa037ec864eac010649b521bfeab6153a98924bade7b635131cba1254b1ad"
+    }
+  ],
+  "diagnostic_gap": {
+    "status": "failed-with-diagnostic-gap",
+    "candidate": "e98a604dae894c91ca47bd76952fffbedb68d47d",
+    "ciRun": 38057576666,
+    "gatePhysicalExit": 1,
+    "originalRegressionReportedExit": 1,
+    "originalRegressionXml": null,
+    "finalCounts": null,
+    "archiveSha256": null,
+    "diagnosticUploadFileCount": 1388578,
+    "diagnosticUploadFailure": "Node JavaScript heap out of memory",
+    "published": false,
+    "artifactsAvailable": 0,
+    "scope": "Original full regression failed; its XML/raw fixture carrier was lost when upload failed. CI job logs, steps and tag identity are preserved. No test counts, product archive identity, historical cause or passing qualification inferred."
+  }
+}
