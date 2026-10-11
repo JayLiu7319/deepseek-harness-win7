@@ -1,5 +1,7 @@
 # 持续对齐记录
 
+**2026-10-11 v0.1.1已发布：** 干净`919efa919aea9dccdfd87f9ddbc9a44aa642999a`的[完整CI 38117543454](https://github.com/czh869452912/deepseek-harness-win7/actions/runs/38117543454)单次统一门禁通过，Python10564通过/2跳过、22组固定Source、83组配对及实际解压Portable/现代Edge/固定Chromium108旅程均通过。公开[Release](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.1)的实际下载ZIP SHA-256 `697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9`与完整回执及CI验收资产相同；标签保留在该合格候选，不把后续记录提交算作产品。发布附带SHA256SUMS.txt与原始release-verification.json，正式资格见RUN-RELEASE-V011-CI-20261011-919EFA91。已核验清理本次4个传输重复件/959380004字节，此前亦核验清理三份重建夹具副本14541924字节和四份已结束回执控制1532字节；正式原始观察/此前工作流阻断保留。原16有限闭环/九项Source判据不变，Win7真机继续延期，浏览器realm等后续审查不自动认证。以下为此前阶段历史。
+
 2026-10-11 第十轮：87b57409 的 CI 38112306333 完整Python10552通过/2跳过/0失败、22Source执行成功，后续cordis-runner Source快照拒绝。输入哈希与所有业务数据相同，唯一差异是六处同一apply-error栈中原末尾Vitest帧被Node runNextTicks/processTimers调度布局替代，所有Source文件/行/列相同；15实际Source/native旅程均符合原classify判据。原完整观察封存于 RUN-RELEASE-CI-ATTEMPT10-20261011-87B57409，656449880字节自有传输副本清理。原Source快照字节未改，仅加入这份实际捕获的完整精确栈布局：六处必须一致，Source帧/业务/输入/其他旅程/未知栈仍严格拒绝，无通用栈过滤，九上游判据不改。实际新鲜15旅程配对及37个直接生命周期/Remote/独立进程/双布局正例和漂移拒绝通过，见 RUN-RELEASE-CORDIS-STACK-TARGETED-20261011-87B57409，自有测试工作区已清理。下一稳定候选重新取得完整同包资格；原失败不补签，v0.1.1仍草稿、Win7真机延期。以下为历史。
 
 2026-10-11 修正后冷 CI：7ead3838 的 CI 38111619074 三次独立24场景原版/本机配对全部 matched，三项静默场景两侧均确实送达一次原请求，完整请求/错误/流观察没有差异。原始载体与冻结调用见 RUN-RELEASE-ERROR-FIX-CI-20261011-7EAD3838，传输重复件已清理，原失败保持。已知修正及88项本机/实际冷配对定向完成，下一稳定候选执行新鲜完整同包门禁；v0.1.1未发布，旧任务及Win7延期不变。以下为历史。

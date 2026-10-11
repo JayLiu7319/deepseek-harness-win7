@@ -142,6 +142,8 @@ git submodule update --init --recursive
 
 ## 便携版构建 (Portable Release)
 
+已发布 [v0.1.1 Portable](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.1)，解压 ZIP 后运行 `dsh.bat` 或 `dsh-web.bat`。发行页提供 SHA-256 和原始完整验收回执；本次完整 Python、固定 Source、配对合同及实际包内现代/Chromium 108 浏览器验收通过，Win7 真机认证仍按既定决定延期。
+
 项目支持一键打成无环境依赖的 Windows 7 便携版：
 
 ```powershell

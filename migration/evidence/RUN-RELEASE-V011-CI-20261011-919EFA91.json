@@ -1,0 +1,100 @@
+{
+  "id": "RUN-RELEASE-V011-CI-20261011-919EFA91",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "919efa919aea9dccdfd87f9ddbc9a44aa642999a",
+  "kind": "release",
+  "result": "passed",
+  "validity": "current",
+  "exit_code": 0,
+  "commands": [
+    "GitHub Release workflow38117543454: verify.yml .venv/Scripts/python.exe scripts/verify_release.py --prepare with real modern/108 browsers",
+    "Dependent publish job uploads the exact verified-portable artifact to v0.1.1",
+    ".venv/Scripts/python.exe -B .goose/out/release-v0.1.1-attempt11-20261011/collect-qualified-ci.py",
+    ".venv/Scripts/python.exe -B .goose/out/release-v0.1.1-attempt11-20261011/seal-published-release.py"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-V0.1.1-CI-20261011-919EFA91.zip",
+      "sha256": "d2a4545452e1958d923f6d3f252ccb7363a0caff489021dc58b516eeae422927"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-V0.1.1-PUBLICATION-20261011-919EFA91.zip",
+      "sha256": "661ab7b364aa32b701c37a3df7c90333e3e4cfca279bf84724aeef8175d8a202"
+    }
+  ],
+  "publication": {
+    "tag": "v0.1.1",
+    "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.1",
+    "ciRun": 38117543454,
+    "candidate": "919efa919aea9dccdfd87f9ddbc9a44aa642999a",
+    "archiveSha256": "697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9",
+    "archiveBytes": 100185906,
+    "localArchive": "dist/dsh-win7-portable-v0.1.1.zip",
+    "inputCount": 16865,
+    "inputManifestSha256": "165492d19dc743b04db1b899b3af4fa2ec82e95594e11b293cda20cc11888bb2",
+    "counts": {
+      "collected": 10566,
+      "passed": 10564,
+      "skipped": 2
+    },
+    "sourceConfigurations": 22,
+    "pairedContracts": 83,
+    "publishedDownloadPhysicallyPassed": true
+  },
+  "cleanup": {
+    "status": "completed",
+    "retiredDownloadCopies": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt11-20261011\\qualified-ci-diagnostics.zip",
+        "bytes": 392608004,
+        "sha256": "d2a4545452e1958d923f6d3f252ccb7363a0caff489021dc58b516eeae422927",
+        "preservation": {
+          "path": "migration/evidence/artifacts/RELEASE-V0.1.1-CI-20261011-919EFA91.zip",
+          "sha256": "d2a4545452e1958d923f6d3f252ccb7363a0caff489021dc58b516eeae422927"
+        }
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt11-20261011\\parity-diagnostics-github-artifact.zip",
+        "bytes": 369275068,
+        "sha256": "baba775a34d49058d9e35c882d5d91b5a0df94e59d4cc0181e9cb9e3303064c6",
+        "preservation": {
+          "semanticMember": "release-diagnostics.zip",
+          "path": "migration/evidence/artifacts/RELEASE-V0.1.1-CI-20261011-919EFA91.zip",
+          "sha256": "d2a4545452e1958d923f6d3f252ccb7363a0caff489021dc58b516eeae422927",
+          "scope": "Completed GitHub transfer wrapper only; original carrier bytes preserved in formal evidence or the local/public product; wrapper digest/metadata retained."
+        }
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt11-20261011\\verified-portable-github-artifact.zip",
+        "bytes": 97311026,
+        "sha256": "11341200c1b85543c6b5065d455d0e52cc0e00b92f8b6b1a616c4c9d7e8b1c61",
+        "preservation": {
+          "semanticMember": "dsh-win7-portable-v0.1.1.zip",
+          "path": "dist/dsh-win7-portable-v0.1.1.zip",
+          "sha256": "697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9",
+          "scope": "Completed GitHub transfer wrapper only; original carrier bytes preserved in formal evidence or the local/public product; wrapper digest/metadata retained."
+        }
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt11-20261011\\dsh-win7-portable-v0.1.1.zip",
+        "bytes": 100185906,
+        "sha256": "697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9",
+        "preservation": {
+          "path": "dist/dsh-win7-portable-v0.1.1.zip",
+          "sha256": "697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9"
+        }
+      }
+    ],
+    "removedDownloadFiles": 4,
+    "removedDownloadBytes": 959380004,
+    "scope": "Only completed, exactly bound own transfer duplicates. Public/local product and formal CI/maintenance archives preserved; no unknown, unresolved failure or protected history deleted."
+  },
+  "scope": "Actual published carrier hash equals the independently qualified CI carrier and frozen full receipt. Prior workflow failures remain unchanged, including attempt6 post-gate carrier loss and attempt7 strict paired refusal; no stitched/new task acceptance or native Win7 certification.",
+  "historical": "Prior f90 finite task acceptance remains unchanged and tied to its original candidate/input/archive. This new version/CI qualification does not rewrite those receipts or certify all parity, browser realms or Win7 native execution."
+}
