@@ -1,0 +1,67 @@
+{
+  "id": "RUN-RELEASE-ERROR-CI-20261011-AE40EC49",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "exit_code": 1,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "ae40ec49f8598ccad96e9ed6e9e40a48ffc11571",
+  "commands": [
+    "GitHub release-environment scope=deepseek-error run38110658588, three independent original raw pairs, preserve each physical refusal"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-CI-20261011-AE40EC49.zip",
+      "sha256": "d090566f726488583d5745cfb75f7c1e8c774ac1206ecb2a62acb20437de01f0"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-CI-BINDING-20261011-AE40EC49.zip",
+      "sha256": "f5807c9441e327b73c6a10b3328788786d0f3ab8f3a09d873538f97c86629a42"
+    }
+  ],
+  "observed": {
+    "iterations": 3,
+    "matched": 0,
+    "differingRows": [
+      [
+        "idle",
+        "idle-whole-float"
+      ],
+      [
+        "idle",
+        "idle-whole-float",
+        "idle-fraction"
+      ],
+      [
+        "idle",
+        "idle-whole-float",
+        "idle-fraction"
+      ]
+    ],
+    "difference": "Only requests differ in idle rows: Source received exactly one original request; native received none before 150/150.5ms idle timeout. All captured chunks/accepted/error objects agree. Other rows agree."
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 174464,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-ci-ae40-20261011\\diagnostics.zip",
+        "bytes": 95533,
+        "sha256": "d090566f726488583d5745cfb75f7c1e8c774ac1206ecb2a62acb20437de01f0"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-ci-ae40-20261011\\transfer.zip",
+        "bytes": 78931,
+        "sha256": "da7d08efb540e4136f6694a3144236151082b4d6f0dd2ed61f7e01af5c61e017"
+      }
+    ]
+  },
+  "scope": "Actual raw targeted cold failure observation, not complete release acceptance. Exact original full-run row captures were absent; do not retroactively attribute that cancelled run."
+}

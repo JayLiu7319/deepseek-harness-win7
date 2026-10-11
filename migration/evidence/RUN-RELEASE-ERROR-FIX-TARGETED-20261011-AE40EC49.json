@@ -1,0 +1,855 @@
+{
+  "id": "RUN-RELEASE-ERROR-FIX-TARGETED-20261011-AE40EC49",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "ae40ec49f8598ccad96e9ed6e9e40a48ffc11571",
+  "commands": [
+    "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe -B -m pytest tests/test_deepseek_error_consumers.py tests/test_llm_http_cancellation.py tests/test_deepseek_image_journey.py -ra --basetemp=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-fix-ae40-20261011\\consumer-workspace --junitxml=.goose\\out\\release-error-fix-ae40-20261011\\pytest.xml"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Local Windows",
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-FIX-TARGETED-20261011-AE40EC49.zip",
+      "sha256": "77f1b9b4e0a34e73d8144b18f73cd9df7290b837d7209cbc939abbfde367fd42"
+    }
+  ],
+  "targeted": {
+    "passed": 88,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 67.64100000006147,
+    "workingChanges": [
+      "scripts/oracles/deepseek-error-fixtures.json",
+      "scripts/oracles/deepseek_error_python.py",
+      "tests/test_deepseek_error_consumers.py"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "workspace": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-fix-ae40-20261011\\consumer-workspace",
+    "members": [
+      {
+        "path": "deepseek-error-pair0/paired.0.log",
+        "bytes": 237,
+        "kind": "file",
+        "sha256": "94f9be67cc8f53414976135ced39227743b699e040855122b7c3f165b909bdb0"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.json",
+        "bytes": 14475,
+        "kind": "file",
+        "sha256": "57065851c633cb570009cd6f8b555d030e17eecb6f29b7f362513140e62fedc4"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.native.json",
+        "bytes": 40410,
+        "kind": "file",
+        "sha256": "df25ead966d78e92ed35f2dc8adb3e39849937fac979d3cb201a748ad31419d7"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.source.json",
+        "bytes": 26854,
+        "kind": "file",
+        "sha256": "36ef8c27ce9d1a04326ff57e11ed24859c5865cfbdebd5f62c67996144c64315"
+      },
+      {
+        "path": "deepseek-error-pair0/runner.log",
+        "bytes": 9,
+        "kind": "file",
+        "sha256": "36e542ce871d0d0453e8bef9d86b71b2b08d82ba833c1ed6b5eb6a52ef9d28ba"
+      },
+      {
+        "path": "deepseek-error-pair0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re10",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re11",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re12",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re13",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re14",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re15",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re16",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re17",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re18",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re19",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re3",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re4",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re5",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re6",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re7",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re8",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re9",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "41800c03fcff02f0da31ae5fcbd1007b8d38e587ab1e21aa963dfb13fbc5cc1c"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "e2d6f074bfadb14982d618c4430f6357aa5bfef3afe5e5fdac38646491c138bf"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "37bffd9cc643b9cce8a219302abd981dea9a629103672e2cea7e346f74a3fbbe"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extensions_only_accept_su2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "caa385d165af268b6db1d3bee038d5903e93669f011b660579a17298e27ccd61"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_idle_watchdog_d0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "b45b20c20c933f793000ca95d2bb18c55f198964c890940b72f3fd71c555f771"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_extension_request_idle_wa0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.0.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.json",
+        "bytes": 81632,
+        "kind": "file",
+        "sha256": "43a592f9c5e6095e4929c0de1a531ae30d9dcc7ece859cf6cd936d4bacfe51a6"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.0.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.json",
+        "bytes": 81618,
+        "kind": "file",
+        "sha256": "4b3165a6994a3239a00cd2a0e926eb5937002521608e43f150d0588bb4cf70f6"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "7460bff426c032551ab8c778e2b87ded4ac9fceabfe9787a692d6b669f5fcc25"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/llm-deepseek/files-v3.json",
+        "bytes": 457,
+        "kind": "file",
+        "sha256": "f5385a1b07e7fd64b26888abfa36274710d2539384d966b8560119bd723ce325"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0/llm-deepseek",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "4b7de87977339cc7ce50a355c0d729638c38a6986e36aa7e271342453528e936"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "4600980d9f75d35be500644e998678d5d41ebc0fb02313906a7650024f440ae2"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/llm-deepseek/files-v3.json",
+        "bytes": 457,
+        "kind": "file",
+        "sha256": "2a106d0b65fe2f1a61e4173bca3026f4ed0dc5039d220e56c12a7a8f99e1d276"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2/llm-deepseek",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_image_request_wire_reuse_2",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_native_request_identity_h0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "47b6a74dc9cc458411c1d32f71496158753b2b3de2667494f1bbc91cb7ae8d22"
+      },
+      {
+        "path": "test_native_request_identity_h0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_native_request_identity_h1/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "4a93fce205f5e6536f8688122deecbde39acdf766eefc85a7973fd7a84f62b0a"
+      },
+      {
+        "path": "test_native_request_identity_h1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "97ac4fbab84ff73ed1af0994148c18d751679daeff15f9fee73475220609ab51"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/llm-deepseek/files-v3.json",
+        "bytes": 457,
+        "kind": "file",
+        "sha256": "5cbf174273a98411f70cf6abb531cf1c9847b13eb4d55555efe61b720b5f4fd1"
+      },
+      {
+        "path": "test_normalized_image_handle_u0/llm-deepseek",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_handle_u0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "597cec89a4bc18ce431ea662579ad262155c9ea02922f01e0d4958d2f1d9deae"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/llm-deepseek/files-v3.json",
+        "bytes": 457,
+        "kind": "file",
+        "sha256": "38c8598f943e4bc9c8f650e63f93a67714a2206780a7b7cd5d1e1575dd8152f4"
+      },
+      {
+        "path": "test_normalized_image_rejectio0/llm-deepseek",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normalized_image_rejectio0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_portable_deepseek_error_c0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_portable_deepseek_error_c1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "2579026afe15e4adb90d3d61646f75454cb8b4ada57828bfc16c04355436458d"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_prepared_text_model_proje0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "2ae36729ada83368b3d9043be4e77f63ebb7dbdf085170633f6adace502c3cb3"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1/.anonymous-user-id",
+        "bytes": 38,
+        "kind": "file",
+        "sha256": "546e247963f341a0bd228b87534fd7062208262a50c9d9966efa1b312104697f"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments/v1/objects/93/939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7",
+        "bytes": 84,
+        "kind": "file",
+        "sha256": "939dd4608df2442e8707c9328a200450c0abaddb538f9402de70efec42a326e7"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments/v1/objects/93",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments/v1/objects",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments/v1/tmp",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments/v1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1/attachments",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_transport_timeout_before_1",
+        "bytes": 0,
+        "kind": "directory"
+      }
+    ],
+    "removedFiles": 44,
+    "removedBytes": 248725,
+    "removedLinks": 0,
+    "scope": "Closed targeted consumers; actual original captures and controlled refusals preserved in raw-consumers.zip; not full acceptance."
+  },
+  "scope": "Actual complete original/native 24-case error capture and 88 direct consumers including delivered idle request, integer/whole-float/fraction text,80/150ms refusal, caller cancellation, image request and socket watchdog precedence. Working fixture inputs changed on named base; production defaults unchanged. Cold fixed qualification and fresh full release remain pending."
+}

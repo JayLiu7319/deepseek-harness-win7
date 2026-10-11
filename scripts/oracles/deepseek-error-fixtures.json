@@ -104,7 +104,8 @@
   },
   {
     "id": "idle",
-    "behavior": "idle"
+    "behavior": "idle",
+    "idleTimeoutMs": 2500
   },
   {
     "id": "invalid-long-ascii",
@@ -125,12 +126,12 @@
   {
     "id": "idle-whole-float",
     "behavior": "idle",
-    "idleTimeoutMs": 150.0
+    "idleTimeoutMs": 2500.0
   },
   {
     "id": "idle-fraction",
     "behavior": "idle",
-    "idleTimeoutMs": 150.5
+    "idleTimeoutMs": 2500.5
   },
   {
     "id": "success"

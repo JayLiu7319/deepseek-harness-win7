@@ -61,6 +61,19 @@ def test_actual_deepseek_complete_http_failures_match_source(name, actual_pair):
     assert next(row for row in native['rows'] if row['name'] == name) == next(row for row in source['rows'] if row['name'] == name)
 
 
+@pytest.mark.parametrize('name, milliseconds', [
+    ('idle', '2500'), ('idle-whole-float', '2500'), ('idle-fraction', '2500.5')])
+def test_actual_idle_error_requires_delivered_request_and_complete_timeout(actual_pair, name, milliseconds):
+    for report in actual_pair:
+        row = next(row for row in report['rows'] if row['name'] == name)
+        assert len(row['requests']) == 1
+        assert row['requests'][0]['body']['messages'] == [dict(role='user', content='hello')]
+        assert row['chunks'] == [] and row['accepted'] == []
+        message = 'DeepSeek stream idle timeout after ' + milliseconds + 'ms'
+        assert row['error'] == dict(name='LlmError', message=message,
+            failure=dict(message=message, code='TIMEOUT'), code='TIMEOUT')
+
+
 @pytest.mark.parametrize('damage', DAMAGES)
 def test_deepseek_error_receipt_requires_complete_rows_and_runtime(actual_pair, tmp_path, damage):
     source, original = actual_pair

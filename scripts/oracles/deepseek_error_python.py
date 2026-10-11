@@ -41,7 +41,7 @@ async def observe(fixture):
             if mode in ('cancel', 'idle'):
                 if mode == 'cancel':
                     loop.call_soon_threadsafe(controller.abort, 'fixture cancellation')
-                release.wait(3)
+                release.wait(10)
                 return
             status = fixture.get('status', 200)
             payload = fixture.get('sse', 'data: {"choices":[{"delta":{"content":"ok"},"finish_reason":"stop"}]}\n\ndata: [DONE]\n\n')
