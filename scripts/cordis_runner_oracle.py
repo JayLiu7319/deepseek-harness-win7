@@ -25,7 +25,8 @@ INPUTS = SOURCE_INPUTS + ['scripts/cordis_runner_oracle.py', 'scripts/oracles/co
     'dsh/llm/message.py', 'dsh/core/abort.py', 'dsh/core/cancellation.py',
     'dsh/cordis/context.py', 'dsh/cordis/fiber.py', 'dsh/cordis/reflect.py',
     'dsh/typert/remote.py', 'dsh/typert/dispatch.py', 'tests/test_cordis_runner_state.py',
-    'tests/test_cordis_tools_full.py', 'tests/fixtures/cordis-runner-source-observations.json']
+    'tests/test_cordis_tools_full.py', 'tests/fixtures/cordis-runner-source-observations.json',
+    'tests/fixtures/cordis-runner-source-async-stack.txt']
 SOURCE_GUIDANCE = 'that Service in the returned Plugin inject list or read it with ctx.get(name) and handle undefined.'
 NATIVE_GUIDANCE = 'that Service in the plugin.inject list or read it with ctx.get(name) and handle None in Python Host code.'
 
@@ -94,6 +95,43 @@ def digests(paths, normalized=False):
     return {path: hashlib.sha256((ROOT / path).read_text(encoding='utf-8').encode('utf-8') if normalized else (ROOT / path).read_bytes()).hexdigest() for path in paths}
 
 
+def source_fixture_matches(fixture, actual):
+    if fixture == actual:
+        return True
+    # One captured Node 22.22.2 scheduling layout, at six occurrences of the
+    # same apply error. Compare the entire alternate snapshot exactly; no
+    # arbitrary stack stripping, business-field changes or input drift.
+    alternate = copy.deepcopy(fixture)
+    paths = ((1, 'value', 'stack'), (1, 'inventory', 0, 'latestRun', 'error', 'stack'),
+        (2, 'inventory', 0, 'latestRun', 'error', 'stack'),
+        (3, 'inventory', 0, 'latestRun', 'error', 'stack'),
+        (3, 'value', 'latestRun', 'error', 'stack'),
+        (4, 'inventory', 0, 'latestRun', 'error', 'stack'))
+    try:
+        journey = alternate['observations'][13]
+        if journey['mode'] != 'actual-host-apply-failure-and-retry':
+            return False
+        stack = journey['rows'][1]['value']['stack']
+        lines = stack.split('\n')
+        if (len(lines) != 8 or lines[0] != 'Error: fixture apply failure'
+                or lines[1] != '    at startHostHalf ([workspace]/reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:28:27)'
+                or lines[-1] != '    at file:///[workspace]/scripts/oracles/official/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20'):
+            return False
+        scheduled = '\n'.join(lines[:2] + [
+            '    at runNextTicks (node:internal/process/task_queues:64:5)',
+            '    at processTimers (node:internal/timers:518:9)'] + lines[2:-1])
+        for path in paths:
+            container = journey['rows']
+            for key in path[:-1]:
+                container = container[key]
+            if container[path[-1]] != stack:
+                return False
+            container[path[-1]] = scheduled
+    except (KeyError, TypeError, IndexError, AttributeError):
+        return False
+    return alternate == actual
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', required=True)
@@ -132,7 +170,7 @@ def main():
         if args.refresh_source_fixture:
             fixture_path.write_text(json.dumps(dict(target_upstream=target, source_sha256=digests(SOURCE_INPUTS, True), observations=source), ensure_ascii=True, indent=2) + '\n', encoding='utf-8')
         fixture = json.loads(fixture_path.read_text(encoding='utf-8'))
-        if fixture != dict(target_upstream=target, source_sha256=digests(SOURCE_INPUTS, True), observations=source):
+        if not source_fixture_matches(fixture, dict(target_upstream=target, source_sha256=digests(SOURCE_INPUTS, True), observations=source)):
             raise ValueError('source fixture does not match actual pinned observations/inputs')
         for left, right in zip(source, native):
             report['cases'].append(dict(mode=left['mode'], status=classify(left, right), steps=len(left['rows'])))

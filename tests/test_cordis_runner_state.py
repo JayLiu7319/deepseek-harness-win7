@@ -14,7 +14,7 @@ from dsh.core.tools import ToolsPlugin
 from dsh.core.abort import AbortController
 from dsh.extensions.host_runner import DynamicCordisRunner
 from dsh.typert.dispatch import RemoteDispatcher
-from scripts.cordis_runner_oracle import classify, collision_projection, native_projection
+from scripts.cordis_runner_oracle import classify, collision_projection, native_projection, source_fixture_matches
 from scripts.oracles.cordis_runner_python import observe
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +34,57 @@ def test_runner_source_fixture_is_bound_to_actual_pinned_inputs():
     assert [row['mode'] for row in FIXTURE['observations']] == [spec['mode'] for spec in SPECS]
     for path, digest in FIXTURE['source_sha256'].items():
         assert hashlib.sha256((ROOT / path).read_text(encoding='utf-8').encode('utf-8')).hexdigest() == digest, path
+
+
+def captured_async_source_fixture():
+    actual = copy.deepcopy(FIXTURE)
+    rows = actual['observations'][13]['rows']
+    stack = (ROOT / 'tests/fixtures/cordis-runner-source-async-stack.txt').read_text(encoding='utf-8').rstrip('\n')
+    rows[1]['value']['stack'] = stack
+    for index in (1, 2, 3, 4):
+        rows[index]['inventory'][0]['latestRun']['error']['stack'] = stack
+    rows[3]['value']['latestRun']['error']['stack'] = stack
+    return actual
+
+
+def test_source_fixture_accepts_both_exact_captured_scheduling_layouts():
+    before = copy.deepcopy(FIXTURE)
+    assert source_fixture_matches(FIXTURE, before)
+    assert source_fixture_matches(FIXTURE, captured_async_source_fixture())
+    assert FIXTURE == before
+
+
+@pytest.mark.parametrize('damage', ['source-line', 'source-column', 'node-frame', 'unknown-frame',
+    'one-stack', 'message', 'operation', 'input', 'target', 'other-journey', 'missing-stack'])
+def test_source_scheduling_layout_does_not_accept_any_other_drift(damage):
+    actual = captured_async_source_fixture()
+    row = actual['observations'][13]['rows'][1]
+    if damage in ('source-line', 'source-column', 'node-frame', 'unknown-frame', 'one-stack'):
+        stack = row['value']['stack']
+        if damage == 'source-line':
+            stack = stack.replace('lifecycle.ts:28:27', 'lifecycle.ts:29:27')
+        elif damage == 'source-column':
+            stack = stack.replace('lifecycle.ts:28:27', 'lifecycle.ts:28:28')
+        elif damage == 'node-frame':
+            stack = stack.replace('task_queues:64:5', 'task_queues:65:5')
+        elif damage == 'unknown-frame':
+            stack += '\n    at unknown (node:internal/foreign:1:1)'
+        else:
+            stack = FIXTURE['observations'][13]['rows'][1]['value']['stack']
+        row['value']['stack'] = stack
+    elif damage == 'message':
+        row['value']['message'] = 'foreign'
+    elif damage == 'operation':
+        row['op'] = 'foreign'
+    elif damage == 'input':
+        actual['source_sha256']['scripts/oracles/cordis-runner.spec.ts'] = '0' * 64
+    elif damage == 'target':
+        actual['target_upstream'] = '0' * 40
+    elif damage == 'other-journey':
+        actual['observations'][0]['rows'][0]['value']['purpose'] = 'foreign'
+    else:
+        del row['value']['stack']
+    assert not source_fixture_matches(FIXTURE, actual)
 
 
 def test_collision_exception_accepts_only_exact_added_notification():

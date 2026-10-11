@@ -1,0 +1,123 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT10-20261011-87B57409",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "exit_code": 1,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "87b574092d8ab03f3a3d2e2a8d2963f7101cae15",
+  "commands": [
+    "GitHub Release run38112306333, exact frozen candidate full gate; no publication"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT10-20261011-87B57409.zip",
+      "sha256": "656526656f15077da45a197fde5b2ac935c5fa251f3aad91f74e1a1abdd0fb19"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT10-BINDING-20261011-87B57409.zip",
+      "sha256": "6a081263f9c7234421a66c67a431cf0b521268ecb95f9ee9cbb95d51b028e150"
+    }
+  ],
+  "originalFailure": {
+    "python": {
+      "collected": 10554,
+      "passed": 10552,
+      "failed": 0,
+      "skipped": 2
+    },
+    "sourceConfigurationsExecuted": 22,
+    "stage": "cordis-runner-paired Source fixture snapshot guard",
+    "difference": "Exactly six occurrences of same apply-failure stack. All pinned input hashes agree. Actual Node runNextTicks/processTimers frames replace last Vitest runner frame; all Source file/line/column frames and business values unchanged. All15 actual Source/native cases classify under existing unchanged criteria.",
+    "published": false,
+    "extractedQualificationExecuted": false
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 656449880,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt10-20261011\\failure-diagnostics.zip",
+        "bytes": 338471133,
+        "sha256": "656526656f15077da45a197fde5b2ac935c5fa251f3aad91f74e1a1abdd0fb19"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt10-20261011\\failure-transfer.zip",
+        "bytes": 317978747,
+        "sha256": "7b0fd70fb0238192c7318e2245656331ac346dc2d8fbb7cc2e97fd28d3a1ae8c"
+      }
+    ]
+  },
+  "priorTargetedDuplicateCleanup": {
+    "status": "completed",
+    "removedFiles": 8,
+    "removedBytes": 193057,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-failfirst-20261011\\raw-controls.zip",
+        "bytes": 20073,
+        "sha256": "d0e5aec8146c2676309e87b35a4cbe2f44b31eb9b43e547da1433b82b0abf6d4",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-FAILFIRST-TARGETED-20261011-8A02A6DB.zip",
+        "member": "raw-controls.zip"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\raw-consumers.zip",
+        "bytes": 40351,
+        "sha256": "31c9ceddecb5279ba132deab0475f8c981bc17fce4a7049e7bb660f7d2eccc60",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "raw-consumers.zip"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\paired.json",
+        "bytes": 14475,
+        "sha256": "8819f8a78b43db5fd46615d76dd9d6e10b31f7f2024ae358413b5589de581f40",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "paired.json"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\paired.source.json",
+        "bytes": 26848,
+        "sha256": "9d38024583c8345bb44d569f2b4433ebd37f6713927aebd12f17f199ccd2ce28",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "paired.source.json"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\paired.native.json",
+        "bytes": 40404,
+        "sha256": "96d7f20edcdcfafc5d93aaaec1bfa9478a8593cf7e6b58c0d7b7ef8fcb5510cb",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "paired.native.json"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\paired.0.log",
+        "bytes": 236,
+        "sha256": "a915859fb9c4da83f6d80bf2c55c6b021683fc87e3290dc77ad3b9f8cacf7253",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "paired.0.log"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\paired.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+        "member": "paired.1.log"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-fix-ae40-20261011\\raw-consumers.zip",
+        "bytes": 50670,
+        "sha256": "53b83f45c2ef0901b0235be60840eba59f2b50fce0a7d12444e1f1db4024dbc2",
+        "preserved": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\migration\\evidence\\artifacts\\RELEASE-ERROR-FIX-TARGETED-20261011-AE40EC49.zip",
+        "member": "raw-consumers.zip"
+      }
+    ],
+    "scope": "Only exact original bytes already sealed once in completed targeted formal carriers; XML/log/result/cleanup records and unresolved original failures remain. No unknown workspace deletion."
+  },
+  "scope": "Original exact candidate full gate failed; full Python pass and Source executions are reported separately. Complete paired/extracted/publication qualification absent. Existing nine upstream predicates and historical finite task receipts remain unchanged."
+}

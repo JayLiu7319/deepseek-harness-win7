@@ -1,0 +1,9 @@
+Error: fixture apply failure
+    at startHostHalf ([workspace]/reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:28:27)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at processTimers (node:internal/timers:518:9)
+    at Proxy.startHost ([workspace]/reference/packages/extensions/cordis-host-runner/src/index.ts:905:19)
+    at Proxy.startFresh ([workspace]/reference/packages/extensions/cordis-host-runner/src/index.ts:853:23)
+    at Proxy.run ([workspace]/reference/packages/extensions/cordis-host-runner/src/index.ts:271:23)
+    at observe ([workspace]/scripts/oracles/cordis-runner.spec.ts:52:128)
+    at [workspace]/scripts/oracles/cordis-runner.spec.ts:98:40
