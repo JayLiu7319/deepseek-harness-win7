@@ -1,0 +1,69 @@
+{
+  "id": "RUN-RELEASE-ERROR-FIX-CI-20261011-7EAD3838",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "7ead38386399e2665aff324b9931b4ed14357d75",
+  "commands": [
+    "GitHub release-environment scope=deepseek-error run38111619074, three independent fresh original/native complete pairs"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-FIX-CI-20261011-7EAD3838.zip",
+      "sha256": "79f957e27de51637b709b237a64f6f708eb5ca2e85546ae33a18149f6147ed5a"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-FIX-CI-BINDING-20261011-7EAD3838.zip",
+      "sha256": "5d9d8caa19c481bfbbcf6de9693c44b624f9badeb3aed2ab04507058fb19f388"
+    }
+  ],
+  "targeted": {
+    "iterations": [
+      {
+        "iteration": 0,
+        "status": "matched",
+        "cases": 24,
+        "differences": []
+      },
+      {
+        "iteration": 1,
+        "status": "matched",
+        "cases": 24,
+        "differences": []
+      },
+      {
+        "iteration": 2,
+        "status": "matched",
+        "cases": 24,
+        "differences": []
+      }
+    ],
+    "allIdleRequestsPhysicallyDelivered": true
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 132579,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-ci-7ead-20261011\\diagnostics.zip",
+        "bytes": 84546,
+        "sha256": "79f957e27de51637b709b237a64f6f708eb5ca2e85546ae33a18149f6147ed5a"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-ci-7ead-20261011\\transfer.zip",
+        "bytes": 48033,
+        "sha256": "ea33e31edb14bd635465636a3d954c1d554544d24d7013767f20d4d4259222cb"
+      }
+    ]
+  },
+  "scope": "Targeted fixed raw pairs only, each complete24 captured rows matched; all original cold failures remain failed. No summed tests or stitched full release/task acceptance. New frozen candidate full qualification remains required; native Win7 deferred."
+}
