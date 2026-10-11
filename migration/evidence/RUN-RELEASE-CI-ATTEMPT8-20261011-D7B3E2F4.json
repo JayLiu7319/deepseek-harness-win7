@@ -1,0 +1,76 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT8-20261011-D7B3E2F4",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "d7b3e2f4ab913e81c4808be395b0063fb08e4767",
+  "exit_code": 1,
+  "commands": [
+    "GitHub Release run38097190566: verify job cancelled at original180minute overall timeout; no release",
+    "Independently downloaded and verified original diagnostic artifact SHA/CRC; preserved original pytest output and external mapping"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT8-20261011-D7B3E2F4.zip",
+      "sha256": "3bfcbd1e01481be22bd4147abf5c41bf709b69541e9e92a789aff0daafad08a5"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT8-BINDING-20261011-D7B3E2F4.zip",
+      "sha256": "99e55aee2800740bbbfb4aa634f233d5c523b88a9b846c101c61f0cd036eb377"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT8-LOCAL-20261011-D7B3E2F4.zip",
+      "sha256": "bd5cfce06757156f9c56305b780152f656678d9e20582312fabda0b06d007adb"
+    }
+  ],
+  "originalFailure": {
+    "run": 38097190566,
+    "stage": "Python collection approximately39percent, consecutive current_release_gate fixture failures",
+    "fullXmlRetained": false,
+    "summaryRetained": false,
+    "externalPytestWorkspaceRetained": false,
+    "diagnosticArtifactRetained": true,
+    "gap": "Overall CI cancellation killed the coordinator before atomic external-workspace retention/XML completion. Original partial output retained; no exact failed count or exception attributed without targeted reproduction.",
+    "published": false
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 1631862,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt8-20261011\\attempt8-transfer.zip",
+        "bytes": 815551,
+        "sha256": "e417ae29d420909aa9293185fb00bb625628e9e63bcd4485746d61e054bfc8e1"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt8-20261011\\attempt8-diagnostics.zip",
+        "bytes": 816311,
+        "sha256": "3bfcbd1e01481be22bd4147abf5c41bf709b69541e9e92a789aff0daafad08a5"
+      }
+    ],
+    "scope": "Only exactly bound completed own download wrappers/copies; original incomplete diagnostics preserved formally"
+  },
+  "scope": "Unfinished exact candidate gate, not qualification. Targeted repair proof and previous complete qualification remain tied to their own inputs/archive.",
+  "targetedLocal": {
+    "physicalExit": 0,
+    "passed": 1,
+    "seconds": 385.7029999999795,
+    "scope": "Separate local first shared fixture reproduction passed; does not attribute or repair original hosted failures"
+  },
+  "targetedLocalCleanup": {
+    "status": "completed",
+    "workspace": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\t-e28ybzpb",
+    "removedFiles": 2,
+    "removedBytes": 764,
+    "removedLinks": 0,
+    "scope": "Closed one-case local generated release validator control only; XML/log/timing preserved. No complete parity acceptance."
+  }
+}

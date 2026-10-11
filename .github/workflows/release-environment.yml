@@ -5,7 +5,7 @@ on:
       scope:
         description: Diagnostic scope
         type: choice
-        options: [consumers, startup, default-dacl, windows]
+        options: [consumers, startup, default-dacl, windows, fixture]
         default: consumers
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.8.10'
       - uses: actions/setup-node@v4
-        if: inputs.scope == 'consumers'
+        if: inputs.scope == 'consumers' || inputs.scope == 'fixture'
         with:
           node-version: '22.22.2'
       - name: Allocate owned diagnostic output
@@ -37,7 +37,7 @@ jobs:
           .venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements-dev.lock
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare cold pinned Source and original build carrier
-        if: inputs.scope == 'consumers'
+        if: inputs.scope == 'consumers' || inputs.scope == 'fixture'
         run: |
           .venv/Scripts/python.exe -c "from scripts.verify_release import prepare_node_dependencies; from pathlib import Path; import os; prepare_node_dependencies(Path('.goose/out/release-environment').resolve(), dict(os.environ))"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -74,6 +74,17 @@ jobs:
           $env:TMP = $targetTemp
           .venv/Scripts/python.exe -c "from scripts import check_release_environment as gate; import sys; gate.NODES = ['tests/test_windows_acl_runner.py', 'tests/test_windows_confined_console.py', 'tests/test_local_sandbox_provider.py', 'tests/test_pwsh_executor.py', 'tests/test_canonical_pwsh_tool.py']; sys.argv = ['check_release_environment.py', '.goose/out/release-environment']; sys.exit(gate.main())"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Capture the first shared release fixture failure
+        if: inputs.scope == 'fixture'
+        run: |
+          $env:DSH_TEST_CHROMIUM = Join-Path ${env:ProgramFiles(x86)} 'Microsoft/Edge/Application/msedge.exe'
+          $env:DSH_TEST_CHROMIUM108 = (Resolve-Path .goose/tools/chromium108/chrome-win/chrome.exe).Path
+          $targetTemp = Join-Path (Split-Path -Parent $env:GITHUB_WORKSPACE) ('dsh-environment-temp-' + $env:GITHUB_RUN_ID)
+          New-Item -ItemType Directory -Path $targetTemp -ErrorAction Stop | Out-Null
+          $env:TEMP = $targetTemp
+          $env:TMP = $targetTemp
+          .venv/Scripts/python.exe -c "from scripts import check_release_environment as gate; import sys; gate.NODES = ['tests/test_current_release_gate.py::test_extracted_physical_tree_is_required_and_cannot_hide_survivors[missing]']; sys.argv = ['check_release_environment.py', '.goose/out/release-environment']; sys.exit(gate.main())"
+          exit $LASTEXITCODE
       - name: Package owned diagnostics
         if: always()
         run: |
