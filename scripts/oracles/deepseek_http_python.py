@@ -55,7 +55,7 @@ async def observe(fixture):
     def handle(self):
         original(self)
         if mode in ('cancel', 'idle'):
-            release.wait(3)
+            release.wait(10)
     Handler.do_POST = handle
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -85,7 +85,7 @@ async def observe(fixture):
         pass
     if fixture.get('images'):
         ctx.set_service('attachments', SimpleNamespace(read_image_request=read_image, imageHostPath=lambda ref: None))
-    adapter = DeepSeekAdapter(ctx, dict(fixture.get('config', {}), baseURL='http://127.0.0.1:{}'.format(server.server_port), streamIdleTimeoutMs=150 if mode == 'idle' else 3000))
+    adapter = DeepSeekAdapter(ctx, dict(fixture.get('config', {}), baseURL='http://127.0.0.1:{}'.format(server.server_port), streamIdleTimeoutMs=fixture.get('idleTimeoutMs', 150) if mode == 'idle' else 3000))
     if fixture.get('images'):
         adapter.files = SimpleNamespace(ensure_uploaded=upload, close=close_files)
     adapter.user_id = 'fixture-user'

@@ -145,6 +145,11 @@ async def request_stream(adapter, transport, request, options):
                     state.update(waiting=True, since=time.monotonic())
                 return
             except LlmError as error:
+                # The socket watchdog can win before the adapter's async
+                # watchdog. Both own the same configured stream deadline.
+                if error.code == "TIMEOUT":
+                    raise LlmError("DeepSeek stream idle timeout after {}ms".format(
+                        js_to_string(options["streamIdleTimeoutMs"])), "TIMEOUT") from error
                 detail = getattr(error, "provider_detail", str(error))
                 stale = used and error.status is not None and re.search(r"\bfile(?:[_ -]?(?:id|api))?", detail, re.I) and (
                     re.search(r"expired|not[_ -]?found|deleted|do(?:es)? not exist|not created under (?:this|your) account", detail, re.I)

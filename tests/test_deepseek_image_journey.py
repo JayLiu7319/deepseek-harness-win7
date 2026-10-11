@@ -121,6 +121,32 @@ async def test_native_request_identity_headers_are_stable_and_purpose_scoped(tmp
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize('caller_cancelled', [False, True])
+async def test_transport_timeout_before_adapter_watchdog_keeps_provider_error(tmp_path, endpoint, monkeypatch, caller_cancelled):
+    from dsh.core.abort import AbortController
+    from dsh.llm.llm_service import LLMService
+    ctx, adapter, _ = await setup(tmp_path, endpoint[0])
+    adapter.config['streamIdleTimeoutMs'] = 2500
+    caller = AbortController()
+    def transport_timeout(self, *args, **kwargs):
+        if caller_cancelled:
+            caller.abort('caller cancellation')
+        raise LlmError('Model stream idle timeout', 'TIMEOUT')
+        yield  # Preserve the transport generator contract.
+    monkeypatch.setattr(LLMService, '_default_chat_completion_stream', transport_timeout)
+    try:
+        with pytest.raises(LlmError) as caught:
+            _ = [chunk async for chunk in adapter.stream(dict(model='vision', messages=[], signal=caller.signal))]
+        expected = ('ABORTED', 'DeepSeek request aborted by caller') if caller_cancelled else (
+            'TIMEOUT', 'DeepSeek stream idle timeout after 2500ms')
+        assert (caught.value.code, caught.value.message) == expected
+        assert caught.value.failure['message'] == expected[1]
+    finally:
+        await adapter.close()
+        await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
 async def test_extension_request_idle_watchdog_tracks_partial_wire_activity(tmp_path, endpoint):
     url, state = endpoint
     state["mode"] = "slow-bytes"

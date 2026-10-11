@@ -31,7 +31,7 @@ export async function observeHttp(fixture: any) {
   })
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
   const port = (server.address() as any).port
-  const adapter = new DeepSeekAdapter({options: () => resolveAdapterOptions({...fixture.config, baseURL: `http://127.0.0.1:${port}`, streamIdleTimeoutMs: mode === 'idle' ? 150 : 3000}),
+  const adapter = new DeepSeekAdapter({options: () => resolveAdapterOptions({...fixture.config, baseURL: `http://127.0.0.1:${port}`, streamIdleTimeoutMs: mode === 'idle' ? (fixture.idleTimeoutMs ?? 150) : 3000}),
     resolveApiKey: async () => 'fixture-key', resolveUserId: () => 'fixture-user' as any,
     resolveAttachments: () => fixture.images ? {readImageRequest: async (ref: any, policy: any) => {
       reads.push({id: ref.attachmentId, policy})

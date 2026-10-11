@@ -1,0 +1,71 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT7-20261011-149C8F04",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "149c8f04d5c82a09c2358ef36c8775503e9450a8",
+  "exit_code": 1,
+  "commands": [
+    "GitHub Release CI38092289688 complete verify_release.py --prepare failed on deepseek-paired http-idle actual request delivery; full Python collection passed; subsequent remaining paired/extracted phases not executed",
+    "Diagnostics packager and uploader succeeded; independently downloaded exact archive and verified SHA/CRC/full XML"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "GitHub windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT7-20261011-149C8F04.zip",
+      "sha256": "f8487bc3d09555b730ce72fd19b8c487458a3008ba32d88424d00370493be570"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT7-BINDING-20261011-149C8F04.zip",
+      "sha256": "6f9669898c0527e8d1da58eb85f423f19036775dc5c2880f1e43acdc011b8f75"
+    }
+  ],
+  "originalFailure": {
+    "run": 38092289688,
+    "counts": {
+      "collected": 10547,
+      "passed": 10545,
+      "failedOrError": 0,
+      "skipped": 2
+    },
+    "fullXmlRetained": true,
+    "rawFixtureCarrierRetained": true,
+    "published": false,
+    "observations": [
+      "10545 Python passed / 2 skipped / 0 failure or error",
+      "22 Source configurations completed before paired gates",
+      "deepseek-paired http-idle returns TIMEOUT on both sides, but native fixture request list empty while Source recorded full request",
+      "Original 150ms idle input can expire before cold native loopback delivery; no strict request normalization, paid calls or production default changes"
+    ],
+    "scope": "Actual full Python success is separate from paired refusal and complete qualification failure. Remaining paired/extracted phases not claimed."
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 654051122,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt7-20261011\\attempt7-release-diagnostics.zip",
+        "bytes": 337219812,
+        "sha256": "f8487bc3d09555b730ce72fd19b8c487458a3008ba32d88424d00370493be570"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt7-20261011\\attempt7-diagnostics-transfer.zip",
+        "bytes": 316831310,
+        "sha256": "d3a8895f61473e6deaafa87b3cf367aa5f33bac3afa4188c51ee34d92d44ab04"
+      }
+    ],
+    "preservation": {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT7-20261011-149C8F04.zip",
+      "sha256": "f8487bc3d09555b730ce72fd19b8c487458a3008ba32d88424d00370493be570"
+    },
+    "scope": "Only own completed transfer duplicates; exact failed diagnostic carrier remains in formal evidence"
+  },
+  "scope": "Complete gate failed on original paired observation; Python success cannot replace missing full qualification. Earlier attempts and f90 qualifications are unchanged; no stitched acceptance or native Win7 certification."
+}

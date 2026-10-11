@@ -1,0 +1,84 @@
+{
+  "id": "RUN-RELEASE-IDLE-TARGETED-20261011-149C8F04",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "149c8f04d5c82a09c2358ef36c8775503e9450a8",
+  "exit_code": 0,
+  "commands": [
+    ".venv/Scripts/python.exe -B scripts/deepseek_oracle.py --output C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\deepseek-paired-final.json",
+    ".venv/Scripts/python.exe -B scripts/deepseek_capture_oracle.py --output C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\deepseek-capture-paired-final.json",
+    ".venv/Scripts/python.exe -B -m pytest tests/test_llm_http_cancellation.py tests/test_deepseek_capture_consumers.py tests/test_deepseek_image_journey.py -q --junitxml=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\consumers-final.xml"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Local Windows proposed code over149c8f04",
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-IDLE-TARGETED-20261011-149C8F04.zip",
+      "sha256": "88b68c96c6ff3050e617c1cd09f910c0069d99f441b865e8ac1efa62e882dbfd"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-IDLE-CLEANUP-20261011-149C8F04.zip",
+      "sha256": "d378769006514692f1392f7a073becbf6beb12cc45da199327b347f9873671dd"
+    }
+  ],
+  "targeted": {
+    "paired": "matched",
+    "completeCaptures": 76,
+    "actualConsumersPassed": 150,
+    "before": "Initial control assertion used formatted str(error); corrected message assertion yielded1 real timeout failure/1 existing caller cancellation pass. Original complete capture mismatch retained.",
+    "change": "Explicit paired silent request input2500ms on both sides; transport TIMEOUT classified by DeepSeek before async watchdog race, caller cancellation priority preserved; production default/short deadlines/Source predicates unchanged"
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 49,
+    "removedBytes": 220139,
+    "removedLinks": 0,
+    "scope": "Closed own pytest workspaces only. Original failed fixture/report bytes preserved formally; successful generated controls reconstructible from frozen tests. Links removed without following targets."
+  },
+  "scope": "Separate actual targeted repair proof; not a complete release gate, historical task promotion or native Win7 certification.",
+  "executions": [
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-B",
+        "scripts/deepseek_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\deepseek-paired-final.json"
+      ],
+      "physicalExit": 0,
+      "seconds": 29.719000000040978
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-B",
+        "scripts/deepseek_capture_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\deepseek-capture-paired-final.json"
+      ],
+      "physicalExit": 0,
+      "seconds": 29.890999999945052
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/test_llm_http_cancellation.py",
+        "tests/test_deepseek_capture_consumers.py",
+        "tests/test_deepseek_image_journey.py",
+        "-q",
+        "--junitxml=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-idle-149c-20261011\\consumers-final.xml"
+      ],
+      "physicalExit": 0,
+      "seconds": 56.39000000001397
+    }
+  ]
+}

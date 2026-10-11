@@ -53,7 +53,7 @@ async def observe(fixture):
     def handle(self):
         original(self)
         if mode in ('cancel', 'idle'):
-            release.wait(3)
+            release.wait(10)
     Handler.do_POST = handle
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)

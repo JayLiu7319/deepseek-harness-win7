@@ -354,7 +354,8 @@
   {
     "id": "http-idle",
     "kind": "http",
-    "behavior": "idle"
+    "behavior": "idle",
+    "idleTimeoutMs": 2500
   },
   {
     "id": "http-cancel",
