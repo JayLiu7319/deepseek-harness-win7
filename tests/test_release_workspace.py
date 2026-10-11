@@ -157,6 +157,10 @@ def test_actual_release_pytest_exits_before_owned_artifact_cleanup(tmp_path, mon
         "    (tmp_path / 'receipt.json').write_text('{\"runtime\":{\"checks\":[\"actual runtime\"]}}', encoding='utf-8')\n"
         "    (tmp_path / 'actual-source.json').write_text('{\"source\":\"retained\"}', encoding='utf-8')\n"
         + ("    assert False, 'retained child failure'\n" if outcome == 'failed' else ''), encoding='utf-8')
+    (tests / 'test_z_following.py').write_text(
+        "def test_following():\n"
+        "    from pathlib import Path\n"
+        "    Path('following-ran').write_text('completed', encoding='utf-8')\n", encoding='utf-8')
     output = child / '.goose/out/release'
     output.mkdir(parents=True)
     monkeypatch.setattr(gate, 'ROOT', child)
@@ -168,6 +172,11 @@ def test_actual_release_pytest_exits_before_owned_artifact_cleanup(tmp_path, mon
     else:
         gate.run_python_regression(sys.executable, output, environment)
     assert environment['DSH_RELEASE_PYTEST_OUTPUT'] == 'inherited owner must be replaced'
+    assert (child / 'following-ran').exists() == (outcome == 'passed')
+    import xml.etree.ElementTree as ET
+    suites = ET.parse(str(output / 'pytest.xml')).getroot()
+    assert len(suites.findall('.//testcase')) == (2 if outcome == 'passed' else 1)
+    assert len(suites.findall('.//failure')) == (0 if outcome == 'passed' else 1)
     retained = output / 'pytest-workspace'
     assert not list(retained.glob('test_process*/receipt.json'))
     assert list(retained.glob('test_process*/actual-source.json'))
@@ -183,7 +192,7 @@ def test_actual_release_pytest_exits_before_owned_artifact_cleanup(tmp_path, mon
     assert audit['status'] == 'completed' and audit['removed_files'] == 1
     assert not (retained / 'unit-receipts-pruned.json').exists()
     log = (output / 'pytest.log').read_text(encoding='utf-8')
-    assert ('1 passed' if outcome == 'passed' else 'retained child failure') in log
+    assert ('2 passed' if outcome == 'passed' else 'retained child failure') in log
     assert (output / 'pytest.xml').is_file()
 
 

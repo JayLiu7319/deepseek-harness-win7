@@ -1,0 +1,1973 @@
+{
+  "id": "RUN-RELEASE-FAILFIRST-TARGETED-20261011-8A02A6DB",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "8a02a6db59a3efaad2c990fdd9b649494fddad51",
+  "commands": [
+    "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe -B -m pytest tests/test_release_workspace.py -ra --junitxml=.goose\\out\\release-failfirst-20261011\\pytest.xml"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Local Windows",
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-FAILFIRST-TARGETED-20261011-8A02A6DB.zip",
+      "sha256": "ea591c2873a0e58ebd5f71a997914d84af6eb88a5d1cad6796e1ae3fefaf43ed"
+    }
+  ],
+  "targeted": {
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 11.905999999959022,
+    "workingChanges": [
+      "scripts/verify_release.py",
+      "tests/test_release_workspace.py"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "workspace": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\t-kjxc4ekf",
+    "members": [
+      {
+        "path": "test_actual_release_process_pr0/owned-process.log",
+        "bytes": 35,
+        "kind": "file",
+        "sha256": "36640240a2e078bc70ba35414cbee7606c2f4f3e400f58c7361e0f298904ccda"
+      },
+      {
+        "path": "test_actual_release_process_pr0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_process_pr1/owned-process.log",
+        "bytes": 35,
+        "kind": "file",
+        "sha256": "36640240a2e078bc70ba35414cbee7606c2f4f3e400f58c7361e0f298904ccda"
+      },
+      {
+        "path": "test_actual_release_process_pr1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest-workspace/test_process0/actual-source.json",
+        "bytes": 21,
+        "kind": "file",
+        "sha256": "60ef31f7ce6259172e5bbcd3803a6d443fbec64db80616476e82fe0e533b3991"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest-workspace/test_process0/portable.zip",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "1ad082e41959489fb47ebb806ee6013866588d4b2ece688fcaa483f055841f7c"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest-workspace/test_process0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest-workspace-mapping.json",
+        "bytes": 582,
+        "kind": "file",
+        "sha256": "7d268034e87851b64035baeda16ce79e96c2a1e3a2a14d3ebb3432af2989982b"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest.log",
+        "bytes": 1437,
+        "kind": "file",
+        "sha256": "29393d43ac7f39a0e118e6cca8dec69e71913768e42edd8c73d606d9c618f739"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/pytest.xml",
+        "bytes": 395,
+        "kind": "file",
+        "sha256": "c2fff5287887ab53865ffe536f7d73b8740f1dbdc49f8466166e16d59c6b9cee"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release/unit-receipts-pruned.json",
+        "bytes": 789,
+        "kind": "file",
+        "sha256": "279a709fd4965a3c7f30939e6c1ff7678ba457694d0fcfc10cc8fd90ec9e1505"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out/release",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/.gitignore",
+        "bytes": 39,
+        "kind": "file",
+        "sha256": "e7c6bb30148cf667606dcd63e7ca77acaa3cfb0c8303bf09e6419e1e1669dc6d"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/CACHEDIR.TAG",
+        "bytes": 191,
+        "kind": "file",
+        "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/README.md",
+        "bytes": 310,
+        "kind": "file",
+        "sha256": "420e808d79a6c25d3cda0af33bc4782314a14949866682c68ce8149e89b66b70"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/v/cache/nodeids",
+        "bytes": 93,
+        "kind": "file",
+        "sha256": "d883511609b3917bff915c0f4323a08572d242f0be0f33affd216080b7d85e3f"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/v/cache/stepwise",
+        "bytes": 2,
+        "kind": "file",
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/v/cache",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache/v",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/.pytest_cache",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/following-ran",
+        "bytes": 9,
+        "kind": "file",
+        "sha256": "4ddb3e96801a1ee2b77dc5247c0db478d5f97a93b90e7cdb09f5f51d43764b08"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts/process_artifact_retention.py",
+        "bytes": 25792,
+        "kind": "file",
+        "sha256": "1884838c26fe9856cd626460154c3b5137a96171ac758804f830ea54780786db"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts/__init__.py",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts/__pycache__/process_artifact_retention.cpython-38.pyc",
+        "bytes": 20020,
+        "kind": "file",
+        "sha256": "297c97e8d436554fe374b027b34e05b325f67a61a54e31e1ec7b8dc94ef1f62a"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts/__pycache__/__init__.cpython-38.pyc",
+        "bytes": 223,
+        "kind": "file",
+        "sha256": "0361a7c362fe0b347f0b33298f06345e23446417d3d9a0d789eba298f515c4cb"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts/__pycache__",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/scripts",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/conftest.py",
+        "bytes": 1446,
+        "kind": "file",
+        "sha256": "8fb247730b3dfd7e160c2f599f0b4319fb8237a5f9ab7755b34914bfe176cadb"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/test_process.py",
+        "bytes": 369,
+        "kind": "file",
+        "sha256": "5c7d2b6e04d42dd8652dce7df7ef61b401f921da49884fdcc49e9b9c97463229"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/test_z_following.py",
+        "bytes": 122,
+        "kind": "file",
+        "sha256": "4ba576c45cb6f6c7f9e6d0dcf8d3da1cfa035eaf135b438bedef8cc1f26653fe"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/__pycache__/conftest.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 1831,
+        "kind": "file",
+        "sha256": "125ce44ac08ad5412b757a921261c6e27aba22fe6c06232feb51e598f2e0b9b1"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/__pycache__/test_process.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 909,
+        "kind": "file",
+        "sha256": "4ecb7c174614db2a168c99bd8d9134d07a10a83465c6c0721ea474b8ee63542a"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/__pycache__/test_z_following.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 564,
+        "kind": "file",
+        "sha256": "4ce80eae8840b1fb65bd99934fd1336ab2403817a7943c9bca04a9dcad213e10"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests/__pycache__",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child/tests",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0/child",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace/failed-reports/132bb96f039f11c0c5212169dadc33f410d09575d0f7942483cc75437e36a23b.json",
+        "bytes": 785,
+        "kind": "file",
+        "sha256": "5f141935b643658da583967d07749a92152d3949ce37430b94cf8ce683e90e4f"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace/failed-reports",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace/test_process0/actual-source.json",
+        "bytes": 21,
+        "kind": "file",
+        "sha256": "60ef31f7ce6259172e5bbcd3803a6d443fbec64db80616476e82fe0e533b3991"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace/test_process0/portable.zip",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "1ad082e41959489fb47ebb806ee6013866588d4b2ece688fcaa483f055841f7c"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace/test_process0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest-workspace-mapping.json",
+        "bytes": 582,
+        "kind": "file",
+        "sha256": "b12c63975e503420cdddaaf80092f1ad381e08be7059774a2a32c3e1ec425cb0"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest.log",
+        "bytes": 2350,
+        "kind": "file",
+        "sha256": "6ea084428770a24bc8d90430ffc594da910c3f68c2f7267236bce382891dc634"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/pytest.xml",
+        "bytes": 1050,
+        "kind": "file",
+        "sha256": "2a5438fa77cc6ce86fc098d9d1ea8e7e27c37f313a318725d550ec90ffecc4bf"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release/unit-receipts-pruned.json",
+        "bytes": 789,
+        "kind": "file",
+        "sha256": "e6f69b04eb213b2e07de62f98e3e4c98742a332b30058e50af12ba8efa512867"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out/release",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/.gitignore",
+        "bytes": 39,
+        "kind": "file",
+        "sha256": "e7c6bb30148cf667606dcd63e7ca77acaa3cfb0c8303bf09e6419e1e1669dc6d"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/CACHEDIR.TAG",
+        "bytes": 191,
+        "kind": "file",
+        "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/README.md",
+        "bytes": 310,
+        "kind": "file",
+        "sha256": "420e808d79a6c25d3cda0af33bc4782314a14949866682c68ce8149e89b66b70"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/v/cache/lastfailed",
+        "bytes": 51,
+        "kind": "file",
+        "sha256": "dee22116677f27dd4b3d4e46c4ec0df066f1f81daef62efee5833f623beff505"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/v/cache/nodeids",
+        "bytes": 93,
+        "kind": "file",
+        "sha256": "d883511609b3917bff915c0f4323a08572d242f0be0f33affd216080b7d85e3f"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/v/cache/stepwise",
+        "bytes": 2,
+        "kind": "file",
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/v/cache",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache/v",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/.pytest_cache",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts/process_artifact_retention.py",
+        "bytes": 25792,
+        "kind": "file",
+        "sha256": "1884838c26fe9856cd626460154c3b5137a96171ac758804f830ea54780786db"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts/__init__.py",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts/__pycache__/process_artifact_retention.cpython-38.pyc",
+        "bytes": 20020,
+        "kind": "file",
+        "sha256": "e34bdf5b7d036933e3eacbded840c0688c6d1e10f0d9a1839c50f455af2d5cc6"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts/__pycache__/__init__.cpython-38.pyc",
+        "bytes": 223,
+        "kind": "file",
+        "sha256": "3edb04a913e093b015618ed7082eefd51e3643bcb45e069afcbd5844ca9d0bc2"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts/__pycache__",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/scripts",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/conftest.py",
+        "bytes": 1446,
+        "kind": "file",
+        "sha256": "8fb247730b3dfd7e160c2f599f0b4319fb8237a5f9ab7755b34914bfe176cadb"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/test_process.py",
+        "bytes": 413,
+        "kind": "file",
+        "sha256": "8d2fdb425c179416abdba859a05e7ee785525598a80d2c87995afb8c8c64e57a"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/test_z_following.py",
+        "bytes": 122,
+        "kind": "file",
+        "sha256": "4ba576c45cb6f6c7f9e6d0dcf8d3da1cfa035eaf135b438bedef8cc1f26653fe"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/__pycache__/conftest.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 1831,
+        "kind": "file",
+        "sha256": "98b060e5094631abd21770d94bb39c10fd048fae83c2eeda4e19d53dcadebe22"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/__pycache__/test_process.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 1035,
+        "kind": "file",
+        "sha256": "98da0e266c5266d6feba7d671a58b7e47335b706ab2d4ea747b9763d4810eaa1"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/__pycache__/test_z_following.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 564,
+        "kind": "file",
+        "sha256": "0389188ceede6687a865b21353daae3d3ffcd22816e345d06e1adfd18be41390"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests/__pycache__",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child/tests",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1/child",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_release_pytest_exi1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_timeout_retires_re0/child-ready.json",
+        "bytes": 14,
+        "kind": "file",
+        "sha256": "fd1ee2a6a0a1f5c0a3f2f897569dd6d7b98872e3fb3cade0d79e1c606bd7d1c0"
+      },
+      {
+        "path": "test_actual_timeout_retires_re0/owned-timeout-cleanup.json",
+        "bytes": 837,
+        "kind": "file",
+        "sha256": "133660ecde517b2646ccdb6609adaa25a2612bfe79cfbdc5bfb46bd84ecf704b"
+      },
+      {
+        "path": "test_actual_timeout_retires_re0/owned-timeout.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_actual_timeout_retires_re0/retained",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_actual_timeout_retires_re0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/entered",
+        "bytes": 7,
+        "kind": "file",
+        "sha256": "c071cf5f5ed6f884cc70155b6f05f755fd46a302d05e4261b7e92ce878bbfed8"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/pytest.log",
+        "bytes": 1,
+        "kind": "file",
+        "sha256": "f67ab10ad4e4c53121b6a5fe4da9c10ddee905b978d3788d2723d7bfacbe28a9"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts/process_artifact_retention.py",
+        "bytes": 25792,
+        "kind": "file",
+        "sha256": "1884838c26fe9856cd626460154c3b5137a96171ac758804f830ea54780786db"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts/__init__.py",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts/__pycache__/process_artifact_retention.cpython-38.pyc",
+        "bytes": 20020,
+        "kind": "file",
+        "sha256": "937a619eb36cff5f656db9582bbaa2064f111336f4480154160a57900cf000f9"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts/__pycache__/__init__.cpython-38.pyc",
+        "bytes": 223,
+        "kind": "file",
+        "sha256": "da03f298befae61c068879b3e5d80e8f3a9c42ed19220fd577b05cacafb27535"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts/__pycache__",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/scripts",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests/conftest.py",
+        "bytes": 1446,
+        "kind": "file",
+        "sha256": "8fb247730b3dfd7e160c2f599f0b4319fb8237a5f9ab7755b34914bfe176cadb"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests/test_failure.py",
+        "bytes": 215,
+        "kind": "file",
+        "sha256": "ab6f438e2b50d9c4dee68424132de5f8b54dd430bba86cd34f6967aad1365df5"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests/__pycache__/conftest.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 1831,
+        "kind": "file",
+        "sha256": "4796685414e89d6b76b340aa3e767335dc9b521874f72e8e8c3ec884cead3d6c"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests/__pycache__/test_failure.cpython-38-pytest-8.3.5.pyc",
+        "bytes": 907,
+        "kind": "file",
+        "sha256": "4bb7923fd37e27776bc6b47b29712134f368ad443e5e7c14c7e3920aaafa470e"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests/__pycache__",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/tests",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/workspace/failed-reports/5aeb3b95f50f3e9e28767bb786d8a1156cfcb38bebd5b7e63b2598647a23b65b.json",
+        "bytes": 320,
+        "kind": "file",
+        "sha256": "ea84322e20cc93096a70f4a82daf9db3faa42e08b07e30d2371066b4e2720470"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/workspace/failed-reports",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child/workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0/child",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failure_trace_is_retained0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose/out/release/pytest-artifact-cleanup-failure.json",
+        "bytes": 78,
+        "kind": "file",
+        "sha256": "bb95c2cdcdabd2fee9bae4a939e1c55c659daa29b8aebd3a8fb7307ae82585a5"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose/out/release/pytest-retention-failure.json",
+        "bytes": 75,
+        "kind": "file",
+        "sha256": "6271db0f250014889ce7ade5c75bb7101fbf6378305d9678b96b281820be0aa2"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose/out/release/pytest-workspace-mapping.json",
+        "bytes": 575,
+        "kind": "file",
+        "sha256": "5686f51b6b2894d4b9e75ba07c1210266b2266571924cd852f1d3e51720b84ff"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose/out/release",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1/.goose/out/release/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1/.goose/out/release/pytest-workspace-mapping.json",
+        "bytes": 575,
+        "kind": "file",
+        "sha256": "cf23e9c9a87fbb13be57b9bb009b1234e1a7fde546668fa47c90e6bd030bfed1"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1/.goose/out/release",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_normal_failed_pytest_stat1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_cli_rej0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_cli_rej1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_cli_rej2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_cli_rej3",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_is_opti0/gate/summary.json",
+        "bytes": 53,
+        "kind": "file",
+        "sha256": "f97a0a4e05d919e6f8869e3d23accb3976025221369d63265256af4d90b05bae"
+      },
+      {
+        "path": "test_regression_budget_is_opti0/gate",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_is_opti0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_is_opti1/gate/summary.json",
+        "bytes": 53,
+        "kind": "file",
+        "sha256": "f97a0a4e05d919e6f8869e3d23accb3976025221369d63265256af4d90b05bae"
+      },
+      {
+        "path": "test_regression_budget_is_opti1/gate",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_regression_budget_is_opti1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid0/.goose/out/candidate/pytest-retention-failure.json",
+        "bytes": 79,
+        "kind": "file",
+        "sha256": "edeeafeb0ec5b231c0637ee20a70b165d94bfb7f3e86c8639a3300d0e906a087"
+      },
+      {
+        "path": "test_retention_error_never_hid0/.goose/out/candidate/pytest-workspace-mapping.json",
+        "bytes": 577,
+        "kind": "file",
+        "sha256": "745fc4e46a5229509c845040df6ef11049c2060cb364834308d142f292e576a9"
+      },
+      {
+        "path": "test_retention_error_never_hid0/.goose/out/candidate",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid0/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid0/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid1/.goose/out/candidate/pytest-retention-failure.json",
+        "bytes": 79,
+        "kind": "file",
+        "sha256": "edeeafeb0ec5b231c0637ee20a70b165d94bfb7f3e86c8639a3300d0e906a087"
+      },
+      {
+        "path": "test_retention_error_never_hid1/.goose/out/candidate/pytest-workspace-mapping.json",
+        "bytes": 577,
+        "kind": "file",
+        "sha256": "23dde96194a7c78a0068d912822c33ca0bcc6845adc75001213ce7a8ec1b99d5"
+      },
+      {
+        "path": "test_retention_error_never_hid1/.goose/out/candidate",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid1/.goose/out",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid1/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_retention_error_never_hid1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re0/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace/owned-observation.json",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "f076d4815b8f74f56099a7bb035ec530c19534ea6ec5308c2ebef3ddf7ce87ba"
+      },
+      {
+        "path": "test_short_pytest_workspace_re0/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re0/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace-mapping.json",
+        "bytes": 645,
+        "kind": "file",
+        "sha256": "326d75240cf87df6c15613f3b8c77ab6779acf862dd4f9c49e0a3a584a7f9da7"
+      },
+      {
+        "path": "test_short_pytest_workspace_re0/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re1/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace/owned-observation.json",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "f076d4815b8f74f56099a7bb035ec530c19534ea6ec5308c2ebef3ddf7ce87ba"
+      },
+      {
+        "path": "test_short_pytest_workspace_re1/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re1/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace-mapping.json",
+        "bytes": 645,
+        "kind": "file",
+        "sha256": "0f8c13da0ee3612bc15afefe07309d41fd9a311a996cb1c327d0066750d86e93"
+      },
+      {
+        "path": "test_short_pytest_workspace_re1/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re2/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace/owned-observation.json",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "f076d4815b8f74f56099a7bb035ec530c19534ea6ec5308c2ebef3ddf7ce87ba"
+      },
+      {
+        "path": "test_short_pytest_workspace_re2/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re2/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace-mapping.json",
+        "bytes": 645,
+        "kind": "file",
+        "sha256": "b58552fd7701d496178b8f87414cd5e7bfe13300caa79f84a262f6f37ec40a24"
+      },
+      {
+        "path": "test_short_pytest_workspace_re2/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re3/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace/owned-observation.json",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "f076d4815b8f74f56099a7bb035ec530c19534ea6ec5308c2ebef3ddf7ce87ba"
+      },
+      {
+        "path": "test_short_pytest_workspace_re3/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re3/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/pytest-workspace-mapping.json",
+        "bytes": 645,
+        "kind": "file",
+        "sha256": "41c7af18f94e8cb06ab7356ec74f8e4dccf56cb332634d81e65bb06b4c9bee7a"
+      },
+      {
+        "path": "test_short_pytest_workspace_re3/descriptive-release-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_re3",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents/agents/parity-architect.md",
+        "bytes": 3220,
+        "kind": "file",
+        "sha256": "cf582ae2570fd19ef2053d74b184cb839339be0616fd41ccf3811fef96374bcf"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents/agents/parity-judge.md",
+        "bytes": 3904,
+        "kind": "file",
+        "sha256": "8d0864aff5b6a6985c704ba3478f2aa550f306113d059b9066ce4727e1265865"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents/agents/parity-migrator.md",
+        "bytes": 8787,
+        "kind": "file",
+        "sha256": "383975f723353cb6836160e2e2baa97c5d98ff26f3dd9db90754f1185cb77052"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents/agents/parity-reviewer.md",
+        "bytes": 7178,
+        "kind": "file",
+        "sha256": "bcefd55657ad6a8c1a788d753b8e6b1e8c5f69b67d37c72322e146e882422898"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents/agents",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.agents",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/COMMIT_EDITMSG",
+        "bytes": 9,
+        "kind": "file",
+        "sha256": "4b654bd1437066b13498661f3ca14774daf1066d072036beffaf06f0c014250e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/config",
+        "bytes": 180,
+        "kind": "file",
+        "sha256": "55e1e02bc98a4e7c2fa079a4754c07d3d589c71fea48f46f3bbf6f7b98e80d60"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/description",
+        "bytes": 73,
+        "kind": "file",
+        "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/HEAD",
+        "bytes": 23,
+        "kind": "file",
+        "sha256": "f6f2b945f6c411b02ba3da9c7ace88dcf71b6af65ba2e0d89aa82900042b5a10"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/applypatch-msg.sample",
+        "bytes": 478,
+        "kind": "file",
+        "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/commit-msg.sample",
+        "bytes": 896,
+        "kind": "file",
+        "sha256": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/fsmonitor-watchman.sample",
+        "bytes": 4726,
+        "kind": "file",
+        "sha256": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/post-update.sample",
+        "bytes": 189,
+        "kind": "file",
+        "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-applypatch.sample",
+        "bytes": 424,
+        "kind": "file",
+        "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-commit.sample",
+        "bytes": 1649,
+        "kind": "file",
+        "sha256": "57185b7b9f05239d7ab52db045f5b89eb31348d7b2177eab214f5eb872e1971b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-merge-commit.sample",
+        "bytes": 416,
+        "kind": "file",
+        "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-push.sample",
+        "bytes": 1374,
+        "kind": "file",
+        "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-rebase.sample",
+        "bytes": 4898,
+        "kind": "file",
+        "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/pre-receive.sample",
+        "bytes": 544,
+        "kind": "file",
+        "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/prepare-commit-msg.sample",
+        "bytes": 1492,
+        "kind": "file",
+        "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/push-to-checkout.sample",
+        "bytes": 2783,
+        "kind": "file",
+        "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/sendemail-validate.sample",
+        "bytes": 2308,
+        "kind": "file",
+        "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks/update.sample",
+        "bytes": 3650,
+        "kind": "file",
+        "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/hooks",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/index",
+        "bytes": 1094,
+        "kind": "file",
+        "sha256": "6a30ac23532c145692cef4f2efdabcbef1889e11eb7416be6bff0fd19e9ac742"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/info/exclude",
+        "bytes": 240,
+        "kind": "file",
+        "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/info",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/HEAD",
+        "bytes": 154,
+        "kind": "file",
+        "sha256": "fa26971f3a5fa7bb06895de8a1d9460aaaacd10e36a919b4f7da64442912279b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads/codex/parity-integration-18e47800",
+        "bytes": 189,
+        "kind": "file",
+        "sha256": "57f1c70defe32d178668264f537d3c5718cc941d0be5efb66a6944c246aee262"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads/codex/parity-task-0eb5b8d6f81b",
+        "bytes": 342,
+        "kind": "file",
+        "sha256": "807cd0e2459dce6697c4296b2e3afcc6591ddbbc5f45bb7128cb1e41988eea09"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads/codex/parity-task-0eb5b8d6f81b-split-1791689926267298900",
+        "bytes": 189,
+        "kind": "file",
+        "sha256": "4d945b3dc28a7975f5506a3a6edaad7cec449fc7493a7b609960715118d83636"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads/codex",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads/master",
+        "bytes": 154,
+        "kind": "file",
+        "sha256": "fa26971f3a5fa7bb06895de8a1d9460aaaacd10e36a919b4f7da64442912279b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs/heads",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs/refs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/logs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/21/6304d686b83cabe399ea290481eb6bfcb49df6",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "a7ee014e64535feaa5ca058d7c03afa525b5d6c9aa14ac09c2f20ec8b79c2b49"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/21",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/27/cc4680a03825419f1068295ee58c0cd5fc8cd9",
+        "bytes": 49,
+        "kind": "file",
+        "sha256": "19e8f58fd93c99a9864732be8c8ce18bc41ddd0d966f5d3bed10b17424269aa9"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/27",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/2a/9929787b37a3cdabe77e777f678f2c761c1df8",
+        "bytes": 49,
+        "kind": "file",
+        "sha256": "a1c7159666a5293dc30fa5224ed69ae22107d22366186bef5e8f7f72448d350f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/2a",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/45/ddb1b28f1276ff6e30317c70668adb33777e11",
+        "bytes": 103,
+        "kind": "file",
+        "sha256": "ba897984aef95dd423eac5d868fc1cdfc69350d70aae5589469d913fc5cdc8d7"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/45",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/53/3d1af92b9093cb180caaf2c57f5954f9332121",
+        "bytes": 26,
+        "kind": "file",
+        "sha256": "be0db1b63a67d437ad5b1152a0f940b889cdc45e269ef48a0b4b3be4ec3aa747"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/53",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/61/e57b7c191d0e3db2fce1681fa38a6af8e8534e",
+        "bytes": 61,
+        "kind": "file",
+        "sha256": "3bc0ff24edd2db92bc534555655e109d4f7a6edc3533904ee91aa64a1539981a"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/61",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/7d/ca33ed44c84d6b0951370af9354076d130a5e6",
+        "bytes": 125,
+        "kind": "file",
+        "sha256": "c4f3c3e24dcdbf6bdaa960701b1d568098c5d5351536b212888c4cdb231e69fc"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/7d",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/81/5279575d5edee2fbaf339f1af30f741167dbb2",
+        "bytes": 3373,
+        "kind": "file",
+        "sha256": "ca24077a489aa02cf407a39520abb56de9d9516613b01ed9d1e1266950e6b0ab"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/81",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/97/3262765a7ebc09d21fd3f3f3b0f0cc8e3fbd24",
+        "bytes": 200,
+        "kind": "file",
+        "sha256": "e4eb892cae6286c96610c656398eb621bae42775cc1f4bb93f8a5c5496f82d6e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/97",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/98/257433327dada4eacb99a7ee4badf8dd989f80",
+        "bytes": 161,
+        "kind": "file",
+        "sha256": "1dd7ab924f1a54738f605d5ca62bcea2e848de12bb8b0f29c787d0ca4ee9f9cf"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/98",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/9d/a340dac025b8d647c71c9f0f9ee5ab638506b7",
+        "bytes": 1602,
+        "kind": "file",
+        "sha256": "8f8953100d5b139d131a6f27b2ec3f172d7a372154f48b20274e6e95d9871822"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/9d",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/a1/91f0343f6367a721251176ee7bcfae53644354",
+        "bytes": 80,
+        "kind": "file",
+        "sha256": "c80fe0fee01a160bed82ec72037a34523bdadc8cf201bc785b409e66bb1e3391"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/a1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/aa/db9f1c936d33fcb1f1d089b9eb4cd4195790b2",
+        "bytes": 180,
+        "kind": "file",
+        "sha256": "4dd95b6bbf8fd9a151d4a404610b454512ee96523f484f931ca3625247382dbb"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/aa",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/b2/3193cf4f3ed26ff890ec252ed1b98076aba5a9",
+        "bytes": 60,
+        "kind": "file",
+        "sha256": "b3e7f7386773850e072e1fd3646953ec127df76d7c46dfd652eba9d07c07da9a"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/b2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/ba/9c348e62bd25df618d5fb024d4f4a071e9b22d",
+        "bytes": 1981,
+        "kind": "file",
+        "sha256": "5a4326c70728e6da20be9df154ef16922ee73edb4f1c475b1ee0f2634e84d548"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/ba",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/c5/0ab19c0040df781cea2488570207ff83352241",
+        "bytes": 26,
+        "kind": "file",
+        "sha256": "dba866e261d1fc9be4f941fe3bb4d2c76aa1f04ad166b511ffd6d5ad22310f5d"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/c5",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/c8/c6a24a4f57cac2c6b2a03ce74eb65c91ae03a0",
+        "bytes": 4028,
+        "kind": "file",
+        "sha256": "c191b96e9e75160956d728f8fe639dabf6b2d7588e86b2bb5eb790d31234506f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/c8",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/ed/09c833d54d8abea106f9db7654b36e285984ce",
+        "bytes": 158,
+        "kind": "file",
+        "sha256": "1d3d92f5fb5f7819664053e5f91a7a201168fb585cc3b7e87437a9d0fe142804"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/ed/17c413b2cdcf41882e327168a662ba945bf56b",
+        "bytes": 3463,
+        "kind": "file",
+        "sha256": "5edd39d5c2cf968f33ef798235bfdc7d7031953679964e8380c103fa834ee349"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/ed",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/info",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects/pack",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/objects",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads/codex/parity-integration-18e47800",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "52715dff4da0ce4d92c51728b341f2455d0707970dec90109d6b1ca3db43e053"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads/codex/parity-task-0eb5b8d6f81b",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "98121cb93300dfab7b6a7e1cee1c8cf9df02e5134e80afb776c04e6589a6d510"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads/codex/parity-task-0eb5b8d6f81b-split-1791689926267298900",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "98121cb93300dfab7b6a7e1cee1c8cf9df02e5134e80afb776c04e6589a6d510"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads/codex",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads/master",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "52715dff4da0ce4d92c51728b341f2455d0707970dec90109d6b1ca3db43e053"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/heads",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs/tags",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/refs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/COMMIT_EDITMSG",
+        "bytes": 18,
+        "kind": "file",
+        "sha256": "5b0bb7ebebf0876e8d3f1dcf300d108fc7a6bfb1fdc4b6c8ed04e27e42f12202"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/commondir",
+        "bytes": 6,
+        "kind": "file",
+        "sha256": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/gitdir",
+        "bytes": 125,
+        "kind": "file",
+        "sha256": "3c4440edaf524c0d99edfd86511ae40176a0b6ecba202ef0abcf67465c16c9f4"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/HEAD",
+        "bytes": 47,
+        "kind": "file",
+        "sha256": "75777ab461ee79dd5a9167cf24e5fae6de0d30c7f2fb0898087cec0e1417d6d3"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/index",
+        "bytes": 1094,
+        "kind": "file",
+        "sha256": "bebbb54ef53fe4458152ae317d1d6577a5a9188fceb31bb8b3f00b5bc8ca544e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/logs/HEAD",
+        "bytes": 429,
+        "kind": "file",
+        "sha256": "7bab4050a237467e4c05b561fe0739bce6cbb9403cedfa8f6c14ba853edd041e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/logs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/ORIG_HEAD",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "52715dff4da0ce4d92c51728b341f2455d0707970dec90109d6b1ca3db43e053"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b/refs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/commondir",
+        "bytes": 6,
+        "kind": "file",
+        "sha256": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/gitdir",
+        "bytes": 151,
+        "kind": "file",
+        "sha256": "0069c50774bea768bd0d4ce6090161fad7be60247a00a12df6f3e23bd60a79c0"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/HEAD",
+        "bytes": 73,
+        "kind": "file",
+        "sha256": "710022155352e5626aa441e45d99b537bfb52784ff1d9f37d3ae79ee2c97baff"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/index",
+        "bytes": 1094,
+        "kind": "file",
+        "sha256": "df0aa2c51a7e4328430ad324669aca1bda1e3ff3a3e34ade6595b65703967c63"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/logs/HEAD",
+        "bytes": 276,
+        "kind": "file",
+        "sha256": "74f799fb8bb55437e95a1b26ee455f84d6a46ddbb6d2fe50e654b1d2a0a3441d"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/logs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/ORIG_HEAD",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "98121cb93300dfab7b6a7e1cee1c8cf9df02e5134e80afb776c04e6589a6d510"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900/refs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/0eb5b8d6f81b-split-1791689926267298900",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/commondir",
+        "bytes": 6,
+        "kind": "file",
+        "sha256": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/gitdir",
+        "bytes": 114,
+        "kind": "file",
+        "sha256": "ee9ac3b9874ab4f54d5fc30cf660183f434896e13220f577f78b124ca87be750"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/HEAD",
+        "bytes": 50,
+        "kind": "file",
+        "sha256": "3a1b75610645091255dda5662a6f9c1a535a9b79eca5fd8b69a63c84fb166db3"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/index",
+        "bytes": 1094,
+        "kind": "file",
+        "sha256": "a54cc8bac20c8698a2b259be40494d724c8cb05cffcf4513afe96685fba69288"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/logs/HEAD",
+        "bytes": 276,
+        "kind": "file",
+        "sha256": "81b1a3c60e2f84a98d59977058151d6048f5a18bb5ff5358f09d0aaf88047e10"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/logs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/ORIG_HEAD",
+        "bytes": 41,
+        "kind": "file",
+        "sha256": "52715dff4da0ce4d92c51728b341f2455d0707970dec90109d6b1ca3db43e053"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration/refs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees/integration",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git/worktrees",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.git",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.gitignore",
+        "bytes": 51,
+        "kind": "file",
+        "sha256": "8c85cfcaef51b37572fb21662e4a1264cc76324aab617ccc74103109336f0d7e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/recipes/parity-unit.yaml",
+        "bytes": 8885,
+        "kind": "file",
+        "sha256": "aab37b0519fd5c1ee9e70072bc125e96cceb42edb929f78c343a3e558b611eb5"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/recipes",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents/agents/parity-architect.md",
+        "bytes": 3220,
+        "kind": "file",
+        "sha256": "cf582ae2570fd19ef2053d74b184cb839339be0616fd41ccf3811fef96374bcf"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents/agents/parity-judge.md",
+        "bytes": 3904,
+        "kind": "file",
+        "sha256": "8d0864aff5b6a6985c704ba3478f2aa550f306113d059b9066ce4727e1265865"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents/agents/parity-migrator.md",
+        "bytes": 8787,
+        "kind": "file",
+        "sha256": "383975f723353cb6836160e2e2baa97c5d98ff26f3dd9db90754f1185cb77052"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents/agents/parity-reviewer.md",
+        "bytes": 7178,
+        "kind": "file",
+        "sha256": "bcefd55657ad6a8c1a788d753b8e6b1e8c5f69b67d37c72322e146e882422898"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents/agents",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.agents",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.git",
+        "bytes": 112,
+        "kind": "file",
+        "sha256": "54562c6c725f0d74e079dba829d1ef78fbd4a92c9b654e4f5a1ec06e5b8910a7"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.gitignore",
+        "bytes": 51,
+        "kind": "file",
+        "sha256": "8c85cfcaef51b37572fb21662e4a1264cc76324aab617ccc74103109336f0d7e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.goose/recipes/parity-unit.yaml",
+        "bytes": 8885,
+        "kind": "file",
+        "sha256": "aab37b0519fd5c1ee9e70072bc125e96cceb42edb929f78c343a3e558b611eb5"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.goose/recipes",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/a.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/b.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/tests/test_a.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "ac22afb9f2ad0dff9d651686d85142dc07612ed5bfa8538e04a0595166abde38"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/tests/test_b.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "d93b1d33fb3aa3a23526a136f6cf40a245843e98c58e998640925c9125085f9b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration/tests",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/integration",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/state.sqlite3",
+        "bytes": 61440,
+        "kind": "file",
+        "sha256": "7affe924dc6416eeb64c36e459f7afe92dfb4efc888ea019587c8e59cde5409c"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents/agents/parity-architect.md",
+        "bytes": 3220,
+        "kind": "file",
+        "sha256": "cf582ae2570fd19ef2053d74b184cb839339be0616fd41ccf3811fef96374bcf"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents/agents/parity-judge.md",
+        "bytes": 3904,
+        "kind": "file",
+        "sha256": "8d0864aff5b6a6985c704ba3478f2aa550f306113d059b9066ce4727e1265865"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents/agents/parity-migrator.md",
+        "bytes": 8787,
+        "kind": "file",
+        "sha256": "383975f723353cb6836160e2e2baa97c5d98ff26f3dd9db90754f1185cb77052"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents/agents/parity-reviewer.md",
+        "bytes": 7178,
+        "kind": "file",
+        "sha256": "bcefd55657ad6a8c1a788d753b8e6b1e8c5f69b67d37c72322e146e882422898"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents/agents",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.agents",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.git",
+        "bytes": 113,
+        "kind": "file",
+        "sha256": "4d60954c3ff0c3cb10aef6394553e6d3be8b79d26cc3e28da51b0691b1a84540"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.gitignore",
+        "bytes": 51,
+        "kind": "file",
+        "sha256": "8c85cfcaef51b37572fb21662e4a1264cc76324aab617ccc74103109336f0d7e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.goose/recipes/parity-unit.yaml",
+        "bytes": 8885,
+        "kind": "file",
+        "sha256": "aab37b0519fd5c1ee9e70072bc125e96cceb42edb929f78c343a3e558b611eb5"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.goose/recipes",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.goose/runs/20261011-113845-8eab9ec4",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.goose/runs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/a.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "d8b5e666e774428de85c5ee2538fdfd64830f8098705e2ae55208359c424a5e8"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/b.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/tests/test_a.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "ac22afb9f2ad0dff9d651686d85142dc07612ed5bfa8538e04a0595166abde38"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/tests/test_b.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "d93b1d33fb3aa3a23526a136f6cf40a245843e98c58e998640925c9125085f9b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b/tests",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents/agents/parity-architect.md",
+        "bytes": 3220,
+        "kind": "file",
+        "sha256": "cf582ae2570fd19ef2053d74b184cb839339be0616fd41ccf3811fef96374bcf"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents/agents/parity-judge.md",
+        "bytes": 3904,
+        "kind": "file",
+        "sha256": "8d0864aff5b6a6985c704ba3478f2aa550f306113d059b9066ce4727e1265865"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents/agents/parity-migrator.md",
+        "bytes": 8787,
+        "kind": "file",
+        "sha256": "383975f723353cb6836160e2e2baa97c5d98ff26f3dd9db90754f1185cb77052"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents/agents/parity-reviewer.md",
+        "bytes": 7178,
+        "kind": "file",
+        "sha256": "bcefd55657ad6a8c1a788d753b8e6b1e8c5f69b67d37c72322e146e882422898"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents/agents",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.agents",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.git",
+        "bytes": 139,
+        "kind": "file",
+        "sha256": "a52817190205a34426603dbf72a1b64c5f73a98637c2cc6726c6d3ae7ff9b354"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.gitignore",
+        "bytes": 51,
+        "kind": "file",
+        "sha256": "8c85cfcaef51b37572fb21662e4a1264cc76324aab617ccc74103109336f0d7e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.goose/recipes/parity-unit.yaml",
+        "bytes": 8885,
+        "kind": "file",
+        "sha256": "aab37b0519fd5c1ee9e70072bc125e96cceb42edb929f78c343a3e558b611eb5"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.goose/recipes",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.goose/runs/20261011-113846-9bc189d4",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.goose/runs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/a.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "d8b5e666e774428de85c5ee2538fdfd64830f8098705e2ae55208359c424a5e8"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/b.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/tests/test_a.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "ac22afb9f2ad0dff9d651686d85142dc07612ed5bfa8538e04a0595166abde38"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/tests/test_b.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "d93b1d33fb3aa3a23526a136f6cf40a245843e98c58e998640925c9125085f9b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900/tests",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees/0eb5b8d6f81b-split-1791689926267298900",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project/worktrees",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs/project",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose/runs",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/.goose",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/a.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/b.py",
+        "bytes": 11,
+        "kind": "file",
+        "sha256": "ea46b0fe08f970265ee8769ad380da6cbe00c81e59e7966319388321e302285f"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/tests/test_a.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "ac22afb9f2ad0dff9d651686d85142dc07612ed5bfa8538e04a0595166abde38"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/tests/test_b.py",
+        "bytes": 105,
+        "kind": "file",
+        "sha256": "d93b1d33fb3aa3a23526a136f6cf40a245843e98c58e998640925c9125085f9b"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0/tests",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace/test_split_tasks_fork_shared_c0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest-workspace-mapping.json",
+        "bytes": 645,
+        "kind": "file",
+        "sha256": "eafed1769d21cf670cbceb9002ba63f48b49cc574c5eb8d9fbbb0eaa985da16e"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest.log",
+        "bytes": 1361,
+        "kind": "file",
+        "sha256": "266e9afbbeef357955730dc5a9b68111081d7a13f4b7093ec4f08c477ffa84a3"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/pytest.xml",
+        "bytes": 370,
+        "kind": "file",
+        "sha256": "4f9a35f019848ea47e9bd30674f2b9fe72b8b0f97ce1053f9a01815ecaeba5ad"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0/descriptive-release-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_short_pytest_workspace_ru0",
+        "bytes": 0,
+        "kind": "directory"
+      }
+    ],
+    "removedFiles": 193,
+    "removedBytes": 412633,
+    "removedLinks": 0,
+    "scope": "Closed 21-case release workspace controls; raw failure/XML/log controls preserved before deleting generated copies. No full qualification."
+  },
+  "scope": "Actual success/all-collected and first-failure/XML/retention process checks, timeout descendant and consumer workspace controls. Tested working changes over named base; not complete acceptance and does not explain original cancelled full-run exception."
+}

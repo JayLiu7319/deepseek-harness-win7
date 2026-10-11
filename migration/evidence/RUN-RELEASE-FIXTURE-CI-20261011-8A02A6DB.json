@@ -1,0 +1,61 @@
+{
+  "id": "RUN-RELEASE-FIXTURE-CI-20261011-8A02A6DB",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "8a02a6db59a3efaad2c990fdd9b649494fddad51",
+  "commands": [
+    "GitHub release-environment.yml scope=fixture, run 38108105071, exact head 8a02a6db59a3efaad2c990fdd9b649494fddad51",
+    "One actual cold shared release fixture; original timeout exception remains unknown"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-FIXTURE-CI-20261011-8A02A6DB.zip",
+      "sha256": "897bc8cca477754792d1a83ba0b94b68e03a924098c4158fba5d2fbd2ab853d3"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-FIXTURE-BINDING-20261011-8A02A6DB.zip",
+      "sha256": "500c32aaa0a752666cae95711b82a0f0b79c8f657c90671b674306a530176bf1"
+    }
+  ],
+  "targeted": {
+    "collected": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "physicalExit": 0,
+    "seconds": 209.75,
+    "checks": [
+      "actual cold Source/native shared fixture and physical missing-tree refusal"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 64069,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-fixture-8a02-20261011\\release-environment.zip",
+        "bytes": 32747,
+        "sha256": "897bc8cca477754792d1a83ba0b94b68e03a924098c4158fba5d2fbd2ab853d3",
+        "original": "migration/evidence/artifacts/RELEASE-FIXTURE-CI-20261011-8A02A6DB.zip"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-fixture-8a02-20261011\\diagnostics-transfer.zip",
+        "bytes": 31322,
+        "sha256": "63fbc266e23d548a742f3b64aba880c6b6c9528016ff2ebbcff03cbd18320af7",
+        "original": "migration/evidence/artifacts/RELEASE-FIXTURE-CI-20261011-8A02A6DB.zip"
+      }
+    ],
+    "scope": "Only completed own transfer duplicates; actual closed hosted pytest observations remain in original carrier"
+  },
+  "scope": "Targeted actual cold shared fixture only. Original full-run exception not reproduced or attributed. Previous original failures remain unchanged; complete release gate and native Win7 certification not implied. No stitched receipt or task-state promotion."
+}
