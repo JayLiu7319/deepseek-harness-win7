@@ -5,7 +5,7 @@ on:
       scope:
         description: Diagnostic scope
         type: choice
-        options: [consumers, startup, default-dacl, windows, fixture]
+        options: [consumers, startup, default-dacl, windows, fixture, deepseek-error]
         default: consumers
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.8.10'
       - uses: actions/setup-node@v4
-        if: inputs.scope == 'consumers' || inputs.scope == 'fixture'
+        if: inputs.scope == 'consumers' || inputs.scope == 'fixture' || inputs.scope == 'deepseek-error'
         with:
           node-version: '22.22.2'
       - name: Allocate owned diagnostic output
@@ -37,7 +37,7 @@ jobs:
           .venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements-dev.lock
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Prepare cold pinned Source and original build carrier
-        if: inputs.scope == 'consumers' || inputs.scope == 'fixture'
+        if: inputs.scope == 'consumers' || inputs.scope == 'fixture' || inputs.scope == 'deepseek-error'
         run: |
           .venv/Scripts/python.exe -c "from scripts.verify_release import prepare_node_dependencies; from pathlib import Path; import os; prepare_node_dependencies(Path('.goose/out/release-environment').resolve(), dict(os.environ))"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -85,6 +85,19 @@ jobs:
           $env:TMP = $targetTemp
           .venv/Scripts/python.exe -c "from scripts import check_release_environment as gate; import sys; gate.NODES = ['tests/test_current_release_gate.py::test_extracted_physical_tree_is_required_and_cannot_hide_survivors[missing]']; sys.argv = ['check_release_environment.py', '.goose/out/release-environment']; sys.exit(gate.main())"
           exit $LASTEXITCODE
+      - name: Capture independent raw DeepSeek error observations
+        if: inputs.scope == 'deepseek-error'
+        run: |
+          $targetTemp = Join-Path (Split-Path -Parent $env:GITHUB_WORKSPACE) ('dsh-environment-temp-' + $env:GITHUB_RUN_ID)
+          New-Item -ItemType Directory -Path $targetTemp -ErrorAction Stop | Out-Null
+          $env:TEMP = $targetTemp
+          $env:TMP = $targetTemp
+          $failed = $false
+          foreach ($index in 0..2) {
+            .venv/Scripts/python.exe scripts/deepseek_error_oracle.py --output ('.goose/out/release-environment/deepseek-error-' + $index + '.json')
+            if ($LASTEXITCODE -ne 0) { $failed = $true }
+          }
+          if ($failed) { exit 1 }
       - name: Package owned diagnostics
         if: always()
         run: |

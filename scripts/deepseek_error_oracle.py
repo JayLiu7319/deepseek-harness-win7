@@ -125,6 +125,18 @@ def main():
             scope='24 actual original/native loopback HTTP adapter consumers compare every captured request, chunk, extension acceptance and error name/message/failure/code/status/retry-after/request-id value. Flattened status/retry-after/request-id are observed from the complete actual failure object on both sides; no extra language exception-property parity is claimed. Every field/value is retained; no prose filtering or identity mapping. The existing lossless JSON snapshot provider canonicalizes semantically identical whole-number token spellings such as2000/2000.0 solely for digesting; all raw reports remain unchanged. Malformed previews use Source120 UTF16 units including a split surrogate; idle messages include Source number rendering of configured whole/fractional milliseconds. Selected/extracted ownPython3.8.10 and actual imported native module bytes are mandatory. Adapter dependencies are controlled fixture inputs, not full Cordis provider/profile boot. Static Source guards do not establish complete dynamic import closure; frozen full inputs bind wider sources. Retry orchestration, arbitrary malformed graphs/transport/cancellation schedules, images/files, cloud/OAuth/paid service, full AgentLoop/profiles and realWin7 remain open.')
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as error:
         report['error'] = str(error)
+        # The calling fixture may retire its temporary directory on exception.
+        # Keep original captures in the failure report before that happens.
+        diagnostics = {}
+        for name, path in (('source', source_path), ('native', native_path)):
+            try:
+                raw = path.read_bytes()
+                diagnostics[name] = dict(sha256=hashlib.sha256(raw).hexdigest(),
+                    report=json.loads(raw.decode('utf-8')))
+            except (OSError, ValueError, UnicodeError):
+                pass
+        if diagnostics:
+            report['diagnostics'] = diagnostics
     with output.open('x', encoding='utf-8') as stream:
         json.dump(report, stream, ensure_ascii=True, indent=2)
         stream.write('\n')

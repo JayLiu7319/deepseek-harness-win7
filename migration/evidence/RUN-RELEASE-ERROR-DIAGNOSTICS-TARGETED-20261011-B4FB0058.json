@@ -1,0 +1,244 @@
+{
+  "id": "RUN-RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058",
+  "kind": "verification",
+  "result": "passed",
+  "validity": "historical",
+  "exit_code": 0,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "b4fb0058747a2c9da5ad7bc6822a929f55473b57",
+  "commands": [
+    "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe -B scripts/deepseek_error_oracle.py --output .goose\\out\\release-error-b4fb-20261011\\paired.json",
+    "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe -B -m pytest tests/test_deepseek_error_consumers.py -ra --basetemp=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\consumer-workspace --junitxml=.goose\\out\\release-error-b4fb-20261011\\consumers.xml"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Local Windows",
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-ERROR-DIAGNOSTICS-TARGETED-20261011-B4FB0058.zip",
+      "sha256": "33a8058317f5fa7c5b63726aa910ef23983b9e6b2d3b56f42f491cdf94c62b7a"
+    }
+  ],
+  "targeted": {
+    "actualPairCases": 24,
+    "consumersPassed": 55,
+    "failed": 0,
+    "skipped": 0,
+    "workingChanges": [
+      "scripts/deepseek_error_oracle.py",
+      "tests/test_deepseek_error_consumers.py",
+      ".github/workflows/release-environment.yml"
+    ]
+  },
+  "cleanup": {
+    "status": "completed",
+    "workspace": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-error-b4fb-20261011\\consumer-workspace",
+    "members": [
+      {
+        "path": "deepseek-error-pair0/paired.0.log",
+        "bytes": 236,
+        "kind": "file",
+        "sha256": "f8d6beb16488241e9c0a956f797bf5ec2fe7fad1a214fcae19ebd288f90e22c4"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.json",
+        "bytes": 14475,
+        "kind": "file",
+        "sha256": "8819f8a78b43db5fd46615d76dd9d6e10b31f7f2024ae358413b5589de581f40"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.native.json",
+        "bytes": 40404,
+        "kind": "file",
+        "sha256": "96d7f20edcdcfafc5d93aaaec1bfa9478a8593cf7e6b58c0d7b7ef8fcb5510cb"
+      },
+      {
+        "path": "deepseek-error-pair0/paired.source.json",
+        "bytes": 26848,
+        "kind": "file",
+        "sha256": "9d38024583c8345bb44d569f2b4433ebd37f6713927aebd12f17f199ccd2ce28"
+      },
+      {
+        "path": "deepseek-error-pair0/runner.log",
+        "bytes": 9,
+        "kind": "file",
+        "sha256": "36e542ce871d0d0453e8bef9d86b71b2b08d82ba833c1ed6b5eb6a52ef9d28ba"
+      },
+      {
+        "path": "deepseek-error-pair0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re1",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re10",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re11",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re12",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re13",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re14",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re15",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re16",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re17",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re18",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re19",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re2",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re3",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re4",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re5",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re6",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re7",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re8",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_deepseek_error_receipt_re9",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.0.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0/failed.json",
+        "bytes": 81620,
+        "kind": "file",
+        "sha256": "225bde57498382a846a6ae3d3eaa18f424f4cf955a66c9a6295fcea9ff082def"
+      },
+      {
+        "path": "test_failed_error_oracle_prese0",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.0.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.1.log",
+        "bytes": 0,
+        "kind": "file",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1/failed.json",
+        "bytes": 81606,
+        "kind": "file",
+        "sha256": "a6d4bc402a94d4f778b82e58c6dc470741f3a2f2c9ffaf83c3e5010ba0ac5587"
+      },
+      {
+        "path": "test_failed_error_oracle_prese1",
+        "bytes": 4096,
+        "kind": "directory"
+      },
+      {
+        "path": "test_portable_deepseek_error_c0",
+        "bytes": 0,
+        "kind": "directory"
+      },
+      {
+        "path": "test_portable_deepseek_error_c1",
+        "bytes": 0,
+        "kind": "directory"
+      }
+    ],
+    "removedFiles": 12,
+    "removedBytes": 245198,
+    "removedLinks": 0,
+    "scope": "Closed targeted consumers; actual original captures and controlled refusals preserved in raw-consumers.zip; not full acceptance."
+  },
+  "scope": "Local original strict pair passed and failure capture retention/refusal consumers passed over working changes on named base. No original hosted row difference reproduced or attributed; no complete release acceptance."
+}

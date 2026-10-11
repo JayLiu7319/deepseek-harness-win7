@@ -118,3 +118,35 @@ def test_portable_deepseek_error_cli_refuses_partial_receipts(tmp_path, side):
     with pytest.raises(RuntimeError, match='Both DeepSeek error'):
         deepseek_error_receipts(str(tmp_path / 'source.json') if side == 'source' else None,
             str(tmp_path / 'native.json') if side == 'native' else None, tmp_path / 'output.json')
+
+
+@pytest.mark.parametrize('damage', ['request-body', 'failure-message'])
+def test_failed_error_oracle_preserves_complete_original_captures(actual_pair, tmp_path, monkeypatch, damage):
+    import hashlib
+    from types import SimpleNamespace
+    from scripts import deepseek_error_oracle as oracle
+
+    source, native = copy.deepcopy(actual_pair)
+    damage_observations(native, damage)
+    output = tmp_path / 'failed.json'
+    captures = {}
+
+    def controlled_observers(command, **options):
+        side = 'source' if command[0] == 'node' else 'native'
+        raw = (json.dumps(source if side == 'source' else native, ensure_ascii=True) + '\n').encode('utf-8')
+        output.with_suffix('.' + side + '.json').write_bytes(raw)
+        captures[side] = raw
+        return SimpleNamespace(returncode=0, stdout=b'', stderr=b'')
+
+    monkeypatch.setattr(oracle, 'source_pin', lambda: None)
+    monkeypatch.setattr(oracle.subprocess, 'run', controlled_observers)
+    monkeypatch.setattr(sys, 'argv', ['deepseek_error_oracle.py', '--output', str(output)])
+    assert oracle.main() == 1
+    report = json.loads(output.read_text(encoding='utf-8'))
+    assert report['status'] == 'runner-error'
+    assert report['error'] == 'DeepSeek error complete HTTP observations differ'
+    for side, raw in captures.items():
+        assert report['diagnostics'][side]['sha256'] == hashlib.sha256(raw).hexdigest()
+        assert report['diagnostics'][side]['report'] == json.loads(raw.decode('utf-8'))
+        output.with_suffix('.' + side + '.json').unlink()
+    assert report['diagnostics']['source']['report']['rows'] != report['diagnostics']['native']['report']['rows']

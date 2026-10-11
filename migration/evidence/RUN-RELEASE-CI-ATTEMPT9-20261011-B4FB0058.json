@@ -1,0 +1,62 @@
+{
+  "id": "RUN-RELEASE-CI-ATTEMPT9-20261011-B4FB0058",
+  "kind": "verification",
+  "result": "failed",
+  "validity": "historical",
+  "exit_code": 1,
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "product_commit": "b4fb0058747a2c9da5ad7bc6822a929f55473b57",
+  "commands": [
+    "GitHub Release run38109212750 exact frozen candidate, complete pytest stops at first failure; no release"
+  ],
+  "environment": {
+    "python": "3.8.10",
+    "os": "Actual GitHub hosted windows-2022",
+    "cwd": "D:/a/deepseek-harness-win7/deepseek-harness-win7"
+  },
+  "contract_revisions": {},
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT9-20261011-B4FB0058.zip",
+      "sha256": "64a33ec5f78d786e345eb128e58b5e7f18f49306a9517010b248f11b2a9cf7cd"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-CI-ATTEMPT9-BINDING-20261011-B4FB0058.zip",
+      "sha256": "45543c7e66343662b184c02e37a73208f11ceac2f62afc0ca47bde2a5ba0810d"
+    }
+  ],
+  "originalFailure": {
+    "counts": {
+      "collected": 3566,
+      "passed": 3564,
+      "failed": 1,
+      "skipped": 1
+    },
+    "nodeid": "tests/test_current_release_gate.py::test_extracted_physical_tree_is_required_and_cannot_hide_survivors[missing]",
+    "provider": "deepseek_error_runtime_fixture / deepseek_error_oracle",
+    "error": "DeepSeek error complete HTTP observations differ",
+    "fullXmlRetained": true,
+    "externalWorkspaceRetained": true,
+    "summaryRetained": true,
+    "gap": "The fixture used TemporaryDirectory, so original Source/native row captures were removed on exception. Row and cause cannot be attributed from this terse error; separate raw observer diagnostics required.",
+    "published": false
+  },
+  "cleanup": {
+    "status": "completed",
+    "removedFiles": 2,
+    "removedBytes": 7857690,
+    "retired": [
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt9-20261011\\diagnostics.zip",
+        "bytes": 4364489,
+        "sha256": "64a33ec5f78d786e345eb128e58b5e7f18f49306a9517010b248f11b2a9cf7cd"
+      },
+      {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\release-v0.1.1-attempt9-20261011\\transfer.zip",
+        "bytes": 3493201,
+        "sha256": "034d683b84115f4e102baad330e92cd950e9f1f2cec77d39712db9803c9dbfcd"
+      }
+    ]
+  },
+  "scope": "First-failure partial exact candidate collection, not qualification. Original run preserved; no stitching or attribution to previous cancellation."
+}
