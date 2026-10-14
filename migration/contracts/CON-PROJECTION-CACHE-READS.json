@@ -20,7 +20,7 @@
     "Prepared hydration alone retries malformed checkpoint rows from the supplied exact event prefix and does not write a checkpoint.",
     "Matching cold rows fold only the suffix after their watermark and write back the new detached cut.",
     "Foreign createdAt/cwd, version-mismatched, beyond-log and empty rows cannot seed a cold fold; the full prefix refreshes a checkpoint bound to the current log identity.",
-    "Actual JSON domain/file and Session/registry/cache consumers execute eight strict paired observations; extracted embedded Python repeats those observations from the declared product module."
+    "Actual JSON domain/file and Session/registry/cache consumers execute nine strict paired observations, including a non-TypeError parser failure and prepared-log fallback; extracted embedded Python repeats those observations from the declared product module."
   ],
   "identity": "Checkpoint identity binds createdAt/cwd; parser failure retains its exact instance; raw snapshot/document values remain unchanged in comparison.",
   "ownership": "The cache owns derived per-record writes while the Session/registry owns the supplied logical prefix; prepared observation has no durable write authority.",

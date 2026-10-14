@@ -14,7 +14,7 @@ def test_actual_original_and_native_durable_cache_read_failure_and_prepared_fall
     assert result.returncode == 0, (result.stdout + result.stderr).decode('utf-8', 'replace')
     report = json.loads(output.read_text(encoding='utf-8'))
     assert report['status'] == 'passed'
-    assert report['cases'] == 8
+    assert report['cases'] == 9
     source = json.loads(output.with_name(output.stem + '.source.json').read_text(encoding='utf-8'))
     native = json.loads(output.with_name(output.stem + '.native.json').read_text(encoding='utf-8'))
     validate_observations(source)

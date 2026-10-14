@@ -13,8 +13,9 @@
   "consumers": [
     "dsh/core/agent.py",
     "dsh/session/persistence.py",
-    "dsh/host/apiproxy/api/sessions.py",
-    "dsh/host/apiproxy/api/workspace.py"
+    "dsh/api/session.py",
+    "dsh/api/workspace.py",
+    "dsh/sdk/server.py"
   ],
   "invariants": [
     "Public create/resume holds an exact unpublished preparation until setup and commit succeed.",
@@ -28,7 +29,7 @@
   "identity": "One exact SessionPreparation.session per transaction; caller seed and signal are forwarded. Publication rejects competing live IDs.",
   "ownership": "Registry reads retain caller Context through Cordis Service tracing. Caller fiber owns the transaction, factory owns pending wrapper settlement and live teardown; published scope exposes its agent.",
   "ordering": "prepare -> unpublished scope/setup -> setup commit -> enter session -> enter agent -> session/created -> agent/created -> agent/session-start -> driver. Disposal is memoized and unregisters exact instances.",
-  "errors": "Setup/commit/pre-aborted signal rejects before publication. Publication exceptions unwind entered instances and effects. Legacy HTTP consumers no longer swallow factory failures or pre-publish their session.",
+  "errors": "Setup/commit/pre-aborted signal rejects before publication. Publication exceptions unwind entered instances and effects. Canonical Remote/SDK consumers preserve transaction failure and never pre-publish their session.",
   "cancellation": "Race caller/fiber/factory signals with load/setup. Abandoned provider result is observed and released; Python observer Task cancellation uses the same cleanup without cancelling the provider operation.",
   "adaptation": "Python 3.8 Futures and AbortController implement JS Promise races; asynchronous Python commit callbacks remain supported. Nine source-derived paired observations and local edge probes certify this bounded public factory closure, not all 100 official assertions. Configured startup/reload and wider Session persistence/replay remain separate Profile/Session work.",
   "rc1_review": {

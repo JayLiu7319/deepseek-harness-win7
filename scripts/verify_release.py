@@ -1033,7 +1033,7 @@ REQUIRED_REGRESSION = {
           for version in ('-1', '1', '0.5', '1e999') for compression in ('zstd', 'none')},
     },
     'test_sqlite_canonical': {
-        'test_canonical_registry_and_unchanged_closed_sql_resources',
+        'test_retired_registry_and_product_owned_closed_sql_resources',
         'test_actual_lazy_store_packed_seek_and_detached_revision',
         'test_canonical_plugin_cold_torn_repair_and_unpublished_end_seed',
         'test_existing_page_size_and_revision_survive_reopen',

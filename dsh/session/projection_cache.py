@@ -76,7 +76,7 @@ class SessionProjectionCache:
         projections = self.ctx.get("sessionProjections")
         try:
             return projections.hydrate(session, self._rows(session.header, session.inheritedEventCount), events, 0)
-        except (ValueError, TypeError, KeyError):
+        except Exception:
             return projections.hydrate(session, {}, events, 0)
 
     hydratePrepared = hydrate_prepared

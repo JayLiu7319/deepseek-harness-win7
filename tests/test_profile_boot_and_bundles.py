@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import tempfile
 import yaml
 from dsh.cordis.profile import (
@@ -106,12 +107,16 @@ def test_dump_config_output():
     assert "tools" in ids_std
     assert "agent" in ids_std
 
-    # 2. Verify minimal profile produces exact 18-row standalone sdk-minimal tree without fake tools/agent
+    # 2. Compare the standalone kernel with the pinned Source roster.
     yaml_min = dump_config("minimal")
     parsed_min = yaml.safe_load(yaml_min)
     assert isinstance(parsed_min, list)
     ids_min = [e.get("id") for e in parsed_min]
-    assert "agent-spine" in ids_min
+    assert "session-projection" in ids_min
+    assert "agent" in ids_min
     assert "str-replace-editor" in ids_min
     assert "sessions" in ids_min
-    assert len(ids_min) == 18
+    from pathlib import Path
+    source = Path(__file__).resolve().parents[1] / 'reference/packages/bundle/sdk-minimal/cordis.patch.yml'
+    expected_ids = re.findall(r'^    - id: (\S+)', source.read_text(encoding='utf-8'), re.MULTILINE)
+    assert ids_min == expected_ids

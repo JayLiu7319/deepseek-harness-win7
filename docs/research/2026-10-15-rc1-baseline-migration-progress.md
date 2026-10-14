@@ -52,3 +52,11 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 第二轮干净 `be4c1d4b4e94086fce2b3edda290a9033f061514` 构建完成，完整 Python 在1,606项通过、1项跳过后因旧 Session header 夹具缺少 `isSeeded` 停止。原 XML、日志、冻结输入和失败 ZIP 保存在 `.goose/out/rc1-release-be4c1d4b-20261015/`；ZIP SHA256为 `bbc23b8d5a5259c63d6286d269f4004dc5c10393cd01a13d6dd443015dfce269`，保持 failed。
 
 随后按 Session/Agent 共享服务及直接消费者选取246个测试文件，实际得到3,281项通过、106项失败、3项跳过。失败归并到15个文件：补齐观察器的 `sessionProjections`、独立 inherited cut 和当前 Remote 错误码；改用第二个实际 persistence 实例验证外部写入失效；重新构建示例 Web 插件；旧 SQLite 测试改为断言 canonical 名称退役及产品自有 SQL hash/reader。修复批次329项通过，最后39项 ACP/JSONL/Web 定向复验全部通过。各次原始日志和 XML 保留于 `.goose/out/rc1-session-spine-consumers-20261015/` 与 `.goose/out/rc1-session-spine-repair-20261015/`，这些分段结果不能替代下一份完整回执。
+
+第三轮干净 `1ab872569e0eab044fba033880b1f863c8500a8a` 构建完成，完整 Python 得到4,431项通过、1项跳过、1项失败：必跑清单未同步已重命名的 SQLite 退役检查用例。已修正清单，失败回执保持 failed；原 XML、日志、冻结输入及失败 ZIP 保存在 `.goose/out/rc1-release-1ab87256-20261015/`，ZIP SHA256为 `b350a445714bcb427551a35fefe98bedabed8e8a31d5a6261feec9da0c5218aa`。同时更新三份合同的 canonical Remote/SDK/persistence 消费路径及 `init(header, inheritedEventCount)`；后续未覆盖消费者作为独立定向批次检查，不拼接签收第三轮候选。
+
+后续190个文件及未执行验收控制的定向批次得到3,976项通过、5项失败、5项跳过、860项范围外取消选择。5项失败归并为 headless 夹具缺少投影服务、CLI package manifest 未同步、minimal 固定行数/旧行名以及 Source 缓存观察器参数签名和 v5 文档格式；修正后的32项复验通过。minimal 现在比较实际原版配置行，CLI 安装锚点 manifest 原样同步 rc.1。
+
+缓存恢复复核另外确认：Source `hydratePrepared` 对任意解析异常回退，Python 原来只捕获三类异常。新增实际 Source 的 `prepared-runtime-malformed` 场景，修复前保留 Source 成功重放而 Python 抛出同一个 RuntimeError 的完整观察；修复后9个实际 Source/native 场景匹配，72项缓存、投影和 preparation 消费者通过。观察器继续验证 v4 读取兼容、v5 写入、精确 identity、错误身份及 prepared fallback 不改写旧记录。证据保留于 `.goose/out/rc1-unexecuted-consumers-20261015/`；本批仍不能替代下一份完整候选资格。
+
+冻结前53项检查通过，包含真实必跑用例定义、SQLite 退役声明、CLI/minimal 配置、9场景缓存 Source/native 配对及迁移记录消费者；Python3.8 AST 与 diff 检查通过。

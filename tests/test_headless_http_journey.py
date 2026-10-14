@@ -19,7 +19,7 @@ def test_headless_runner_http_tool_roundtrip_and_exit(tmp_path, truncated, defau
     profile = tmp_path / "home" / "profiles" / "http-journey"
     init_profile(str(profile), [], "startup")
     rows = [{"id": name, "name": "@deepseek-ai/dsh-" + name} for name in (
-        "session", "tools", "system-prompt", "agent", "agent-loop", "llm", "llm-deepseek",
+        "session", "session-projection", "tools", "system-prompt", "agent", "agent-loop", "llm", "llm-deepseek",
         "agent-default-model", "fs-local", "tool-str-replace-editor", "cli-visualizer")]
     for row in rows:
         if row["id"] == "agent-default-model":

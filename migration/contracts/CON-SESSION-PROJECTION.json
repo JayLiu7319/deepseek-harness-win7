@@ -13,10 +13,11 @@
     "dsh/todo/tool_todo.py",
     "dsh/plan/plan_mode.py",
     "dsh/interaction/permission_presets.py",
-    "dsh/host/apiproxy/api_proxy.py"
+    "dsh/api/session.py",
+    "dsh/session/projection_cache.py"
   ],
   "invariants": [
-    "Canonical definitions use stateSchema, init(header), apply, optional wire and safe non-negative stateVersion; wire and restored state pass executable parsers.",
+    "Canonical definitions use stateSchema, init(header, inheritedEventCount), apply, optional wire and safe non-negative stateVersion; wire and restored state pass executable parsers.",
     "Same-version registrations share the first definition until the final calling fiber releases it; mismatched versions reject without changing ownership.",
     "Cells belong to exact weak Session identities. Late drive folds the preceding prefix; observed events never apply twice and snapshots materialize every unit before selected wire views.",
     "Host-only units have state/checkpoints but no wire output. cachedSnapshot never folds history and reports the minimum available selected watermark.",
@@ -31,7 +32,7 @@
   "ordering": "History prefix -> current event -> watermark commit -> validated view -> listeners. Read materialization suppresses subsequent duplicate event delivery.",
   "errors": "Canonical state/view parsers and change listeners fail loud; viewCheckpoint alone skips invalid stored state hints. Failed listener delivery does not undo a committed watermark.",
   "cancellation": "All operations are synchronous. Disposing registration/listener effects removes ownership; weak cells do not retain dead Session instances.",
-  "adaptation": "Python parser callable or parse(value) replaces Zod. None represents absent optional reads. Existing keyword domain registrations and projection/change Web bridge remain explicit compatibility adapters, outside schema/domain parity certification. Durable projection-cache plugin, cold Web carriers and all domain definitions remain separate work.",
+  "adaptation": "Python parser callable or parse(value) replaces Zod. None represents absent optional reads. Existing keyword domain registrations and projection/change notifications remain explicit compatibility adapters, outside schema/domain parity certification. Canonical Remote and durable projection-cache consumers retain their own finite acceptance scopes.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
     "state": "awaiting-exact-candidate-qualification",

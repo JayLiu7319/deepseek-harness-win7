@@ -28,7 +28,7 @@ from dsh.storage.plugins import StorageJsonPlugin, StorageDomainPlugin
 async def observe(workspace):
     rows = []
     for name in ('cold-malformed', 'prepared-malformed', 'cold-matching', 'cold-foreign-identity',
-                 'cold-foreign-cwd', 'cold-version-mismatch', 'cold-beyond-log', 'cold-empty'):
+                 'cold-foreign-cwd', 'cold-version-mismatch', 'cold-beyond-log', 'cold-empty', 'prepared-runtime-malformed'):
         root = workspace / name
         document = root / 'session_projcache/sessions/owned.json'
         document.parent.mkdir(parents=True, exist_ok=True)
@@ -40,7 +40,8 @@ async def observe(workspace):
                 'seq': 2 if name == 'cold-beyond-log' else 0, 'val': 'bad' if name.endswith('malformed') else 7}}}
         document.write_text(json.dumps({'version': 4, 'record': record}), encoding='utf-8')
         context, applied = Context(), []
-        parser_failure = TypeError('controlled invalid cache value')
+        parser_failure = (RuntimeError('controlled runtime cache value') if name == 'prepared-runtime-malformed'
+                          else TypeError('controlled invalid cache value'))
         def parse(value):
             if type(value) not in (int, float):
                 raise parser_failure
@@ -62,7 +63,7 @@ async def observe(workspace):
             events = [{'type': 'controlled/event', 'seq': seq, 'time': seq, 'data': {}} for seq in (0, 1)]
             observed = {}
             try:
-                if name == 'prepared-malformed':
+                if name.startswith('prepared-'):
                     session = Session.create('owned', events, header)
                     observed['snapshot'] = cache.hydrate_prepared(session, events)
                 else:

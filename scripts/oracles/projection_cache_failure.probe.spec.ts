@@ -12,7 +12,7 @@ import SessionProjectionCache from '../../reference/packages/session/session-pro
 it('observes real durable cache schema failures separately from prepared fallback', async () => {
   const output: any[] = []
   for (const name of ['cold-malformed', 'prepared-malformed', 'cold-matching', 'cold-foreign-identity',
-    'cold-foreign-cwd', 'cold-version-mismatch', 'cold-beyond-log', 'cold-empty']) {
+    'cold-foreign-cwd', 'cold-version-mismatch', 'cold-beyond-log', 'cold-empty', 'prepared-runtime-malformed']) {
     const root = join(process.env.PROJECTION_CACHE_WORKSPACE!, name)
     const document = join(root, 'session_projcache', 'sessions', 'owned.json')
     await mkdir(join(root, 'session_projcache', 'sessions'), {recursive: true})
@@ -25,7 +25,9 @@ it('observes real durable cache schema failures separately from prepared fallbac
     await writeFile(document, JSON.stringify({version: 4, record}))
     const ctx = new Context()
     const applied: number[] = []
-    const parserFailure = new TypeError('controlled invalid cache value')
+    const parserFailure = name === 'prepared-runtime-malformed'
+      ? Object.assign(new Error('controlled runtime cache value'), {name: 'RuntimeError'})
+      : new TypeError('controlled invalid cache value')
     const schema = {parse(value: unknown) {if (typeof value !== 'number') throw parserFailure; return value}}
     try {
       await ctx.plugin(Storage)
@@ -40,9 +42,9 @@ it('observes real durable cache schema failures separately from prepared fallbac
       const events = [0, 1].map(seq => ({type: 'controlled/event', seq, time: seq, data: {}})) as any
       const observed: any = {}
       try {
-        if (name === 'prepared-malformed') {
-          observed.snapshot = ctx.sessionProjectionCache.hydratePrepared(Session.create(header.id, events, header), header, events)
-        } else observed.snapshot = ctx.sessionProjectionCache.coldSnapshot(header, events)
+        if (name.startsWith('prepared-')) {
+          observed.snapshot = ctx.sessionProjectionCache.hydratePrepared(Session.create(header.id, events, header), events)
+        } else observed.snapshot = ctx.sessionProjectionCache.coldSnapshot(header, 0, events)
       } catch (error: any) {observed.error = {name: error.name, message: error.message, sameParserFailure: error === parserFailure}}
       await fiber.dispose()
       observed.applied = applied
