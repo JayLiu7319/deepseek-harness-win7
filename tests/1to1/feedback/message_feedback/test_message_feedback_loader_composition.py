@@ -41,6 +41,7 @@ async def compose(root):
     await ctx.plugin(JsonlSessionPersistencePlugin, config={"root": sessions_root})
     StorageService(ctx, root_dir=storage_root)
     await ctx.plugin(MessageFeedbackPlugin, config={"maxNoteBytes": 32})
+    await ctx.get("messageFeedback")._init_task
     return ctx
 
 

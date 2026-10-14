@@ -1505,6 +1505,14 @@ REQUIRED_REGRESSION['test_storage_atomic_replace'] = {
     'test_replace_failure_is_bounded_and_keeps_original_record[5-6]',
     'test_replace_failure_is_bounded_and_keeps_original_record[112-1]',
 }
+REQUIRED_REGRESSION['test_message_feedback_contract'] = {
+    'test_durable_feedback_identity_accepts_whole_json_numbers',
+    *{'test_durable_feedback_identity_rejects_non_safe_integer_numbers[' + value + ']'
+      for value in ('True', '1.5', '-1', 'nan', 'inf', '9007199254740992')},
+}
+REQUIRED_REGRESSION['test_message_feedback_loader_composition'] = {
+    'test_persists_a_checkpointed_target_and_its_sidecar_across_a_cold_restart',
+}
 
 
 def digest(path):

@@ -487,12 +487,20 @@ async def test_the_served_api_answers_malformed_remote_payloads_with_the_gateway
         for rpc_id, endpoint, payload, message in cases:
             status, response = await host.post(rpc_id, endpoint, payload)
             assert status == 200, rpc_id
+            details = {} if rpc_id == "rpc-payload" else {"endpoint": endpoint}
+            if rpc_id in ("rpc-args", "rpc-extra-args"):
+                code = "gateway/arguments-invalid"
+            elif rpc_id == "rpc-payload":
+                code = "gateway/internal"
+            else:
+                code = "gateway/input-invalid"
+                details["field"] = "request"
             assert response == {
                 "type": "server-response",
                 "rpcId": rpc_id,
                 "result": {
                     "ok": False,
-                    "error": {"code": "internal", "message": message, "details": {}},
+                    "error": {"code": code, "message": message, "details": details},
                 },
             }, rpc_id
 

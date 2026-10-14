@@ -2811,9 +2811,9 @@ def test_extracted_session_snapshots_are_exact_and_owned(tmp_path, damage):
     elif damage in ('incarnation', 'revision', 'change-time'):
         indexed = {row['name']: row['observed'] for row in snapshot['observations']}
         if damage == 'incarnation':
-            indexed['sqlite-copy']['different'] = False
+            indexed['jsonl-copy']['different'] = False
         elif damage == 'revision':
-            indexed['sqlite-append']['counterDelta'] = 2
+            indexed['jsonl-append']['changed'] = False
         else:
             indexed['jsonl-restored-stat']['changeFieldAdvanced'] = False
     elif damage == 'foreign-root':

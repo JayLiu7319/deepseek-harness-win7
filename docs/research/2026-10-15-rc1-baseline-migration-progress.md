@@ -11,6 +11,8 @@
 - 迁移 Remote 错误词汇及子代理相邻消息投递，清理已删除的 canonical 包名。旧 SQLite 数据由显式产品自有只读 reader 导出为 canonical JSONL，保留原数据库；不冒充已删除的上游 SQLite provider。
 - `read_image` 接受无扩展名附件路径，按签名识别格式并由实际附件解码完成校验。
 - Windows 投影缓存写入仅对共享/访问冲突做有界原子替换重试；保留原记录并传播永久失败。
+- 反馈 sidecar schema 按 Source 数值语义接受有限安全整数的浮点表示，真实 Loader 冷恢复可重开。刷新开发期四个静态客户端库，封存前端 bundle 保持原字节。
+- Web 测试镜像补齐 `queue-image.e2e.ts`；同步35个原版 Web 快照场景及新 Remote 错误码，schedule 客户端清单遵从禁用行。
 
 ## 本轮定向证据
 
@@ -27,6 +29,10 @@
 | 权限、Agent 依赖与 durable tool 配对消费者 | 245 项 Python 通过 |
 | 文件工具与附件消费者 | 67 项 Python 通过 |
 | 先前剩余 Session / compaction / ACP 消费者 | 51 项 Python 通过 |
+| Session / fork / 反馈 / 沙盒 / Web 快照修正 | 142 项通过、1项既有跳过；包括实际 sidecar 冷恢复和非法数值拒绝 |
+| 基线、前端及记录消费者 | 141项通过；旧 alpha 差分 pin 单独修正后复验31项通过 |
+| Search / schedule / Session profile 消费者 | 35项通过 |
+| 最后证据控制批次 | 430项通过；Source snapshots 的损伤控制已改为当前 JSONL 行，旧 SQLite 名称不再冒充 canonical 提供者 |
 | 原版 Edge / Python Edge / Python Chromium108 | minimal 140 轮历史、首次启动及真实进程冷恢复、原版可信输入分页跳转、中文/空格路径引用选择通过 |
 
 原始观察保留在 `.goose/out/rc1-*20261015/` 各自目录。Source 与 native 浏览器都观察到最早回合加载并进入视口；完整高亮/所有滚动时序不由这一有限断言推广。Chromium108 的完整解压旅程会独立重跑，并绑定实际 ZIP、解释器、导入字节、浏览器身份及 fresh/cold 两阶段。
@@ -40,3 +46,5 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 ## 统一资格
 
 当前状态：实现及定向检查完成后冻结候选，执行 `scripts/verify_release.py`。在完整 Python、固定 Source 配置、全部选定配对合同和实际解压 Portable/浏览器都通过前，`accepted_upstream` 保持 null，迁移任务保持 running，不宣称已完成正式验收。
+
+首轮干净 `a6191cdb197c9e317fe6c358193ebd255c11b1fa` 的 Portable 构建完成，但完整 Python 在145项通过后因缺失上游测试镜像停止。原 XML、日志、冻结输入和精确失败 ZIP 保存在 `.goose/out/rc1-release-a6191cdb-20261015/`；ZIP SHA256为 `74942c18f58377a9763f65bd868331089aa7bf5a24c9c9a3af9801d1c42067b5`。该运行保持 failed，后续修正不得补签它。

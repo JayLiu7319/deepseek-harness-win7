@@ -234,7 +234,7 @@ async def test_actual_pinned_source_complete_mapping_availability_and_missing_ke
                                              encoding='utf-8').strip()
                      for args in (['rev-parse', 'HEAD'], ['status', '--porcelain']))
     before = source_state()
-    assert before == ('cd5ef8148158c3a752a658978873241fdf8e2bbc', '')
+    assert before == ('a66e4702047846cdaa10c66c9d3df3951f5ea70d', '')
     environment = dict(os.environ, TSX_TSCONFIG_PATH=str(root / 'reference/tsconfig.json'))
     command = [node, '--import', (root / 'reference/node_modules/tsx/dist/loader.mjs').as_uri(),
                str(root / 'scripts/oracles/web_search_deepseek_source.mjs'), str(root / 'reference'), str(fixture), str(output), messages_server.base]

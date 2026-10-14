@@ -101,7 +101,7 @@ def test_the_web_snapshot_corpus_is_carried_verbatim():
     """
     assert os.path.isdir(CORPUS_ROOT), CORPUS_ROOT
     official = scenarios(REFERENCE_ROOT)
-    assert len(official) == 33, official
+    assert len(official) == 35, official
     assert scenarios() == official
 
     for name in official:
@@ -162,10 +162,10 @@ def test_every_web_scenario_manifest_resolves_its_session_source():
 
     # The corpus is not a hand-picked subset: every scenario owns a manifest,
     # and the recorded-session owners and their shared readers stay disjoint.
-    assert counts["manifest"] == 33
-    assert counts["session.jsonl"] == 20
-    assert counts["system-prompt.expected.md"] == 4
-    assert counts["tool-schemas.expected.json"] == 4
+    assert counts["manifest"] == 35
+    assert counts["session.jsonl"] == 21
+    assert counts["system-prompt.expected.md"] == 5
+    assert counts["tool-schemas.expected.json"] == 5
     assert counts["protocol.expected.json"] == 1
     assert owners and shared and not (owners & shared)
 
@@ -215,7 +215,7 @@ def test_host_face_goldens_are_classified_apart_from_the_ui_goldens():
             if relative == "protocol.expected.json":
                 protocol_goldens.add(name)
 
-    assert prompt_goldens == {"cordis-tool-round", "fresh-round-trip", "minimal-preset", "ptc-round"}
+    assert prompt_goldens == {"cordis-tool-round", "fresh-round-trip", "minimal-preset", "ptc-round", "schedule-catalog"}
     assert schema_goldens == prompt_goldens
     assert protocol_goldens == {"message-feedback-protocol"}
 

@@ -58,6 +58,7 @@ from dsh.core.session.json import FrozenDict, FrozenList
 from dsh.feedback.message_feedback import MessageFeedbackService
 from dsh.feedback.message_feedback_spec import (
     parse_message_feedback_row,
+    parse_message_feedback_session_identity,
 )
 from dsh.host.apiproxy.api.rpc_map import OFFICIAL_RPC_METHODS
 from dsh.session.persistence import SessionInspection
@@ -65,6 +66,18 @@ from dsh.session.persistence import SessionInspection
 from .helpers import append_message_fixture, message_fixture, setup_harness
 
 STALE_VERSION = "0f8a6d2e-9d31-4c0a-8b18-1f2a4d5b7c90"
+
+
+def test_durable_feedback_identity_accepts_whole_json_numbers():
+    assert parse_message_feedback_session_identity({"createdAt": 1_700_000_000_000.0}) == {
+        "createdAt": 1_700_000_000_000,
+    }
+
+
+@pytest.mark.parametrize("value", [True, 1.5, -1, float("nan"), float("inf"), 2 ** 53, 10 ** 400])
+def test_durable_feedback_identity_rejects_non_safe_integer_numbers(value):
+    with pytest.raises(ValueError, match="non-negative safe integer"):
+        parse_message_feedback_session_identity({"createdAt": value})
 
 
 def is_frozen(value):

@@ -291,7 +291,12 @@ async def test_served_graph_is_the_shipped_client_roster(served_web):
         document = os.path.join(REPO_ROOT, "reference", "packages", "bundle", bundle, "cordis.patch.yml")
         assert os.path.isfile(document), document
         text = open(document, "r", encoding="utf-8").read()
-        for name in re.findall(r"^\s*-?\s*id:\s*[\w@/.-]+\s*\n\s*name:\s*'([^']+)'", text, re.M):
+        rows = re.split(r"(?m)^\s*-?\s*id:\s*[\w@/.-]+\s*$", text)[1:]
+        for row in rows:
+            match = re.search(r"^\s*name:\s*'([^']+)'", row, re.M)
+            if match is None or re.search(r"^\s*disabled:\s*true\s*$", row, re.M):
+                continue
+            name = match.group(1)
             package = package_of(name)
             manifest = mirrored_client_manifest(package)
             if manifest is not None:

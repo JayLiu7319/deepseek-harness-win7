@@ -18,7 +18,7 @@
     "NUL-delimited Git name-status preserves Unicode/whitespace paths and both rename/copy owners; invalid or incomplete streams fail closed.",
     "All pinned tracked manifests, exact bytes, names, nearest owners and declared dependencies/peer/optional/dev edges are checked against actual Source before reporting advisory direct/transitive reverse impacts and independent non-package surfaces.",
     "Source HEAD/status and inventory bytes must remain unchanged across observation; optional output is exclusive and cannot write source, Git or migration state.",
-    "Twenty meaningful tests include actual source parent-to-pin exercise (250 manifest changes, 250 direct owners and one transitive owner), real temporary Git rename/deletion/addition history and invalid/ref-injection/drift/output refusals. Complete tests must pass before bounded integration."
+    "Meaningful tests include the actual rc.1 source parent-to-pin exercise (252 manifest changes, 252 direct owners and one transitive owner), alpha-to-rc.1 padded renames, real temporary Git rename/deletion/addition history and invalid/ref-injection/drift/output refusals. Complete tests must pass before bounded integration."
   ],
   "identity": "Full base/target commit IDs, unchanged pinned checkout and SHA256 of the exact manifest inventory identify an observation.",
   "ownership": "The caller chooses existing Git references and owns a new report file; the observer owns no migration states or runtime services.",

@@ -86,7 +86,7 @@ class TestSessionStoreFork:
         assert child.header.id == "empty-child"
         assert child.header.cwd == "/workspace"
         assert child.header.parent_session == "empty-parent"
-        assert child.header.seed_length == 0
+        assert child.inheritedEventCount == 0
 
     @pytest.mark.asyncio
     async def test_forks_the_latest_completed_boundary_by_default(self):
@@ -106,7 +106,7 @@ class TestSessionStoreFork:
         assert child.header.id == "child"
         assert child.header.cwd == "/workspace"
         assert child.header.parent_session == "parent"
-        assert child.header.seed_length == len(source.events)
+        assert child.inheritedEventCount == len(source.events)
 
     @pytest.mark.asyncio
     async def test_includes_stable_log_only_events_appended_after_a_closed_turn(self):
@@ -135,7 +135,7 @@ class TestSessionStoreFork:
         child = sessions.fork(source, first_boundary, SessionId("child-from-first"))
 
         assert inherited(child) == source.events[: first_boundary + 1]
-        assert child.header.seed_length == first_boundary + 1
+        assert child.inheritedEventCount == first_boundary + 1
         messages = child.derive_messages()
         assert len(messages) == 1
         assert messages[0]["role"] == "user"
@@ -161,7 +161,7 @@ class TestSessionStoreFork:
             child = sessions.fork(source, last_seq(source), SessionId(f"child-{index}"))
 
             assert inherited(child)[-1]["type"] == "turn/end"
-            assert child.header.seed_length == len(source.events)
+            assert child.inheritedEventCount == len(source.events)
 
     @pytest.mark.asyncio
     async def test_marks_a_bracket_the_child_inherited_from_a_still_running_parent(self):

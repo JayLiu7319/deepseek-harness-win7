@@ -85,7 +85,16 @@ def main():
     if package['packageManager'] != 'pnpm@' + version or version != '11.7.0':
         raise ValueError('Pinned Source package manager differs')
     commands = []
-    for name, args in [('install', ['install', '--frozen-lockfile']), ('host-build', ['run', 'build:lib:host'])]:
+    for name, args in [
+        ('install', ['install', '--frozen-lockfile']),
+        ('host-build', ['run', 'build:lib:host']),
+        ('client-types', ['exec', 'tsc', '-b', 'tsconfig.client.json']),
+        # These four libraries are linked into the sealed shell. Refresh their
+        # ignored Node entries for Source consumers without rebuilding or
+        # replacing any original frontend/browser bundle observation.
+    ] + [('static-client-' + name, ['exec', 'tsdown', '--env.DSH_BUILD_FACE', 'client',
+             '--filter', '@deepseek-ai/dsh-client-' + name])
+         for name in ('web', 'store', 'ui-slots', 'ui-primitives')]:
         command = ['node', str(pnpm), '--dir', str(source)] + args
         environment = dict(os.environ, CI='true')
         with (output / (name + '.log')).open('xb') as log:

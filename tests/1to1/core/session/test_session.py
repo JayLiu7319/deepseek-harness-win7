@@ -966,7 +966,7 @@ class TestSessionSeedAndAppendValidation:
         session = Session.from_restore(
             SessionId("deep-restore"),
             [event],
-            {"version": SESSION_FORMAT_VERSION, "id": "deep-restore", "createdAt": 1},
+            {"version": SESSION_FORMAT_VERSION, "id": "deep-restore", "createdAt": 1, "isSeeded": False},
         )
 
         # The reference freezes the borrowed graph in place, so it can measure the
@@ -1011,9 +1011,9 @@ class TestSessionSeedAndAppendValidation:
             "createdAt": 123,
             "cwd": "/accepted",
             "parentSession": SessionId("parent"),
-            "seedLength": 2,
+            "isSeeded": True,
         }
-        session = Session.create(SessionId("header-owned"), None, source)
+        session = Session.create(SessionId("header-owned"), [], source, inherited_event_count=0)
         source["cwd"] = "/caller-mutated"
 
         assert session.header == {
@@ -1022,7 +1022,7 @@ class TestSessionSeedAndAppendValidation:
             "createdAt": 123,
             "cwd": "/accepted",
             "parentSession": "parent",
-            "seedLength": 2,
+            "isSeeded": True,
         }
         assert session.header is not source
         assert session.id == "header-owned"
@@ -1060,6 +1060,7 @@ class TestSessionSeedAndAppendValidation:
             "version": SESSION_FORMAT_VERSION,
             "id": SessionId("header-shape"),
             "createdAt": 123,
+            "isSeeded": False,
         }
         cases = [
             (1, r"not a plain JSON record"),
@@ -1069,9 +1070,9 @@ class TestSessionSeedAndAppendValidation:
             (dict(base, cwd=1), r"header cwd must be a string"),
             (dict(base, cwd="relative"), r"header cwd must be an absolute path"),
             (dict(base, parentSession=1), r"header parentSession must be a string"),
-            (dict(base, seedLength="1"), r"seedLength must be a non-negative safe integer"),
-            (dict(base, seedLength=0.5), r"seedLength must be a non-negative safe integer"),
-            (dict(base, seedLength=-1), r"seedLength must be a non-negative safe integer"),
+            (dict(base, seedLength="1"), r'invalid field "seedLength"'),
+            (dict(base, seedLength=0.5), r'invalid field "seedLength"'),
+            (dict(base, seedLength=-1), r'invalid field "seedLength"'),
         ]
         for header, error in cases:
             with pytest.raises(ValueError, match=error):
@@ -1296,9 +1297,7 @@ class TestSessionStoreLifecycle:
             ({"createdAt": 1.5}, r"header createdAt must be a non-negative safe integer"),
             ({"createdAt": -1}, r"header createdAt must be a non-negative safe integer"),
             ({"createdAt": 9007199254740992}, r"header createdAt must be a non-negative safe integer"),
-            ({"seedLength": "1"}, r"seedLength must be a non-negative safe integer"),
-            ({"seedLength": 0.5}, r"seedLength must be a non-negative safe integer"),
-            ({"seedLength": -1}, r"seedLength must be a non-negative safe integer"),
+            ({"isSeeded": "yes"}, r"isSeeded must be a boolean"),
             ({"origin": "fork"}, r'origin must be "subagent"'),
             ({"delegationDepth": "1"}, r"delegationDepth must be a non-negative safe integer"),
             ({"delegationDepth": 0.5}, r"delegationDepth must be a non-negative safe integer"),

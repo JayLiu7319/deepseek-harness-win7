@@ -50,7 +50,7 @@ async def mounted(config: Optional[Dict[str, Any]] = None) -> Context:
 
 
 def session(session_id: str, cwd: Optional[str] = None) -> Session:
-    header: Dict[str, Any] = {"version": 0, "id": session_id, "createdAt": 0}
+    header: Dict[str, Any] = {"version": 0, "id": session_id, "createdAt": 0, "isSeeded": False}
     if cwd is not None:
         header["cwd"] = cwd
     return Session.create(session_id, None, header)

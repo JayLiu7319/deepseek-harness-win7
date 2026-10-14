@@ -16,7 +16,8 @@ def test_original_sealed_frontend_restores_cold_ignored_tree_and_refuses_changed
     monkeypatch.setattr(prepare_reference.subprocess, 'check_output',
                         lambda command, **kwargs: target + '\n' if command[-1] == 'HEAD' else '')
     result = prepare_reference.restore_frontend(ROOT, source)
-    assert len(result['restored']) == 219
+    manifest = json.loads((ROOT / 'scripts/frontend-inputs.json').read_text(encoding='utf-8'))
+    assert len(result['restored']) == len(manifest['files']) + len(manifest['client_files']) + 1
     assert prepare_reference.restore_frontend(ROOT, source)['restored'] == []
     shell = source / 'apps/web/dist/index.html'
     shell.write_bytes(b'changed actual observation')

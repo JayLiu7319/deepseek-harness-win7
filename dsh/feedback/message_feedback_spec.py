@@ -4,6 +4,7 @@ Aligned 1:1 with official `@deepseek-ai/dsh-message-feedback/src/spec`.
 """
 
 import re
+import math
 from typing import Any, Dict, List
 
 from dsh.storage.domain_spec import SchemaValidator, define_domain, domain_table
@@ -20,11 +21,11 @@ RATINGS = ("positive", "negative")
 
 
 def _require_non_negative_safe_integer(value: Any, field: str) -> int:
-    if isinstance(value, bool) or not isinstance(value, int):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise ValueError("%s must be a non-negative safe integer" % field)
-    if value < 0 or value > MAX_SAFE_INTEGER:
+    if value < 0 or value > MAX_SAFE_INTEGER or not math.isfinite(value) or value != int(value):
         raise ValueError("%s must be a non-negative safe integer" % field)
-    return value
+    return int(value)
 
 
 def parse_message_feedback_rating(value: Any) -> str:

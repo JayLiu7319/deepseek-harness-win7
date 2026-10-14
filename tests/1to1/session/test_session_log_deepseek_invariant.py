@@ -119,7 +119,8 @@ async def test_allows_an_inherited_parent_watermark_inside_a_fork_seed():
                     "data": {"sessionId": parent_id, "throughSeq": 0},
                 },
             ],
-            "meta": {"parentSession": parent_id, "seedLength": 2},
+            "meta": {"parentSession": parent_id, "isSeeded": True},
+            "inheritedEventCount": 2,
         },
     )
 

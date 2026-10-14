@@ -118,6 +118,7 @@ def message_fixture(raw_id: str, created_at: Optional[int] = None, cwd: Optional
         "version": SESSION_FORMAT_VERSION,
         "id": session_id,
         "createdAt": 1_700_000_000_000 if created_at is None else created_at,
+        "isSeeded": False,
     }
     if cwd is not None:
         header["cwd"] = cwd
