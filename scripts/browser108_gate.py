@@ -150,6 +150,7 @@ def validate_profile_journeys(reports, archive, adapter_sha256, root, check_file
         for phase in report['phases']:
             from scripts.color_mix_gate import validate_phase
             validate_phase(phase, legacy=True)
+            validate_reference_history_journey(phase, long_history=preset == 'minimal')
             before, after = phase.get('capabilitiesBefore', {}), phase.get('capabilitiesAfter', {})
             host = phase.get('hostReceipt', {})
             identity = phase.get('browserIdentity', {})
@@ -189,6 +190,30 @@ def validate_profile_journeys(reports, archive, adapter_sha256, root, check_file
                 if not check_files:
                     if archive_modules[name] != expected:
                         raise ValueError('Chromium 108 profile imports differ from verified ZIP')
+
+
+def validate_reference_history_journey(phase, long_history=False):
+    """Require actual composer selection and trusted paging through the original UI."""
+    candidates = phase.get('fileReferenceCandidates', [])
+    selection = phase.get('fileReferenceSelection', {})
+    if (not isinstance(candidates, list) or not any('中文 file.md' in row for row in candidates)
+            or '中文 file.md' not in selection.get('text', '')
+            or 'data-composer-chip="reference"' not in selection.get('html', '')
+            or 'PRIVATE_REFERENCE_BODY' in selection.get('html', '')):
+        raise ValueError('Original file reference candidates or selected chip are incomplete')
+    if not long_history:
+        return
+    before, jump, interaction = (phase.get(key, {}) for key in ('historyBefore', 'historyJump', 'historyInput'))
+    events = interaction.get('events', [])
+    if (type(before.get('count')) is not int or before['count'] < 140
+            or before.get('unloaded') != 'Load and jump to turn 1' or before.get('tailLoaded') is not True
+            or jump.get('loaded') != 'Jump to turn 1' or not jump.get('prompt', '').startswith('HISTORY_PROMPT_001')
+            or type(jump.get('viewportHeight')) is not int or jump['viewportHeight'] <= 0
+            or type(jump.get('top')) not in (int, float) or not 0 <= jump['top'] < jump['viewportHeight']
+            or interaction.get('focused') is not True
+            or not any(event.get('type') == 'click' and event.get('trusted') is True
+                and 'Load and jump to turn 1' in event.get('target', '') for event in events)):
+        raise ValueError('Original long history paging and trusted jump are incomplete')
 
 
 def validate_plan_journey(phase):

@@ -46,9 +46,9 @@ def test_persistence_read_receipt_refuses_lost_semantics_and_foreign_runtime(act
     elif damage == 'queue':
         next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/queued')['settledBeforeRelease'] = False
     elif damage == 'legacy':
-        next(row for row in runtime['rows'] if row['name'] == 'sqlite/legacy-forward')['calls'][0]['signalForwarded'] = False
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/read/whole')['value']['fromSeq'] = 1
     elif damage == 'cancel-priority':
-        next(row for row in runtime['rows'] if row['name'] == 'sqlite/aborted-failure')['error']['message'] = 'controlled read failure'
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')['error']['message'] = 'controlled read failure'
     elif damage == 'reason':
         row['reasonIdentity'] = False
     elif damage == 'missing-case':

@@ -2,7 +2,7 @@ import pytest
 
 from dsh.core.abort import AbortController
 from dsh.session.session_query import SessionQueryService
-from dsh.session.persistence_jsonl import JsonlSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 from test_session_live_persistence import backend
 from test_prepared_persistence import persisted
 
@@ -21,7 +21,7 @@ async def test_actual_durable_list_refuses_exact_pre_abort_before_backend_access
         else:
             class NoDatabaseAccess:
                 cursor = accessed
-            monkeypatch.setattr(persistence, '_conn', NoDatabaseAccess())
+            monkeypatch.setattr(persistence.store, 'open', accessed)
         with pytest.raises(TypeError) as error:
             await persistence.list(controller.signal)
         assert error.value is failure

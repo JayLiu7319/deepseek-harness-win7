@@ -82,8 +82,8 @@ def fold_timing(state, event):
     return dict(state, active=dict(state['active'], through=stamp))
 
 
-IDENTITY = dict(key='subagent', stateVersion=2, stateSchema=identity_state, init=lambda _: {},
+IDENTITY = dict(key='subagent', stateVersion=2, stateSchema=identity_state, init=lambda _, cut: {},
                 apply=fold_identity, wire=dict(viewSchema=identity, view=lambda state: state.get('identity')))
 TIMING = dict(key='subagentTiming', stateVersion=2, stateSchema=lambda value: timing(value, True),
-              init=lambda _: dict(descriptorSeen=False, settledMs=0), apply=fold_timing,
+              init=lambda _, cut: dict(descriptorSeen=False, settledMs=0), apply=fold_timing,
               wire=dict(viewSchema=timing, view=lambda state: {key: state[key] for key in ('settledMs', 'active') if key in state}))

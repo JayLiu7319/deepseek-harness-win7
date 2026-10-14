@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
 from dsh.cordis.fiber import FiberState
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -22,9 +23,9 @@ from dsh.core.tools import ToolsPlugin
 from dsh.llm.llm_service import LlmRuntime
 
 
-SERVICES = ('agents', 'sessions', 'llm', 'tools', 'systemPrompt')
+SERVICES = ('agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections')
 PROVIDERS = dict(agents=AgentPlugin, sessions=SessionPlugin, llm=LlmRuntime,
-    tools=ToolsPlugin, systemPrompt=SystemPrompt)
+    tools=ToolsPlugin, systemPrompt=SystemPrompt, sessionProjections=SessionProjectionsPlugin)
 
 
 async def settle():
@@ -44,7 +45,7 @@ async def main():
     try:
         loop = await ctx.plugin(AgentLoopPlugin, dict(agents=[]))
         rows.append(dict(name='initial-missing', **project(ctx, loop)))
-        for name in ('systemPrompt', 'tools', 'llm', 'agents', 'sessions'):
+        for name in ('systemPrompt', 'tools', 'llm', 'agents', 'sessions', 'sessionProjections'):
             await ctx.plugin(PROVIDERS[name])
             await settle()
             rows.append(dict(name='provide-' + name, **project(ctx, loop)))

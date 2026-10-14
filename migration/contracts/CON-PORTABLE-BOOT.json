@@ -1,8 +1,8 @@
 {
   "id": "CON-PORTABLE-BOOT",
-  "revision": 2,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 3,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "scripts/build_portable.py",
     "tests/test_portable_smoke.py"
@@ -12,11 +12,18 @@
     "Fresh profile boot and shutdown work outside host Python import paths."
   ],
   "consumers": [],
-  "open_questions": [],
+  "open_questions": [
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
   "identity": "Portable launchers select adjacent Python 3.8 and dsh.py, independent of PATH.",
   "ownership": "Build owns generated dist folder/zip; source checkout remains development input.",
   "ordering": "Resolve pinned ripgrep metadata and Python DLL before replacing output; stage runtime, framework, frontend and dependencies, then zip.",
   "errors": "Missing pinned ripgrep or Python runtime fails loudly; packaged smoke must fail rather than fall back to host Python.",
   "cancellation": "Build is synchronous; interrupted output is not a validated release.",
-  "adaptation": "Only current Windows runtime smoke is specified here. Win7 SP1/browser validation is explicitly deferred by user; no certification inferred."
+  "adaptation": "Only current Windows runtime smoke is specified here. Win7 SP1/browser validation is explicitly deferred by user; no certification inferred.",
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

@@ -33,7 +33,7 @@ def validate_request(request, page=False):
             continue
         value = request.get(key)
         if type(value) is not int or value < minimum or value > 9007199254740991:
-            raise failure('bad-request', '%s must be a safe integer greater than or equal to %s' % (key, minimum))
+            raise failure('gateway/bad-request', '%s must be a safe integer greater than or equal to %s' % (key, minimum))
 
 
 class SessionHistory:
@@ -61,18 +61,18 @@ class SessionHistory:
                 raise self.not_found(address)
             if ordinary:
                 if header.origin == 'subagent':
-                    raise failure('agent-busy', 'subagent Sessions require their durable parent address', {'reason': 'use subagent delivery for this child session'})
+                    raise failure('session/agent-busy', 'subagent Sessions require their durable parent address', {'reason': 'use subagent delivery for this child session'})
             else:
                 if header.origin != 'subagent' or header.parentSession != address['parentSessionId']:
-                    raise failure('subagent-unauthorized', 'subagent does not belong to the supplied parent', {'childSessionId': sid})
+                    raise failure('subagent/unauthorized', 'subagent does not belong to the supplied parent', {'childSessionId': sid})
                 values = (observed.projections or {}).get('values', {})
                 identity = values.get('subagent')
-                if identity is None or identity['seq'] < (header.seedLength or 0):
-                    raise failure('subagent-catalog-diagnostic', 'subagent descriptor is unavailable',
+                if identity is None or identity['seq'] < observed.inheritedEventCount:
+                    raise failure('subagent/catalog-diagnostic', 'subagent descriptor is unavailable',
                                   dict(parentSessionId=address['parentSessionId'], childSessionId=sid,
                                        reason='corrupt' if 'subagent' in values and identity is None else 'unsupported'))
                 if identity['mode'] != address['mode']:
-                    raise failure('subagent-unauthorized', 'subagent mode does not match the supplied address', {'childSessionId': sid})
+                    raise failure('subagent/unauthorized', 'subagent mode does not match the supplied address', {'childSessionId': sid})
             return observed
         except BaseException:
             observed.dispose()
@@ -81,8 +81,8 @@ class SessionHistory:
     @staticmethod
     def not_found(address):
         if address['kind'] == 'session':
-            return failure('session-not-found', 'session "%s" not found' % address['sessionId'], {'sessionId': address['sessionId']})
-        return failure('subagent-not-found', 'subagent is unavailable', {key: address[key] for key in ('parentSessionId', 'childSessionId')})
+            return failure('session/not-found', 'session "%s" not found' % address['sessionId'], {'sessionId': address['sessionId']})
+        return failure('subagent/not-found', 'subagent is unavailable', {key: address[key] for key in ('parentSessionId', 'childSessionId')})
 
     async def page(self, request, signal):
         validate_request(request, True)
@@ -90,7 +90,7 @@ class SessionHistory:
         try:
             signal.throw_if_aborted()
             if request['throughSeq'] > source.cursor:
-                raise failure('bad-request', 'session page through seq %s is past cursor %s' % (request['throughSeq'], source.cursor))
+                raise failure('gateway/bad-request', 'session page through seq %s is past cursor %s' % (request['throughSeq'], source.cursor))
             events, more = paginate(source.events, request.get('beforeSeq'), request.get('maxMessages', 50), request['throughSeq'])
             return dict(records=page_records(events), hasMore=more)
         finally:
@@ -119,7 +119,7 @@ class SessionHistory:
             signal.throw_if_aborted()
             cursor = source.cursor
             events, more = paginate(source.events, maximum=request.get('maxMessages', 50))
-            yield dict(type='snapshot', header=source.header.to_dict(), cursor=cursor,
+            yield dict(type='snapshot', header=wire_header(source.header, source.inheritedEventCount), cursor=cursor,
                        records=page_records(events), hasMore=more,
                        projections=source.projections or dict(asOfSeq=cursor, values={}))
             if address['kind'] == 'session' and source.source == 'prepared':
@@ -132,7 +132,7 @@ class SessionHistory:
                 if item['seq'] < next_seq:
                     continue
                 if item['seq'] != next_seq:
-                    raise failure('internal', 'session event stream skipped seq %s' % next_seq)
+                    raise failure('gateway/internal', 'session event stream skipped seq %s' % next_seq)
                 next_seq += 1
                 yield dict(type='event', event=item)
         finally:
@@ -142,3 +142,11 @@ class SessionHistory:
             remove_created()
             remove_abort()
             self.followers.discard(queue)
+
+
+def wire_header(header, inherited_event_count):
+    value = header.to_dict()
+    seeded = value.pop('isSeeded')
+    if seeded:
+        value['seedLength'] = inherited_event_count
+    return value

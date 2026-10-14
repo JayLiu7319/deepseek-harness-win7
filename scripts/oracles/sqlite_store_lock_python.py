@@ -13,7 +13,7 @@ from dsh.session.sqlite_database import DatabaseError
 
 async def observe(path):
     assert not path.exists()
-    meta = dict(id='locked', version=0, createdAt=1)
+    meta = dict(id='locked', version=0, createdAt=1, isSeeded=False)
     store = SqliteStore(str(path), busy_timeout_ms=100)
     peer = None
     try:

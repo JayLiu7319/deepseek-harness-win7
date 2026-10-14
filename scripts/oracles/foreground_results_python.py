@@ -16,6 +16,7 @@ root = options.root.resolve()
 sys.path.insert(0, str(root))
 from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.tools import ToolsPlugin, ToolExecutionInput
@@ -37,6 +38,7 @@ async def main():
                 if diagnostic is not None:
                     terminal['diagnostic'] = diagnostic
                 ctx, handle = Context(), None
+                SessionProjectionRegistry(ctx)
                 trace = dict(started=0, disposed=0)
                 try:
                     for provider in (LlmRuntime, SessionPlugin, ToolsPlugin, SystemPrompt, AgentPlugin):

@@ -1,0 +1,38 @@
+{
+  "id": "CON-RC1-CAPABILITIES",
+  "revision": 1,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/core/session/src/index.ts",
+    "reference/packages/core/agent-loop/src/index.ts",
+    "reference/packages/session/session-turn-outline/src/index.ts",
+    "reference/packages/context/file-reference/src/grammar.ts",
+    "reference/packages/schedule/schedule/src/index.ts"
+  ],
+  "consumers": [
+    "scripts/rc1_capabilities_oracle.py",
+    "scripts/verify_release.py",
+    "scripts/verify_portable.py",
+    "scripts/browser108_gate.py",
+    "tests/test_current_release_gate.py"
+  ],
+  "invariants": [
+    "Twenty-one named actual pinned Source/native categories retain full observations; only finite whole JSON numbers share representation.",
+    "Logical Session headers expose isSeeded with independent inheritedEventCount; public indexes, ownEvents, restore and JSONL private-version translation preserve the exact cut.",
+    "Turn-boundary version2, schedule version2 and llmRetry version1 projections are registered, decoded and folded with Source lifecycle semantics.",
+    "File mention grammar, cancellation-aware per-agent local search, limits, prompt order and whole-log turn outline match the selected Source corpus.",
+    "Current and extracted Python3.8.10 identity, owned imports, frozen Source digest and input hash must match independently approved candidate inputs.",
+    "Original Chromium108 profile journeys require fresh and cold file candidates/selection; minimal additionally requires at least140 turns, initially unloaded old history, trusted paging and oldest prompt in the viewport."
+  ],
+  "identity": "Named categories in REQUIRED of rc1_capabilities_oracle.py; no inventory-wide parity claim.",
+  "ownership": "Cordis service and reversible projection/plugin ownership; original frontend remains unchanged.",
+  "ordering": "Full Source and native observers precede independent extracted validation; tail snapshot precedes trusted history navigation.",
+  "errors": "Reject malformed states, cursor brands, missing fields, foreign roots/interpreters/imports and altered Source/input/observation receipts.",
+  "cancellation": "Selected local search, projection and session consumers preserve caller signals and drain owned work.",
+  "adaptation": "Python3.8 standard-library ports and Win7-owned browser compatibility adapter; real Win7 deferred.",
+  "open_questions": [
+    "Exact clean candidate release qualification is pending.",
+    "Optional LSP, cloud/search providers and all274 manifests are not certified by these bounded categories."
+  ]
+}

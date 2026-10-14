@@ -21,6 +21,18 @@ def image_media_type_for_path(file_path: str) -> Optional[str]:
     return IMAGE_EXTENSIONS.get(os.path.splitext(file_path)[1].lower())
 
 
+def sniff_image_media_type(data: bytes) -> Optional[str]:
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return 'image/png'
+    if data.startswith(b'\xff\xd8\xff'):
+        return 'image/jpeg'
+    if data.startswith((b'GIF87a', b'GIF89a')):
+        return 'image/gif'
+    if data.startswith(b'RIFF') and data[8:12] == b'WEBP':
+        return 'image/webp'
+    return None
+
+
 async def assert_image_capable_route(ctx: Any, execution: Any, requested_path: str) -> None:
     agent = getattr(execution, 'agent', None)
     session = getattr(agent, 'session', None)
@@ -68,15 +80,16 @@ def apply_read_image_tool(ctx: Any) -> None:
         requested_path = arguments['file_path']
         if not requested_path.strip():
             raise ImageReadError('file_path must be a non-empty string')
-        media_type = image_media_type_for_path(requested_path)
-        if media_type is None:
-            raise ImageReadError('cannot read "%s": read_image only accepts PNG/JPEG/WebP/GIF paths' % requested_path)
+        extension = os.path.splitext(requested_path)[1].lower()
+        declared = image_media_type_for_path(requested_path)
+        if declared is None and extension:
+            raise ImageReadError('cannot read "%s": the %s extension does not declare a supported image format; read_image accepts PNG/JPEG/WebP/GIF files, including extension-less files in those formats' % (requested_path, extension))
         attachments = ctx.get('attachments')
         if attachments is None:
             raise ImageReadError('cannot read "%s" as an image: no attachment service is mounted' % requested_path)
         limits = attachments.image_limits
-        if media_type not in limits['mediaTypes']:
-            raise ImageReadError('cannot read "%s": %s images are not accepted by this deployment' % (requested_path, media_type))
+        if declared is not None and declared not in limits['mediaTypes']:
+            raise ImageReadError('cannot read "%s": %s images are not accepted by this deployment' % (requested_path, declared))
         await assert_image_capable_route(ctx, execution, requested_path)
         filesystem = ctx.get('fs')
         target = await _observation_target(filesystem, requested_path, execution)
@@ -88,6 +101,11 @@ def apply_read_image_tool(ctx: Any) -> None:
             raise FsError('cannot read "%s": not a regular file' % target.displayPath, 'FS_NOT_REGULAR_FILE')
         byte_cap = min(limits['maxImageBytes'], limits['maxMessageImageBytes'])
         data = await filesystem.readBytes(target, execution.signal, byte_cap)
+        media_type = declared if declared is not None else sniff_image_media_type(data)
+        if media_type is None:
+            raise ImageReadError('cannot read "%s": the file content is not a supported image format; read_image accepts PNG/JPEG/WebP/GIF' % target.displayPath)
+        if declared is None and media_type not in limits['mediaTypes']:
+            raise ImageReadError('cannot read "%s": %s images are not accepted by this deployment' % (target.displayPath, media_type))
         try:
             reference = attachments.save_image(dict(data=data, mediaType=media_type, name=os.path.basename(target.displayPath)))
             if inspect.isawaitable(reference):
@@ -101,8 +119,13 @@ def apply_read_image_tool(ctx: Any) -> None:
             message = messages.get(failure.code)
             if failure.code == 'ATTACHMENT_WRITE_FAILED' and '16-bit png' in str(failure).lower():
                 message = 'the 16-bit PNG could not be converted to the normalized 8-bit sRGB form; convert it to an 8-bit PNG/JPEG/WebP and retry'
+            if failure.code == 'INVALID_IMAGE' and declared is None:
+                message = 'the bytes do not decode as a supported PNG/JPEG/WebP/GIF image; the file may be truncated or corrupt'
             if failure.code == 'IMAGE_TYPE_MISMATCH':
-                message = 'the %s extension declares %s, but the bytes use a different image format; rename the file to match its actual format if it is PNG/JPEG/WebP/GIF, or convert it to one of those formats' % (os.path.splitext(target.displayPath)[1].lower(), media_type)
+                if declared is None:
+                    message = 'the file signature claims %s, but the bytes decode as a different image format; the file may be corrupt' % media_type
+                else:
+                    message = 'the %s extension declares %s, but the bytes use a different image format; rename the file to match its actual format if it is PNG/JPEG/WebP/GIF, or convert it to one of those formats' % (extension, media_type)
             if message is None:
                 raise
             error = ImageReadError('cannot read "%s": %s' % (target.displayPath, message))
@@ -117,7 +140,7 @@ def apply_read_image_tool(ctx: Any) -> None:
             originalDimensions=dict(type='object', additionalProperties=False, properties=dict(width=dict(type='integer'), height=dict(type='integer')),
                 required=['width', 'height'])), required=['attachmentId', 'mediaType', 'bytes', 'width', 'height'])
     ctx.get('tools').register(dict(name='read_image',
-        description='Read a PNG/JPEG/WebP/GIF file and return the image itself. Harness validates and downscales large supported images before the next model request, so use this tool directly instead of installing image libraries or creating thumbnails merely to inspect an image. Independent files may be read concurrently in small batches. Requires the current model to accept image input.',
+        description='Read a PNG/JPEG/WebP/GIF file and return the image itself. A path without a file extension is accepted; the format is detected from the file content, so normalized attachment paths can be passed directly without copying or renaming. Harness validates and downscales large supported images before the next model request, so use this tool directly instead of installing image libraries or creating thumbnails merely to inspect an image. Independent files may be read concurrently in small batches. Requires the current model to accept image input.',
         parameters=dict(type='object', properties=dict(file_path=dict(type='string', description='Path to the image file, resolved by the filesystem backend.')), required=['file_path']),
         output=dict(schema=dict(type='object', additionalProperties=False, properties=dict(path=dict(type='string'), image=image_schema), required=['path', 'image']),
             render=lambda arguments, value: image_read_content(value)),

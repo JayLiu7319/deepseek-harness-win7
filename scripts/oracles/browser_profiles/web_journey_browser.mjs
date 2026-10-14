@@ -100,6 +100,7 @@ async function phase(name){
   const ready=new Promise((resolveReady,reject)=>{readyResolve=resolveReady;readyReject=reject;});
   const common=['--run-dir',resolve(options['run-dir']),'--output',receipt,'--preset',options.preset,'--phase',name];
   if(!options.workspace||!options.clock||!options['approval-artifact'])throw new Error('Controlled workspace, clock and approval artifact required');
+  if(options['long-history']==='true')common.push('--history-turns','140');
   common.push('--workspace',resolve(options.workspace),'--clock',options.clock,'--approval-artifact',resolve(options['approval-artifact']));
   if(options['file-references']==='true'){
     await mkdir(join(resolve(options.workspace),'references space'),{recursive:true});
@@ -193,12 +194,42 @@ async function phase(name){
     }
     state.providerOnboardingDeferred=await deferProviderOnboarding(cdp,until,false);
     const row='[role="treeitem"][class*="sessionRow"]';
-    if(name==='cold'){
+    if(options['long-history']==='true'){
+      await until(()=>cdp.evaluate('Array.from(document.querySelectorAll('+JSON.stringify(row)+')).some(value=>value.textContent.includes("HISTORY_PROMPT_001"))'),'controlled historical Session row');
+      await click(cdp,row,'HISTORY_PROMPT_001');
+    }else if(name==='cold'){
       await until(()=>cdp.evaluate('Array.from(document.querySelectorAll('+JSON.stringify(row)+')).filter(value=>value.textContent.trim().startsWith("Controlled browser journey")).length===1'),'one controlled original persisted Session row');
       await click(cdp,row,'Controlled browser journey');
     }else{
       await until(()=>cdp.evaluate('document.querySelectorAll('+JSON.stringify(row)+').length===1'),'one controlled original blank Session row');
       await click(cdp,row);
+    }
+    if(options['long-history']==='true'){
+      const target='nav[aria-label="Turn navigation"] button[aria-label="Load and jump to turn 1"]';
+      state.historyBefore=await until(()=>cdp.evaluate(`(()=>{
+        const buttons=[...document.querySelectorAll('nav[aria-label="Turn navigation"] button')];
+        const unloaded=buttons.find(b=>b.getAttribute('aria-label')==='Load and jump to turn 1');
+        const tail=[...document.querySelectorAll('[data-chat-flow-kind]')].some(n=>n.textContent.includes('HISTORY_PROMPT_140'));
+        return unloaded&&tail&&buttons.length>=140&&{count:buttons.length,unloaded:unloaded.getAttribute('aria-label'),tailLoaded:true};
+      })()`),'whole-log turn rail with initially unloaded first turn');
+      await cdp.evaluate(`document.querySelector(${JSON.stringify(target)}).scrollIntoView({block:'center'})`);
+      // Marks are keyboard controls; the original rail owns pointer hit testing.
+      await cdp.call('Page.bringToFront');
+      await cdp.evaluate(`document.querySelector(${JSON.stringify(target)}).focus()`);
+      await cdp.evaluate(`(()=>{window.__historyInput=[];for(const type of ['keydown','keyup','click'])document.addEventListener(type,event=>window.__historyInput.push({type,trusted:event.isTrusted,target:event.target.outerHTML,key:event.key}),true)})()`);
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
+      state.historyInput=await cdp.evaluate('({events:window.__historyInput,focused:document.hasFocus()})');
+      state.historyJump=await until(()=>cdp.evaluate(`(()=>{
+        const prompt=[...document.querySelectorAll('[data-chat-flow-kind]')].find(n=>n.textContent.includes('HISTORY_PROMPT_001'));
+        const active=document.querySelector('nav[aria-label="Turn navigation"] button[aria-current="true"]');
+        const loaded=document.querySelector('nav[aria-label="Turn navigation"] button[aria-label="Jump to turn 1"]');
+        if(!prompt||!loaded)return false;
+        const rect=prompt.getBoundingClientRect();
+        return rect.top>=0&&rect.top<innerHeight&&{prompt:prompt.textContent,loaded:loaded.getAttribute('aria-label'),active:active?.getAttribute('aria-label')??null,top:rect.top,viewportHeight:innerHeight};
+      })()`),'actual loadThrough jump to oldest prompt in viewport',60000);
+      const screenshot=await cdp.call('Page.captureScreenshot');
+      await writeFile(join(output,name+'.history-jump.png'),Buffer.from(screenshot.data,'base64'));
     }
     if(options['file-references']==='true'){
       const before=await until(async()=>{const value=await snapshot();return value.attached&&value.agentStatus==='idle'&&value;},'selected session attached before reference input');
@@ -378,6 +409,9 @@ async function phase(name){
     state.passed=true;
   }catch(error){
     state.failure=String(error);
+    if(cdp)state.historyFailure=await cdp.evaluate(`(()=>({active:[...document.querySelectorAll('nav[aria-label="Turn navigation"] button[aria-current]')].map(n=>n.outerHTML),
+      prompts:[...document.querySelectorAll('[data-chat-flow-kind]')].filter(n=>n.textContent.includes('HISTORY_PROMPT_001')).map(n=>({text:n.textContent,top:n.getBoundingClientRect().top})),
+      focus:document.activeElement?.outerHTML}))()`);
     throw error;
   }finally{
     if(cdp?.socket.readyState===1){

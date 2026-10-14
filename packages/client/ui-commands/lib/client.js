@@ -783,7 +783,7 @@ window.__ModuleLoader__.load({
 			* the outcome renders as a persistent flow node — the composer never
 			* echoes it. A handler error result reports an error outcome so the
 			* composer keeps the submission (draft and images) for correction.
-			* Transport failures throw.
+			* A refused call throws.
 			*/
 			async execute(session, line, images = []) {
 				const result = await this.ctx.remote.commands.execute(session.sessionId, line, images);
@@ -825,9 +825,9 @@ window.__ModuleLoader__.load({
 			* Fire-and-forget execute for the internal ('handled') paths. Outcomes are
 			* NOT surfaced here: the host executor durably logs the command lifecycle
 			* (`command/run`/`command/done`), and the mux-broadcast events render as a
-			* persistent flow node on every tab. Only a transport/admission failure —
-			* which never entered a handler and therefore never logged — falls back to
-			* the composer notice as immediate feedback.
+			* persistent flow node on every tab. Only an admission failure — which never
+			* entered a handler and therefore never logged — falls back to the composer
+			* notice as immediate feedback.
 			*/
 			runDetached(desc, session, line) {
 				this.execute(session, line).then((outcome) => {
@@ -848,7 +848,7 @@ window.__ModuleLoader__.load({
 					token: segment.token
 				} });
 			}
-			/** Route an admission/transport failure to the session's composer notice channel (scope gone = attempt died with it). */
+			/** Route an admission failure to the session's composer notice channel (scope gone = attempt died with it). */
 			noticeFor(id, level, text) {
 				const actx = this.scopeFor(id);
 				if (actx === void 0) return;
@@ -882,8 +882,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-commands\src\client\PopupSelectView.module.css.mjs
-		const css = ".fXR92q_card{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:1px solid var(--dsw-alias-border-inverted);background:var(--dsw-specific-menu);min-width:min(220px,100%);max-width:100%;max-height:320px;box-shadow:var(--dsw-shadow-lv3);border-radius:12px;outline:none;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;overflow:hidden}.fXR92q_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.fXR92q_row{cursor:pointer;color:var(--dsw-alias-label-primary);border-radius:8px;align-items:center;gap:8px;padding:6px 8px;font-size:13px;display:flex}.fXR92q_rowActive{background:var(--dsw-alias-interactive-bg-hover)}.fXR92q_label{white-space:nowrap;text-overflow:ellipsis;flex:auto;min-width:0;overflow:hidden}.fXR92q_detail{color:var(--dsw-alias-label-tertiary);white-space:nowrap;text-overflow:ellipsis;font-size:12px;overflow:hidden}.fXR92q_check{color:var(--dsw-alias-label-primary);flex:none;display:inline-flex}.fXR92q_status{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:13px}.fXR92q_search{border:1px solid var(--dsw-alias-border-inverted);color:var(--dsw-alias-label-primary);background:0 0;border-radius:8px;outline:none;margin:2px 2px 4px;padding:6px 8px;font-size:13px}.fXR92q_error{color:var(--dsw-alias-state-error-primary);align-items:center;gap:8px;padding:6px 8px;font-size:12px;display:flex}.fXR92q_errorText{text-overflow:ellipsis;flex:1;overflow:hidden}.fXR92q_retry{border:1px solid var(--dsw-alias-border-inverted);color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;border-radius:6px;padding:2px 8px;font-size:12px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-commands\src\client\PopupSelectView.module.css.mjs
+		const css = ".FYJexa_card{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);min-width:min(220px,100%);max-width:100%;max-height:320px;box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;outline:none;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;overflow:hidden}.FYJexa_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.FYJexa_row{cursor:pointer;color:var(--dsw-alias-label-primary);border-radius:8px;align-items:center;gap:8px;padding:6px 8px;font-size:13px;display:flex}.FYJexa_rowActive{background:var(--dsw-alias-interactive-bg-hover)}.FYJexa_label{white-space:nowrap;text-overflow:ellipsis;flex:auto;min-width:0;overflow:hidden}.FYJexa_detail{color:var(--dsw-alias-label-tertiary);white-space:nowrap;text-overflow:ellipsis;font-size:12px;overflow:hidden}.FYJexa_check{color:var(--dsw-alias-label-primary);flex:none;display:inline-flex}.FYJexa_status{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:13px}.FYJexa_search{border:.5px solid var(--dsw-alias-border-inverted);color:var(--dsw-alias-label-primary);background:0 0;border-radius:8px;outline:none;margin:2px 2px 4px;padding:6px 8px;font-size:13px}.FYJexa_error{color:var(--dsw-alias-state-error-primary);align-items:center;gap:8px;padding:6px 8px;font-size:12px;display:flex}.FYJexa_errorText{text-overflow:ellipsis;flex:1;overflow:hidden}.FYJexa_retry{border:.5px solid var(--dsw-alias-border-inverted);color:var(--dsw-alias-label-primary);cursor:pointer;background:0 0;border-radius:6px;padding:2px 8px;font-size:12px}";
 		const tagId = "@deepseek-ai/dsh-client-ui-commands/PopupSelectView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -893,18 +893,18 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var PopupSelectView_module_css_default = {
-			"card": "fXR92q_card",
-			"check": "fXR92q_check",
-			"detail": "fXR92q_detail",
-			"error": "fXR92q_error",
-			"errorText": "fXR92q_errorText",
-			"label": "fXR92q_label",
-			"retry": "fXR92q_retry",
-			"row": "fXR92q_row",
-			"rowActive": "fXR92q_rowActive",
-			"search": "fXR92q_search",
-			"status": "fXR92q_status",
-			"viewport": "fXR92q_viewport"
+			"card": "FYJexa_card",
+			"check": "FYJexa_check",
+			"detail": "FYJexa_detail",
+			"error": "FYJexa_error",
+			"errorText": "FYJexa_errorText",
+			"label": "FYJexa_label",
+			"retry": "FYJexa_retry",
+			"row": "FYJexa_row",
+			"rowActive": "FYJexa_rowActive",
+			"search": "FYJexa_search",
+			"status": "FYJexa_status",
+			"viewport": "FYJexa_viewport"
 		};
 		//#endregion
 		//#region lib/types/client/PopupSelectView.js

@@ -1,8 +1,8 @@
 {
   "id": "CON-JS-WORKFLOW",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/workflow/workflow-worker-thread/src/index.ts",
     "reference/packages/workflow/workflow-worker-thread/src/runtime.ts",
@@ -31,14 +31,21 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim."
+    "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "historical_open_questions": [
     "The first engine research has fourteen complete matches and eight retained parse/error-text differences; those raw differences remain open after Source-backed worker/host integration.",
     "Canonical Windows boot mounts the private provider; clean candidateb1b2f797 has7087 full-suite passes,639 mandatory lanes and thirty-four actual Source/native/extracted WorkerRun observations, including controlled physical exit. Original thirty direct-worker frame scenarios and twelve real consumer regressions remain. Full model/profile compositions, ready-before-publication, broader provider/death/reentrancy competition and the complete contract remain unaccepted.",
     "Complete Node/Intl/WebAssembly/SDK/Cordis delivery/preset/trust and Win7 certification remain separate unaccepted scopes."
   ],
-  "acceptance_review": {
+  "identity": "Actual private executable/compiler/source/resources and complete Source/Root/own observations are bound. Existing exact native-frame/generated-diagnostic/descriptor mappings only; no generic error normalization.",
+  "ownership": "Context/Loader owns private engine, real workflow child bridges, first settlement and physical disposal; only owned effects retire.",
+  "ordering": "Complete Source-observed FIFO/caps/materialization/Ready/publication/child/disposal order remains literal in the recorded finite corpus.",
+  "errors": "Preserve original eight engine/parse differences and exact adapted32 corpus; reject changed resources/imports/unknown outcomes. Arbitrary Node APIs and native Win7 remain uncertified.",
+  "cancellation": "Actual pre-go/initial timeout/post-await/physical exit plus four held/cancel/reentrant engine schedules preserve first result and owned shutdown.",
+  "adaptation": "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim.",
+  "historical_alpha_acceptance_review": {
     "candidate": "f90ded26e96ecfb0c1737a47d9f47b034b26c93a",
     "reviewArtifact": "migration/evidence/artifacts/HANDOFF-PARENT-REVIEW-20261010-F90DED26.zip",
     "originalTaskSnapshot": {
@@ -403,10 +410,9 @@
     "existingUpstreamPredicates": "unchanged",
     "orderingApproval": "not-applied-independent-literal-scope"
   },
-  "identity": "Actual private executable/compiler/source/resources and complete Source/Root/own observations are bound. Existing exact native-frame/generated-diagnostic/descriptor mappings only; no generic error normalization.",
-  "ownership": "Context/Loader owns private engine, real workflow child bridges, first settlement and physical disposal; only owned effects retire.",
-  "ordering": "Complete Source-observed FIFO/caps/materialization/Ready/publication/child/disposal order remains literal in the recorded finite corpus.",
-  "errors": "Preserve original eight engine/parse differences and exact adapted32 corpus; reject changed resources/imports/unknown outcomes. Arbitrary Node APIs and native Win7 remain uncertified.",
-  "cancellation": "Actual pre-go/initial timeout/post-await/physical exit plus four held/cancel/reentrant engine schedules preserve first result and owned shutdown.",
-  "adaptation": "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim."
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

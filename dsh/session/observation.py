@@ -45,9 +45,9 @@ class SessionObservationReader:
     def __init__(self, ctx):
         self.ctx = ctx
 
-    def cut(self, source, header, events, release, projections=None, revision=None):
+    def cut(self, source, header, events, release, projections=None, revision=None, inherited_event_count=0):
         events = tuple(deep_freeze(event) for event in events)
-        view = dict(source=source, header=header, events=events,
+        view = dict(source=source, header=header, events=events, inheritedEventCount=inherited_event_count,
                     cursor=events[-1]['seq'] if events else -1,
                     projections=projections, revision=revision)
         return SessionObservation(dict(view=view, references=1, release=release))
@@ -56,7 +56,8 @@ class SessionObservationReader:
         registry = self.ctx.get('sessionProjections')
         events = tuple(session.events)
         projections = registry.snapshot(session) if registry is not None and mode != 'none' else None
-        return self.cut('live', session.header, events, lambda: None, projections)
+        return self.cut('live', session.header, events, lambda: None, projections,
+                        inherited_event_count=session.inheritedEventCount)
 
     async def read(self, session_id, options=None):
         options = options or {}
@@ -101,7 +102,7 @@ class SessionObservationReader:
                 if mode != 'none' and registry is not None:
                     cache = self.ctx.get('sessionProjectionCache')
                     try:
-                        projections = (cache.hydratePrepared(borrowed.preparedSession, borrowed.inspection.meta,
+                        projections = (cache.hydratePrepared(borrowed.preparedSession,
                                                             borrowed.inspection.events) if cache is not None else
                                        registry.hydrate(borrowed.preparedSession, {}, borrowed.inspection.events, 0))
                     except Exception as error:
@@ -109,7 +110,7 @@ class SessionObservationReader:
                         raise SessionQueryError('failed to project session "' + session_id + '": ' + error_message(failure),
                                                 'SESSION_QUERY_CORRUPT_SESSION', failure) from error
                 return self.cut('prepared', borrowed.inspection.meta, borrowed.inspection.events,
-                                borrowed.dispose, projections, borrowed.revision)
+                                borrowed.dispose, projections, borrowed.revision, borrowed.inspection.inheritedEventCount)
             except BaseException:
                 borrowed.dispose()
                 raise

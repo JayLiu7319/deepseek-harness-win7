@@ -31,7 +31,7 @@ it('observes real registry drive, ownership and restoration', async () => {
   const checkpoint = reg.checkpoint(session)
   checkpoint.probe!.val = 99
   rows.push({mode:'detached',snapshot:reg.snapshot(session),floor:reg.restoreFloor(checkpoint)})
-  const events = session.events
+  const events = session.snapshotEvents()
   const restored = reg.restore({}, events, 0, session.header)
   rows.push({mode:'restore',...restored,empty:reg.restore(restored.checkpoint, [], session.seq, session.header)})
   let truncated = false, invalid = false
@@ -41,7 +41,7 @@ it('observes real registry drive, ownership and restoration', async () => {
   const prepared = Session.create(SessionId('prepared'))
   prepared.append('probe/event' as any,{})
   prepared.append('probe/event' as any,{})
-  const prefix = prepared.events.slice(0,1)
+  const prefix = prepared.snapshotEvents().slice(0,1)
   const hydrated = reg.hydrate(prepared, {}, prefix, 0)
   const again = reg.hydrate(prepared, {}, prefix, 0)
   rows.push({mode:'hydrate',hydrated,again,snapshot:reg.snapshot(prepared)})

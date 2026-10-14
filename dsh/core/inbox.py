@@ -29,10 +29,7 @@ class Inbox:
 
         # Replay past durable inbox splices from session events if session exists
         if self.session and hasattr(self.session, "events"):
-            seed_len = 0
-            if hasattr(self.session, "header") and getattr(self.session.header, "seed_length", None) is not None:
-                seed_len = self.session.header.seed_length or 0
-
+            seed_len = self.session.inheritedEventCount
             events = getattr(self.session, "events", [])[seed_len:]
             for event in events:
                 if isinstance(event, dict) and event.get("type") == "agent/inbox/spliced":

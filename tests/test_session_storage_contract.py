@@ -5,6 +5,8 @@ import pytest
 from dsh.core.session import SessionHeader
 from dsh.core.abort import AbortController
 from dsh.session.persistence import SessionFormatUnsupportedError
+from dsh.session.persistence_sqlite_canonical import SqliteSessionPersistence
+from dsh.session.sqlite_database import DatabaseError
 from test_session_live_persistence import backend, mount
 
 
@@ -96,7 +98,7 @@ async def test_unknown_event_writes_but_reads_fail_closed(backend):
         await p.create(SessionHeader('s'))
         await p.append('s', [event(kind='future/plugin')])
         for read in (p.load, p.inspect, lambda sid: p.read_from(sid, 0)):
-            with pytest.raises(SessionFormatUnsupportedError, match='raw log'): await read('s')
+            with pytest.raises(SessionFormatUnsupportedError, match='refusing to interpret the log'): await read('s')
     finally: await ctx.fiber.dispose()
 
 
@@ -106,6 +108,10 @@ async def test_cold_schema_refuses_before_repair(backend):
     try:
         await p.create(SessionHeader('s'))
         invalid = event(kind='turn/start', data={'turn': 1}); invalid['time'] = 'bad'
+        if isinstance(p, SqliteSessionPersistence):
+            with pytest.raises(DatabaseError, match='cannot store TEXT'): await p.append('s', [invalid])
+            assert await p.list() == []
+            return
         await p.append('s', [invalid])
         for read in (p.inspect, p.load):
             with pytest.raises(ValueError, match='envelope'): await read('s')
@@ -136,6 +142,10 @@ async def test_cold_append_does_not_repair_invalid_seed(backend):
     try:
         await p.create(SessionHeader('s'))
         ev = event(kind='turn/start', data={'turn': 1}); ev['time'] = 'invalid'
+        if isinstance(p, SqliteSessionPersistence):
+            with pytest.raises(DatabaseError, match='cannot store TEXT'): await p.append('s', [ev])
+            assert await p.list() == []
+            return
         await p.append('s', [ev])
         fresh = backend[2]()
         try:

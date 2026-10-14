@@ -109,7 +109,7 @@ class AgentPresets(TypertRemoteService):
                 raise TypeError('agent preset projection must be a string or null')
             return value
         ctx.inject(['sessionProjections'], lambda child: child.get('sessionProjections').register(dict(
-            key='agentPreset', stateVersion=1, stateSchema=preset_schema, init=lambda header: header.agentPreset,
+            key='agentPreset', stateVersion=1, stateSchema=preset_schema, init=lambda header, cut: header.agentPreset,
             apply=lambda state, event: event['data']['agentPreset'] if event['type'] == 'agent-preset/selected' else state,
             wire=dict(viewSchema=preset_schema, view=lambda value: value))))
 

@@ -3,6 +3,7 @@ JSON storage backend: one human-readable file per unit under a configured root.
 Aligned 1:1 with official `@deepseek-ai/dsh-storage-json`.
 """
 
+import asyncio
 import json
 import os
 import uuid
@@ -21,7 +22,17 @@ async def write_atomic(path: str, data: str) -> None:
             f.write(data)
             f.flush()
             os.fsync(f.fileno())
-        os.replace(tmp_path, path)
+        # A Windows reader/scanner can briefly hold the destination without
+        # FILE_SHARE_DELETE. Retry that bounded condition with the same durable
+        # temporary file; other failures retain their original error.
+        for attempt in range(6):
+            try:
+                os.replace(tmp_path, path)
+                break
+            except OSError as error:
+                if getattr(error, "winerror", None) not in (5, 32, 33) or attempt == 5:
+                    raise
+                await asyncio.sleep(0.01 * (2 ** attempt))
     except Exception as e:
         if os.path.exists(tmp_path):
             try:

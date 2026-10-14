@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { build } from './node_modules/esbuild/lib/main.js'
 
-const sourceCommit = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 if (process.version !== 'v22.22.2') throw new Error('Pinned Node required')
 if (execFileSync('git', ['-C', 'reference', 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim() !== sourceCommit
     || execFileSync('git', ['-C', 'reference', 'status', '--porcelain'], { encoding: 'utf8' }).trim()) throw new Error('Pinned clean Source required')

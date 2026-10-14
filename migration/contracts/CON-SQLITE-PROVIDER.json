@@ -1,24 +1,42 @@
 {
   "id": "CON-SQLITE-PROVIDER",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/session/session-persistence-sqlite/src/index.ts", "reference/packages/session/session-persistence-sqlite/src/store.ts", "reference/packages/session/session-persistence-sqlite/src/schema.ts", "reference/packages/session/session-persistence-sqlite/resources/sql/schema.sql", "dsh/session/persistence_sqlite_canonical.py", "dsh/session/sqlite_store.py", "dsh/session/sqlite_schema.py"],
-  "consumers": ["dsh/boot/plugin_registry.py", "dsh/session/prepared_persistence.py", "dsh/session/live_persistence.py", "dsh/session/query_engine.py", "scripts/verify_release.py", "scripts/verify_portable.py"],
-  "invariants": [
-    "Optional canonical plugin preserves original Config and sessions injection, validates paths without opening the database, mounts reversible services/live effects and drains shared preparations and native handles.",
-    "Closed hash-pinned unchanged SQL36 resources own schema19/application1146308688, store UUID, session incarnation and monotonic revision. Foreign/unversioned/old/future/altered schemas are refused without conversion; every mutation rechecks ownership under BEGIN IMMEDIATE.",
-    "New files use page65536 while established4096 files keep their size. All four journal modes, memory result, trusted_schema0, mmap0, FK ON and FULL sync match. Busy journal retries share an open-relative deadline and only retry code5 at the original paced interval.",
-    "Detached physical transactions and bounded packed predecessors produce logical prefixes/suffixes. Batches pack only their own rows; empty mutations remain inert, lazy integer keys roll back, stale append and repair cannot overwrite a winning tail.",
-    "323 actual Source/native observations include compressed cross-file rows and exact complete filesystem/store/incarnation/revision identity, row/config vectors, logical version/legacy/seek refusals, real cold Contexts and competing processes. Isolated extracted consumers require full fresh Source/input digests and the same candidate module/resource closure.",
-    "Inspection balances interrupted events without mutation; load commits torn-tail recovery, advances revisions and forces reload. Cold preparation owns an unpublished end-seed distinct from the durable prefix; profile model/history tools and three preset Remote restart consumers use this provider.",
-    "Clean committed acceptance requires all tests, 443 mandatory lanes, eighteen unchanged Source groups/1237 assertions, 54 paired drivers and actual extracted/original-browser verification; original symlink EPERM and skips remain explicit host limits, not a passing whole-provider suite."
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/session/session-persistence-jsonl/src/index.ts",
+    "dsh/session/sqlite_legacy_reader.py",
+    "dsh/session/sqlite_store.py",
+    "dsh/session/sqlite_schema.py"
   ],
-  "identity": "Pinned original schema19/application identity and unchanged SQL36; source-qualified filesystem/store UUID/session incarnation/revision.",
-  "ownership": "One store owns shared path/open reservations and a private SQLite handle; Context effects close admission, drain live writes and preparations, then retire the handle.",
-  "ordering": "Validate ownership before journal configuration; recheck under mutation reservation; snapshot rows under read transaction before decoding; validate current tail before append/repair and publish no failed mutation.",
-  "errors": "Bounded original Config/schema/store refusals and missing/unsupported/legacy logical histories; full arbitrary public extension/malformed JSON/V8 diagnostic ABI stays separate.",
-  "cancellation": "Cancelled observers do not cancel shared opening; signal checks surround detached reads; configured SQLite busy budgets and open-relative journal retry cutoff remain finite.",
-  "adaptation": "Python3.8/private SQLite3.51.2/Zstandard1.5.7 and Win7 filesystem identities; no Node runtime dependency in Portable and no implicit legacy-layout migration.",
-  "open_questions": ["Source full provider suite still has actual host symlink EPERM and original skips; whole-suite/platform parity remains unaccepted.", "Full malformed/public plugin ABI, arbitrary concurrency/multi-cwd/long-history histories, compressed JSONL, complete UI/reconnect/profile flows and real Win7 remain separate scopes."]
+  "consumers": [
+    "dsh/boot/plugin_registry.py",
+    "dsh/session/persistence_jsonl_canonical.py",
+    "dsh/llm/plugin_package_inventory.py",
+    "scripts/legacy_session_reader_oracle.py",
+    "scripts/verify_release.py",
+    "scripts/verify_portable.py"
+  ],
+  "invariants": [
+    "rc.1 removes @deepseek-ai/dsh-session-persistence-sqlite. Canonical profiles use JSONL; the retired upstream Loader name is unavailable.",
+    "An explicitly mounted product-owned @deepseek-ai/dsh-win7-session-sqlite-reader exposes legacySessionReader, never sessionPersistence. Its actual manifest participates in active package inventory.",
+    "The reader opens existing schema-19 databases with SQLite read-only flags, validates the historical application/schema identity, refuses SQL writes and preserves source database bytes.",
+    "Exports preserve logical isSeeded and exact inheritedEventCount, refuse duplicate target identities, and produce canonical none/zstd JSONL. Cold preparation and subsequent writes continue through the rc.1 JSONL provider.",
+    "Actual archived alpha.1 Source databases retain their historical Source identity. New native and extracted-reader observations qualify compatibility with those files, not rc.1 upstream-provider parity.",
+    "Context disposal drains borrowed preparations and closes native handles; exported data remains usable after reader disposal. Three preset Remote model/fork/search/cold-restart consumers verify compatibility."
+  ],
+  "identity": "Historical schema19/application identity; rc.1 logical Session identity isSeeded plus explicit inheritedEventCount.",
+  "ownership": "Product-owned optional reader; reversible service registration and native handle disposal; canonical JSONL owns all new writes.",
+  "ordering": "Read and validate before export; reserve target identity before creating a new log; reject overwrite; keep original database unchanged.",
+  "errors": "Missing, foreign, unsupported and corrupt historical databases fail closed. Export collisions reject without replacing the target.",
+  "cancellation": "Read observers use existing signal-aware detached storage reads; disposal drains preparations.",
+  "adaptation": "Explicit alpha.1 data compatibility with pinned private SQLite/Zstandard runtimes. The retired package is not reintroduced under an upstream alias.",
+  "open_questions": [
+    "Exact-candidate full release qualification and real Windows 7 remain pending."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

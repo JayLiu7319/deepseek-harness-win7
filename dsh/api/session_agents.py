@@ -6,7 +6,6 @@ import weakref
 from dsh.api.settings import failure
 from dsh.core.model_selection import ModelSelection, install_model_selection
 from dsh.session.session_query import SessionQueryError
-from dsh.typert.remote import TypertLookupFailure
 
 
 def selection_state(state, event):
@@ -45,15 +44,10 @@ class SessionAgents:
         self.selections, self.admissions = weakref.WeakKeyDictionary(), weakref.WeakKeyDictionary()
         registry = ctx.get('sessionProjections')
         registry.register(dict(key='modelSelection', stateVersion=2, stateSchema=lambda value: value,
-                               init=lambda _: dict(lastUsed=None, pending=None), apply=selection_state,
+                               init=lambda _, cut: dict(lastUsed=None, pending=None), apply=selection_state,
                                wire=dict(viewSchema=lambda value: value, view=lambda state: dict(lastUsed=state['lastUsed'], next=state['pending'] or state['lastUsed']))))
         async def lookup(sid):
-            try:
-                return await self.resolve(sid)
-            except Exception as error:
-                if hasattr(error, 'failure'):
-                    raise TypertLookupFailure(error.failure) from error
-                raise
+            return await self.resolve(sid)
         async def session(sid):
             return (await lookup(sid)).session
         async def context(sid):
@@ -66,7 +60,7 @@ class SessionAgents:
     def check_owner(self, header, agent=None):
         parent = self.ctx.get('agents').get(header.parentSession) if header.parentSession else None
         if header.origin == 'subagent' or parent is not None and agent is not None and self.ctx.get('agents').isOwnedBy(agent.id, parent):
-            raise failure('agent-busy', 'session "%s" is owned by subagent routing' % header.id,
+            raise failure('session/agent-busy', 'session "%s" is owned by subagent routing' % header.id,
                           {'reason': 'use subagent delivery for this child session'})
 
     def preset(self, session):
@@ -111,13 +105,13 @@ class SessionAgents:
                     if source is None:
                         source = await self.ctx.get('sessionQuery').observeSession(sid)
                     if source.header.cwd is None:
-                        raise failure('session-not-found', 'session "%s" not found' % sid, {'sessionId': sid})
+                        raise failure('session/not-found', 'session "%s" not found' % sid, {'sessionId': sid})
                     self.check_owner(source.header)
                     _, setup = await self.compose(source.projections['values'].get('agentPreset'))
                     return (await self.ctx.get('agents').resume(dict(resumeSessionId=sid, agentOptions=self.options(), setup=setup))).agent
                 except SessionQueryError as error:
                     if error.code == 'SESSION_QUERY_SESSION_NOT_FOUND':
-                        raise failure('session-not-found', 'session "%s" not found' % sid, {'sessionId': sid}) from error
+                        raise failure('session/not-found', 'session "%s" not found' % sid, {'sessionId': sid}) from error
                     raise
                 finally:
                     if source is not None:
@@ -167,9 +161,9 @@ class SessionAgents:
             details = dict(sessionId=sid, requestedPreset=preset)
             if stored_preset is not None:
                 details['existingPreset'] = stored_preset
-            raise failure('agent-preset-conflict', 'session "%s" uses another agent preset' % sid, details)
+            raise failure('agent-preset/conflict', 'session "%s" uses another agent preset' % sid, details)
         if cwd != stored_cwd:
             details = dict(sessionId=sid, requestedCwd=cwd)
             if stored_cwd is not None:
                 details['existingCwd'] = stored_cwd
-            raise failure('session-conflict', 'session "%s" belongs to another cwd' % sid, details)
+            raise failure('session/conflict', 'session "%s" belongs to another cwd' % sid, details)

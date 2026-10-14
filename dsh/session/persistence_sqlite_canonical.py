@@ -5,6 +5,7 @@ from dsh.session.sqlite_logical import validate_inspection, needs_legacy_prefix,
 from dsh.session.persistence import SessionFormatUnsupportedError
 from dsh.session.repair import interrupted_turn_closers
 from dsh.session.sqlite_store import SqliteStore
+from dsh.core.session.json import UNDEFINED
 
 
 class SqliteSessionPersistence(SessionPersistence):
@@ -19,17 +20,31 @@ class SqliteSessionPersistence(SessionPersistence):
     def locate(self, meta):
         return None
 
-    async def create(self, meta):
-        await self.storage().create(meta)
+    async def create(self, meta, inherited_event_count=UNDEFINED):
+        await self.storage().create(meta, inherited_event_count)
 
     async def append(self, identity, events):
         await self.storage().append(identity, events)
 
     async def append_batch(self, meta, events, materialized):
-        await self.store.append_batch(meta.to_dict(), events, materialized)
+        await self.store.append_batch(self._physical_header(meta), events, materialized)
 
     async def _create(self, meta):
-        await self.store.materialize_header(meta.to_dict())
+        await self.store.materialize_header(self._physical_header(meta))
+
+    def _physical_header(self, meta):
+        value = meta.to_dict()
+        seeded = value.pop('isSeeded')
+        if seeded:
+            value['seedLength'] = self.storage().states[meta.id]['inheritedEventCount']
+        return value
+
+    def _inspection(self, stored):
+        from dsh.session.lineage_storage import from_header_line
+        physical = dict(stored['meta'])
+        physical.setdefault('delegationDepth', 0)
+        storage = from_header_line(physical)
+        return SessionInspection(storage.meta, stored['events'], storage.inheritedEventCount)
 
     async def ensure_materialized(self, session):
         await self.storage().ensure_materialized(session)
@@ -38,7 +53,7 @@ class SqliteSessionPersistence(SessionPersistence):
         stored = await self.store.load_stored(identity, signal)
         if stored is None:
             raise SessionPersistenceNotFoundError(identity)
-        inspection = SessionInspection(header_from_stored(stored['meta']), stored['events'])
+        inspection = self._inspection(stored)
         return validate_inspection(inspection, identity)
 
     async def stored_revision(self, identity):
@@ -66,7 +81,7 @@ class SqliteSessionPersistence(SessionPersistence):
         if stored is None:
             raise SessionPersistenceNotFoundError(identity)
         try:
-            inspection = validate_inspection(SessionInspection(header_from_stored(stored['meta']), stored['events']), identity)
+            inspection = validate_inspection(self._inspection(stored), identity)
             from dsh.core.session.types import validate_restored_session_header
             inspection.meta = validate_restored_session_header(identity, inspection.meta)
             return inspection, interrupted_turn_closers(inspection.events)
@@ -123,14 +138,14 @@ class SqliteSessionPersistence(SessionPersistence):
                     throw_aborted(signal)
                     whole.events = [event for event in whole.events if event['seq'] >= sequence]
                     return whole
-                return validate_inspection(SessionInspection(header_from_stored(stored['meta']), stored['events']), identity)
+                return validate_inspection(self._inspection(stored), identity)
         return await observe_queued_abort(read(), signal, lambda: started[0])
 
     async def list(self, signal=None):
-        return [header_from_stored(value) for value in await self.store.list(signal)]
+        return [self._inspection(dict(meta=value, events=[])).meta for value in await self.store.list(signal)]
 
     async def list_snapshots(self, signal=None):
-        return [SessionPersistenceSnapshot(header_from_stored(value['header']), value['revision'])
+        return [SessionPersistenceSnapshot(self._inspection(dict(meta=value['header'], events=[])).meta, value['revision'])
                 for value in await self.store.list_snapshots(signal)]
 
     async def close(self):

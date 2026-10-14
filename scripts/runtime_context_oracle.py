@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 NAMES = ('change', 'clear', 'same', 'empty')
 SOURCE_INPUTS = {
     'reference/packages/core/agent-loop/src/agent.ts',

@@ -1,8 +1,8 @@
 {
   "id": "CON-DEEPSEEK-ERROR",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/llm/llm-deepseek/src/adapter.ts",
     "reference/packages/llm/llm-deepseek/src/translate.ts",
@@ -33,6 +33,12 @@
   "adaptation": "Python SSE preview explicitly slices UTF16 code units and idle configuration interpolates through existing Cordis JS String. Digests use existing lossless JSON snapshot to canonicalize only whole numeric token spellings; comparison retains decoded JSON values without platform traceback/cause-stack or extra language exception-property claims.",
   "open_questions": [
     "Retry orchestration/full AgentLoop/profile boot, arbitrary malformed graphs/transport/cancellation schedules, images/files and full B2/B3 remain unqualified.",
-    "Static Source guards are not complete dynamic import closure; wider frozen full-gate inputs are still required. OAuth/cloud/paid API and realWin7 remain separately open."
-  ]
+    "Static Source guards are not complete dynamic import closure; wider frozen full-gate inputs are still required. OAuth/cloud/paid API and realWin7 remain separately open.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

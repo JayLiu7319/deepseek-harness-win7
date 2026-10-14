@@ -5,6 +5,7 @@ import logging
 
 from dsh.cordis.plugin import Plugin
 from dsh.core.session import snapshot_json_value
+from dsh.core.session.types import SessionLogOffset, _is_safe_non_negative_int
 from dsh.storage.domain_spec import define_domain, domain_table
 
 
@@ -12,25 +13,38 @@ def _record(value):
     if not isinstance(value, dict) or not isinstance(value.get("identity"), dict) or not isinstance(value.get("rows"), dict):
         raise ValueError("invalid projection checkpoint record")
     identity = value["identity"]
-    if type(identity.get("createdAt")) is not int or identity["createdAt"] < 0:
+    if not _is_safe_non_negative_int(identity.get('createdAt')):
         raise ValueError("invalid checkpoint identity")
     if "cwd" in identity and not isinstance(identity["cwd"], str):
         raise ValueError("invalid checkpoint cwd")
+    if 'isSeeded' in identity and type(identity['isSeeded']) is not bool:
+        raise ValueError('invalid checkpoint lineage')
+    if 'inheritedEventCount' in identity:
+        SessionLogOffset(identity['inheritedEventCount'])
     for row in value["rows"].values():
-        if not isinstance(row, dict) or type(row.get("ver")) is not int or row["ver"] < 0 or type(row.get("seq")) is not int or row["seq"] < -1 or "val" not in row:
+        if not isinstance(row, dict) or "val" not in row:
             raise ValueError("invalid checkpoint row")
+        if not _is_safe_non_negative_int(row.get('ver')):
+            raise ValueError('invalid checkpoint row')
+        if type(row.get('seq')) not in (int, float) or row['seq'] != -1:
+            SessionLogOffset(row.get('seq'))
     # snapshot_json_value rejects values outside the session JSON vocabulary.
     if snapshot_json_value(value) is None:
         raise ValueError("checkpoint is not losslessly JSON-serializable")
     return copy.deepcopy(value)
 
 
-PROJECTION_CACHE_SPEC = define_domain({"name": "session_projcache", "version": 4,
+PROJECTION_CACHE_SPEC = define_domain({"name": "session_projcache", "version": 5,
+    "compatibleVersions": [3, 4], "invalidRecords": "backup-and-skip",
     "layout": "per-record", "tables": {"sessions": domain_table(_record)}})
 
 
-def _identity(header):
-    result = {"createdAt": header.createdAt}
+def _identity(header, inherited_event_count):
+    cut = SessionLogOffset(inherited_event_count)
+    if not header.isSeeded and cut != 0:
+        raise ValueError('unseeded projection-cache identity inherited event count must be 0')
+    result = {"createdAt": header.createdAt, "isSeeded": header.isSeeded,
+              "inheritedEventCount": cut}
     if header.cwd is not None:
         result["cwd"] = header.cwd
     return result
@@ -42,12 +56,15 @@ class SessionProjectionCache:
         self.dirty, self.tasks = {}, set()
         self.closed = False
 
-    def _rows(self, header):
+    def _rows(self, header, inherited_event_count):
         record = self.table.get(header.id)
-        return record["rows"] if record and record["identity"] == _identity(header) else {}
+        identity = dict(record['identity']) if record else {}
+        identity.setdefault('isSeeded', False)
+        identity.setdefault('inheritedEventCount', 0)
+        return record["rows"] if record and identity == _identity(header, inherited_event_count) else {}
 
-    def cached_snapshot(self, header, keys=None):
-        rows = self._rows(header)
+    def cached_snapshot(self, header, inherited_event_count, keys=None):
+        rows = self._rows(header, inherited_event_count)
         values = self.ctx.get("sessionProjections").view_checkpoint(rows, keys)
         if not values:
             return None
@@ -55,19 +72,20 @@ class SessionProjectionCache:
 
     cachedSnapshot = cached_snapshot
 
-    def hydrate_prepared(self, session, meta, events):
+    def hydrate_prepared(self, session, events):
         projections = self.ctx.get("sessionProjections")
         try:
-            return projections.hydrate(session, self._rows(meta), events, 0)
+            return projections.hydrate(session, self._rows(session.header, session.inheritedEventCount), events, 0)
         except (ValueError, TypeError, KeyError):
             return projections.hydrate(session, {}, events, 0)
 
     hydratePrepared = hydrate_prepared
 
-    def cold_snapshot(self, meta, events):
+    def cold_snapshot(self, meta, inherited_event_count, events):
         projections = self.ctx.get("sessionProjections")
-        restored = projections.restore(self._rows(meta), events, 0, meta)
-        self._schedule(self._put(meta, restored["checkpoint"]))
+        restored = projections.restore(self._rows(meta, inherited_event_count), events, 0, meta,
+                                       inherited_event_count)
+        self._schedule(self._put(meta, inherited_event_count, restored["checkpoint"]))
         return restored["snapshot"]
 
     coldSnapshot = cold_snapshot
@@ -77,8 +95,8 @@ class SessionProjectionCache:
         if state and state[1] is not None:
             state[1].cancel()
 
-    async def _put(self, header, rows):
-        await self.table.put(header.id, _record({"identity": _identity(header), "rows": rows}))
+    async def _put(self, header, inherited_event_count, rows):
+        await self.table.put(header.id, _record({"identity": _identity(header, inherited_event_count), "rows": rows}))
 
     def write(self, session):
         # JS async functions capture this cut and reset the counter at call time.
@@ -95,7 +113,7 @@ class SessionProjectionCache:
         async def commit():
             if live:
                 await sessions.flush(session)
-            await self._put(session.header, rows)
+            await self._put(session.header, session.inheritedEventCount, rows)
 
         # Enter the event loop at call time so an explicitly awaited write
         # cannot overtake an earlier fire-and-forget creation checkpoint.

@@ -24,10 +24,6 @@ INPUTS = [
     "dsh/session/coordinator.py",
     "dsh/session/prepared_persistence.py",
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
-    "reference/packages/session/session-persistence-sqlite/src/index.ts",
-    "reference/packages/session/session-persistence-sqlite/src/store.ts",
-    "reference/packages/session/session-persistence-sqlite/src/schema.ts",
-    "reference/packages/session/session-persistence-sqlite/src/sql.ts",
     "tests/test_session_snapshots_source.py",
     "tests/test_session_snapshots_observer.py",
     "tests/test_session_snapshots.py"
@@ -94,7 +90,7 @@ def main():
             raise ValueError('Session persistence snapshots actual source/native observations differ')
         if report['inputSha256'] != hashes():
             raise ValueError('Session persistence snapshots inputs changed during observation')
-        report.update(status='passed', cases=18,
+        report.update(status='passed', cases=len(EXPECTED),
             scope='Actual JSONL/SQLite providers through canonical snapshots: qualified tokens, unchanged/noop stability, append transactions, detached headers, reopen/copy namespaces, exact pre-abort, restored-size/mtime JSONL invalidation and in-memory SQLite. Native SQLite physical schema remains a legacy adaptation, not schema-19/chunk/compression/cross-process/FTS/Win7 certification.')
     except Exception as error:
         report['error'] = str(error)

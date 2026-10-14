@@ -41,7 +41,7 @@ async def main():
         if dimensions is not None:
             value['originalDimensions'] = dimensions
         rows.append(dict(name='render:' + name, value=dict(text=format_image_read_output('red.png', value), reference=image_ref_from_value(value)) if image_media_type_for_path else dict(missingExport=True)))
-    names = ['positive','fallback','latest-header','text-model','unknown-modalities','missing-llm','missing-provider','missing-model','missing-agent','bad-extension','blank-path','missing-file','directory','type-mismatch','pixel-limit','dimension-limit','byte-cap','disallowed-type','attachment-gate','unmount-store','remount-store','cancel-before']
+    names = ['positive','fallback','latest-header','text-model','unknown-modalities','missing-llm','missing-provider','missing-model','missing-agent','bad-extension','blank-path','missing-file','directory','type-mismatch','pixel-limit','dimension-limit','byte-cap','disallowed-type','attachment-gate','unmount-store','remount-store','cancel-before','extensionless','extensionless-unknown','extensionless-corrupt','extensionless-disallowed','extensionless-text-model']
     for name in names:
         directory = fixture / name
         ctx = Context()
@@ -81,10 +81,10 @@ async def main():
                 await store.dispose()
                 if name == 'remount-store':
                     store = await ctx.plugin(LocalAttachmentStore, configuration)
-            if name == 'disallowed-type':
+            if name in ('disallowed-type', 'extensionless-disallowed'):
                 ctx.get('attachments')._image_limits = dict(ctx.get('attachments').image_limits, mediaTypes=['image/jpeg'])
             ctx.on('fs/observed', lambda target, observation, execution: observed.append(dict(path=target.displayPath, **observation)))
-            model = 'text' if name == 'text-model' else 'unknown' if name == 'unknown-modalities' else 'vision'
+            model = 'text' if name in ('text-model', 'extensionless-text-model') else 'unknown' if name == 'unknown-modalities' else 'vision'
             config = dict(model=model)
             if name != 'missing-provider':
                 config['provider'] = 'image-fixture'
@@ -96,7 +96,7 @@ async def main():
             signal = AbortController()
             if name == 'cancel-before':
                 signal.abort()
-            file_path = 'red.txt' if name == 'bad-extension' else '  ' if name == 'blank-path' else 'missing.png' if name == 'missing-file' else 'folder.png' if name == 'directory' else 'red.jpg' if name == 'type-mismatch' else 'red.png'
+            file_path = 'object' if name.startswith('extensionless') else 'red.txt' if name == 'bad-extension' else '  ' if name == 'blank-path' else 'missing.png' if name == 'missing-file' else 'folder.png' if name == 'directory' else 'red.jpg' if name == 'type-mismatch' else 'red.png'
             result = await ctx.get('tools').execute(ToolExecutionInput(signal=signal.signal, call_id='image-call', name='read_image', arguments=dict(file_path=file_path), agent=None if name == 'missing-agent' else agent))
             value = dict(isError=result.isError, content=copy.deepcopy(result.content))
             if result.value is not None:

@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 import asyncio
@@ -44,6 +45,8 @@ async def confined(tmp_path):
         await ctx.plugin(ToolsPlugin)
         await ctx.plugin(SessionPlugin)
         await ctx.plugin(AgentPlugin)
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin)
         owner = await ctx.get('agent_loop').create('console-owner', meta=dict(cwd=str(workspace)))
         other = await ctx.get('agents').create('console-sibling', meta=dict(cwd=str(workspace)))

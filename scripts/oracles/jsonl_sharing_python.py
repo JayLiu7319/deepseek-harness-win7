@@ -49,7 +49,7 @@ async def main():
                 inspected = await provider.inspect(meta.id)
                 raw = await provider.read_raw(meta.id)
                 raw = dict(raw, meta=raw['meta'].to_dict())
-                observed = dict(listed=listed, inspected=dict(meta=inspected.meta.to_dict(), events=inspected.events), raw=raw)
+                observed = dict(listed=listed, inspected=dict(meta=inspected.meta.to_dict(), events=inspected.events, inheritedEventCount=0), raw=raw)
                 rows.append(dict(name=name, observed=observed))
                 if options.source_observer:
                     repository = Path(__file__).resolve().parents[2]

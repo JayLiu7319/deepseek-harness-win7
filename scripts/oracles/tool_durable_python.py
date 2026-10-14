@@ -16,6 +16,7 @@ ROOT = options.root.resolve()
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -33,6 +34,7 @@ async def main():
     cases = json.loads((WORK / 'tool-durable-cases.json').read_text(encoding='utf-8'))
     for spec in cases:
         ctx = Context()
+        SessionProjectionRegistry(ctx)
         handle = None
         try:
             for plugin in (LlmRuntime, SessionPlugin, SystemPrompt, ToolsPlugin, AgentPlugin):

@@ -4384,7 +4384,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/preset/agent-presets/src/index.ts",
-						"line": 560,
+						"line": 565,
 						"column": 9
 					}
 				},
@@ -4412,7 +4412,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/preset/agent-presets/src/index.ts",
-						"line": 602,
+						"line": 603,
 						"column": 9
 					}
 				},
@@ -4431,7 +4431,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/preset/agent-presets/src/index.ts",
-						"line": 318,
+						"line": 261,
 						"column": 9
 					}
 				},
@@ -4459,7 +4459,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/preset/agent-presets/src/index.ts",
-						"line": 504,
+						"line": 513,
 						"column": 9
 					}
 				},
@@ -4500,7 +4500,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/preset/agent-presets/src/index.ts",
-						"line": 698,
+						"line": 695,
 						"column": 9
 					}
 				}
@@ -4525,7 +4525,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 			"result": union([object({
 				"kind": literal("success").readonly(),
 				"text": string().readonly().optional(),
-				"sourceEventSeq": number().readonly().optional()
+				"sourceEventSeq": intersection(number(), unknown()).readonly().optional()
 			}), object({
 				"kind": literal("error").readonly(),
 				"text": string().readonly()
@@ -4593,7 +4593,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 				},
 				sourceLocation: {
 					"file": "packages/interaction/commands/src/index.ts",
-					"line": 330,
+					"line": 333,
 					"column": 9
 				}
 			}, {
@@ -4624,7 +4624,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 				},
 				sourceLocation: {
 					"file": "packages/interaction/commands/src/index.ts",
-					"line": 286,
+					"line": 289,
 					"column": 3
 				}
 			}]
@@ -4962,7 +4962,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/credentials.ts",
-						"line": 86,
+						"line": 83,
 						"column": 9
 					}
 				},
@@ -4998,7 +4998,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/credentials.ts",
-						"line": 103,
+						"line": 100,
 						"column": 9
 					}
 				},
@@ -5025,7 +5025,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/credentials.ts",
-						"line": 116,
+						"line": 113,
 						"column": 9
 					}
 				},
@@ -5043,7 +5043,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 136,
+						"line": 131,
 						"column": 3
 					}
 				},
@@ -5061,7 +5061,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 122,
+						"line": 117,
 						"column": 3
 					}
 				},
@@ -5111,7 +5111,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 185,
+						"line": 180,
 						"column": 9
 					}
 				},
@@ -5139,7 +5139,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 231,
+						"line": 226,
 						"column": 9
 					}
 				},
@@ -5158,7 +5158,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 200,
+						"line": 195,
 						"column": 9
 					}
 				},
@@ -5208,7 +5208,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 166,
+						"line": 161,
 						"column": 3
 					}
 				},
@@ -5258,7 +5258,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/settings-controller/src/index.ts",
-						"line": 149,
+						"line": 144,
 						"column": 3
 					}
 				}
@@ -5428,7 +5428,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 377,
+						"line": 431,
 						"column": 3
 					}
 				},
@@ -5469,7 +5469,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 337,
+						"line": 389,
 						"column": 3
 					}
 				},
@@ -5511,7 +5511,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 586,
+						"line": 623,
 						"column": 3
 					}
 				},
@@ -5565,7 +5565,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 277,
+						"line": 327,
 						"column": 3
 					}
 				},
@@ -5606,7 +5606,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 299,
+						"line": 350,
 						"column": 3
 					}
 				},
@@ -5647,7 +5647,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/goal/goal/src/index.ts",
-						"line": 311,
+						"line": 362,
 						"column": 3
 					}
 				}
@@ -6204,7 +6204,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 							source: "json",
 							codec: {
 								mode: "strict",
-								typeSymbol: "@deepseek-ai/dsh-session/types#JsonValue",
+								typeSymbol: "@deepseek-ai/dsh-util-values#JsonValue",
 								schema: _deepseek_ai_dsh_cordis_host_runner_dynamicCordisRunner_invoke_parameter_3$schema
 							}
 						}
@@ -6699,24 +6699,51 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 				result: {
 					mode: "strict",
 					typeSymbol: "@deepseek-ai/dsh-host-plugin-inventory/types#PluginInventorySnapshot",
-					schema: object({ "entries": array(object({
-						"entryId": intersection(string(), unknown()).readonly(),
-						"moduleName": string().readonly(),
-						"enabled": boolean().readonly(),
-						"fiberPhase": union([
-							literal(null),
-							literal("pending"),
-							literal("active"),
-							literal("failed"),
-							literal("loading"),
-							literal("unloading")
-						]).readonly()
-					})).readonly() })
+					schema: object({
+						"entries": array(object({
+							"entryId": intersection(string(), unknown()).readonly(),
+							"moduleName": string().readonly(),
+							"enabled": boolean().readonly(),
+							"fiberPhase": union([
+								literal(null),
+								literal("pending"),
+								literal("active"),
+								literal("failed"),
+								literal("loading"),
+								literal("unloading")
+							]).readonly()
+						})).readonly(),
+						"agentPresets": array(object({
+							"id": string().readonly(),
+							"trust": union([literal("system"), literal("user")]).readonly(),
+							"name": string().readonly().optional(),
+							"isDefault": boolean().readonly(),
+							"broken": string().readonly().optional(),
+							"rows": array(object({
+								"entryId": union([literal(null), string()]).readonly(),
+								"moduleName": string().readonly(),
+								"enabled": union([
+									literal(false),
+									literal(true),
+									literal("conditional")
+								]).readonly(),
+								"condition": string().readonly().optional(),
+								"fiberPhase": union([
+									literal(null),
+									literal("pending"),
+									literal("active"),
+									literal("failed"),
+									literal("loading"),
+									literal("unloading")
+								]).readonly()
+							})).readonly()
+						})).readonly().optional()
+					})
 				},
 				sourceLocation: {
 					"file": "packages/host/plugin-inventory/src/index.ts",
-					"line": 57,
-					"column": 3
+					"line": 66,
+					"column": 9
 				}
 			}]
 		};
@@ -6839,7 +6866,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/feedback/message-feedback/src/index.ts",
-						"line": 272,
+						"line": 273,
 						"column": 3
 					}
 				},
@@ -6866,7 +6893,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/feedback/message-feedback/src/index.ts",
-						"line": 190,
+						"line": 191,
 						"column": 9
 					}
 				},
@@ -6893,7 +6920,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/feedback/message-feedback/src/index.ts",
-						"line": 206,
+						"line": 207,
 						"column": 3
 					}
 				}
@@ -6952,55 +6979,13 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 				},
 				sourceLocation: {
 					"file": "packages/context/session-reference/src/index.ts",
-					"line": 245,
+					"line": 251,
 					"column": 9
 				}
 			}]
 		};
 		//#endregion
 		//#region ../../subagent/subagent/lib/typert.remote-client.js
-		const ContentBlockRemoteCodec$schema$1 = union([
-			object({
-				"type": literal("text"),
-				"text": string()
-			}),
-			object({
-				"type": literal("image"),
-				"attachment": object({
-					"attachmentId": intersection(string(), unknown()),
-					"mediaType": union([
-						literal("image/png"),
-						literal("image/jpeg"),
-						literal("image/webp"),
-						literal("image/gif")
-					]),
-					"bytes": number(),
-					"width": number(),
-					"height": number(),
-					"name": string().optional(),
-					"originalDimensions": object({
-						"width": number(),
-						"height": number()
-					}).optional()
-				})
-			}),
-			object({
-				"type": literal("reasoning"),
-				"text": string()
-			}),
-			object({
-				"type": literal("tool-call"),
-				"id": intersection(string(), unknown()),
-				"name": string(),
-				"arguments": string()
-			}),
-			object({
-				"type": literal("tool-result"),
-				"toolCallId": intersection(string(), unknown()),
-				"content": array(lazy(() => ContentBlockRemoteCodec$schema$1)),
-				"isError": boolean().optional()
-			})
-		]);
 		const _deepseek_ai_dsh_subagent_subagents_interruptByParent_parameter_0$schema = intersection(string(), unknown());
 		const _deepseek_ai_dsh_subagent_subagents_interruptByParent_parameter_1$schema = intersection(string(), unknown());
 		const _deepseek_ai_dsh_subagent_subagents_interruptByParent_parameter_2$schema = literal("continuable");
@@ -7043,48 +7028,20 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 			"parentSessionId": intersection(string(), unknown()).readonly(),
 			"childSessionId": intersection(string(), unknown()).readonly(),
 			"mode": literal("continuable").readonly(),
-			"content": array(union([
-				object({
-					"type": literal("text"),
-					"text": string()
-				}),
-				object({
-					"type": literal("image"),
-					"attachment": object({
-						"attachmentId": intersection(string(), unknown()),
-						"mediaType": union([
-							literal("image/png"),
-							literal("image/jpeg"),
-							literal("image/webp"),
-							literal("image/gif")
-						]),
-						"bytes": number(),
-						"width": number(),
-						"height": number(),
-						"name": string().optional(),
-						"originalDimensions": object({
-							"width": number(),
-							"height": number()
-						}).optional()
-					})
-				}),
-				object({
-					"type": literal("reasoning"),
-					"text": string()
-				}),
-				object({
-					"type": literal("tool-call"),
-					"id": intersection(string(), unknown()),
-					"name": string(),
-					"arguments": string()
-				}),
-				object({
-					"type": literal("tool-result"),
-					"toolCallId": intersection(string(), unknown()),
-					"content": array(lazy(() => ContentBlockRemoteCodec$schema$1)),
-					"isError": boolean().optional()
-				})
-			])).readonly(),
+			"content": array(union([object({
+				"type": literal("text").readonly(),
+				"text": string().readonly()
+			}), object({
+				"type": literal("image").readonly(),
+				"mediaType": union([
+					literal("image/png"),
+					literal("image/jpeg"),
+					literal("image/webp"),
+					literal("image/gif")
+				]).readonly(),
+				"data": string().readonly(),
+				"name": string().readonly().optional()
+			})])).readonly(),
 			"clientTimeZone": string().readonly().optional()
 		});
 		const _deepseek_ai_dsh_subagent_subagents_prompt_result$schema = object({ "messageId": intersection(string(), unknown()).readonly() });
@@ -7136,7 +7093,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/subagent/subagent/src/index.ts",
-						"line": 479,
+						"line": 476,
 						"column": 3
 					}
 				},
@@ -7165,7 +7122,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/subagent/subagent/src/index.ts",
-						"line": 406,
+						"line": 384,
 						"column": 9
 					}
 				},
@@ -7193,7 +7150,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/subagent/subagent/src/index.ts",
-						"line": 430,
+						"line": 410,
 						"column": 9
 					}
 				}
@@ -7406,12 +7363,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 								object({
 									"mode": literal("one-shot"),
 									"label": string().optional(),
-									"seq": number()
+									"seq": intersection(number(), unknown())
 								}),
 								object({
 									"mode": literal("continuable"),
 									"label": string(),
-									"seq": number()
+									"seq": intersection(number(), unknown())
 								})
 							]).optional(),
 							"goal": union([literal(null), object({
@@ -7543,11 +7500,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					array(lazy(() => JsonValueRemoteCodec$schema3)),
 					record(string(), lazy(() => JsonValueRemoteCodec$schema3))
 				]).readonly(),
+				"ignorable": literal(true).readonly().optional(),
 				"sourceEventSeqs": array(number()).readonly().optional(),
 				"surfaceOp": union([literal("append"), object({
-					"op": literal("replace"),
-					"start": number(),
-					"end": number()
+					"op": literal("replace").readonly(),
+					"start": number().readonly(),
+					"end": number().readonly()
 				})]).readonly().optional()
 			}).readonly()
 		}), object({
@@ -7579,11 +7537,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 						array(lazy(() => JsonValueRemoteCodec$schema3)),
 						record(string(), lazy(() => JsonValueRemoteCodec$schema3))
 					]).readonly(),
+					"ignorable": literal(true).readonly().optional(),
 					"sourceEventSeqs": array(number()).readonly().optional(),
 					"surfaceOp": union([literal("append"), object({
-						"op": literal("replace"),
-						"start": number(),
-						"end": number()
+						"op": literal("replace").readonly(),
+						"start": number().readonly(),
+						"end": number().readonly()
 					})]).readonly().optional()
 				}).readonly()
 			}), object({
@@ -7684,12 +7643,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 						object({
 							"mode": literal("one-shot"),
 							"label": string().optional(),
-							"seq": number()
+							"seq": intersection(number(), unknown())
 						}),
 						object({
 							"mode": literal("continuable"),
 							"label": string(),
-							"seq": number()
+							"seq": intersection(number(), unknown())
 						})
 					]).optional(),
 					"goal": union([literal(null), object({
@@ -7792,12 +7751,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 						object({
 							"mode": literal("one-shot"),
 							"label": string().optional(),
-							"seq": number()
+							"seq": intersection(number(), unknown())
 						}),
 						object({
 							"mode": literal("continuable"),
 							"label": string(),
-							"seq": number()
+							"seq": intersection(number(), unknown())
 						})
 					]).optional(),
 					"goal": union([literal(null), object({
@@ -7894,11 +7853,12 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 						array(lazy(() => JsonValueRemoteCodec$schema2)),
 						record(string(), lazy(() => JsonValueRemoteCodec$schema2))
 					]).readonly(),
+					"ignorable": literal(true).readonly().optional(),
 					"sourceEventSeqs": array(number()).readonly().optional(),
 					"surfaceOp": union([literal("append"), object({
-						"op": literal("replace"),
-						"start": number(),
-						"end": number()
+						"op": literal("replace").readonly(),
+						"start": number().readonly(),
+						"end": number().readonly()
 					})]).readonly().optional()
 				}).readonly()
 			}), object({
@@ -8123,7 +8083,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 337,
+						"line": 338,
 						"column": 3
 					}
 				},
@@ -8150,7 +8110,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 357,
+						"line": 358,
 						"column": 3
 					}
 				},
@@ -8168,7 +8128,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 258,
+						"line": 263,
 						"column": 3
 					}
 				},
@@ -8188,7 +8148,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 389,
+						"line": 390,
 						"column": 3
 					}
 				},
@@ -8215,7 +8175,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 230,
+						"line": 235,
 						"column": 3
 					}
 				},
@@ -8244,7 +8204,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 379,
+						"line": 380,
 						"column": 3
 					}
 				},
@@ -8271,7 +8231,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 315,
+						"line": 316,
 						"column": 3
 					}
 				},
@@ -8299,7 +8259,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 209,
+						"line": 214,
 						"column": 9
 					}
 				},
@@ -8317,7 +8277,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 249,
+						"line": 254,
 						"column": 3
 					}
 				},
@@ -8345,7 +8305,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 270,
+						"line": 275,
 						"column": 9
 					}
 				},
@@ -8373,7 +8333,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 368,
+						"line": 369,
 						"column": 3
 					}
 				},
@@ -8401,7 +8361,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 326,
+						"line": 327,
 						"column": 3
 					}
 				},
@@ -8428,7 +8388,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 305,
+						"line": 306,
 						"column": 3
 					}
 				},
@@ -8456,7 +8416,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 220,
+						"line": 225,
 						"column": 3
 					}
 				},
@@ -8483,7 +8443,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 240,
+						"line": 245,
 						"column": 3
 					}
 				},
@@ -8510,7 +8470,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/session-controller/src/index.ts",
-						"line": 347,
+						"line": 348,
 						"column": 3
 					}
 				},
@@ -8686,7 +8646,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/workspace-controller/src/directory-picker.ts",
-						"line": 86,
+						"line": 88,
 						"column": 9
 					}
 				},
@@ -8715,7 +8675,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/workspace-controller/src/directory-picker.ts",
-						"line": 70,
+						"line": 72,
 						"column": 9
 					}
 				},
@@ -8734,7 +8694,7 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 					},
 					sourceLocation: {
 						"file": "packages/api/workspace-controller/src/directory-picker.ts",
-						"line": 53,
+						"line": 55,
 						"column": 9
 					}
 				},

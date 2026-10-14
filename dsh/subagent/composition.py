@@ -58,7 +58,7 @@ def child_options(parent, requested, depth):
     return options
 
 
-def child_meta(parent, depth, seed_length):
+def child_meta(parent, depth, is_seeded):
     header = parent.session.header
     result = {"parentSession": header.id, "origin": "subagent", "delegationDepth": depth}
     if header.cwd is not None:
@@ -68,8 +68,7 @@ def child_meta(parent, depth, seed_length):
         preset = presets.composedPreset(parent.ctx)
         if preset is not None:
             result["agentPreset"] = preset
-    if seed_length > 0:
-        result["seedLength"] = seed_length
+    result["isSeeded"] = is_seeded
     return result
 
 

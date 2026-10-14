@@ -53,7 +53,7 @@ async def observe():
             await context.plugin(SessionPlugin)
             await context.plugin(SessionProjectionsPlugin)
             broken = name in ('projection-failure', 'live-projection-failure', 'projection-none')
-            def initialize(meta):
+            def initialize(meta, inherited_event_count):
                 if broken:
                     raise failure
                 return 0
@@ -80,7 +80,7 @@ async def observe():
                 if name in ('published-live', 'live-projection-failure'):
                     context.get('sessions').enter(Session.create(header.id, [], header))
                 return SimpleNamespace(source='live' if name == 'detached-live-retry' and counters['borrows'] == 1 else 'prepared',
-                    inspection=SimpleNamespace(meta=prepared_session.header, events=prepared_session.events),
+                    inspection=SimpleNamespace(meta=prepared_session.header, events=prepared_session.events, inheritedEventCount=0),
                     revision='controlled:0', preparedSession=prepared_session, dispose=release)
             if name != 'missing-provider':
                 context.set_service('sessionPersistence', SimpleNamespace(borrowSession=borrow))

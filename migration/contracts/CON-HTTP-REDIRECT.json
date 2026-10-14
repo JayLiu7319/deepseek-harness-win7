@@ -1,10 +1,23 @@
 {
   "id": "CON-HTTP-REDIRECT",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/llm/llm-deepseek/src/adapter.ts", "dsh/llm/http_stream.py", "dsh/llm/llm_deepseek.py", "dsh/llm/llm_service.py"],
-  "consumers": ["dsh/llm/deepseek_files.py", "dsh/llm/pi_completions_stream.py", "dsh/llm/pi_responses_stream.py", "dsh/llm/pi_anthropic_stream.py", "scripts/http_redirect_oracle.py", "scripts/verify_release.py", "scripts/verify_portable.py"],
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/llm/llm-deepseek/src/adapter.ts",
+    "dsh/llm/http_stream.py",
+    "dsh/llm/llm_deepseek.py",
+    "dsh/llm/llm_service.py"
+  ],
+  "consumers": [
+    "dsh/llm/deepseek_files.py",
+    "dsh/llm/pi_completions_stream.py",
+    "dsh/llm/pi_responses_stream.py",
+    "dsh/llm/pi_anthropic_stream.py",
+    "scripts/http_redirect_oracle.py",
+    "scripts/verify_release.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "Actual pinned DeepSeek Fetch and the selected native adapter retain POST body on 307/308 and rewrite POST on 301/302/303; PUT and HEAD boundaries have separate actual raw Fetch/shared-carrier observations.",
     "Authorization, proxy authorization and cookies disappear across origin changes and do not return when redirecting back. Attribution headers persist; body header removal follows actual method rewrite.",
@@ -19,5 +32,14 @@
   "errors": "Observed invalid target/count failures are URLError at the carrier and TRANSPORT at the adapter; controller cancellation remains ABORTED. No original bug predicates are broadened.",
   "cancellation": "The current owned signal/idle checks govern each follow-up connection and read; explicit pre-follow abort and unfinished redirect-body observations are required.",
   "adaptation": "Python3.8 stdlib owned HTTP/HTTPS handlers receive a Fetch-compatible redirect handler; no product Node, frontend modifications or external credentials.",
-  "open_questions": ["Full WHATWG URL/IDNA/unicode, TLS, proxies, all compression/framing, authentication and every provider route remain separate transport contracts.", "Complete Tools/Wire/profile combinations, general JS, overall migration and deferred real Win7 remain unaccepted."]
+  "open_questions": [
+    "Full WHATWG URL/IDNA/unicode, TLS, proxies, all compression/framing, authentication and every provider route remain separate transport contracts.",
+    "Complete Tools/Wire/profile combinations, general JS, overall migration and deferred real Win7 remain unaccepted.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

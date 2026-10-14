@@ -6,7 +6,7 @@ import tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from dsh.cordis.context import Context
 from dsh.core.session import SessionPlugin
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 
 def turn(session,n=1):
     session.append('turn/start',{'turn':n})

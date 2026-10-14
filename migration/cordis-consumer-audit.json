@@ -1,651 +1,733 @@
 {
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "scope": "Five explicitly selected critical test files; 65 literal declarations plus 4 expanded profile modes, not all consumers.",
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "scope": "Historical selected consumer mapping, re-located in current rc1 Source; reviewed titles do not prove current runtime parity.",
   "cases": [
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 36,
       "title": "requires an explicit later layer to enable source-module reload",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_requires_an_explicit_later_layer_to_enable_source_module_reload"
-      ]
+      ],
+      "historical_line": 36
     },
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 43,
       "title": "keeps the standalone sdk-minimal tree free of module HMR",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_keeps_the_standalone_sdk_minimal_tree_free_of_module_hmr"
-      ]
+      ],
+      "historical_line": 43
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 35,
       "title": "observes module changes when its watch base is a filesystem alias",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_observes_module_changes_when_watch_base_is_filesystem_alias"
-      ]
+      ],
+      "historical_line": 35
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 70,
       "title": "collapses filesystem aliases before registering an exact watch",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_collapses_filesystem_aliases_before_registering_exact_watch"
-      ]
+      ],
+      "historical_line": 70
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 86,
       "title": "observes add, change, and unlink outside its module roots",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_observes_add_change_and_unlink_outside_module_roots"
-      ]
+      ],
+      "historical_line": 86
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 112,
       "title": "observes creation when the config parent did not exist at registration",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_observes_creation_when_config_parent_did_not_exist_at_registration"
-      ]
+      ],
+      "historical_line": 112
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 130,
       "title": "serializes refreshes and waits for them during disposal",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_serializes_refreshes_and_waits_for_them_during_disposal"
-      ]
+      ],
+      "historical_line": 130
     },
     {
       "source": "reference/packages/boot/app-boot/tests/hmr-config.spec.ts",
       "line": 171,
       "title": "normalizes refresh failures and broadcasts them without escaping the watcher",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/1to1/boot/app_boot/test_hmr_config.py::test_normalizes_refresh_failures_and_broadcasts_them_without_escaping_watcher"
-      ]
+      ],
+      "historical_line": 171
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 41,
+      "line": 43,
       "title": "keeps the standing composition alive across the agents that joined it",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_official_assertions[41]"
-      ]
+      ],
+      "historical_line": 41
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 67,
+      "line": 69,
       "title": "rejects a composition that publishes a process-global service after its audit",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_guard_matrix[67]"
       ],
-      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate."
+      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate.",
+      "historical_line": 67
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 79,
+      "line": 81,
       "title": "stays quiet while every composition keeps its services out of the root realm",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_official_assertions[79]"
-      ]
+      ],
+      "historical_line": 79
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 88,
+      "line": 90,
       "title": "rejects an agent that addresses a model without joining any preset",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_guard_matrix[88]"
       ],
-      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate."
+      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate.",
+      "historical_line": 88
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 100,
+      "line": 102,
       "title": "rejects one just the same when the derived home root is the whole roster",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_official_assertions[100]"
-      ]
+      ],
+      "historical_line": 100
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 112,
+      "line": 114,
       "title": "stays silent for a composition that opted out of every root",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_guard_matrix[112]"
       ],
-      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate."
+      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate.",
+      "historical_line": 112
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
-      "line": 122,
+      "line": 124,
       "title": "admits a joined agent, a scopeless read, and a standing-key read",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_invariant_guard_matrix[122]"
       ],
-      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate."
+      "limitation": "Companion guards are exercised with real services; derived-home-only and full official fixture matrix remain separate.",
+      "historical_line": 122
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 92,
+      "line": 94,
       "title": "hands an absolute plugin path to Node as a file URL",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_absolute_plugin_import_92"
-      ]
+      ],
+      "historical_line": 92
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 109,
       "title": "gives each session only its own preset's tools",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[109]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 109,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 118,
+      "line": 120,
       "title": "scopes prompt sections and assembled schemas to the same session",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[118]"
-      ]
+      ],
+      "historical_line": 118
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 131,
+      "line": 133,
       "title": "mounts the default preset when the caller names none",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[131]"
-      ]
+      ],
+      "historical_line": 131
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 137,
+      "line": 139,
       "title": "lets two sessions share one preset without colliding",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[137]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 137
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 145,
       "title": "unwinds one session's composition without touching another's",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[145]"
-      ]
+      ],
+      "historical_line": 145,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 171,
       "title": "gives the child its parent's tools and prompt sections",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[171]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 171,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 181,
       "title": "joins the parent's own generation rather than remounting its preset",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[181]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 181,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 192,
+      "line": 194,
       "title": "keeps the child composed after its parent is disposed",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[192]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 192
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 206,
+      "line": 208,
       "title": "reports the preset id the child joined, for the durable header",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[206]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 206
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 215,
+      "line": 217,
       "title": "composes nothing when the parent joined no preset",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[215]"
-      ]
+      ],
+      "historical_line": 215
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 227,
+      "line": 229,
       "title": "refuses to compose an unscoped context",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[227]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 227
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 235,
+      "line": 237,
       "title": "refuses to mount into a context that carries no agent scope",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[235]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 235
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 240,
+      "line": 242,
       "title": "rolls the whole agent back when a row fails to load",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[240]"
-      ]
+      ],
+      "historical_line": 240
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 247,
+      "line": 249,
       "title": "names every failed row, not just the count",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[247]"
-      ]
+      ],
+      "historical_line": 247
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 255,
+      "line": 257,
       "title": "names the rows inside a failed group, not the group alone",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[255]"
-      ]
+      ],
+      "historical_line": 255
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 264,
+      "line": 266,
       "title": "names the unresolved service when a row never activates",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[264]"
-      ]
+      ],
+      "historical_line": 264
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 269,
+      "line": 271,
       "title": "rejects a row that publishes a process-global service",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[269]"
-      ]
+      ],
+      "historical_line": 269
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 279,
+      "line": 281,
       "title": "accepts the same provider behind an isolate realm",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[279]"
-      ]
+      ],
+      "historical_line": 279
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 288,
+      "line": 290,
       "title": "addresses the standing instance of a realm-private service through either agent",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[288]"
-      ]
+      ],
+      "historical_line": 288
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 305,
       "title": "answers undefined for a service the agent's preset does not mount",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[305]"
-      ]
+      ],
+      "historical_line": 305,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 315,
+      "line": 317,
       "title": "answers undefined for an agent outside the scope machinery",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[315]"
-      ]
+      ],
+      "historical_line": 315
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 327,
+      "line": 329,
       "title": "refuses to mount a preset directly into an unscoped context",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[327]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 327
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 335,
+      "line": 337,
       "title": "reports the known ids when a preset is unknown",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[335]"
-      ]
+      ],
+      "historical_line": 335
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 342,
       "title": "lists every root's presets with the earlier root winning",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_roster_precedence_342"
-      ]
+      ],
+      "historical_line": 342,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 352,
+      "line": 354,
       "title": "exposes the configured default id",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[352]"
-      ]
+      ],
+      "historical_line": 352
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 366,
+      "line": 368,
       "title": "refuses the mount up front with the discovery-reported reason",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_broken_discovery_precedes_mount[366]"
-      ]
+      ],
+      "historical_line": 366
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 377,
+      "line": 380,
       "title": "refuses the standing key a cold reader would mount by",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_broken_discovery_precedes_mount[377]"
-      ]
+      ],
+      "historical_line": 377
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 384,
+      "line": 387,
       "title": "still resolves the broken row for the surfaces that manage it",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_broken_discovery_precedes_mount[384]"
-      ]
+      ],
+      "historical_line": 384
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 393,
+      "line": 396,
       "title": "says so instead of naming an empty list of candidates",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_roster_configuration_guards[393]"
-      ]
+      ],
+      "historical_line": 393
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 405,
+      "line": 409,
       "title": "refuses at load rather than calling every preset broken",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_roster_configuration_guards[405]"
-      ]
+      ],
+      "historical_line": 405
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 420,
+      "line": 425,
       "title": "survives a row that disposes itself, which makes the Loader persist a tree",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_self_disposing_row_preserves_input_420"
-      ]
+      ],
+      "historical_line": 420
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 474,
+      "line": 480,
       "title": "attributes nothing to a subtree that is already torn down",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[474]"
-      ]
+      ],
+      "historical_line": 474
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 491,
+      "line": 497,
       "title": "publishes a committed preset selection for remote consumers",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[491]"
-      ]
+      ],
+      "historical_line": 491
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 503,
       "title": "swaps the agent's tools without touching another session",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[503]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 503,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 518,
+      "line": 524,
       "title": "notifies tool views after reparenting and contains notification failures",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[518]"
-      ]
+      ],
+      "historical_line": 518
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 539,
+      "line": 545,
       "title": "leaves the agent on its previous composition when the new one is unknown",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[539]"
-      ]
+      ],
+      "historical_line": 539
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 552,
+      "line": 558,
       "title": "restores the previous composition when the new one fails to mount",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[552]"
-      ]
+      ],
+      "historical_line": 552
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 566,
+      "line": 572,
       "title": "names an agent that was published without joining any preset",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[566]"
-      ]
+      ],
+      "historical_line": 566
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 582,
+      "line": 588,
       "title": "says nothing when the composition opts out of every root",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_roster_configuration_guards[582]"
-      ]
+      ],
+      "historical_line": 582
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 597,
+      "line": 603,
       "title": "composes an agent that had nothing installed",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[597]"
-      ]
+      ],
+      "historical_line": 597
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
       "line": 608,
       "title": "refuses a bare agent's broken composition without restoring anything",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[608]"
-      ]
+      ],
+      "historical_line": 608,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 618,
+      "line": 624,
       "title": "keeps the agent on its standing composition when a switch fails, even with the source deleted",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[618]"
-      ]
+      ],
+      "historical_line": 618
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 658,
+      "line": 665,
       "title": "refuses an unscoped context",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[658]"
       ],
-      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion."
+      "limitation": "Shared real scope/Tools/factory assertions cover the scope contract; this is not a verbatim port of every upstream fixture/assertion.",
+      "historical_line": 658
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 682,
+      "line": 689,
       "title": "starts a new generation for later sessions while joined ones keep theirs",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[682]"
-      ]
+      ],
+      "historical_line": 682
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 697,
+      "line": 704,
       "title": "gives two sessions racing the refreshed file one shared new generation",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_scope_matrix[697]"
-      ]
+      ],
+      "historical_line": 697
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 714,
+      "line": 721,
       "title": "keeps a newer generation pointer when a stale refresh loses the swap race",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_scope_parity.py::test_stale_refresh_preserves_winning_generation_pointer"
-      ]
+      ],
+      "historical_line": 714
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 742,
+      "line": 749,
       "title": "hands a host reader the standing key without starting an agent",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[742]"
-      ]
+      ],
+      "historical_line": 742
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 755,
+      "line": 762,
       "title": "refuses to mount a generation it cannot stamp",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[755]"
-      ]
+      ],
+      "historical_line": 755
     },
     {
       "source": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
-      "line": 770,
+      "line": 777,
       "title": "keeps serving the mounted generation when the file cannot be statted",
-      "status": "assertions-ported",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_agent_presets_official_closure.py::test_mount_official_assertions[770]"
-      ]
+      ],
+      "historical_line": 770
     },
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 25,
       "title": "web-app inherits the disabled base row without a mode override",
       "parameter": "web-app",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_mode_bundle_inherits_the_disabled_base_row_without_a_mode_override"
-      ]
+      ],
+      "historical_line": 25,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 25,
       "title": "headless inherits the disabled base row without a mode override",
       "parameter": "headless",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_mode_bundle_inherits_the_disabled_base_row_without_a_mode_override"
-      ]
+      ],
+      "historical_line": 25,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 25,
       "title": "sdk-app inherits the disabled base row without a mode override",
       "parameter": "sdk-app",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_mode_bundle_inherits_the_disabled_base_row_without_a_mode_override"
-      ]
+      ],
+      "historical_line": 25,
+      "location_review": "ambiguous-or-changed-title"
     },
     {
       "source": "reference/apps/cli/tests/profile-hmr.spec.ts",
       "line": 25,
       "title": "acp-app inherits the disabled base row without a mode override",
       "parameter": "acp-app",
-      "status": "reviewed-scenario",
+      "status": "requires-rc1-semantic-revalidation",
       "python_tests": [
         "tests/test_reference_profile_hmr_bundle_1to1.py::test_mode_bundle_inherits_the_disabled_base_row_without_a_mode_override"
-      ]
+      ],
+      "historical_line": 25,
+      "location_review": "ambiguous-or-changed-title"
     }
   ],
   "limitations": [
     "Selected source cases only; package-wide business parity is not inferred.",
     "Node absolute file-URL imports use Python absolute module paths; errors retain nested causes.",
     "Native completed-Future divergence is preserved as C58. Framework serial/HMR boundaries and standing-generation consumers use explicit scheduling adaptation."
-  ]
+  ],
+  "historical_target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
 }

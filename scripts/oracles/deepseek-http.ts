@@ -2,6 +2,7 @@ import { createServer } from 'node:http'
 import { DeepSeekAdapter, resolveAdapterOptions } from '../../reference/packages/llm/llm-deepseek/src/index.ts'
 import { Context } from '@deepseek-ai/cordis'
 import Sessions from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import * as Retry from '../../reference/packages/llm/llm-retry/src/index.ts'
 
 export async function observeHttp(fixture: any) {
@@ -52,6 +53,7 @@ export async function observeHttp(fixture: any) {
   let session: any
   if (fixture.retry) {
     await ctx.plugin(Sessions)
+    await ctx.plugin(SessionProjectionRegistry)
     session = ctx.sessions.create('retry-session' as any)
     Retry.apply(ctx)
     result.decisions = []
@@ -80,7 +82,7 @@ export async function observeHttp(fixture: any) {
       if (value !== undefined) result.error[name] = value
     }
   } finally {
-    if (fixture.retry) result.retryEvents = session.events.map((event: any) => {
+    if (fixture.retry) result.retryEvents = session.snapshotEvents().map((event: any) => {
       const {retryId, failure, ...data} = event.data
       if (failure) { const {message, ...rest} = failure; data.failure = rest }
       return {type: event.type, data}

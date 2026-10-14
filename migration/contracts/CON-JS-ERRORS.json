@@ -1,10 +1,25 @@
 {
   "id": "CON-JS-ERRORS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/workflow/workflow-worker-thread/src/session.ts", "reference/packages/workflow/workflow-worker-thread/src/realm.ts", "reference/packages/llm/llm/src/error.ts", "dsh/javascript/runtime.py", "scripts/native/quickjs_worker.c", "scripts/native/workflow/vm.js", "scripts/native/workflow/error-stack.js"],
-  "consumers": ["scripts/javascript_errors_oracle.py", "scripts/oracles/js-error-fixtures.json", "scripts/oracles/javascript_errors_python.py", "tests/test_javascript_errors_consumers.py", "scripts/verify_release.py", "scripts/verify_portable.py"],
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/workflow/workflow-worker-thread/src/session.ts",
+    "reference/packages/workflow/workflow-worker-thread/src/realm.ts",
+    "reference/packages/llm/llm/src/error.ts",
+    "dsh/javascript/runtime.py",
+    "scripts/native/quickjs_worker.c",
+    "scripts/native/workflow/vm.js",
+    "scripts/native/workflow/error-stack.js"
+  ],
+  "consumers": [
+    "scripts/javascript_errors_oracle.py",
+    "scripts/oracles/js-error-fixtures.json",
+    "scripts/oracles/javascript_errors_python.py",
+    "tests/test_javascript_errors_consumers.py",
+    "scripts/verify_release.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "Thirty-two actual original Session/realm/error observations execute unchanged pinned Source modules and actual private native processes; ordered scripts, results, events, Ready admission and child-group closure are retained.",
     "Workflow syntax errors reach the original Session constructor through the actual compiled exception. They resolve the result before Ready; generic parse-only and generic worker compile failure contracts remain unchanged.",
@@ -20,5 +35,14 @@
   "errors": "Business error prefixes, explicit stacks, result kinds, Ready outcomes, negative zero and exact native diagnostic frames are mandatory. Modified observations, foreign runtimes, altered assets or incomplete Source identity are refused.",
   "cancellation": "Existing physical exit, first cancellation and owned-disposal contracts remain mandatory regressions; this contract adds no new cancellation schedules.",
   "adaptation": "QuickJS supplies native frame formatting and stack descriptor ownership; Node supplies its original values. Each disclosed exception is limited to its exact scenario and side-specific raw observation. This is not full Node API compatibility.",
-  "open_questions": ["Complete arbitrary Node APIs/plugin delivery, model/profile combinations and all spawn/Ready/reentry schedules remain in MIG-JS-WORKFLOW-036.", "Actual Windows7 certification remains user-deferred."]
+  "open_questions": [
+    "Complete arbitrary Node APIs/plugin delivery, model/profile combinations and all spawn/Ready/reentry schedules remain in MIG-JS-WORKFLOW-036.",
+    "Actual Windows7 certification remains user-deferred.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

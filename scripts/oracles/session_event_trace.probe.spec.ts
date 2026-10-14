@@ -13,7 +13,7 @@ it('observes exact surface, event traces and raw windows', async () => {
     const controller = new AbortController()
     const failure: any = name === 'trace-foreign-failure' ? 'offline' : new TypeError('controlled event failure')
     const counters = {lists:0,inspections:0,sameSignal:true}
-    const meta = {version:0,id:SessionId('owned'),createdAt:9,cwd:'/controlled/cwd'}
+    const meta = {version:0,id:SessionId('owned'),createdAt:9,cwd:'/controlled/cwd',isSeeded:false}
     let events = structuredClone(fixture)
     if (name === 'surface-empty') events = []
     if (['surface-invalid','list-invalid','trace-missing-before-invalid','trace-invalid-surface'].includes(name))
@@ -44,7 +44,7 @@ it('observes exact surface, event traces and raw windows', async () => {
             'trace-header-conflict','trace-attach-wins'].includes(name) ? controller.signal : undefined)
           if (['trace-inspect-failure','trace-foreign-failure'].includes(name)) throw failure
           if (name === 'trace-attach-wins') ctx.sessions.enter(Session.create(meta.id,events,meta))
-          return {meta:{...meta,cwd:name === 'trace-header-conflict' ? '/foreign' : meta.cwd},events}
+          return {meta:{...meta,cwd:name === 'trace-header-conflict' ? '/foreign' : meta.cwd},events,inheritedEventCount:0}
         },
       } as any)
       const query = new TestSessionQueryEngine(ctx,{readWindowMax:name === 'window-invalid-limit' ? 2 : 50})
@@ -74,13 +74,13 @@ it('observes exact surface, event traces and raw windows', async () => {
             try {value.target.data.content[0]!.text = 'foreign'} catch (error) {observed.messageMutationRefused = error instanceof TypeError}
             value.target.time=99
             observed.aliasTime=value.events[request.seq-value.startSeq]!.time
-            observed.sourceTime=ctx.sessions.get(meta.id)!.events[request.seq]!.time
+            observed.sourceTime=ctx.sessions.get(meta.id)!.snapshotEvents()[request.seq]!.time
           }
         } else if (name === 'read-session-adoption') {
           const value = await query.readSession(meta.id)
           try {value.events[1]!.data.content[0]!.text = 'foreign'} catch (error) {observed.messageMutationRefused = error instanceof TypeError}
           value.events[1]!.time=99
-          observed.sourceTime=ctx.sessions.get(meta.id)!.events[1]!.time
+          observed.sourceTime=ctx.sessions.get(meta.id)!.snapshotEvents()[1]!.time
           observed.log=value.events.map(normalizeEvent)
         } else {
           const seq = name === 'trace-replacement' || name === 'trace-detachment' ? 2

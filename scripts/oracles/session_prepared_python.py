@@ -4,7 +4,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from dsh.cordis.context import Context
 from dsh.core.session import SessionPlugin,SessionHeader
 from dsh.core.abort import AbortController
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 async def observe():
  rows=[]
  for mode in ['reuse','mutated-release','reserved-write','cancel-wait','revision']:
@@ -13,7 +13,7 @@ async def observe():
    try:
     await ctx.plugin(SessionPlugin);await ctx.plugin(JsonlSessionPersistencePlugin,{'root':root})
     p=ctx.get('sessionPersistence');sid='s'
-    await p.create(SessionHeader.from_dict(dict(id=sid,version=0,createdAt=1,delegationDepth=0)))
+    await p.create(SessionHeader.from_dict(dict(id=sid,version=0,createdAt=1,delegationDepth=0, isSeeded=False)))
     await p.append(sid,[dict(type='turn/start',seq=0,time=1,data=dict(turn=1)),dict(type='turn/end',seq=1,time=2,data=dict(turn=1,reason=dict(kind='completed')))])
     if mode=='revision':
      await p.inspect(sid);await p.append(sid,[dict(type='turn/start',seq=2,time=3,data=dict(turn=2))])

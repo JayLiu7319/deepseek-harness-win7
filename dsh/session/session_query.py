@@ -529,7 +529,7 @@ class SessionQueryService:
             stored = records.get(session.id)
             if stored is not None:
                 expected = stored['header']
-                keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'seedLength')
+                keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'isSeeded')
                 if (any(getattr(session.header, key) != getattr(expected, key) for key in keys) or
                         (session.header.delegationDepth or 0) != (expected.delegationDepth or 0)):
                     raise SessionQueryError('session source headers conflict for session "' + session.id + '"',

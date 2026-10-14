@@ -22,7 +22,7 @@ it('observes actual original compressed and plaintext providers and mutual files
       await context.plugin(SessionStore)
       const fiber = await context.plugin(JsonlPersistence, {root, compression, packChunks})
       const provider: any = context.sessionPersistence
-      const metadata: any = {id:'mutual-'+key+'中文😀', version:0, createdAt:1234, cwd:'C:/jsonl-provider-fixture', delegationDepth:0}
+      const metadata: any = {id:'mutual-'+key+'中文😀', version:0, createdAt:1234, cwd:'C:/jsonl-provider-fixture', delegationDepth:0,isSeeded:false}
       const events = oneTurnLog()
       if (phase === 'produce') {
         const lazy = !existsSync(root)
@@ -45,8 +45,8 @@ it('observes actual original compressed and plaintext providers and mutual files
         const raw = await provider.readRaw(metadata.id)
         const prepared = await provider.prepare(metadata.id)
         rows.push({id:'mutual/'+key,meta:loaded.meta,events:loaded.events,inspected:inspected.events.length,suffix:suffix.events,
-          raw:raw.content,filename:raw.filename,prepared:prepared.session.events.length,
-          endSeed:prepared.session.events.at(-1)!.type,unpublished:context.sessions.get(metadata.id) === undefined, revisionMatched:true})
+          raw:raw.content,filename:raw.filename,prepared:prepared.session.snapshotEvents().length,
+          endSeed:prepared.session.snapshotEvents().at(-1)!.type,unpublished:context.sessions.get(metadata.id) === undefined, revisionMatched:true,inheritedEventCount:0})
         prepared[Symbol.dispose]()
       }
       await fiber.dispose()

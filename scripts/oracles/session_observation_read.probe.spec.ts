@@ -14,7 +14,7 @@ it('observes actual point-reader failure ownership and independently retained cu
     'prepared-leases', 'live-leases', 'published-live', 'detached-live-retry', 'projection-none', 'prepared-projection']
   for (const name of names) {
     const ctx = new Context()
-    const header = {version: 0, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd'}
+    const header = {version: 0, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd',isSeeded:false}
     const events = [{type: 'controlled/event', seq: 0, time: 0, data: {}}] as any
     const controller = new AbortController()
     let failure: any = new TypeError('controlled read failure')
@@ -42,7 +42,7 @@ it('observes actual point-reader failure ownership and independently retained cu
           if (name === 'borrow-abort') controller.abort(failure)
           if (['published-live', 'live-projection-failure'].includes(name)) ctx.sessions.enter(Session.create(header.id, [], header))
           return {source: name === 'detached-live-retry' && counters.borrows === 1 ? 'live' : 'prepared',
-            inspection: {meta: preparedSession.header, events: preparedSession.events}, revision: 'controlled:0', preparedSession,
+            inspection: {meta: preparedSession.header, events: preparedSession.snapshotEvents(),inheritedEventCount:0}, revision: 'controlled:0', preparedSession,
             [Symbol.dispose]: () => {counters.releases += 1}}
         },
       } as any)

@@ -92,35 +92,35 @@
   "sessionNativeDiagnostics": {
     "nested-undefined": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.value: undefined is not JSON data. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.value: undefined is not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.value: undefined is not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "bigint": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: bigints are not JSON data. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: bigints are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: bigints are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "cycle": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.self: circular references are not JSON data. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.self: circular references are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result.self: circular references are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "sparse": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result[1]: sparse arrays are not JSON data. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result[1]: sparse arrays are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result[1]: sparse arrays are not JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "symbol-key": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: symbol-keyed properties are not plain JSON data. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: symbol-keyed properties are not plain JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: symbol-keyed properties are not plain JSON data. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "exotic": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: only plain objects and arrays are JSON data (exotic prototype). Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: only plain objects and arrays are JSON data (exotic prototype). Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: only plain objects and arrays are JSON data (exotic prototype). Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "getter-throw": {
       "sourceFirstLine": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: reading the value threw: getter-custom-stack. Return only JSON-serializable objects/arrays/scalars.",
-      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: reading the value threw: getter-custom-stack. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at materializeResult (host-bootstrap:731:20)\n    at drive (host-bootstrap:699:70)\n"
+      "nativeError": "WorkflowError: the workflow's return value is not plain JSON data \u2014 workflow result: reading the value threw: getter-custom-stack. Return only JSON-serializable objects/arrays/scalars.\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at materializeResult (host-bootstrap:729:20)\n    at drive (host-bootstrap:697:70)\n"
     },
     "parse": {
       "sourceFirstLine": "WorkflowError: workflow script does not parse: SyntaxError: Unexpected token ')'",
-      "nativeError": "WorkflowError: workflow script does not parse: SyntaxError: expecting ';'\n    at HarnessError (host-bootstrap:49:22)\n    at WorkflowError (host-bootstrap:584:28)\n    at WorkflowExecution (host-bootstrap:617:110)\n    at runWorkerSession (host-bootstrap:1044:97)\n    at <eval> (host-bootstrap:1106:77)\n"
+      "nativeError": "WorkflowError: workflow script does not parse: SyntaxError: expecting ';'\n    at HarnessError (host-bootstrap:300:22)\n    at WorkflowError (host-bootstrap:582:28)\n    at WorkflowExecution (host-bootstrap:615:110)\n    at runWorkerSession (host-bootstrap:1042:97)\n    at <eval> (host-bootstrap:1104:77)\n"
     }
   },
   "errors": [
@@ -168,35 +168,35 @@
   "errorsNativeDiagnostics": {
     "guest-error": {
       "sourceFirstLine": "Error: guest failure",
-      "nativeError": "Error: guest failure\n    at <anonymous> (workflow:guest-error:2:11)\n    at <eval> (workflow:guest-error:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "Error: guest failure\n    at <anonymous> (workflow:guest-error:2:11)\n    at <eval> (workflow:guest-error:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-type": {
       "sourceFirstLine": "TypeError: typed failure",
-      "nativeError": "TypeError: typed failure\n    at <anonymous> (workflow:guest-type:2:11)\n    at <eval> (workflow:guest-type:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "TypeError: typed failure\n    at <anonymous> (workflow:guest-type:2:11)\n    at <eval> (workflow:guest-type:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-reference": {
       "sourceFirstLine": "ReferenceError: missingIdentifier is not defined",
-      "nativeError": "ReferenceError: missingIdentifier is not defined\n    at <anonymous> (workflow:guest-reference:2:8)\n    at <eval> (workflow:guest-reference:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "ReferenceError: missingIdentifier is not defined\n    at <anonymous> (workflow:guest-reference:2:8)\n    at <eval> (workflow:guest-reference:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-property": {
       "sourceFirstLine": "TypeError: Cannot read properties of null (reading 'value')",
-      "nativeError": "TypeError: cannot read property 'value' of null\n    at <anonymous> (workflow:guest-property:1:1)\n    at <eval> (workflow:guest-property:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "TypeError: cannot read property 'value' of null\n    at <anonymous> (workflow:guest-property:1:1)\n    at <eval> (workflow:guest-property:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-range": {
       "sourceFirstLine": "RangeError: Invalid array length",
-      "nativeError": "RangeError: invalid array length\n    at Array (native)\n    at <anonymous> (workflow:guest-range:2:12)\n    at <eval> (workflow:guest-range:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "RangeError: invalid array length\n    at Array (native)\n    at <anonymous> (workflow:guest-range:2:12)\n    at <eval> (workflow:guest-range:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-uri": {
       "sourceFirstLine": "URIError: URI malformed",
-      "nativeError": "URIError: expecting hex digit\n    at decodeURIComponent (native)\n    at <anonymous> (workflow:guest-uri:2:8)\n    at <eval> (workflow:guest-uri:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "URIError: expecting hex digit\n    at decodeURIComponent (native)\n    at <anonymous> (workflow:guest-uri:2:8)\n    at <eval> (workflow:guest-uri:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-custom-name": {
       "sourceFirstLine": "OwnedError: custom failure",
-      "nativeError": "OwnedError: custom failure\n    at <anonymous> (workflow:guest-custom-name:2:17)\n    at <eval> (workflow:guest-custom-name:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "OwnedError: custom failure\n    at <anonymous> (workflow:guest-custom-name:2:17)\n    at <eval> (workflow:guest-custom-name:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     },
     "guest-subclass": {
       "sourceFirstLine": "OwnedError: subclass failure",
-      "nativeError": "OwnedError: subclass failure\n    at OwnedError (workflow:guest-subclass:2:47)\n    at <anonymous> (workflow:guest-subclass:2:108)\n    at <eval> (workflow:guest-subclass:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:186:48)\n    at drive (host-bootstrap:696:58)\n    at runWorkerSession (host-bootstrap:1081:36)\n"
+      "nativeError": "OwnedError: subclass failure\n    at OwnedError (workflow:guest-subclass:2:47)\n    at <anonymous> (workflow:guest-subclass:2:108)\n    at <eval> (workflow:guest-subclass:3:1)\n    at runCompiled (native)\n    at runInContext (host-bootstrap:283:48)\n    at drive (host-bootstrap:694:58)\n    at runWorkerSession (host-bootstrap:1079:36)\n"
     }
   },
   "names": {

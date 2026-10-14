@@ -1,0 +1,18 @@
+{
+  "source_commit": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "origin": "migration/evidence/artifacts/SESSION-STORAGE-20261005-1f180e40.zip",
+  "origin_sha256": "23b85307bc02f405d2261193d0c253b70d6ec5c261c8e844b7e2f8fef5c09e28",
+  "archive_sha256": "7d857094f17def2e738eb736867999dc6600de6a18ee07f04ea7ba325bdabc82",
+  "files": [
+    {
+      "path": "source.db",
+      "source_member": "session-storage-clean-1f180e40/sqlite-provider-paired.workspace/source.db",
+      "sha256": "4b3eb574bcc376b34b3f9a649582d0a94968f53c62d7ce0f85b4438b40383b73"
+    },
+    {
+      "path": "source-cold.db",
+      "source_member": "session-storage-clean-1f180e40/sqlite-provider-paired.workspace/source-cold.db",
+      "sha256": "d85690f36aafca03bd034444171241af417f4f6b94765bfcfd556a453cec72e4"
+    }
+  ]
+}

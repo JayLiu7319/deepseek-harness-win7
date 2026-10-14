@@ -18,7 +18,7 @@ def observe(name):
         raise ValueError('Unknown Session restore sign observation')
     field, label = name.split('/')
     value = {'whole': 0.0 if field in ('version', 'seq') else 1.0, 'negative-zero': -0.0, 'fraction': 0.5}[label]
-    header = dict(id='s', version=0, createdAt=1)
+    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
     event = dict(type='session/end-seed', seq=0, time=1, data={})
     (event if field in ('seq', 'time') else header)[field] = value
     row = dict(name=name)

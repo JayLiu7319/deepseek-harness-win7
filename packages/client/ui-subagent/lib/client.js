@@ -8,8 +8,8 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let react_dom = require("react-dom");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-subagent\src\client\SubagentHeaderLineage.module.css.mjs
-		const css$1 = ".k2jI-q_root{align-items:center;gap:10px;min-width:0;display:inline-flex;position:relative}.k2jI-q_switcherRoot{min-width:0;margin-left:6px}.k2jI-q_trigger,.k2jI-q_switcherTrigger{min-height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;border-radius:6px;align-items:center;padding:3px 2px;font-size:12px;line-height:18px;display:inline-flex}.k2jI-q_trigger{gap:4px}.k2jI-q_switcherTrigger{min-width:0;max-width:244px;color:var(--dsw-alias-label-primary);gap:4px;font-weight:500}.k2jI-q_ancestorSwitcherTrigger{color:var(--dsw-alias-label-tertiary);font-weight:400}.k2jI-q_switcherTitle{text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;overflow:hidden}.k2jI-q_switcherTrigger svg{flex:none}.k2jI-q_separator{color:var(--dsw-alias-label-caption);font-size:14px;line-height:20px}.k2jI-q_activitySlot{flex:none;width:10px;height:10px;display:inline-flex}.k2jI-q_trigger:hover,.k2jI-q_trigger:focus-visible{color:var(--dsw-alias-label-secondary)}.k2jI-q_switcherTrigger:hover,.k2jI-q_switcherTrigger:focus-visible{color:var(--dsw-alias-label-primary)}.k2jI-q_ancestorSwitcherTrigger:hover,.k2jI-q_ancestorSwitcherTrigger:focus-visible{color:var(--dsw-alias-label-tertiary)}.k2jI-q_trigger svg,.k2jI-q_switcherTrigger svg{transition:transform .12s}.k2jI-q_triggerOpen{transform:rotate(180deg)}.k2jI-q_menu{z-index:100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);width:336px;max-width:min(400px,100vw - 32px);max-height:min(560px,100vh - 140px);box-shadow:var(--dsw-shadow-lv3);border-radius:12px;flex-direction:column;padding:4px;display:flex;position:fixed;overflow:auto}.k2jI-q_node{min-width:0;position:relative}.k2jI-q_menu>.k2jI-q_node{margin-left:-3px}.k2jI-q_row{box-sizing:border-box;width:100%;min-height:50px;color:var(--dsw-alias-label-primary);text-align:left;cursor:pointer;background:0 0;border:0;border-radius:8px;outline:none;align-items:flex-start;gap:8px;padding:7px 8px 7px 11px;font-size:13px;line-height:18px;display:flex;position:relative}.k2jI-q_row:hover>.k2jI-q_clickarea,.k2jI-q_row:focus-visible>.k2jI-q_clickarea{background:var(--dsw-alias-interactive-bg-hover)}.k2jI-q_clickarea{box-sizing:border-box;border-radius:8px;flex:1;align-self:stretch;align-items:flex-start;gap:8px;min-width:0;margin:-7px -8px;padding:7px 8px;display:flex}.k2jI-q_row>[data-state],.k2jI-q_clickarea>[data-state]{margin-top:4px}.k2jI-q_disabled{color:var(--dsw-alias-label-dimmed);cursor:not-allowed}.k2jI-q_disabled:hover{background:0 0}.k2jI-q_loadingRow{cursor:default}.k2jI-q_disclosure,.k2jI-q_disclosureSpace{flex:none;width:14px;height:18px}.k2jI-q_disclosure{color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;justify-content:center;align-items:center;padding:0;transition:transform .12s;display:inline-flex}.k2jI-q_disclosure:hover{color:var(--dsw-alias-label-primary)}.k2jI-q_disclosureOpen{transform:rotate(90deg)}.k2jI-q_content{flex-direction:column;flex:1;min-width:0;display:flex}.k2jI-q_label,.k2jI-q_summary{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.k2jI-q_label{color:inherit;font-weight:400}.k2jI-q_currentLabel{font-weight:600}.k2jI-q_summary,.k2jI-q_metrics{color:var(--dsw-alias-label-tertiary);font-size:11px;line-height:16px}.k2jI-q_metrics{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;flex:none;grid-template-rows:18px 16px;display:grid}.k2jI-q_metricToken{grid-row:1;line-height:18px}.k2jI-q_metricDuration{grid-row:2}.k2jI-q_children{margin-left:18px;padding-left:4px;position:relative}.k2jI-q_children:before,.k2jI-q_children>.k2jI-q_node:before{content:\"\";border-left:1px solid var(--dsw-alias-border-l2);position:absolute;left:0}.k2jI-q_children:before{height:26px;top:-26px}.k2jI-q_children[aria-busy=true]:before{content:none}.k2jI-q_children>.k2jI-q_node:before{top:0;bottom:0;left:-4px}.k2jI-q_children>.k2jI-q_node:last-child:before{height:17px;bottom:auto}.k2jI-q_children>.k2jI-q_node>.k2jI-q_row:before{content:\"\";border-top:1px solid var(--dsw-alias-border-l2);width:14px;position:absolute;top:16px;left:-4px}.k2jI-q_notice,.k2jI-q_error{color:var(--dsw-alias-label-tertiary);padding:10px 12px;font-size:12px;line-height:18px}.k2jI-q_error{color:var(--dsw-alias-state-error-primary);justify-content:space-between;align-items:center;gap:12px;display:flex}.k2jI-q_refresh{color:inherit;cursor:pointer;background:0 0;border:0;border-radius:6px;flex:none;align-items:center;gap:4px;padding:4px 6px;display:inline-flex}.k2jI-q_refresh:hover{background:var(--dsw-alias-interactive-bg-hover)}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-subagent\src\client\SubagentHeaderLineage.module.css.mjs
+		const css$1 = ".tNHuyG_root{align-items:center;gap:10px;min-width:0;display:inline-flex;position:relative}.tNHuyG_switcherRoot{min-width:0;margin-left:6px}.tNHuyG_trigger,.tNHuyG_switcherTrigger{min-height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;border-radius:6px;align-items:center;padding:3px 2px;font-size:12px;line-height:18px;display:inline-flex}.tNHuyG_trigger{gap:4px}.tNHuyG_switcherTrigger{min-width:0;max-width:244px;color:var(--dsw-alias-label-primary);gap:4px;font-weight:500}.tNHuyG_ancestorSwitcherTrigger{color:var(--dsw-alias-label-tertiary);font-weight:400}.tNHuyG_switcherTitle{text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;overflow:hidden}.tNHuyG_switcherTrigger svg{flex:none}.tNHuyG_separator{color:var(--dsw-alias-label-caption);font-size:14px;line-height:20px}.tNHuyG_activitySlot{flex:none;width:10px;height:10px;display:inline-flex}.tNHuyG_trigger:hover,.tNHuyG_trigger:focus-visible{color:var(--dsw-alias-label-secondary)}.tNHuyG_switcherTrigger:hover,.tNHuyG_switcherTrigger:focus-visible{color:var(--dsw-alias-label-primary)}.tNHuyG_ancestorSwitcherTrigger:hover,.tNHuyG_ancestorSwitcherTrigger:focus-visible{color:var(--dsw-alias-label-tertiary)}.tNHuyG_trigger svg,.tNHuyG_switcherTrigger svg{transition:transform .12s}.tNHuyG_triggerOpen{transform:rotate(180deg)}.tNHuyG_menu{z-index:100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:336px;max-width:min(400px,100vw - 32px);max-height:min(560px,100vh - 140px);box-shadow:var(--dsw-elevation-prominent);border-radius:20px;flex-direction:column;padding:4px;display:flex;position:fixed;overflow:auto}.tNHuyG_node{min-width:0;position:relative}.tNHuyG_menu>.tNHuyG_node{margin-left:-3px}.tNHuyG_row{box-sizing:border-box;width:100%;min-height:50px;color:var(--dsw-alias-label-primary);text-align:left;cursor:pointer;background:0 0;border:0;border-radius:8px;outline:none;align-items:flex-start;gap:8px;padding:7px 8px 7px 11px;font-size:13px;line-height:18px;display:flex;position:relative}.tNHuyG_row:hover>.tNHuyG_clickarea,.tNHuyG_row:focus-visible>.tNHuyG_clickarea{background:var(--dsw-alias-interactive-bg-hover)}.tNHuyG_clickarea{box-sizing:border-box;border-radius:8px;flex:1;align-self:stretch;align-items:flex-start;gap:8px;min-width:0;margin:-7px -8px;padding:7px 8px;display:flex}.tNHuyG_row>[data-state],.tNHuyG_clickarea>[data-state]{margin-top:4px}.tNHuyG_disabled{color:var(--dsw-alias-label-dimmed);cursor:not-allowed}.tNHuyG_disabled:hover{background:0 0}.tNHuyG_loadingRow{cursor:default}.tNHuyG_disclosure,.tNHuyG_disclosureSpace{flex:none;width:14px;height:18px}.tNHuyG_disclosure{color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;justify-content:center;align-items:center;padding:0;transition:transform .12s;display:inline-flex}.tNHuyG_disclosure:hover{color:var(--dsw-alias-label-primary)}.tNHuyG_disclosureOpen{transform:rotate(90deg)}.tNHuyG_content{flex-direction:column;flex:1;min-width:0;display:flex}.tNHuyG_label,.tNHuyG_summary{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.tNHuyG_label{color:inherit;font-weight:400}.tNHuyG_currentLabel{font-weight:600}.tNHuyG_summary,.tNHuyG_metrics{color:var(--dsw-alias-label-tertiary);font-size:11px;line-height:16px}.tNHuyG_metrics{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;flex:none;grid-template-rows:18px 16px;display:grid}.tNHuyG_metricToken{grid-row:1;line-height:18px}.tNHuyG_metricDuration{grid-row:2}.tNHuyG_children{margin-left:18px;padding-left:4px;position:relative}.tNHuyG_children:before,.tNHuyG_children>.tNHuyG_node:before{content:\"\";border-left:.5px solid var(--dsw-alias-border-l2);position:absolute;left:0}.tNHuyG_children:before{height:26px;top:-26px}.tNHuyG_children[aria-busy=true]:before{content:none}.tNHuyG_children>.tNHuyG_node:before{top:0;bottom:0;left:-4px}.tNHuyG_children>.tNHuyG_node:last-child:before{height:17px;bottom:auto}.tNHuyG_children>.tNHuyG_node>.tNHuyG_row:before{content:\"\";border-top:.5px solid var(--dsw-alias-border-l2);width:14px;position:absolute;top:16px;left:-4px}.tNHuyG_notice,.tNHuyG_error{color:var(--dsw-alias-label-tertiary);padding:10px 12px;font-size:12px;line-height:18px}.tNHuyG_error{color:var(--dsw-alias-state-error-primary);justify-content:space-between;align-items:center;gap:12px;display:flex}.tNHuyG_refresh{color:inherit;cursor:pointer;background:0 0;border:0;border-radius:6px;flex:none;align-items:center;gap:4px;padding:4px 6px;display:inline-flex}.tNHuyG_refresh:hover{background:var(--dsw-alias-interactive-bg-hover)}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-subagent/SubagentHeaderLineage.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -19,35 +19,35 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SubagentHeaderLineage_module_css_default = {
-			"activitySlot": "k2jI-q_activitySlot",
-			"ancestorSwitcherTrigger": "k2jI-q_ancestorSwitcherTrigger",
-			"children": "k2jI-q_children",
-			"clickarea": "k2jI-q_clickarea",
-			"content": "k2jI-q_content",
-			"currentLabel": "k2jI-q_currentLabel",
-			"disabled": "k2jI-q_disabled",
-			"disclosure": "k2jI-q_disclosure",
-			"disclosureOpen": "k2jI-q_disclosureOpen",
-			"disclosureSpace": "k2jI-q_disclosureSpace",
-			"error": "k2jI-q_error",
-			"label": "k2jI-q_label",
-			"loadingRow": "k2jI-q_loadingRow",
-			"menu": "k2jI-q_menu",
-			"metricDuration": "k2jI-q_metricDuration",
-			"metricToken": "k2jI-q_metricToken",
-			"metrics": "k2jI-q_metrics",
-			"node": "k2jI-q_node",
-			"notice": "k2jI-q_notice",
-			"refresh": "k2jI-q_refresh",
-			"root": "k2jI-q_root",
-			"row": "k2jI-q_row",
-			"separator": "k2jI-q_separator",
-			"summary": "k2jI-q_summary",
-			"switcherRoot": "k2jI-q_switcherRoot",
-			"switcherTitle": "k2jI-q_switcherTitle",
-			"switcherTrigger": "k2jI-q_switcherTrigger",
-			"trigger": "k2jI-q_trigger",
-			"triggerOpen": "k2jI-q_triggerOpen"
+			"activitySlot": "tNHuyG_activitySlot",
+			"ancestorSwitcherTrigger": "tNHuyG_ancestorSwitcherTrigger",
+			"children": "tNHuyG_children",
+			"clickarea": "tNHuyG_clickarea",
+			"content": "tNHuyG_content",
+			"currentLabel": "tNHuyG_currentLabel",
+			"disabled": "tNHuyG_disabled",
+			"disclosure": "tNHuyG_disclosure",
+			"disclosureOpen": "tNHuyG_disclosureOpen",
+			"disclosureSpace": "tNHuyG_disclosureSpace",
+			"error": "tNHuyG_error",
+			"label": "tNHuyG_label",
+			"loadingRow": "tNHuyG_loadingRow",
+			"menu": "tNHuyG_menu",
+			"metricDuration": "tNHuyG_metricDuration",
+			"metricToken": "tNHuyG_metricToken",
+			"metrics": "tNHuyG_metrics",
+			"node": "tNHuyG_node",
+			"notice": "tNHuyG_notice",
+			"refresh": "tNHuyG_refresh",
+			"root": "tNHuyG_root",
+			"row": "tNHuyG_row",
+			"separator": "tNHuyG_separator",
+			"summary": "tNHuyG_summary",
+			"switcherRoot": "tNHuyG_switcherRoot",
+			"switcherTitle": "tNHuyG_switcherTitle",
+			"switcherTrigger": "tNHuyG_switcherTrigger",
+			"trigger": "tNHuyG_trigger",
+			"triggerOpen": "tNHuyG_triggerOpen"
 		};
 		//#endregion
 		//#region lib/types/client/subagent-lineage.js
@@ -696,8 +696,8 @@ window.__ModuleLoader__.load({
 			}, lineageSessionId)] });
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-subagent\src\client\SubagentReadOnlyComposer.module.css.mjs
-		const css = ".nidUXW_frame{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-1);min-height:54px;color:var(--dsw-alias-label-tertiary);border-radius:14px;justify-content:center;align-items:center;gap:8px;margin:0 24px 20px;padding:10px 16px;font-size:13px;line-height:20px;display:flex}.nidUXW_frame strong{color:var(--dsw-alias-label-primary);font-weight:510}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-subagent\src\client\SubagentReadOnlyComposer.module.css.mjs
+		const css = ".yV9sSG_frame{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);min-height:54px;color:var(--dsw-alias-label-tertiary);border-radius:14px;justify-content:center;align-items:center;gap:8px;margin:0 24px 20px;padding:10px 16px;font-size:13px;line-height:20px;display:flex}.yV9sSG_frame strong{color:var(--dsw-alias-label-primary);font-weight:510}";
 		const tagId = "@deepseek-ai/dsh-client-ui-subagent/SubagentReadOnlyComposer.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -706,7 +706,7 @@ window.__ModuleLoader__.load({
 			tag.textContent = css;
 			document.head.appendChild(tag);
 		}
-		var SubagentReadOnlyComposer_module_css_default = { "frame": "nidUXW_frame" };
+		var SubagentReadOnlyComposer_module_css_default = { "frame": "yV9sSG_frame" };
 		//#endregion
 		//#region lib/types/client/SubagentReadOnlyComposer.js
 		/**

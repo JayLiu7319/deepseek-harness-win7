@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 VARIANTS = tuple('/'.join((str(enabled).lower(),str(inherits).lower(),str(defaults).lower(),mode))
     for enabled in (False,True) for inherits in (False,True) for defaults in (False,True) for mode in ('one-shot','continuable'))
 NAMES = tuple(name for variant in VARIANTS for name in (variant+'/schema',) + (tuple(variant+'/call/'+str(position) for position in range(11)) if variant.startswith('true/') else ()))

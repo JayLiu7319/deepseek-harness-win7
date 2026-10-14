@@ -6,7 +6,7 @@ from dsh.session.projections import SessionProjectionRegistry, SessionProjection
 
 def test_session_projection_registry_lifecycle():
     ctx = Context()
-    ctx.plugin(SessionProjectionsPlugin)
+    SessionProjectionRegistry(ctx)
     
     reg: SessionProjectionRegistry = ctx.get("sessionProjections")
     assert reg is not None

@@ -7,6 +7,7 @@ from types import SimpleNamespace
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from dsh.cordis import Context
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin, SessionPreparation
 from dsh.core.abort import AbortController
@@ -17,6 +18,7 @@ async def main():
     for mode in ['success', 'reject', 'commit', 'caller-load', 'owner-load', 'factory-load',
                  'caller-setup', 'owner-setup', 'factory-setup']:
         ctx = Context()
+        SessionProjectionRegistry(ctx)
         SessionPlugin().apply(ctx)
         AgentPlugin().apply(ctx)
         AgentLoopPlugin().apply(ctx)

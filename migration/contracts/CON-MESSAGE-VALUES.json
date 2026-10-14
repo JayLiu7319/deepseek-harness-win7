@@ -1,12 +1,11 @@
 {
   "id": "CON-MESSAGE-VALUES",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/llm/llm/src/message.ts",
-    "reference/packages/core/agent-loop/src/runtime-context.ts",
-    "reference/packages/core/session/src/json.ts"
+    "reference/packages/core/agent-loop/src/runtime-context.ts"
   ],
   "consumers": [
     "dsh/core/agent.py",
@@ -42,13 +41,15 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred."
+    "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision.",
+    "Removed Source paths: reference/packages/core/session/src/json.ts"
   ],
   "historical_open_questions": [
     "Arbitrary non-JSON structured-clone types, extremely deep graphs and plugin-owned extension shapes remain wider ABI qualification work.",
     "Complete profile/browser/policy parent acceptance and user-deferred actual Win7 certification remain separate."
   ],
-  "acceptance_review": {
+  "historical_alpha_acceptance_review": {
     "candidate": "f90ded26e96ecfb0c1737a47d9f47b034b26c93a",
     "reviewArtifact": "migration/evidence/artifacts/HANDOFF-PARENT-REVIEW-20261010-F90DED26.zip",
     "originalTaskSnapshot": {
@@ -412,5 +413,10 @@
     "finiteScope": "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred.",
     "existingUpstreamPredicates": "unchanged",
     "orderingApproval": "not-applied-independent-literal-scope"
+  },
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
   }
 }

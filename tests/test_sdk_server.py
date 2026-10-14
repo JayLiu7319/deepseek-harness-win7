@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 import asyncio
@@ -42,6 +43,8 @@ async def setup():
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     peer = Peer()
     server = HarnessSdkJsonRpcServer(ctx, peer)

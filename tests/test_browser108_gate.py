@@ -189,6 +189,8 @@ def profile_baseline(tmp_path):
             scenarios = ['WEB_REOPEN'] if phase == 'cold' else ['WEB_TOOL', 'WEB_CANCEL'] if preset == 'minimal' else [
                 'WEB_TOOL', 'WEB_QUESTION', 'WEB_APPROVAL', 'WEB_PLAN', 'WEB_CANCEL'] + (['WEB_CORDIS'] if preset == 'cordis' else [])
             phases.append(dict(name=phase, passed=True, hostErrors='', scenarios=scenarios,
+                fileReferenceCandidates=['中文 file.mdreferences space'],
+                fileReferenceSelection=dict(text='中文 file.md ', html='<span data-composer-chip="reference">中文 file.md</span>'),
                 browserBinarySha256=pin['binary_sha256'], browserIdentity=dict(product=pin['protocol_product'],
                     revision=pin['protocol_revision'], userAgent='HeadlessChrome/108.0.5359.0'),
                 capabilitiesBefore=dict(any='undefined', withResolvers='undefined', timeout='function'),
@@ -198,6 +200,10 @@ def profile_baseline(tmp_path):
                 hostReceipt=dict(root=str(root), executable=str(root / 'python.exe'), python='3.8.10 control',
                     phase=phase, preset=preset, exitCode=0, requests=[dict(control='identity')],
                     durableBefore={'state': 'before'}, durableAfter={'state': 'after'}, modules=modules)))
+            if preset == 'minimal':
+                phases[-1].update(historyBefore=dict(count=140, unloaded='Load and jump to turn 1', tailLoaded=True),
+                    historyJump=dict(prompt='HISTORY_PROMPT_001', loaded='Jump to turn 1', top=92, viewportHeight=900),
+                    historyInput=dict(focused=True, events=[dict(type='click', trusted=True, target='Load and jump to turn 1')]))
             if preset != 'minimal':
                 phases[-1]['planReviewPanel'] = dict(text='Controlled browser plan', approveLabel='Approve')
                 phases[-1]['final']['events'] += [
@@ -290,3 +296,37 @@ def test_profile_imports_remain_bound_to_zip_after_owned_extraction_cleanup(tmp_
         report['archiveSha256'] = gate.digest(archive)
     with pytest.raises(ValueError, match='verified ZIP'):
         gate.validate_profile_journeys(reports, archive, 'adapter', root, check_files=False)
+
+
+@pytest.mark.parametrize('damage', ['reference-candidates', 'reference-chip', 'reference-body',
+    'history-count', 'history-unloaded', 'history-tail', 'history-loaded', 'history-prompt',
+    'history-offscreen', 'history-untrusted', 'history-focus', 'history-cold'])
+def test_profile_reference_and_history_require_actual_observations(tmp_path, damage):
+    reports, archive, root = profile_baseline(tmp_path)
+    phase = reports['minimal']['phases'][0]
+    if damage == 'reference-candidates':
+        phase['fileReferenceCandidates'] = []
+    elif damage == 'reference-chip':
+        phase['fileReferenceSelection']['html'] = '中文 file.md'
+    elif damage == 'reference-body':
+        phase['fileReferenceSelection']['html'] += 'PRIVATE_REFERENCE_BODY'
+    elif damage == 'history-count':
+        phase['historyBefore']['count'] = 50
+    elif damage == 'history-unloaded':
+        phase['historyBefore']['unloaded'] = 'Jump to turn 1'
+    elif damage == 'history-tail':
+        phase['historyBefore']['tailLoaded'] = False
+    elif damage == 'history-loaded':
+        phase['historyJump']['loaded'] = 'Load and jump to turn 1'
+    elif damage == 'history-prompt':
+        phase['historyJump']['prompt'] = 'HISTORY_PROMPT_140'
+    elif damage == 'history-offscreen':
+        phase['historyJump']['top'] = phase['historyJump']['viewportHeight']
+    elif damage == 'history-untrusted':
+        phase['historyInput']['events'][0]['trusted'] = False
+    elif damage == 'history-focus':
+        phase['historyInput']['focused'] = False
+    else:
+        reports['minimal']['phases'][1].pop('historyJump')
+    with pytest.raises(ValueError):
+        gate.validate_profile_journeys(reports, archive, 'adapter', root)

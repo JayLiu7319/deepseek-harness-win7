@@ -13,6 +13,7 @@ from dsh.llm.stream_bridge import iter_chunks
 from dsh.core.abort import AbortController
 from dsh.core.session import Session
 from dsh.llm.llm_retry import LLMRetryPlugin
+from dsh.session.projections import SessionProjectionRegistry
 
 
 async def observe(fixture):
@@ -92,6 +93,7 @@ async def observe(fixture):
         chunks=[], requests=requests, accepted=accepted)
     session = Session('retry-session')
     if fixture.get('retry'):
+        SessionProjectionRegistry(ctx)
         LLMRetryPlugin().apply(ctx)
         result['decisions'] = []
     if fixture.get('images'):

@@ -71,7 +71,7 @@ def fold_for_tool(agent: Any) -> Union[Any, Dict[str, str]]:
     try:
         events = getattr(agent.session, "events", [])
         header = getattr(agent.session, "header", None)
-        seed_length = getattr(header, "seedLength", 0) if header else 0
+        seed_length = getattr(agent.session, "inheritedEventCount", 0)
         return fold_schedule_events(events, seed_length)
     except Exception as e:
         if isinstance(e, ScheduleLogError):

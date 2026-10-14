@@ -1,5 +1,5 @@
 {
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
   "source_sha256": {
     "scripts/oracles/cordis-guard-cases.json": "1559d466ae75c4ac3c44a9c7e3e0def03378c796d71a6d29e4de0e3de7b16413",
     "scripts/oracles/cordis-guard.spec.ts": "6c6e1fbc21a89a3a25716a989b4ea098e8543a91c7ab9a70bfd15641d566f22c",
@@ -7,10 +7,10 @@
     "scripts/oracles/vitest.agent-lifecycle.config.mts": "1f781c93abe83d7fed3815becbacdf8b639601fae31242baf476e8314508055e",
     "scripts/oracles/vitest.consumers.config.mts": "b70704a79f8c14cbccbaa62ac717ca4a48402767893e3e85850f491f6a68108f",
     "scripts/oracles/vitest.core.config.mts": "1e5c431e8bfb8a36462353049517f01dab46455c95e5184c8ab0e97856977bd1",
-    "reference/packages/extensions/cordis-host-runner/src/guard.ts": "3627aa67e89d65b8d72c8d303f2336e00a23c0f3396048387d15d2125eb9718a",
+    "reference/packages/extensions/cordis-host-runner/src/guard.ts": "95dd68b8b5a295b950b6c8421c9630dd4155c5d93c903dd49d042ce4325e2735",
     "reference/packages/extensions/cordis-host-runner/tests/helpers.ts": "53b47a4bff82da4c952b33a03df450b26f07c48d30254c4dc6e82143315f5de0",
-    "reference/packages/core/tools/src/schema.ts": "d4db1e17f0c43e52c2a18a56fdb7055dace303f2a1c6d22434161dcc08a885c3",
-    "reference/packages/core/tools/src/json-schema.ts": "d6d3203900c1d31e6a03b5b56a1de02effa4356ee933d274704c5bdfdb9f8784"
+    "reference/packages/core/tools/src/schema.ts": "be6e4b3fa18fe633c6c83ed4f9072da5a2a203f64bf0b70c9066fd58b0e2c897",
+    "reference/packages/core/tools/src/json-schema.ts": "13deffdfd34539e23706b0fde235991da45b2f07c5c18dbbf3ca734c1da0c788"
   },
   "observations": [
     {

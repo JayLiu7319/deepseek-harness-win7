@@ -11,7 +11,7 @@ import { carrierKeyOf } from '@deepseek-ai/dsh-scope'
 
 const drain = () => new Promise<void>(resolve => setTimeout(resolve, 0))
 function audit(session: Session) {
-  const events: any[] = session.events.filter(e => e.type.startsWith('approval/'))
+  const events: any[] = session.snapshotEvents().filter(e => e.type.startsWith('approval/'))
   return events.map((event, index) => ({ type: event.type,
     data: { ...event.data, ...event.data.id !== undefined ? { id: '<uuid>' } : {} },
     ...event.data.id !== undefined ? { uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(event.data.id),
@@ -79,7 +79,7 @@ it('observes cancellation, policy ownership, and precommit audit pairing', async
     let unmatched = ''
     try { session.append('approval/decided', { id: 'other' as any, outcome: 'rejected' }) } catch (error: any) { unmatched = error.message }
     session.append('approval/decided', { id: 'same' as any, outcome: 'cancelled' })
-    rows.push({ mode: 'invariant-veto', veto, unmatched, events: session.events.map(e => ({ type: e.type, data: e.data })) })
+    rows.push({ mode: 'invariant-veto', veto, unmatched, events: session.snapshotEvents().map(e => ({ type: e.type, data: e.data })) })
     await ctx.fiber.dispose()
   }
   expect(rows).toHaveLength(9)

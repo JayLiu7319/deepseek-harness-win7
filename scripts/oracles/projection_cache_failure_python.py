@@ -55,7 +55,7 @@ async def observe(workspace):
             await context.plugin(SessionPlugin)
             await context.plugin(SessionProjectionsPlugin)
             context.get('sessionProjections').register({'key': 'controlled/count', 'stateVersion': 1,
-                'stateSchema': parse, 'init': lambda meta: 0, 'apply': apply,
+                'stateSchema': parse, 'init': lambda meta, cut: 0, 'apply': apply,
                 'wire': {'viewSchema': parse, 'view': lambda state: state}})
             fiber = await context.plugin(SessionProjectionCachePlugin, config={'writeEveryEvents': 100, 'writeIntervalMs': 60000})
             cache = context.get('sessionProjectionCache')
@@ -64,9 +64,9 @@ async def observe(workspace):
             try:
                 if name == 'prepared-malformed':
                     session = Session.create('owned', events, header)
-                    observed['snapshot'] = cache.hydrate_prepared(session, header, events)
+                    observed['snapshot'] = cache.hydrate_prepared(session, events)
                 else:
-                    observed['snapshot'] = cache.cold_snapshot(header, events)
+                    observed['snapshot'] = cache.cold_snapshot(header, 0, events)
             except Exception as error:
                 observed['error'] = {'name': type(error).__name__, 'message': str(error), 'sameParserFailure': error is parser_failure}
             await fiber.dispose()

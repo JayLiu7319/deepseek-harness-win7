@@ -129,7 +129,7 @@ class SessionReferenceResolver(TypertRemoteService):
             live = self.ctx.get('sessions').get(header.id)
             projections = self.ctx.get('sessionProjections')
             cache = self.ctx.get('sessionProjectionCache')
-            snapshot = projections.snapshot(live, ['title']) if live is not None and projections is not None else cache.cachedSnapshot(header, ['title']) if cache is not None else None
+            snapshot = projections.snapshot(live, ['title']) if live is not None and projections is not None else cache.cachedSnapshot(header, 0, ['title']) if cache is not None and not header.isSeeded else None
             label = (snapshot or {}).get('values', {}).get('title') or header.id
             if query.lower() not in '\n'.join([header.id, header.cwd or '', label]).lower():
                 continue

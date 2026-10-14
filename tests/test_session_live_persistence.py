@@ -3,8 +3,8 @@ from pathlib import Path
 import pytest
 from dsh.cordis.context import Context
 from dsh.core.session import SessionPlugin
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin, JsonlSessionPersistence
-from dsh.session.persistence_sqlite import SqliteSessionPersistencePlugin, SqliteSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin, JsonlSessionPersistence
+from dsh.session.persistence_sqlite_canonical import SqliteSessionPersistencePlugin, SqliteSessionPersistence
 
 @pytest.fixture(params=['jsonl','sqlite'])
 def backend(request, tmp_path):
@@ -133,14 +133,14 @@ async def test_retiring_identity_drains_before_replacement_claims_prefix(backend
 
 @pytest.mark.asyncio
 async def test_jsonl_hmr_truncates_bad_tail_without_closing_live_turn(tmp_path):
-    backend=(JsonlSessionPersistencePlugin,{'root':str(tmp_path)},None)
+    backend=(JsonlSessionPersistencePlugin,{'root':str(tmp_path), 'compression':'none'},None)
     ctx,fiber,p=await mount(backend)
     session=ctx.get('sessions').create('s')
     session.append('turn/start',{'turn':1})
     await session.flush();path=Path(p.locate(session.header).path)
     await fiber.dispose()
     with path.open('ab') as stream: stream.write(b'{"torn":')
-    await ctx.plugin(JsonlSessionPersistencePlugin,{'root':str(tmp_path)})
+    await ctx.plugin(JsonlSessionPersistencePlugin,{'root':str(tmp_path), 'compression':'none'})
     session.append('turn/end',{'turn':1,'reason':{'kind':'completed'}})
     try:
         await session.flush()
@@ -161,15 +161,20 @@ async def test_sqlite_failed_batch_rolls_back_before_retry(tmp_path):
     p=SqliteSessionPersistence(str(tmp_path/'sessions.db'))
     from dsh.core.session import SessionHeader
     await p.create(SessionHeader(session_id='s'))
-    p._conn.execute("CREATE TRIGGER fail_second BEFORE INSERT ON session_events WHEN NEW.seq=1 BEGIN SELECT RAISE(FAIL, 'controlled failure'); END")
+    original = p.store.insert
+    def fail_second(key, record):
+        if record['seq'] == 1:
+            raise RuntimeError('controlled failure')
+        return original(key, record)
+    p.store.insert = fail_second
     events=[dict(type='turn/start',seq=n,time=n,data=dict(turn=n+1)) for n in range(2)]
     try:
         with pytest.raises(Exception,match='controlled failure'): await p.append('s',events)
         with pytest.raises(FileNotFoundError): await p.read_stored('s')
-        p._conn.execute('DROP TRIGGER fail_second')
+        p.store.insert = original
         await p.append('s',events)
         assert (await p.read_stored('s')).events == events
-    finally: p.close()
+    finally: await p.close()
 
 @pytest.mark.parametrize('value',[0,True,1.5,2147483648])
 def test_invalid_batch_deadline_rejected(value):

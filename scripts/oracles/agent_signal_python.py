@@ -10,6 +10,7 @@ from dsh.cordis import Context
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.abort import AbortSignal
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.system_prompt import SystemPrompt
 from dsh.core.tools import ToolsPlugin
@@ -36,6 +37,7 @@ class Model:
 
 async def harness(tools=False, queued=False):
     ctx, model = Context(), Model(tools, queued)
+    SessionProjectionRegistry(ctx)
     ctx.set_service('llm', model)
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SystemPrompt)

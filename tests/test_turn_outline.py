@@ -85,7 +85,7 @@ def test_raw_view_identity_is_compared_before_schema_parses_and_without_listener
     registry, session = SessionProjectionRegistry(), Session("gate")
     served, parsed = [], []
     registry.register(dict(key="gate", stateVersion=1, stateSchema=lambda v: v,
-        init=lambda header: dict(served=served), apply=lambda state, event: dict(served=state["served"]),
+        init=lambda header, inherited_event_count: dict(served=served), apply=lambda state, event: dict(served=state["served"]),
         wire=dict(view=lambda state: state["served"], viewSchema=lambda v: parsed.append(v) or list(v))))
     registry.on_session_event(session, session.append("test/mark", {}))
     assert parsed == []

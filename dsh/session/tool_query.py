@@ -68,7 +68,7 @@ def resolve_config(config):
 class ToolSessionQueryPlugin(Plugin):
     id = 'tool-session-query'
     name = '@deepseek-ai/dsh-tool-session-query'
-    inject = ['tools', 'systemPrompt', 'sessionQuery']
+    inject = ['tools', 'systemPrompt', 'sessionQuery', 'sessionProjections']
     Config = Schema.object(dict(
         maxSearchResults=Schema.number().step(1).min(1).default(DEFAULT_MAX_SEARCH_RESULTS),
         searchTimeoutMs=Schema.number().step(1).min(1).max(MAX_TIMER_DELAY_MS).default(DEFAULT_SEARCH_TIMEOUT_MS),
@@ -76,7 +76,8 @@ class ToolSessionQueryPlugin(Plugin):
 
     def apply(self, ctx):
         maximum, timeout = resolve_config(self.config)
-        ctx.get('systemPrompt').section(dict(name='tool:session-query', order=2300, text=PROMPT_TEXT))
+        prompt = ctx.get('systemPrompt')
+        prompt.section(dict(name='tool:session-query', order=prompt.getSectionOrder('TOOL_SESSION_QUERY'), text=PROMPT_TEXT))
         async def session_search(args, execution):
             return await operations.execute_session_search(ctx, args, execution, maximum)
         async def event_search(args, execution):

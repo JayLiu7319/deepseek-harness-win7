@@ -2,6 +2,7 @@
 Tests for canonical tool ordering in agent loop and headers
 matching reference/packages/core/agent-loop/tests/tool-order.spec.ts.
 """
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 
@@ -43,6 +44,8 @@ async def test_canonical_tool_order_lexicographic():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     tools: ToolsService = ctx.get("tools")

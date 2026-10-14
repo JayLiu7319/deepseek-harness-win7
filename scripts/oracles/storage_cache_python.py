@@ -49,7 +49,7 @@ async def cache_context(root, count=100):
     await ctx.plugin(SessionProjectionsPlugin)
     ctx.get('sessionProjections').register({
         'key': 'count', 'stateVersion': 1, 'stateSchema': lambda value: int(value),
-        'init': lambda header: 0, 'apply': lambda state, event: state + 1,
+        'init': lambda header, cut: 0, 'apply': lambda state, event: state + 1,
         'wire': {'viewSchema': lambda value: int(value), 'view': lambda state: state},
     })
     await ctx.plugin(SessionProjectionCachePlugin, config={'writeEveryEvents': count, 'writeIntervalMs': 60000})
@@ -101,11 +101,11 @@ async def run():
             session = cut.get('sessions').create('cut')
             append(session, 1)
             await settle(cache)
-            creation = cache.cached_snapshot(session.header)
+            creation = cache.cached_snapshot(session.header, session.inheritedEventCount)
             pending = cache.write(session)
             append(session, 2)
             await pending
-            rows.append({'mode': 'call-cut', 'creation': creation, 'written': cache.cached_snapshot(session.header)})
+            rows.append({'mode': 'call-cut', 'creation': creation, 'written': cache.cached_snapshot(session.header, session.inheritedEventCount)})
 
             threshold = await cache_context(root / 'threshold', 3)
             contexts.append(threshold)
@@ -131,7 +131,7 @@ async def run():
             await settle(cache)
             unregister = invalid.get('sessionProjections').register({
                 'key': 'invalid', 'stateVersion': 1, 'stateSchema': lambda value: value,
-                'init': lambda header: {'not-json'}, 'apply': lambda state, event: state,
+                'init': lambda header, cut: {'not-json'}, 'apply': lambda state, event: state,
             })
             rejected = False
             try:
@@ -143,7 +143,7 @@ async def run():
             append(bad, 1)
             await cache.write(bad)
             rows.append({'mode': 'non-json', 'rejected': rejected, 'invalidPersisted': 'invalid' in document['record']['rows'],
-                         'recovered': cache.cached_snapshot(bad.header)})
+                         'recovered': cache.cached_snapshot(bad.header, bad.inheritedEventCount)})
             Path(sys.argv[1]).write_text(json.dumps(rows, indent=2) + '\n', encoding='utf-8')
         finally:
             for ctx in reversed(contexts):

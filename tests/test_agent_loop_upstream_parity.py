@@ -1,5 +1,6 @@
 import pytest
 
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.cordis.context import Context
 from dsh.core.agent import Agent, AgentOptions
 from dsh.core.agent_loop import AgentLoopService
@@ -33,6 +34,8 @@ async def test_agent_loop_routes_stream_through_waterfall():
         return await next_fn()
 
     ctx.on("llm/stream", intercept)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     service = AgentLoopService(ctx)
     result = await service._step(agent, 1, 1, "system")
 
@@ -60,6 +63,8 @@ async def test_agent_request_waterfall_preserves_explicit_config():
         return value
 
     ctx.on("agent/request", request_hook)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     service = AgentLoopService(ctx)
     agent.inbox.append("next-step", {"role": "user", "content": "hello"})
     await service._step(agent, 1, 1, "system")

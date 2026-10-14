@@ -33,15 +33,15 @@ class SessionSkillCatalog(TypertRemoteService):
                 source.dispose()
         except SessionQueryError as error:
             if error.code == 'SESSION_QUERY_SESSION_NOT_FOUND':
-                raise failure('session-not-found', 'session "%s" not found' % sid, {'sessionId': sid}) from error
-            raise failure('internal', 'session "%s" could not be inspected: %s' % (sid, error)) from error
+                raise failure('session/not-found', 'session "%s" not found' % sid, {'sessionId': sid}) from error
+            raise failure('gateway/internal', 'session "%s" could not be inspected: %s' % (sid, error)) from error
         if cwd is None:
-            raise failure('internal', 'session "%s" has no project cwd' % sid)
+            raise failure('gateway/internal', 'session "%s" has no project cwd' % sid)
         live, presets = self.ctx.get('agents').get(sid), self.ctx.get('agentPresets')
         registry = presets.serviceFor(live, 'skills') if live is not None and presets is not None else None
         registry = registry if registry is not None else self.ctx.get('skills')
         if registry is None:
-            raise failure('internal', "skill registry is absent: neither this session's agent preset nor the host composition mounts @deepseek-ai/dsh-skill")
+            raise failure('gateway/internal', "skill registry is absent: neither this session's agent preset nor the host composition mounts @deepseek-ai/dsh-skill")
         scope = scope_of(live.ctx) if live is not None else None
         if scope is None and presets is not None:
             try:
@@ -54,4 +54,4 @@ class SessionSkillCatalog(TypertRemoteService):
                                     modelInvocable=row['invocation']['modelInvocable'])
                                for row in rows if row['invocation']['userInvocable']])
         except Exception as error:
-            raise failure('internal', 'skill listing failed: ' + str(error)) from error
+            raise failure('gateway/internal', 'skill listing failed: ' + str(error)) from error

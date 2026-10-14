@@ -14,7 +14,7 @@ it('observes exact corpus loads and bounded title batches', async () => {
     'batch-concurrency', 'batch-abort-drain', 'pre-abort']
   for (const name of names) {
     const ctx = new Context()
-    const header = (id: string, createdAt = 9) => ({version: 0, id: SessionId(id), createdAt, cwd: '/controlled/cwd'})
+    const header = (id: string, createdAt = 9) => ({version: 0, id: SessionId(id), createdAt, cwd: '/controlled/cwd',isSeeded:false})
     const title = (id: string) => ({type: 'session/title', seq: 0, time: 3,
       data: {title: 'Title ' + id, messageSeqs: [], source: {kind: 'user'}}}) as any
     const controller = new AbortController()
@@ -59,7 +59,7 @@ it('observes exact corpus loads and bounded title batches', async () => {
             if (name === 'batch-abort-drain') throw failure
             const event = title(id)
             if (name === 'batch-concurrency') Object.defineProperty(event.data, 'messageSeqs', {get() {timeline.push('project:' + id); return []}})
-            inspected = {meta: header(id, name === 'load-header-conflict' ? 8 : 9), events: [event]}
+            inspected = {meta: header(id, name === 'load-header-conflict' ? 8 : 9), events: [event],inheritedEventCount:0}
             return inspected
           } finally {counters.inFlight -= 1; counters.settled += 1}
         },
@@ -74,7 +74,8 @@ it('observes exact corpus loads and bounded title batches', async () => {
           observed.loaded = normalizeSource(loaded)
           loaded.header.cwd = '/mutated'
           loaded.events[0].data.title = 'mutated'
-          const owner = ctx.sessions.get(SessionId('a')) ?? {header: inspected.meta, events: inspected.events}
+          const liveOwner = ctx.sessions.get(SessionId('a'))
+          const owner = liveOwner ? {header: liveOwner.header, events: liveOwner.snapshotEvents()} : {header: inspected.meta, events: inspected.events}
           observed.detached = owner.header.cwd === '/controlled/cwd' && owner.events[0]?.data.title === 'Title a'
         } else {
           let selected = ids
@@ -106,7 +107,7 @@ it('observes exact corpus loads and bounded title batches', async () => {
             value.session.cwd = '/mutated'
             try {value.title.source.kind = 'foreign'} catch (error) {observed.titleMutationRefused = error instanceof TypeError}
             observed.detached = ctx.sessions.get(SessionId('a'))?.header.cwd === '/controlled/cwd'
-              && ctx.sessions.get(SessionId('a'))?.events[0]?.data.source.kind === 'user'
+              && ctx.sessions.get(SessionId('a'))?.snapshotEvents()[0]?.data.source.kind === 'user'
           }
           if (name === 'batch-concurrency') observed.projectBeforeNext = timeline.indexOf('project:a') < timeline.indexOf('inspect:c')
         }

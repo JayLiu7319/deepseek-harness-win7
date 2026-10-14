@@ -9,9 +9,10 @@ import Tools from '../../reference/packages/core/tools/src/index.ts'
 import Prompt from '../../reference/packages/core/system-prompt/src/index.ts'
 import Agents from '../../reference/packages/core/agent/src/index.ts'
 import Loop from '../../reference/packages/core/agent-loop/src/index.ts'
+import SessionProjectionRegistry from '../../reference/packages/session/session-projection/src/index.ts'
 
-const services = ['agents','sessions','llm','tools','systemPrompt'] as const
-const providers = {agents:Agents, sessions:Sessions, llm:Llm, tools:Tools, systemPrompt:Prompt}
+const services = ['agents','sessions','llm','tools','systemPrompt','sessionProjections'] as const
+const providers = {agents:Agents, sessions:Sessions, llm:Llm, tools:Tools, systemPrompt:Prompt, sessionProjections:SessionProjectionRegistry}
 const rows: any[] = []
 const settle = async () => {await new Promise(done => setImmediate(done)); await new Promise(done => setImmediate(done))}
 const project = (ctx: Context, fiber: any) => ({active:fiber.state === FiberState.ACTIVE,
@@ -22,7 +23,7 @@ const project = (ctx: Context, fiber: any) => ({active:fiber.state === FiberStat
   try {
     const loop = await ctx.plugin(Loop, {agents:[]})
     rows.push({name:'initial-missing', ...project(ctx, loop)})
-    for (const name of ['systemPrompt','tools','llm','agents','sessions'] as const) {
+    for (const name of ['systemPrompt','tools','llm','agents','sessions','sessionProjections'] as const) {
       await ctx.plugin(providers[name])
       await settle()
       rows.push({name:'provide-' + name, ...project(ctx, loop)})

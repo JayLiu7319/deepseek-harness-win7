@@ -54,8 +54,8 @@ window.__ModuleLoader__.load({
 			if (!LEGAL_API_KEY.test(value)) return "keyIllegalCharacters";
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-models\src\client\ModelsSection.module.css.mjs
-		const css$3 = ".kCAyuW_section{max-width:720px;color:var(--dsw-alias-label-primary);flex-direction:column;gap:12px;display:flex}.kCAyuW_title{color:var(--dsw-alias-label-primary);margin:0;font-size:16px;font-weight:500;line-height:24px}.kCAyuW_intro{color:var(--dsw-alias-label-tertiary);margin:0;font-size:14px;line-height:22px}.kCAyuW_notice{color:var(--dsw-alias-state-warn-label);margin:0;font-size:12px;line-height:18px}.kCAyuW_savedNotice{color:var(--dsw-alias-state-success-primary);margin:0;font-size:12px;line-height:18px}.kCAyuW_rows{flex-direction:column;gap:8px;margin:12px 0 0;padding:0;list-style:none;display:flex}.kCAyuW_rowCard{border:1px solid var(--dsw-alias-border-l2);border-radius:12px;flex-direction:column;gap:12px;padding:12px 14px;display:flex}.kCAyuW_rowHead{align-items:center;gap:10px;display:flex}.kCAyuW_rowIdentity{align-items:center;gap:6px;min-width:0;display:inline-flex}.kCAyuW_rowName{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:500;line-height:22px}.kCAyuW_rowTag{border:1px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-secondary);border-radius:4px;flex:none;padding:1px 6px;font-size:11px;line-height:16px}.kCAyuW_credentialDot{box-sizing:border-box;border-radius:50%;flex:none;width:8px;height:8px;display:inline-block}.kCAyuW_credentialDotConfigured{background:var(--dsw-alias-state-success-primary)}.kCAyuW_credentialDotMissing{background:var(--dsw-alias-state-error-primary)}.kCAyuW_rowActions{align-items:center;gap:4px;margin-left:auto;display:inline-flex}.kCAyuW_primaryButton,.kCAyuW_secondaryButton,.kCAyuW_addButton{box-sizing:border-box;height:36px;font:inherit;cursor:pointer;border:none;border-radius:18px;justify-content:center;align-items:center;gap:4px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.kCAyuW_primaryButton{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground)}.kCAyuW_primaryButton:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.kCAyuW_secondaryButton,.kCAyuW_addButton{border:1px solid var(--dsw-alias-border-l2);color:var(--dsw-alias-label-primary);background:0 0}.kCAyuW_secondaryButton:hover:not(:disabled),.kCAyuW_addButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.kCAyuW_secondaryButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-solid)}.kCAyuW_dangerButton{box-sizing:border-box;height:36px;color:var(--dsw-alias-state-error-primary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:18px;justify-content:center;align-items:center;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.kCAyuW_dangerButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger)}.kCAyuW_rowActions .kCAyuW_secondaryButton,.kCAyuW_rowActions .kCAyuW_dangerButton{border-radius:14px;height:28px;padding:0 10px;font-size:12px;line-height:18px}.kCAyuW_primaryButton:disabled,.kCAyuW_secondaryButton:disabled,.kCAyuW_dangerButton:disabled,.kCAyuW_addButton:disabled,.kCAyuW_linkButton:disabled,.kCAyuW_addModelButton:disabled{opacity:.4;cursor:default}.kCAyuW_primaryButton:focus-visible,.kCAyuW_secondaryButton:focus-visible,.kCAyuW_dangerButton:focus-visible,.kCAyuW_addButton:focus-visible,.kCAyuW_linkButton:focus-visible,.kCAyuW_addModelButton:focus-visible,.kCAyuW_iconButton:focus-visible,.kCAyuW_customizedSummary:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3);outline:none}.kCAyuW_editor{background:var(--dsw-alias-bg-module-platform);border-radius:12px;flex-direction:column;gap:14px;padding:14px 16px;display:flex}.kCAyuW_editorHeader{align-items:baseline;gap:8px;display:flex}.kCAyuW_editorTitle{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:500;line-height:22px}.kCAyuW_editorRoute{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.kCAyuW_field{flex-direction:column;gap:6px;display:flex}.kCAyuW_fieldLabel{color:var(--dsw-alias-label-secondary);align-items:center;gap:10px;font-size:12px;font-weight:500;line-height:18px;display:inline-flex}.kCAyuW_linkButton{box-sizing:border-box;height:28px;color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:14px;align-items:center;padding:0 10px;font-size:12px;line-height:18px;display:inline-flex}.kCAyuW_linkButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.kCAyuW_advancedHint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:18px}.kCAyuW_editorActions{justify-content:flex-end;gap:8px;display:flex}.kCAyuW_addBlock{flex-direction:column;gap:12px;display:flex}.kCAyuW_addActions{flex-wrap:wrap;gap:10px;display:flex}.kCAyuW_addButton{border:1px dashed var(--dsw-alias-border-l3);border-radius:12px;flex:1 1 0;gap:6px;min-width:180px;height:44px}.kCAyuW_addCard,.kCAyuW_setupCard{background:var(--dsw-alias-bg-module-platform);border-radius:12px;flex-direction:column;gap:14px;padding:14px 16px;list-style:none;display:flex}.kCAyuW_addCard .kCAyuW_editor,.kCAyuW_setupCard .kCAyuW_editor{background:0 0;padding:0}.kCAyuW_customized{border-top:1px solid var(--dsw-alias-border-l2);padding-top:10px}.kCAyuW_customizedSummary{cursor:pointer;width:fit-content;color:var(--dsw-alias-label-secondary);border-radius:6px;align-items:center;gap:6px;margin-left:-4px;padding:2px 4px;font-size:12px;font-weight:500;line-height:18px;list-style:none;display:flex}.kCAyuW_customizedSummary::-webkit-details-marker{display:none}.kCAyuW_customizedSummary:before{content:\"\";border-bottom:1.5px solid;border-right:1.5px solid;width:5px;height:5px;transition:transform .12s;transform:rotate(-45deg)translate(-1px,-1px)}.kCAyuW_customized[open]>.kCAyuW_customizedSummary:before{transform:rotate(45deg)translate(-1px,-1px)}.kCAyuW_customizedSummary:hover{color:var(--dsw-alias-label-primary)}.kCAyuW_customizedBody{flex-direction:column;gap:12px;padding-top:12px;display:flex}.kCAyuW_modelCatalog{border-top:1px solid var(--dsw-alias-border-l2);flex-direction:column;gap:10px;padding-top:12px;display:flex}.kCAyuW_modelCatalogHeading{flex-direction:column;gap:2px;display:flex}.kCAyuW_modelCatalogTitle{color:var(--dsw-alias-label-secondary);font-size:12px;font-weight:500;line-height:18px}.kCAyuW_modelCatalogMeta,.kCAyuW_modelEmpty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:18px}.kCAyuW_modelList{flex-direction:column;gap:8px;display:flex}.kCAyuW_modelListHead{justify-content:space-between;align-items:flex-start;gap:12px;display:flex}.kCAyuW_modelEntry{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;padding:6px}.kCAyuW_modelRow{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto auto;align-items:center;gap:6px;display:grid}.kCAyuW_iconButton{box-sizing:border-box;width:28px;height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:6px;justify-content:center;align-items:center;display:inline-flex}.kCAyuW_iconButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.kCAyuW_iconButton:disabled{cursor:default;opacity:.4}.kCAyuW_iconButtonDanger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary)}.kCAyuW_modelAdvanced{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:8px 4px 2px;display:grid}.kCAyuW_modelField{flex-direction:column;gap:4px;display:flex}.kCAyuW_modelFieldLabel{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.kCAyuW_modelEmpty{border:1px dashed var(--dsw-alias-border-l3);text-align:center;border-radius:8px;padding:12px}.kCAyuW_addModelButton{box-sizing:border-box;border:1px solid var(--dsw-alias-border-l2);height:28px;color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:14px;align-self:flex-start;align-items:center;gap:4px;padding:0 10px;font-size:12px;line-height:18px;display:inline-flex}.kCAyuW_addModelButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.kCAyuW_input{box-sizing:border-box;border:1px solid var(--dsw-alias-border-l2);width:100%;height:32px;font:inherit;background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 10px;font-size:14px;line-height:22px}select.kCAyuW_input{cursor:pointer;max-width:240px}.kCAyuW_input:focus{border-color:var(--dsw-alias-brand-primary);outline:none}.kCAyuW_input::placeholder{color:var(--dsw-alias-label-dimmed)}.kCAyuW_input:disabled{opacity:.6;cursor:default}.kCAyuW_selectInput{appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2381858C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");background-position:right 12px center;background-repeat:no-repeat;background-size:12px 12px;padding-right:32px}.kCAyuW_error{color:var(--dsw-alias-state-error-primary);margin:0;font-size:12px;line-height:18px}.kCAyuW_deleteDialog{width:min(480px,100%)}.kCAyuW_deleteConfirm:not(:disabled){border-color:var(--dsw-alias-state-error-primary);color:var(--dsw-alias-state-error-primary)}.kCAyuW_deleteConfirm:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger)}.kCAyuW_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}@media (prefers-reduced-motion:reduce){.kCAyuW_customizedSummary:before,.kCAyuW_switchThumb{transition:none}}.kCAyuW_fetchDialog{--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);max-width:520px}.kCAyuW_candidateActions{justify-content:flex-end;margin-bottom:6px;display:flex}.kCAyuW_candidateList{flex-direction:column;gap:2px;max-height:320px;margin:0;padding:0;list-style:none;display:flex;overflow-y:auto}.kCAyuW_candidate{border-radius:6px}.kCAyuW_candidateLabel{cursor:pointer;align-items:center;gap:8px;padding:6px 8px;display:flex}.kCAyuW_candidateId{font-family:var(--ds-font-family-code);overflow-wrap:anywhere;flex:auto;font-size:13px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-models\src\client\ModelsSection.module.css.mjs
+		const css$3 = ".iRy_EG_section{max-width:720px;color:var(--dsw-alias-label-primary);flex-direction:column;gap:12px;display:flex}.iRy_EG_title{color:var(--dsw-alias-label-primary);margin:0;font-size:16px;font-weight:500;line-height:24px}.iRy_EG_intro{color:var(--dsw-alias-label-tertiary);margin:0;font-size:14px;line-height:22px}.iRy_EG_notice{color:var(--dsw-alias-state-warn-label);margin:0;font-size:12px;line-height:18px}.iRy_EG_savedNotice{color:var(--dsw-alias-state-success-primary);margin:0;font-size:12px;line-height:18px}.iRy_EG_rows{flex-direction:column;gap:8px;margin:12px 0 0;padding:0;list-style:none;display:flex}.iRy_EG_rowCard{border:.5px solid var(--dsw-alias-border-l4);border-radius:16px;flex-direction:column;gap:12px;padding:12px 14px;display:flex}.iRy_EG_rowHead{align-items:center;gap:10px;display:flex}.iRy_EG_rowIdentity{align-items:center;gap:6px;min-width:0;display:inline-flex}.iRy_EG_rowName{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:500;line-height:22px}.iRy_EG_rowTag{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-secondary);border-radius:4px;flex:none;padding:1px 6px;font-size:11px;line-height:16px}.iRy_EG_credentialDot{box-sizing:border-box;corner-shape:round;border-radius:50%;flex:none;width:8px;height:8px;display:inline-block}.iRy_EG_credentialDotConfigured{background:var(--dsw-alias-state-success-primary)}.iRy_EG_credentialDotMissing{background:var(--dsw-alias-state-error-primary)}.iRy_EG_rowActions{align-items:center;gap:4px;margin-left:auto;display:inline-flex}.iRy_EG_primaryButton,.iRy_EG_secondaryButton,.iRy_EG_addButton{box-sizing:border-box;height:36px;font:inherit;cursor:pointer;border:none;border-radius:18px;justify-content:center;align-items:center;gap:4px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.iRy_EG_primaryButton{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground)}.iRy_EG_primaryButton:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.iRy_EG_secondaryButton,.iRy_EG_addButton{border:.5px solid var(--dsw-alias-border-l3);color:var(--dsw-alias-label-primary);background:0 0}.iRy_EG_secondaryButton:hover:not(:disabled),.iRy_EG_addButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.iRy_EG_secondaryButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-solid)}.iRy_EG_dangerButton{box-sizing:border-box;height:36px;color:var(--dsw-alias-state-error-primary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:18px;justify-content:center;align-items:center;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.iRy_EG_dangerButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger)}.iRy_EG_rowActions .iRy_EG_secondaryButton,.iRy_EG_rowActions .iRy_EG_dangerButton{border-radius:14px;height:28px;padding:0 10px;font-size:12px;line-height:18px}.iRy_EG_primaryButton:disabled,.iRy_EG_secondaryButton:disabled,.iRy_EG_dangerButton:disabled,.iRy_EG_addButton:disabled,.iRy_EG_linkButton:disabled,.iRy_EG_addModelButton:disabled{opacity:.4;cursor:default}.iRy_EG_primaryButton:focus-visible,.iRy_EG_secondaryButton:focus-visible,.iRy_EG_dangerButton:focus-visible,.iRy_EG_addButton:focus-visible,.iRy_EG_linkButton:focus-visible,.iRy_EG_addModelButton:focus-visible,.iRy_EG_iconButton:focus-visible,.iRy_EG_customizedSummary:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3);outline:none}.iRy_EG_editor{background:var(--dsw-alias-bg-module-platform);border-radius:12px;flex-direction:column;gap:14px;padding:14px 16px;display:flex}.iRy_EG_editorHeader{align-items:baseline;gap:8px;display:flex}.iRy_EG_editorTitle{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:500;line-height:22px}.iRy_EG_editorRoute{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.iRy_EG_field{flex-direction:column;gap:6px;display:flex}.iRy_EG_fieldLabel{color:var(--dsw-alias-label-secondary);align-items:center;gap:10px;font-size:12px;font-weight:500;line-height:18px;display:inline-flex}.iRy_EG_linkButton{box-sizing:border-box;height:28px;color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:14px;align-items:center;padding:0 10px;font-size:12px;line-height:18px;display:inline-flex}.iRy_EG_linkButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.iRy_EG_advancedHint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:18px}.iRy_EG_editorActions{justify-content:flex-end;gap:8px;display:flex}.iRy_EG_addBlock{flex-direction:column;gap:12px;display:flex}.iRy_EG_addActions{flex-wrap:wrap;gap:10px;display:flex}.iRy_EG_addButton{border:1px dashed var(--dsw-alias-border-l3);border-radius:16px;flex:1 1 0;gap:6px;min-width:180px;height:44px}.iRy_EG_addCard,.iRy_EG_setupCard{background:var(--dsw-alias-bg-module-platform);border-radius:12px;flex-direction:column;gap:14px;padding:14px 16px;list-style:none;display:flex}.iRy_EG_addCard .iRy_EG_editor,.iRy_EG_setupCard .iRy_EG_editor{background:0 0;padding:0}.iRy_EG_customized{border-top:.5px solid var(--dsw-alias-border-l2);padding-top:10px}.iRy_EG_customizedSummary{cursor:pointer;width:fit-content;color:var(--dsw-alias-label-secondary);border-radius:6px;align-items:center;gap:6px;margin-left:-4px;padding:2px 4px;font-size:12px;font-weight:500;line-height:18px;list-style:none;display:flex}.iRy_EG_customizedSummary::-webkit-details-marker{display:none}.iRy_EG_customizedSummary:before{content:\"\";border-bottom:1.5px solid;border-right:1.5px solid;width:5px;height:5px;transition:transform .12s;transform:rotate(-45deg)translate(-1px,-1px)}.iRy_EG_customized[open]>.iRy_EG_customizedSummary:before{transform:rotate(45deg)translate(-1px,-1px)}.iRy_EG_customizedSummary:hover{color:var(--dsw-alias-label-primary)}.iRy_EG_customizedBody{flex-direction:column;gap:12px;padding-top:12px;display:flex}.iRy_EG_modelCatalog{border-top:.5px solid var(--dsw-alias-border-l2);flex-direction:column;gap:10px;padding-top:12px;display:flex}.iRy_EG_modelCatalogHeading{flex-direction:column;gap:2px;display:flex}.iRy_EG_modelCatalogTitle{color:var(--dsw-alias-label-secondary);font-size:12px;font-weight:500;line-height:18px}.iRy_EG_modelCatalogMeta,.iRy_EG_modelEmpty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:18px}.iRy_EG_modelList{flex-direction:column;gap:8px;display:flex}.iRy_EG_modelListHead{justify-content:space-between;align-items:flex-start;gap:12px;display:flex}.iRy_EG_modelEntry{border:.5px solid var(--dsw-alias-border-l4);border-radius:10px;padding:6px}.iRy_EG_modelRow{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto auto;align-items:center;gap:6px;display:grid}.iRy_EG_iconButton{box-sizing:border-box;width:28px;height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:6px;justify-content:center;align-items:center;display:inline-flex}.iRy_EG_iconButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.iRy_EG_iconButton:disabled{cursor:default;opacity:.4}.iRy_EG_iconButtonDanger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary)}.iRy_EG_modelAdvanced{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:8px 4px 2px;display:grid}.iRy_EG_modelField{flex-direction:column;gap:4px;display:flex}.iRy_EG_modelFieldLabel{color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:18px}.iRy_EG_modelEmpty{border:1px dashed var(--dsw-alias-border-l3);text-align:center;border-radius:8px;padding:12px}.iRy_EG_addModelButton{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l3);height:28px;color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border-radius:14px;align-self:flex-start;align-items:center;gap:4px;padding:0 10px;font-size:12px;line-height:18px;display:inline-flex}.iRy_EG_addModelButton:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.iRy_EG_input{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);width:100%;height:32px;font:inherit;background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 10px;font-size:14px;line-height:22px}select.iRy_EG_input{cursor:pointer;max-width:240px}.iRy_EG_input:focus{border-color:var(--dsw-alias-brand-primary);outline:none}.iRy_EG_input::placeholder{color:var(--dsw-alias-label-dimmed)}.iRy_EG_input:disabled{opacity:.6;cursor:default}.iRy_EG_selectInput{appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2381858C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");background-position:right 12px center;background-repeat:no-repeat;background-size:12px 12px;padding-right:32px}.iRy_EG_error{color:var(--dsw-alias-state-error-primary);margin:0;font-size:12px;line-height:18px}.iRy_EG_deleteDialog{width:min(480px,100%)}.iRy_EG_deleteConfirm:not(:disabled){border-color:var(--dsw-alias-state-error-primary);color:var(--dsw-alias-state-error-primary)}.iRy_EG_deleteConfirm:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover-danger)}.iRy_EG_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}@media (prefers-reduced-motion:reduce){.iRy_EG_customizedSummary:before,.iRy_EG_switchThumb{transition:none}}.iRy_EG_fetchDialog{--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);max-width:520px}.iRy_EG_candidateToolbar{align-items:center;gap:8px;margin-bottom:6px;display:flex}.iRy_EG_candidateSearch{flex:240px;min-width:0}.iRy_EG_candidateList{flex-direction:column;gap:2px;max-height:320px;margin:0;padding:0;list-style:none;display:flex;overflow-y:auto}.iRy_EG_candidate{border-radius:6px}.iRy_EG_candidateLabel{cursor:pointer;align-items:center;gap:8px;padding:6px 8px;display:flex}.iRy_EG_candidateId{font-family:var(--ds-font-family-code);overflow-wrap:anywhere;flex:auto;font-size:13px}.iRy_EG_candidateEmpty{color:var(--dsw-alias-label-secondary);text-align:center;margin:24px 0;font-size:13px;line-height:20px}";
 		const tagId$3 = "@deepseek-ai/dsh-client-ui-settings-models/ModelsSection.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 			const tag = document.createElement("style");
@@ -65,69 +65,71 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ModelsSection_module_css_default = {
-			"addActions": "kCAyuW_addActions",
-			"addBlock": "kCAyuW_addBlock",
-			"addButton": "kCAyuW_addButton",
-			"addCard": "kCAyuW_addCard",
-			"addModelButton": "kCAyuW_addModelButton",
-			"advancedHint": "kCAyuW_advancedHint",
-			"candidate": "kCAyuW_candidate",
-			"candidateActions": "kCAyuW_candidateActions",
-			"candidateId": "kCAyuW_candidateId",
-			"candidateLabel": "kCAyuW_candidateLabel",
-			"candidateList": "kCAyuW_candidateList",
-			"credentialDot": "kCAyuW_credentialDot",
-			"credentialDotConfigured": "kCAyuW_credentialDotConfigured",
-			"credentialDotMissing": "kCAyuW_credentialDotMissing",
-			"customized": "kCAyuW_customized",
-			"customizedBody": "kCAyuW_customizedBody",
-			"customizedSummary": "kCAyuW_customizedSummary",
-			"dangerButton": "kCAyuW_dangerButton",
-			"deleteConfirm": "kCAyuW_deleteConfirm",
-			"deleteDialog": "kCAyuW_deleteDialog",
-			"editor": "kCAyuW_editor",
-			"editorActions": "kCAyuW_editorActions",
-			"editorHeader": "kCAyuW_editorHeader",
-			"editorRoute": "kCAyuW_editorRoute",
-			"editorTitle": "kCAyuW_editorTitle",
-			"error": "kCAyuW_error",
-			"fetchDialog": "kCAyuW_fetchDialog",
-			"field": "kCAyuW_field",
-			"fieldLabel": "kCAyuW_fieldLabel",
-			"hiddenLabel": "kCAyuW_hiddenLabel",
-			"iconButton": "kCAyuW_iconButton",
-			"iconButtonDanger": "kCAyuW_iconButtonDanger",
-			"input": "kCAyuW_input",
-			"intro": "kCAyuW_intro",
-			"linkButton": "kCAyuW_linkButton",
-			"modelAdvanced": "kCAyuW_modelAdvanced",
-			"modelCatalog": "kCAyuW_modelCatalog",
-			"modelCatalogHeading": "kCAyuW_modelCatalogHeading",
-			"modelCatalogMeta": "kCAyuW_modelCatalogMeta",
-			"modelCatalogTitle": "kCAyuW_modelCatalogTitle",
-			"modelEmpty": "kCAyuW_modelEmpty",
-			"modelEntry": "kCAyuW_modelEntry",
-			"modelField": "kCAyuW_modelField",
-			"modelFieldLabel": "kCAyuW_modelFieldLabel",
-			"modelList": "kCAyuW_modelList",
-			"modelListHead": "kCAyuW_modelListHead",
-			"modelRow": "kCAyuW_modelRow",
-			"notice": "kCAyuW_notice",
-			"primaryButton": "kCAyuW_primaryButton",
-			"rowActions": "kCAyuW_rowActions",
-			"rowCard": "kCAyuW_rowCard",
-			"rowHead": "kCAyuW_rowHead",
-			"rowIdentity": "kCAyuW_rowIdentity",
-			"rowName": "kCAyuW_rowName",
-			"rowTag": "kCAyuW_rowTag",
-			"rows": "kCAyuW_rows",
-			"savedNotice": "kCAyuW_savedNotice",
-			"secondaryButton": "kCAyuW_secondaryButton",
-			"section": "kCAyuW_section",
-			"selectInput": "kCAyuW_selectInput",
-			"setupCard": "kCAyuW_setupCard",
-			"switchThumb": "kCAyuW_switchThumb",
-			"title": "kCAyuW_title"
+			"addActions": "iRy_EG_addActions",
+			"addBlock": "iRy_EG_addBlock",
+			"addButton": "iRy_EG_addButton",
+			"addCard": "iRy_EG_addCard",
+			"addModelButton": "iRy_EG_addModelButton",
+			"advancedHint": "iRy_EG_advancedHint",
+			"candidate": "iRy_EG_candidate",
+			"candidateEmpty": "iRy_EG_candidateEmpty",
+			"candidateId": "iRy_EG_candidateId",
+			"candidateLabel": "iRy_EG_candidateLabel",
+			"candidateList": "iRy_EG_candidateList",
+			"candidateSearch": "iRy_EG_candidateSearch",
+			"candidateToolbar": "iRy_EG_candidateToolbar",
+			"credentialDot": "iRy_EG_credentialDot",
+			"credentialDotConfigured": "iRy_EG_credentialDotConfigured",
+			"credentialDotMissing": "iRy_EG_credentialDotMissing",
+			"customized": "iRy_EG_customized",
+			"customizedBody": "iRy_EG_customizedBody",
+			"customizedSummary": "iRy_EG_customizedSummary",
+			"dangerButton": "iRy_EG_dangerButton",
+			"deleteConfirm": "iRy_EG_deleteConfirm",
+			"deleteDialog": "iRy_EG_deleteDialog",
+			"editor": "iRy_EG_editor",
+			"editorActions": "iRy_EG_editorActions",
+			"editorHeader": "iRy_EG_editorHeader",
+			"editorRoute": "iRy_EG_editorRoute",
+			"editorTitle": "iRy_EG_editorTitle",
+			"error": "iRy_EG_error",
+			"fetchDialog": "iRy_EG_fetchDialog",
+			"field": "iRy_EG_field",
+			"fieldLabel": "iRy_EG_fieldLabel",
+			"hiddenLabel": "iRy_EG_hiddenLabel",
+			"iconButton": "iRy_EG_iconButton",
+			"iconButtonDanger": "iRy_EG_iconButtonDanger",
+			"input": "iRy_EG_input",
+			"intro": "iRy_EG_intro",
+			"linkButton": "iRy_EG_linkButton",
+			"modelAdvanced": "iRy_EG_modelAdvanced",
+			"modelCatalog": "iRy_EG_modelCatalog",
+			"modelCatalogHeading": "iRy_EG_modelCatalogHeading",
+			"modelCatalogMeta": "iRy_EG_modelCatalogMeta",
+			"modelCatalogTitle": "iRy_EG_modelCatalogTitle",
+			"modelEmpty": "iRy_EG_modelEmpty",
+			"modelEntry": "iRy_EG_modelEntry",
+			"modelField": "iRy_EG_modelField",
+			"modelFieldLabel": "iRy_EG_modelFieldLabel",
+			"modelList": "iRy_EG_modelList",
+			"modelListHead": "iRy_EG_modelListHead",
+			"modelRow": "iRy_EG_modelRow",
+			"notice": "iRy_EG_notice",
+			"primaryButton": "iRy_EG_primaryButton",
+			"rowActions": "iRy_EG_rowActions",
+			"rowCard": "iRy_EG_rowCard",
+			"rowHead": "iRy_EG_rowHead",
+			"rowIdentity": "iRy_EG_rowIdentity",
+			"rowName": "iRy_EG_rowName",
+			"rowTag": "iRy_EG_rowTag",
+			"rows": "iRy_EG_rows",
+			"savedNotice": "iRy_EG_savedNotice",
+			"secondaryButton": "iRy_EG_secondaryButton",
+			"section": "iRy_EG_section",
+			"selectInput": "iRy_EG_selectInput",
+			"setupCard": "iRy_EG_setupCard",
+			"switchThumb": "iRy_EG_switchThumb",
+			"title": "iRy_EG_title"
 		};
 		//#endregion
 		//#region lib/types/client/EditorFooter.js
@@ -443,252 +445,6 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region lib/types/client/store.js
-		/**
-		* Models settings page store: one snapshot joining the configurable-provider
-		* directory (`llm/listProviders` joined with `llm/listConfigurableProviders`),
-		* the settings namespaces (shared settings mirror),
-		* and the referenced credentials (`credentials/describe`). The host stays the
-		* single fact source — every mutation writes through the wire and the page
-		* re-renders from the next describe, pushed or refetched.
-		*/
-		/**
-		* Any route key walks a dict schema to the same profile node, so the lookup
-		* names one that cannot collide with a configured route.
-		*/
-		const PROBE_ROUTE = "\0probe";
-		/**
-		* Join declared configurable providers with the currently registered routes.
-		* @param registered - live provider routes in registration order.
-		* @param directory - declared configurable providers in declaration order.
-		* @returns declared rows followed by live routes with no declaration.
-		*/
-		function joinProviderDirectory(registered, directory) {
-			const active = new Set(registered.map((provider) => provider.id));
-			const declared = new Set(directory.map((entry) => entry.provider));
-			const rows = directory.map((entry) => ({
-				provider: entry.provider,
-				displayName: entry.displayName,
-				settingsNs: entry.settingsNs,
-				settingsPath: [...entry.settingsPath],
-				active: active.has(entry.provider),
-				...entry.declared === void 0 ? {} : { declared: entry.declared }
-			}));
-			for (const provider of registered) {
-				if (declared.has(provider.id)) continue;
-				rows.push({
-					provider: provider.id,
-					displayName: provider.name,
-					settingsNs: "",
-					settingsPath: [],
-					active: true
-				});
-			}
-			return rows;
-		}
-		/**
-		* Human text for a rejected wire call. A transport failure rejects with an
-		* Error; a host or a runtime can reject with anything, and the page still has
-		* to say something.
-		* @param error - the rejection value.
-		* @returns the message to show.
-		*/
-		function messageOf(error) {
-			return error instanceof Error ? error.message : String(error);
-		}
-		/**
-		* Derive the conventional credential reference for a provider route: the v1
-		* page never asks for an environment-variable name, so a typed key stores
-		* under this derived reference and the profile records it as `apiKeyEnv`.
-		* @param provider - provider route id (e.g. `anthropic`, `minimax-cn`).
-		* @returns the derived reference name (e.g. `MINIMAX_CN_API_KEY`).
-		*/
-		function deriveKeyRef(provider) {
-			return `${provider.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}_API_KEY`;
-		}
-		/**
-		* The wire protocols a hand-declared route may name, read out of the owning
-		* namespace's own schema. This stays a schema read rather than a wire field so
-		* the choices the page offers cannot drift from the ones the adapter accepts:
-		* both come from the same `Config`.
-		* @param namespace - the namespace view whose schema declares the profile shape.
-		* @param schema - settings schema operations.
-		* @returns the protocol identifiers, or an empty list when the schema has none.
-		*/
-		function protocolChoices(namespace, schema) {
-			if (namespace === void 0) return [];
-			const list = schema.nodeAtPath(schema.rehydrate(namespace.schema), [
-				"providers",
-				PROBE_ROUTE,
-				"api"
-			]);
-			if (list?.type !== "union" || list.list === void 0) return [];
-			return list.list.map((entry) => entry.value).filter((value) => typeof value === "string");
-		}
-		/** The credential reference a resolved profile names (its `apiKeyEnv` field). */
-		function apiKeyEnvOf(namespace, path, schema) {
-			if (namespace === void 0) return void 0;
-			const profile = schema.getPath(namespace.value, path);
-			if (typeof profile !== "object" || profile === null) return void 0;
-			const ref = profile.apiKeyEnv;
-			return typeof ref === "string" && ref.length > 0 ? ref : void 0;
-		}
-		/** The models settings page controller (one per settings surface). */
-		var ModelsSettingsStore = class {
-			api;
-			schema;
-			describeFace;
-			/** The snapshot the section renders from (uSES-safe store). */
-			store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
-				status: "idle",
-				error: null,
-				credentialError: null,
-				writable: false,
-				rows: [],
-				namespaces: /* @__PURE__ */ new Map()
-			});
-			/** Latest load wins; an older response never overwrites a newer one. */
-			generation = 0;
-			/**
-			* @param api - the page's credentials Remote and LLM wire faces.
-			* @param describeFace - the shared mirror's describe face (namespace views and writability).
-			*/
-			constructor(api, schema, describeFace) {
-				this.api = api;
-				this.schema = schema;
-				this.describeFace = describeFace;
-			}
-			/**
-			* Refresh the whole page snapshot: the provider directory and the mirror's
-			* settings answer in parallel, then one batched credential describe over
-			* every referenced ref. Provider failure or absence of an initial settings
-			* answer keeps the last good rows and surfaces an error; a failed settings
-			* refresh reuses the mirror's held view.
-			* @returns nothing; the snapshot carries the outcome.
-			*/
-			async load() {
-				const generation = ++this.generation;
-				this.store.update((s) => {
-					s.status = "loading";
-					s.error = null;
-				});
-				let providers;
-				let writable;
-				let views;
-				try {
-					const [registered, declared] = await Promise.all([
-						this.api.llm.listProviders(),
-						this.api.llm.listConfigurableProviders(),
-						this.describeFace.ensure()
-					]);
-					if (!registered.ok) throw new Error(registered.error.message);
-					if (!declared.ok) throw new Error(declared.error.message);
-					const mirrored = this.describeFace.getSnapshot();
-					if (mirrored.view === void 0) throw new Error(mirrored.error ?? "settings are unavailable in this browser");
-					providers = joinProviderDirectory(registered.value, declared.value);
-					writable = mirrored.view.writable;
-					views = mirrored.view.namespaces;
-				} catch (error) {
-					if (generation !== this.generation) return;
-					this.store.update((s) => {
-						s.status = "error";
-						s.error = error instanceof Error ? error.message : String(error);
-					});
-					return;
-				}
-				const namespaces = new Map(views.map((view) => [view.ns, view]));
-				const rows = providers.map((entry) => {
-					const namespace = namespaces.get(entry.settingsNs);
-					return {
-						entry,
-						configured: namespace !== void 0 && (entry.settingsPath.length === 0 || this.schema.getPath(namespace.value, entry.settingsPath) !== void 0),
-						removable: namespace !== void 0 && entry.settingsPath.length > 0 && this.schema.hasPath(namespace.user, entry.settingsPath) && !this.schema.hasPath(namespace.base, entry.settingsPath),
-						apiKeyEnv: apiKeyEnvOf(namespace, entry.settingsPath, this.schema),
-						credential: void 0
-					};
-				});
-				const refs = [...new Set(rows.map((row) => row.apiKeyEnv ?? deriveKeyRef(row.entry.provider)))];
-				let credentials = {};
-				let credentialError = null;
-				if (refs.length > 0) try {
-					const response = await this.api.credentials.describe(refs);
-					if (response.ok) credentials = response.value;
-					else credentialError = response.error.message;
-				} catch (error) {
-					credentialError = messageOf(error);
-				}
-				if (generation !== this.generation) return;
-				this.store.update((s) => {
-					s.status = "ready";
-					s.error = null;
-					s.credentialError = credentialError;
-					s.writable = writable;
-					s.rows = rows.map((row) => {
-						const named = row.apiKeyEnv === void 0 ? void 0 : credentials[row.apiKeyEnv];
-						const derived = row.apiKeyEnv !== void 0 ? void 0 : credentials[deriveKeyRef(row.entry.provider)];
-						return {
-							...row,
-							...named === void 0 ? {} : { credential: named },
-							...derived === void 0 ? {} : { derivedCredential: derived }
-						};
-					});
-					s.namespaces = namespaces;
-				});
-			}
-		};
-		/**
-		* Whether a joined row can serve model requests as it stands: the route is
-		* registered with the adapter registry, and whatever credential its resolved
-		* profile names is stored. A profile naming no reference authenticates through
-		* the provider's own path (the Bedrock chain, Vertex ADC, a gateway that needs
-		* nothing), as does a live route with no settings address at all, so neither
-		* owes this page a key.
-		* @param row - one joined provider row.
-		* @returns whether the user already has this provider to talk to.
-		*/
-		function providerUsable(row) {
-			if (!row.entry.active) return false;
-			if (row.apiKeyEnv === void 0) return true;
-			return row.credential?.configured === true;
-		}
-		/**
-		* Project first-run readiness from the provider/settings/credential join used
-		* by the Models page. The step exists to leave the user with a model to talk
-		* to, so ANY usable provider ends it; only when none exists does the official
-		* DeepSeek route — the one route the prompt can offer a key field for — decide
-		* whether prompting can help. A missing official configurable-provider
-		* declaration means the adapter is not repairable by navigating to Models.
-		* @param state - current shared Models join snapshot.
-		* @returns the onboarding state without reading a parallel fact source.
-		*/
-		function onboardingReadiness(state) {
-			if ((state.status === "idle" || state.status === "loading") && state.rows.length === 0) return { kind: "loading" };
-			if (state.status === "error") return {
-				kind: "unavailable",
-				reason: "load-failed"
-			};
-			if (state.rows.some(providerUsable)) return { kind: "provider-ready" };
-			const row = state.rows.find((candidate) => candidate.entry.provider === "deepseek-official" && candidate.entry.settingsNs === "llm-deepseek" && candidate.entry.settingsPath.length === 0);
-			if (row === void 0) return { kind: "adapter-absent" };
-			if (!row.entry.active) return {
-				kind: "unavailable",
-				reason: "provider-inactive"
-			};
-			if (state.credentialError !== null || row.credential === void 0) return {
-				kind: "unavailable",
-				reason: "credentials-unavailable"
-			};
-			if (!state.writable) return {
-				kind: "unavailable",
-				reason: "settings-read-only"
-			};
-			if (!row.credential.writable) return {
-				kind: "unavailable",
-				reason: "credential-read-only"
-			};
-			return { kind: "credential-missing" };
-		}
-		//#endregion
 		//#region lib/types/client/ModelListEditor.js
 		/**
 		* The model list of one pi-ai provider profile, plus the action that asks the
@@ -793,11 +549,12 @@ window.__ModuleLoader__.load({
 		* @returns the model-list editor.
 		*/
 		function ModelListEditor(props) {
-			const { models, onChange, probe, api, t, disabled } = props;
+			const { models, onChange, probe, operations, t, disabled } = props;
 			const [busy, setBusy] = (0, react.useState)(false);
 			const [failure, setFailure] = (0, react.useState)(void 0);
 			const [candidates, setCandidates] = (0, react.useState)(void 0);
 			const [picked, setPicked] = (0, react.useState)(/* @__PURE__ */ new Set());
+			const [candidateQuery, setCandidateQuery] = (0, react.useState)("");
 			const [expanded, setExpanded] = (0, react.useState)(/* @__PURE__ */ new Set());
 			const [editing, setEditing] = (0, react.useState)(/* @__PURE__ */ new Map());
 			/** Buffer key for one capacity field; the row half moves when rows do. */
@@ -839,26 +596,25 @@ window.__ModuleLoader__.load({
 				setBusy(true);
 				setFailure(void 0);
 				try {
-					const response = await api.llm.discoverModels(probe.settingsNs, {
+					const answer = await operations.discoverModels(probe.settingsNs, {
 						...probe.provider === void 0 ? {} : { provider: probe.provider },
 						...probe.baseURL === void 0 || probe.baseURL.length === 0 ? {} : { baseURL: probe.baseURL },
 						...probe.api === void 0 ? {} : { api: probe.api },
 						...probe.apiKey === void 0 ? {} : { apiKey: probe.apiKey }
 					});
-					if (!response.ok) {
-						setFailure(response.error.message);
+					if (answer.kind === "refused") {
+						setFailure(answer.message);
 						return;
 					}
-					const found = response.value;
+					const found = answer.models;
 					if (found.length === 0) {
 						setFailure(t("fetchEmpty"));
 						return;
 					}
 					const known = new Set(models.map((model) => textOf(model, "id")));
+					setCandidateQuery("");
 					setCandidates(found);
 					setPicked(new Set(found.filter((model) => !known.has(model.id)).map((model) => model.id)));
-				} catch (error) {
-					setFailure(messageOf(error));
 				} finally {
 					setBusy(false);
 				}
@@ -866,6 +622,7 @@ window.__ModuleLoader__.load({
 			const closePicker = () => {
 				setCandidates(void 0);
 				setPicked(/* @__PURE__ */ new Set());
+				setCandidateQuery("");
 			};
 			const adoptPicked = () => {
 				/* v8 ignore next -- the dialog only renders with candidates loaded */
@@ -886,10 +643,15 @@ window.__ModuleLoader__.load({
 				});
 			};
 			const activeCandidates = candidates ?? [];
-			const allCandidatesPicked = activeCandidates.length > 0 && activeCandidates.every((candidate) => picked.has(candidate.id));
-			const toggleAllCandidates = () => {
+			const normalizedCandidateQuery = candidateQuery.trim().toLowerCase();
+			const visibleCandidates = normalizedCandidateQuery.length === 0 ? activeCandidates : activeCandidates.filter((candidate) => candidate.id.toLowerCase().includes(normalizedCandidateQuery) || candidate.name?.toLowerCase().includes(normalizedCandidateQuery) === true);
+			const allVisibleCandidatesPicked = visibleCandidates.length > 0 && visibleCandidates.every((candidate) => picked.has(candidate.id));
+			const toggleVisibleCandidates = () => {
 				setPicked((current) => {
-					return activeCandidates.every((candidate) => current.has(candidate.id)) ? /* @__PURE__ */ new Set() : new Set(activeCandidates.map((candidate) => candidate.id));
+					const next = new Set(current);
+					if (visibleCandidates.every((candidate) => current.has(candidate.id))) for (const candidate of visibleCandidates) next.delete(candidate.id);
+					else for (const candidate of visibleCandidates) next.add(candidate.id);
+					return next;
 				});
 			};
 			const askable = probe.provider !== void 0 || probe.baseURL !== void 0 && probe.baseURL.length > 0;
@@ -1058,17 +820,31 @@ window.__ModuleLoader__.load({
 							onClick: adoptPicked,
 							children: t("fetchAdopt")
 						})] }),
-						children: [(0, react_jsx_runtime.jsx)("div", {
-							className: ModelsSection_module_css_default["candidateActions"],
-							children: (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Button, {
+						children: [(0, react_jsx_runtime.jsxs)("div", {
+							className: ModelsSection_module_css_default["candidateToolbar"],
+							children: [(0, react_jsx_runtime.jsx)("input", {
+								className: `${ModelsSection_module_css_default["input"]} ${ModelsSection_module_css_default["candidateSearch"]}`,
+								type: "search",
+								value: candidateQuery,
+								placeholder: t("fetchSearch"),
+								"aria-label": t("fetchSearch"),
+								onChange: (event) => {
+									setCandidateQuery(event.target.value);
+								}
+							}), (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Button, {
 								variant: "ghost",
 								size: "sm",
-								onClick: toggleAllCandidates,
-								children: t(allCandidatesPicked ? "fetchDeselectAll" : "fetchSelectAll")
-							})
-						}), (0, react_jsx_runtime.jsx)("ul", {
+								disabled: visibleCandidates.length === 0,
+								onClick: toggleVisibleCandidates,
+								children: t(allVisibleCandidatesPicked ? "fetchDeselectAll" : "fetchSelectAll")
+							})]
+						}), visibleCandidates.length === 0 ? (0, react_jsx_runtime.jsx)("p", {
+							className: ModelsSection_module_css_default["candidateEmpty"],
+							role: "status",
+							children: t("fetchNoMatches")
+						}) : (0, react_jsx_runtime.jsx)("ul", {
 							className: ModelsSection_module_css_default["candidateList"],
-							children: (candidates ?? []).map((candidate) => (0, react_jsx_runtime.jsx)("li", {
+							children: visibleCandidates.map((candidate) => (0, react_jsx_runtime.jsx)("li", {
 								className: ModelsSection_module_css_default["candidate"],
 								children: (0, react_jsx_runtime.jsxs)("label", {
 									className: ModelsSection_module_css_default["candidateLabel"],
@@ -1088,6 +864,247 @@ window.__ModuleLoader__.load({
 					})
 				]
 			});
+		}
+		//#endregion
+		//#region lib/types/client/store.js
+		/**
+		* Models settings page store: one snapshot joining the configurable-provider
+		* directory (`llm/listProviders` joined with `llm/listConfigurableProviders`),
+		* the settings namespaces (shared settings mirror),
+		* and the referenced credentials (`credentials/describe`). The host stays the
+		* single fact source — every mutation writes through the wire and the page
+		* re-renders from the next describe, pushed or refetched.
+		*/
+		/**
+		* Any route key walks a dict schema to the same profile node, so the lookup
+		* names one that cannot collide with a configured route.
+		*/
+		const PROBE_ROUTE = "\0probe";
+		/**
+		* Join declared configurable providers with the currently registered routes.
+		* @param registered - live provider routes in registration order.
+		* @param directory - declared configurable providers in declaration order.
+		* @returns declared rows followed by live routes with no declaration.
+		*/
+		function joinProviderDirectory(registered, directory) {
+			const active = new Set(registered.map((provider) => provider.id));
+			const declared = new Set(directory.map((entry) => entry.provider));
+			const rows = directory.map((entry) => ({
+				provider: entry.provider,
+				displayName: entry.displayName,
+				settingsNs: entry.settingsNs,
+				settingsPath: [...entry.settingsPath],
+				active: active.has(entry.provider),
+				...entry.declared === void 0 ? {} : { declared: entry.declared }
+			}));
+			for (const provider of registered) {
+				if (declared.has(provider.id)) continue;
+				rows.push({
+					provider: provider.id,
+					displayName: provider.name,
+					settingsNs: "",
+					settingsPath: [],
+					active: true
+				});
+			}
+			return rows;
+		}
+		/**
+		* Derive the conventional credential reference for a provider route: the v1
+		* page never asks for an environment-variable name, so a typed key stores
+		* under this derived reference and the profile records it as `apiKeyEnv`.
+		* @param provider - provider route id (e.g. `anthropic`, `minimax-cn`).
+		* @returns the derived reference name (e.g. `MINIMAX_CN_API_KEY`).
+		*/
+		function deriveKeyRef(provider) {
+			return `${provider.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}_API_KEY`;
+		}
+		/**
+		* The wire protocols a hand-declared route may name, read out of the owning
+		* namespace's own schema. This stays a schema read rather than a wire field so
+		* the choices the page offers cannot drift from the ones the adapter accepts:
+		* both come from the same `Config`.
+		* @param namespace - the namespace view whose schema declares the profile shape.
+		* @param schema - settings schema operations.
+		* @returns the protocol identifiers, or an empty list when the schema has none.
+		*/
+		function protocolChoices(namespace, schema) {
+			if (namespace === void 0) return [];
+			const list = schema.nodeAtPath(schema.rehydrate(namespace.schema), [
+				"providers",
+				PROBE_ROUTE,
+				"api"
+			]);
+			if (list?.type !== "union" || list.list === void 0) return [];
+			return list.list.map((entry) => entry.value).filter((value) => typeof value === "string");
+		}
+		/** The credential reference a resolved profile names (its `apiKeyEnv` field). */
+		function apiKeyEnvOf(namespace, path, schema) {
+			if (namespace === void 0) return void 0;
+			const profile = schema.getPath(namespace.value, path);
+			if (typeof profile !== "object" || profile === null) return void 0;
+			const ref = profile.apiKeyEnv;
+			return typeof ref === "string" && ref.length > 0 ? ref : void 0;
+		}
+		/** The models settings page controller (one per settings surface). */
+		var ModelsSettingsStore = class {
+			ctx;
+			schema;
+			describeFace;
+			/** The snapshot the section renders from (uSES-safe store). */
+			store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
+				status: "idle",
+				error: null,
+				credentialError: null,
+				writable: false,
+				rows: [],
+				namespaces: /* @__PURE__ */ new Map()
+			});
+			/** Latest load wins; an older response never overwrites a newer one. */
+			generation = 0;
+			/**
+			* @param ctx - the page plugin's context, whose `remote.llm` and
+			* `remote.credentials` namespaces carry the directory and credential reads.
+			* @param schema - settings-owned schema and immutable path operations.
+			* @param describeFace - the shared mirror's describe face (namespace views and writability).
+			*/
+			constructor(ctx, schema, describeFace) {
+				this.ctx = ctx;
+				this.schema = schema;
+				this.describeFace = describeFace;
+			}
+			/**
+			* Refresh the whole page snapshot: the provider directory and the mirror's
+			* settings answer in parallel, then one batched credential describe over
+			* every referenced ref. Provider failure or absence of an initial settings
+			* answer keeps the last good rows and surfaces an error; a failed settings
+			* refresh reuses the mirror's held view.
+			* @returns nothing; the snapshot carries the outcome.
+			*/
+			async load() {
+				const generation = ++this.generation;
+				this.store.update((s) => {
+					s.status = "loading";
+					s.error = null;
+				});
+				const [registered, declared] = await Promise.all([
+					this.ctx.remote.llm.listProviders(),
+					this.ctx.remote.llm.listConfigurableProviders(),
+					this.describeFace.ensure()
+				]);
+				if (!registered.ok) {
+					this.failLoad(generation, registered.error.message);
+					return;
+				}
+				if (!declared.ok) {
+					this.failLoad(generation, declared.error.message);
+					return;
+				}
+				const mirrored = this.describeFace.getSnapshot();
+				if (mirrored.view === void 0) {
+					this.failLoad(generation, mirrored.error ?? "settings are unavailable in this browser");
+					return;
+				}
+				const providers = joinProviderDirectory(registered.value, declared.value);
+				const writable = mirrored.view.writable;
+				const views = mirrored.view.namespaces;
+				const namespaces = new Map(views.map((view) => [view.ns, view]));
+				const rows = providers.map((entry) => {
+					const namespace = namespaces.get(entry.settingsNs);
+					return {
+						entry,
+						configured: namespace !== void 0 && (entry.settingsPath.length === 0 || this.schema.getPath(namespace.value, entry.settingsPath) !== void 0),
+						removable: namespace !== void 0 && entry.settingsPath.length > 0 && this.schema.hasPath(namespace.user, entry.settingsPath) && !this.schema.hasPath(namespace.base, entry.settingsPath),
+						apiKeyEnv: apiKeyEnvOf(namespace, entry.settingsPath, this.schema),
+						credential: void 0
+					};
+				});
+				const refs = [...new Set(rows.map((row) => row.apiKeyEnv ?? deriveKeyRef(row.entry.provider)))];
+				let credentials = {};
+				let credentialError = null;
+				if (refs.length > 0) {
+					const response = await this.ctx.remote.credentials.describe(refs);
+					if (response.ok) credentials = response.value;
+					else credentialError = response.error.message;
+				}
+				if (generation !== this.generation) return;
+				this.store.update((s) => {
+					s.status = "ready";
+					s.error = null;
+					s.credentialError = credentialError;
+					s.writable = writable;
+					s.rows = rows.map((row) => {
+						const named = row.apiKeyEnv === void 0 ? void 0 : credentials[row.apiKeyEnv];
+						const derived = row.apiKeyEnv !== void 0 ? void 0 : credentials[deriveKeyRef(row.entry.provider)];
+						return {
+							...row,
+							...named === void 0 ? {} : { credential: named },
+							...derived === void 0 ? {} : { derivedCredential: derived }
+						};
+					});
+					s.namespaces = namespaces;
+				});
+			}
+			/** Publish one load's failure text, unless a newer load already took over. */
+			failLoad(generation, message) {
+				if (generation !== this.generation) return;
+				this.store.update((s) => {
+					s.status = "error";
+					s.error = message;
+				});
+			}
+		};
+		/**
+		* Whether a joined row can serve model requests as it stands: the route is
+		* registered with the adapter registry, and whatever credential its resolved
+		* profile names is stored. A profile naming no reference authenticates through
+		* the provider's own path (the Bedrock chain, Vertex ADC, a gateway that needs
+		* nothing), as does a live route with no settings address at all, so neither
+		* owes this page a key.
+		* @param row - one joined provider row.
+		* @returns whether the user already has this provider to talk to.
+		*/
+		function providerUsable(row) {
+			if (!row.entry.active) return false;
+			if (row.apiKeyEnv === void 0) return true;
+			return row.credential?.configured === true;
+		}
+		/**
+		* Project first-run readiness from the provider/settings/credential join used
+		* by the Models page. The step exists to leave the user with a model to talk
+		* to, so ANY usable provider ends it; only when none exists does the official
+		* DeepSeek route — the one route the prompt can offer a key field for — decide
+		* whether prompting can help. A missing official configurable-provider
+		* declaration means the adapter is not repairable by navigating to Models.
+		* @param state - current shared Models join snapshot.
+		* @returns the onboarding state without reading a parallel fact source.
+		*/
+		function onboardingReadiness(state) {
+			if ((state.status === "idle" || state.status === "loading") && state.rows.length === 0) return { kind: "loading" };
+			if (state.status === "error") return {
+				kind: "unavailable",
+				reason: "load-failed"
+			};
+			if (state.rows.some(providerUsable)) return { kind: "provider-ready" };
+			const row = state.rows.find((candidate) => candidate.entry.provider === "deepseek-official" && candidate.entry.settingsNs === "llm-deepseek" && candidate.entry.settingsPath.length === 0);
+			if (row === void 0) return { kind: "adapter-absent" };
+			if (!row.entry.active) return {
+				kind: "unavailable",
+				reason: "provider-inactive"
+			};
+			if (state.credentialError !== null || row.credential === void 0) return {
+				kind: "unavailable",
+				reason: "credentials-unavailable"
+			};
+			if (!state.writable) return {
+				kind: "unavailable",
+				reason: "settings-read-only"
+			};
+			if (!row.credential.writable) return {
+				kind: "unavailable",
+				reason: "credential-read-only"
+			};
+			return { kind: "credential-missing" };
 		}
 		//#endregion
 		//#region lib/types/client/CustomProviderCard.js
@@ -1130,7 +1147,7 @@ window.__ModuleLoader__.load({
 		* @returns the creation card.
 		*/
 		function CustomProviderCard(props) {
-			const { taken, protocols, api, t } = props;
+			const { taken, protocols, operations, t } = props;
 			const [openedAt] = (0, react.useState)(() => props.revision);
 			const [route, setRoute] = (0, react.useState)("");
 			const [displayName, setDisplayName] = (0, react.useState)("");
@@ -1168,17 +1185,17 @@ window.__ModuleLoader__.load({
 						baseURL,
 						models: models.map((model) => ({ ...model }))
 					};
-					const response = await api.settings.mutate(NS$1, [{
+					const written = await operations.writeSettings(NS$1, [{
 						op: "set",
 						path: ["providers", route],
 						value: profile
 					}], openedAt);
-					if (!response.ok) return response.error.message;
+					if (written.kind !== "written") return written.kind === "conflict" ? t("conflict") : written.message;
 					setCommitted(true);
 				}
 				if (storesKey) {
-					const stored = await api.credentials.set(keyRef, keyValue);
-					if (!stored.ok) return stored.error.message;
+					const stored = await operations.storeCredential(keyRef, keyValue);
+					if (stored !== void 0) return stored;
 				}
 			};
 			const create = async () => {
@@ -1191,8 +1208,6 @@ window.__ModuleLoader__.load({
 						return;
 					}
 					props.onClose(true);
-				} catch (error) {
-					setFailure(messageOf(error));
 				} finally {
 					setBusy(false);
 				}
@@ -1319,7 +1334,7 @@ window.__ModuleLoader__.load({
 							...keyValue.length === 0 ? {} : { apiKey: keyValue }
 						},
 						probeBlocked: keyFailure === "keyBlank" ? "keyBlankNew" : keyFailure,
-						api,
+						operations,
 						t,
 						disabled: profileDisabled
 					}),
@@ -1424,7 +1439,7 @@ window.__ModuleLoader__.load({
 		* @returns the editor card.
 		*/
 		function ProviderEditor(props) {
-			const { namespace, schema, settingsPath, api, t } = props;
+			const { namespace, schema, settingsPath, operations, t } = props;
 			const [draft, setDraft] = (0, react.useState)(() => draftAt(schema, namespace, settingsPath));
 			const [keyDraft, setKeyDraft] = (0, react.useState)("");
 			const [keyState, setKeyState] = (0, react.useState)(void 0);
@@ -1450,14 +1465,14 @@ window.__ModuleLoader__.load({
 			(0, react.useEffect)(() => {
 				let stale = false;
 				setKeyState(void 0);
-				api.credentials.describe([keyRef]).then((response) => {
-					if (stale || !response.ok) return;
-					setKeyState(response.value[keyRef]);
-				}, () => void 0);
+				operations.describeCredential(keyRef).then((described) => {
+					if (stale) return;
+					setKeyState(described);
+				});
 				return () => {
 					stale = true;
 				};
-			}, [api.credentials, keyRef]);
+			}, [operations, keyRef]);
 			const stringAt = (source, key) => {
 				const value = schema.getPath(source, [key]);
 				return typeof value === "string" && value.trim().length > 0 ? value : void 0;
@@ -1505,15 +1520,15 @@ window.__ModuleLoader__.load({
 					value: {}
 				}] : pathOps(settingsPath, committedOriginal, next);
 				if (ops.length > 0) {
-					const response = await api.settings.mutate(ns, ops, expectedRevision);
-					if (!response.ok) return response.error.code === "settings-conflict" ? t("conflict") : response.error.message;
-					setCommittedOriginal(schema.getPath(response.value.user, settingsPath));
-					setExpectedRevision(response.value.revision);
+					const written = await operations.writeSettings(ns, ops, expectedRevision);
+					if (written.kind !== "written") return written.kind === "conflict" ? t("conflict") : written.message;
+					setCommittedOriginal(schema.getPath(written.view.user, settingsPath));
+					setExpectedRevision(written.view.revision);
 					setDraft(next);
 				}
 				if (keyValue.length > 0) {
-					const stored = await api.credentials.set(keyRef, keyValue);
-					if (!stored.ok) return stored.error.message;
+					const stored = await operations.storeCredential(keyRef, keyValue);
+					if (stored !== void 0) return stored;
 				}
 				setKeyDraft("");
 			};
@@ -1527,8 +1542,6 @@ window.__ModuleLoader__.load({
 						return;
 					}
 					props.onClose(true);
-				} catch (error) {
-					setFailure(messageOf(error));
 				} finally {
 					setBusy(false);
 				}
@@ -1677,7 +1690,7 @@ window.__ModuleLoader__.load({
 								...catalogProps,
 								probe,
 								probeBlocked: keyFailure,
-								api
+								operations
 							})
 						]
 					})]
@@ -1756,25 +1769,21 @@ window.__ModuleLoader__.load({
 		* and the whole operation safely retryable; both unsets are idempotent.
 		* The settings removal names the profile rather than rebuilding its whole
 		* namespace from a partial view.
-		* @param api - settings and credential wire faces.
+		* @param operations - the page's Host operations.
 		* @param controller - the page store to refresh.
 		* @param target - the provider's settings address and optional managed credential.
 		* @returns the failure message, or undefined once the write and reload landed.
 		*/
-		async function removeProviderProfile(api, controller, target) {
-			try {
-				if (target.credentialRef !== void 0) {
-					const credential = await api.credentials.unset(target.credentialRef);
-					if (!credential.ok) return credential.error.message;
-				}
-				const response = await api.settings.mutate(target.settingsNs, [{
-					op: "unset",
-					path: [...target.settingsPath]
-				}], void 0);
-				if (!response.ok) return response.error.message;
-			} catch (error) {
-				return messageOf(error);
+		async function removeProviderProfile(operations, controller, target) {
+			if (target.credentialRef !== void 0) {
+				const credential = await operations.removeCredential(target.credentialRef);
+				if (credential !== void 0) return credential;
 			}
+			const written = await operations.writeSettings(target.settingsNs, [{
+				op: "unset",
+				path: [...target.settingsPath]
+			}], void 0);
+			if (written.kind !== "written") return written.message;
 			await controller.load();
 		}
 		/**
@@ -1827,13 +1836,13 @@ window.__ModuleLoader__.load({
 		* @returns the section, or null while the shell has not injected yet.
 		*/
 		function ModelsSection(props) {
-			const { controller, useSnapshot, api, schema, t, renderSlot } = props;
-			if (controller === void 0 || useSnapshot === void 0 || api === void 0 || schema === void 0 || t === void 0) return null;
+			const { controller, useSnapshot, operations, schema, t, renderSlot } = props;
+			if (controller === void 0 || useSnapshot === void 0 || operations === void 0 || schema === void 0 || t === void 0) return null;
 			return (0, react_jsx_runtime.jsx)(Loaded, {
 				injected: {
 					controller,
 					useSnapshot,
-					api,
+					operations,
 					schema,
 					t
 				},
@@ -1841,7 +1850,7 @@ window.__ModuleLoader__.load({
 			});
 		}
 		function Loaded({ injected, renderSlot }) {
-			const { controller, api, schema, t } = injected;
+			const { controller, operations, schema, t } = injected;
 			const state = injected.useSnapshot((snapshot) => snapshot);
 			const [editing, setEditing] = (0, react.useState)(void 0);
 			const [adding, setAdding] = (0, react.useState)(false);
@@ -1883,7 +1892,7 @@ window.__ModuleLoader__.load({
 				if (deleteTarget === void 0 || deleting) return;
 				setDeleting(true);
 				setDeleteFailure(void 0);
-				removeProviderProfile(api, controller, deleteTarget).then((failure) => {
+				removeProviderProfile(operations, controller, deleteTarget).then((failure) => {
 					if (failure !== void 0) {
 						setDeleteFailure(failure);
 						return;
@@ -1958,7 +1967,7 @@ window.__ModuleLoader__.load({
 									target,
 									namespace,
 									schema,
-									api,
+									operations,
 									t,
 									readOnly: !state.writable,
 									onClose: (changed) => {
@@ -2037,7 +2046,7 @@ window.__ModuleLoader__.load({
 										target,
 										namespace,
 										schema,
-										api,
+										operations,
 										t,
 										readOnly: !state.writable,
 										onClose: (changed) => {
@@ -2081,7 +2090,7 @@ window.__ModuleLoader__.load({
 									namespace: addNamespace,
 									schema,
 									settingsPath: addTarget.settingsPath,
-									api,
+									operations,
 									t,
 									readOnly: !state.writable,
 									onClose: (changed) => {
@@ -2101,7 +2110,7 @@ window.__ModuleLoader__.load({
 								protocols,
 								/* v8 ignore next -- the card only opens from a button disabled without this namespace */
 								revision: state.namespaces.get("llm-pi-ai")?.revision ?? 0,
-								api,
+								operations,
 								t,
 								readOnly: !state.writable,
 								onClose: (changed) => {
@@ -2169,8 +2178,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-models\src\client\OnboardingModal.module.css.mjs
-		const css$2 = "._qqJbW_dialog{width:min(600px,100%);padding:0}._qqJbW_content{box-sizing:border-box;flex-direction:column;max-height:calc(100vh - 48px);padding:28px;display:flex;overflow-y:auto}._qqJbW_title{color:var(--dsw-alias-label-primary);outline:none;margin:0;font-size:20px;font-weight:500;line-height:28px}._qqJbW_body{margin-top:20px}@media (width<=560px){._qqJbW_content{padding:24px}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-models\src\client\OnboardingModal.module.css.mjs
+		const css$2 = ".L17-KG_dialog{width:min(600px,100%);padding:0}.L17-KG_content{box-sizing:border-box;flex-direction:column;max-height:calc(100vh - 48px);padding:28px;display:flex;overflow-y:auto}.L17-KG_title{color:var(--dsw-alias-label-primary);outline:none;margin:0;font-size:20px;font-weight:500;line-height:28px}.L17-KG_body{margin-top:20px}@media (width<=560px){.L17-KG_content{padding:24px}}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-settings-models/OnboardingModal.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2180,10 +2189,10 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var OnboardingModal_module_css_default = {
-			"body": "_qqJbW_body",
-			"content": "_qqJbW_content",
-			"dialog": "_qqJbW_dialog",
-			"title": "_qqJbW_title"
+			"body": "L17-KG_body",
+			"content": "L17-KG_content",
+			"dialog": "L17-KG_dialog",
+			"title": "L17-KG_title"
 		};
 		//#endregion
 		//#region lib/types/client/OnboardingModal.js
@@ -2231,8 +2240,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-models\src\client\DeepSeekOnboardingDialog.module.css.mjs
-		const css$1 = "._0NfCuG_description{color:var(--dsw-alias-label-secondary);margin:0;font-size:14px;line-height:24px}._0NfCuG_editor{margin-top:24px}@media (width<=560px){._0NfCuG_editor{margin-top:20px}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-models\src\client\DeepSeekOnboardingDialog.module.css.mjs
+		const css$1 = ".NTVzEa_description{color:var(--dsw-alias-label-secondary);margin:0;font-size:14px;line-height:24px}.NTVzEa_editor{margin-top:24px}@media (width<=560px){.NTVzEa_editor{margin-top:20px}}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-settings-models/DeepSeekOnboardingDialog.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2242,8 +2251,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var DeepSeekOnboardingDialog_module_css_default = {
-			"description": "_0NfCuG_description",
-			"editor": "_0NfCuG_editor"
+			"description": "NTVzEa_description",
+			"editor": "NTVzEa_editor"
 		};
 		//#endregion
 		//#region lib/types/client/DeepSeekOnboardingDialog.js
@@ -2265,7 +2274,7 @@ window.__ModuleLoader__.load({
 		* @returns the onboarding modal or null when onboarding needs no intervention.
 		*/
 		function DeepSeekOnboardingDialog(props) {
-			const { complete, controller, useModels, api, schema, t } = props;
+			const { complete, controller, useModels, operations, schema, t } = props;
 			const state = useModels((snapshot) => snapshot);
 			const readiness = onboardingReadiness(state);
 			(0, react.useEffect)(() => {
@@ -2307,7 +2316,7 @@ window.__ModuleLoader__.load({
 						namespace,
 						schema,
 						settingsPath: row.entry.settingsPath,
-						api,
+						operations,
 						t,
 						readOnly: false,
 						hideTitle: true,
@@ -2323,8 +2332,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-models\src\client\WelcomeNotice.module.css.mjs
-		const css = ".VC0hcG_copy{color:var(--dsw-alias-label-secondary);font-size:14px;line-height:24px}.VC0hcG_copy p{margin:0}.VC0hcG_copy p+p{margin-top:12px}.VC0hcG_error{color:var(--dsw-alias-state-error-primary);margin:16px 0 0;font-size:14px;line-height:22px}.VC0hcG_actions{justify-content:flex-end;margin-top:24px;display:flex}.VC0hcG_primary{min-width:120px}@media (width<=560px){.VC0hcG_primary{width:100%}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-models\src\client\WelcomeNotice.module.css.mjs
+		const css = ".jS524q_copy{color:var(--dsw-alias-label-secondary);font-size:14px;line-height:24px}.jS524q_copy p{margin:0}.jS524q_copy p+p{margin-top:12px}.jS524q_error{color:var(--dsw-alias-state-error-primary);margin:16px 0 0;font-size:14px;line-height:22px}.jS524q_actions{justify-content:flex-end;margin-top:24px;display:flex}.jS524q_primary{min-width:120px}@media (width<=560px){.jS524q_primary{width:100%}}";
 		const tagId = "@deepseek-ai/dsh-client-ui-settings-models/WelcomeNotice.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2334,10 +2343,10 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var WelcomeNotice_module_css_default = {
-			"actions": "VC0hcG_actions",
-			"copy": "VC0hcG_copy",
-			"error": "VC0hcG_error",
-			"primary": "VC0hcG_primary"
+			"actions": "jS524q_actions",
+			"copy": "jS524q_copy",
+			"error": "jS524q_error",
+			"primary": "jS524q_primary"
 		};
 		//#endregion
 		//#region lib/types/client/WelcomeNotice.js
@@ -2533,6 +2542,61 @@ window.__ModuleLoader__.load({
 			}
 		};
 		//#endregion
+		//#region lib/types/client/operations.js
+		/**
+		* The Host reads and writes the Models cards perform, as callbacks built in the
+		* plugin body. Cards receive these instead of a context: the outcomes name what
+		* a card renders — a stored view, a stale revision, a refusal message — so the
+		* failure codes and Remote namespaces stay in the apply world.
+		*/
+		/**
+		* Bind the page's Host operations to the plugin's own Remote namespaces.
+		* @param ctx - the page plugin's context, which declares `remote.credentials`,
+		* `remote.llm`, and `remote.settings` in its own `inject`.
+		* @returns the callbacks the section and its cards are injected with.
+		*/
+		function createModelsOperations(ctx) {
+			return {
+				describeCredential: async (ref) => {
+					const response = await ctx.remote.credentials.describe([ref]);
+					return response.ok ? response.value[ref] : void 0;
+				},
+				storeCredential: async (ref, value) => {
+					const response = await ctx.remote.credentials.set(ref, value);
+					return response.ok ? void 0 : response.error.message;
+				},
+				removeCredential: async (ref) => {
+					const response = await ctx.remote.credentials.unset(ref);
+					return response.ok ? void 0 : response.error.message;
+				},
+				writeSettings: async (ns, ops, expectedRevision) => {
+					const response = await ctx.remote.settings.mutate(ns, ops, expectedRevision);
+					if (response.ok) return {
+						kind: "written",
+						view: response.value
+					};
+					const { code, message } = response.error;
+					return code === "settings/conflict" ? {
+						kind: "conflict",
+						message
+					} : {
+						kind: "refused",
+						message
+					};
+				},
+				discoverModels: async (settingsNs, request) => {
+					const response = await ctx.remote.llm.discoverModels(settingsNs, request);
+					return response.ok ? {
+						kind: "found",
+						models: response.value
+					} : {
+						kind: "refused",
+						message: response.error.message
+					};
+				}
+			};
+		}
+		//#endregion
 		//#region lib/types/client/schema-operations.js
 		/**
 		* Hide the Cordis service identity behind bound schema callbacks.
@@ -2623,6 +2687,8 @@ window.__ModuleLoader__.load({
 			fetchEmpty: "The provider listed no models. Add them by hand.",
 			fetchTitle: "Choose models to add",
 			fetchDescription: "These are the models this provider has available. Choose the ones to add.",
+			fetchSearch: "Search models",
+			fetchNoMatches: "No matching models.",
 			fetchSelectAll: "Select all",
 			fetchDeselectAll: "Deselect all",
 			fetchAdopt: "Add selected",
@@ -2723,6 +2789,8 @@ window.__ModuleLoader__.load({
 			fetchEmpty: "该提供方没有列出任何模型，请手动添加。",
 			fetchTitle: "选择要添加的模型",
 			fetchDescription: "以下是模型提供方的可用模型，勾选要添加的模型。",
+			fetchSearch: "搜索模型",
+			fetchNoMatches: "没有匹配的模型。",
 			fetchSelectAll: "全选",
 			fetchDeselectAll: "取消全选",
 			fetchAdopt: "添加所选",
@@ -2793,24 +2861,20 @@ window.__ModuleLoader__.load({
 				en
 			}), "ui-settings-models: copy dictionaries");
 			const schema = createSettingsSchemaOperations(ctx.settingsSchema);
-			const wire = {
-				credentials: ctx.remote.credentials,
-				llm: ctx.remote.llm,
-				settings: ctx.remote.settings
-			};
-			const controller = new ModelsSettingsStore(wire, schema, ctx.settingsScope.describe());
+			const operations = createModelsOperations(ctx);
+			const controller = new ModelsSettingsStore(ctx, schema, ctx.settingsScope.describe());
 			const t = ctx.locale.bind(NS);
 			const injected = () => ({
 				controller,
 				hooks: { snapshot: controller.store },
-				api: wire,
+				operations,
 				schema,
 				t
 			});
 			const deepSeekOnboardingInjected = () => ({
 				controller,
 				hooks: { models: controller.store },
-				api: wire,
+				operations,
 				schema,
 				t
 			});

@@ -13,7 +13,6 @@ from test_subagent_continuation import mounted, retired
 async def test_catalog_reads_cold_children_without_agents_and_traverses_ordinary_nodes(tmp_path):
     ctx, _, parent, manager = await mounted(tmp_path)
     try:
-        await ctx.plugin(SessionProjectionsPlugin)
         registry = ctx.get('sessionProjections')
         registry.register(IDENTITY)
         registry.register(TIMING)
@@ -42,10 +41,7 @@ async def test_catalog_reads_cold_children_without_agents_and_traverses_ordinary
 async def test_bad_identity_resets_projection_and_listing_isolates_corruption(tmp_path):
     ctx, _, parent, manager = await mounted(tmp_path)
     try:
-        with pytest.raises(SubagentError) as error:
-            await manager.host.listChildren('parent')
-        assert error.value.code == 'SUBAGENT_CONTROL_PROJECTIONS_UNAVAILABLE'
-        await ctx.plugin(SessionProjectionsPlugin)
+        assert await manager.host.listChildren('parent') == []
         registry = ctx.get('sessionProjections')
         registry.register(IDENTITY)
         registry.register(TIMING)
@@ -67,7 +63,7 @@ async def test_bad_identity_resets_projection_and_listing_isolates_corruption(tm
 
 
 def test_timing_resets_at_own_descriptor_and_rejects_invalid_checkpoint():
-    state = TIMING['init'](None)
+    state = TIMING['init'](None, 0)
     for kind, stamp in [('turn/start', 1), ('subagent/descriptor', 2), ('turn/end', 10),
                         ('subagent/descriptor', 11), ('turn/start', 12), ('turn/end', 17)]:
         state = TIMING['apply'](state, dict(type=kind, time=stamp))
@@ -82,7 +78,6 @@ def test_timing_resets_at_own_descriptor_and_rejects_invalid_checkpoint():
 async def test_cold_catalog_bounds_observations_and_isolates_bad_child(tmp_path):
     ctx, _, parent, manager = await mounted(tmp_path)
     try:
-        await ctx.plugin(SessionProjectionsPlugin)
         ctx.get('sessionProjections').register(IDENTITY)
         persistence = ctx.get('sessionPersistence')
         for index in range(9):

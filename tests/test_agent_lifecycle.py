@@ -1,5 +1,6 @@
 import asyncio
 import pytest
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.cordis.context import Context
 from dsh.core.agent import Agent, AgentOptions, AgentPlugin, AgentRegistry
 from dsh.core.agent_loop import AgentLoopPlugin, AgentLoopService
@@ -65,6 +66,8 @@ async def test_agent_create_followup_and_when_idle():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     registry: AgentRegistry = ctx.get("agents")
@@ -102,6 +105,8 @@ async def test_agent_cancel():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     registry: AgentRegistry = ctx.get("agents")

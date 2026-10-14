@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {it} from 'vitest'
 import {writeFileSync} from 'node:fs'
 import {Context} from '@deepseek-ai/cordis'
@@ -16,13 +17,14 @@ async function harness(identity: string) {
   await ctx.plugin(Tools)
   await ctx.plugin(Prompt)
   await ctx.plugin(Agents)
-  await ctx.plugin(Loop, {agents:[], maxParallelToolCalls:3})
+  if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop, {agents:[], maxParallelToolCalls:3})
   const handle = await ctx.agents.create({sessionId:SessionId(identity)})
   return {ctx, handle, agent:handle.agent}
 }
 
 function results(agent: any) {
-  return agent.session.events.filter((event: any) => event.type === 'tool/result').map((event: any) => ({
+  return agent.session.snapshotEvents().filter((event: any) => event.type === 'tool/result').map((event: any) => ({
     callId:event.data.message.source.callId, content:event.data.message.content[0].content,
     isError:event.data.message.content[0].isError,
   }))
@@ -94,7 +96,7 @@ it('observes actual final-result finishing and owned scheduler failure boundarie
     const held = {settled, dispatches:phases.filter(phase => phase.startsWith('dispatch-'))}
     releasePrepare.resolve()
     await new Promise(resolve => setImmediate(resolve))
-    const before = {settled, phases:[...phases], calls:agent.session.events.filter(event => event.type === 'tool/call').map((event: any) => event.data.callId)}
+    const before = {settled, phases:[...phases], calls:agent.session.snapshotEvents().filter(event => event.type === 'tool/call').map((event: any) => event.data.callId)}
     if (!siblingBeforePrepare) releaseSibling.reject(sibling)
     rows.push({mode:'failure-during-prepare',siblingBeforePrepare,held,before,error:await pending,phases,results:results(agent)})
     await handle.dispose()

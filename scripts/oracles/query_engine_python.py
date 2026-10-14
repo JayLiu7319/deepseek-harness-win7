@@ -52,7 +52,7 @@ async def main():
         async def inspect(self, session_id, signal=None):
             self.inspected += 1
             entry = entries[session_id]
-            return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']))
+            return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']), inheritedEventCount=0)
     persistence = Persistence()
     provider = context.provide('sessionPersistence', persistence)
     query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='first-search', defaultLimit=1, maxLimit=2))

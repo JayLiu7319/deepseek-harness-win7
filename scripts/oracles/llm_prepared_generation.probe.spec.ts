@@ -2,7 +2,8 @@ import {execFileSync} from 'node:child_process'
 import {writeFileSync} from 'node:fs'
 import {expect,it} from 'vitest'
 import {Context} from '@deepseek-ai/cordis'
-import LlmRuntime,{LlmAdapter,resolveRetryPolicy,deepFreeze} from '@deepseek-ai/dsh-llm'
+import LlmRuntime,{LlmAdapter,resolveRetryPolicy} from '@deepseek-ai/dsh-llm'
+import {deepFreeze} from '@deepseek-ai/dsh-util-values'
 
 it('records original prepared generation and replay ownership',async()=>{
   const names=['missing-provider','default-adapter','pending-register','pending-dispose','pending-config','unconsumed-repeat','signal','foreign-replay','shared-replay','held-replay','new-current-owner']

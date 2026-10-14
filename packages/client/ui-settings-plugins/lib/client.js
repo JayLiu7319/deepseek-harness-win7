@@ -9,8 +9,8 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-plugins\src\client\fields.module.css.mjs
-		const css$3 = ".xW6IRG_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.xW6IRG_field+.xW6IRG_field{border-top:1px solid var(--dsw-alias-border-l2)}.xW6IRG_head{align-items:center;gap:8px;display:flex}.xW6IRG_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.xW6IRG_badges{align-items:center;gap:8px;display:inline-flex}.xW6IRG_badge{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.xW6IRG_badgeMuted{white-space:nowrap;color:var(--dsw-alias-label-tertiary);border-radius:999px;padding:1px 8px;font-size:11px;line-height:17px}.xW6IRG_reset{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.xW6IRG_reset:hover:not(:disabled){color:var(--dsw-alias-label-primary)}.xW6IRG_reset:disabled{cursor:default}.xW6IRG_input{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 12px;font-size:13px;line-height:1.5}.xW6IRG_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.xW6IRG_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.xW6IRG_inputInvalid{border-color:var(--dsw-alias-label-error);}.xW6IRG_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.xW6IRG_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-plugins\src\client\fields.module.css.mjs
+		const css$3 = ".-Cs42W_field{flex-direction:column;gap:6px;padding:12px 0;display:flex}.-Cs42W_field+.-Cs42W_field{border-top:.5px solid var(--dsw-alias-border-l2)}.-Cs42W_head{align-items:center;gap:8px;display:flex}.-Cs42W_label{min-width:0;color:var(--dsw-alias-label-primary);flex:1;font-size:13px;font-weight:500;line-height:1.5}.-Cs42W_badges{align-items:center;gap:8px;display:inline-flex}.-Cs42W_badge{corner-shape:round;white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.-Cs42W_badgeMuted{corner-shape:round;white-space:nowrap;color:var(--dsw-alias-label-tertiary);border-radius:999px;padding:1px 8px;font-size:11px;line-height:17px}.-Cs42W_reset{font:inherit;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;padding:0;font-size:12px;line-height:1.5}.-Cs42W_reset:hover:not(:disabled){color:var(--dsw-alias-label-primary)}.-Cs42W_reset:disabled{cursor:default}.-Cs42W_input{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-3);height:34px;font:inherit;color:var(--dsw-alias-label-primary);border-radius:8px;padding:0 12px;font-size:13px;line-height:1.5}.-Cs42W_input:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:none}.-Cs42W_input:disabled{color:var(--dsw-alias-label-tertiary);cursor:default}.-Cs42W_inputInvalid{border-color:var(--dsw-alias-label-error);}.-Cs42W_invalid{color:var(--dsw-alias-label-error);margin:0;font-size:12px;line-height:1.5}.-Cs42W_hint{color:var(--dsw-alias-label-tertiary);margin:0;font-size:12px;line-height:1.5}";
 		const tagId$3 = "@deepseek-ai/dsh-client-ui-settings-plugins/fields.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 			const tag = document.createElement("style");
@@ -20,17 +20,17 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var fields_module_css_default = {
-			"badge": "xW6IRG_badge",
-			"badgeMuted": "xW6IRG_badgeMuted",
-			"badges": "xW6IRG_badges",
-			"field": "xW6IRG_field",
-			"head": "xW6IRG_head",
-			"hint": "xW6IRG_hint",
-			"input": "xW6IRG_input",
-			"inputInvalid": "xW6IRG_inputInvalid",
-			"invalid": "xW6IRG_invalid",
-			"label": "xW6IRG_label",
-			"reset": "xW6IRG_reset"
+			"badge": "-Cs42W_badge",
+			"badgeMuted": "-Cs42W_badgeMuted",
+			"badges": "-Cs42W_badges",
+			"field": "-Cs42W_field",
+			"head": "-Cs42W_head",
+			"hint": "-Cs42W_hint",
+			"input": "-Cs42W_input",
+			"inputInvalid": "-Cs42W_inputInvalid",
+			"invalid": "-Cs42W_invalid",
+			"label": "-Cs42W_label",
+			"reset": "-Cs42W_reset"
 		};
 		//#endregion
 		//#region lib/types/client/fields.js
@@ -151,8 +151,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-plugins\src\client\PluginCard.module.css.mjs
-		const css$2 = ".n4qD1W_card{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-3);border-radius:12px;list-style:none;transition:border-color .16s,background .16s}.n4qD1W_card:hover{border-color:var(--dsw-alias-label-dimmed)}.n4qD1W_cardOpen{background:var(--dsw-alias-bg-layer-2);border-color:var(--dsw-alias-label-dimmed)}.n4qD1W_header{appearance:none;width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer;background:0 0;border:0;border-radius:12px;align-items:center;gap:12px;padding:14px 16px;display:flex}.n4qD1W_header:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px}.n4qD1W_headText{flex-direction:column;flex:1;gap:4px;min-width:0;display:flex}.n4qD1W_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.n4qD1W_description{color:var(--dsw-alias-label-tertiary);font-size:13px;line-height:1.5}.n4qD1W_chevron{color:var(--dsw-alias-label-tertiary);flex:none;transition:transform .16s}.n4qD1W_chevronOpen{transform:rotate(180deg)}.n4qD1W_body{border-top:1px solid var(--dsw-alias-border-l2);margin:0 16px;padding-bottom:8px}.n4qD1W_readOnly{color:var(--dsw-alias-label-tertiary);margin:12px 0 0;font-size:12px;line-height:1.5}.n4qD1W_pending{white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;flex:none;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.n4qD1W_footer{border-top:1px solid var(--dsw-alias-border-l2);justify-content:flex-end;align-items:center;gap:8px;padding:12px 0 4px;display:flex}.n4qD1W_failed{min-width:0;color:var(--dsw-alias-label-error);flex:1;margin:0;font-size:12px;line-height:1.5}.n4qD1W_discard,.n4qD1W_save{appearance:none;font:inherit;cursor:pointer;border:1px solid #0000;border-radius:8px;padding:5px 14px;font-size:13px;line-height:1.5}.n4qD1W_discard{border-color:var(--dsw-alias-border-l2);color:var(--dsw-alias-label-secondary);background:0 0}.n4qD1W_discard:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.n4qD1W_save{background:var(--dsw-alias-label-primary);color:var(--dsw-alias-bg-layer-3)}.n4qD1W_discard:disabled,.n4qD1W_save:disabled{opacity:.4;cursor:default}.n4qD1W_discard:focus-visible,.n4qD1W_save:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:1px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-plugins\src\client\PluginCard.module.css.mjs
+		const css$2 = ".pVGPsW_card{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-3);border-radius:16px;list-style:none;transition:border-color .16s,background .16s}.pVGPsW_card:hover{border-color:var(--dsw-alias-label-dimmed)}.pVGPsW_cardOpen{background:var(--dsw-alias-bg-layer-2);border-color:var(--dsw-alias-label-dimmed)}.pVGPsW_header{appearance:none;width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer;background:0 0;border:0;border-radius:12px;align-items:center;gap:12px;padding:14px 16px;display:flex}.pVGPsW_header:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:-2px}.pVGPsW_headText{flex-direction:column;flex:1;gap:4px;min-width:0;display:flex}.pVGPsW_name{color:var(--dsw-alias-label-primary);font-size:15px;font-weight:600;line-height:1.4}.pVGPsW_description{color:var(--dsw-alias-label-tertiary);font-size:13px;line-height:1.5}.pVGPsW_chevron{color:var(--dsw-alias-label-tertiary);flex:none;transition:transform .16s}.pVGPsW_chevronOpen{transform:rotate(180deg)}.pVGPsW_body{border-top:.5px solid var(--dsw-alias-border-l2);margin:0 16px;padding-bottom:8px}.pVGPsW_readOnly{color:var(--dsw-alias-label-tertiary);margin:12px 0 0;font-size:12px;line-height:1.5}.pVGPsW_pending{corner-shape:round;white-space:nowrap;background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-label-secondary);border-radius:999px;flex:none;padding:1px 8px;font-size:11px;font-weight:500;line-height:17px}.pVGPsW_footer{border-top:.5px solid var(--dsw-alias-border-l2);justify-content:flex-end;align-items:center;gap:8px;padding:12px 0 4px;display:flex}.pVGPsW_failed{min-width:0;color:var(--dsw-alias-label-error);flex:1;margin:0;font-size:12px;line-height:1.5}.pVGPsW_discard,.pVGPsW_save{appearance:none;font:inherit;cursor:pointer;border:1px solid #0000;border-radius:8px;padding:5px 14px;font-size:13px;line-height:1.5}.pVGPsW_discard{border-color:var(--dsw-alias-border-l2);color:var(--dsw-alias-label-secondary);background:0 0}.pVGPsW_discard:hover:not(:disabled){color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-label-dimmed)}.pVGPsW_save{background:var(--dsw-alias-label-primary);color:var(--dsw-alias-bg-layer-3)}.pVGPsW_discard:disabled,.pVGPsW_save:disabled{opacity:.4;cursor:default}.pVGPsW_discard:focus-visible,.pVGPsW_save:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:1px}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-settings-plugins/PluginCard.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -162,21 +162,21 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var PluginCard_module_css_default = {
-			"body": "n4qD1W_body",
-			"card": "n4qD1W_card",
-			"cardOpen": "n4qD1W_cardOpen",
-			"chevron": "n4qD1W_chevron",
-			"chevronOpen": "n4qD1W_chevronOpen",
-			"description": "n4qD1W_description",
-			"discard": "n4qD1W_discard",
-			"failed": "n4qD1W_failed",
-			"footer": "n4qD1W_footer",
-			"headText": "n4qD1W_headText",
-			"header": "n4qD1W_header",
-			"name": "n4qD1W_name",
-			"pending": "n4qD1W_pending",
-			"readOnly": "n4qD1W_readOnly",
-			"save": "n4qD1W_save"
+			"body": "pVGPsW_body",
+			"card": "pVGPsW_card",
+			"cardOpen": "pVGPsW_cardOpen",
+			"chevron": "pVGPsW_chevron",
+			"chevronOpen": "pVGPsW_chevronOpen",
+			"description": "pVGPsW_description",
+			"discard": "pVGPsW_discard",
+			"failed": "pVGPsW_failed",
+			"footer": "pVGPsW_footer",
+			"headText": "pVGPsW_headText",
+			"header": "pVGPsW_header",
+			"name": "pVGPsW_name",
+			"pending": "pVGPsW_pending",
+			"readOnly": "pVGPsW_readOnly",
+			"save": "pVGPsW_save"
 		};
 		//#endregion
 		//#region lib/types/client/PluginCard.js
@@ -374,8 +374,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-plugins\src\client\PluginsSettingsSection.module.css.mjs
-		const css$1 = "._4AyvoG_section{max-width:760px;color:var(--dsw-alias-label-primary);flex-direction:column;gap:12px;display:flex}._4AyvoG_heading{margin:0;font-size:18px;font-weight:600}._4AyvoG_intro{color:var(--dsw-alias-label-tertiary);margin:0;font-size:13px}._4AyvoG_tabs{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:flex-end;gap:22px;margin-top:2px;display:flex}._4AyvoG_tab{color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:0;padding:7px 1px 9px;font-size:13px;line-height:20px;position:relative}._4AyvoG_tab:hover,._4AyvoG_tab[data-active=true]{color:var(--dsw-alias-label-primary)}._4AyvoG_tab[data-active=true]:after,._4AyvoG_tab:focus-visible:after{background:var(--dsw-alias-label-primary);content:\"\";border-radius:2px 2px 0 0;height:2px;position:absolute;bottom:-1px;left:0;right:0}._4AyvoG_tab:focus-visible{outline:2px solid var(--dsw-alias-state-business-primary);outline-offset:2px;color:var(--dsw-alias-label-primary);border-radius:2px}._4AyvoG_panel{min-width:0;padding-top:2px}._4AyvoG_cards{flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;display:flex}._4AyvoG_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:13px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-plugins\src\client\PluginsSettingsSection.module.css.mjs
+		const css$1 = ".e0YXzq_section{max-width:760px;color:var(--dsw-alias-label-primary);flex-direction:column;gap:12px;display:flex}.e0YXzq_heading{margin:0;font-size:18px;font-weight:600}.e0YXzq_intro{color:var(--dsw-alias-label-tertiary);margin:0;font-size:13px}.e0YXzq_tabs{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:flex-end;gap:22px;margin-top:2px;display:flex}.e0YXzq_tab{color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:0;padding:7px 1px 9px;font-size:13px;line-height:20px;position:relative}.e0YXzq_tab:hover,.e0YXzq_tab[data-active=true]{color:var(--dsw-alias-label-primary)}.e0YXzq_tab[data-active=true]:after,.e0YXzq_tab:focus-visible:after{background:var(--dsw-alias-label-primary);content:\"\";border-radius:2px 2px 0 0;height:2px;position:absolute;bottom:-1px;left:0;right:0}.e0YXzq_tab:focus-visible{outline:2px solid var(--dsw-alias-state-business-primary);outline-offset:2px;color:var(--dsw-alias-label-primary);border-radius:2px}.e0YXzq_panel{min-width:0;padding-top:2px}.e0YXzq_cards{flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;display:flex}.e0YXzq_empty{color:var(--dsw-alias-label-tertiary);margin:0;font-size:13px}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-settings-plugins/PluginsSettingsSection.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -385,14 +385,14 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var PluginsSettingsSection_module_css_default = {
-			"cards": "_4AyvoG_cards",
-			"empty": "_4AyvoG_empty",
-			"heading": "_4AyvoG_heading",
-			"intro": "_4AyvoG_intro",
-			"panel": "_4AyvoG_panel",
-			"section": "_4AyvoG_section",
-			"tab": "_4AyvoG_tab",
-			"tabs": "_4AyvoG_tabs"
+			"cards": "e0YXzq_cards",
+			"empty": "e0YXzq_empty",
+			"heading": "e0YXzq_heading",
+			"intro": "e0YXzq_intro",
+			"panel": "e0YXzq_panel",
+			"section": "e0YXzq_section",
+			"tab": "e0YXzq_tab",
+			"tabs": "e0YXzq_tabs"
 		};
 		//#endregion
 		//#region lib/types/client/ConfigurablePluginsTab.js
@@ -515,8 +515,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-plugins\src\client\SubagentModelSelectionCard.module.css.mjs
-		const css = ".M-JyzW_permission{gap:6px;padding:12px 0;display:grid}.M-JyzW_toggleRow{color:var(--dsw-alias-label-secondary);justify-content:space-between;align-items:flex-start;gap:16px;font-size:13px;line-height:1.5;display:flex}.M-JyzW_toggleLabel{flex:1;min-width:0}.M-JyzW_switch{box-sizing:border-box;background:var(--dsw-alias-border-l3);cursor:pointer;border:0;border-radius:10px;flex:none;width:36px;height:20px;padding:2px;position:relative}.M-JyzW_switchOn{background:var(--dsw-alias-brand-primary)}.M-JyzW_switch:disabled{cursor:default;opacity:.5}.M-JyzW_switch:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.M-JyzW_thumb{background:var(--dsw-alias-label-primary-foreground);border-radius:50%;width:16px;height:16px;transition:transform .12s;display:block}.M-JyzW_switchOn .M-JyzW_thumb{transform:translate(16px)}.M-JyzW_selection{gap:10px;display:grid}.M-JyzW_hint,.M-JyzW_notice,.M-JyzW_invalid,.M-JyzW_conflict{margin:0;font-size:12px;line-height:1.5}.M-JyzW_hint,.M-JyzW_notice{color:var(--dsw-alias-label-tertiary)}.M-JyzW_invalid,.M-JyzW_conflict{color:var(--dsw-alias-label-error)}.M-JyzW_catalogError{color:var(--dsw-alias-label-error);justify-content:space-between;align-items:center;gap:12px;font-size:12px;display:flex}.M-JyzW_catalogError button{color:var(--dsw-alias-brand-primary);cursor:pointer;background:0 0;border:0;padding:0}.M-JyzW_models{border:1px solid var(--dsw-alias-border-l2);border-radius:8px;gap:6px;min-width:0;max-height:280px;margin:0;padding:10px;display:grid;overflow:auto}.M-JyzW_models legend{color:var(--dsw-alias-label-secondary);padding:0 4px;font-size:12px}.M-JyzW_modelGroup{gap:6px;display:grid}.M-JyzW_modelGroup+.M-JyzW_modelGroup{border-top:1px solid var(--dsw-alias-border-l3);margin-top:4px;padding-top:10px}.M-JyzW_providerName{color:var(--dsw-alias-label-tertiary);padding:0 6px;font-size:11px;font-weight:500}.M-JyzW_model{cursor:pointer;border-radius:6px;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;min-width:0;padding:6px;display:grid}.M-JyzW_model:hover{background:var(--dsw-alias-bg-layer-4)}.M-JyzW_modelName,.M-JyzW_route{text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.M-JyzW_modelName{color:var(--dsw-alias-label-primary);font-size:13px}.M-JyzW_route{color:var(--dsw-alias-label-tertiary);margin-top:2px;font-size:11px}.M-JyzW_unavailable{color:var(--dsw-alias-label-tertiary);font-size:11px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-plugins\src\client\SubagentModelSelectionCard.module.css.mjs
+		const css = ".gusVIW_permission{gap:6px;padding:12px 0;display:grid}.gusVIW_toggleRow{color:var(--dsw-alias-label-primary);justify-content:space-between;align-items:flex-start;gap:16px;font-size:13px;line-height:1.5;display:flex}.gusVIW_toggleLabel{flex:1;min-width:0}.gusVIW_switch{box-sizing:border-box;background:var(--dsw-alias-border-l3);cursor:pointer;border:0;border-radius:10px;flex:none;width:36px;height:20px;padding:2px;position:relative}.gusVIW_switchOn{background:var(--dsw-alias-brand-primary)}.gusVIW_switch:disabled{cursor:default;opacity:.5}.gusVIW_switch:focus-visible{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.gusVIW_thumb{corner-shape:round;background:var(--dsw-alias-label-primary-foreground);border-radius:50%;width:16px;height:16px;transition:transform .12s;display:block}.gusVIW_switchOn .gusVIW_thumb{transform:translate(16px)}.gusVIW_selection{gap:10px;display:grid}.gusVIW_hint,.gusVIW_notice,.gusVIW_invalid,.gusVIW_conflict{margin:0;font-size:12px;line-height:1.5}.gusVIW_hint,.gusVIW_notice{color:var(--dsw-alias-label-tertiary)}.gusVIW_invalid,.gusVIW_conflict{color:var(--dsw-alias-label-error)}.gusVIW_catalogError{color:var(--dsw-alias-label-error);justify-content:space-between;align-items:center;gap:12px;font-size:12px;display:flex}.gusVIW_catalogError button{color:var(--dsw-alias-brand-primary);cursor:pointer;background:0 0;border:0;padding:0}.gusVIW_models{border:.5px solid var(--dsw-alias-border-l4);border-radius:8px;gap:6px;min-width:0;max-height:280px;margin:0;padding:10px;display:grid;overflow:auto}.gusVIW_models legend{color:var(--dsw-alias-label-secondary);padding:0 4px;font-size:12px}.gusVIW_modelGroup{gap:6px;display:grid}.gusVIW_modelGroup+.gusVIW_modelGroup{border-top:.5px solid var(--dsw-alias-border-l3);margin-top:4px;padding-top:10px}.gusVIW_providerName{color:var(--dsw-alias-label-tertiary);padding:0 6px;font-size:11px;font-weight:500}.gusVIW_model{cursor:pointer;border-radius:6px;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;min-width:0;padding:6px;display:grid}.gusVIW_model:hover{background:var(--dsw-alias-bg-layer-4)}.gusVIW_modelName,.gusVIW_route{text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.gusVIW_modelName{color:var(--dsw-alias-label-primary);font-size:13px}.gusVIW_route{color:var(--dsw-alias-label-tertiary);margin-top:2px;font-size:11px}.gusVIW_unavailable{color:var(--dsw-alias-label-tertiary);font-size:11px}";
 		const tagId = "@deepseek-ai/dsh-client-ui-settings-plugins/SubagentModelSelectionCard.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -526,25 +526,25 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SubagentModelSelectionCard_module_css_default = {
-			"catalogError": "M-JyzW_catalogError",
-			"conflict": "M-JyzW_conflict",
-			"hint": "M-JyzW_hint",
-			"invalid": "M-JyzW_invalid",
-			"model": "M-JyzW_model",
-			"modelGroup": "M-JyzW_modelGroup",
-			"modelName": "M-JyzW_modelName",
-			"models": "M-JyzW_models",
-			"notice": "M-JyzW_notice",
-			"permission": "M-JyzW_permission",
-			"providerName": "M-JyzW_providerName",
-			"route": "M-JyzW_route",
-			"selection": "M-JyzW_selection",
-			"switch": "M-JyzW_switch",
-			"switchOn": "M-JyzW_switchOn",
-			"thumb": "M-JyzW_thumb",
-			"toggleLabel": "M-JyzW_toggleLabel",
-			"toggleRow": "M-JyzW_toggleRow",
-			"unavailable": "M-JyzW_unavailable"
+			"catalogError": "gusVIW_catalogError",
+			"conflict": "gusVIW_conflict",
+			"hint": "gusVIW_hint",
+			"invalid": "gusVIW_invalid",
+			"model": "gusVIW_model",
+			"modelGroup": "gusVIW_modelGroup",
+			"modelName": "gusVIW_modelName",
+			"models": "gusVIW_models",
+			"notice": "gusVIW_notice",
+			"permission": "gusVIW_permission",
+			"providerName": "gusVIW_providerName",
+			"route": "gusVIW_route",
+			"selection": "gusVIW_selection",
+			"switch": "gusVIW_switch",
+			"switchOn": "gusVIW_switchOn",
+			"thumb": "gusVIW_thumb",
+			"toggleLabel": "gusVIW_toggleLabel",
+			"toggleRow": "gusVIW_toggleRow",
+			"unavailable": "gusVIW_unavailable"
 		};
 		//#endregion
 		//#region lib/types/client/SubagentModelSelectionCard.js
@@ -1218,7 +1218,7 @@ window.__ModuleLoader__.load({
 		/** Bridges one settings scope and the live adapter directory onto a staged card. */
 		var SubagentModelSelectionCardController = class {
 			scope;
-			session;
+			ctx;
 			catalogGroups = [];
 			catalogPartial = false;
 			catalogStatus = "idle";
@@ -1235,11 +1235,12 @@ window.__ModuleLoader__.load({
 			unsubscribe;
 			/**
 			* @param scope - bound `subagent-model-selection` settings scope.
-			* @param session - Host Session model-catalog face.
+			* @param ctx - the card plugin's context, whose `remote.session` namespace
+			* answers the Host model catalog.
 			*/
-			constructor(scope, session) {
+			constructor(scope, ctx) {
 				this.scope = scope;
-				this.session = session;
+				this.ctx = ctx;
 				this.store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)(this.projection());
 				this.unsubscribe = scope.subscribe(() => {
 					if (!this.saving && this.draftRoutes !== void 0 && this.scope.getSnapshot().revision !== this.draftRevision) if (this.currentEnabled() === this.enabled() && sameRoutes(this.currentRoutes(), this.desiredRoutes())) this.clearDraft();
@@ -1401,17 +1402,13 @@ window.__ModuleLoader__.load({
 				this.catalogStatus = "loading";
 				this.catalogPartial = false;
 				this.publish();
-				try {
-					const response = await this.session.modelCatalog();
-					if (generation !== this.catalogGeneration) return;
-					if (!response.ok) throw new Error(response.error.message);
+				const response = await this.ctx.remote.session.modelCatalog();
+				if (generation !== this.catalogGeneration) return;
+				if (response.ok) {
 					this.catalogGroups = response.value.groups;
 					this.catalogPartial = response.value.failures.length > 0;
 					this.catalogStatus = "ready";
-				} catch {
-					if (generation !== this.catalogGeneration) return;
-					this.catalogStatus = "error";
-				}
+				} else this.catalogStatus = "error";
 				this.publish();
 			}
 			projection() {
@@ -1461,7 +1458,7 @@ window.__ModuleLoader__.load({
 		/** Bridges the `web-search-deepseek` scope and the credentials domain onto the card. */
 		var WebSearchCardController = class {
 			scope;
-			credentials;
+			ctx;
 			form;
 			store;
 			credential = {
@@ -1471,11 +1468,12 @@ window.__ModuleLoader__.load({
 			};
 			/**
 			* @param scope - the bound settings scope for the `web-search-deepseek` namespace.
-			* @param credentials - Remote face used for the credential the section references.
+			* @param ctx - the card plugin's context, whose `remote.credentials` namespace
+			* answers for the credential the section references.
 			*/
-			constructor(scope, credentials) {
+			constructor(scope, ctx) {
 				this.scope = scope;
-				this.credentials = credentials;
+				this.ctx = ctx;
 				this.form = new CardForm(scope, [textField("baseURL"), numberField("maxUses")], [{
 					field: API_KEY_FIELD,
 					write: (text) => this.writeKey(text)
@@ -1514,12 +1512,7 @@ window.__ModuleLoader__.load({
 					};
 					this.store.set(this.projection());
 				}
-				let response;
-				try {
-					response = await this.credentials.describe([ref]);
-				} catch (_credentialReadFailure) {
-					return;
-				}
+				const response = await this.ctx.remote.credentials.describe([ref]);
 				if (!response.ok || ref !== refOf(this.scope.getSnapshot())) return;
 				const view = response.value[ref];
 				const next = {
@@ -1559,9 +1552,7 @@ window.__ModuleLoader__.load({
 			* @returns whether the Host reports a configured credential afterwards.
 			*/
 			async writeKey(value) {
-				try {
-					await this.credentials.set(refOf(this.scope.getSnapshot()), value);
-				} catch (_credentialWriteFailure) {}
+				await this.ctx.remote.credentials.set(refOf(this.scope.getSnapshot()), value);
 				await this.readCredential();
 				return this.credential.configured;
 			}
@@ -1706,7 +1697,6 @@ window.__ModuleLoader__.load({
 		const inject = [
 			"slots",
 			"locale",
-			"connection",
 			"remote",
 			"remote.credentials",
 			"remote.session",
@@ -1724,8 +1714,8 @@ window.__ModuleLoader__.load({
 			}), "ui-settings-plugins: section dictionaries");
 			const bash = new BashCardController(ctx.settingsScope.bind({ namespace: SHELL_NS }));
 			const agentLoop = new AgentLoopCardController(ctx.settingsScope.bind({ namespace: AGENT_LOOP_NS }));
-			const webSearch = new WebSearchCardController(ctx.settingsScope.bind({ namespace: WEB_SEARCH_NS }), ctx.remote.credentials);
-			const subagentModelSelection = new SubagentModelSelectionCardController(ctx.settingsScope.bind({ namespace: SUBAGENT_MODEL_SELECTION_NS }), ctx.remote.session);
+			const webSearch = new WebSearchCardController(ctx.settingsScope.bind({ namespace: WEB_SEARCH_NS }), ctx);
+			const subagentModelSelection = new SubagentModelSelectionCardController(ctx.settingsScope.bind({ namespace: SUBAGENT_MODEL_SELECTION_NS }), ctx);
 			ctx.effect(() => ctx.remote.$on("credentials/reference-updated", (ref) => {
 				webSearch.refreshCredential(ref);
 			}), "ui-settings-plugins: credential invalidations");

@@ -46,9 +46,18 @@ class PersistenceCoordinator:
             self.backend._prepared.assert_writable(sid)
 
     def adopted(self, inspection):
-        self.states[inspection.meta.id] = dict(meta=inspection.meta, cursor=len(inspection.events), materialized=True)
+        self.states[inspection.meta.id] = dict(meta=inspection.meta, inheritedEventCount=inspection.inheritedEventCount,
+                                              cursor=len(inspection.events), materialized=True)
 
-    async def create(self, meta):
+    async def create(self, meta, inherited_event_count=UNDEFINED):
+        from dsh.core.session.types import SessionLogOffset
+        if meta.isSeeded and inherited_event_count is UNDEFINED:
+            raise TypeError('seeded session metadata requires an inherited event count')
+        if inherited_event_count is UNDEFINED or inherited_event_count is None:
+            inherited_event_count = 0
+        inherited_event_count = SessionLogOffset(inherited_event_count)
+        if not meta.isSeeded and inherited_event_count:
+            raise TypeError('unseeded session metadata inherited event count must be 0')
         raw = snapshot_json_value(meta.to_dict(), UNDEFINED)
         if raw is UNDEFINED:
             raise TypeError('session metadata must be losslessly JSON-serializable')
@@ -68,7 +77,8 @@ class PersistenceCoordinator:
                 pass
             else:
                 raise ValueError('session already has a persisted log: ' + meta.id)
-            self.states[meta.id] = dict(meta=meta, cursor=0, materialized=False)
+            self.states[meta.id] = dict(meta=meta, inheritedEventCount=inherited_event_count,
+                                       cursor=0, materialized=False)
 
     async def append(self, sid, events):
         events = snapshot_json_value(events, UNDEFINED)
@@ -96,6 +106,8 @@ class PersistenceCoordinator:
                 if not safe_integer(event.get('seq')) or event['seq'] != state['cursor'] + index:
                     raise ValueError('append seq mismatch for "{}": expected {} at index {}, got {}'.format(sid, state['cursor'] + index, index, js_to_string(event.get('seq', UNDEFINED))))
                 event['seq'] = int(event['seq'])
+            if not state['materialized'] and state['cursor'] + len(events) < state['inheritedEventCount']:
+                raise ValueError('session "%s" cannot materialize before its inherited prefix is complete' % sid)
             await self.backend.append_batch(state['meta'], events, state['materialized'])
             state['materialized'] = True
             state['cursor'] += len(events)
@@ -125,6 +137,7 @@ class PersistenceCoordinator:
                 throw_aborted(signal)
                 inspection = await self.backend.read_stored(sid)
                 throw_aborted(signal)
-                return SessionInspection(inspection.meta, [event for event in inspection.events if event['seq'] >= from_seq])
+                return SessionInspection(inspection.meta, [event for event in inspection.events if event['seq'] >= from_seq],
+                                         inspection.inheritedEventCount)
         awaitable = read()
         return await observe_queued_abort(awaitable, signal)

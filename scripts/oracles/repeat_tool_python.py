@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -52,6 +53,7 @@ async def run():
     rows = []
     for spec in cases:
         ctx, model = Context(), Model(spec['turns'])
+        SessionProjectionRegistry(ctx)
         ctx.set_service('llm', model)
         handle = None
         try:

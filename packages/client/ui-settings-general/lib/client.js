@@ -24,8 +24,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-general\src\client\SettingsRoot.module.css.mjs
-		const css$3 = ".iZ237q_trigger{box-sizing:border-box;cursor:pointer;width:calc(100% + 4px);height:42px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:12px;flex:none;align-items:center;gap:8px;margin:4px -2px;padding:0 10px 0 8px;font-family:inherit;font-size:14px;line-height:22px;display:flex;overflow:hidden}.iZ237q_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}.iZ237q_trigger.iZ237q_rail{border-radius:50%;justify-content:center;gap:0;width:36px;height:36px;margin:8px 0 10px;padding:0}.iZ237q_triggerLabel{white-space:nowrap;overflow:hidden}.iZ237q_overlay{z-index:1000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}.iZ237q_mask{background:var(--dsw-alias-bg-mask-1);backdrop-filter:var(--dsw-mask-blur);position:absolute;inset:0}.iZ237q_panel{z-index:1;background:var(--dsw-alias-bg-layer-2);width:800px;max-width:calc(100vw - 48px);height:min(800px,100vh - 48px);box-shadow:var(--dsw-shadow-lv3);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:24px;display:flex;position:relative;overflow:hidden}.iZ237q_nav{box-sizing:border-box;flex-direction:column;flex:none;gap:18px;width:188px;padding:22px 12px 0;display:flex}.iZ237q_navTitle{color:var(--dsw-alias-label-primary);padding:0 12px;font-size:16px;font-weight:500;line-height:24px}.iZ237q_navList{flex-direction:column;gap:4px;display:flex}.iZ237q_navCell{box-sizing:border-box;cursor:pointer;height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:8px;padding:9px 16px 9px 12px;font-family:inherit;font-size:14px;font-weight:400;line-height:22px;display:flex}.iZ237q_navCell:hover{background:var(--dsw-specific-sidebar-nav-item-hover)}.iZ237q_navCell.iZ237q_active{background:var(--dsw-specific-sidebar-nav-item-active)}.iZ237q_navIcon{flex:none}.iZ237q_navLabel{white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0;overflow:hidden}.iZ237q_content{flex-direction:column;flex:1;min-width:0;display:flex}.iZ237q_header{box-sizing:border-box;flex:none;justify-content:space-between;align-items:flex-start;gap:8px;height:54px;padding:20px 14px 8px 10px;display:flex}.iZ237q_actions{justify-content:flex-end;align-items:center;gap:8px;min-width:0;margin-left:auto;display:flex}.iZ237q_close{cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:0;display:inline-flex}.iZ237q_close:hover{background:var(--dsw-alias-interactive-bg-hover)}.iZ237q_options{flex:1;min-height:0;padding:0 24px 24px;overflow-y:auto}.iZ237q_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\SettingsRoot.module.css.mjs
+		const css$3 = "._7iFUNG_triggerRow{flex:none;align-items:center;gap:8px;width:calc(100% + 4px);margin:4px -2px;display:flex}._7iFUNG_triggerRow._7iFUNG_railRow{width:36px;margin:8px 0 10px}._7iFUNG_trigger{box-sizing:border-box;cursor:pointer;width:auto;min-width:0;height:42px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:12px;flex:1;align-items:center;gap:8px;margin:0;padding:0 10px 0 8px;font-family:inherit;font-size:14px;line-height:22px;display:flex;overflow:hidden}._7iFUNG_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}._7iFUNG_trigger._7iFUNG_rail{corner-shape:round;border-radius:50%;flex:none;justify-content:center;gap:0;width:36px;height:36px;margin:0;padding:0}._7iFUNG_triggerLabel{white-space:nowrap;overflow:hidden}._7iFUNG_overlay{z-index:1000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}._7iFUNG_mask{background:var(--dsw-alias-bg-mask-1);backdrop-filter:var(--dsw-mask-blur);position:absolute;inset:0}._7iFUNG_panel{z-index:1;background:var(--dsw-alias-bg-layer-2);width:800px;max-width:calc(100vw - 48px);height:min(800px,100vh - 48px);box-shadow:var(--dsw-elevation-prominent);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:32px;display:flex;position:relative;overflow:hidden}._7iFUNG_nav{box-sizing:border-box;flex-direction:column;flex:none;gap:18px;width:188px;padding:22px 12px 0;display:flex}._7iFUNG_navTitle{color:var(--dsw-alias-label-primary);padding:0 12px;font-size:16px;font-weight:500;line-height:24px}._7iFUNG_navList{flex-direction:column;gap:4px;display:flex}._7iFUNG_navCell{box-sizing:border-box;cursor:pointer;height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:8px;padding:9px 16px 9px 12px;font-family:inherit;font-size:14px;font-weight:400;line-height:22px;display:flex}._7iFUNG_navCell:hover{background:var(--dsw-specific-sidebar-nav-item-hover)}._7iFUNG_navCell._7iFUNG_active{background:var(--dsw-specific-sidebar-nav-item-active)}._7iFUNG_navIcon{flex:none}._7iFUNG_navLabel{white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0;overflow:hidden}._7iFUNG_content{flex-direction:column;flex:1;min-width:0;display:flex}._7iFUNG_header{box-sizing:border-box;flex:none;justify-content:space-between;align-items:flex-start;gap:8px;height:54px;padding:20px 14px 8px 10px;display:flex}._7iFUNG_actions{justify-content:flex-end;align-items:center;gap:8px;min-width:0;margin-left:auto;display:flex}._7iFUNG_close{cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:0;display:inline-flex}._7iFUNG_close:hover{background:var(--dsw-alias-interactive-bg-hover)}._7iFUNG_options{flex:1;min-height:0;padding:0 24px 24px;overflow-y:auto}._7iFUNG_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
 		const tagId$3 = "@deepseek-ai/dsh-client-ui-settings-general/SettingsRoot.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 			const tag = document.createElement("style");
@@ -35,25 +35,27 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SettingsRoot_module_css_default = {
-			"actions": "iZ237q_actions",
-			"active": "iZ237q_active",
-			"close": "iZ237q_close",
-			"content": "iZ237q_content",
-			"header": "iZ237q_header",
-			"hiddenLabel": "iZ237q_hiddenLabel",
-			"mask": "iZ237q_mask",
-			"nav": "iZ237q_nav",
-			"navCell": "iZ237q_navCell",
-			"navIcon": "iZ237q_navIcon",
-			"navLabel": "iZ237q_navLabel",
-			"navList": "iZ237q_navList",
-			"navTitle": "iZ237q_navTitle",
-			"options": "iZ237q_options",
-			"overlay": "iZ237q_overlay",
-			"panel": "iZ237q_panel",
-			"rail": "iZ237q_rail",
-			"trigger": "iZ237q_trigger",
-			"triggerLabel": "iZ237q_triggerLabel"
+			"actions": "_7iFUNG_actions",
+			"active": "_7iFUNG_active",
+			"close": "_7iFUNG_close",
+			"content": "_7iFUNG_content",
+			"header": "_7iFUNG_header",
+			"hiddenLabel": "_7iFUNG_hiddenLabel",
+			"mask": "_7iFUNG_mask",
+			"nav": "_7iFUNG_nav",
+			"navCell": "_7iFUNG_navCell",
+			"navIcon": "_7iFUNG_navIcon",
+			"navLabel": "_7iFUNG_navLabel",
+			"navList": "_7iFUNG_navList",
+			"navTitle": "_7iFUNG_navTitle",
+			"options": "_7iFUNG_options",
+			"overlay": "_7iFUNG_overlay",
+			"panel": "_7iFUNG_panel",
+			"rail": "_7iFUNG_rail",
+			"railRow": "_7iFUNG_railRow",
+			"trigger": "_7iFUNG_trigger",
+			"triggerLabel": "_7iFUNG_triggerLabel",
+			"triggerRow": "_7iFUNG_triggerRow"
 		};
 		//#endregion
 		//#region lib/types/client/SettingsRoot.js
@@ -69,6 +71,7 @@ window.__ModuleLoader__.load({
 		* sessions-derived empty-Hero fact is active. Visible dialog chrome belongs
 		* to the step, so a mounted-but-deciding step paints nothing here.
 		*/
+		const RECOVERY_CONFIRMATION_MS = 2e3;
 		/** Nav glyph by section id; unknown ids fall back to the settings gear. */
 		function navIcon(id) {
 			if (id === "models") return (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconDataOutline16, {
@@ -173,19 +176,28 @@ window.__ModuleLoader__.load({
 		* @returns the settings shell element tree.
 		*/
 		function SettingsRoot(props) {
-			const { wide, useSections, useOnboardingSteps, useSessions, renderSlot } = props;
+			const { wide, reconnect, useConnectionState, useSections, useOnboardingSteps, useSessions, renderSlot, t } = props;
 			const [open, setOpen] = (0, react.useState)(false);
 			const [activeId, setActiveId] = (0, react.useState)(void 0);
 			const [completedOnboarding, setCompletedOnboarding] = (0, react.useState)(() => /* @__PURE__ */ new Set());
+			const [showRecovery, setShowRecovery] = (0, react.useState)(false);
+			const triggerButton = (0, react.useRef)(null);
+			const wasOpen = (0, react.useRef)(open);
 			const close = (0, react.useCallback)(() => {
 				setOpen(false);
 				setActiveId(void 0);
 			}, []);
+			(0, react.useEffect)(() => {
+				if (wasOpen.current && !open) triggerButton.current?.focus();
+				wasOpen.current = open;
+			}, [open]);
 			const openSection = (0, react.useCallback)((id) => {
 				setActiveId(id);
 				setOpen(true);
 			}, []);
 			const rows = useSections((s) => s);
+			const connectionState = useConnectionState((state) => state);
+			const previousConnectionState = (0, react.useRef)(connectionState);
 			const onboardingSteps = useOnboardingSteps((s) => s);
 			const onboardingActive = useSessions((state) => state.phase === "ready" && (state.current === void 0 || state.byId[state.current]?.blank === true));
 			const onboardingStep = onboardingActive ? onboardingSteps.find((step) => !completedOnboarding.has(step.id)) : void 0;
@@ -193,22 +205,55 @@ window.__ModuleLoader__.load({
 				if (onboardingActive) return;
 				setCompletedOnboarding(/* @__PURE__ */ new Set());
 			}, [onboardingActive]);
+			(0, react.useLayoutEffect)(() => {
+				const previous = previousConnectionState.current;
+				previousConnectionState.current = connectionState;
+				if (connectionState !== "connected") {
+					setShowRecovery(false);
+					return;
+				}
+				if (previous !== "disconnected" && previous !== "connecting") return;
+				setShowRecovery(true);
+				const timeout = window.setTimeout(() => {
+					setShowRecovery(false);
+				}, RECOVERY_CONFIRMATION_MS);
+				return () => {
+					window.clearTimeout(timeout);
+				};
+			}, [connectionState]);
 			const completeOnboardingStep = (0, react.useCallback)((id) => {
 				setCompletedOnboarding((previous) => {
 					if (previous.has(id)) return previous;
 					return new Set([...previous, id]);
 				});
 			}, []);
+			let connectionIndicator;
+			if (connectionState === "disconnected") connectionIndicator = "disconnected";
+			else if (connectionState === "connecting") connectionIndicator = "connecting";
+			else if (showRecovery) connectionIndicator = "recovered";
 			return (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-				(0, react_jsx_runtime.jsx)("button", {
-					type: "button",
-					className: clsx(SettingsRoot_module_css_default.trigger, !wide && SettingsRoot_module_css_default.rail),
-					"aria-haspopup": "dialog",
-					"aria-expanded": open,
-					onClick: () => {
-						setOpen(true);
-					},
-					children: renderSlot("settings.trigger", { wide })
+				(0, react_jsx_runtime.jsxs)("div", {
+					className: clsx(SettingsRoot_module_css_default.triggerRow, !wide && SettingsRoot_module_css_default.railRow),
+					children: [(0, react_jsx_runtime.jsx)("button", {
+						ref: triggerButton,
+						type: "button",
+						className: clsx(SettingsRoot_module_css_default.trigger, !wide && SettingsRoot_module_css_default.rail),
+						"aria-haspopup": "dialog",
+						"aria-expanded": open,
+						onClick: () => {
+							setOpen(true);
+						},
+						children: renderSlot("settings.trigger", { wide })
+					}), (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.ConnectionIndicator, {
+						state: wide ? connectionIndicator : void 0,
+						disconnectedLabel: t("connection.error"),
+						reconnectLabel: t("connection.retry"),
+						connectingLabel: t("connection.connecting"),
+						recoveredLabel: t("connection.connected"),
+						reconnectActionLabel: t("connection.reconnect"),
+						restartActionLabel: t("connection.restart"),
+						onReconnect: reconnect
+					})]
 				}),
 				open && (0, react_jsx_runtime.jsx)(SettingsPanel, {
 					rows,
@@ -227,8 +272,8 @@ window.__ModuleLoader__.load({
 			] });
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-general\src\client\chrome.module.css.mjs
-		const css$2 = "._8BZWBa_triggerLabel{white-space:nowrap;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\chrome.module.css.mjs
+		const css$2 = "._5ubNPG_triggerLabel{white-space:nowrap;overflow:hidden}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-settings-general/chrome.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -237,7 +282,7 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$2;
 			document.head.appendChild(tag);
 		}
-		var chrome_module_css_default = { "triggerLabel": "_8BZWBa_triggerLabel" };
+		var chrome_module_css_default = { "triggerLabel": "_5ubNPG_triggerLabel" };
 		//#endregion
 		//#region lib/types/client/chrome.js
 		/**
@@ -274,8 +319,8 @@ window.__ModuleLoader__.load({
 			return (0, react_jsx_runtime.jsx)(react_jsx_runtime.Fragment, { children: t("close") });
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-general\src\client\GeneralSection.module.css.mjs
-		const css$1 = ".mBqRYa_section{flex-direction:column;width:100%;display:flex}.mBqRYa_section>[data-slot=\"settings.general.item\"]>:last-child{border-bottom:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\GeneralSection.module.css.mjs
+		const css$1 = ".k7DJHW_section{flex-direction:column;width:100%;display:flex}.k7DJHW_section>[data-slot=\"settings.general.item\"]>:last-child{border-bottom:none}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-settings-general/GeneralSection.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -284,7 +329,7 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$1;
 			document.head.appendChild(tag);
 		}
-		var GeneralSection_module_css_default = { "section": "mBqRYa_section" };
+		var GeneralSection_module_css_default = { "section": "k7DJHW_section" };
 		//#endregion
 		//#region lib/types/client/GeneralSection.js
 		/**
@@ -299,8 +344,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-settings-general\src\client\SettingsDocumentAction.module.css.mjs
-		const css = ".chn4NW_action{align-items:center;gap:8px;min-width:0;display:flex}.chn4NW_error{max-width:180px;color:var(--dsw-alias-state-error-primary);text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:18px;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\SettingsDocumentAction.module.css.mjs
+		const css = ".DpFc-G_action{align-items:center;gap:8px;min-width:0;display:flex}.DpFc-G_error{max-width:180px;color:var(--dsw-alias-state-error-primary);text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:18px;overflow:hidden}";
 		const tagId = "@deepseek-ai/dsh-client-ui-settings-general/SettingsDocumentAction.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -310,8 +355,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SettingsDocumentAction_module_css_default = {
-			"action": "chn4NW_action",
-			"error": "chn4NW_error"
+			"action": "DpFc-G_action",
+			"error": "DpFc-G_error"
 		};
 		//#endregion
 		//#region lib/types/client/SettingsDocumentAction.js
@@ -347,12 +392,9 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/settings-document-store.js
 		/** State owner for the optional local settings-document action. */
-		function messageOf(error) {
-			return error instanceof Error ? error.message : String(error);
-		}
 		/** Derives local-document availability from the shared mirror and invokes the pathless Host-owned open operation. */
 		var SettingsDocumentStore = class {
-			remote;
+			ctx;
 			describeFace;
 			/** uSES-safe state source shared by the registered header action. */
 			store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
@@ -362,11 +404,12 @@ window.__ModuleLoader__.load({
 			});
 			following;
 			/**
-			* @param api - loopback settings wire face that opens the provider document.
+			* @param ctx - the plugin's context, whose loopback `remote.settings`
+			* namespace opens the provider document.
 			* @param describeFace - the shared mirror's describe face (`hasDocument` source).
 			*/
-			constructor(remote, describeFace) {
-				this.remote = remote;
+			constructor(ctx, describeFace) {
+				this.ctx = ctx;
 				this.describeFace = describeFace;
 			}
 			/**
@@ -397,12 +440,13 @@ window.__ModuleLoader__.load({
 					state.error = null;
 				});
 				try {
-					const result = await this.remote.settings.openSettingsDocument();
-					if (!result.ok) throw new Error(result.error.message);
-				} catch (error) {
-					this.store.update((state) => {
-						state.error = messageOf(error);
-					});
+					const result = await this.ctx.remote.settings.openSettingsDocument();
+					if (!result.ok) {
+						const { message } = result.error;
+						this.store.update((state) => {
+							state.error = message;
+						});
+					}
 				} finally {
 					this.store.update((state) => {
 						state.opening = false;
@@ -440,7 +484,13 @@ window.__ModuleLoader__.load({
 			"close": "关闭",
 			"openDocument": "打开配置文件",
 			"openDocument.error": "无法打开配置文件",
-			"general.nav": "通用设置"
+			"general.nav": "通用设置",
+			"connection.error": "连接异常",
+			"connection.retry": "立即重连",
+			"connection.connecting": "连接中",
+			"connection.connected": "连接成功",
+			"connection.reconnect": "连接异常，点击立即重连",
+			"connection.restart": "连接中，点击立即重连"
 		};
 		/** English dictionary, checked complete against the zh key set. */
 		const en = {
@@ -449,7 +499,13 @@ window.__ModuleLoader__.load({
 			"close": "Close",
 			"openDocument": "Open configuration file",
 			"openDocument.error": "Could not open configuration file",
-			"general.nav": "General"
+			"general.nav": "General",
+			"connection.error": "Disconnected",
+			"connection.retry": "Reconnect now",
+			"connection.connecting": "Connecting",
+			"connection.connected": "Connected",
+			"connection.reconnect": "Disconnected, reconnect now",
+			"connection.restart": "Connecting, restart now"
 		};
 		//#endregion
 		//#region lib/types/client/index.js
@@ -478,8 +534,9 @@ window.__ModuleLoader__.load({
 				zh,
 				en
 			}), "ui-settings-general: dictionaries");
+			const connection = ctx.get("connection");
 			const t = ctx.locale.bind(NS);
-			const documentController = ctx.get("connection").isLoopback ? new SettingsDocumentStore(ctx.remote, ctx.settingsScope.describe()) : void 0;
+			const documentController = ctx.remote.$host.isLoopback ? new SettingsDocumentStore(ctx, ctx.settingsScope.describe()) : void 0;
 			const documentInjected = documentController === void 0 ? void 0 : () => ({
 				controller: documentController,
 				hooks: { snapshot: documentController.store }
@@ -492,50 +549,57 @@ window.__ModuleLoader__.load({
 			let rows = [];
 			let onboardingVersion = -1;
 			let onboardingSteps = [];
-			const shellInjected = () => ({ hooks: {
-				sections: {
-					getSnapshot: () => {
-						const version = ctx.slots.getVersion("settings.section");
-						const revision = ctx.locale.getSnapshot().revision;
-						if (version !== rowsVersion || revision !== rowsRevision) {
-							rowsVersion = version;
-							rowsRevision = revision;
-							rows = ctx.slots.entries("settings.section").map((e) => ({
-								/* v8 ignore next -- list-slot registration requires id (SlotCore rejects an entry without one) */
-								id: e.options.id ?? "",
-								order: e.options.order ?? 0,
-								label: (0, _deepseek_ai_dsh_client_ui_slots.resolveSlotLabel)(e.options.label) ?? ""
-							})).sort((a, b) => a.order - b.order);
-						}
-						return rows;
-					},
-					subscribe: (listener) => {
-						const offLedger = ctx.slots.subscribe("settings.section", listener);
-						const offLocale = ctx.locale.subscribe(listener);
-						return () => {
-							offLedger();
-							offLocale();
-						};
-					}
+			const shellInjected = () => ({
+				reconnect: () => {
+					connection.reconnect();
 				},
-				onboardingSteps: {
-					getSnapshot: () => {
-						const version = ctx.slots.getVersion("settings.onboarding");
-						if (version !== onboardingVersion) {
-							onboardingVersion = version;
-							onboardingSteps = ctx.slots.entries("settings.onboarding").map((e) => ({
-								/* v8 ignore next -- list-slot registration requires id */
-								id: e.options.id ?? "",
-								order: e.options.order ?? 0
-							})).sort((a, b) => a.order - b.order);
+				hooks: {
+					connectionState: connection.state,
+					sections: {
+						getSnapshot: () => {
+							const version = ctx.slots.getVersion("settings.section");
+							const revision = ctx.locale.getSnapshot().revision;
+							if (version !== rowsVersion || revision !== rowsRevision) {
+								rowsVersion = version;
+								rowsRevision = revision;
+								rows = ctx.slots.entries("settings.section").map((e) => ({
+									/* v8 ignore next -- list-slot registration requires id (SlotCore rejects an entry without one) */
+									id: e.options.id ?? "",
+									order: e.options.order ?? 0,
+									label: (0, _deepseek_ai_dsh_client_ui_slots.resolveSlotLabel)(e.options.label) ?? ""
+								})).sort((a, b) => a.order - b.order);
+							}
+							return rows;
+						},
+						subscribe: (listener) => {
+							const offLedger = ctx.slots.subscribe("settings.section", listener);
+							const offLocale = ctx.locale.subscribe(listener);
+							return () => {
+								offLedger();
+								offLocale();
+							};
 						}
-						return onboardingSteps;
 					},
-					subscribe: (listener) => ctx.slots.subscribe("settings.onboarding", listener)
+					onboardingSteps: {
+						getSnapshot: () => {
+							const version = ctx.slots.getVersion("settings.onboarding");
+							if (version !== onboardingVersion) {
+								onboardingVersion = version;
+								onboardingSteps = ctx.slots.entries("settings.onboarding").map((e) => ({
+									/* v8 ignore next -- list-slot registration requires id */
+									id: e.options.id ?? "",
+									order: e.options.order ?? 0
+								})).sort((a, b) => a.order - b.order);
+							}
+							return onboardingSteps;
+						},
+						subscribe: (listener) => ctx.slots.subscribe("settings.onboarding", listener)
+					}
 				}
-			} });
+			});
 			ctx.slots.inject("sidebar.settings", () => ctx.slots.register({
 				name: "sidebar.settings",
+				locale: NS,
 				children: {
 					"settings.trigger": {
 						kind: "single",

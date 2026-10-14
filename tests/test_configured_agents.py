@@ -1,4 +1,5 @@
 """Configured Agent startup/reload derived from config-session-id.spec.ts."""
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LlmRuntime
 import asyncio
 import re
@@ -11,7 +12,7 @@ from dsh.core.system_prompt import SystemPrompt
 from dsh.core.tools import ToolsPlugin
 from dsh.core.session import SessionPlugin, SessionHeader
 from dsh.core.session.preparation import SessionPreparation
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 
 async def core(tmp_path=None, llm=None):
     ctx=Context()
@@ -37,6 +38,8 @@ async def seed(ctx, sid='saved'):
 async def test_launcher_identities_override_both_keys():
     ctx=await core();ctx.provide(CONFIGURED_AGENT_IDENTITIES_KEY,{'a':{'id':'launcher','resume':False},'b':{'id':'saved','resume':True}})
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'a','sessionId':'ignored'}, {'id':'b','sessionId':'also-ignored'}, {'id':'c','sessionId':'untouched'}]})
         assert ctx.get('agents').get('launcher') is not None
         assert ctx.get('agents').get('untouched') is not None
@@ -54,6 +57,8 @@ async def test_invalid_config_never_publishes(rows,match,exception):
     ctx=await core()
     seen=[];ctx.on('agent/created',lambda *args:seen.append(True))
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         with pytest.raises(exception,match=match):await ctx.plugin(AgentLoopPlugin,{'agents':rows})
         assert seen==[]
     finally: await ctx.fiber.dispose()
@@ -63,6 +68,8 @@ async def test_fresh_config_ids_are_restart_safe():
     ctx=await core();ids=[]
     try:
         for _ in range(2):
+            if ctx.get('sessionProjections') is None:
+                await ctx.plugin(SessionProjectionsPlugin)
             fiber=await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'cfg'}]})
             factory=ctx.get('agentLoop');agent=next(iter(factory._transactions)).agent
             ids.append(agent.id);assert re.fullmatch('cfg-session-[0-9a-f-]{36}',agent.id)
@@ -74,9 +81,13 @@ async def test_fresh_config_ids_are_restart_safe():
 async def test_exact_id_reload_preserves_history(tmp_path):
     ctx=await core(tmp_path);config={'agents':[{'id':'main','sessionId':'s'}]}
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         first=await ctx.plugin(AgentLoopPlugin,config);await settled(lambda:ctx.get('agents').get('s'))
         old=ctx.get('agents').get('s');old.session.append('session/title',{'title':'remember'})
         await old.session.flush();await first.dispose()
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         second=await ctx.plugin(AgentLoopPlugin,config);await settled(lambda:ctx.get('agents').get('s'))
         new=ctx.get('agents').get('s');assert new is not old
         assert any(e['data']=={'title':'remember'} for e in new.session.events)
@@ -89,11 +100,15 @@ async def test_overlap_waits_for_draining_scope_and_can_cancel(tmp_path,cancel):
     ctx=await core(tmp_path);config={'agents':[{'id':'main','sessionId':'s'}]}
     gate=asyncio.Event();entered=asyncio.Event()
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         first=await ctx.plugin(AgentLoopPlugin,config);await settled(lambda:ctx.get('agents').get('s'))
         old=ctx.get('agents').get('s');old.session.append('session/title',{'title':'saved'});await old.session.flush()
         async def cleanup(): entered.set();await gate.wait()
         old.ctx.disposable(cleanup)
         disposal=asyncio.ensure_future(first.dispose());await asyncio.wait_for(entered.wait(),2)
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         second=await ctx.plugin(AgentLoopPlugin,config)
         await asyncio.sleep(0);assert ctx.get('agents').get('s') is old
         if cancel: await asyncio.wait_for(second.dispose(),2)
@@ -110,11 +125,13 @@ async def test_overlap_waits_for_draining_scope_and_can_cancel(tmp_path,cancel):
 async def test_deferred_resume_is_owned_and_starts_when_storage_arrives(tmp_path):
     ctx=await core()
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         fiber=await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'main','resumeSessionId':'saved'}]})
         effect=next(e for e in fiber.get_effects() if e['label']=='agentLoop.resume(main)')
         assert [c['label'] for c in effect['children']]==['ctx.plugin()']
         # A real artifact is created before the delayed provider is published.
-        from dsh.session.persistence_jsonl import JsonlSessionPersistence
+        from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
         p=JsonlSessionPersistence(str(tmp_path));await p.create(SessionHeader('saved'))
         await p.append('saved',[dict(type='session/end-seed',seq=0,time=1,data={})])
         await ctx.plugin(JsonlSessionPersistencePlugin,{'root':str(tmp_path)})
@@ -137,6 +154,8 @@ async def test_index_and_observer_failures_are_contained(tmp_path,unrenderable):
     ctx.on('agent-loop/config-start-failed',lambda value:seen.append(value))
     ctx.logger.warn=lambda message,*args:warnings.append(message)
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'main','sessionId':'s'}]})
         await settled(lambda:len(warnings)==3)
         assert seen==[{'sessionId':'s','error':failure}]
@@ -154,6 +173,8 @@ async def test_disposal_abandons_preparation_and_suppresses_reports(tmp_path,lat
     ctx.get('sessionPersistence').prepare=prepare
     ctx.on('agent-loop/config-start-failed',lambda value:failures.append(value))
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         fiber=await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'main','sessionId':'s'}]})
         await asyncio.wait_for(entered.wait(),2);await asyncio.wait_for(fiber.dispose(),2)
         if late_success:
@@ -169,6 +190,8 @@ async def test_disposal_abandons_preparation_and_suppresses_reports(tmp_path,lat
 async def test_missing_explicit_resume_does_not_create(tmp_path):
     ctx=await core(tmp_path);failures=[];ctx.on('agent-loop/config-start-failed',lambda value:failures.append(value))
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'main','resumeSessionId':'missing'}]})
         await settled(lambda:failures)
         assert ctx.get('agents').get('missing') is None
@@ -182,6 +205,8 @@ async def test_disposal_does_not_wait_for_hung_index(tmp_path):
     ctx.get('sessionPersistence').list=listing
     ctx.on('agent-loop/config-start-failed',lambda value:failures.append(value))
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         fiber=await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'a','sessionId':'s'}]})
         await asyncio.wait_for(entered.wait(),2)
         await asyncio.wait_for(fiber.dispose(),2)
@@ -199,8 +224,12 @@ async def test_configured_reload_continues_real_driver_history(tmp_path):
     ctx=await core(tmp_path, llm=adapter)
     config={'agents':[{'id':'main','sessionId':'s','provider':'mock','model':'mock'}]}
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         first=await ctx.plugin(AgentLoopPlugin,config);await settled(lambda:ctx.get('agents').get('s'))
         old=ctx.get('agents').get('s');old.followup('Remember 42');await old.when_idle();await old.session.flush();await first.dispose()
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         second=await ctx.plugin(AgentLoopPlugin,config);await settled(lambda:ctx.get('agents').get('s'))
         new=ctx.get('agents').get('s');new.followup('What was the number?');await new.when_idle();await new.session.flush()
         assert len(adapter.requests)==2 and '42' in json.dumps(adapter.requests[-1])
@@ -215,6 +244,8 @@ async def test_hanging_failure_observer_cannot_block_factory_disposal(tmp_path):
     async def listener(value):entered.set();await pending
     ctx.on('agent-loop/config-start-failed',listener)
     try:
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         fiber=await ctx.plugin(AgentLoopPlugin,{'agents':[{'id':'main','resumeSessionId':'missing'}]})
         await asyncio.wait_for(entered.wait(),2)
         await asyncio.wait_for(fiber.dispose(),2)

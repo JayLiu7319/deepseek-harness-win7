@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import { it, expect } from 'vitest'
 import { readFile, writeFile } from 'node:fs/promises'
 import { Context } from '@deepseek-ai/cordis'
@@ -22,7 +23,8 @@ it('observes real source AgentLoop guard notices and downstream results', async 
     const ctx = new Context()
     try {
       await mountAgentLoopTestDependencies(ctx)
-      await ctx.plugin(AgentLoop, { agents: [] })
+      if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(AgentLoop, { agents: [] })
       await ctx.plugin(Guard, spec.config)
       const received: string[] = []
       for (const name of ['probe', 'other']) ctx.tools.register(defineContentToolFixture({
@@ -44,7 +46,7 @@ it('observes real source AgentLoop guard notices and downstream results', async 
         agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
         await agent.whenIdle()
       }
-      const events = [...agent.session.events]
+      const events = [...agent.session.snapshotEvents()]
       if (spec.mode === 'proto-key-loss') expect(received).toEqual(spec.turns[0].map((call: string[]) => call[1]))
       rows.push({ mode: spec.mode,
         notices: events.filter(event => event.type === 'user/message' && (event.data as any).source?.plugin === 'repeat-tool-reminder')

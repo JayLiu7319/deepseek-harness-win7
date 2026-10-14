@@ -26,7 +26,7 @@ def test_descriptor_first_record_is_authoritative_and_only_declared_composition_
 
 
 def test_parent_depth_floor_and_request_time_route_selection():
-    parent = Agent(Session.create("parent", header={"version": 0, "id": "parent", "createdAt": 1, "delegationDepth": 2, "cwd": "C:/workspace"}),
+    parent = Agent(Session.create("parent", header={"version": 0, "id": "parent", "createdAt": 1, "isSeeded": False, "delegationDepth": 2, "cwd": "C:/workspace"}),
                    AgentOptions(provider="old", model="old", reasoningEffort="high", maxTokens=100))
     parent.options.subagentDepth = 0
     parent.session.append_request_header({"config": {"provider": "new", "model": "selected", "reasoningEffort": "low"}})
@@ -37,8 +37,8 @@ def test_parent_depth_floor_and_request_time_route_selection():
     assert inherited.provider == "new" and inherited.reasoningEffort == "low" and inherited.maxTokens == 100
     changed = child_options(parent, {"model": "other"}, 3)
     assert changed.reasoningEffort is None and changed.subagentDepth == 3
-    meta = child_meta(parent, 3, 10)
-    assert meta == {"parentSession": "parent", "origin": "subagent", "delegationDepth": 3, "cwd": "C:/workspace", "seedLength": 10}
+    meta = child_meta(parent, 3, True)
+    assert meta == {"parentSession": "parent", "origin": "subagent", "delegationDepth": 3, "cwd": "C:/workspace", "isSeeded": True}
     for invalid in (-0.0, True, -1, 1.5, 9007199254740992):
         parent.options.subagentDepth = invalid
         with pytest.raises(ValueError):

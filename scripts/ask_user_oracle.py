@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 NAMES = ('before-questions', 'with-questions', 'questions-disposed', 'answers', 'empty-questions', 'no-provider', 'pre-aborted', 'provider-aborted', 'custom-null', 'selected-invalid', 'question-extra')
 OBSERVER_INPUTS = ('scripts/ask_user_oracle.py', 'scripts/oracles/ask_user_source.mts', 'scripts/oracles/ask_user_python.py', 'scripts/ask_user_cases.py') + ('scripts/import_paths.py',)
 REQUIRED_IMPORTS = {'dsh/core/tools.py', 'dsh/core/system_prompt/__init__.py', 'dsh/interaction/tool_ask_user.py', 'dsh/interaction/user_questions.py', 'dsh/cordis/context.py', 'dsh/core/abort.py', 'dsh/llm/error.py'}

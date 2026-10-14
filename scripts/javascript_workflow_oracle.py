@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.runtime_context_oracle import validate_executable
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 CASES = ROOT / 'tests/fixtures/javascript-workflow/cases.json'
 NAMES = tuple(row['name'] for row in json.loads(CASES.read_text(encoding='utf-8')))
 REQUIRED_MODULES = {'dsh/javascript/runtime.py', 'dsh/workflow/javascript_run.py',

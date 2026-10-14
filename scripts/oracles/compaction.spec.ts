@@ -28,14 +28,14 @@ async function invariant(spec: any): Promise<any> {
     for (const event of spec.prefix ?? []) append(event)
     if (spec.seed) {
       const original = session
-      session = ctx.sessions.create(undefined, { seed: original.events })
+      session = ctx.sessions.create(undefined, { seed: original.snapshotEvents() })
     }
     await ctx.plugin(InvariantRegistry)
     try { await ctx.plugin(compactionInvariant) }
     catch (error: any) { installation = { error: error.message, code: error.code ?? null } }
     if (installation === null) {
       for (const event of spec.actions) {
-        const before = session.events.length
+        const before = session.snapshotEvents().length
         const generation = session.surface.replaceGeneration
         const remove = event.veto ? ctx.on('internal/dispatch', (_mode, name) => {
           if (name === 'session/event') throw new Error('later dispatch veto')
@@ -45,12 +45,12 @@ async function invariant(spec: any): Promise<any> {
           receipts.push({ accepted: true, seq: value.seq })
         } catch (error: any) {
           receipts.push({ accepted: false, error: error.message, code: error.code ?? null,
-            unchanged: session.events.length === before && session.surface.replaceGeneration === generation })
+            unchanged: session.snapshotEvents().length === before && session.surface.replaceGeneration === generation })
         } finally { remove?.() }
       }
     }
     return { mode: spec.mode, installation, receipts,
-      events: session.events.map(({ time: _time, ...event }) => event),
+      events: session.snapshotEvents().map(({ time: _time, ...event }) => event),
       generation: session.surface.replaceGeneration, nodes: session.surface.nodes }
   } finally { await ctx.fiber.dispose() }
 }
@@ -75,7 +75,7 @@ async function command(spec: any): Promise<any> {
       async compactRegion(): Promise<any> { throw new Error('unused') }
       async compactNow(owner: any, signal: any, identity?: any): Promise<any> {
         calls.push({ sameAgent: owner === agent, sameSignal: signal === control.signal,
-          sameCommand: identity === session.events.find(e => e.type === 'command/run')!.data.commandId })
+          sameCommand: identity === session.snapshotEvents().find(e => e.type === 'command/run')!.data.commandId })
         if (spec.action === 'abort') { control.abort(reason); throw new ManualCompactionError('summary', 'late failure') }
         if (spec.action === 'drain') {
           entered.resolve(); await close.promise; closed.resolve(); await flush.promise; flushed.resolve(); throw reason
@@ -111,7 +111,7 @@ async function command(spec: any): Promise<any> {
     const outcome = await observed
     return { mode: spec.mode, outcome, calls, ...drain === undefined ? {} : { drain },
       surface: session.surface.nodes,
-      events: session.events.map(event => {
+      events: session.snapshotEvents().map(event => {
         const data: any = { ...event.data }
         if ('commandId' in data) data.commandId = 'command'
         if ('sourceCommandId' in data) data.sourceCommandId = 'command'
@@ -179,17 +179,17 @@ async function transaction(spec: any): Promise<any> {
       if (diagnostic) Object.assign(outcome, { rendered: errorChain(error),
         sameFailure: (manual ? error.cause : error) === (spec.closeFailure ? closingError : graph) })
     }
-    const opening = session.events.find(e => e.type === 'compaction/start')!
-    const summaries = session.events.filter(e => e.type === 'compaction/summary').map(e => {
+    const opening = session.snapshotEvents().find(e => e.type === 'compaction/start')!
+    const summaries = session.snapshotEvents().filter(e => e.type === 'compaction/summary').map(e => {
       const { compactionId, ...body } = e.data
       return { ...body, sameIdentity: compactionId === opening.data.compactionId }
     })
     return { mode: spec.mode, inputs, outcome, summaries, flushes, generation: session.surface.replaceGeneration,
-      ...diagnostic ? { endAttempts, failedEnds: session.events.filter(e => e.type === 'compaction/end').map(e => ({
+      ...diagnostic ? { endAttempts, failedEnds: session.snapshotEvents().filter(e => e.type === 'compaction/end').map(e => ({
         error: e.data.error, turn: e.data.turn, sourceCommandId: e.data.sourceCommandId,
         sameIdentity: e.data.compactionId === opening.data.compactionId,
       })) } : {},
-      nodes: session.surface.nodes, events: session.events.filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, error: 'error' in e.data })) }
+      nodes: session.surface.nodes, events: session.snapshotEvents().filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, error: 'error' in e.data })) }
   } finally { await ctx.fiber.dispose() }
 }
 
@@ -290,7 +290,7 @@ it('observes pinned compaction policies and real routed transactions', async () 
       }
       rows.push({ mode: spec.mode, outcomes, requests: adapter.requests, resolutions: adapter.resolutions,
         generation: session.surface.replaceGeneration, measurement: ctx.tokenMeter.measure(session),
-        compactionEvents: session.events.filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, seq: e.seq })) })
+        compactionEvents: session.snapshotEvents().filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, seq: e.seq })) })
     } finally { await ctx.fiber.dispose() }
   }
   expect(rows).toHaveLength(cases.length)

@@ -6,6 +6,7 @@ import pytest
 from dsh.cordis.context import Context
 from dsh.core.abort import AbortController
 from dsh.core.session import SessionPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.system_prompt import SystemPrompt
 from dsh.core.tools import ToolsPlugin, ToolArgsError
 from dsh.core.tools import ToolExecutionInput
@@ -21,6 +22,7 @@ from dsh.session import tool_query_workspace as workspace
 async def test_optional_plugin_registers_and_reverses_all_five_tools_and_prompt():
     context = Context()
     await context.plugin(SessionPlugin)
+    await context.plugin(SessionProjectionsPlugin)
     await context.plugin(SystemPrompt)
     await context.plugin(ToolsPlugin)
     await context.plugin(SqliteSessionQueryPlugin, dict(path=':memory:'))
@@ -150,6 +152,7 @@ def test_deep_lineage_prunes_foreign_subtrees_without_recursion_or_hidden_ids():
 async def test_search_deadline_reaches_authorization_and_waits_for_owned_cleanup():
     context = Context()
     await context.plugin(SessionPlugin)
+    await context.plugin(SessionProjectionsPlugin)
     await context.plugin(SystemPrompt)
     await context.plugin(ToolsPlugin)
     await context.plugin(SqliteSessionQueryPlugin, dict(path=':memory:'))

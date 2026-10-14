@@ -24,33 +24,130 @@ var __workflowSource = (() => {
     runWorkerSession: () => runWorkerSession
   });
 
-  // reference/packages/llm/llm/src/error.ts
-  var HarnessError = class extends Error {
-    /** Stable machine-routable failure class (e.g. `RATE_LIMIT`); route on this, never by parsing `message`. */
-    code;
-    constructor(message, code, options) {
-      super(message, options);
-      this.code = code;
-      this.name = new.target.name;
-    }
-  };
-  var STRUCTURED_CONTEXT_OVERFLOW = new RegExp(
-    String.raw`(?:^|[^a-z0-9])context[\s_-](?:length|window)[\s_-]` + String.raw`(?:exceed(?:ed|s)?|overflow(?:ed)?|limit[\s_-]exceeded)(?:$|[^a-z0-9])`,
-    "i"
-  );
-  var TOO_LARGE_FOR_CONTEXT = new RegExp(
-    String.raw`\b(?:request|prompt|input|messages?)\s+(?:is\s+|are\s+)?` + String.raw`too\s+(?:large|long)\s+for\s+(?:(?:this|the)\s+)?` + String.raw`(?:model(?:'s)?\s+)?context(?:\s+window)?\b`,
-    "i"
-  );
-  var EXCEEDS_MODEL_CONTEXT = new RegExp(
-    String.raw`\b(?:input|prompt|request|messages?)\b.{0,40}` + String.raw`\b(?:exceed(?:s|ed)?|overflows?|is\s+larger\s+than)\b.{0,40}` + String.raw`\b(?:the\s+)?(?:model(?:'s)?\s+)?context(?:\s+(?:length|window))?\b`,
-    "i"
-  );
-
-  // reference/packages/llm/llm/src/never.ts
+  // reference/packages/util/values/src/index.ts
   function assertNever(value, context) {
     const rendered = JSON.stringify(value) ?? String(value);
     throw new Error(`unreachable variant${context ? ` in ${context}` : ""}: ${rendered}`);
+  }
+  function hasIntrinsicConstructor(prototype, name) {
+    const descriptor = Object.getOwnPropertyDescriptor(prototype, "constructor");
+    const constructor = descriptor?.value;
+    if (typeof constructor !== "function") return false;
+    try {
+      return constructor.name === name && constructor.prototype === prototype && Function.prototype.toString.call(constructor) === `function ${name}() { [native code] }`;
+    } catch {
+      return false;
+    }
+  }
+  function isIntrinsicObjectPrototype(value) {
+    return Object.getPrototypeOf(value) === null && hasIntrinsicConstructor(value, "Object");
+  }
+  function hasPlainArrayPrototype(value) {
+    const prototype = Object.getPrototypeOf(value);
+    if (!Array.isArray(prototype) || !hasIntrinsicConstructor(prototype, "Array")) return false;
+    const objectPrototype = Object.getPrototypeOf(prototype);
+    return typeof objectPrototype === "object" && objectPrototype !== null && isIntrinsicObjectPrototype(objectPrototype);
+  }
+  function hasPlainObjectPrototype(value) {
+    const prototype = Object.getPrototypeOf(value);
+    return prototype === null || typeof prototype === "object" && isIntrinsicObjectPrototype(prototype);
+  }
+  function enumerableStringKeys(value) {
+    const keys = Reflect.ownKeys(value);
+    if (keys.some((key) => typeof key !== "string" || !Object.prototype.propertyIsEnumerable.call(value, key))) return void 0;
+    return keys;
+  }
+  function walkJsonValue(value, detach) {
+    const ancestors = /* @__PURE__ */ new Set();
+    let root;
+    const assign = (destination, item) => {
+      if (destination === void 0) return;
+      if (destination.kind === "root") {
+        root = item;
+      } else if (destination.kind === "array") {
+        destination.target[destination.index] = item;
+      } else {
+        Object.defineProperty(destination.target, destination.key, {
+          value: item,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      }
+    };
+    const tasks = [{
+      kind: "visit",
+      value,
+      ...detach ? { destination: { kind: "root" } } : {}
+    }];
+    for (let task = tasks.pop(); task !== void 0; task = tasks.pop()) {
+      if (task.kind === "leave") {
+        ancestors.delete(task.source);
+        continue;
+      }
+      if (task.kind === "array-item") {
+        if (!Object.prototype.hasOwnProperty.call(task.source, task.index)) return void 0;
+        tasks.push({
+          kind: "visit",
+          value: task.source[task.index],
+          ...task.target === void 0 ? {} : { destination: { kind: "array", target: task.target, index: task.index } }
+        });
+        continue;
+      }
+      if (task.kind === "object-property") {
+        tasks.push({
+          kind: "visit",
+          value: task.source[task.key],
+          ...task.target === void 0 ? {} : { destination: { kind: "object", target: task.target, key: task.key } }
+        });
+        continue;
+      }
+      const current = task.value;
+      if (current === null) {
+        assign(task.destination, null);
+        continue;
+      }
+      if (typeof current === "boolean" || typeof current === "string") {
+        assign(task.destination, current);
+        continue;
+      }
+      if (typeof current === "number") {
+        if (!Number.isFinite(current) || Object.is(current, -0)) return void 0;
+        assign(task.destination, current);
+        continue;
+      }
+      if (typeof current !== "object") return void 0;
+      if (ancestors.has(current)) return void 0;
+      if (Array.isArray(current)) {
+        if (!hasPlainArrayPrototype(current)) return void 0;
+        const length = current.length;
+        if (Reflect.ownKeys(current).length !== length + 1) return void 0;
+        const target2 = detach ? [] : void 0;
+        if (target2 !== void 0) assign(task.destination, target2);
+        ancestors.add(current);
+        tasks.push({ kind: "leave", source: current });
+        for (let index = length - 1; index >= 0; index--) {
+          tasks.push({ kind: "array-item", source: current, index, ...target2 === void 0 ? {} : { target: target2 } });
+        }
+        continue;
+      }
+      if (!hasPlainObjectPrototype(current)) return void 0;
+      const keys = enumerableStringKeys(current);
+      if (keys === void 0) return void 0;
+      const target = detach ? {} : void 0;
+      if (target !== void 0) assign(task.destination, target);
+      ancestors.add(current);
+      tasks.push({ kind: "leave", source: current });
+      for (let index = keys.length - 1; index >= 0; index--) {
+        const key = keys[index];
+        if (key === void 0) return void 0;
+        tasks.push({ kind: "object-property", source: current, key, ...target === void 0 ? {} : { target } });
+      }
+    }
+    return detach ? root : true;
+  }
+  function isJsonValue(value) {
+    return walkJsonValue(value, false) === true;
   }
 
   // reference/packages/workflow/workflow-worker-thread/src/realm.ts
@@ -173,132 +270,33 @@ var __workflowSource = (() => {
     return values;
   }
 
-  // reference/packages/core/session/src/types.ts
-  function SessionId(id) {
-    return id;
+  // reference/packages/util/brand/src/index.ts
+  function brandString(value) {
+    return value;
   }
 
-  // reference/packages/core/session/src/json.ts
-  function hasIntrinsicConstructor(prototype, name) {
-    const descriptor = Object.getOwnPropertyDescriptor(prototype, "constructor");
-    const constructor = descriptor?.value;
-    if (typeof constructor !== "function") return false;
-    try {
-      return constructor.name === name && constructor.prototype === prototype && Function.prototype.toString.call(constructor) === `function ${name}() { [native code] }`;
-    } catch {
-      return false;
+  // reference/packages/llm/llm/src/error.ts
+  var HarnessError = class extends Error {
+    /** Stable machine-routable failure class (e.g. `RATE_LIMIT`); route on this, never by parsing `message`. */
+    code;
+    constructor(message, code, options) {
+      super(message, options);
+      this.code = code;
+      this.name = new.target.name;
     }
-  }
-  function isIntrinsicObjectPrototype(value) {
-    return Object.getPrototypeOf(value) === null && hasIntrinsicConstructor(value, "Object");
-  }
-  function hasPlainArrayPrototype(value) {
-    const prototype = Object.getPrototypeOf(value);
-    if (!Array.isArray(prototype) || !hasIntrinsicConstructor(prototype, "Array")) return false;
-    const objectPrototype = Object.getPrototypeOf(prototype);
-    return typeof objectPrototype === "object" && objectPrototype !== null && isIntrinsicObjectPrototype(objectPrototype);
-  }
-  function hasPlainObjectPrototype(value) {
-    const prototype = Object.getPrototypeOf(value);
-    return prototype === null || typeof prototype === "object" && isIntrinsicObjectPrototype(prototype);
-  }
-  function enumerableStringKeys(value) {
-    const keys = Reflect.ownKeys(value);
-    if (keys.some((key) => typeof key !== "string" || !Object.prototype.propertyIsEnumerable.call(value, key))) return void 0;
-    return keys;
-  }
-  function walkJsonValue(value, detach) {
-    const ancestors = /* @__PURE__ */ new Set();
-    let root;
-    const assign = (destination, item) => {
-      if (destination === void 0) return;
-      if (destination.kind === "root") {
-        root = item;
-      } else if (destination.kind === "array") {
-        destination.target[destination.index] = item;
-      } else {
-        Object.defineProperty(destination.target, destination.key, {
-          value: item,
-          enumerable: true,
-          configurable: true,
-          writable: true
-        });
-      }
-    };
-    const tasks = [{
-      kind: "visit",
-      value,
-      ...detach ? { destination: { kind: "root" } } : {}
-    }];
-    for (let task = tasks.pop(); task !== void 0; task = tasks.pop()) {
-      if (task.kind === "leave") {
-        ancestors.delete(task.source);
-        continue;
-      }
-      if (task.kind === "array-item") {
-        if (!Object.prototype.hasOwnProperty.call(task.source, task.index)) return void 0;
-        tasks.push({
-          kind: "visit",
-          value: task.source[task.index],
-          ...task.target === void 0 ? {} : { destination: { kind: "array", target: task.target, index: task.index } }
-        });
-        continue;
-      }
-      if (task.kind === "object-property") {
-        tasks.push({
-          kind: "visit",
-          value: task.source[task.key],
-          ...task.target === void 0 ? {} : { destination: { kind: "object", target: task.target, key: task.key } }
-        });
-        continue;
-      }
-      const current = task.value;
-      if (current === null) {
-        assign(task.destination, null);
-        continue;
-      }
-      if (typeof current === "boolean" || typeof current === "string") {
-        assign(task.destination, current);
-        continue;
-      }
-      if (typeof current === "number") {
-        if (!Number.isFinite(current) || Object.is(current, -0)) return void 0;
-        assign(task.destination, current);
-        continue;
-      }
-      if (typeof current !== "object") return void 0;
-      if (ancestors.has(current)) return void 0;
-      if (Array.isArray(current)) {
-        if (!hasPlainArrayPrototype(current)) return void 0;
-        const length = current.length;
-        if (Reflect.ownKeys(current).length !== length + 1) return void 0;
-        const target2 = detach ? [] : void 0;
-        if (target2 !== void 0) assign(task.destination, target2);
-        ancestors.add(current);
-        tasks.push({ kind: "leave", source: current });
-        for (let index = length - 1; index >= 0; index--) {
-          tasks.push({ kind: "array-item", source: current, index, ...target2 === void 0 ? {} : { target: target2 } });
-        }
-        continue;
-      }
-      if (!hasPlainObjectPrototype(current)) return void 0;
-      const keys = enumerableStringKeys(current);
-      if (keys === void 0) return void 0;
-      const target = detach ? {} : void 0;
-      if (target !== void 0) assign(task.destination, target);
-      ancestors.add(current);
-      tasks.push({ kind: "leave", source: current });
-      for (let index = keys.length - 1; index >= 0; index--) {
-        const key = keys[index];
-        if (key === void 0) return void 0;
-        tasks.push({ kind: "object-property", source: current, key, ...target === void 0 ? {} : { target } });
-      }
-    }
-    return detach ? root : true;
-  }
-  function isJsonValue(value) {
-    return walkJsonValue(value, false) === true;
-  }
+  };
+  var STRUCTURED_CONTEXT_OVERFLOW = new RegExp(
+    String.raw`(?:^|[^a-z0-9])context[\s_-](?:length|window)[\s_-]` + String.raw`(?:exceed(?:ed|s)?|overflow(?:ed)?|limit[\s_-]exceeded)(?:$|[^a-z0-9])`,
+    "i"
+  );
+  var TOO_LARGE_FOR_CONTEXT = new RegExp(
+    String.raw`\b(?:request|prompt|input|messages?)\s+(?:is\s+|are\s+)?` + String.raw`too\s+(?:large|long)\s+for\s+(?:(?:this|the)\s+)?` + String.raw`(?:model(?:'s)?\s+)?context(?:\s+window)?\b`,
+    "i"
+  );
+  var EXCEEDS_MODEL_CONTEXT = new RegExp(
+    String.raw`\b(?:input|prompt|request|messages?)\b.{0,40}` + String.raw`\b(?:exceed(?:s|ed)?|overflows?|is\s+larger\s+than)\b.{0,40}` + String.raw`\b(?:the\s+)?(?:model(?:'s)?\s+)?context(?:\s+(?:length|window))?\b`,
+    "i"
+  );
 
   // reference/packages/core/tools/src/json-schema.ts
   var JsonSchemaError = class extends HarnessError {
@@ -776,7 +774,7 @@ ${body}
           await run.dispose();
           throw this.cancelledError();
         }
-        const info = { seq, label, ...phase !== void 0 ? { phase } : {}, childId: SessionId(run.id) };
+        const info = { seq, label, ...phase !== void 0 ? { phase } : {}, childId: brandString(run.id) };
         this.observer.agentStart(info);
         try {
           let result;

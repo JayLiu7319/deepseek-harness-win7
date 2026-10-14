@@ -13,7 +13,7 @@ window.__ModuleLoader__.load({
 		/** One Host-generation model catalog shared by every Session selector. */
 		/** Loads at most one model catalog for the current Host generation. */
 		var ModelCatalogDirectory = class {
-			session;
+			ctx;
 			/** Current shared catalog value and load lifecycle. */
 			store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
 				value: null,
@@ -22,9 +22,12 @@ window.__ModuleLoader__.load({
 			});
 			generation = 0;
 			inflight;
-			/** @param session - Session Remote namespace carrying the Host-generation catalog. */
-			constructor(session) {
-				this.session = session;
+			/**
+			* @param ctx - the providing plugin's context, whose `remote.session`
+			* namespace carries the Host-generation catalog.
+			*/
+			constructor(ctx) {
+				this.ctx = ctx;
 			}
 			/**
 			* Return the current generation's catalog, sharing its one in-flight load.
@@ -39,7 +42,7 @@ window.__ModuleLoader__.load({
 					draft.status = "loading";
 					draft.error = null;
 				});
-				const operation = this.session.modelCatalog().then((response) => {
+				const operation = this.ctx.remote.session.modelCatalog().then((response) => {
 					if (!response.ok) throw new Error(`${response.error.code}: ${response.error.message}`);
 					if (generation === this.generation) this.store.set({
 						value: response.value,
@@ -267,7 +270,7 @@ window.__ModuleLoader__.load({
 			constructor(ctx, config) {
 				super(ctx, "modelDirectories");
 				this.blockReason = config.blockReason;
-				this.catalog = new ModelCatalogDirectory(ctx.remote.session);
+				this.catalog = new ModelCatalogDirectory(ctx);
 				this.catalog.load().catch(() => {});
 				ctx.on("connection/reset", () => {
 					this.catalog.resetGeneration();
@@ -337,8 +340,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-model-selection\src\client\ModelSelect.module.css.mjs
-		const css = "._7pRE-a_root{min-width:0;position:relative}._7pRE-a_trigger{min-width:0;max-width:min(360px,45cqw);height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:24px;outline:none;align-items:center;gap:4px;padding:0 4px 0 8px;font-size:13px;font-weight:500;line-height:20px;display:flex}._7pRE-a_trigger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}._7pRE-a_trigger:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3)}._7pRE-a_trigger:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}._7pRE-a_triggerLabel{text-overflow:ellipsis;white-space:nowrap;min-width:0;overflow:hidden}._7pRE-a_triggerEffort{color:var(--dsw-alias-label-caption);flex:none}._7pRE-a_chevron{color:var(--dsw-alias-label-caption);flex:none;transition:transform .12s}._7pRE-a_chevronOpen{transform:rotate(180deg)}._7pRE-a_menu{z-index:20;border:1px solid var(--dsw-alias-border-inverted);background:var(--dsw-specific-menu);width:max-content;min-width:min(240px,100vw - 32px);max-width:min(420px,100vw - 32px);max-height:min(360px,100vh - 96px);box-shadow:var(--dsw-shadow-lv3);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:12px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 8px);right:0;overflow:hidden}._7pRE-a_status,._7pRE-a_empty{color:var(--dsw-alias-label-tertiary);padding:10px;font-size:13px;line-height:20px}._7pRE-a_error,._7pRE-a_warning{background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary);border-radius:8px;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;padding:7px 8px;font-size:12px;line-height:18px;display:flex}._7pRE-a_warning{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-state-warn-label)}._7pRE-a_retry{color:inherit;font:inherit;cursor:pointer;background:0 0;border:none;flex:none;padding:0;font-weight:600}._7pRE-a_groups{min-height:0;overflow-y:auto}._7pRE-a_group+._7pRE-a_group{margin-top:4px}._7pRE-a_groupTitle{z-index:1;background:var(--dsw-specific-menu);color:var(--dsw-alias-label-tertiary);padding:5px 8px 3px;font-size:12px;font-weight:500;line-height:18px;position:sticky;top:0}._7pRE-a_option{box-sizing:border-box;width:auto;min-width:100%;min-height:38px;color:inherit;text-align:left;cursor:pointer;background:0 0;border:none;border-radius:10px;outline:none;align-items:center;gap:8px;padding:6px 8px;display:flex}._7pRE-a_option:hover:not(:disabled),._7pRE-a_option:focus-visible{background:var(--dsw-alias-interactive-bg-hover)}._7pRE-a_selected{background:0 0}._7pRE-a_option:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}._7pRE-a_optionCopy{flex-direction:column;flex:1;min-width:0;display:flex}._7pRE-a_modelName{color:inherit;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}._7pRE-a_check{color:var(--dsw-alias-label-primary);flex:0 0 18px;place-items:center;display:grid}._7pRE-a_cell{box-sizing:border-box;width:auto;min-width:100%;height:40px;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:0 10px;font-size:14px;line-height:22px;display:flex}._7pRE-a_cell:hover{background:var(--dsw-alias-interactive-bg-hover)}._7pRE-a_cellLabel{white-space:nowrap;flex:none}._7pRE-a_cellValue{text-overflow:ellipsis;white-space:nowrap;text-align:right;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;overflow:hidden}._7pRE-a_cellChevron{color:var(--dsw-alias-label-tertiary);flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-model-selection\src\client\ModelSelect.module.css.mjs
+		const css = ".b92RFG_root{min-width:0;position:relative}.b92RFG_trigger{min-width:0;max-width:min(360px,45cqw);height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:24px;outline:none;align-items:center;gap:4px;padding:0 4px 0 8px;font-size:13px;font-weight:500;line-height:20px;display:flex}.b92RFG_trigger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_trigger:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3)}.b92RFG_trigger:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.b92RFG_triggerLabel{text-overflow:ellipsis;white-space:nowrap;min-width:0;overflow:hidden}.b92RFG_triggerEffort{color:var(--dsw-alias-label-caption);flex:none}.b92RFG_chevron{color:var(--dsw-alias-label-caption);flex:none;transition:transform .12s}.b92RFG_chevronOpen{transform:rotate(180deg)}.b92RFG_menu{z-index:20;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:max-content;min-width:min(240px,100vw - 32px);max-width:min(420px,100vw - 32px);max-height:min(360px,100vh - 96px);box-shadow:var(--dsw-elevation-prominent);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 8px);right:0;overflow:hidden}.b92RFG_status,.b92RFG_empty{color:var(--dsw-alias-label-tertiary);padding:10px;font-size:13px;line-height:20px}.b92RFG_error,.b92RFG_warning{background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary);border-radius:8px;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;padding:7px 8px;font-size:12px;line-height:18px;display:flex}.b92RFG_warning{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-state-warn-label)}.b92RFG_retry{color:inherit;font:inherit;cursor:pointer;background:0 0;border:none;flex:none;padding:0;font-weight:600}.b92RFG_groups{min-height:0;overflow-y:auto}.b92RFG_group+.b92RFG_group{margin-top:4px}.b92RFG_groupTitle{z-index:1;background:var(--dsw-specific-menu);color:var(--dsw-alias-label-tertiary);padding:5px 8px 3px;font-size:12px;font-weight:500;line-height:18px;position:sticky;top:0}.b92RFG_option{box-sizing:border-box;width:auto;min-width:100%;min-height:38px;color:inherit;text-align:left;cursor:pointer;background:0 0;border:none;border-radius:10px;outline:none;align-items:center;gap:8px;padding:6px 8px;display:flex}.b92RFG_option:hover:not(:disabled),.b92RFG_option:focus-visible{background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_selected{background:0 0}.b92RFG_option:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.b92RFG_optionCopy{flex-direction:column;flex:1;min-width:0;display:flex}.b92RFG_modelName{color:inherit;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}.b92RFG_check{color:var(--dsw-alias-label-primary);flex:0 0 18px;place-items:center;display:grid}.b92RFG_cell{box-sizing:border-box;width:auto;min-width:100%;height:40px;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:0 10px;font-size:14px;line-height:22px;display:flex}.b92RFG_cell:hover{background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_cellLabel{white-space:nowrap;flex:none}.b92RFG_cellValue{text-overflow:ellipsis;white-space:nowrap;text-align:right;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;overflow:hidden}.b92RFG_cellChevron{color:var(--dsw-alias-label-tertiary);flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-ui-model-selection/ModelSelect.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -348,30 +351,30 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ModelSelect_module_css_default = {
-			"cell": "_7pRE-a_cell",
-			"cellChevron": "_7pRE-a_cellChevron",
-			"cellLabel": "_7pRE-a_cellLabel",
-			"cellValue": "_7pRE-a_cellValue",
-			"check": "_7pRE-a_check",
-			"chevron": "_7pRE-a_chevron",
-			"chevronOpen": "_7pRE-a_chevronOpen",
-			"empty": "_7pRE-a_empty",
-			"error": "_7pRE-a_error",
-			"group": "_7pRE-a_group",
-			"groupTitle": "_7pRE-a_groupTitle",
-			"groups": "_7pRE-a_groups",
-			"menu": "_7pRE-a_menu",
-			"modelName": "_7pRE-a_modelName",
-			"option": "_7pRE-a_option",
-			"optionCopy": "_7pRE-a_optionCopy",
-			"retry": "_7pRE-a_retry",
-			"root": "_7pRE-a_root",
-			"selected": "_7pRE-a_selected",
-			"status": "_7pRE-a_status",
-			"trigger": "_7pRE-a_trigger",
-			"triggerEffort": "_7pRE-a_triggerEffort",
-			"triggerLabel": "_7pRE-a_triggerLabel",
-			"warning": "_7pRE-a_warning"
+			"cell": "b92RFG_cell",
+			"cellChevron": "b92RFG_cellChevron",
+			"cellLabel": "b92RFG_cellLabel",
+			"cellValue": "b92RFG_cellValue",
+			"check": "b92RFG_check",
+			"chevron": "b92RFG_chevron",
+			"chevronOpen": "b92RFG_chevronOpen",
+			"empty": "b92RFG_empty",
+			"error": "b92RFG_error",
+			"group": "b92RFG_group",
+			"groupTitle": "b92RFG_groupTitle",
+			"groups": "b92RFG_groups",
+			"menu": "b92RFG_menu",
+			"modelName": "b92RFG_modelName",
+			"option": "b92RFG_option",
+			"optionCopy": "b92RFG_optionCopy",
+			"retry": "b92RFG_retry",
+			"root": "b92RFG_root",
+			"selected": "b92RFG_selected",
+			"status": "b92RFG_status",
+			"trigger": "b92RFG_trigger",
+			"triggerEffort": "b92RFG_triggerEffort",
+			"triggerLabel": "b92RFG_triggerLabel",
+			"warning": "b92RFG_warning"
 		};
 		//#endregion
 		//#region lib/types/client/ModelSelect.js

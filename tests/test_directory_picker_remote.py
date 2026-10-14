@@ -4,7 +4,7 @@ from dsh.core.abort import AbortController
 from dsh.host.directory_picker.browse import BrowseDirectoryPickerService
 from dsh.host.directory_picker.base import DirectoryPickerError
 from dsh.api.directory_picker import DirectoryPickerController
-from dsh.typert.remote import TypertRemoteFailure
+from dsh.typert.remote import RemoteError
 
 
 @pytest.mark.asyncio
@@ -32,8 +32,8 @@ async def test_browse_bounds_paths_and_errors(tmp_path):
         with pytest.raises(RuntimeError, match='aborted'):
             await service.list_directory(str(tmp_path), signal.signal)
         await ctx.plugin(DirectoryPickerController)
-        with pytest.raises(TypertRemoteFailure) as failure:
+        with pytest.raises(RemoteError) as failure:
             await ctx.get('directoryPickerController').pick(signal.signal)
-        assert failure.value.failure['code'] == 'directory-picker-unavailable'
+        assert failure.value.failure['code'] == 'directory-picker/unavailable'
     finally:
         await ctx.fiber.dispose()

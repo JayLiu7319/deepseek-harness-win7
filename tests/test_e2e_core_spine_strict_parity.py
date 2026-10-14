@@ -13,6 +13,7 @@ import copy
 import json
 from typing import Any, Dict, List, Optional
 import pytest
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.cordis.context import Context
 from dsh.core.agent import Agent, AgentOptions, AgentPlugin, AgentRegistry
 from dsh.core.agent_loop import AgentLoopPlugin, AgentLoopService
@@ -126,6 +127,8 @@ async def build_e2e_harness(adapter: StrictMockLlmAdapter, persona: str = "You a
     })
     await ctx.plugin(AgentPlugin)
     ctx.set_service("llm", adapter)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     return ctx
 

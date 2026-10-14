@@ -16,6 +16,7 @@ arguments = parser.parse_args()
 sys.path.insert(0, str(arguments.root.resolve()))
 from dsh.cordis.context import Context
 from dsh.core.session import Session, SessionPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.interaction.permission_presets import PermissionPresetsPlugin, fold_knobs
 
 
@@ -50,6 +51,7 @@ async def observe(name):
         approvalDefault=approval_default, trace=trace, rawEvents=raw_events)
     try:
         await ctx.plugin(SessionPlugin)
+        await ctx.plugin(SessionProjectionsPlugin)
         ctx.provide('shell', SimpleNamespace(sandboxMode=shell_default))
         ctx.provide('approval', SimpleNamespace(config=dict(policy=approval_default)))
         ctx.on('session/event', lambda selected, event: raw_events.append(copy.deepcopy(event)))
@@ -96,7 +98,7 @@ async def observe(name):
         if name == 'unknown-set':
             service.set(session, 'foreign')
         observation['result'] = dict(names=service.names, defaultPreset=service.defaultPreset,
-            current=service.current(session.events), select=service.selectFor(fold_knobs(session.events)),
+            current=service.current(session), select=service.selectFor(fold_knobs(session.events)),
             approvalConfig=copy.deepcopy(ctx.get('approval').config),
             events=[dict(type=event['type'], data=copy.deepcopy(event['data'])) for event in session.events])
     except Exception as error:

@@ -1,0 +1,42 @@
+# rc.1 基线迁移与验收记录
+
+本轮按用户授权将活动基线从 `dsh-v0.1.1-alpha.1` 切换到 `dsh-v0.1.2-rc.1`，固定 Source 为 `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。本产品版本和发行标签仍单独管理；本轮不发布 Release。
+
+## 已完成的实现
+
+- 原样同步 `packages`、`apps/web` 和官方构建产物，更新前端输入、工作流 bundle 和 vendor 版本；原版 TSX/CSS 不因 Python host 改写。
+- Session 采用 `isSeeded`、独立 inherited cut、`ownEvents`、索引读取以及严格区分的 seq/offset；JSONL 私有 version0 格式继续读取既有数据。准备、查询、投影、缓存、Remote、SDK、ACP 和子代理同步消费新契约。
+- 增加 whole-log 轮次摘要；迁移 turnBoundary v2、schedule v2、llmRetry v1 和 permissions v2。权限预设读取 Session 投影，seed 边界保留继承来源。
+- 修复文件引用提供端与 Remote 的异步接口，按 Agent 工作目录维护有界索引并处理取消、失效和卸载；原版 composer 选择引用不自动注入文件正文。
+- 迁移 Remote 错误词汇及子代理相邻消息投递，清理已删除的 canonical 包名。旧 SQLite 数据由显式产品自有只读 reader 导出为 canonical JSONL，保留原数据库；不冒充已删除的上游 SQLite provider。
+- `read_image` 接受无扩展名附件路径，按签名识别格式并由实际附件解码完成校验。
+- Windows 投影缓存写入仅对共享/访问冲突做有界原子替换重试；保留原记录并传播永久失败。
+
+## 本轮定向证据
+
+以下均为实际运行，不能拼接成完整发行回执：
+
+| 验证 | 结果 / 范围 |
+|---|---|
+| rc1 capabilities Source / Python3.8.10 | 21 类完整观察匹配，含 Session、lineage、chunk、投影、引用和提示词顺序 |
+| permissions Source / Python | 55 项匹配；含 v2 状态解析、种子、命令和卸载 |
+| Agent 依赖生命周期 Source / Python | 43 项匹配；覆盖六项必需服务，含 sessionProjections 丢失和恢复 |
+| JSONL Source / Python | 1,030 项观察匹配，含格式版本拒绝和真实互读 |
+| FS Source / Python | 514 项匹配；新增五项无扩展名图片读取场景 |
+| 权限命令 / 浏览器证据拒绝控制 | 128 项 Python 通过 |
+| 权限、Agent 依赖与 durable tool 配对消费者 | 245 项 Python 通过 |
+| 文件工具与附件消费者 | 67 项 Python 通过 |
+| 先前剩余 Session / compaction / ACP 消费者 | 51 项 Python 通过 |
+| 原版 Edge / Python Edge / Python Chromium108 | minimal 140 轮历史、首次启动及真实进程冷恢复、原版可信输入分页跳转、中文/空格路径引用选择通过 |
+
+原始观察保留在 `.goose/out/rc1-*20261015/` 各自目录。Source 与 native 浏览器都观察到最早回合加载并进入视口；完整高亮/所有滚动时序不由这一有限断言推广。Chromium108 的完整解压旅程会独立重跑，并绑定实际 ZIP、解释器、导入字节、浏览器身份及 fresh/cold 两阶段。
+
+## 证据和能力边界
+
+alpha.1 的合同、Source 夹具、SQLite 历史输入和原始回执封存在 `migration/history/2026-10-14-alpha1/`；历史任务不会因 pin 更新而成为 rc.1 验收。活动能力矩阵为 `migration/rc1-capabilities.json`，共274 manifest：203 runtime、49 frontend、6 platform、9 tooling、7 fixture。Loader 注册、实际激活、Source 配对和整体资格分别记录。
+
+LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估保持独立可选批次，不加入默认 Portable 的运行依赖。真实 Win7 与真实远端模型 provider 沿用已有延期/未验证边界。
+
+## 统一资格
+
+当前状态：实现及定向检查完成后冻结候选，执行 `scripts/verify_release.py`。在完整 Python、固定 Source 配置、全部选定配对合同和实际解压 Portable/浏览器都通过前，`accepted_upstream` 保持 null，迁移任务保持 running，不宣称已完成正式验收。

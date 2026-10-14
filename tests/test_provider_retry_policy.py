@@ -7,6 +7,7 @@ from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 from dsh.llm.llm_retry import LLMRetryPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.llm.retry_policy import resolve_retry_policy
 
 
@@ -27,6 +28,7 @@ def test_invalid_provider_policy_is_rejected(raw):
 
 async def setup():
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
     fiber = await ctx.plugin(LLMRetryPlugin)

@@ -18,10 +18,42 @@ def policy_key(policy):
     return json.dumps(values, ensure_ascii=False, separators=(",", ":"))
 
 
+def retry_state_key(provider, key):
+    return json.dumps([provider, key], ensure_ascii=False, separators=(",", ":"))
+
+
+def retry_state(value):
+    if not isinstance(value, dict):
+        raise ValueError('llmRetry state must be an object')
+    result = {}
+    for key, entry in value.items():
+        retry = entry.get('retry') if isinstance(entry, dict) else None
+        if (type(retry) not in (int, float) or not math.isfinite(retry)
+                or retry < 0 or retry % 1 or not isinstance(entry.get('retryId'), str)):
+            raise ValueError('invalid llmRetry state entry')
+        result[key] = dict(retry=retry, retryId=entry['retryId'])
+    return result
+
+
+def apply_retry(state, event):
+    if event['type'] in ('step/start', 'turn/end'):
+        return {}
+    if event['type'] != 'llm/retry':
+        return state
+    data = event['data']
+    key = retry_state_key(data['provider'], data['policyKey'])
+    entry = dict(retry=data['retry'], retryId=data['retryId'])
+    return state if state.get(key) == entry else dict(state, **{key: entry})
+
+
+RETRY_DEFINITION = dict(key='llmRetry', stateVersion=1, stateSchema=retry_state,
+                        init=lambda _header, _cut: {}, apply=apply_retry)
+
+
 class LLMRetryPlugin(Plugin):
     id = "llm-retry"
     name = "@deepseek-ai/dsh-llm-retry"
-    inject = ["agents"]
+    inject = ["agents", "sessionProjections"]
 
     def __init__(self, config=None):
         super().__init__(config)
@@ -29,6 +61,10 @@ class LLMRetryPlugin(Plugin):
             raise ValueError("llm-retry takes no config; retryPolicy belongs under each provider")
 
     def apply(self, ctx):
+        projections = ctx.get('sessionProjections')
+        if projections is None:
+            raise RuntimeError('llm-retry requires sessionProjections')
+        projections.register(RETRY_DEFINITION)
         lifetime, active = asyncio.Event(), set()
 
         async def recover(payload, next_fn):
@@ -51,9 +87,7 @@ class LLMRetryPlugin(Plugin):
                 return await next_fn()
             agent, key = payload["agent"], policy_key(policy)
             turn, step, provider = payload["turn"], payload["step"], payload["provider"]
-            prior = next((e["data"] for e in reversed(agent.session.events)
-                          if e["type"] == "llm/retry" and all(e["data"].get(k) == v for k, v in
-                              (("turn", turn), ("step", step), ("provider", provider), ("policyKey", key)))), {})
+            prior = projections.stateOf(agent.session, 'llmRetry').get(retry_state_key(provider, key), {})
             previous = prior.get("retry", 0)
             if policy["mode"] == "normal" and previous >= policy["maxRetries"]:
                 return await next_fn()

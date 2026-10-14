@@ -3,7 +3,7 @@ import asyncio
 import pytest
 
 from dsh.core.abort import AbortController
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 from dsh.session.session_query import SessionQueryService
 from dsh.subagent.continuation import ContinuationManager
 from dsh.subagent.setup_registry import SetupRegistry

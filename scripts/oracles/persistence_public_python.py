@@ -18,9 +18,8 @@ async def main():
     from dsh.core.session import SessionPlugin, SessionHeader
     from dsh.core.abort import AbortController
     from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
-    from dsh.session.persistence_sqlite_canonical import SqliteSessionPersistencePlugin
     rows = []
-    for backend in ('jsonl-none', 'jsonl-zstd', 'sqlite'):
+    for backend in ('jsonl-none', 'jsonl-zstd'):
         for operation, label, value in (
             ('create', 'whole', 1.0), ('create', 'negative-zero', -0.0), ('create', 'fraction', 1.5), ('create', 'boolean', True),
             ('append', 'whole', 0.0), ('append', 'negative-zero', -0.0), ('append', 'fraction', 0.5), ('append', 'boolean', False),
@@ -32,10 +31,7 @@ async def main():
                 row = dict(name=backend + '/' + operation + '/' + label)
                 try:
                     await ctx.plugin(SessionPlugin)
-                    if backend == 'sqlite':
-                        await ctx.plugin(SqliteSessionPersistencePlugin, dict(path=str(Path(directory) / 'store.db')))
-                    else:
-                        await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if backend == 'jsonl-zstd' else 'none'))
+                    await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if backend == 'jsonl-zstd' else 'none'))
                     provider = ctx.get('sessionPersistence')
                     meta = SessionHeader('s', created_at=1)
                     event = dict(type='session/end-seed', seq=0, time=1, data={})
@@ -49,7 +45,7 @@ async def main():
                             await provider.append('s', [dict(event, seq=value)])
                         elif operation == 'read':
                             result = await provider.read_from('s', value)
-                            row['value'] = dict(meta=result.meta.to_dict(), events=result.events)
+                            row['value'] = dict(meta=result.meta.to_dict(), events=result.events, inheritedEventCount=result.inheritedEventCount, fromSeq=result.fromSeq)
                         else:
                             owner = provider.store
                             key = 'load_stored_from' if backend == 'sqlite' else 'load_stored'
@@ -75,7 +71,7 @@ async def main():
                                 released.set()
                             try:
                                 result = await asyncio.wait_for(reading, 5)
-                                row['value'] = dict(meta=result.meta.to_dict(), events=result.events)
+                                row['value'] = dict(meta=result.meta.to_dict(), events=result.events, inheritedEventCount=result.inheritedEventCount, fromSeq=result.fromSeq)
                             except Exception as error:
                                 row.update(error=dict(name='TypeError' if isinstance(error, TypeError) else 'Error', message=str(error)), reasonIdentity=error is reason)
                             row.update(calls=calls, aborted=controller.signal.aborted)

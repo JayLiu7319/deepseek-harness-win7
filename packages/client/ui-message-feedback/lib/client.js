@@ -58,7 +58,7 @@ window.__ModuleLoader__.load({
 		* control in that Session, so a single list read seeds them all.
 		*/
 		var MessageFeedbackController = class {
-			remote;
+			ctx;
 			sessionId;
 			view = INITIAL_VIEW;
 			listeners = /* @__PURE__ */ new Set();
@@ -66,11 +66,11 @@ window.__ModuleLoader__.load({
 			operationTail = Promise.resolve();
 			disposed = false;
 			/**
-			* @param remote - the messageFeedback Remote namespace.
+			* @param ctx - the browser plugin context carrying the messageFeedback Remote namespace.
 			* @param sessionId - Session owning every addressed assistant message.
 			*/
-			constructor(remote, sessionId) {
-				this.remote = remote;
+			constructor(ctx, sessionId) {
+				this.ctx = ctx;
 				this.sessionId = sessionId;
 			}
 			/** Return the cached immutable view. */
@@ -185,7 +185,7 @@ window.__ModuleLoader__.load({
 			}
 			/** Commit one put against the observed version and reconcile a conflict. */
 			async putCommitted(messageId, rating, note, observed) {
-				const carried = await this.remote.put({
+				const carried = await this.ctx.remote.messageFeedback.put({
 					sessionId: this.sessionId,
 					messageId,
 					rating,
@@ -203,7 +203,7 @@ window.__ModuleLoader__.load({
 			}
 			/** Commit one delete against the observed version and reconcile a conflict. */
 			async deleteCommitted(messageId, observed) {
-				const carried = await this.remote.delete({
+				const carried = await this.ctx.remote.messageFeedback.delete({
 					sessionId: this.sessionId,
 					messageId,
 					ifVersion: observed.version
@@ -224,55 +224,37 @@ window.__ModuleLoader__.load({
 			}
 			/** Fetch the whole sidecar and publish it as the seeded view. */
 			async load() {
-				try {
-					const carried = await this.remote.list({ sessionId: this.sessionId });
-					if (this.disposed) return OK;
-					if (!carried.ok) {
-						this.publish({
-							status: "error",
-							items: this.view.items,
-							error: carried.error.message
-						});
-						return carrierFailure(carried.error);
-					}
-					const result = carried.value;
-					if (!result.ok) {
-						this.publish({
-							status: "error",
-							items: this.view.items,
-							error: describe(result.error.code)
-						});
-						return fail(result.error.code);
-					}
-					const items = /* @__PURE__ */ new Map();
-					for (const item of result.value.items) items.set(item.messageId, item);
-					this.publish({
-						status: "ready",
-						items,
-						error: null
-					});
-					return OK;
-				} catch (error) {
-					if (this.disposed) return OK;
-					const message = error instanceof Error ? error.message : String(error);
+				const carried = await this.ctx.remote.messageFeedback.list({ sessionId: this.sessionId });
+				if (this.disposed) return OK;
+				if (!carried.ok) {
 					this.publish({
 						status: "error",
 						items: this.view.items,
-						error: message
+						error: carried.error.message
 					});
-					return {
-						ok: false,
-						error: {
-							code: "transport",
-							message
-						}
-					};
+					return carrierFailure(carried.error);
 				}
+				const result = carried.value;
+				if (!result.ok) {
+					this.publish({
+						status: "error",
+						items: this.view.items,
+						error: describe(result.error.code)
+					});
+					return fail(result.error.code);
+				}
+				const items = /* @__PURE__ */ new Map();
+				for (const item of result.value.items) items.set(item.messageId, item);
+				this.publish({
+					status: "ready",
+					items,
+					error: null
+				});
+				return OK;
 			}
 			/**
 			* Serialize one mutation behind this Session's prior mutation so queued
-			* operations always compare against the committed version, and translate a
-			* transport throw into the same settled shape the controls already render.
+			* operations always compare against the committed version.
 			*/
 			mutate(operation, options = {}) {
 				const guarded = async () => {
@@ -282,17 +264,7 @@ window.__ModuleLoader__.load({
 						if (!loaded.ok) return loaded;
 						if (this.disposed) return DISPOSED;
 					}
-					try {
-						return await operation();
-					} catch (error) {
-						return {
-							ok: false,
-							error: {
-								code: "transport",
-								message: error instanceof Error ? error.message : String(error)
-							}
-						};
-					}
+					return await operation();
 				};
 				const result = this.operationTail.then(guarded, guarded);
 				this.operationTail = result.then(() => void 0);
@@ -325,8 +297,8 @@ window.__ModuleLoader__.load({
 			}
 		};
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-message-feedback\src\client\MessageFeedbackActions.module.css.mjs
-		const css = ".m9N3fG_action{width:calc(28px + var(--dsh-content-font-delta,0px));height:calc(28px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:6px;display:inline-flex}.m9N3fG_action svg{width:calc(16px + var(--dsh-content-font-delta,0px));height:calc(16px + var(--dsh-content-font-delta,0px))}.m9N3fG_action:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.m9N3fG_action:disabled{cursor:default;opacity:.4}.m9N3fG_action[data-active]{color:var(--dsw-alias-label-primary)}.m9N3fG_noteOpen{max-width:220px;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(28px + var(--dsh-content-font-delta,0px));white-space:nowrap;text-overflow:ellipsis;cursor:pointer;background:0 0;border:none;border-radius:14px;padding:0 8px;overflow:hidden}.m9N3fG_noteOpen:hover,.m9N3fG_noteOpen[aria-expanded=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.m9N3fG_notePanel{z-index:1100;box-sizing:border-box;border:1px solid var(--dsw-alias-border-inverted);background:var(--dsw-specific-menu);width:320px;max-width:min(360px,100vw - 24px);max-height:calc(100vh - 24px);box-shadow:var(--dsw-shadow-lv3);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:12px;flex-direction:column;gap:8px;padding:8px;display:flex;position:fixed;overflow-y:auto}.m9N3fG_noteInput{box-sizing:border-box;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-layer-1);width:100%;color:var(--dsw-alias-label-primary);font:inherit;resize:vertical;border-radius:8px;padding:6px 8px;font-size:13px}.m9N3fG_noteActions{justify-content:flex-end;gap:6px;display:flex}.m9N3fG_noteSave,.m9N3fG_noteCancel{cursor:pointer;border:none;border-radius:14px;height:28px;padding:0 10px;font-size:13px}.m9N3fG_noteSave{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground)}.m9N3fG_noteSave:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.m9N3fG_noteSave:disabled{cursor:default;opacity:.4}.m9N3fG_noteCancel{color:var(--dsw-alias-label-tertiary);background:0 0}.m9N3fG_noteCancel:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.m9N3fG_failure{color:var(--dsw-alias-label-tertiary);padding-left:4px;font-size:13px;line-height:20px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-message-feedback\src\client\MessageFeedbackActions.module.css.mjs
+		const css = ".qD8c4a_action{width:calc(28px + var(--dsh-content-font-delta,0px));height:calc(28px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:6px;display:inline-flex}.qD8c4a_action svg{width:calc(15px + var(--dsh-content-font-delta,0px));height:calc(15px + var(--dsh-content-font-delta,0px))}.qD8c4a_action:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.qD8c4a_action:disabled{cursor:default;opacity:.4}.qD8c4a_action[data-active]{color:var(--dsw-alias-label-primary)}.qD8c4a_noteOpen{max-width:220px;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(28px + var(--dsh-content-font-delta,0px));white-space:nowrap;text-overflow:ellipsis;cursor:pointer;background:0 0;border:none;border-radius:14px;padding:0 8px;overflow:hidden}.qD8c4a_noteOpen:hover,.qD8c4a_noteOpen[aria-expanded=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.qD8c4a_notePanel{z-index:1100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:320px;max-width:min(360px,100vw - 24px);max-height:calc(100vh - 24px);box-shadow:var(--dsw-elevation-prominent);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:0;border-radius:12px;flex-direction:column;gap:8px;padding:8px;display:flex;position:fixed;overflow-y:auto}.qD8c4a_noteInput{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);width:100%;color:var(--dsw-alias-label-primary);font:inherit;resize:vertical;border-radius:8px;padding:6px 8px;font-size:13px}.qD8c4a_noteActions{justify-content:flex-end;gap:6px;display:flex}.qD8c4a_noteSave,.qD8c4a_noteCancel{cursor:pointer;border:none;border-radius:14px;height:28px;padding:0 10px;font-size:13px}.qD8c4a_noteSave{background:var(--dsw-alias-button-primary-fill);color:var(--dsw-alias-label-primary-foreground)}.qD8c4a_noteSave:hover:not(:disabled){background:var(--dsw-alias-button-primary-hover)}.qD8c4a_noteSave:disabled{cursor:default;opacity:.4}.qD8c4a_noteCancel{color:var(--dsw-alias-label-tertiary);background:0 0}.qD8c4a_noteCancel:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}.qD8c4a_failure{color:var(--dsw-alias-label-tertiary);padding-left:4px;font-size:13px;line-height:20px}";
 		const tagId = "@deepseek-ai/dsh-client-ui-message-feedback/MessageFeedbackActions.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -336,14 +308,14 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var MessageFeedbackActions_module_css_default = {
-			"action": "m9N3fG_action",
-			"failure": "m9N3fG_failure",
-			"noteActions": "m9N3fG_noteActions",
-			"noteCancel": "m9N3fG_noteCancel",
-			"noteInput": "m9N3fG_noteInput",
-			"noteOpen": "m9N3fG_noteOpen",
-			"notePanel": "m9N3fG_notePanel",
-			"noteSave": "m9N3fG_noteSave"
+			"action": "qD8c4a_action",
+			"failure": "qD8c4a_failure",
+			"noteActions": "qD8c4a_noteActions",
+			"noteCancel": "qD8c4a_noteCancel",
+			"noteInput": "qD8c4a_noteInput",
+			"noteOpen": "qD8c4a_noteOpen",
+			"notePanel": "qD8c4a_notePanel",
+			"noteSave": "qD8c4a_noteSave"
 		};
 		//#endregion
 		//#region lib/types/client/MessageFeedbackActions.js
@@ -684,7 +656,7 @@ window.__ModuleLoader__.load({
 			const controllerFor = (sessionId) => {
 				let controller = controllers.get(sessionId);
 				if (controller === void 0) {
-					controller = new MessageFeedbackController(ctx.remote.messageFeedback, sessionId);
+					controller = new MessageFeedbackController(ctx, sessionId);
 					controllers.set(sessionId, controller);
 				}
 				return controller;

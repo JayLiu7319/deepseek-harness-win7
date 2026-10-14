@@ -20,7 +20,7 @@ async def composition(root, count=100):
     await ctx.plugin(StorageDomainPlugin, config={'backend': 'json'})
     ctx.get('sessionProjections').register({
         'key': 'count', 'stateVersion': 1, 'stateSchema': lambda value: int(value),
-        'init': lambda header: 0, 'apply': lambda state, event: state + 1,
+        'init': lambda header, inherited_event_count: 0, 'apply': lambda state, event: state + 1,
         'wire': {'viewSchema': lambda value: int(value), 'view': lambda state: state},
     })
     cache_fiber = ctx.plugin(SessionProjectionCachePlugin, config={'writeEveryEvents': count, 'writeIntervalMs': 60000})
@@ -44,11 +44,11 @@ async def test_creation_and_explicit_write_capture_the_call_cut(tmp_path):
         session = ctx.get('sessions').create('call-cut')
         append(session, 1)
         await settle(cache)
-        assert cache.cached_snapshot(session.header) == {'asOfSeq': -1, 'values': {'count': 0}}
+        assert cache.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': -1, 'values': {'count': 0}}
         pending = cache.write(session)
         append(session, 2)
         await pending
-        assert cache.cached_snapshot(session.header) == {'asOfSeq': 0, 'values': {'count': 1}}
+        assert cache.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': 0, 'values': {'count': 1}}
         rows = json.loads((tmp_path / 'session_projcache' / 'sessions' / 'call-cut.json').read_text(encoding='utf-8'))['record']['rows']
         assert rows['count'] == {'ver': 1, 'seq': 0, 'val': 1}
     finally:
@@ -95,11 +95,11 @@ async def test_flush_barrier_precedes_checkpoint_and_snapshot_is_detached(tmp_pa
         append(session, 1)
         writing = asyncio.ensure_future(cache.write(session))
         await asyncio.wait_for(entered.wait(), 2)
-        assert cache.cached_snapshot(session.header)['asOfSeq'] == -1
+        assert cache.cached_snapshot(session.header, session.inheritedEventCount)['asOfSeq'] == -1
         append(session, 2)
         release.set()
         await writing
-        assert cache.cached_snapshot(session.header) == {'asOfSeq': 0, 'values': {'count': 1}}
+        assert cache.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': 0, 'values': {'count': 1}}
     finally:
         release.set()
         if writing is not None:
@@ -115,7 +115,7 @@ async def test_non_json_state_is_refused_without_persisting_null_and_soft_path_r
     await settle(cache)
     unregister = ctx.get('sessionProjections').register({
         'key': 'invalid', 'stateVersion': 1, 'stateSchema': lambda value: value,
-        'init': lambda header: {'not-json'}, 'apply': lambda state, event: state,
+        'init': lambda header, inherited_event_count: {'not-json'}, 'apply': lambda state, event: state,
     })
     try:
         with pytest.raises(ValueError, match='not losslessly JSON-serializable'):
@@ -128,7 +128,7 @@ async def test_non_json_state_is_refused_without_persisting_null_and_soft_path_r
         unregister()
         append(session, 2)
         await settle(cache)
-        assert cache.cached_snapshot(session.header) == {'asOfSeq': 1, 'values': {'count': 2}}
+        assert cache.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': 1, 'values': {'count': 2}}
     finally:
         unregister()
         await ctx.fiber.dispose()
@@ -160,9 +160,9 @@ async def test_cache_unload_drains_flush_then_reopen_preserves_exact_cut(tmp_pat
         remove()
         await ctx.plugin(SessionProjectionCachePlugin, config={'writeEveryEvents': 1, 'writeIntervalMs': 60000})
         restored = ctx.get('sessionProjectionCache')
-        assert restored.cached_snapshot(session.header) == {'asOfSeq': 0, 'values': {'count': 1}}
+        assert restored.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': 0, 'values': {'count': 1}}
         await restored.write(session)
-        assert restored.cached_snapshot(session.header) == {'asOfSeq': 1, 'values': {'count': 2}}
+        assert restored.cached_snapshot(session.header, session.inheritedEventCount) == {'asOfSeq': 1, 'values': {'count': 2}}
     finally:
         release.set()
         if unloading is not None:

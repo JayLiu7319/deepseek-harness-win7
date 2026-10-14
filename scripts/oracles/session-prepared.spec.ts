@@ -12,13 +12,13 @@ it('observes reserved Session identities through the real persistence service', 
   try {
    await ctx.plugin(SessionStore);await ctx.plugin(Jsonl,{root,compression:'none'})
    const p=ctx.sessionPersistence;const sid='s' as any
-   await p.create({id:sid,version:0,createdAt:1,delegationDepth:0})
+   await p.create({id:sid,version:0,createdAt:1,delegationDepth:0,isSeeded:false})
    await p.append(sid,[{type:'turn/start',seq:0,time:1,data:{turn:1}},{type:'turn/end',seq:1,time:2,data:{turn:1,reason:{kind:'completed'}}}])
    if(mode==='revision'){
     await p.inspect(sid)
     await p.append(sid,[{type:'turn/start',seq:2,time:3,data:{turn:2}}])
     const held=await p.prepare(sid)
-    rows.push({mode,types:held.session.events.map(e=>e.type),physical:(await p.readFrom(sid,0)).events.map(e=>e.type)})
+    rows.push({mode,types:held.session.snapshotEvents().map(e=>e.type),physical:(await p.readFrom(sid,0)).events.map(e=>e.type)})
     held[Symbol.dispose]();continue
    }
    const first=await p.prepare(sid);const exact=first.session
@@ -38,7 +38,7 @@ it('observes reserved Session identities through the real persistence service', 
    }
    if(mode==='mutated-release')exact.append('turn/start',{turn:2})
    first[Symbol.dispose]();const second=await p.prepare(sid)
-   rows.push({mode,same:second.session===exact,types:second.session.events.map(e=>e.type)})
+   rows.push({mode,same:second.session===exact,types:second.session.snapshotEvents().map(e=>e.type)})
    second[Symbol.dispose]()
   }finally{await ctx.fiber.dispose();await rm(root,{recursive:true,force:true})}
  }

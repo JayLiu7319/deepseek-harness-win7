@@ -378,10 +378,10 @@ async def boot_profile(tmp_path, backend, monkeypatch):
     profile = home / 'profiles' / 'acp-controls'
     init_profile(str(profile), [], 'startup')
     rows = [{'id': name, 'name': '@deepseek-ai/dsh-' + name} for name in
-            ('session', 'tools', 'system-prompt', 'llm', 'agent', 'agent-loop', 'acp')]
-    config = {'root': str(tmp_path / 'sessions'), 'packChunks': False} if backend == 'jsonl' else {
-        'path': str(tmp_path / 'sessions.db')}
-    rows.append({'id': 'persistence', 'name': '@deepseek-ai/dsh-session-persistence-' + backend, 'config': config})
+            ('session', 'session-projection', 'tools', 'system-prompt', 'llm', 'agent', 'agent-loop', 'acp')]
+    config = {'root': str(tmp_path / 'sessions'), 'packChunks': False,
+              'compression': 'none' if backend == 'jsonl' else 'zstd'}
+    rows.append({'id': 'persistence', 'name': '@deepseek-ai/dsh-session-persistence-jsonl', 'config': config})
     (profile / 'cordis.patch.yml').write_text(yaml.safe_dump([{'insert': rows}]), encoding='utf-8')
     runtime = await run_profile({'profile': 'acp-controls', 'dshHome': str(home), 'args': [], 'waitForExit': False})
     ctx = runtime['ctx']
@@ -399,7 +399,7 @@ async def stop_profile(runtime):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('backend', ['jsonl', 'sqlite'])
+@pytest.mark.parametrize('backend', ['jsonl', 'jsonl-zstd'])
 async def test_actual_profile_empty_materialization_history_and_new_context_resume(tmp_path, backend, monkeypatch):
     runtime, bridge, adapter = await boot_profile(tmp_path, backend, monkeypatch)
     ctx = runtime['ctx']

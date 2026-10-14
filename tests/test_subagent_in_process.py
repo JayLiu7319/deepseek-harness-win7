@@ -1,5 +1,7 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
+from dsh.session.projections import SessionProjectionRegistry
 import asyncio
 
 import pytest
@@ -34,6 +36,9 @@ async def setup():
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    await ctx.plugin(SessionProjectionRegistry)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     handle = await ctx.get("agent_loop").create("parent")
     return ctx, model, handle

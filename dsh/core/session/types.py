@@ -90,7 +90,7 @@ class SessionHeader:
         origin: Optional[str] = None,
         delegation_depth: Optional[int] = None,
         agent_preset: Optional[str] = None,
-        is_seeded: Any = UNDEFINED,
+        is_seeded: Any = False,
     ):
         self.version = version
         self.id = SessionId(session_id)
@@ -220,6 +220,7 @@ class SessionHeader:
         sid = str(record.get("id", "default-session"))
         record.setdefault("version", SESSION_FORMAT_VERSION)
         record.setdefault("id", sid)
+        record.setdefault("isSeeded", False)
         if record.get("createdAt") is None:
             record["createdAt"] = int(time.time() * 1000)
         return copy.deepcopy(validate_session_header(sid, record))
@@ -308,7 +309,7 @@ def assert_session_event_envelope(event: Any, index: Optional[int] = None) -> No
         raise ValueError(f"{subject} uses unsupported legacy request/header-delta format")
 
     seq = event.get("seq")
-    if not _is_safe_non_negative_int(seq):
+    if not _is_safe_non_negative_int(seq) or (seq == 0 and math.copysign(1, seq) < 0):
         raise ValueError(f"{subject} has an invalid event envelope")
 
     # The reference checks only `Number.isSafeInteger(time)`: a back-dated
@@ -482,7 +483,7 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
     - an explicitly supplied `null` for an optional field is a type error
       (`typeof null !== 'string'`), so "omitted" is tracked with the
       `undefined` sentinel rather than with `None`.
-    - `seedLength`/`delegationDepth` are validated BEFORE any numeric
+    - `isSeeded`/`delegationDepth` are validated BEFORE any numeric
       conversion, so `"1"`, `0.5` and `-1` are rejected rather than coerced.
     """
     if isinstance(input_data, SessionHeader):
@@ -490,11 +491,8 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
     if input_data is None or not isinstance(input_data, dict):
         raise ValueError("session header is not a plain JSON record")
 
-    # Until the coordinated baseline transition, alpha records still enter
-    # this boundary. Explicit rc.1 metadata always uses the strict validator.
-    if "isSeeded" in input_data:
-        if "seedLength" in input_data:
-            raise ValueError('session header has invalid field "seedLength"')
+    if "seedLength" in input_data:
+        raise ValueError('session header has invalid field "seedLength"')
 
     raw_version = input_data.get("version", UNDEFINED)
     if type(raw_version) not in (int, float) or raw_version != SESSION_FORMAT_VERSION:
@@ -530,15 +528,10 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
         parent_session = raw_parent
 
     is_seeded = input_data.get("isSeeded", UNDEFINED)
-    if "isSeeded" in input_data and type(is_seeded) is not bool:
+    if type(is_seeded) is not bool:
         raise ValueError("session header isSeeded must be a boolean")
 
     seed_length: Optional[int] = None
-    raw_seed_len = input_data.get("seedLength", UNDEFINED)
-    if raw_seed_len is not UNDEFINED:
-        if not _is_safe_non_negative_int(raw_seed_len):
-            raise ValueError("session header seedLength must be a non-negative safe integer")
-        seed_length = raw_seed_len
 
     origin: Optional[str] = None
     raw_origin = input_data.get("origin", UNDEFINED)
@@ -612,7 +605,7 @@ def snapshot_session_header(session_id: str, source: Any = UNDEFINED) -> Session
     if isinstance(source, SessionHeader):
         source = source.to_dict()
     raw: Any = (
-        {"version": SESSION_FORMAT_VERSION, "id": session_id, "createdAt": int(time.time() * 1000)}
+        {"version": SESSION_FORMAT_VERSION, "id": session_id, "createdAt": int(time.time() * 1000), "isSeeded": False}
         if source is UNDEFINED
         else source
     )

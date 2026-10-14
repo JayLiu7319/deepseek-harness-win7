@@ -3,12 +3,13 @@ from dsh.llm.error import HarnessError
 from dsh.session.tool_query_boundary import call, sanitize_error, unauthorized_target
 
 
-def caller_of(execution):
+def caller_of(execution, ctx):
     agent = getattr(execution, 'agent', None)
     if agent is None:
         raise HarnessError('session query tools require an agent-bound caller', 'SESSION_QUERY_TOOL_MISSING_AGENT')
     session = agent.session
-    return dict(id=session.id, header=session.header, events=session.events)
+    return dict(id=session.id, header=session.header,
+                boundary=ctx.get('sessionProjections').stateOf(session, 'turnBoundary'))
 
 
 def target_id(args, caller):

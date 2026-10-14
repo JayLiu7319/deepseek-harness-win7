@@ -14,7 +14,7 @@ it('observes original plugin inspection repair and new Context preparation', asy
   const persistence: any = context.sessionPersistence
   const lazy = !existsSync(path)
   if (!lazy) throw new Error('plugin initialization materialized a database')
-  const meta: any = {id: 'cold-packed', version: 0, createdAt: 1234, cwd: process.cwd()}
+  const meta: any = {id: 'cold-packed', version: 0, createdAt: 1234, cwd: process.cwd(),isSeeded:false}
   const events: any[] = [{type: 'turn/start', seq: 0, time: 0, data: {turn: 1}},
     {type: 'step/start', seq: 1, time: 1, data: {turn: 1, step: 1}},
     ...Array.from({length: 100}, (_, index) => ({type: 'assistant/chunk', seq: index + 2, time: index + 2,
@@ -38,9 +38,9 @@ it('observes original plugin inspection repair and new Context preparation', asy
   const cold = await next.sessionPersistence.prepare(meta.id)
   const stored = await next.sessionPersistence.inspect(meta.id)
   const suffix = await next.sessionPersistence.readFrom(meta.id, 50)
-  const last = cold.session.events.at(-1)!
+  const last = cold.session.snapshotEvents().at(-1)!
   const output = {lazy, inspected: inspected.events.length, recovered: loaded.events.length,
-    coldPrepared: cold.session.events.length, stored: stored.events.length, endSeedSeq: last.seq,
+    coldPrepared: cold.session.snapshotEvents().length, stored: stored.events.length, endSeedSeq: last.seq,
     suffix: suffix.events.length, unpublished: true}
   if (last.type !== 'session/end-seed' || next.sessions.get(meta.id) !== undefined) throw new Error('cold view ownership differs')
   cold[Symbol.dispose]()

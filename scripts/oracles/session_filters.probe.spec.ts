@@ -34,8 +34,8 @@ it('observes owned filters, finite bounds, literal matching and concrete query c
       } else {
         ctx = new Context()
         await ctx.plugin(SessionStore)
-        const live = {version:0,id:SessionId('live'),createdAt:2,cwd:'/workspace'}
-        const cold = {version:0,id:SessionId('cold'),createdAt:1}
+        const live = {version:0,id:SessionId('live'),createdAt:2,cwd:'/workspace',isSeeded:false}
+        const cold = {version:0,id:SessionId('cold'),createdAt:1,isSeeded:false}
         ctx.sessions.enter(Session.create(live.id,events,live))
         const controller = new AbortController()
         const counters = {lists:0,inspections:0,sameSignal:true}
@@ -47,7 +47,7 @@ it('observes owned filters, finite bounds, literal matching and concrete query c
             if (input.name === 'public-sessions-failure') throw failure
             return [cold]
           },
-          inspect: async () => {counters.inspections += 1; return {meta:cold,events}},
+          inspect: async () => {counters.inspections += 1; return {meta:cold,events,inheritedEventCount:0}},
         } as any)
         const query = new TestSessionQueryEngine(ctx)
         await Promise.resolve(); await Promise.resolve()

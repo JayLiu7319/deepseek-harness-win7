@@ -7,9 +7,7 @@ import sys
 
 
 def assets(root):
-    paths = [root / 'dsh/session/bin/sqlite3.dll', root / 'dsh/session/bin/sqlite3.json']
-    for directory in ('dsh/session/bin/zstd', 'dsh/session/resources/sql'):
-        paths.extend(path for path in sorted((root / directory).iterdir()) if path.is_file())
+    paths = sorted(path for path in (root / 'dsh/session/bin/zstd').iterdir() if path.is_file())
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
 
 

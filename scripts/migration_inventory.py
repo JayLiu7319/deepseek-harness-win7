@@ -31,7 +31,10 @@ def classification(path):
 
 
 def write(path, value):
-    path.write_bytes((json.dumps(value, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
+    import uuid
+    temporary = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
+    temporary.write_bytes((json.dumps(value, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
+    temporary.replace(path)
 
 
 def inventory():

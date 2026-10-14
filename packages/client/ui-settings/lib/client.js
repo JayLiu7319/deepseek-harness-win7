@@ -947,7 +947,7 @@ window.__ModuleLoader__.load({
 		* the operation already crossing the wire.
 		*/
 		var SettingsScopeController = class {
-			api;
+			ctx;
 			spec;
 			mirror;
 			persistence;
@@ -964,14 +964,15 @@ window.__ModuleLoader__.load({
 			*/
 			pendingRevision;
 			/**
-			* @param api - settings wire face (writes only; reads ride the mirror).
+			* @param ctx - the providing plugin's context, whose `remote.settings`
+			* namespace carries this scope's writes (reads ride the mirror).
 			* @param spec - namespace identity and optional narrowing decoder.
 			* @param mirror - the shared describe mirror this scope derives from.
 			* @param persistence - client-selected Host persistence; non-loopback pages may remain process-local.
 			* @param schema - settings-owned schema operations.
 			*/
-			constructor(api, spec, mirror, persistence, schema) {
-				this.api = api;
+			constructor(ctx, spec, mirror, persistence, schema) {
+				this.ctx = ctx;
 				this.spec = spec;
 				this.mirror = mirror;
 				this.persistence = persistence;
@@ -1041,13 +1042,7 @@ window.__ModuleLoader__.load({
 				const generation = ++this.writeGeneration;
 				return this.enqueue(async () => {
 					const revision = expectedRevision ?? this.pendingRevision ?? this.getSnapshot().revision;
-					let response;
-					try {
-						response = await this.api.settings.mutate(this.spec.namespace, ownedOps, revision);
-					} catch (_settingsWriteFailure) {
-						await this.recover(generation);
-						return;
-					}
+					const response = await this.ctx.remote.settings.mutate(this.spec.namespace, ownedOps, revision);
 					if (!response.ok) {
 						await this.recover(generation);
 						return;
@@ -1131,21 +1126,25 @@ window.__ModuleLoader__.load({
 		var SettingsScopeBinder = class extends _deepseek_ai_cordis.Service {
 			mirror;
 			schema;
-			wire;
+			persistence;
+			/**
+			* The PROVIDING fiber, kept because a Service reads `ctx` as its *consumer's*
+			* fiber: letting a bound scope write through the caller's context would make
+			* every caller declare `remote.settings` in its own `inject`.
+			*/
+			owner;
 			/**
 			* @param ctx - the providing plugin's context.
 			* @param config - the shared describe mirror every bound scope derives from,
-			* the settings-owned schema operations, and the settings Remote namespace the
-			* bound scopes write through. The namespace is captured here rather than read
-			* inside {@link bind}, because a Service reads `ctx` as its *consumer's*
-			* fiber: reading it there would make every caller declare `remote.settings`
-			* in its own `inject`.
+			* the settings-owned schema operations, and the Host persistence the provider
+			* resolved from `remote.$host`.
 			*/
 			constructor(ctx, config) {
 				super(ctx, "settingsScope");
 				this.mirror = config.mirror;
 				this.schema = config.schema;
-				this.wire = config.wire;
+				this.persistence = config.persistence;
+				this.owner = ctx;
 			}
 			/**
 			* The shared mirror's read/fold face for cross-namespace surfaces (schema
@@ -1169,8 +1168,7 @@ window.__ModuleLoader__.load({
 			*/
 			bind(spec) {
 				const ctx = this.ctx;
-				const connection = ctx.get("connection");
-				const controller = new SettingsScopeController(this.wire, spec, this.mirror, connection.isLoopback ? "host" : "memory", this.schema);
+				const controller = new SettingsScopeController(this.owner, spec, this.mirror, this.persistence, this.schema);
 				ctx.effect(() => {
 					this.mirror.ensure();
 					return async () => {
@@ -1198,18 +1196,19 @@ window.__ModuleLoader__.load({
 		* so an invalidation arriving mid-read is never lost and never duplicated.
 		*/
 		var SettingsDescribeMirror = class {
-			api;
+			ctx;
 			persistence;
 			store;
 			inFlight;
 			rerun = false;
 			generation = 0;
 			/**
-			* @param api - settings wire face.
+			* @param ctx - the providing plugin's context, whose `remote.settings`
+			* namespace answers the describe read.
 			* @param persistence - client-selected Host persistence; non-loopback pages may remain process-local.
 			*/
-			constructor(api, persistence = "host") {
-				this.api = api;
+			constructor(ctx, persistence = "host") {
+				this.ctx = ctx;
 				this.persistence = persistence;
 				this.store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
 					status: persistence === "host" ? "idle" : "unavailable",
@@ -1297,7 +1296,7 @@ window.__ModuleLoader__.load({
 						const generation = ++this.generation;
 						let outcome;
 						try {
-							const response = await this.api.settings.describe();
+							const response = await this.ctx.remote.settings.describe();
 							outcome = response.ok ? { view: response.value } : { failure: response.error.message };
 						} catch (error) {
 							outcome = { failure: error instanceof Error ? error.message : String(error) };
@@ -1328,14 +1327,10 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/index.js
 		/**
-		* Required services: the wire handle for the mirror's reads and the forwarded
-		* settings invalidation the mirror refreshes on.
+		* Required services: the Remote namespace the mirror reads through and the
+		* forwarded settings invalidation it refreshes on.
 		*/
-		const inject = [
-			"connection",
-			"remote",
-			"remote.settings"
-		];
+		const inject = ["remote", "remote.settings"];
 		/**
 		* Provide the settings-namespace scope service over one shared describe
 		* mirror, and keep that mirror fresh on the two signals that can move the
@@ -1347,9 +1342,8 @@ window.__ModuleLoader__.load({
 		*/
 		function apply(ctx) {
 			const schema = new SettingsSchemaService(ctx);
-			const connection = ctx.get("connection");
-			const wire = { settings: ctx.remote.settings };
-			const mirror = new SettingsDescribeMirror(wire, connection.isLoopback ? "host" : "memory");
+			const persistence = ctx.remote.$host.isLoopback ? "host" : "memory";
+			const mirror = new SettingsDescribeMirror(ctx, persistence);
 			ctx.effect(() => {
 				const disposers = [ctx.remote.$on("settings/document-updated", () => {
 					mirror.load();
@@ -1364,7 +1358,7 @@ window.__ModuleLoader__.load({
 			new SettingsScopeBinder(ctx, {
 				mirror,
 				schema,
-				wire
+				persistence
 			});
 		}
 		//#endregion

@@ -4,9 +4,37 @@ window.__ModuleLoader__.load({
 		var module = { exports: {} };
 		var exports = module.exports;
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+		let _deepseek_ai_cordis = require("@deepseek-ai/cordis");
 		let _deepseek_ai_dsh_api_gateway_client = require("@deepseek-ai/dsh-api-gateway/client");
 		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
-		let _deepseek_ai_cordis = require("@deepseek-ai/cordis");
+		//#region ../../typert/protocol/lib/index.js
+		/** The one Remote failure class shared by owners, the Gateway, and consumers. */
+		/**
+		* One Remote call failure: a real Error carrying its stable code and typed
+		* details. Owners throw it at the failure point; the Host Gateway encodes it
+		* onto the wire unchanged; the Client face rebuilds an instance for the
+		* `RemoteResult` error branch, so `throw result.error` keeps throw semantics.
+		* Discrimination is always by `code`, never by instanceof.
+		*/
+		var RemoteError = class extends Error {
+			code;
+			details;
+			/** Structural marker: cross-realm/bundle identification never uses instanceof. */
+			isDSHRemoteError = true;
+			/**
+			* @param code - stable failure code declared in {@link RemoteErrorDetailsMap}.
+			* @param message - human diagnostic carried across the wire.
+			* @param details - structured payload typed by the code.
+			* @param options - standard Error options (`cause` survives in-process only).
+			*/
+			constructor(code, message, details, options) {
+				super(message, options);
+				this.code = code;
+				this.details = details;
+				this.name = "RemoteError";
+			}
+		};
+		//#endregion
 		//#region lib/types/client/sessions/history-records.js
 		/** Client range access and type narrowing for aligned Session history records. */
 		/**
@@ -53,7 +81,7 @@ window.__ModuleLoader__.load({
 					entries: historyEntries(change.entries)
 				};
 				case "append":
-					if (change.entry.type !== "event") throw new Error("session live stream emitted a packed history record");
+					if (change.entry.type !== "event") throw new RemoteError("gateway/internal", "session live stream emitted a packed history record", {});
 					return {
 						type: "append",
 						entry: change.entry
@@ -139,7 +167,7 @@ window.__ModuleLoader__.load({
 					throughSeq,
 					...request
 				}, signal);
-				if (!result.ok) throw new _deepseek_ai_dsh_api_gateway_client.RemoteStreamError(result.error.code, result.error.message, result.error.details);
+				if (!result.ok) throw result.error;
 				return result.value;
 			}
 			/** @inheritdoc */
@@ -147,18 +175,35 @@ window.__ModuleLoader__.load({
 				return request.maxMessages === void 0 ? {} : { maxMessages: request.maxMessages };
 			}
 		};
+		//#endregion
+		//#region ../../util/brand/lib/index.js
 		/**
-		* Recover a Host Session failure from a Remote stream terminal error.
-		* @param error - value thrown while opening or consuming a Session stream.
-		* @returns the Host failure, or `undefined` for carrier and local failures.
+		* Apply a compile-time number brand without changing the value.
+		* @param value - number admitted by the domain that owns the target brand.
+		* @returns the same number with the requested compile-time brand.
 		*/
-		function sessionStreamFailure(error) {
-			if (!(error instanceof _deepseek_ai_dsh_api_gateway_client.RemoteStreamError)) return void 0;
-			return {
-				code: error.code,
-				message: error.message,
-				details: error.details
-			};
+		function brandNumber(value) {
+			return value;
+		}
+		//#endregion
+		//#region ../../core/session/lib/types/types.js
+		/**
+		* Admit a numeric value as an existing Session event position.
+		* @param value - non-negative safe integer admitted by the owning log operation.
+		* @returns the same number with the Session-sequence brand.
+		*/
+		function SessionSeq(value) {
+			if (!Number.isSafeInteger(value) || value < 0 || Object.is(value, -0)) throw new TypeError(`SessionSeq must be a non-negative safe integer, got ${String(value)}`);
+			return brandNumber(value);
+		}
+		/**
+		* Admit a numeric value as a Session log offset.
+		* @param value - non-negative safe integer used as a gap or prefix length.
+		* @returns the same number with the Session-log-offset brand.
+		*/
+		function SessionLogOffset(value) {
+			if (!Number.isSafeInteger(value) || value < 0 || Object.is(value, -0)) throw new TypeError(`SessionLogOffset must be a non-negative safe integer, got ${String(value)}`);
+			return brandNumber(value);
 		}
 		//#endregion
 		//#region ../../util/workspace-path/lib/index.js
@@ -262,24 +307,6 @@ window.__ModuleLoader__.load({
 				mergedKeys.add(keyOf(value));
 			}
 			return merged;
-		}
-		//#endregion
-		//#region lib/types/client/contract/result.js
-		/** Client operation results spanning the Session and subagent Remote calls. */
-		/**
-		* Fold a rejected carrier operation into the Client Session failure vocabulary.
-		* @param error - rejection from a Remote or local carrier call.
-		* @returns the failure branch of a Client Session result.
-		*/
-		function transportResult(error) {
-			return {
-				ok: false,
-				error: {
-					code: "internal",
-					message: error instanceof Error ? error.message : String(error),
-					details: {}
-				}
-			};
 		}
 		//#endregion
 		//#region lib/types/client/sessions/lineage.js
@@ -674,7 +701,7 @@ window.__ModuleLoader__.load({
 		//#region lib/types/client/sessions/queue-mirror.js
 		const QUEUE_PREVIEW_CHARS = 200;
 		function previewOf(content) {
-			const flat = content.map((block) => block.type === "text" ? block.text : `[${block.type}]`).join(" ").replace(/\s+/g, " ").trim();
+			const flat = content.filter((block) => block.type !== "image").map((block) => block.type === "text" ? block.text : `[${block.type}]`).join(" ").replace(/\s+/g, " ").trim();
 			const chars = Array.from(flat);
 			return chars.length > QUEUE_PREVIEW_CHARS ? `${chars.slice(0, QUEUE_PREVIEW_CHARS).join("")}…` : flat;
 		}
@@ -724,6 +751,14 @@ window.__ModuleLoader__.load({
 				return true;
 			}
 		};
+		//#endregion
+		//#region lib/types/client/sessions/session.js
+		function projectionsBaseline(value) {
+			return {
+				...value,
+				asOfSeq: value.asOfSeq === -1 ? -1 : SessionSeq(value.asOfSeq)
+			};
+		}
 		/**
 		* Owns a session's event window, lifecycle state, and observable
 		* snapshot. React bindings remain outside this data layer. Features see only
@@ -734,7 +769,7 @@ window.__ModuleLoader__.load({
 			sessionId;
 			remote;
 			options;
-			baseSeq = 0;
+			baseSeq = SessionLogOffset(0);
 			hasMore = false;
 			openState = "cold";
 			openError = null;
@@ -743,6 +778,10 @@ window.__ModuleLoader__.load({
 			*  passes drop all writes once the generation moves on. */
 			openGeneration = 0;
 			loadingOlder = false;
+			/** Shared low-water target of the running jump loop; null when no jump is paging. */
+			jumpTargetSeq = null;
+			/** The running jump loop's completion, shared by retargeting callers. */
+			jumpPromise = null;
 			/** Authoritative stream-only inbox snapshot; pending work never hits history. */
 			queueMirror = new SessionQueueMirror();
 			running = false;
@@ -837,6 +876,7 @@ window.__ModuleLoader__.load({
 				const requestId = randomUUID();
 				this.pendingSubmissions = [...this.pendingSubmissions, {
 					requestId,
+					placement: this.running ? input.mode === "steer" ? "steering" : "queued" : "transcript",
 					time: Date.now(),
 					text: input.text,
 					images: input.images
@@ -869,51 +909,28 @@ window.__ModuleLoader__.load({
 				if (this.blankBit) this.firstPromptPendingTurn = true;
 				this.notifier.markDirty();
 				let result;
-				try {
-					if (this.address === void 0) {
-						const clientTimeZone = resolvedClientTimeZone();
-						result = toSessionResult$1(await this.remote.session.prompt({
-							requestId: requestId ?? randomUUID(),
-							sessionId: this.sessionId,
-							mode,
-							content,
-							clientTimeZone
-						}, signal));
-					} else if (this.address.mode === "one-shot") result = {
-						ok: false,
-						error: {
-							code: "subagent-not-resumable",
-							message: "one-shot subagent conversations are read-only",
-							details: { childSessionId: this.address.childSessionId }
-						}
-					};
-					else if (content.some((part) => part.type === "image")) result = {
-						ok: false,
-						error: {
-							code: "attachment-error",
-							message: "Image input is unavailable for subagent continuations.",
-							details: { reason: "SUBAGENT_IMAGE_UNSUPPORTED" }
-						}
-					};
-					else {
-						const routed = toSessionResult$1(await this.remote.subagents.prompt({
-							requestId: randomUUID(),
-							parentSessionId: this.address.parentSessionId,
-							childSessionId: this.address.childSessionId,
-							mode: this.address.mode,
-							content: content.flatMap((part) => part.type === "text" ? [{
-								type: "text",
-								text: part.text
-							}] : []),
-							clientTimeZone: resolvedClientTimeZone()
-						}, signal));
-						result = routed.ok ? {
-							ok: true,
-							value: { accepted: true }
-						} : routed;
-					}
-				} catch (error) {
-					result = transportResult(error);
+				if (this.address === void 0) {
+					const clientTimeZone = resolvedClientTimeZone();
+					result = await this.remote.session.prompt({
+						requestId: requestId ?? randomUUID(),
+						sessionId: this.sessionId,
+						mode,
+						content,
+						clientTimeZone
+					}, signal);
+				} else {
+					const routed = await this.remote.subagents.prompt({
+						requestId: randomUUID(),
+						parentSessionId: this.address.parentSessionId,
+						childSessionId: this.address.childSessionId,
+						mode: "continuable",
+						content,
+						clientTimeZone: resolvedClientTimeZone()
+					}, signal);
+					result = routed.ok ? {
+						ok: true,
+						value: { accepted: true }
+					} : routed;
 				}
 				if (!result.ok) {
 					if (requestId !== void 0) this.retireFailedSubmission(requestId);
@@ -937,70 +954,39 @@ window.__ModuleLoader__.load({
 			* @returns the authenticated reference and decoded bytes.
 			*/
 			async readAttachment(attachmentId) {
-				try {
-					const result = await this.remote.session.attachment({
-						sessionId: this.sessionId,
-						attachmentId
-					});
-					if (!result.ok) return toSessionResult$1(result);
-					const binary = atob(result.value.data);
-					const data = Uint8Array.from(binary, (char) => char.charCodeAt(0));
-					return {
-						ok: true,
-						value: {
-							attachment: result.value.attachment,
-							data
-						}
-					};
-				} catch (error) {
-					return transportResult(error);
-				}
+				const result = await this.remote.session.attachment({
+					sessionId: this.sessionId,
+					attachmentId
+				});
+				if (!result.ok) return result;
+				const binary = atob(result.value.data);
+				const data = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+				return {
+					ok: true,
+					value: {
+						attachment: result.value.attachment,
+						data
+					}
+				};
 			}
 			/** Apply one operation to a still-pending queue occurrence. */
 			async updateQueue(itemId, action) {
-				try {
-					return toSessionResult$1(await this.remote.session.updateQueue({
-						sessionId: this.sessionId,
-						itemId,
-						action
-					}));
-				} catch (error) {
-					return transportResult(error);
-				}
+				return this.remote.session.updateQueue({
+					sessionId: this.sessionId,
+					itemId,
+					action
+				});
 			}
 			/**
 			* Stop the active turn while the Host preserves pending inbox work; failures
-			* land in promptError (same error-strip display slot). A continuable
-			* subagent address routes through `subagents.interruptByParent`, whose durable
-			* parent-address authority works without a live parent Agent; a one-shot
-			* address stays uncancellable (the UI offers no stop action, so this arm is
-			* defensive).
+			* land in promptError (same error-strip display slot). A subagent address
+			* routes through `subagents.interruptByParent`, whose durable parent-address
+			* authority works without a live parent Agent.
 			* @returns the cancel result.
 			*/
 			async cancel() {
 				const address = this.address;
-				if (address !== void 0 && address.mode === "one-shot") {
-					const result = {
-						ok: false,
-						error: {
-							code: "subagent-delivery-unavailable",
-							message: "subagent activation cancellation is unavailable",
-							details: { childSessionId: address.childSessionId }
-						}
-					};
-					this.promptError = {
-						op: "stop",
-						error: result.error
-					};
-					this.notifier.markDirty();
-					return result;
-				}
-				let result;
-				try {
-					result = address !== void 0 ? toSessionResult$1(await this.remote.subagents.interruptByParent(address.childSessionId, address.parentSessionId, address.mode)) : toSessionResult$1(await this.remote.session.cancel({ sessionId: this.sessionId }));
-				} catch (error) {
-					result = transportResult(error);
-				}
+				const result = address !== void 0 ? await this.remote.subagents.interruptByParent(address.childSessionId, address.parentSessionId, "continuable") : await this.remote.session.cancel({ sessionId: this.sessionId });
 				if (!result.ok) {
 					this.promptError = {
 						op: "stop",
@@ -1020,23 +1006,27 @@ window.__ModuleLoader__.load({
 			* @returns the rename result (normalized accepted title + title event seq).
 			*/
 			async rename(title) {
-				try {
-					const result = toSessionResult$1(await this.remote.session.rename({
-						sessionId: this.sessionId,
-						title
-					}));
-					if (result.ok) this.projections.apply("title", result.value.title, result.value.seq);
-					return result;
-				} catch (error) {
-					return transportResult(error);
-				}
+				const result = await this.remote.session.rename({
+					sessionId: this.sessionId,
+					title
+				});
+				if (!result.ok) return result;
+				const seq = SessionSeq(result.value.seq);
+				this.projections.apply("title", result.value.title, seq);
+				return {
+					ok: true,
+					value: {
+						title: result.value.title,
+						seq
+					}
+				};
 			}
 			/**
 			* Execute one slash-command line against this session's agent — pure
 			* admission semantics (the host executor durably logs the lifecycle;
 			* outcomes render as flow nodes, never as a response echo).
 			* @param line - the full command line, leading slash included.
-			* @returns the admission result, or the error branch on transport failure.
+			* @returns the admission result.
 			*/
 			async command(line) {
 				const result = await this.remote.commands.execute(this.sessionId, line, []);
@@ -1069,11 +1059,47 @@ window.__ModuleLoader__.load({
 						maxMessages: 50
 					});
 				} catch (error) {
-					if (sessionStreamFailure(error) === void 0) console.error("[session-controller] loadOlder failed:", error);
+					if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) console.error("[session-controller] loadOlder failed:", error);
 				} finally {
 					this.loadingOlder = false;
 					this.notifier.markDirty();
 				}
+			}
+			/** Jump loader: page backwards until the window covers seq (see ISession.loadThrough). */
+			loadThrough(seq) {
+				if (this.openState !== "open" || !this.hasMore || this.baseSeq <= seq) return Promise.resolve();
+				if (this.jumpPromise !== null) {
+					this.jumpTargetSeq = SessionSeq(Math.min(this.jumpTargetSeq ?? seq, seq));
+					return this.jumpPromise;
+				}
+				if (this.loadingOlder) return Promise.resolve();
+				this.jumpTargetSeq = seq;
+				this.loadingOlder = true;
+				this.notifier.markDirty();
+				const generation = this.openGeneration;
+				this.jumpPromise = (async () => {
+					try {
+						while (this.hasMore && this.jumpTargetSeq !== null && this.baseSeq > this.jumpTargetSeq) {
+							if (generation !== this.openGeneration) return;
+							const events = this.events;
+							if (events === void 0) return;
+							const before = this.baseSeq;
+							await events.prepend({
+								beforeSeq: this.baseSeq,
+								maxMessages: 200
+							});
+							if (this.baseSeq >= before) return;
+						}
+					} catch (error) {
+						if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) console.error("[session-controller] loadThrough failed:", error);
+					} finally {
+						this.jumpTargetSeq = null;
+						this.jumpPromise = null;
+						this.loadingOlder = false;
+						this.notifier.markDirty();
+					}
+				})();
+				return this.jumpPromise;
 			}
 			/** Rebuild an opened history source after address replacement.
 			*  Invalidates any in-flight open first; queue state belongs to the independently
@@ -1087,7 +1113,7 @@ window.__ModuleLoader__.load({
 				this.openPromise = null;
 				this.openState = "cold";
 				this.openError = null;
-				this.baseSeq = 0;
+				this.baseSeq = SessionLogOffset(0);
 				this.notifier.markDirty();
 				await this.open();
 			}
@@ -1219,9 +1245,10 @@ window.__ModuleLoader__.load({
 					this.openState = "open";
 				} catch (error) {
 					if (generation !== this.openGeneration || this.events !== events) return;
+					if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) throw error;
 					this.events = void 0;
 					this.openState = "error";
-					this.openError = openFailure(error);
+					this.openError = error;
 				} finally {
 					if (generation === this.openGeneration) this.notifier.markDirty();
 				}
@@ -1230,7 +1257,7 @@ window.__ModuleLoader__.load({
 			acceptEventChange(change) {
 				switch (change.type) {
 					case "replace":
-						this.installWindow(change.entries, change.hasMore, change.page.projections);
+						this.installWindow(change.entries, change.hasMore, change.page.projections === void 0 ? void 0 : projectionsBaseline(change.page.projections));
 						return;
 					case "prepend":
 						this.prependWindow(change.entries, change.hasMore);
@@ -1240,7 +1267,7 @@ window.__ModuleLoader__.load({
 			}
 			/** Replace the complete contiguous window and apply page-owned projection metadata. */
 			installWindow(entries, hasMore, projections) {
-				this.baseSeq = entries[0]?.event.seq ?? 0;
+				this.baseSeq = SessionLogOffset(entries[0]?.event.seq ?? 0);
 				this.hasMore = hasMore;
 				if (entries.some((entry) => entry.event.type === "turn/start")) this.firstPromptPendingTurn = false;
 				if (projections !== void 0) this.projections.seed(projections);
@@ -1250,7 +1277,7 @@ window.__ModuleLoader__.load({
 			}
 			/** Prepend one stream-validated history page. */
 			prependWindow(entries, hasMore) {
-				this.baseSeq = entries[0]?.event.seq ?? this.baseSeq;
+				this.baseSeq = entries[0] === void 0 ? this.baseSeq : SessionLogOffset(entries[0].event.seq);
 				this.hasMore = hasMore;
 				this.eventSource.prepend(entries, hasMore);
 			}
@@ -1314,11 +1341,12 @@ window.__ModuleLoader__.load({
 			/** Publish a terminal background failure only while this stream still owns the Session. */
 			failEventStream(events, generation, error) {
 				if (generation !== this.openGeneration || this.events !== events) return;
+				if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) throw error;
 				this.openGeneration++;
 				this.events = void 0;
 				this.openPromise = null;
 				this.openState = "error";
-				this.openError = openFailure(error);
+				this.openError = error;
 				events.dispose();
 				this.notifier.markDirty();
 			}
@@ -1372,24 +1400,11 @@ window.__ModuleLoader__.load({
 			}
 			return refs;
 		}
-		/** Convert a terminal Session stream failure to the Client error vocabulary. */
-		function openFailure(error) {
-			const failure = sessionStreamFailure(error);
-			if (failure !== void 0) return failure;
-			const folded = transportResult(error);
-			/* v8 ignore next -- transportResult never returns an ok result. */
-			if (folded.ok) throw new Error("transportResult returned an unexpected success");
-			return folded.error;
-		}
-		/** Narrow a generated Session Remote failure to its service-owned error vocabulary. */
-		function toSessionResult$1(result) {
-			return result.ok ? result : {
-				ok: false,
-				error: result.error
-			};
-		}
 		//#endregion
 		//#region lib/types/client/sessions/manager.js
+		function sessionSeqCursor(value) {
+			return value === -1 ? -1 : SessionSeq(value);
+		}
 		function catalogAvailability(parentAvailable) {
 			return parentAvailable === void 0 ? {} : { parentAvailable };
 		}
@@ -1627,7 +1642,7 @@ window.__ModuleLoader__.load({
 				this.notifier.markDirty();
 				const operation = (async () => {
 					try {
-						const result = toSessionResult(await this.remote.subagents.list(parentSessionId));
+						const result = await this.remote.subagents.list(parentSessionId);
 						if (result.ok) {
 							const parentAvailable = this.catalogInflight.get(parentSessionId)?.parentAvailableOverride ?? result.value.parentAvailable;
 							this.catalogs.set(parentSessionId, {
@@ -1648,12 +1663,12 @@ window.__ModuleLoader__.load({
 							error: result.error
 						});
 					} catch (error) {
-						const folded = transportResult(error);
+						if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) throw error;
 						this.catalogs.set(parentSessionId, {
 							entries: this.withCatalogMutations(previous?.entries ?? [], expandableRows, activityRows),
 							...catalogAvailability(this.catalogInflight.get(parentSessionId)?.parentAvailableOverride ?? previous?.parentAvailable),
 							state: "error",
-							error: folded.ok ? null : folded.error
+							error
 						});
 					} finally {
 						this.catalogInflight.delete(parentSessionId);
@@ -1698,7 +1713,7 @@ window.__ModuleLoader__.load({
 				this.notifier.markDirty();
 				this.listInflight = (async () => {
 					try {
-						const result = toSessionResult(await this.remote.session.list({}));
+						const result = await this.remote.session.list({});
 						if (result.ok) {
 							const baseline = this.listPhase === "pending" ? [...result.value.items] : mergeOrderedBaseline(established, result.value.items, (summary) => summary.sessionId);
 							for (const s of baseline) if (!this.prevRunning.has(s.sessionId)) this.prevRunning.set(s.sessionId, s.running);
@@ -1723,17 +1738,16 @@ window.__ModuleLoader__.load({
 								if (block === void 0) continue;
 								const store = this.projectionStore(s.sessionId);
 								const values = block.values;
-								for (const key of Object.keys(values)) store.apply(key, values[key], block.asOfSeq);
+								for (const key of Object.keys(values)) store.apply(key, values[key], sessionSeqCursor(block.asOfSeq));
 							}
 						} else {
 							this.listState = "error";
 							this.listError = result.error;
 						}
 					} catch (error) {
+						if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) throw error;
 						this.listState = "error";
-						const folded = transportResult(error);
-						/* v8 ignore next -- the `? null` arm is unreachable: transportResult always returns ok:false. */
-						this.listError = folded.ok ? null : folded.error;
+						this.listError = error;
 					} finally {
 						this.listMutations = null;
 						this.listInflight = null;
@@ -1750,19 +1764,15 @@ window.__ModuleLoader__.load({
 			* @returns the Host result or a folded transport error.
 			*/
 			async search(query, signal) {
-				try {
-					const result = toSessionResult(await this.remote.session.search({ query }, signal));
-					if (!result.ok) return result;
-					return {
-						ok: true,
-						value: {
-							items: [...result.value.items],
-							hasMore: result.value.hasMore
-						}
-					};
-				} catch (error) {
-					return transportResult(error);
-				}
+				const result = await this.remote.session.search({ query }, signal);
+				if (!result.ok) return result;
+				return {
+					ok: true,
+					value: {
+						items: [...result.value.items],
+						hasMore: result.value.hasMore
+					}
+				};
 			}
 			/**
 			* Contract session.create; on success merge into summaries immediately (no
@@ -1772,42 +1782,38 @@ window.__ModuleLoader__.load({
 			* @returns the create result.
 			*/
 			async create(opts = {}) {
-				try {
-					const shared = opts.sessionId === void 0 ? {} : { sessionId: opts.sessionId };
-					const payload = opts.workspaceId !== void 0 ? {
-						workspaceId: opts.workspaceId,
-						...shared
-					} : {
-						...opts.cwd === void 0 ? {} : { cwd: opts.cwd },
-						...shared
-					};
-					const result = toSessionResult(await this.remote.session.create(payload));
-					if (result.ok) this.recordMutation({
+				const shared = opts.sessionId === void 0 ? {} : { sessionId: opts.sessionId };
+				const payload = opts.workspaceId !== void 0 ? {
+					workspaceId: opts.workspaceId,
+					...shared
+				} : {
+					...opts.cwd === void 0 ? {} : { cwd: opts.cwd },
+					...shared
+				};
+				const result = await this.remote.session.create(payload);
+				if (result.ok) this.recordMutation({
+					kind: "upsert",
+					summary: {
+						sessionId: result.value.sessionId,
+						updatedAt: Date.now(),
+						running: false,
+						blank: true,
+						...opts.cwd !== void 0 ? { cwd: opts.cwd } : {}
+					}
+				});
+				else {
+					const publishedSessionId = workspaceAttachSessionId(result.error);
+					if (publishedSessionId !== void 0) this.recordMutation({
 						kind: "upsert",
 						summary: {
-							sessionId: result.value.sessionId,
+							sessionId: publishedSessionId,
 							updatedAt: Date.now(),
 							running: false,
-							blank: true,
-							...opts.cwd !== void 0 ? { cwd: opts.cwd } : {}
+							blank: true
 						}
 					});
-					else {
-						const publishedSessionId = workspaceAttachSessionId(result.error);
-						if (publishedSessionId !== void 0) this.recordMutation({
-							kind: "upsert",
-							summary: {
-								sessionId: publishedSessionId,
-								updatedAt: Date.now(),
-								running: false,
-								blank: true
-							}
-						});
-					}
-					return result;
-				} catch (error) {
-					return transportResult(error);
 				}
+				return result;
 			}
 			/**
 			* Contract session.fork; on success merge the child into summaries
@@ -1819,28 +1825,24 @@ window.__ModuleLoader__.load({
 			* @returns the fork result (the child session id).
 			*/
 			async fork(opts) {
-				try {
-					const source = this.summaries.find((s) => s.sessionId === opts.sessionId);
-					const result = toSessionResult(await this.remote.session.fork({
-						sessionId: opts.sessionId,
-						...opts.atSeq === void 0 ? {} : { atSeq: opts.atSeq }
-					}));
-					const childId = result.ok ? result.value.sessionId : workspaceAttachSessionId(result.error);
-					if (childId !== void 0) this.recordMutation({
-						kind: "upsert",
-						summary: {
-							sessionId: childId,
-							updatedAt: Date.now(),
-							running: false,
-							blank: false,
-							parentSessionId: opts.sessionId,
-							...source?.cwd !== void 0 ? { cwd: source.cwd } : {}
-						}
-					});
-					return result;
-				} catch (error) {
-					return transportResult(error);
-				}
+				const source = this.summaries.find((s) => s.sessionId === opts.sessionId);
+				const result = await this.remote.session.fork({
+					sessionId: opts.sessionId,
+					...opts.atSeq === void 0 ? {} : { atSeq: opts.atSeq }
+				});
+				const childId = result.ok ? result.value.sessionId : workspaceAttachSessionId(result.error);
+				if (childId !== void 0) this.recordMutation({
+					kind: "upsert",
+					summary: {
+						sessionId: childId,
+						updatedAt: Date.now(),
+						running: false,
+						blank: false,
+						parentSessionId: opts.sessionId,
+						...source?.cwd !== void 0 ? { cwd: source.cwd } : {}
+					}
+				});
+				return result;
 			}
 			/**
 			* Insert-or-enrich a locally synthesized summary: a new id prepends; an
@@ -1887,7 +1889,7 @@ window.__ModuleLoader__.load({
 					return;
 				}
 				if (frame.type === "projection") {
-					this.projectionStore(frame.sessionId).apply(frame.key, frame.value, frame.seq);
+					this.projectionStore(frame.sessionId).apply(frame.key, frame.value, SessionSeq(frame.seq));
 					this.notifier.markDirty();
 					return;
 				}
@@ -1907,8 +1909,12 @@ window.__ModuleLoader__.load({
 				for (const [sessionId, jobs] of Object.entries(baseline.jobs)) if (jobs.length > 0) this.jobsBySession.set(sessionId, jobs);
 				for (const [sessionId, block] of Object.entries(baseline.projections)) {
 					const store = this.projectionStore(sessionId);
-					store.truncate(block.asOfSeq);
-					store.seed(block);
+					const asOfSeq = sessionSeqCursor(block.asOfSeq);
+					store.truncate(asOfSeq);
+					store.seed({
+						...block,
+						asOfSeq
+					});
 				}
 				for (const [sessionId, session] of this.sessions) session.replaceControl(this.queues.get(sessionId) ?? []);
 				this.notifier.markDirty();
@@ -1923,7 +1929,7 @@ window.__ModuleLoader__.load({
 				const projections = summary.projections;
 				if (projections !== void 0) {
 					const store = this.projectionStore(summary.sessionId);
-					for (const [key, value] of Object.entries(projections.values)) store.apply(key, value, projections.asOfSeq);
+					for (const [key, value] of Object.entries(projections.values)) store.apply(key, value, sessionSeqCursor(projections.asOfSeq));
 				}
 				if (summary.origin === "subagent" && summary.parentSessionId !== void 0) this.markCatalogParentExpandable(summary.parentSessionId);
 				if (summary.parentSessionId !== void 0 && (this.selected === summary.parentSessionId || this.openCatalogs.has(summary.parentSessionId))) this.scheduleCatalogRefresh(summary.parentSessionId);
@@ -2169,14 +2175,7 @@ window.__ModuleLoader__.load({
 		}
 		/** Temporary source-plane bridge while the Host contract and client project build independently. */
 		function workspaceAttachSessionId(error) {
-			return error.code === "workspace-attach-failed" ? error.details.sessionId : void 0;
-		}
-		/** Narrow a generated Session Remote failure to its service-owned error vocabulary. */
-		function toSessionResult(result) {
-			return result.ok ? result : {
-				ok: false,
-				error: result.error
-			};
+			return error.code === "session/workspace-attach-failed" ? error.details.sessionId : void 0;
 		}
 		//#endregion
 		//#region lib/types/client/sessions/service.js
@@ -2454,7 +2453,7 @@ window.__ModuleLoader__.load({
 				const sourceTitle = opts.increaseTitle ? this.list.getSnapshot().byId[opts.sessionId]?.title : void 0;
 				const result = await this.manager.fork({
 					sessionId: opts.sessionId,
-					...opts.atSeq === void 0 ? {} : { atSeq: Math.floor(opts.atSeq) }
+					...opts.atSeq === void 0 ? {} : { atSeq: SessionSeq(Math.floor(opts.atSeq)) }
 				});
 				if (!result.ok) throw new SessionForkError(result.error, opts.sessionId);
 				this.projectList();
@@ -2708,9 +2707,8 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/index.js
 		/** Client Session object layer, Agent scopes, and Remote lifecycle wiring. */
-		/** Required wire, Remote, and Context projection services. */
+		/** Required Remote and Context projection services. */
 		const inject = [
-			"connection",
 			"typert",
 			"remote",
 			"remote.commands",
@@ -2722,7 +2720,6 @@ window.__ModuleLoader__.load({
 		* @param ctx - Client Cordis context.
 		*/
 		function apply(ctx) {
-			const connection = ctx.get("connection");
 			const remotes = ctx.remote;
 			const sessions = new ClientSessions(ctx, remotes);
 			ctx.remote.$on("api-session/added", (summary) => {
@@ -2752,7 +2749,7 @@ window.__ModuleLoader__.load({
 			ctx.on("connection/reset", () => {
 				sessions.handleConnected();
 			});
-			if (connection.generation.getSnapshot() !== void 0) sessions.handleConnected();
+			if (ctx.remote.$host.home !== void 0) sessions.handleConnected();
 			ctx.typert.contexts.registerClient("agent", {
 				identity: (candidate) => sessions.scopeOf(candidate),
 				resolve: (sessionId) => sessions.resolveAgentScope(sessionId)
@@ -2773,7 +2770,6 @@ window.__ModuleLoader__.load({
 		exports.createSessionControlStream = createSessionControlStream;
 		exports.inject = inject;
 		exports.scopeOf = scopeOf;
-		exports.sessionStreamFailure = sessionStreamFailure;
 		return module.exports;
 	}
 });

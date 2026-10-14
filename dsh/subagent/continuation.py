@@ -17,6 +17,7 @@ from dsh.subagent.composition import child_depth, child_options, child_meta, cap
 from dsh.subagent.descriptor import snapshot_descriptor, fold_descriptor
 from dsh.subagent.errors import SubagentError
 from dsh.subagent.in_process import read_result
+from dsh.subagent.internal import has_adjacent_message, initial_prompt
 
 
 class ActivationOwner(Plugin):
@@ -99,7 +100,7 @@ class ContinuationManager:
         throw_aborted(signal)
         self.admitting(parent)
         seed = prepared.get('seed', [])
-        meta = child_meta(parent, depth, len(seed))
+        meta = child_meta(parent, depth, prepared.get('seed') is not None)
         staged = Session.create(sid, seed=seed)
         staged.append('subagent/descriptor', descriptor)
         async with self.lock(sid):
@@ -114,9 +115,11 @@ class ContinuationManager:
                 if any(item.header.id == sid for item in stored):
                     raise SubagentError('subagent already exists: ' + sid, 'DUPLICATE_CHILD')
             activation = await self.materialize(sid, spec['provider'], parent, options, descriptor, signal,
-                                                dict(seed=staged.events, meta=meta, policy=policy))
+                                                dict(seed=staged.events, meta=meta, policy=policy,
+                                                     inheritedEventCount=len(seed)))
             try:
-                message_id = self.submit(activation, request['prompt'], {'kind': 'user'}, parent, signal)
+                prompt = initial_prompt(parent.id, request['prompt']) if has_adjacent_message(self.ctx, activation.handle.agent) else request['prompt']
+                message_id = self.submit(activation, prompt, {'kind': 'user'}, parent, signal)
             except BaseException:
                 await self.dispose(activation)
                 raise
@@ -134,19 +137,27 @@ class ContinuationManager:
                     await asyncio.gather(asyncio.shield(activation.disposal), return_exceptions=True)
                     continue
                 if activation is not None:
-                    return self.submit(activation, content, options.get('source', {'kind': 'user'}), parent, signal)
+                    await self.assert_image_capable(activation.handle.agent, content, signal)
+                    throw_aborted(signal)
+                    self.admitting(parent)
+                    if activation.disposal is not None:
+                        continue
+                    return self.submit(activation, content, options.get('source', {'kind': 'user'}), parent, signal,
+                                       options.get('delivery', 'queue'))
                 query = self.require('sessionQuery')
                 observation = await query.observeSession(sid, {'signal': signal, 'projectionMode': 'none'})
                 try:
                     self.authorize(parent, observation.header.parentSession)
-                    descriptor = fold_descriptor(observation.events[observation.header.seedLength or 0:])
+                    descriptor = fold_descriptor(observation.events[observation.inheritedEventCount:])
                     if descriptor is None or descriptor['mode'] != 'continuable':
                         raise SubagentError('session is not a continuable subagent', 'NOT_RESUMABLE')
                     agent_options = AgentOptions(provider=descriptor.get('agentProvider'), model=descriptor.get('agentModel'),
                                                  reasoningEffort=descriptor.get('agentReasoningEffort'))
                     activation = await self.materialize(sid, descriptor['provider'], parent, agent_options, descriptor, signal)
                     try:
-                        return self.submit(activation, content, options.get('source', {'kind': 'user'}), parent, signal)
+                        await self.assert_image_capable(activation.handle.agent, content, signal)
+                        return self.submit(activation, content, options.get('source', {'kind': 'user'}), parent, signal,
+                                           options.get('delivery', 'queue'))
                     except BaseException:
                         await self.dispose(activation)
                         raise
@@ -170,7 +181,8 @@ class ContinuationManager:
                 handle = await factory.resume(dict(resumeSessionId=sid, agentOptions=options, signal=signal, setup=setup))
             else:
                 handle = await factory.create(dict(sessionId=sid, agentOptions=options, signal=signal,
-                                                   setup=setup, seed=create['seed'], meta=create['meta']))
+                                                   setup=setup, seed=create['seed'], meta=create['meta'],
+                                                   inheritedEventCount=create['inheritedEventCount']))
             activation = SimpleNamespace(id=sid, parent=parent.id, provider=provider, handle=handle,
                 ancestry=weakref.WeakSet(lineage + [handle.agent]), children=set(), accepted=set(),
                 disposal=None, announced=False, poke=asyncio.Event(), boundary=len(handle.agent.session.events),
@@ -214,15 +226,60 @@ class ContinuationManager:
         activation.poke.set()
         return message['id']
 
-    def submit(self, activation, content, source, parent, signal):
+    async def assert_image_capable(self, agent, content, signal):
+        if not any(block.get('type') == 'image' for block in content):
+            return
+        provider, model = agent.options.provider, agent.options.model
+        llm = self.ctx.get('llm')
+        if provider is None or model is None or llm is None:
+            return
+        info = await llm.resolve_model_info(provider, model, signal)
+        if 'inputModalities' in info and 'image' not in info['inputModalities']:
+            raise SubagentError('Model "%s" does not support image input.' % model, 'MODEL_DOES_NOT_SUPPORT_IMAGES')
+
+    @staticmethod
+    def agent_message(sender, content):
+        return create_user_message(dict(content=[dict(type='text', text='Agent %s sent a message:' % sender.id)] + list(content),
+                                       source=dict(kind='agent-message', form='relay', senderSessionId=sender.id)))
+
+    async def send_message(self, sender, target_id, content, options):
+        if self.ctx.get('agents').get(sender.id) is not sender:
+            raise SubagentError('message delivery requires the exact live sender agent', 'UNAUTHORIZED')
+        self.admitting(sender)
+        activation = self.activations.get(sender.id)
+        if activation is not None and activation.handle.agent is sender and activation.parent == target_id:
+            throw_aborted(options['signal'])
+            if activation.disposal is not None:
+                raise SubagentError('subagent "%s" activation is being disposed; the message was not delivered' % sender.id, 'ACTIVATION_CLOSING')
+            parent = self.ctx.get('agents').get(target_id)
+            if parent is None:
+                raise SubagentError('direct parent is not live; the message was not delivered', 'PARENT_UNAVAILABLE')
+            message = self.agent_message(sender, content)
+            def send(value):
+                try:
+                    parent.steer(value)
+                except Exception as error:
+                    raise SubagentError('direct parent is not live; the message was not delivered', 'PARENT_UNAVAILABLE') from error
+            owner = self.activations.get(parent.id)
+            if owner is not None and owner.handle.agent is parent:
+                self.waking(owner, message, send)
+            else:
+                send(message)
+            return message['id']
+        if sender.session.header.parentSession == target_id:
+            raise SubagentError('agent "%s" is not a resident continuable child and cannot send to parent "%s"' % (sender.id, target_id), 'UNAUTHORIZED')
+        return await self.followup(sender, target_id, content, dict(options, delivery='steer'))
+
+    def submit(self, activation, content, source, parent, signal, delivery='queue'):
         throw_aborted(signal)
         self.admitting(parent)
         if activation.disposal is not None:
             raise SubagentError('child activation is closing', 'ACTIVATION_CLOSING')
         self.authorize(parent, activation.handle.agent.session.header.parentSession)
         self.acquire(parent, activation.id)
-        message = create_user_message(dict(content=content, source=source))
-        identity = self.waking(activation, message, activation.handle.agent.followup)
+        message = self.agent_message(parent, content) if delivery == 'steer' else create_user_message(dict(content=content, source=source))
+        send = activation.handle.agent.steer if delivery == 'steer' else activation.handle.agent.followup
+        identity = self.waking(activation, message, send)
         activation.announced = True
         return identity
 
@@ -385,7 +442,7 @@ class ContinuationManager:
         summary = 'Background subagent {} {}'.format(activation.id, endings.get(result['stopReason'], 'ended abnormally.'))
         short = summary.encode('utf-16-le', errors='surrogatepass')[:240].decode('utf-16-le', errors='surrogatepass')
         message = create_user_message(dict(content=[dict(type='text', text=summary)] +
-            (result['output'] or [dict(type='text', text='It left no closing message.')]),
+            ([dict(type='text', text='Its closing message:')] + result['output'] if 'output' in result else [dict(type='text', text='It left no closing message.')]),
             source=dict(kind='subagent-settled', form='notice', summary=short, senderSessionId=activation.id)))
         try:
             closing = self.draining or any(parent in members for members in self.closing_scopes.values())

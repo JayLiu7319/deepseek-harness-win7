@@ -1272,7 +1272,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 						returns: "completion of the current or newly started refresh."
 					},
 					{
-						signature: "search( query: string, signal: AbortSignal, ): Promise<ClientResult<{ items: SessionSearchResultItem[]; hasMore: boolean }>>",
+						signature: "search( query: string, signal: AbortSignal, ): Promise<RemoteResult<{ items: SessionSearchResultItem[]; hasMore: boolean }>>",
 						description: "Search the Host's visible message-content index. Results stay request-local; the list snapshot remains the metadata authority.",
 						parameters: [{
 							name: "query",
@@ -1608,7 +1608,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "BeginSubmissionInput",
-				declaration: "export interface BeginSubmissionInput {\n    readonly text: string;\n    readonly images: readonly PendingSubmissionImage[];\n    readonly onRetire?: (retirement: PendingSubmissionRetirement) => void;\n}"
+				declaration: "export interface BeginSubmissionInput {\n    readonly mode: 'queue' | 'steer';\n    readonly text: string;\n    readonly images: readonly PendingSubmissionImage[];\n    readonly onRetire?: (retirement: PendingSubmissionRetirement) => void;\n}"
 			},
 			{
 				name: "BoundActions",
@@ -1640,7 +1640,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "ClientRemote",
-				declaration: "export interface ClientRemote extends TypertClientRemote {\n    $stream<Item>(options: RemoteStreamOptions<Item>): RemoteStream<Item>;\n}"
+				declaration: "export interface ClientRemote extends TypertClientRemote {\n    $stream<Item>(options: RemoteStreamOptions<Item>): RemoteStream<Item>;\n    readonly $host: RemoteHostFacts;\n}"
 			},
 			{
 				name: "CommonKeyOf",
@@ -1668,11 +1668,15 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "ConnectionHandle",
-				declaration: "export interface ConnectionHandle {\n    readonly isLoopback: boolean;\n    readonly generation: ConnectionGenerationState;\n    readonly rpc: ClientConnectionRpc;\n    registerGenerationSource(source: ConnectionGenerationSource): () => void;\n    start(sinks: ConnectionSinks, config?: ConnectionConfig): {\n        stop(): void;\n    };\n}"
+				declaration: "export interface ConnectionHandle {\n    readonly isLoopback: boolean;\n    readonly generation: ConnectionGenerationState;\n    readonly state: ConnectionStateSource;\n    readonly rpc: ClientConnectionRpc;\n    reconnect(): void;\n    registerGenerationSource(source: ConnectionGenerationSource): () => void;\n    start(sinks: ConnectionSinks, config?: ConnectionConfig): ConnectionLoop;\n}"
 			},
 			{
 				name: "ConnectionHostInfo",
 				declaration: "export interface ConnectionHostInfo {\n    readonly home: string;\n}"
+			},
+			{
+				name: "ConnectionLoop",
+				declaration: "export interface ConnectionLoop {\n    stop(): void;\n}"
 			},
 			{
 				name: "ConnectionRpcFailure",
@@ -1684,11 +1688,15 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "ConnectionSinks",
-				declaration: "export interface ConnectionSinks {\n    onConnected?: (host: ConnectionHostInfo) => void;\n    onStateChange?: (state: ConnectionState) => void;\n}"
+				declaration: "export interface ConnectionSinks {\n    onConnected?: (host: ConnectionHostInfo) => void;\n    onStateChange?: (state: ConnectionState) => void;\n    onReconnectRequested?: () => void;\n}"
 			},
 			{
 				name: "ConnectionState",
-				declaration: "export type ConnectionState = 'connected' | 'reconnecting';"
+				declaration: "export type ConnectionState = 'connected' | 'disconnected' | 'connecting';"
+			},
+			{
+				name: "ConnectionStateSource",
+				declaration: "export interface ConnectionStateSource {\n    getSnapshot(): ConnectionState | undefined;\n    subscribe(listener: () => void): () => void;\n}"
 			},
 			{
 				name: "EntryKeyOf",
@@ -1712,7 +1720,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "InjectFace",
-				declaration: "export type InjectFace<I extends object> = I extends {\n    hooks: infer HS extends HooksSources;\n} ? Omit<I, 'hooks'> & PropsHooks<HS> : I;"
+				declaration: "export type InjectFace<I extends object> = I extends {\n    hooks: infer HS extends HooksSources;\n} ? I extends {\n    keyedHooks: infer KS extends KeyedHooksSources;\n} ? Omit<I, 'hooks' | 'keyedHooks'> & PropsHooks<HS> & PropsKeyedHooks<KS> : Omit<I, 'hooks'> & PropsHooks<HS> : I extends {\n    keyedHooks: infer KS extends KeyedHooksSources;\n} ? Omit<I, 'keyedHooks'> & PropsKeyedHooks<KS> : I;"
 			},
 			{
 				name: "InjectParams",
@@ -1720,7 +1728,19 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "ISession",
-				declaration: "export interface ISession {\n    readonly sessionId: SessionId;\n    readonly projections: ProjectionsFace;\n    beginSubmission(input: BeginSubmissionInput): SubmissionHandle;\n    prompt(content: PromptContentPart[], mode: 'queue' | 'steer', signal?: AbortSignal, requestId?: SessionRequestId): Promise<ClientResult<{\n        accepted: true;\n    }>>;\n    readAttachment(attachmentId: AttachmentIdType): Promise<ClientResult<{\n        attachment: ImageAttachmentRef;\n        data: Uint8Array;\n    }>>;\n    updateQueue(itemId: MessageId, action: QueueAction): Promise<ClientResult<{\n        accepted: true;\n    }>>;\n    cancel(): Promise<ClientResult<{\n        accepted: true;\n    }>>;\n    rename(title: string): Promise<ClientResult<{\n        title: string;\n        seq: number;\n    }>>;\n    loadOlder(): Promise<void>;\n    command(line: string): Promise<RemoteResult<{\n        matched: boolean;\n    }>>;\n}"
+				declaration: "export interface ISession {\n    readonly sessionId: SessionId;\n    readonly projections: ProjectionsFace;\n    beginSubmission(input: BeginSubmissionInput): SubmissionHandle;\n    prompt(content: PromptContentPart[], mode: 'queue' | 'steer', signal?: AbortSignal, requestId?: SessionRequestId): Promise<RemoteResult<{\n        accepted: true;\n    }>>;\n    readAttachment(attachmentId: AttachmentIdType): Promise<RemoteResult<{\n        attachment: ImageAttachmentRef;\n        data: Uint8Array;\n    }>>;\n    updateQueue(itemId: MessageId, action: QueueAction): Promise<RemoteResult<{\n        accepted: true;\n    }>>;\n    cancel(): Promise<RemoteResult<{\n        accepted: true;\n    }>>;\n    rename(title: string): Promise<RemoteResult<{\n        title: string;\n        seq: SessionSeq;\n    }>>;\n    loadOlder(): Promise<void>;\n    loadThrough(seq: SessionSeq): Promise<void>;\n    command(line: string): Promise<RemoteResult<{\n        matched: boolean;\n    }>>;\n}"
+			},
+			{
+				name: "KeyedHooksSources",
+				declaration: "export type KeyedHooksSources = Record<string, KeyedStandardSource>;"
+			},
+			{
+				name: "KeyedSnapshotSelectorHook",
+				declaration: "export type KeyedSnapshotSelectorHook<Snapshot> = {\n    (key: string): Snapshot | undefined;\n    <Selected>(key: string, selector: (value: Snapshot | undefined) => Selected, equal?: (left: Selected, right: Selected) => boolean): Selected;\n};"
+			},
+			{
+				name: "KeyedStandardSource",
+				declaration: "export type KeyedStandardSource = (key: string) => HostObservable<unknown> | undefined;"
 			},
 			{
 				name: "KeyPropsOf",
@@ -1776,11 +1796,15 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "PendingSubmission",
-				declaration: "export interface PendingSubmission {\n    readonly requestId: SessionRequestId;\n    readonly time: number;\n    readonly text: string;\n    readonly images: readonly PendingSubmissionImage[];\n}"
+				declaration: "export interface PendingSubmission {\n    readonly requestId: SessionRequestId;\n    readonly placement: PendingSubmissionPlacement;\n    readonly time: number;\n    readonly text: string;\n    readonly images: readonly PendingSubmissionImage[];\n}"
 			},
 			{
 				name: "PendingSubmissionImage",
 				declaration: "export interface PendingSubmissionImage {\n    readonly previewUrl: string;\n    readonly name?: string;\n    readonly width?: number;\n    readonly height?: number;\n}"
+			},
+			{
+				name: "PendingSubmissionPlacement",
+				declaration: "export type PendingSubmissionPlacement = 'transcript' | 'queued' | 'steering';"
 			},
 			{
 				name: "PendingSubmissionRetirement",
@@ -1796,11 +1820,15 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "PromptError",
-				declaration: "export interface PromptError {\n    readonly op: 'send' | 'stop';\n    readonly error: ClientFailure;\n}"
+				declaration: "export interface PromptError {\n    readonly op: 'send' | 'stop';\n    readonly error: RemoteFailure;\n}"
 			},
 			{
 				name: "PropsHooks",
 				declaration: "export type PropsHooks<HS extends HooksSources> = {\n    [N in keyof HS & string as `use${Capitalize<N>}`]: SnapshotSelectorHook<HS[N] extends HostObservable<infer T> ? T : never>;\n};"
+			},
+			{
+				name: "PropsKeyedHooks",
+				declaration: "export type PropsKeyedHooks<HS extends KeyedHooksSources> = {\n    [N in keyof HS & string as `use${Capitalize<N>}`]: KeyedSnapshotSelectorHook<HS[N] extends (key: string) => HostObservable<infer T> | undefined ? T : never>;\n};"
 			},
 			{
 				name: "PropsLocale",
@@ -1821,6 +1849,10 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			{
 				name: "PropsStore",
 				declaration: "export type PropsStore<H> = H extends StoreHandle<infer T, infer A> ? {\n    useStore: SnapshotSelectorHook<T>;\n    actions: BakedActions<T, A>;\n} : object;"
+			},
+			{
+				name: "RemoteHostFacts",
+				declaration: "export interface RemoteHostFacts {\n    readonly home: string | undefined;\n    readonly isLoopback: boolean;\n}"
 			},
 			{
 				name: "RemoteStream",
@@ -1896,7 +1928,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 			},
 			{
 				name: "SessionSnapshot",
-				declaration: "export interface SessionSnapshot {\n    readonly sessionId: SessionId;\n    readonly queue: readonly QueuedMessage[];\n    readonly pendingSubmissions: readonly PendingSubmission[];\n    readonly running: boolean;\n    readonly subagent: {\n        readonly address: SubagentAddress;\n        readonly parentAvailable?: boolean;\n    } | null;\n    readonly removed: boolean;\n    readonly openState: OpenState;\n    readonly openError: ClientFailure | null;\n    readonly hasMore: boolean;\n    readonly loadingOlder: boolean;\n    readonly promptError: PromptError | null;\n    readonly blank: boolean;\n    readonly lastAgentError: string | null;\n    readonly promptAttempted: boolean;\n    readonly awaitingFirstTurn: boolean;\n}"
+				declaration: "export interface SessionSnapshot {\n    readonly sessionId: SessionId;\n    readonly queue: readonly QueuedMessage[];\n    readonly pendingSubmissions: readonly PendingSubmission[];\n    readonly running: boolean;\n    readonly subagent: {\n        readonly address: SubagentAddress;\n        readonly parentAvailable?: boolean;\n    } | null;\n    readonly removed: boolean;\n    readonly openState: OpenState;\n    readonly openError: RemoteFailure | null;\n    readonly hasMore: boolean;\n    readonly loadingOlder: boolean;\n    readonly promptError: PromptError | null;\n    readonly blank: boolean;\n    readonly lastAgentError: string | null;\n    readonly promptAttempted: boolean;\n    readonly awaitingFirstTurn: boolean;\n}"
 			},
 			{
 				name: "SessionStandardProps",
@@ -2212,7 +2244,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: ["client-ui-message-feedback MessageFeedbackActions id 'feedback'"],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.chat.assistant-actions', () => ctx.slots.register(\n      { name: 'conversation.chat.assistant-actions', id: 'my-entry', order: 100, label: 'My entry' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:202"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:221"
 			},
 			{
 				key: "conversation.chat.commandview",
@@ -2253,7 +2285,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: [],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.chat.commandview', () => ctx.slots.register(\n      { name: 'conversation.chat.commandview', key: '<one key the owner dispatches>' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:190"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:209"
 			},
 			{
 				key: "conversation.chat.node",
@@ -2289,7 +2321,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 					"useTrajectory: UseTrajectory"
 				],
 				keyDomain: "fixed by the owner's key table { [Kind in ChatNodeKind]: { node: ChatNode<Kind> } }, already taken: assistant-step, command, command-input, compaction, context, manual-compaction, model-retry, steering, system-prompt, tool-call, turn-error, turn-max-tokens, turn-process, turn-tail, unknown, user, workflow-run",
-				hookContext: "string",
+				hookContext: "ConversationLocationDataStore<ConversationTurnDataMap> | undefined",
 				slotInject: "ChatNodeTurnDataInjected",
 				declaredBy: "an entry in 'conversation.view' (client-ui-chat), so it exists while that entry is mounted",
 				occupants: [
@@ -2313,7 +2345,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				],
 				replaceRisk: "shadows-shipped-ui",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.chat.node', () => ctx.slots.register(\n      { name: 'conversation.chat.node', key: '<one key the owner dispatches>' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:171"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:190"
 			},
 			{
 				key: "conversation.chat.turnTail",
@@ -2350,7 +2382,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: ["client-ui-deliverables ProducedFiles"],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register(\n      { name: 'conversation.chat.turnTail', select: owner => null },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:196"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:215"
 			},
 			{
 				key: "conversation.composer",
@@ -2404,7 +2436,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				summary: "Resident composer body, including the no-Session inert state.",
 				doc: "Resident composer body, including the no-Session inert state.",
 				registerOptions: [],
-				ownerProps: ["/** Owner share of the resident composer bar. */\nexport interface ComposerBarOwnerProps {\n  /** Hero uses centered placement; composer uses the active bottom placement. */\n  variant: 'hero' | 'composer'\n  /** A feature-owned reason that makes message input inert while leaving model selection live. */\n  blocked?: { readonly reason: string }\n  /** Lock all message actions while preserving the resident composer surface. */\n  disabled?: boolean\n  /** Whether the shared Workspace picker is expanded. */\n  workspacePickerOpen?: boolean\n  /** Open the Workspace picker from the inert composer surface. */\n  onRequestWorkspace?: () => void\n  placeholder?: string\n  /** Optional content rendered above the composer surface. */\n  accessory?: ReactNode\n  /** Floating overlay content rendered inside the composer card. */\n  overlay?: ReactNode\n  /** Left-side input controls. */\n  leftItems?: ReactNode\n  /** Right-side input controls. */\n  rightItems?: ReactNode\n  /** Ambient content below the card. */\n  footer?: ReactNode\n}"],
+				ownerProps: ["/** Owner share of the resident composer bar. */\nexport interface ComposerBarOwnerProps {\n  /** Hero uses centered placement; composer uses the active bottom placement. */\n  variant: 'hero' | 'composer'\n  /** A feature-owned reason that makes message input inert while leaving model selection live. */\n  blocked?: { readonly reason: string }\n  /** Lock all message actions while preserving the resident composer surface. */\n  disabled?: boolean\n  /** Whether the shared Workspace picker is expanded. */\n  workspacePickerOpen?: boolean\n  /** Open the Workspace picker from the inert composer surface. */\n  onRequestWorkspace?: () => void\n  placeholder?: string\n  /** Optional content rendered above the composer surface. */\n  accessory?: ReactNode\n}"],
 				ownerPropsReferences: ["Workspace"],
 				standardProps: [
 					"useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>",
@@ -2453,8 +2485,8 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 						doc: "Display text where the owner projects one (nav rows, tabs). A thunk is re-read on every projection, so localized text follows the active locale without re-registering."
 					}
 				],
-				ownerProps: ["/** Point-in-time owner values for composer extension entries. */\nexport interface InputZone {\n  readonly session: SessionSnapshot\n  readonly input: InputState\n}"],
-				ownerPropsReferences: ["InputState", "SessionSnapshot"],
+				ownerProps: [],
+				ownerPropsReferences: [],
 				standardProps: [
 					"useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>",
 					"useSessions: UseSessions",
@@ -2472,7 +2504,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				keyDomain: "",
 				hookContext: "",
 				slotInject: "",
-				declaredBy: "an entry in 'conversation' (client-ui-conversation), so it exists while that entry is mounted",
+				declaredBy: "an entry in 'conversation.composer.bar' (client-ui-conversation), so it exists while that entry is mounted",
 				occupants: ["client-ui-chat StatsLine id 'stats'"],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.composer.dock', () => ctx.slots.register(\n      { name: 'conversation.composer.dock', id: 'my-entry', order: 100, label: 'My entry' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
@@ -2508,7 +2540,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: ["client-ui-tool ToolDetails"],
 				replaceRisk: "shadows-shipped-ui",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.details.tool', () => ctx.slots.register(\n      { name: 'conversation.details.tool' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:208"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:227"
 			},
 			{
 				key: "conversation.hero.agentPreset",
@@ -2553,8 +2585,8 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				hookContext: "",
 				slotInject: "",
 				declaredBy: "an entry in 'conversation' (client-ui-conversation), so it exists while that entry is mounted",
-				occupants: ["client-ui-brand-official OfficialBrandMark"],
-				replaceRisk: "shadows-shipped-ui",
+				occupants: [],
+				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.hero.brand.mark', () => ctx.slots.register(\n      { name: 'conversation.hero.brand.mark' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
 				source: "packages/client/ui-conversation/src/client/contract/slots.ts:123"
 			},
@@ -2717,8 +2749,8 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 						doc: "Display text where the owner projects one (nav rows, tabs). A thunk is re-read on every projection, so localized text follows the active locale without re-registering."
 					}
 				],
-				ownerProps: ["/** Point-in-time owner values for composer extension entries. */\nexport interface InputZone {\n  readonly session: SessionSnapshot\n  readonly input: InputState\n}"],
-				ownerPropsReferences: ["InputState", "SessionSnapshot"],
+				ownerProps: [],
+				ownerPropsReferences: [],
 				standardProps: [
 					"useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>",
 					"useSessions: UseSessions",
@@ -2736,7 +2768,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				keyDomain: "",
 				hookContext: "",
 				slotInject: "",
-				declaredBy: "an entry in 'conversation' (client-ui-conversation), so it exists while that entry is mounted",
+				declaredBy: "an entry in 'conversation.composer.bar' (client-ui-conversation), so it exists while that entry is mounted",
 				occupants: [],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.input.left', () => ctx.slots.register(\n      { name: 'conversation.input.left', id: 'my-entry', order: 100, label: 'My entry' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
@@ -2819,7 +2851,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				keyDomain: "",
 				hookContext: "",
 				slotInject: "",
-				declaredBy: "an entry in 'conversation' (client-ui-conversation), so it exists while that entry is mounted",
+				declaredBy: "an entry in 'conversation.composer.bar' (client-ui-conversation), so it exists while that entry is mounted",
 				occupants: ["client-ui-commands PopupSelectView id 'command-popup'", "client-ui-input-trigger MenuView id 'slash-menu'"],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.input.overlay', () => ctx.slots.register(\n      { name: 'conversation.input.overlay', id: 'my-entry', order: 100, label: 'My entry' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
@@ -2883,8 +2915,8 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 						doc: "Display text where the owner projects one (nav rows, tabs). A thunk is re-read on every projection, so localized text follows the active locale without re-registering."
 					}
 				],
-				ownerProps: ["/** Point-in-time owner values for composer extension entries. */\nexport interface InputZone {\n  readonly session: SessionSnapshot\n  readonly input: InputState\n}"],
-				ownerPropsReferences: ["InputState", "SessionSnapshot"],
+				ownerProps: [],
+				ownerPropsReferences: [],
 				standardProps: [
 					"useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>",
 					"useSessions: UseSessions",
@@ -2902,7 +2934,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				keyDomain: "",
 				hookContext: "",
 				slotInject: "",
-				declaredBy: "an entry in 'conversation' (client-ui-conversation), so it exists while that entry is mounted",
+				declaredBy: "an entry in 'conversation.composer.bar' (client-ui-conversation), so it exists while that entry is mounted",
 				occupants: [],
 				replaceRisk: "none",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.input.right', () => ctx.slots.register(\n      { name: 'conversation.input.right', id: 'my-entry', order: 100, label: 'My entry' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
@@ -2942,7 +2974,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: ["client-ui-attachment MessageImages"],
 				replaceRisk: "shadows-shipped-ui",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('conversation.message.images', () => ctx.slots.register(\n      { name: 'conversation.message.images' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-chat/src/client/contract/slots.ts:184"
+				source: "packages/client/ui-chat/src/client/contract/slots.ts:203"
 			},
 			{
 				key: "conversation.session",
@@ -3057,6 +3089,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				occupants: [
 					"client-ui-agent-preset AgentPresetLabel id 'agent-preset'",
 					"client-ui-jobs JobListAction id 'job-list'",
+					"client-ui-schedule ScheduleCatalogAction id 'schedule-catalog'",
 					"experimental-client-ui-agent-team TeamAction id 'agent-team'"
 				],
 				replaceRisk: "none",
@@ -3396,7 +3429,6 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				declaredBy: "an entry in 'settings.section' (client-ui-settings-general), so it exists while that entry is mounted",
 				occupants: [
 					"client-locale LanguageRow id 'language'",
-					"client-ui-agent-preset AgentPresetRow id 'agent-preset'",
 					"client-ui-chat TranscriptViewRow id 'transcript-view'",
 					"client-ui-conversation EnterBehaviorRow id 'composer-enter'",
 					"client-ui-permission-presets PermissionRow id 'permission'",
@@ -3976,7 +4008,7 @@ call: (method, args = null) => env.invoke(method, args) }, harnessTrap(), ...Obj
 				],
 				replaceRisk: "shadows-shipped-ui",
 				example: "return {\n  inject: ['slots'],\n  apply(ctx) {\n    ctx.slots.inject('tool.call.toolview', () => ctx.slots.register(\n      { name: 'tool.call.toolview', key: '<one key the owner dispatches>' },\n      () => React.createElement('div', null, 'hello'),\n    ))\n  },\n}",
-				source: "packages/client/ui-tool/src/client/contract/slots.ts:24"
+				source: "packages/client/ui-tool/src/client/contract/slots.ts:26"
 			},
 			{
 				key: "tool.view.cordis",

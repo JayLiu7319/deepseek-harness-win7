@@ -9,6 +9,7 @@ Covers:
 - Streaming chunk assembly and interrupted block recovery
 """
 
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.system_prompt import SystemPrompt as SourceToolsPrompt
 import asyncio
 import pytest
@@ -75,6 +76,8 @@ async def create_harness(responses=None):
     await ctx.plugin(SourceToolsPrompt)
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     return ctx
 

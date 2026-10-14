@@ -14,16 +14,17 @@ class SessionList:
         self.ctx, self.maximum = ctx, maximum
         projections = ctx.get('sessionProjections')
         projections.register(dict(key='sessionListMetadata', stateVersion=1, stateSchema=lambda value: value,
-                                 init=lambda _: dict(blank=True, lastPromptAt=None), apply=list_metadata,
+                                 init=lambda _, cut: dict(blank=True, lastPromptAt=None), apply=list_metadata,
                                  wire=dict(viewSchema=lambda value: value, view=lambda value: value)))
         projections.register(dict(key='imageLimits', stateVersion=1, stateSchema=lambda value: value,
-                                 init=lambda _: None, apply=lambda state, _: state,
+                                 init=lambda _, cut: None, apply=lambda state, _: state,
                                  wire=dict(viewSchema=lambda value: value, view=lambda _: ctx.get('attachments').image_limits)))
 
     def projections(self, header, session=None):
         try:
             registry = self.ctx.get('sessionProjections' if session is not None else 'sessionProjectionCache')
-            value = registry.cachedSnapshot(session if session is not None else header) if registry is not None else None
+            value = (registry.cachedSnapshot(session) if session is not None else
+                     registry.cachedSnapshot(header, 0) if not header.isSeeded else None) if registry is not None else None
             return value if value is not None and value['values'] else None
         except Exception as error:
             self.ctx.logger.warn('api-session.list: projection column unavailable: ' + str(error))

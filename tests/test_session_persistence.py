@@ -3,7 +3,7 @@ import shutil
 import tempfile
 import pytest
 from dsh.core.session import SessionHeader
-from dsh.session.persistence_jsonl import JsonlSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 
 
 @pytest.fixture
@@ -39,7 +39,7 @@ async def test_session_create_and_append(temp_session_dir):
 
 @pytest.mark.asyncio
 async def test_session_packed_chunks(temp_session_dir):
-    persistence = JsonlSessionPersistence(root=temp_session_dir, pack_chunks=True)
+    persistence = JsonlSessionPersistence(root=temp_session_dir, pack_chunks=True, compression='none')
 
     header = SessionHeader(session_id="test-session-packed", cwd=temp_session_dir)
     await persistence.create(header)
@@ -51,7 +51,7 @@ async def test_session_packed_chunks(temp_session_dir):
     with open(path, "a", encoding="utf-8") as f:
         f.write('{"type": "text-chunks", "seq0": 0, "time0": 1000, "data": {"turn": 1, "step": 1, "index": 0, "dt": [50], "texts": ["H", "i"]}}\n')
 
-    inspection = await persistence.load("test-session-packed")
+    inspection = await persistence.read_stored("test-session-packed")
     assert len(inspection.events) == 2
     assert inspection.events[0]["type"] == "assistant/chunk"
     assert inspection.events[0]["seq"] == 0

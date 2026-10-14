@@ -1,8 +1,8 @@
 {
   "id": "CON-JSONL-SHARING",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
     "reference/packages/session/session-persistence-jsonl/src/format.ts",
@@ -31,6 +31,12 @@
   "adaptation": "Node readers share delete access;Python CRT readers do not. Native Win7 API shim supplies sharing with extended absolute paths and descriptor cleanup. Header DTOs use public to_dict;raw JSONL content remains unchanged.",
   "open_questions": [
     "Original transient holder is unidentified;arbitrary external exclusive locks,full mutable/public graph ABI,lifetime races and all canonical profiles remain open.",
-    "Current Windows does not certify realWin7/browser. Source predicates/frontend remain unchanged."
-  ]
+    "Current Windows does not certify realWin7/browser. Source predicates/frontend remain unchanged.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

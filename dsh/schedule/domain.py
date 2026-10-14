@@ -253,17 +253,19 @@ def fold_schedule_events(events: List[Any], seed_length: int = 0) -> FoldedSched
     if seed_length < 0 or seed_length > len(events):
         raise ScheduleLogError("schedule seedLength must be within the supplied event log")
 
-    active: Dict[str, ScheduleRecord] = {}
-    seen_ids: Set[str] = set()
-    seen_ids_list: List[str] = []
-
+    changes = []
     for event in events[seed_length:]:
         evt_type = event.type if hasattr(event, "type") else event.get("type")
-        if evt_type != "schedule/change":
-            continue
-        evt_data = event.data if hasattr(event, "data") else event.get("data")
-        change = decode_schedule_change(evt_data)
+        if evt_type == "schedule/change":
+            changes.append(decode_schedule_change(event.data if hasattr(event, "data") else event.get("data")))
+    return apply_schedule_changes(FoldedSchedules(active=[], seen_ids=[]), changes)
 
+
+def apply_schedule_changes(folded, changes):
+    active = {record.id: record for record in folded.active}
+    seen_ids_list = list(folded.seenIds)
+    seen_ids = set(seen_ids_list)
+    for change in changes:
         op = change["operation"]
         if op == "create":
             sched = change["schedule"]

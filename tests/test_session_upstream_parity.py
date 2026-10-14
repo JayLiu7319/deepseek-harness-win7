@@ -43,7 +43,8 @@ def test_fork_copies_stable_prefix_and_reports_typed_errors():
     source.append("turn/end", {"turn": 1, "reason": {"kind": "completed"}})
     child = store.fork(source, 1, "child")
     assert child.header.parent_session == "parent"
-    assert child.header.seed_length == 2
+    assert child.header.isSeeded is True
+    assert child.inheritedEventCount == 2
     assert [event["type"] for event in child.events[:2]] == ["turn/start", "turn/end"]
 
     with pytest.raises(SessionForkError) as missing:
@@ -60,7 +61,8 @@ def test_empty_fork_and_deep_snapshot_boundary():
     store = SessionStore(Context())
     source = store.create("empty-parent")
     child = store.fork(source, child_session_id="empty-child")
-    assert child.header.seed_length == 0
+    assert child.header.isSeeded is True
+    assert child.inheritedEventCount == 0
     assert child.events[-1]["type"] == "session/end-seed"
 
     source.append("turn/end", {"nested": {"value": 1}})

@@ -11,7 +11,7 @@ def not_found(session_id):
 
 def assert_headers_compatible(first, second):
     from dsh.session.session_query import SessionQueryError
-    keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'seedLength')
+    keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'isSeeded')
     if (any(getattr(first, key) != getattr(second, key) for key in keys)
             or (first.delegationDepth or 0) != (second.delegationDepth or 0)):
         raise SessionQueryError('session source headers conflict for session "' + first.id + '"',
@@ -48,12 +48,13 @@ async def inspect_persisted(persistence, session_id, signal):
 
 
 def inspection_source(inspection):
-    return {'header': inspection['meta'], 'events': inspection['events']} if isinstance(inspection, dict) else {
-        'header': inspection.meta, 'events': inspection.events}
+    return {'header': inspection['meta'], 'events': inspection['events'],
+            'inheritedEventCount': inspection['inheritedEventCount']} if isinstance(inspection, dict) else {
+        'header': inspection.meta, 'events': inspection.events, 'inheritedEventCount': inspection.inheritedEventCount}
 
 
 def live_source(session):
-    return {'header': session.header, 'events': session.events}
+    return {'header': session.header, 'events': session.events, 'inheritedEventCount': session.inheritedEventCount}
 
 
 class SessionCorpus:

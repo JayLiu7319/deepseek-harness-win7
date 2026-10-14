@@ -14,7 +14,7 @@ it('observes one-shot lineage contracts and stack-independent descendants', asyn
     const failure: any = name === 'foreign-rejection' ? 'offline' : new TypeError('controlled lineage failure')
     const counters = {lists: 0, inspections: 0, sameSignal: false}
     const header = (id: string, createdAt = 1, parent?: string) => ({version: 0, id: SessionId(id), createdAt,
-      ...parent === undefined ? {} : {parentSession: SessionId(parent)}})
+      ...parent === undefined ? {} : {parentSession: SessionId(parent)},isSeeded:false})
     let headers: any[] = [header('target')]
     if (['complete','clone-detachment'].includes(name)) headers = [header('root',0),header('parent',1,'root'),
       header('target',2,'parent'),header('b',4,'target'),header('a',4,'target'),

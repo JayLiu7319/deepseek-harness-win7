@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import Llm from '@deepseek-ai/dsh-llm'
@@ -21,7 +22,8 @@ it('observes configured identity and owned reload through real services',async()
    if(!['identity','invalid','deferred'].includes(mode))await ctx.plugin(Jsonl,{root,compression:'none'})
    if(mode==='identity'){
     ctx.provide(CONFIGURED_AGENT_IDENTITIES_KEY,{main:{id:'chosen',resume:false}} as any)
-    await ctx.plugin(Loop,{agents:[{id:'main',sessionId:'ignored'},{id:'other',sessionId:'unchanged'}]} as any)
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop,{agents:[{id:'main',sessionId:'ignored'},{id:'other',sessionId:'unchanged'}]} as any)
     rows.push({mode,chosen:!!ctx.agents.get('chosen' as any),unchanged:!!ctx.agents.get('unchanged' as any),ignored:!!ctx.agents.get('ignored' as any)})
    }else if(mode==='invalid'){
     let rejected=0;const errors:string[]=[]
@@ -30,7 +32,8 @@ it('observes configured identity and owned reload through real services',async()
      [[{id:'a',sessionId:'s',resumeSessionId:'r'}],'Error','mutually exclusive'],
      [[{id:'a',sessionId:'s'},{id:'b',sessionId:'s'}],'Error','duplicate exact'],
     ] as const){
-     try{await ctx.plugin(Loop,{agents} as any)}catch(error:any){
+     try{if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop,{agents} as any)}catch(error:any){
       if(error.name!==name || !error.message.includes(message))throw error
       rejected++;errors.push(error.name)
      }
@@ -38,15 +41,18 @@ it('observes configured identity and owned reload through real services',async()
     rows.push({mode,rejected,errors,published:ctx.agents.list().length})
    }else if(mode==='missing'){
     const failures:any[]=[];ctx.on('agent-loop/config-start-failed',v=>{failures.push(v)})
-    await ctx.plugin(Loop,{agents:[{id:'a',resumeSessionId:'missing'}]} as any);await wait(()=>failures.length)
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop,{agents:[{id:'a',resumeSessionId:'missing'}]} as any);await wait(()=>failures.length)
     rows.push({mode,failed:failures[0].sessionId,published:ctx.agents.list().length,stored:(await ctx.sessionPersistence.list()).length})
    }else if(mode==='deferred'){
-    const fiber=await ctx.plugin(Loop,{agents:[{id:'a',resumeSessionId:'saved'}]} as any)
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const fiber=await ctx.plugin(Loop,{agents:[{id:'a',resumeSessionId:'saved'}]} as any)
     const effect=fiber.getEffects().find(e=>e.label==='agentLoop.resume(a)')
     rows.push({mode,children:effect?.children.map(e=>e.label),published:ctx.agents.list().length})
    }else{
     const config={agents:[{id:'main',sessionId:'s',model:'mock'}]} as any
-    const first=await ctx.plugin(Loop,config);await wait(()=>ctx.agents.get('s' as any));const old=ctx.agents.get('s' as any)!
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const first=await ctx.plugin(Loop,config);await wait(()=>ctx.agents.get('s' as any));const old=ctx.agents.get('s' as any)!
     old.session.append('session/title',{title:'remember'} as any);await ctx.sessions.flush(old.session)
     let disposal:Promise<void>|undefined
     if(mode==='reload')await first.dispose()
@@ -55,7 +61,8 @@ it('observes configured identity and owned reload through real services',async()
      old.ctx.effect(()=>async()=>{entered=true;await gate})
      disposal=first.dispose();await wait(()=>entered)
     }
-    const second=await ctx.plugin(Loop,config)
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const second=await ctx.plugin(Loop,config)
     if(mode==='cancel'){
      await second.dispose();release();await disposal
      rows.push({mode,published:ctx.agents.list().length})
@@ -63,7 +70,7 @@ it('observes configured identity and owned reload through real services',async()
      let retained=true
      if(mode==='overlap'){await new Promise(r=>setTimeout(r,0));retained=ctx.agents.get('s' as any)===old;release();await disposal}
      await wait(()=>ctx.agents.get('s' as any));const current=ctx.agents.get('s' as any)!
-     rows.push({mode,retained,replaced:current!==old,types:current.session.events.map(e=>e.type),history:current.session.events.some(e=>e.type==='session/title' && (e.data as any).title==='remember')})
+     rows.push({mode,retained,replaced:current!==old,types:current.session.snapshotEvents().map(e=>e.type),history:current.session.snapshotEvents().some(e=>e.type==='session/title' && (e.data as any).title==='remember')})
      await second.dispose()
     }
    }

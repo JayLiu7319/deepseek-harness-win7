@@ -7,7 +7,7 @@ const cwd = process.cwd()
 const modes = ['empty', 'pagination', 'filter', 'cursors', 'resume-refusals', 'reservation', 'shared-close', 'close-failure']
 
 function header(id: string, createdAt = 10, directory = cwd, extra = {}) {
-  return { version: 0, id, createdAt, cwd: directory, ...extra }
+  return { version: 0, id, createdAt, cwd: directory, ...extra ,isSeeded:false}
 }
 
 it('observes bounded ACP persisted Session lifecycle fields from the original handlers', async () => {
@@ -45,7 +45,7 @@ it('observes bounded ACP persisted Session lifecycle fields from the original ha
         const rows = [header(created.sessionId, 100, directory),
           header('subagent', 99, directory, { origin: 'subagent' }),
           header('fork', 98, directory, { parentSession: 'parent' }),
-          { version: 0, id: 'no-cwd', createdAt: 97 }, header('relative', 96, 'relative'),
+          { version: 0, id: 'no-cwd', createdAt: 97 ,isSeeded:false}, header('relative', 96, 'relative'),
           header('foreign', 95, directory), header('other', 94, join(cwd, 'other')),
           header('valid-b', 3, directory), header('valid-a', 3, directory)]
         ctx.sessionPersistence.list = async () => rows as any
@@ -67,7 +67,7 @@ it('observes bounded ACP persisted Session lifecycle fields from the original ha
         const created = await client.newSession({ cwd, mcpServers: [] })
         const rows = [header('subagent', 9, cwd, { origin: 'subagent' }),
           header('fork', 8, cwd, { parentSession: 'parent' }),
-          { version: 0, id: 'no-cwd', createdAt: 7 }, header('wrong', 6, join(cwd, 'other'))]
+          { version: 0, id: 'no-cwd', createdAt: 7 ,isSeeded:false}, header('wrong', 6, join(cwd, 'other'))]
         ctx.sessionPersistence.list = async () => rows as any
         let calls = 0
         ctx.agents.resume = async () => { calls++; throw new Error('unexpected factory call') }

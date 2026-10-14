@@ -3,7 +3,7 @@ import { it, expect } from 'vitest'
 import { readFile, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
-import { isJsonValue } from '../../reference/packages/core/session/src/json.ts'
+import { isJsonValue } from '../../reference/packages/util/values/src/index.ts'
 import { isRemoteJsonValue } from '../../reference/packages/api/gateway/src/stream-protocol.ts'
 
 it('observes frozen JSON through both source event and Gateway validators', async () => {
@@ -12,7 +12,7 @@ it('observes frozen JSON through both source event and Gateway validators', asyn
   expect(execFileSync('git', ['-C', 'reference', 'status', '--short', '--untracked-files=no'], { encoding: 'utf8' }).trim()).toBe('')
   const sourcePaths = ['scripts/oracles/remote-frozen.spec.ts', 'scripts/oracles/vitest.remote-frozen.config.mts',
     'scripts/oracles/vitest.agent-lifecycle.config.mts', 'scripts/oracles/vitest.consumers.config.mts',
-    'scripts/oracles/vitest.core.config.mts', 'reference/packages/core/session/src/json.ts',
+    'scripts/oracles/vitest.core.config.mts', 'reference/packages/util/values/src/index.ts',
     'reference/packages/api/gateway/src/stream-protocol.ts']
   const source_sha256: Record<string, string> = {}
   for (const path of sourcePaths) source_sha256[path] = createHash('sha256').update((await readFile(path, 'utf8')).replaceAll('\r\n', '\n')).digest('hex')

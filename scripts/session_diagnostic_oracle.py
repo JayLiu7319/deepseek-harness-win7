@@ -14,7 +14,7 @@ from scripts.oracles.session_diagnostic_python import NAMES
 
 SOURCE_INPUTS = {
     'reference/packages/core/session/src/index.ts',
-    'reference/packages/core/session/src/json.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/core/session/src/types.ts',
     'scripts/oracles/session_diagnostic.probe.spec.ts',
     'scripts/oracles/vitest.session-diagnostic-probe.config.mts',

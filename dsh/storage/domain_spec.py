@@ -62,6 +62,8 @@ class DomainSpec:
         tables: Dict[str, DomainTableSpec],
         global_spec: Optional[DomainGlobalSpec] = None,
         layout: str = "single",
+        compatible_versions=None,
+        invalid_records=None,
     ):
         self.name = name
         self.version = version
@@ -69,6 +71,10 @@ class DomainSpec:
         self.global_spec = global_spec
         self.global_ = global_spec
         self.layout = layout
+        self.compatible_versions = list(compatible_versions or [])
+        self.compatibleVersions = self.compatible_versions
+        self.invalid_records = invalid_records
+        self.invalidRecords = invalid_records
 
     @property
     def global_attr(self) -> Optional[DomainGlobalSpec]:
@@ -121,7 +127,16 @@ def define_domain(*args: Any, **kwargs: Any) -> DomainSpec:
               else kwargs.get("layout", "single"))
     if layout not in ("single", "per-record"):
         raise ValueError("unknown domain layout: " + layout)
-    return DomainSpec(name=name, version=version, tables=tables_dict, global_spec=global_spec, layout=layout)
+    options = args[0] if len(args) == 1 and isinstance(args[0], dict) else kwargs
+    compatible = getattr(args[0], 'compatible_versions', []) if len(args) == 1 and isinstance(args[0], DomainSpec) else options.get('compatibleVersions', [])
+    invalid = getattr(args[0], 'invalid_records', None) if len(args) == 1 and isinstance(args[0], DomainSpec) else options.get('invalidRecords')
+    for value in compatible:
+        if type(value) is not int or not 0 <= value < version:
+            raise ValueError("domain '%s' compatibleVersions entries must be non-negative integers below version %s, got %s" % (name, version, value))
+    if invalid is not None and invalid != 'backup-and-skip':
+        raise ValueError("domain '%s' invalidRecords must be 'backup-and-skip' when present, got %s" % (name, invalid))
+    return DomainSpec(name=name, version=version, tables=tables_dict, global_spec=global_spec, layout=layout,
+                      compatible_versions=compatible, invalid_records=invalid)
 
 
 defineDomain = define_domain
@@ -135,6 +150,7 @@ def descriptor_of(spec: DomainSpec) -> KvUnitDescriptor:
         tables=list(spec.tables.keys()),
         has_global=has_g,
         layout=spec.layout,
+        compatible_versions=spec.compatible_versions,
     )
 
 

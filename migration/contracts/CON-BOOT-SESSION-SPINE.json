@@ -1,8 +1,8 @@
 {
   "id": "CON-BOOT-SESSION-SPINE",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/apps/cli/src/profile-boot.ts",
     "reference/packages/core/agent-loop/src/index.ts",
@@ -20,11 +20,18 @@
     "A completed tool turn flushes durable events; root shutdown settles before a fresh Context resumes the same session.",
     "Restored history contains the previous tool result and is included in the next LLM request."
   ],
-  "open_questions": [],
+  "open_questions": [
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
   "identity": "Profile identity and persisted session id survive restart; Context and in-memory Session objects do not.",
   "ownership": "Profile shutdown owns root plugin teardown; each AgentHandle owns its agent scope and detaches its prepared session on failure. JSONL persistence owns durable storage.",
   "ordering": "Boot -> activate providers -> await agent setup -> publish -> tool turn -> flush -> dispose handle -> settle root -> fresh boot -> load/resume -> next turn.",
   "errors": "Loader activation failures reject boot; invalid/missing saved sessions reject resume. Failed setup cleans scope and cannot publish a prepared session.",
   "cancellation": "Shutdown settles owned cleanup before restart; abandoning an observer cannot discard provider cleanup (CON-CORDIS-CORE@10).",
-  "adaptation": "Deterministic in-process mock LLM substitutes external network/model responses only. Python 3.8 and current Windows tested; Win7 machine validation is deferred by user. This is a minimal integration spine, not all remote-provider behavior."
+  "adaptation": "Deterministic in-process mock LLM substitutes external network/model responses only. Python 3.8 and current Windows tested; Win7 machine validation is deferred by user. This is a minimal integration spine, not all remote-provider behavior.",
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

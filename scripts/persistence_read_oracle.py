@@ -15,21 +15,18 @@ from scripts.oracles.persistence_read_python import assets
 PUBLIC = ('create/whole', 'create/negative-zero', 'create/fraction', 'create/boolean',
     'append/whole', 'append/negative-zero', 'append/fraction', 'append/boolean',
     'read/whole', 'read/negative-zero', 'read/fraction', 'read/boolean', 'read/unsafe', 'abort/before', 'abort/after-read')
-NAMES = tuple(backend + '/' + name for backend in ('jsonl-none', 'jsonl-zstd', 'sqlite') for name in PUBLIC) + (
-    'jsonl-none/queued', 'jsonl-zstd/queued', 'sqlite/queued', 'sqlite/legacy-forward', 'sqlite/legacy-after', 'sqlite/aborted-failure')
+NAMES = tuple(backend + '/' + name for backend in ('jsonl-none', 'jsonl-zstd') for name in PUBLIC) + ('jsonl-none/queued', 'jsonl-zstd/queued')
 SOURCE_INPUTS = {
     'reference/packages/session/session-persistence/src/coordinator.ts',
     'reference/packages/session/session-persistence-jsonl/src/index.ts',
-    'reference/packages/session/session-persistence-sqlite/src/index.ts',
-    'reference/packages/session/session-persistence-sqlite/src/store.ts',
-    'reference/packages/core/session/src/json.ts', 'reference/packages/core/session/src/types.ts',
+    'reference/packages/util/values/src/index.ts', 'reference/packages/core/session/src/types.ts',
     'scripts/oracles/persistence_public.probe.spec.ts', 'scripts/oracles/persistence_order.probe.spec.ts',
     'scripts/oracles/vitest.persistence-read-probe.config.mts', 'scripts/oracles/vitest.agent-lifecycle.config.mts',
     'scripts/oracles/vitest.consumers.config.mts', 'scripts/oracles/vitest.core.config.mts', 'migration/modules.json',
 } | {'scripts/import_paths.py'}
 REQUIRED_MODULES = {'dsh/session/coordinator.py', 'dsh/session/persistence_jsonl_canonical.py',
-    'dsh/session/persistence_sqlite_canonical.py', 'dsh/session/preparations.py',
-    'dsh/session/jsonl_store.py', 'dsh/session/sqlite_store.py', 'dsh/cordis/context.py'}
+    'dsh/session/preparations.py',
+    'dsh/session/jsonl_store.py', 'dsh/cordis/context.py'}
 
 
 def digest(path):
@@ -39,7 +36,15 @@ def digest(path):
 def observation_digest(rows):
     if not isinstance(rows, list) or tuple(row['name'] for row in rows) != NAMES:
         raise ValueError('Persistence read observations missing, duplicate or reordered')
-    return hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=True,
+    def numbers(value):
+        if type(value) is float and value.is_integer():
+            return int(value)
+        if isinstance(value, dict):
+            return {key: numbers(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [numbers(item) for item in value]
+        return value
+    return hashlib.sha256(json.dumps(numbers(rows), sort_keys=True, ensure_ascii=True,
         allow_nan=False, separators=(',', ':')).encode('utf-8')).hexdigest()
 
 
@@ -64,8 +69,7 @@ def validate_runtime(report, root, expected_digest, modules, expected_assets, ch
     validate_executable(report['executable'], root, check_files)
     if not isinstance(modules, dict) or not REQUIRED_MODULES.issubset(modules) or report['modules'] != modules:
         raise ValueError('Persistence read imported module closure differs')
-    if not isinstance(expected_assets, dict) or not {'dsh/session/bin/sqlite3.dll', 'dsh/session/bin/zstd/dsh_zstd.dll',
-            'dsh/session/resources/sql/manifest.json'}.issubset(expected_assets) or report['assets'] != expected_assets:
+    if not isinstance(expected_assets, dict) or not {'dsh/session/bin/zstd/dsh_zstd.dll'}.issubset(expected_assets) or report['assets'] != expected_assets:
         raise ValueError('Persistence read private asset closure differs')
     missing_prefixes = None if check_files else {}
     for name, expected in dict(modules, **expected_assets).items():

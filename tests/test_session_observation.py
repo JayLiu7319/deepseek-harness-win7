@@ -97,7 +97,11 @@ async def test_external_revision_change_refreshes_cut_without_mutating_retained_
     query = SessionQueryService(ctx, open_at='never')
     try:
         old = await query.observeSession('s')
-        await persistence._append('s', [dict(type='turn/start', seq=2, time=3, data=dict(turn=2))])
+        external = backend[2]()
+        try:
+            await external.append('s', [dict(type='turn/start', seq=2, time=3, data=dict(turn=2))])
+        finally:
+            await external.close()
         fresh = await query.observeSession('s')
         assert fresh.revision != old.revision and fresh.cursor > old.cursor
         assert len(old.events) == 2

@@ -58,6 +58,8 @@ def apply_knob_event(state: Dict[str, Optional[str]], event: Dict[str, Any]) -> 
         return {**state, "sandbox": data.get("mode")}
     elif etype == "approval/policy":
         return {**state, "approval": data.get("policy")}
+    elif etype == 'session/end-seed' and 'seeded' in state:
+        return dict(state, seeded=True)
     return state
 
 
@@ -104,21 +106,18 @@ class PermissionPresetService:
         settings_schema = Schema.object({'defaultPreset': Schema.union(choices).required()})
         install_settings_section(ctx, 'permission', settings_schema, base,
             dict(setSource=self._set_settings_source, onChange=lambda: None))
+        ctx.get('sessionProjections').register(dict(key='permissions',
+            stateSchema=self._state, init=lambda header, cut: dict(EMPTY_KNOBS, seeded=False),
+            apply=apply_knob_event, wire=dict(viewSchema=self._select, view=self.selectFor), stateVersion=2))
         ctx.on('session/created', self.pin_initial_permission)
         for session in ctx.get('sessions').list():
             self.pin_initial_permission(session)
-
-        def projections(scope):
-            scope.get('sessionProjections').register(dict(key='permissions',
-                stateSchema=self._state, init=lambda header: dict(EMPTY_KNOBS), apply=apply_knob_event,
-                wire=dict(viewSchema=self._select, view=self.selectFor), stateVersion=1))
 
         def commands(scope):
             scope.get('commands').register(dict(name='permission',
                 description='Switch the permission preset (sandbox mode + approval policy)',
                 input=dict(hint='<preset>'), handler=self._command_handler))
 
-        ctx.inject(['sessionProjections'], projections)
         ctx.inject(['commands'], commands)
 
     def _set_settings_source(self, source):
@@ -126,9 +125,9 @@ class PermissionPresetService:
 
     @staticmethod
     def _state(value):
-        if not isinstance(value, dict) or set(value) != set(EMPTY_KNOBS):
+        if not isinstance(value, dict) or set(value) != set(EMPTY_KNOBS) | {'seeded'} or type(value.get('seeded')) is not bool:
             raise ValueError('invalid permission knob state')
-        if any(selected is not None and not isinstance(selected, str) for selected in value.values()):
+        if any(value[key] is not None and not isinstance(value[key], str) for key in EMPTY_KNOBS):
             raise ValueError('invalid permission knob value')
         if value['sandbox'] not in (None, 'read-only', 'workspace-write', 'danger-full-access'):
             raise ValueError('invalid permission sandbox mode')
@@ -163,8 +162,11 @@ class PermissionPresetService:
     def default_preset(self) -> str:
         return self.default_settings()['defaultPreset']
 
-    def current(self, events: List[Dict[str, Any]]) -> str:
-        return self.derive(fold_knobs(events))
+    def permission_state(self, session):
+        return self.ctx.get('sessionProjections').stateOf(session, 'permissions')
+
+    def current(self, session) -> str:
+        return self.derive(self.permission_state(session))
 
     def derive(self, state: Dict[str, Optional[str]]) -> str:
         shell = self.ctx.get('shell')
@@ -227,14 +229,15 @@ class PermissionPresetService:
 
     def apply(self, session: Any, name: str, set_approval=None) -> None:
         spec = self.resolve(name)
-        if self.current(session.events) != name:
+        if self.current(session) != name:
             session.append('permission/preset', dict(preset=name))
-        sandbox = effective_sandbox_mode(session.events)
+        state = self.permission_state(session)
+        sandbox = state['sandbox']
         if sandbox is None:
             sandbox = self.ctx.get('shell').sandboxMode
         if spec['sandbox'] != sandbox:
             set_sandbox_mode(session, spec['sandbox'])
-        policy = effective_approval_policy(session.events)
+        policy = state['approval']
         if policy is None:
             policy = self.ctx.get('approval').config.get('policy')
         if policy is None:
@@ -243,11 +246,8 @@ class PermissionPresetService:
             (set_approval or (lambda value: set_approval_policy(session, value)))(spec['approval'])
 
     def pin_initial_permission(self, session: Any) -> None:
-        events = session.events
-        selected = effective_permission_preset(events)
-        sandbox = effective_sandbox_mode(events)
-        approval = effective_approval_policy(events)
-        seeded = any(event['type'] == 'session/end-seed' for event in events)
+        state = self.permission_state(session)
+        selected, sandbox, approval, seeded = (state[key] for key in ('preset', 'sandbox', 'approval', 'seeded'))
         if selected is None and sandbox is None and approval is None and not seeded:
             name = self.defaultPreset
             spec = self.resolve(name)
@@ -268,7 +268,7 @@ class PermissionPresetService:
         name = invocation.rawInput.strip()
         agent = invocation.agent
         if not name:
-            return dict(kind='success', text='current preset %s (available: %s)' % (self.current(agent.session.events), ', '.join(self.names)))
+            return dict(kind='success', text='current preset %s (available: %s)' % (self.current(agent.session), ', '.join(self.names)))
         if name not in self.names:
             return dict(kind='error', text='unknown preset "%s" (available: %s)' % (name, ', '.join(self.names)))
         self.apply(agent.session, name, lambda policy: self.ctx.get('approval').set_policy(agent, policy))
@@ -282,7 +282,7 @@ class PermissionPresetsPlugin(Plugin):
 
     id = "permission"
     name = "@deepseek-ai/dsh-permission-presets"
-    inject = ['shell', 'approval', 'sessions']
+    inject = ['shell', 'approval', 'sessions', 'sessionProjections']
     Config = Schema.object({'presets': Schema.dict(Schema.object({
         'sandbox': Schema.union(['read-only', 'workspace-write', 'danger-full-access']).required(),
         'approval': Schema.union(['ask', 'never']).required(), 'name': Schema.string(), 'description': Schema.string(),

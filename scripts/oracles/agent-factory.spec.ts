@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 // Observation-only probes against the pinned source. No Python behavior is mocked here.
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -16,7 +17,8 @@ it('records unpublished setup and abort observations', async () => {
     const ctx = new Context()
     await ctx.plugin(Llm); await ctx.plugin(Sessions); await ctx.plugin(Tools)
     await ctx.plugin(Prompt); await ctx.plugin(Agents)
-    const factory = await ctx.plugin(Loop, { agents: [] })
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const factory = await ctx.plugin(Loop, { agents: [] })
     const owner = await ctx.plugin(Object.assign(() => {}, { inject: ['agents'] }))
     const signal = new AbortController()
     const session = ctx.sessions.prepare(SessionId('probe'))

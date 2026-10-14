@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 process.chdir(root)
-const sourceCommit = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 const buildInputs = {
   'scripts/oracles/node_modules/esbuild/lib/main.js': '61ec0ba144ff93f4bf0e96ad6fab6f430ede0aa13e27ace8063ed63ba416b3cd',
   'scripts/oracles/node_modules/@esbuild/win32-x64/esbuild.exe': 'c7bee37877d0aa6a046e52783fa0a2cf1a9ce5579d68bb3083bda99d4bff18ef',

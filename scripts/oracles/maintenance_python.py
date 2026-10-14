@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from dsh.cordis.context import Context
 from dsh.llm.llm_service import LlmRuntime
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.system_prompt import SystemPrompt
 from dsh.core.tools import ToolsPlugin
@@ -20,6 +21,7 @@ from dsh.llm.error import error_chain
 
 async def compaction(spec):
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     release, reached = asyncio.Event(), asyncio.Event()
     pending = disposal = None
     try:
@@ -96,6 +98,7 @@ async def compaction(spec):
 
 async def observe(spec):
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     release, reached = asyncio.Event(), asyncio.Event()
     turn_release, turn_reached = asyncio.Event(), asyncio.Event()
     try:

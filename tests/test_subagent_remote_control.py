@@ -11,7 +11,6 @@ async def test_remote_prompt_preserves_browser_source_and_named_failure(tmp_path
     ctx, _, parent, manager = await mounted(tmp_path)
     service, signal = manager.host, AbortController().signal
     service.continuations = manager
-    await ctx.plugin(SessionProjectionsPlugin)
     ctx.get('sessionProjections').register(IDENTITY)
     try:
         await manager.start(dict(provider='spawn', label='worker', childId='worker', request=dict(parent=parent.agent, prompt=[dict(type='text', text='first')])))

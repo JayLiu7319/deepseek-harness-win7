@@ -8,7 +8,7 @@ import {readFileSync} from 'node:fs'
 
 it('observes actual Source storage and mutual cross-file physical reads', async () => {
   const directory = process.env.SQLITE_STORE_DIRECTORY!
-  const meta: any = {id: 'store-session', version: 0, createdAt: 1234, cwd: directory, origin: 'subagent', delegationDepth: 2, agentPreset: 'standard'}
+  const meta: any = {id: 'store-session', version: 0, createdAt: 1234, cwd: directory, origin: 'subagent', delegationDepth: 2, agentPreset: 'standard',isSeeded:false}
   const chunk = (seq: number): any => ({type: 'assistant/chunk', seq, time: seq,
     data: {turn: 1, step: 1, chunk: {type: 'text-delta', index: 0, text: '界'.repeat(100)}}})
   const visible = (value: any): any => Array.isArray(value) ? value.map(visible) :

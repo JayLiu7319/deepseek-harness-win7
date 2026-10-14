@@ -23,7 +23,7 @@ import pytest
 
 from dsh.cordis.context import Context
 from dsh.feedback.message_feedback import MessageFeedbackPlugin
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 from dsh.storage.hub import StorageService
 
 from .helpers import append_message_fixture

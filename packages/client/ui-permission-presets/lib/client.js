@@ -8,9 +8,74 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
+		//#region lib/types/client/locales.js
+		/** `settings.permission` namespace dictionaries (the Permission row's copy). */
+		/** Simplified Chinese dictionary (the key-set source of truth). */
+		const zh = {
+			"title": "权限",
+			"description": "选择新会话的默认权限模式",
+			"loading": "加载中",
+			"unavailable": "不可用",
+			"preset.readOnly": "仅可查看",
+			"preset.workspaceWrite": "工作区内修改",
+			"preset.fullAccess": "完全权限",
+			"confirm.title": "确认启用完全权限？",
+			"confirm.description": "启用完全权限后，新会话将减少确认步骤，并且可以直接执行更多操作，包括敏感操作、文件修改或外部命令。仅建议在你信任后续任务时使用。",
+			"confirm.acknowledge": "我已了解风险，并愿意继续",
+			"confirm.cancel": "取消",
+			"confirm.enable": "启用完全权限"
+		};
+		/** English dictionary, checked complete against the zh key set. */
+		const en = {
+			"title": "Permission",
+			"description": "Choose the default permission mode for new sessions",
+			"loading": "Loading",
+			"unavailable": "Unavailable",
+			"preset.readOnly": "Read Only",
+			"preset.workspaceWrite": "Workspace Write",
+			"preset.fullAccess": "Full access",
+			"confirm.title": "Enable Full access?",
+			"confirm.description": "Full access lets new sessions reduce confirmation steps and perform more actions directly, including sensitive operations, file changes, or external commands. Only use it when you trust subsequent tasks.",
+			"confirm.acknowledge": "I understand the risks and want to continue",
+			"confirm.cancel": "Cancel",
+			"confirm.enable": "Enable Full access"
+		};
+		/** Simplified Chinese dictionary for the current-session popup gate. */
+		const accessZh = {
+			"preset.readOnly": "仅可查看",
+			"preset.workspaceWrite": "工作区内修改",
+			"preset.fullAccess": "完全权限",
+			"confirm.title": "确认启用完全权限？",
+			"confirm.description": "启用完全权限后，智能体将减少确认步骤，并且可以直接执行更多操作，包括敏感操作、文件修改或外部命令。仅建议在你信任当前任务时使用。",
+			"confirm.acknowledge": "我已了解风险，并愿意继续",
+			"confirm.cancel": "取消",
+			"confirm.enable": "启用完全权限"
+		};
+		/** English dictionary for the current-session popup gate. */
+		const accessEn = {
+			"preset.readOnly": "Read Only",
+			"preset.workspaceWrite": "Workspace Write",
+			"preset.fullAccess": "Full access",
+			"confirm.title": "Enable Full access?",
+			"confirm.description": "Full access reduces confirmation steps and lets the agent perform more actions directly, including sensitive operations, file changes, or external commands. Only use it when you trust the current task.",
+			"confirm.acknowledge": "I understand the risks and want to continue",
+			"confirm.cancel": "Cancel",
+			"confirm.enable": "Enable Full access"
+		};
+		//#endregion
 		//#region lib/types/client/presentation.js
 		/** Machine value of the preset that requires an explicit GUI risk gate. */
 		const FULL_ACCESS_PRESET = "danger-full-access";
+		const PRESET_LABEL_KEYS = new Map([
+			["read-only", "preset.readOnly"],
+			["workspace-write", "preset.workspaceWrite"],
+			[FULL_ACCESS_PRESET, "preset.fullAccess"]
+		]);
+		const DEFAULT_PRESET_LABELS = {
+			"preset.readOnly": en["preset.readOnly"],
+			"preset.workspaceWrite": en["preset.workspaceWrite"],
+			"preset.fullAccess": en["preset.fullAccess"]
+		};
 		/**
 		* Convert conventional kebab-case preset names into user-facing title case.
 		* @param name - host-supplied preset label or key.
@@ -24,14 +89,17 @@ window.__ModuleLoader__.load({
 		* Render a permission preset under its product label.
 		* @param value - preset machine value.
 		* @param name - host-supplied preset name.
-		* @returns the Full access product label or the conventional display name.
+		* @param t - optional locale dictionary lookup for built-in product labels.
+		* @returns the built-in product label or the conventional display name.
 		*/
-		function displayPermissionPreset(value, name) {
-			return value === "danger-full-access" ? "Full access" : displayPresetName(name);
+		function displayPermissionPreset(value, name, t) {
+			const key = PRESET_LABEL_KEYS.get(value);
+			if (key !== void 0 && (name === value || name === DEFAULT_PRESET_LABELS[key])) return t?.(key) ?? DEFAULT_PRESET_LABELS[key];
+			return displayPresetName(name);
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-permission-presets\src\client\PermissionRow.module.css.mjs
-		const css = ".WctYRG_row{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.WctYRG_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.WctYRG_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.WctYRG_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.WctYRG_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.WctYRG_selector:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.WctYRG_selector:disabled{cursor:default}.WctYRG_chevron{flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-permission-presets\src\client\PermissionRow.module.css.mjs
+		const css = ".PtVurq_row{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.PtVurq_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.PtVurq_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.PtVurq_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.PtVurq_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.PtVurq_selector:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.PtVurq_selector:disabled{cursor:default}.PtVurq_chevron{flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-ui-permission-presets/PermissionRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -41,12 +109,12 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var PermissionRow_module_css_default = {
-			"chevron": "WctYRG_chevron",
-			"desc": "WctYRG_desc",
-			"row": "WctYRG_row",
-			"rowText": "WctYRG_rowText",
-			"selector": "WctYRG_selector",
-			"title": "WctYRG_title"
+			"chevron": "PtVurq_chevron",
+			"desc": "PtVurq_desc",
+			"row": "PtVurq_row",
+			"rowText": "PtVurq_rowText",
+			"selector": "PtVurq_selector",
+			"title": "PtVurq_title"
 		};
 		//#endregion
 		//#region lib/types/client/PermissionRow.js
@@ -77,7 +145,8 @@ window.__ModuleLoader__.load({
 			if (state.status === "unavailable") return null;
 			const selected = state.options.find((option) => option.id === state.currentValue);
 			const busy = state.status === "loading" || state.status === "saving" || confirmingFullAccess;
-			const label = selected?.label ?? (busy ? t("loading") : t("unavailable"));
+			const optionLabel = (option) => displayPermissionPreset(option.id, option.label, t);
+			const label = selected !== void 0 ? optionLabel(selected) : busy ? t("loading") : t("unavailable");
 			const description = state.error ?? t("description");
 			return (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsxs)("div", {
 				className: PermissionRow_module_css_default.row,
@@ -98,7 +167,7 @@ window.__ModuleLoader__.load({
 					},
 					items: state.options.map((option) => ({
 						id: option.id,
-						label: option.label
+						label: optionLabel(option)
 					})),
 					selectedId: state.currentValue,
 					onSelect: (id) => {
@@ -148,49 +217,6 @@ window.__ModuleLoader__.load({
 			})] });
 		}
 		//#endregion
-		//#region lib/types/client/locales.js
-		/** `settings.permission` namespace dictionaries (the Permission row's copy). */
-		/** Simplified Chinese dictionary (the key-set source of truth). */
-		const zh = {
-			"title": "权限",
-			"description": "选择新会话的默认权限模式",
-			"loading": "加载中",
-			"unavailable": "不可用",
-			"confirm.title": "确认启用 Full access？",
-			"confirm.description": "启用 Full access 后，新会话将减少确认步骤，并且可以直接执行更多操作，包括敏感操作、文件修改或外部命令。仅建议在你信任后续任务时使用。",
-			"confirm.acknowledge": "我已了解风险，并愿意继续",
-			"confirm.cancel": "取消",
-			"confirm.enable": "启用 Full access"
-		};
-		/** English dictionary, checked complete against the zh key set. */
-		const en = {
-			"title": "Permission",
-			"description": "Choose the default permission mode for new sessions",
-			"loading": "Loading",
-			"unavailable": "Unavailable",
-			"confirm.title": "Enable Full access?",
-			"confirm.description": "Full access lets new sessions reduce confirmation steps and perform more actions directly, including sensitive operations, file changes, or external commands. Only use it when you trust subsequent tasks.",
-			"confirm.acknowledge": "I understand the risks and want to continue",
-			"confirm.cancel": "Cancel",
-			"confirm.enable": "Enable Full access"
-		};
-		/** Simplified Chinese dictionary for the current-session popup gate. */
-		const accessZh = {
-			"confirm.title": "确认启用 Full access？",
-			"confirm.description": "启用 Full access 后，agent 将减少确认步骤，并且可以直接执行更多操作，包括敏感操作、文件修改或外部命令。仅建议在你信任当前任务时使用。",
-			"confirm.acknowledge": "我已了解风险，并愿意继续",
-			"confirm.cancel": "取消",
-			"confirm.enable": "启用 Full access"
-		};
-		/** English dictionary for the current-session popup gate. */
-		const accessEn = {
-			"confirm.title": "Enable Full access?",
-			"confirm.description": "Full access reduces confirmation steps and lets the agent perform more actions directly, including sensitive operations, file changes, or external commands. Only use it when you trust the current task.",
-			"confirm.acknowledge": "I understand the risks and want to continue",
-			"confirm.cancel": "Cancel",
-			"confirm.enable": "Enable Full access"
-		};
-		//#endregion
 		//#region lib/types/client/settings-store.js
 		/**
 		* Permission default-settings controller. The permission descriptor comes
@@ -230,7 +256,7 @@ window.__ModuleLoader__.load({
 		/** Controller deriving the row from the shared mirror and writing the default through it. */
 		var PermissionPresetSettingsController = class {
 			describeFace;
-			api;
+			ctx;
 			schema;
 			/** Row snapshot consumed through a bound selector hook. */
 			store = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)({
@@ -246,12 +272,13 @@ window.__ModuleLoader__.load({
 			disposed = false;
 			/**
 			* @param describeFace - the shared mirror's read/fold face (descriptor and schema source).
-			* @param api - settings wire face for the `defaultPreset` write.
+			* @param ctx - the row plugin's context, whose `remote.settings` namespace
+			* carries the `defaultPreset` write.
 			* @param schema - settings-owned schema operations.
 			*/
-			constructor(describeFace, api, schema) {
+			constructor(describeFace, ctx, schema) {
 				this.describeFace = describeFace;
-				this.api = api;
+				this.ctx = ctx;
 				this.schema = schema;
 			}
 			/**
@@ -287,21 +314,22 @@ window.__ModuleLoader__.load({
 					draft.status = "saving";
 					draft.error = null;
 				});
+				let response;
 				try {
-					const response = await this.api.settings.mutate(PERMISSION_SETTINGS_NS, [{
+					response = await this.ctx.remote.settings.mutate(PERMISSION_SETTINGS_NS, [{
 						op: "set",
 						path: ["defaultPreset"],
 						value: preset
 					}], view.revision);
-					if (!response.ok) throw new Error(response.error.message);
+				} finally {
 					this.saving = false;
-					if (this.disposed) return;
-					this.describeFace.acceptView(response.value);
-				} catch (error) {
-					this.saving = false;
-					if (this.disposed) return;
-					this.fail(error);
 				}
+				if (this.disposed) return;
+				if (!response.ok) {
+					this.fail(response.error);
+					return;
+				}
+				this.describeFace.acceptView(response.value);
 			}
 			/** Stop following the mirror; later publishes leave the snapshot alone. */
 			dispose() {
@@ -379,7 +407,7 @@ window.__ModuleLoader__.load({
 		function optionsOf(value, t) {
 			return value.options.filter((option) => option.value !== "custom").map((option) => ({
 				id: option.value,
-				label: displayPermissionPreset(option.value, option.name),
+				label: displayPermissionPreset(option.value, option.name, t),
 				...option.description !== void 0 ? { detail: option.description } : {},
 				...option.value === value.currentValue ? { active: true } : {},
 				...option.value === "danger-full-access" ? { confirmation: {
@@ -401,12 +429,18 @@ window.__ModuleLoader__.load({
 			const sessions = ctx.sessions;
 			ctx.effect(() => {
 				const disposers = [ctx.locale.register(ACCESS_NS, "zh", {
+					"preset.readOnly": accessZh["preset.readOnly"],
+					"preset.workspaceWrite": accessZh["preset.workspaceWrite"],
+					"preset.fullAccess": accessZh["preset.fullAccess"],
 					"confirm.title": accessZh["confirm.title"],
 					"confirm.description": accessZh["confirm.description"],
 					"confirm.acknowledge": accessZh["confirm.acknowledge"],
 					"confirm.cancel": accessZh["confirm.cancel"],
 					"confirm.enable": accessZh["confirm.enable"]
 				}), ctx.locale.register(ACCESS_NS, "en", {
+					"preset.readOnly": accessEn["preset.readOnly"],
+					"preset.workspaceWrite": accessEn["preset.workspaceWrite"],
+					"preset.fullAccess": accessEn["preset.fullAccess"],
 					"confirm.title": accessEn["confirm.title"],
 					"confirm.description": accessEn["confirm.description"],
 					"confirm.acknowledge": accessEn["confirm.acknowledge"],
@@ -423,7 +457,7 @@ window.__ModuleLoader__.load({
 				zh,
 				en
 			}), "ui-permission: settings row dictionaries");
-			const controller = new PermissionPresetSettingsController(ctx.settingsScope.describe(), { settings: ctx.remote.settings }, ctx.settingsSchema);
+			const controller = new PermissionPresetSettingsController(ctx.settingsScope.describe(), ctx, ctx.settingsSchema);
 			const load = () => controller.load();
 			const select = (preset) => controller.select(preset);
 			const injected = () => ({

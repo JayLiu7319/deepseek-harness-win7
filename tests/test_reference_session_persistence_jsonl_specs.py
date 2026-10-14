@@ -55,16 +55,19 @@ def test_header_line_round_trip():
         cwd='C:\\work\\repo' if os.name == 'nt' else '/work/repo',
         delegation_depth=2,
         parent_session='parent-1',
-        seed_length=5,
+        is_seeded=True,
         origin='subagent',
     )
-    line = to_header_line(hdr)
+    from dsh.session.lineage_storage import to_header_line, from_header_line
+    line = to_header_line(hdr, 5)
     assert line['type'] == 'session'
     assert line['id'] == 'sess-123'
     assert line['delegationDepth'] == 2
     assert is_header_line(line) is True
 
-    restored = from_header_line(line)
+    decoded = from_header_line(line)
+    assert decoded.inheritedEventCount == 5
+    restored = decoded.meta
     assert restored.id == hdr.id
     assert restored.cwd == hdr.cwd
     assert restored.delegation_depth == 2

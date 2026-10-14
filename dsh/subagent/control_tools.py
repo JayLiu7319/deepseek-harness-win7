@@ -1,6 +1,7 @@
 """Scoped model adapters for continuation delivery, interruption and reports."""
 from dsh.cordis.plugin import Plugin
 from dsh.subagent.canonical_tools import register, object_schema, text, agent_of
+from dsh.subagent.internal import mark_adjacent_message
 
 
 class ToolSubagentControl(Plugin):
@@ -10,13 +11,16 @@ class ToolSubagentControl(Plugin):
     def apply(self, ctx):
         async def send(args, execution):
             parent = agent_of(execution)
-            identity = await ctx.get('subagents').followup(parent, args['subagent_id'], text(args['message']),
-                dict(source=dict(kind='coordinator', form='relay', senderSessionId=parent.id), signal=execution.signal))
+            identity = await ctx.get('subagents').sendMessage(parent, args['agent_id'], text(args['message']),
+                dict(signal=execution.signal))
             return dict(messageId=identity)
-        register(ctx, 'send_message', "Send a message to a background subagent by its subagent id, continuing the same conversation. It becomes the subagent's next turn: if it is still working, the message waits until its current turn finishes, so it cannot redirect work already underway. This call returns no answer from the subagent — only confirmation that the message was delivered — so use it to give it more work. A failure means the message was NOT delivered.",
-                 dict(subagent_id={'type': 'string', 'description': 'The subagent id returned when the background subagent was started.'},
-                      message={'type': 'string', 'description': 'The message to deliver to the subagent.'}), send,
-                 object_schema(dict(messageId={'type': 'string'})), lambda args, _: text('message queued as the next turn for subagent ' + args['subagent_id']))
+        register(ctx, 'send_message', 'Send a message to a direct continuable child by its agent id. If you are a resident continuable child, '
+                 'you may also target your direct parent. If the target is still working, the message steers its nearest step; '
+                 'if it is idle, the message starts a turn. This call returns no answer from the agent — only confirmation '
+                 'that the message was delivered. A failure means the message was NOT delivered.',
+                 dict(agent_id={'type': 'string', 'description': 'The agent id of your direct continuable child, or your direct parent when you are a resident continuable child.'},
+                      message={'type': 'string', 'description': 'The message to deliver to the agent.'}), mark_adjacent_message(send),
+                 object_schema(dict(messageId={'type': 'string'})), lambda args, _: text('message delivered to agent ' + args['agent_id']))
         async def interrupt(args, execution):
             ctx.get('subagents').interrupt(args['agent_id'], dict(kind='ancestor', agent=agent_of(execution)))
             return dict(accepted=True)

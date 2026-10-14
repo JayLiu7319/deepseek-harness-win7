@@ -104,10 +104,12 @@ class OpenTelemetrySessionBackend(Service):
                 if event['seq'] <= cursor:
                     continue
                 attributes = {'session.id': session.id, 'event.type': event['type'], 'event.seq': event['seq']}
-                for field, key in [('cwd', 'session.cwd'), ('parentSession', 'session.parent_id'), ('seedLength', 'session.seed_length')]:
+                for field, key in [('cwd', 'session.cwd'), ('parentSession', 'session.parent_id')]:
                     value = getattr(session.header, field)
                     if value is not None:
                         attributes[key] = value
+                if session.header.isSeeded:
+                    attributes['session.seed_length'] = session.inheritedEventCount
                 data, kind = event['data'], event['type']
                 error = kind == 'turn/end' and data.get('reason', {}).get('kind') == 'error'
                 if kind == 'tool/result':

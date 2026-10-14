@@ -1,8 +1,8 @@
 {
   "id": "CON-FS-TOOL-VALUES",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/fs/tool-fs/src/index.ts",
     "reference/packages/fs/tool-fs/src/read.ts",
@@ -32,7 +32,8 @@
     "tests/test_current_release_gate.py"
   ],
   "invariants": [
-    "All509 ordered complete actual Source observations match six groups: real registry/filesystem mutations, read tool/result/replay, image routing/store/gates, read windows/metadata, sandbox approval choreography and contextual diffs.",
+    "Extension-less read_image paths sniff PNG/JPEG/GIF/WebP signatures after route/read admission; full attachment decode remains authoritative. Unsupported extensions fail before I/O; unknown/corrupt content and disallowed detected formats fail without publication.",
+    "All514 ordered complete actual Source observations match six groups: real registry/filesystem mutations, read tool/result/replay, image routing/store/gates, read windows/metadata, sandbox approval choreography and contextual diffs.",
     "Source pin, runtime, tracked inputs, observer/case bytes and the actual diff dependency are guarded; own Python3.8.10 imports equal an independently approved closure with complete candidate inputs checked before and after.",
     "Read validates positive-integer caps, scans exact total lines through sync/async delivery, preserves UTF16 truncation including lone surrogates, caps complete rendered lines by UTF8 bytes, and emits one authoritative observation after successful read or an absent observation for a missing target.",
     "Real read stats once. Write/edit use the observed basis without tool-layer stat; successful mutation refreshes observation and preserves exact disk bytes.",
@@ -42,7 +43,7 @@
     "No paths, errors, text, timestamps, roles or identities are substituted. Only same-valued finite integer JSON numbers share numeric representation; booleans, fractions, nonfinite values and UTF16 surrogate content are not collapsed.",
     "Partial, changed, foreign, duplicated, skipped, failed or missing consumer/Source/import/mandatory/extracted evidence is refused. Focused qualification cannot replace a clean complete release."
   ],
-  "identity": "Exact509 ordered fs_values_oracle.NAMES. Actual controlled filesystem workspace is declared by Source and reused by Root/own/extracted observers; literal absolute public paths are retained.",
+  "identity": "Exact514 ordered fs_values_oracle.NAMES. Actual controlled filesystem workspace is declared by Source and reused by Root/own/extracted observers; literal absolute public paths are retained.",
   "ownership": "Tool plugin owns reversible registrations; backend owns atomic file mutation; policy owns observed basis; attachment provider owns durable image bytes; each probe owns its recorded temporary filesystem fixture.",
   "ordering": "Six ordered groups and literal internal traces, output blocks, line numbers, schemas and hunks.",
   "errors": "Actual FsError codes and model remedies, image/gate errors, replay refusal and approval outcomes retain literal text and field presence.",
@@ -52,13 +53,14 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred."
+    "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "historical_open_questions": [
     "Complete profile/browser/policy composition and arbitrary extension-owned filesystem/attachment ABI remain wider parent qualification.",
     "Actual Win7/target-browser certification remains user-deferred."
   ],
-  "acceptance_review": {
+  "historical_alpha_acceptance_review": {
     "candidate": "f90ded26e96ecfb0c1737a47d9f47b034b26c93a",
     "reviewArtifact": "migration/evidence/artifacts/HANDOFF-PARENT-REVIEW-20261010-F90DED26.zip",
     "originalTaskSnapshot": {
@@ -422,5 +424,10 @@
     "finiteScope": "Only the unchanged bounded child acceptance corpus, actual imports/owned inputs, valid positive/refusal controls and exact current full release. Historical input inventory counts describe their original qualification; the current archive guards all15561 files. No parent, universal ABI/schedule or Win7 certification inferred.",
     "existingUpstreamPredicates": "unchanged",
     "orderingApproval": "not-applied-independent-literal-scope"
+  },
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
   }
 }

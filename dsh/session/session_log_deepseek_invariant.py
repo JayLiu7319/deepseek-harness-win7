@@ -42,7 +42,7 @@ def _is_inherited_seed_event(session: Any, event: Any) -> bool:
     if header is None:
         return False
     parent_session = _header_value(header, "parentSession", "parent_session")
-    seed_length = _header_value(header, "seedLength", "seed_length")
+    seed_length = session.inheritedEventCount
     if parent_session is None or seed_length is None:
         return False
     seq = event.get("seq")

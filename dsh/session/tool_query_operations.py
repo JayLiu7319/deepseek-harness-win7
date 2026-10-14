@@ -29,7 +29,7 @@ async def collect_pages(max_results, signal, request, accept):
 
 
 async def execute_session_search(ctx, args, execution, max_results):
-    caller = workspace.caller_of(execution)
+    caller = workspace.caller_of(execution, ctx)
     cwd = caller['header'].get('cwd', _UNDEFINED)
     if cwd is _UNDEFINED:
         raise HarnessError('cross-session search is unavailable because the caller session has no workspace', 'SESSION_QUERY_TOOL_UNAUTHORIZED')
@@ -62,16 +62,17 @@ async def execute_session_search(ctx, args, execution, max_results):
 
 
 async def execute_event_search(ctx, args, execution, max_results):
-    caller = workspace.caller_of(execution)
+    caller = workspace.caller_of(execution, ctx)
     session_id = workspace.target_id(args, caller)
     await workspace.authorize_target(ctx, caller, session_id, execution.signal)
     query = tool_input.normalize_query(args['query'])
     sequence = tool_input.sequence_range(args.get('seq_from'), args.get('seq_to'))
     if session_id == caller['id']:
-        step = next((event for event in reversed(caller['events']) if event['type'] == 'step/start'), None)
-        if step is None:
+        projection = caller['boundary']
+        if projection is None or 'lastStepStartSeq' not in projection:
             raise HarnessError('current-session search requires an active step boundary', 'SESSION_QUERY_TOOL_NO_CURRENT_STEP')
-        sequence['to'] = min(sequence.get('to', tool_input.MAX_SAFE_INTEGER), step['seq'] - 1)
+        step_start = projection['lastStepStartSeq']
+        sequence['to'] = min(sequence.get('to', tool_input.MAX_SAFE_INTEGER), (step_start or 0) - 1)
     title = await workspace.read_title(ctx, caller, session_id, execution.signal)
     if 'from' in sequence and 'to' in sequence and sequence['from'] > sequence['to']:
         return presentation.format_event_search(session_id, title, dict(items=[], capped=False))
@@ -89,7 +90,7 @@ async def execute_event_search(ctx, args, execution, max_results):
 
 
 async def execute_session_trace(ctx, args, execution):
-    caller = workspace.caller_of(execution)
+    caller = workspace.caller_of(execution, ctx)
     session_id = workspace.target_id(args, caller)
     await workspace.authorize_target(ctx, caller, session_id, execution.signal)
     trace = await boundary.call(ctx, execution.signal, 'session lineage trace', lambda: ctx.get('sessionQuery').traceSession(session_id, execution.signal))
@@ -110,7 +111,7 @@ async def execute_session_trace(ctx, args, execution):
 
 async def execute_event_trace(ctx, args, execution):
     tool_input.assert_non_negative_safe_integer('seq', args['seq'])
-    caller = workspace.caller_of(execution)
+    caller = workspace.caller_of(execution, ctx)
     session_id = workspace.target_id(args, caller)
     await workspace.authorize_target(ctx, caller, session_id, execution.signal)
     trace = await boundary.call(ctx, execution.signal, 'event trace', lambda: ctx.get('sessionQuery').traceEvent(dict(sessionId=session_id, seq=args['seq']), execution.signal))
@@ -124,7 +125,7 @@ async def execute_event_read(ctx, args, execution):
     for name in ('before', 'after'):
         if name in args:
             tool_input.assert_non_negative_safe_integer(name, args[name])
-    caller = workspace.caller_of(execution)
+    caller = workspace.caller_of(execution, ctx)
     session_id = workspace.target_id(args, caller)
     await workspace.authorize_target(ctx, caller, session_id, execution.signal)
     payload = dict(sessionId=session_id, seq=args['seq'])

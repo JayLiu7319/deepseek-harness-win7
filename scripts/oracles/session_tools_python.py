@@ -53,10 +53,10 @@ async def main():
               ('1969-12-31T23:59:59.87600001Z', '1969-12-31T19:59:59.8769999-04:00')]
     for index, (lower, upper) in enumerate(ranges):
         await observe('range-' + str(index), lambda: tool_input.build_session_filters(dict(query='q', created_at_from=lower, created_at_to=upper)))
-    records = [dict(header=dict(id='caller', version=2, createdAt=10, cwd='/work'), live=True, persisted=False),
-               dict(header=dict(id='a', version=2, createdAt=100, cwd='/work', parentSession='hidden'), live=True, persisted=True),
-               dict(header=dict(id='b', version=2, createdAt=101, cwd='/work'), live=False, persisted=True),
-               dict(header=dict(id='hidden', version=2, createdAt=102, cwd='/outside'), live=True, persisted=False)]
+    records = [dict(header=dict(id='caller', version=2, createdAt=10, cwd='/work', isSeeded=False), live=True, persisted=False),
+               dict(header=dict(id='a', version=2, createdAt=100, cwd='/work', parentSession='hidden', isSeeded=False), live=True, persisted=True),
+               dict(header=dict(id='b', version=2, createdAt=101, cwd='/work', isSeeded=False), live=False, persisted=True),
+               dict(header=dict(id='hidden', version=2, createdAt=102, cwd='/outside', isSeeded=False), live=True, persisted=False)]
     sections, calls, warnings = [], [], []
     controller = AbortController()
     signal = controller.signal
@@ -112,7 +112,12 @@ async def main():
                         events=[dict(seq=0, time=100, type='step/start', data=dict(turn=1, step=1)), target, neighbor])
     owned = Context()
     tools = ToolsService(owned)
-    services = dict(tools=tools, systemPrompt=SimpleNamespace(section=lambda section: sections.append(section)), sessionQuery=Query())
+    from dsh.session.projections import SessionProjectionRegistry
+    from dsh.core.turn_boundary import TURN_BOUNDARY_DEFINITION
+    from dsh.core.system_prompt import SystemPrompt
+    projections = SessionProjectionRegistry(owned)
+    projections.register(TURN_BOUNDARY_DEFINITION)
+    services = dict(tools=tools, systemPrompt=SimpleNamespace(section=lambda section: sections.append(section), getSectionOrder=SystemPrompt(owned).getSectionOrder), sessionQuery=Query(), sessionProjections=projections)
     ctx = SimpleNamespace(logger=SimpleNamespace(warn=warnings.append), get=services.get)
     ToolSessionQueryPlugin(config=dict(maxSearchResults=2, searchTimeoutMs=1234)).apply(ctx)
     names = [value['name'] for value in tools.schemas()]
@@ -122,8 +127,12 @@ async def main():
         metadata.append(dict(name=name, description=tool.description, parameters=tool.parameters, output=tool.output['schema'],
                              timeoutMs=tool.timeout_ms, concurrencySafe=tool.concurrency_classifier(dict(seq=1)) if tool.concurrency_classifier else None))
     rows.append(dict(name='registration', value=dict(sections=sections, tools=metadata)))
-    execution = SimpleNamespace(signal=signal, agent=SimpleNamespace(session=SimpleNamespace(id='caller', header=records[0]['header'],
-                                events=[dict(seq=0, type='turn/start'), dict(seq=1, type='user/message'), dict(seq=2, type='step/start')])))
+    from dsh.core.session import Session
+    caller = Session.create('caller', [dict(type='turn/start', seq=0, time=1, data=dict(turn=1)),
+        dict(type='user/message', seq=1, time=2, surfaceOp='append', data=dict(id='prior', role='user',
+             source=dict(kind='user'), content=[dict(type='text', text='prior')])),
+        dict(type='step/start', seq=2, time=3, data=dict(turn=1, step=1))], dict(records[0]['header'],version=0))
+    execution = SimpleNamespace(signal=signal, agent=SimpleNamespace(session=caller))
     for name, tool_name, args in [
         ('empty', 'session_search', dict(query='q')), ('pages', 'session_search', dict(query='q')),
         ('private-failure', 'session_search', dict(query='q')), ('foreign-failure', 'session_search', dict(query='q')),

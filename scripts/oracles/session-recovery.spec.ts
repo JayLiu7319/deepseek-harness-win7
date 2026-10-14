@@ -15,7 +15,7 @@ it('observes real JSONL cold recovery without changing reference source', async 
       await ctx.plugin(SessionStore)
       await ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
       const p = ctx.sessionPersistence
-      const meta = { id: fixture.mode, version: 0, createdAt: 1, delegationDepth: 0 }
+      const meta = { id: fixture.mode, version: 0, createdAt: 1, delegationDepth: 0 ,isSeeded:false}
       const path = p.locate(meta as any)!.path
       await mkdir(dirname(path), { recursive: true })
       const bytes = [JSON.stringify({ type: 'session', ...meta }), ...fixture.events.map(e => JSON.stringify(e))].join('\n') + '\n' + fixture.tail

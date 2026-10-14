@@ -14,7 +14,7 @@ from scripts.oracles.session_restore_sign_python import NAMES
 
 SOURCE_INPUTS = {
     'reference/packages/core/session/src/index.ts',
-    'reference/packages/core/session/src/json.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/core/session/src/types.ts',
     'scripts/oracles/session_restore_sign.probe.spec.ts',
     'scripts/oracles/vitest.session-restore-sign-probe.config.mts',

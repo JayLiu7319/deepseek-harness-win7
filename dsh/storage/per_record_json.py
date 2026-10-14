@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import datetime
 
 from dsh.storage.backend import KvUnit
 from dsh.storage.error import StorageError
@@ -37,11 +38,17 @@ class PerRecordJsonUnit(KvUnit):
         try:
             with open(path, encoding="utf-8") as stream:
                 document = json.load(stream)
-            if isinstance(document, dict) and type(document.get("version")) is int and document["version"] == self.descriptor.version:
+            if isinstance(document, dict) and type(document.get("version")) is int and document["version"] in [self.descriptor.version] + self.descriptor.compatible_versions:
                 return document.get("record", _MISSING)
         except (OSError, ValueError):
             pass
         return _MISSING
+
+    async def backup_record(self, table, key):
+        path = self._path(table, key)
+        moved = path + '.bak.' + datetime.datetime.now().strftime('%Y%m%d%H%M')
+        os.replace(path, moved)
+        return moved
 
     async def load_all(self):
         self._assert_open()
@@ -73,7 +80,7 @@ class PerRecordJsonUnit(KvUnit):
                     legacy = json.load(stream)
             except (FileNotFoundError, ValueError):
                 return state
-            if not isinstance(legacy, dict) or not isinstance(legacy.get("unit"), dict) or legacy["unit"].get("name") != self.descriptor.name:
+            if not isinstance(legacy, dict) or not isinstance(legacy.get("unit"), dict) or legacy["unit"].get("name") != self.descriptor.name or legacy['unit'].get('version') not in [self.descriptor.version] + self.descriptor.compatible_versions:
                 return state
             tables = legacy.get("tables")
             if not isinstance(tables, dict):
@@ -87,8 +94,8 @@ class PerRecordJsonUnit(KvUnit):
         return state
 
     async def _write(self, path, value):
-        # No await yields during the atomic filesystem operation: close cannot
-        # overtake a write, and the domain serializes all callers above us.
+        # The domain serializes callers, including bounded Windows replace
+        # retries and close, above this medium.
         await write_atomic(path, json.dumps({"version": self.descriptor.version, "record": value},
                                           ensure_ascii=False, indent=2, allow_nan=False) + "\n")
 

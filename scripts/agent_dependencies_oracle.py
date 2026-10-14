@@ -10,8 +10,9 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
-NAMES = ('initial-missing', 'provide-systemPrompt', 'provide-tools', 'provide-llm', 'provide-agents', 'provide-sessions', 'agents/before-loss', 'agents/after-loss', 'agents/retired-factory', 'agents/restored', 'agents/restored-create', 'agents/final-disposal', 'sessions/before-loss', 'sessions/after-loss', 'sessions/retired-factory', 'sessions/restored', 'sessions/restored-create', 'sessions/final-disposal', 'llm/before-loss', 'llm/after-loss', 'llm/retired-factory', 'llm/restored', 'llm/restored-create', 'llm/final-disposal', 'tools/before-loss', 'tools/after-loss', 'tools/retired-factory', 'tools/restored', 'tools/restored-create', 'tools/final-disposal', 'systemPrompt/before-loss', 'systemPrompt/after-loss', 'systemPrompt/retired-factory', 'systemPrompt/restored', 'systemPrompt/restored-create', 'systemPrompt/final-disposal')
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SERVICES = ('agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections')
+NAMES = ('initial-missing',) + tuple('provide-' + name for name in ('systemPrompt', 'tools', 'llm', 'agents', 'sessions', 'sessionProjections')) + tuple(name + '/' + phase for name in SERVICES for phase in ('before-loss', 'after-loss', 'retired-factory', 'restored', 'restored-create', 'final-disposal'))
 OBSERVER_INPUTS = ('scripts/agent_dependencies_oracle.py', 'scripts/oracles/agent_dependencies_source.mts', 'scripts/oracles/agent_dependencies_python.py', 'scripts/agent_dependencies_cases.py') + ('scripts/import_paths.py',)
 REQUIRED_IMPORTS = {'dsh/core/tools.py', 'dsh/core/system_prompt/__init__.py', 'dsh/core/agent_loop.py', 'dsh/core/agent.py', 'dsh/core/session/session.py', 'dsh/core/tool_calls.py', 'dsh/llm/message.py', 'dsh/llm/llm_service.py', 'dsh/cordis/context.py',
                     'dsh/core/abort.py', 'dsh/llm/error.py'}

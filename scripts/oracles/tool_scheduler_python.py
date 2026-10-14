@@ -17,6 +17,7 @@ sys.path.insert(1, str(Path(__file__).resolve().parent))
 from dsh.cordis.context import Context
 from dsh.llm.llm_service import LlmRuntime
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin, AgentLoopService
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -62,6 +63,7 @@ async def observe():
                         ('negative', -1), ('fraction', 1.5), ('boolean', True), ('text', '2'),
                         ('nan', float('nan')), ('infinite', float('inf'))]:
         ctx = Context()
+        SessionProjectionRegistry(ctx)
         try:
             config = {} if value is None else {'maxParallelToolCalls': value}
             loop = AgentLoopService(ctx, config)
@@ -75,6 +77,7 @@ async def observe():
         ('config-boolean-max-tokens', {'agents': [{'id': 'main', 'maxTokens': True}]}, 'expected number but got true'),
     ]:
         ctx = Context()
+        SessionProjectionRegistry(ctx)
         published = []
         ctx.on('agent/created', lambda *arguments: published.append(True))
         await ctx.plugin(SessionPlugin)
@@ -91,6 +94,7 @@ async def observe():
         finally:
             await ctx.fiber.dispose()
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     try:
         settings_fiber = await ctx.plugin(MemorySettings)
         await ctx.plugin(SystemPrompt)
@@ -121,6 +125,7 @@ async def observe():
     finally:
         await ctx.fiber.dispose()
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     model = ToolModel(7)
     ctx.set_service('llm', model)
     await ctx.plugin(SessionPlugin)
@@ -185,6 +190,7 @@ async def observe():
         await ctx.fiber.dispose()
     for cap in [1, 2, 10]:
         ctx = Context()
+        SessionProjectionRegistry(ctx)
         model = ToolModel()
         ctx.set_service('llm', model)
         await ctx.plugin(SessionPlugin)

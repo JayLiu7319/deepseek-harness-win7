@@ -1,8 +1,8 @@
 {
   "id": "CON-WEB-CONNECTION",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/client/connection/src/index.ts",
     "reference/packages/api/gateway/src/index.ts",
@@ -28,13 +28,20 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Eighteen physical default wire processes and six actual modelHTTP processes; twelve Source/Root/own-modern/own108 original UI fresh/cold journeys with trusted model/Low choice, consumed request headers, CSS/tool/question/approval/plan/cancel and actual cold restoration. Original Loader/HMR/cache/reconnect controls remain strict. Four complete directory permutations and independent stream interleaving require separate user approval."
+    "Eighteen physical default wire processes and six actual modelHTTP processes; twelve Source/Root/own-modern/own108 original UI fresh/cold journeys with trusted model/Low choice, consumed request headers, CSS/tool/question/approval/plan/cancel and actual cold restoration. Original Loader/HMR/cache/reconnect controls remain strict. Four complete directory permutations and independent stream interleaving require separate user approval.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "historical_open_questions": [
     "Exact complete unchanged Source official build218 artifacts imported with recorded environment/digest; settings.describe HTTP500 caused by integer public Schema refs fixed at producer.320 actual consumers,87 preflight/maintenance,53 mandatory/extracted controls,4 original browser lifecycle and55 fresh Permission paired observations pass. Six Source/Root original browser functional minimal/standard/cordis fresh/cold journeys pass; full wire DTO equivalence, independent own interpreter journeys and new clean full release remain separate.318-file archive retains exact original rejections and prior build; no browser source changes or extra Source bug exception.",
     "The additional composed full-parent observations above are not yet accepted. This contract specification is not task acceptance."
   ],
-  "acceptance_review": {
+  "approved_ordering_adaptation": {
+    "approval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26",
+    "scope": "Only four full-row unique-key directory bijections: settings/describe(ns), llm/listProviders(id), llm/listConfigurableProviders(provider), session/modelCatalog.routableProviders(provider identity); and global interleaving of four independent remote.mux streams in the sixteen current comparisons. Complete rows, all fields, each stream sequence, business/durable/request/body/termination/error values, all other ordering and the original sixteen mutation controls stay strict. Original global order remains sealed. No new upstream bug predicate, arbitrary scheduling/ABI/cloud qualification or native Win7 certification.",
+    "proposalSha256": "9ad0e65bd9c89690e806dcbf776d206d7b7d3fe1800e20a374a52a6bf4a1454b",
+    "bindingsSha256": "73399f327175f469aeab4cb3123b37a256a1d67f415dda0bbf1c953b2fbf5711"
+  },
+  "historical_alpha_acceptance_review": {
     "candidate": "f90ded26e96ecfb0c1737a47d9f47b034b26c93a",
     "reviewArtifact": "migration/evidence/artifacts/HANDOFF-PARENT-REVIEW-20261010-F90DED26.zip",
     "originalTaskSnapshot": {
@@ -399,10 +406,9 @@
     "existingUpstreamPredicates": "unchanged",
     "orderingApproval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26"
   },
-  "approved_ordering_adaptation": {
-    "approval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26",
-    "scope": "Only four full-row unique-key directory bijections: settings/describe(ns), llm/listProviders(id), llm/listConfigurableProviders(provider), session/modelCatalog.routableProviders(provider identity); and global interleaving of four independent remote.mux streams in the sixteen current comparisons. Complete rows, all fields, each stream sequence, business/durable/request/body/termination/error values, all other ordering and the original sixteen mutation controls stay strict. Original global order remains sealed. No new upstream bug predicate, arbitrary scheduling/ABI/cloud qualification or native Win7 certification.",
-    "proposalSha256": "9ad0e65bd9c89690e806dcbf776d206d7b7d3fe1800e20a374a52a6bf4a1454b",
-    "bindingsSha256": "73399f327175f469aeab4cb3123b37a256a1d67f415dda0bbf1c953b2fbf5711"
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
   }
 }

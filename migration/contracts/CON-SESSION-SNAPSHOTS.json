@@ -1,19 +1,20 @@
 {
   "id": "CON-SESSION-SNAPSHOTS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
-    "reference/packages/session/session-persistence-sqlite/src/index.ts",
-    "reference/packages/session/session-persistence-sqlite/src/store.ts",
-    "reference/packages/session/session-persistence-sqlite/src/schema.ts",
     "dsh/session/persistence.py",
     "dsh/session/persistence_jsonl.py",
     "dsh/session/persistence_sqlite.py",
     "dsh/session/file_revision.py"
   ],
-  "consumers": ["dsh/session/session_query.py", "dsh/session/prepared_persistence.py", "dsh/session/coordinator.py"],
+  "consumers": [
+    "dsh/session/session_query.py",
+    "dsh/session/prepared_persistence.py",
+    "dsh/session/coordinator.py"
+  ],
   "invariants": [
     "The eighteen declared actual source/native provider observations must match independent literals; they are not full SQLite physical-schema or FTS acceptance.",
     "Canonical listSnapshots exposes detached headers and source-qualified tokens. JSONL includes dev/ino/size/mtimeNs/ctimeNs; a changed Windows ChangeTime invalidates same-size rewrites even after restoring mtime. Both observer fixtures explicitly assign identical before/after ChangeTime values; arbitrary rewrites with all five stat fields unchanged remain outside this guarantee.",
@@ -32,6 +33,13 @@
   "open_questions": [
     "Full source SQLite schema-19/chunk/compression/foreign-database validation and cross-process power-loss behavior remain unaccepted.",
     "All provider epochs, incremental FTS generations, two-attempt reconciliation, raw duplicate-artifact ordering and non-Windows physical birthtime qualification remain unaccepted.",
-    "Windows 7 real-machine certification is deferred."
-  ]
+    "Windows 7 real-machine certification is deferred.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision.",
+    "Removed Source paths: reference/packages/session/session-persistence-sqlite/src/index.ts, reference/packages/session/session-persistence-sqlite/src/store.ts, reference/packages/session/session-persistence-sqlite/src/schema.ts"
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

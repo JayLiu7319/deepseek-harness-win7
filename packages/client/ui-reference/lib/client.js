@@ -89,7 +89,6 @@ window.__ModuleLoader__.load({
 		const inject = [
 			"inputTriggers",
 			"locale",
-			"connection",
 			"sessions",
 			"remote",
 			"remote.fileReferences",
@@ -105,20 +104,19 @@ window.__ModuleLoader__.load({
 				en
 			}), "ui-reference: dictionaries");
 			const t = ctx.locale.bind(NS);
-			const connection = ctx.get("connection");
 			const sessions = ctx.get("sessions");
 			const source = {
 				trigger: "@",
 				name: "reference",
 				showGroupTitle: false,
 				async candidates(session, { query, quoted, drilled, signal }) {
-					const fileLookup = ctx.remote.fileReferences.list(session.sessionId, query, signal).then((result) => result.ok ? result.value : [], () => []);
-					const sessionLookup = quoted === true ? Promise.resolve([]) : ctx.remote.sessionReferenceResolver.candidates(session.sessionId, query, signal).then((result) => result.ok ? result.value : [], () => []);
+					const fileLookup = ctx.remote.fileReferences.list(session.sessionId, query, signal).then((result) => result.ok ? result.value : []);
+					const sessionLookup = quoted === true ? Promise.resolve([]) : ctx.remote.sessionReferenceResolver.candidates(session.sessionId, query, signal).then((result) => result.ok ? result.value : []);
 					const [fileItems, sessionItems] = await Promise.all([fileLookup, sessionLookup]);
 					if (signal.aborted) return [];
 					const withLocation = crumbsFor(query, quoted === true, drilled, t) === void 0;
 					const now = Date.now();
-					const home = connection.generation.getSnapshot()?.host.home;
+					const home = ctx.remote.$host.home;
 					const listed = sessions.list.getSnapshot().byId;
 					return [...fileItems.flatMap((candidate) => fileCandidate(candidate, quoted === true, withLocation, t)), ...sessionItems.map((candidate) => sessionCandidate(candidate, listed[candidate.sessionId]?.updatedAt ?? candidate.createdAt, now, home, t))];
 				},

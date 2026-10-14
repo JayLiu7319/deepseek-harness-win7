@@ -3,6 +3,7 @@ import {writeFileSync} from 'node:fs'
 import {Context} from '@deepseek-ai/cordis'
 import SessionStore,{Session,SessionId} from '@deepseek-ai/dsh-session'
 import PermissionPresetService from '@deepseek-ai/dsh-permission-presets'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 
 const root=process.cwd()+'/'
 const observedClock=1791283200000
@@ -43,6 +44,7 @@ for(const name of names){
   const observation:any={name,config,shellDefault:shellDefault??null,approvalDefault,trace,rawEvents}
   try{
     await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     ctx.provide('shell',{sandboxMode:shellDefault})
     ctx.provide('approval',{config:{policy:approvalDefault}})
     ctx.on('session/event',(selected,event)=>rawEvents.push(structuredClone(event)))
@@ -53,7 +55,7 @@ for(const name of names){
       const prior=Session.create(SessionId('seed-fixture'))
       if(name==='seed-custom')prior.append('sandbox/mode',{mode:'read-only'})
       else{prior.append('turn/start',{turn:1});prior.append('turn/end',{turn:1,reason:{kind:'completed'}})}
-      session=ctx.sessions.create(SessionId('permission-fixture'),{seed:prior.events})
+      session=ctx.sessions.create(SessionId('permission-fixture'),{seed:prior.snapshotEvents()})
     }else if(['selected-only','sandbox-only','approval-only','numeric-selected'].includes(name)){
       session=Session.create(SessionId('permission-fixture'))
       if(name==='selected-only')session.append('permission/preset',{preset:'danger-full-access'})
@@ -70,13 +72,13 @@ for(const name of names){
     if(name==='custom-view')session.append('sandbox/mode',{mode:'read-only'})
     if(name==='unknown-set')ctx.permissionPresets.set(session,'foreign')
     observation.result={names:ctx.permissionPresets.names,defaultPreset:ctx.permissionPresets.defaultPreset,
-      current:ctx.permissionPresets.current(session.events),select:ctx.permissionPresets.selectFor(session.events.reduce((state,event)=>{
+      current:ctx.permissionPresets.current(session),select:ctx.permissionPresets.selectFor(session.snapshotEvents().reduce((state,event)=>{
         if(event.type==='permission/preset')return {...state,preset:event.data.preset}
         if(event.type==='sandbox/mode')return {...state,sandbox:event.data.mode}
         if(event.type==='approval/policy')return {...state,approval:event.data.policy}
         return state
       },{preset:null,sandbox:null,approval:null})),approvalConfig:structuredClone(ctx.approval.config),
-      events:session.events.map(event=>({type:event.type,data:event.data}))}
+      events:session.snapshotEvents().map(event=>({type:event.type,data:event.data}))}
   }catch(error:any){observation.error={name:error.name,message:error.message}}
   finally{await ctx.fiber.dispose()}
   rows.push(observation)

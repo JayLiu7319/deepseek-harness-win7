@@ -1,15 +1,14 @@
 {
-  "sourceCommit": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "sourceCommit": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
   "inputs": {
-    "reference/packages/core/session/src/json.ts": "cbb271dadd2f476a4d19a2b22ac606db6887ed70367b86d6c13ddf1d102d36ba",
-    "reference/packages/core/session/src/types.ts": "7ed2740ccaafab51de43afa31e579fc27e51b1755ffd57da657ce2ceda8c13ed",
-    "reference/packages/core/tools/src/json-schema.ts": "d6d3203900c1d31e6a03b5b56a1de02effa4356ee933d274704c5bdfdb9f8784",
+    "reference/packages/core/tools/src/json-schema.ts": "13deffdfd34539e23706b0fde235991da45b2f07c5c18dbbf3ca734c1da0c788",
     "reference/packages/llm/llm/src/error.ts": "d5a46153de9293456b7c998f849b4e3f1a95c3830777aab932cdc5acf036b1b1",
-    "reference/packages/llm/llm/src/never.ts": "58db227354ee8cf5e27e7c8258a35a1f258baad837459a65c5e64d10a9a7cff5",
+    "reference/packages/util/brand/src/index.ts": "f9d6da858d7308117227dcc2306ce7246b7309b2ae22d413d289cbae51e83e98",
+    "reference/packages/util/values/src/index.ts": "573c77ba7017fc747f90fdbd5445cfd565db6ff6d53a6b999f6c34ed842bbb8f",
     "reference/packages/workflow/workflow-worker-thread/src/protocol.ts": "511f345ea56d8c76791dd8f19a24084d7b039565c2a4a13373efdbcbc6f84a9d",
     "reference/packages/workflow/workflow-worker-thread/src/realm.ts": "5bbfbbcf80bb3ff4212d53b013b15571a23fa2bccadb97a696d6f01575bd8109",
-    "reference/packages/workflow/workflow-worker-thread/src/runtime.ts": "3ecbd893fc8b776ab6e93a7e5edd99c8ce5d3da255bb9b378242b80131138c78",
-    "reference/packages/workflow/workflow-worker-thread/src/session.ts": "71b351562ddea8bbbdff6fa0057a3d7f5a969a6f34598cc5d3badc24622f0b70",
+    "reference/packages/workflow/workflow-worker-thread/src/runtime.ts": "676d0a5e571a8ea205d6481e85028b8e3049e341d31d4bc0dbfeef60600691e4",
+    "reference/packages/workflow/workflow-worker-thread/src/session.ts": "086cb145eb2a01d95c947fd7f3a3f4dc2c25bb32be2821fb9b63ea46d0e4f3af",
     "reference/packages/workflow/workflow/src/index.ts": "a7cf7dc7b367f18a9945883fe259f96ef031aa45a7a4e2c216cfcaa9a64b0685",
     "reference/packages/workflow/workflow/src/types.ts": "8e2a56e4141886dab23922311053082cdb090068dfadf12b9c5f0003261dc302",
     "reference/vendor/cordis/src/context.ts": "96b388162d6013c1898de61e35f28917abb93809de24174980f2a1a348d0b115",
@@ -28,13 +27,12 @@
     "reference/vendor/cosmokit/src/time.ts": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2",
     "reference/vendor/cosmokit/src/types.ts": "09d72a91052105e88500bfb99a8e8ce0c9ebf6f6e7df569053e114bc77aa019c",
     "scripts/native/workflow/entry.ts": "0c16542c84c439bdf4f6384d9ac4f9c93bea4cf1c37fb32baf2fd1d00aa891ab",
-    "scripts/native/workflow/llm.ts": "25f382cb92a7bca91a6314600ba76f0f08ed3a121f3bf7b9ed58222820ae195e",
-    "scripts/native/workflow/session.ts": "0d3eaf2a0cdc62edab0cc0bc79f5ebe2b5fbf48016bba28b5d31d2b5e292d084",
+    "scripts/native/workflow/llm.ts": "035de392a0a50d4f6f14821cdb85f16c17936c51a78d4e5f593192d5ea3f55e2",
     "scripts/native/workflow/vm.js": "1cfb81b48cd6e0c4a05f6eaa75ce157735ddcd12ade09da6ccd2a0fdcf93dd30",
-    "scripts/build_workflow.mjs": "16b4c78941265b4bf8d3b52589e5a1ee0f7e032922e71e3ee90ee6068a0e793e",
+    "scripts/build_workflow.mjs": "c80dbe234f021a867350b4ec97774ada71b08e9087b38daea9972ba75493c056",
     "scripts/native/workflow/driver.js": "c654b2304f2bbd1143b038394b3bf17f099484435ea99bf24d32bad595889e97",
     "scripts/native/workflow/error-stack.js": "7be209e48673472e6d14b9cff3d7fee4ac90a624378e9a6e49364f101f2d858b",
-    "reference/tsconfig.base.json": "9094e8dd1e3ad3b9c179ff4651330d25013ce681f7da738b50cdb9d6f4ea5e73",
+    "reference/tsconfig.base.json": "0989972487c59ae33576664d47103a41e467534231a70db07ccf8f4c6253a641",
     "reference/LICENSE": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
     "reference/vendor/cordis/LICENSE": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7",
     "reference/vendor/cosmokit/LICENSE": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
@@ -48,30 +46,9 @@
   "esbuild": "0.28.2",
   "metafile": {
     "inputs": {
-      "reference/packages/llm/llm/src/error.ts": {
-        "bytes": 7683,
+      "reference/packages/util/values/src/index.ts": {
+        "bytes": 9759,
         "imports": [],
-        "format": "esm"
-      },
-      "reference/packages/llm/llm/src/never.ts": {
-        "bytes": 1253,
-        "imports": [],
-        "format": "esm"
-      },
-      "scripts/native/workflow/llm.ts": {
-        "bytes": 159,
-        "imports": [
-          {
-            "path": "reference/packages/llm/llm/src/error.ts",
-            "kind": "import-statement",
-            "original": "../../../reference/packages/llm/llm/src/error.ts"
-          },
-          {
-            "path": "reference/packages/llm/llm/src/never.ts",
-            "kind": "import-statement",
-            "original": "../../../reference/packages/llm/llm/src/never.ts"
-          }
-        ],
         "format": "esm"
       },
       "reference/packages/workflow/workflow-worker-thread/src/protocol.ts": {
@@ -89,34 +66,34 @@
         "imports": [],
         "format": "esm"
       },
-      "reference/packages/core/session/src/types.ts": {
-        "bytes": 18259,
+      "reference/packages/util/brand/src/index.ts": {
+        "bytes": 1520,
         "imports": [],
         "format": "esm"
       },
-      "reference/packages/core/session/src/json.ts": {
-        "bytes": 8120,
+      "reference/packages/llm/llm/src/error.ts": {
+        "bytes": 7683,
         "imports": [],
         "format": "esm"
       },
-      "scripts/native/workflow/session.ts": {
-        "bytes": 165,
+      "scripts/native/workflow/llm.ts": {
+        "bytes": 163,
         "imports": [
           {
-            "path": "reference/packages/core/session/src/types.ts",
+            "path": "reference/packages/llm/llm/src/error.ts",
             "kind": "import-statement",
-            "original": "../../../reference/packages/core/session/src/types.ts"
+            "original": "../../../reference/packages/llm/llm/src/error.ts"
           },
           {
-            "path": "reference/packages/core/session/src/json.ts",
+            "path": "reference/packages/util/values/src/index.ts",
             "kind": "import-statement",
-            "original": "../../../reference/packages/core/session/src/json.ts"
+            "original": "../../../reference/packages/util/values/src/index.ts"
           }
         ],
         "format": "esm"
       },
       "reference/packages/core/tools/src/json-schema.ts": {
-        "bytes": 26285,
+        "bytes": 26289,
         "imports": [
           {
             "path": "scripts/native/workflow/llm.ts",
@@ -124,9 +101,9 @@
             "original": "@deepseek-ai/dsh-llm"
           },
           {
-            "path": "scripts/native/workflow/session.ts",
+            "path": "reference/packages/util/values/src/index.ts",
             "kind": "import-statement",
-            "original": "@deepseek-ai/dsh-session"
+            "original": "@deepseek-ai/dsh-util-values"
           }
         ],
         "format": "esm"
@@ -460,7 +437,7 @@
         "format": "esm"
       },
       "reference/packages/workflow/workflow-worker-thread/src/runtime.ts": {
-        "bytes": 22039,
+        "bytes": 22110,
         "imports": [
           {
             "path": "scripts/native/workflow/vm.js",
@@ -468,9 +445,9 @@
             "original": "node:vm"
           },
           {
-            "path": "scripts/native/workflow/session.ts",
+            "path": "reference/packages/util/brand/src/index.ts",
             "kind": "import-statement",
-            "original": "@deepseek-ai/dsh-session"
+            "original": "@deepseek-ai/dsh-brand"
           },
           {
             "path": "reference/packages/core/tools/src/json-schema.ts",
@@ -491,12 +468,12 @@
         "format": "esm"
       },
       "reference/packages/workflow/workflow-worker-thread/src/session.ts": {
-        "bytes": 8099,
+        "bytes": 8107,
         "imports": [
           {
-            "path": "scripts/native/workflow/llm.ts",
+            "path": "reference/packages/util/values/src/index.ts",
             "kind": "import-statement",
-            "original": "@deepseek-ai/dsh-llm"
+            "original": "@deepseek-ai/dsh-util-values"
           },
           {
             "path": "reference/packages/workflow/workflow-worker-thread/src/protocol.ts",
@@ -537,14 +514,8 @@
           "scripts/native/workflow/entry.ts": {
             "bytesInOutput": 105
           },
-          "reference/packages/llm/llm/src/error.ts": {
-            "bytesInOutput": 1050
-          },
-          "scripts/native/workflow/llm.ts": {
-            "bytesInOutput": 0
-          },
-          "reference/packages/llm/llm/src/never.ts": {
-            "bytesInOutput": 197
+          "reference/packages/util/values/src/index.ts": {
+            "bytesInOutput": 5064
           },
           "reference/packages/workflow/workflow-worker-thread/src/realm.ts": {
             "bytesInOutput": 3673
@@ -552,14 +523,14 @@
           "scripts/native/workflow/vm.js": {
             "bytesInOutput": 497
           },
-          "reference/packages/core/session/src/types.ts": {
-            "bytesInOutput": 46
+          "reference/packages/util/brand/src/index.ts": {
+            "bytesInOutput": 54
           },
-          "scripts/native/workflow/session.ts": {
+          "reference/packages/llm/llm/src/error.ts": {
+            "bytesInOutput": 1050
+          },
+          "scripts/native/workflow/llm.ts": {
             "bytesInOutput": 0
-          },
-          "reference/packages/core/session/src/json.ts": {
-            "bytesInOutput": 4867
           },
           "reference/packages/core/tools/src/json-schema.ts": {
             "bytesInOutput": 10839
@@ -568,13 +539,13 @@
             "bytesInOutput": 419
           },
           "reference/packages/workflow/workflow-worker-thread/src/runtime.ts": {
-            "bytesInOutput": 15150
+            "bytesInOutput": 15152
           },
           "reference/packages/workflow/workflow-worker-thread/src/session.ts": {
             "bytesInOutput": 4350
           }
         },
-        "bytes": 42695
+        "bytes": 42657
       }
     }
   },

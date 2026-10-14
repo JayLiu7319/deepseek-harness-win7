@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 // Construct real Agent lifetimes; no replacement driver or maintenance implementation.
 import { it } from 'vitest'
 import { readFile, writeFile } from 'node:fs/promises'
@@ -15,7 +16,8 @@ const tick = () => new Promise<void>(resolve => setTimeout(resolve, 0))
 async function compaction(spec: any): Promise<any> {
   const ctx = new Context()
   await ctx.plugin(Llm); await ctx.plugin(Sessions); await ctx.plugin(Tools)
-  await ctx.plugin(Prompt); await ctx.plugin(Agents); await ctx.plugin(Loop, { agents: [] })
+  await ctx.plugin(Prompt); await ctx.plugin(Agents); if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop, { agents: [] })
   await ctx.plugin(TokenMeter)
   const handle = await ctx.agents.create({ sessionId: SessionId(spec.mode), options: {} })
   const agent = handle.agent
@@ -62,8 +64,8 @@ async function compaction(spec: any): Promise<any> {
   const row = { mode: spec.mode, before, outcome, retainedInJob, flushes,
     released: markers, clean: ctx.agents.get(agent.id) === undefined && ctx.sessions.get(agent.id) === undefined,
     generation: agent.session.surface.replaceGeneration,
-    failedEnds: agent.session.events.filter(e => e.type === 'compaction/end' && e.data.error !== undefined).map(e => e.data.error),
-    events: agent.session.events.filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, failed: 'error' in e.data })) }
+    failedEnds: agent.session.snapshotEvents().filter(e => e.type === 'compaction/end' && e.data.error !== undefined).map(e => e.data.error),
+    events: agent.session.snapshotEvents().filter(e => e.type.startsWith('compaction/')).map(e => ({ type: e.type, failed: 'error' in e.data })) }
   await ctx.fiber.dispose()
   return row
 }
@@ -74,7 +76,8 @@ it('observes maintenance ownership, cancellation and driver handover', async () 
     if (spec.kind === 'compaction') { rows.push(await compaction(spec)); continue }
     const ctx = new Context()
     await ctx.plugin(Llm); await ctx.plugin(Sessions); await ctx.plugin(Tools)
-    await ctx.plugin(Prompt); await ctx.plugin(Agents); await ctx.plugin(Loop, { agents: [] })
+    await ctx.plugin(Prompt); await ctx.plugin(Agents); if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop, { agents: [] })
     const handle = await ctx.agents.create({ sessionId: SessionId(spec.mode), options: {} })
     const agent = handle.agent
     const reached = Promise.withResolvers<void>(), release = Promise.withResolvers<void>()
@@ -128,7 +131,7 @@ it('observes maintenance ownership, cancellation and driver handover', async () 
     rows.push({ mode: spec.mode, reserved, busy, waitsMaintenance, waitsDriver,
       cancellation, outcome: result, claims, status: agent.status,
       queued: agent.inbox.nextTurn.length + agent.inbox.nextStep.length,
-      turns: agent.session.events.filter(e => e.type === 'turn/start' || e.type === 'turn/end').map(e => e.type) })
+      turns: agent.session.snapshotEvents().filter(e => e.type === 'turn/start' || e.type === 'turn/end').map(e => e.type) })
     await handle.dispose(); await ctx.fiber.dispose()
   }
   await writeFile(process.env.MAINTENANCE_OUTPUT!, JSON.stringify(rows, null, 2) + '\n')

@@ -31,7 +31,7 @@ def sdk_journey(tmp_path, default_profile, notification_first):
     profile = tmp_path / 'home' / 'profiles' / 'sdk-journey'
     init_profile(str(profile), [], 'startup')
     rows = [dict(id=name, name='@deepseek-ai/dsh-' + name) for name in (
-        'session', 'tools', 'system-prompt', 'agent', 'agent-loop', 'llm', 'llm-deepseek', 'sdk-app')]
+        'session', 'session-projection', 'tools', 'system-prompt', 'agent', 'agent-loop', 'llm', 'llm-deepseek', 'sdk-app')]
     rows.extend([
         dict(id='persistence', name='@deepseek-ai/dsh-session-persistence-jsonl', config=dict(root=str(tmp_path / 'sessions'))),
         dict(id='rpc', name='@deepseek-ai/dsh-sdk-jsonrpc-server', inject=['sdkAppStartup', 'loader']),

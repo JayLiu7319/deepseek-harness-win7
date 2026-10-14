@@ -124,12 +124,17 @@ def validate_mutation(database, path):
         raise ValueError('session database schema changed before mutation (expected %d, got %d)' % (SCHEMA_VERSION, version))
 
 
-async def open_database(path, journal_mode='wal', busy_timeout_ms=5000):
+async def open_database(path, journal_mode='wal', busy_timeout_ms=5000, read_only=False):
     load_sqlite()
     deadline = time.monotonic() + busy_timeout_ms / 1000
-    database = SqliteDatabase(path)
+    database = SqliteDatabase(path, read_only=read_only)
     try:
         database.exec('PRAGMA busy_timeout = %d' % busy_timeout_ms)
+        if read_only:
+            database.exec(sql('trusted-schema-off'))
+            database.exec(sql('mmap-off'))
+            validate_mutation(database, path)
+            return database
         database.exec(sql('trusted-schema-off'))
         if field(database.prepare(sql('select-trusted-schema')).get(), 'trusted_schema', 'integer') != 0:
             value = database.prepare(sql('select-trusted-schema')).get()['trusted_schema']

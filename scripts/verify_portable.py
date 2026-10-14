@@ -44,7 +44,8 @@ from scripts.query_unicode_oracle import validate_runtime as validate_query_unic
 from scripts.session_text_oracle import validate_runtime as validate_session_text, source_identity as text_source_identity
 from scripts.session_tools_oracle import validate_runtime as validate_session_tools, source_identity as tools_source_identity
 from scripts.sqlite_format_oracle import validate_runtime as validate_sqlite_format, source_identity as format_source_identity
-from scripts.sqlite_provider_oracle import validate_runtime as validate_sqlite_provider, source_identity as provider_source_identity
+from scripts.legacy_session_reader_oracle import validate_runtime as validate_legacy_reader
+from scripts.rc1_capabilities_oracle import validate_runtime as validate_rc1_capabilities, digest as rc1_digest, PIN as RC1_PIN
 from scripts.jsonl_provider_oracle import validate_runtime as validate_jsonl_provider, source_identity as jsonl_source_identity
 from scripts.tool_scheduler_oracle import validate_runtime as validate_tool_scheduler, identity as scheduler_identity
 from scripts.http_redirect_oracle import validate_runtime as validate_http_redirect, identity as redirect_identity
@@ -662,6 +663,8 @@ def message_values_receipts(source, native, output):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--archive', required=True)
+    parser.add_argument('--rc1-inputs', type=Path, help='Frozen rc1 paired inputs from release qualification')
+    parser.add_argument('--rc1-source', type=Path, help='Source observations paired with the frozen rc1 inputs')
     parser.add_argument('--output', required=True)
     parser.add_argument('--browser', help='Optional absolute Chromium executable, development observer only')
     parser.add_argument('--browser108', help='Fixed Chromium 108 observer for ZIP-bound compatibility lane')
@@ -755,6 +758,7 @@ def main(argv=None):
             'oracles/session_observation_read_expected.json', 'session_corpus_list_oracle.py',
             'oracles/session_corpus_list_python.py', 'oracles/session_corpus_list_expected.json',
             'session_corpus_read_oracle.py', 'oracles/session_corpus_read_python.py', 'oracles/session_corpus_read_expected.json',
+            'rc1_capabilities_oracle.py', 'oracles/rc1_capabilities.mts',
             'session_lineage_oracle.py', 'oracles/session_lineage_python.py', 'oracles/session_lineage_expected.json',
             'session_event_trace_oracle.py', 'oracles/session_event_trace_python.py',
             'oracles/session_event_trace_expected.json', 'oracles/session_event_trace_fixture.json',
@@ -1251,20 +1255,47 @@ def main(argv=None):
                 raise RuntimeError('Extracted SQLite format failed')
             report['sqliteFormat'] = json.loads(format_path.read_text(encoding='utf-8'))
             validate_sqlite_format(report['sqliteFormat'], portable, format_digest, format_frames)
-            provider_path = output.with_suffix('.sqlite-provider-paired.json')
             provider_environment = workspace / 'provider-environment.json'
             provider_environment.write_text(json.dumps(env), encoding='utf-8')
-            provider_result = subprocess.run([sys.executable, str(ROOT / 'scripts/sqlite_provider_oracle.py'),
-                '--output', str(provider_path), '--python', str(portable / 'python.exe'), '--root', str(portable),
+            rc1_inputs = args.rc1_inputs
+            rc1_source = args.rc1_source
+            if rc1_inputs is None:
+                rc1_pair = output.with_suffix('.rc1-pair')
+                result = subprocess.run([sys.executable, str(ROOT / 'scripts/rc1_capabilities_oracle.py'),
+                    '--output', str(rc1_pair)], cwd=str(ROOT), capture_output=True, timeout=90)
+                if result.returncode:
+                    raise RuntimeError('rc1 fresh Source observer failed')
+                if json.loads((rc1_pair / 'report.json').read_text(encoding='utf-8')).get('status') != 'matched':
+                    raise RuntimeError('rc1 fresh Source/native observations differ')
+                rc1_inputs = rc1_pair / 'inputs.json'
+                rc1_source = rc1_pair / 'source.json'
+            if rc1_source is None:
+                raise RuntimeError('Frozen rc1 inputs require their Source observations')
+            source_rc1 = json.loads(rc1_source.read_text(encoding='utf-8'))
+            if (source_rc1.get('pin') != RC1_PIN or source_rc1.get('inputSha256') != hashlib.sha256(rc1_inputs.read_bytes()).hexdigest()):
+                raise RuntimeError('Frozen rc1 Source identity or inputs differ')
+            rc1_path = output.with_suffix('.rc1-native.json')
+            rc1_result = subprocess.run([str(portable / 'python.exe'), '-I',
+                str(ROOT / 'scripts/rc1_capabilities_oracle.py'), '--runtime', '--root', str(portable),
+                '--inputs', str(rc1_inputs), '--output', str(rc1_path)], cwd=str(workspace), env=env,
+                capture_output=True, timeout=90)
+            output.with_suffix('.rc1-native.log').write_bytes(rc1_result.stdout + rc1_result.stderr)
+            if rc1_result.returncode:
+                raise RuntimeError('Extracted rc1 capability observer failed')
+            report['rc1Capabilities'] = json.loads(rc1_path.read_text(encoding='utf-8'))
+            # Release validates the exact frozen Source digest and module closure.
+            validate_rc1_capabilities(report['rc1Capabilities'], portable,
+                rc1_digest(source_rc1['observations']),
+                hashlib.sha256(rc1_inputs.read_bytes()).hexdigest())
+            legacy_path = output.with_suffix('.legacy-session-reader.json')
+            legacy_result = subprocess.run([sys.executable, str(ROOT / 'scripts/legacy_session_reader_oracle.py'),
+                '--output', str(legacy_path), '--python', str(portable / 'python.exe'), '--root', str(portable),
                 '--environment', str(provider_environment)], cwd=str(ROOT), capture_output=True, timeout=120)
-            output.with_suffix('.sqlite-provider.log').write_bytes(provider_result.stdout + provider_result.stderr)
-            if provider_result.returncode:
-                raise RuntimeError('Extracted SQLite provider failed')
-            provider_native = json.loads(provider_path.with_name(provider_path.stem + '.native.json').read_text(encoding='utf-8'))
-            provider_source = json.loads(provider_path.with_name(provider_path.stem + '.source.json').read_text(encoding='utf-8'))
-            provider_summary = json.loads(provider_path.read_text(encoding='utf-8'))
-            validate_sqlite_provider(provider_native, portable, provider_source_identity(provider_source), provider_summary['generatedInputsSha256'])
-            report['sqliteProvider'] = provider_native
+            output.with_suffix('.legacy-session-reader.log').write_bytes(legacy_result.stdout + legacy_result.stderr)
+            if legacy_result.returncode:
+                raise RuntimeError('Extracted legacy session reader failed')
+            report['legacySessionReader'] = json.loads(legacy_path.read_text(encoding='utf-8'))
+            validate_legacy_reader(report['legacySessionReader'], portable)
             jsonl_path = output.with_suffix('.jsonl-provider-paired.json')
             jsonl_result = subprocess.run([sys.executable, str(ROOT / 'scripts/jsonl_provider_oracle.py'),
                 '--output', str(jsonl_path), '--python', str(portable / 'python.exe'), '--root', str(portable),
@@ -1633,7 +1664,8 @@ def main(argv=None):
                         '--output', str(journey_dir), '--run-dir', str(workspace / ('journey-' + preset)),
                         '--workspace', str(workspace / ('workspace-' + preset)), '--clock', '1791244800000',
                         '--approval-artifact', str(workspace / ('approved-' + preset + '.txt')),
-                        '--archive', str(archive)], cwd=str(workspace), capture_output=True,
+                        '--archive', str(archive), '--file-references', 'true'] +
+                        (['--long-history', 'true'] if preset == 'minimal' else []), cwd=str(workspace), capture_output=True,
                         encoding='utf-8', errors='replace', timeout=300)
                     output.with_suffix('.browser108-' + preset + '.log').write_text(
                         observed_profile.stdout + '\nSTDERR:\n' + observed_profile.stderr, encoding='utf-8')

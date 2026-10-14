@@ -12,7 +12,7 @@ it('observes the public storage boundary through real JSONL services',async()=>{
   const root=await mkdtemp(join(tmpdir(),'dsh-storage-'));let ctx=new Context()
   const mount=async()=>{await ctx.plugin(SessionStore);await ctx.plugin(Jsonl,{root,compression:'none'});return ctx.sessionPersistence}
   const event=(seq=0,type='session/end-seed',data={})=>({seq,type,time:seq+1,data}) as any
-  const meta={id:'s' as any,version:0 as const,createdAt:1}
+  const meta={id:'s' as any,version:0 as const,createdAt:1,isSeeded:false}
   try{
    let p=await mount();await p.create(meta)
    if(mode==='lazy'){

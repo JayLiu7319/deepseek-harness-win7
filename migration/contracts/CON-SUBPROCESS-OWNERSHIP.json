@@ -1,10 +1,17 @@
 {
   "id": "CON-SUBPROCESS-OWNERSHIP",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/subprocess/subprocess-local/src/index.ts", "reference/packages/subprocess/subprocess-local/tests/local.spec.ts"],
-  "consumers": ["dsh/subprocess/local.py", "dsh/subagent/acp.py", "scripts/verify_portable.py"],
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/subprocess/subprocess-local/src/index.ts",
+    "reference/packages/subprocess/subprocess-local/tests/local.spec.ts"
+  ],
+  "consumers": [
+    "dsh/subprocess/local.py",
+    "dsh/subagent/acp.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "Synchronous Host-exit finalization contains each target failure and retains current live/terminal registries until normal owned disposal finishes.",
     "A pending ordinary wait remains owned after synchronous finalization and is retired only after its admitted wait completes.",
@@ -18,5 +25,13 @@
   "errors": "Per-target finalization failures are contained; normal single failure retains identity, and multiple failures use the shared AggregateError with original members/message/order.",
   "cancellation": "This contract covers awaited normal disposal and invoked finalizer at explicit handle barriers; actual operating-system Host termination, process trees and caller cancellation beyond the existing owner are separate.",
   "adaptation": "Python 3.8 terminal Task admission mirrors the source synchronous async-function prefix versus resolved Promise continuation. Controlled handles are declared observer seams, with no invented pid or OS outcome.",
-  "open_questions": ["Main complete clean candidate and actual extracted acceptance are pending. Original five-file subprocess baseline has two Windows fixture translation failures retained separately. Real root/descendant trees, Host crash/exit, terminal/WinPTY, background Jobs and deferred Win7 remain unaccepted."]
+  "open_questions": [
+    "Main complete clean candidate and actual extracted acceptance are pending. Original five-file subprocess baseline has two Windows fixture translation failures retained separately. Real root/descendant trees, Host crash/exit, terminal/WinPTY, background Jobs and deferred Win7 remain unaccepted.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

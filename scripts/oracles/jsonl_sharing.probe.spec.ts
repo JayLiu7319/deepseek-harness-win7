@@ -6,7 +6,7 @@ import SessionStore from '@deepseek-ai/dsh-session'
 import Jsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
 
 it('observes complete original JSONL readers beside an owned Windows shared holder',async()=>{
-  const pin='cd5ef8148158c3a752a658978873241fdf8e2bbc'
+  const pin='a66e4702047846cdaa10c66c9d3df3951f5ea70d'
   expect(process.version).toBe('v22.22.2')
   expect(execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()).toBe(pin)
   expect(execFileSync('git',['-C','reference','status','--porcelain'],{encoding:'utf8'}).trim()).toBe('')

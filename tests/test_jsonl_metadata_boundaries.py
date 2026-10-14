@@ -31,6 +31,15 @@ async def test_present_null_survives_physical_reads_and_is_refused_at_its_owned_
     context, provider, path, encoded = await mounted_artifact(tmp_path, compression, line)
     try:
         metadata = parse_header_meta(line)
+        if field == 'seedLength':
+            # rc.1's physical header guard admits only safe integer cuts.
+            assert metadata is None
+            assert await provider.list() == []
+            for operation in (provider.loadStored, provider.inspect, provider.load):
+                with pytest.raises(ValueError, match='first line is not a session header'):
+                    await operation('raw')
+            assert path.read_bytes() == encoded
+            return
         assert field in metadata and metadata[field] is None
         assert json.loads(header_bytes(metadata))[field] is None
         raw = await provider.read_raw('raw')
@@ -44,7 +53,8 @@ async def test_present_null_survives_physical_reads_and_is_refused_at_its_owned_
                 await provider.list()
         else:
             stored = await provider.loadStored('raw')
-            assert set(stored) == {'meta', 'events', 'revision'}
+            assert set(stored) == {'meta', 'events', 'revision', 'inheritedEventCount'}
+            assert stored['inheritedEventCount'] == 0
             assert stored['meta'].to_dict()[field] is None
             assert (await provider.read_from('raw', 0)).meta.to_dict()[field] is None
             assert (await provider.list())[0].to_dict()[field] is None

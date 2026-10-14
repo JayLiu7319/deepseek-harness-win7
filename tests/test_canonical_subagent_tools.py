@@ -6,7 +6,7 @@ from dsh.subagent.runtime import SubagentPlugin
 from dsh.subagent.in_process import SpawnInProcess
 from dsh.subagent.canonical_tools import CanonicalToolSubagent
 from test_subagent_in_process import setup
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 
 
 @pytest.mark.parametrize('reason,headline', [
@@ -112,7 +112,7 @@ async def test_child_report_is_scoped_and_live_revocable(tmp_path):
         receipt = await tool.execute({'output': 'useful partial result'}, SimpleNamespace(agent=child, signal=AbortController().signal))
         assert receipt['messageId'] and parent.agent.status == 'idle'
         send = ctx.get('tools').get('send_message', scope_of(parent.agent.ctx))
-        queued = await send.execute({'subagent_id': child.id, 'message': 'more work'}, SimpleNamespace(agent=parent.agent, signal=AbortController().signal))
+        queued = await send.execute({'agent_id': child.id, 'message': 'more work'}, SimpleNamespace(agent=parent.agent, signal=AbortController().signal))
         assert queued['messageId']
         await reports.dispose()
         assert ctx.get('tools').get('report', scope_of(child.ctx)) is None

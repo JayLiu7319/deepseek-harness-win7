@@ -261,10 +261,10 @@ async def test_canonical_jsonl_retains_ignorable_event_and_tail_cut(tmp_path, co
     from dsh.core.session import SessionHeader
     from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
     persistence = JsonlSessionPersistence(str(tmp_path), compression=compression)
-    meta = SessionHeader('child', created_at=1, seed_length=2)
+    meta = SessionHeader('child', created_at=1, is_seeded=True)
     optional = dict(type='future/optional', seq=2, time=3, data=dict(info='future'), ignorable=True)
     try:
-        await persistence.create(meta)
+        await persistence.create(meta, 2)
         await persistence.append('child', list(prefix()) + [optional])
         inspected = await persistence.inspect('child')
         assert inspected.inheritedEventCount == 2

@@ -27,7 +27,7 @@ def prepare_profiles(root, workspace, endpoint):
         profile = home / 'profiles' / name
         init_profile(str(profile), [], 'startup')
         rows = [{'id': package, 'name': '@deepseek-ai/dsh-' + package} for package in
-            ('session', 'tools', 'system-prompt', 'llm', 'llm-deepseek', 'credentials-local',
+            ('session', 'session-projection', 'tools', 'system-prompt', 'llm', 'llm-deepseek', 'credentials-local',
              'agent', 'agent-loop', 'acp-app')]
         rows += [{'id': 'acp', 'name': '@deepseek-ai/dsh-acp', 'inject': ['acpAppStartup'],
             'config': {'provider': 'deepseek-official', 'model': 'deepseek-v4-flash' if name == 'acp' else 'deepseek-v4-pro'}},

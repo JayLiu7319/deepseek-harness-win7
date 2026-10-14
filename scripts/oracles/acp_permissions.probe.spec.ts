@@ -38,7 +38,7 @@ it('observes the exact one-shot permission bridge including malformed responses'
         ...(mode === 'pre-abort' ? { signal: AbortSignal.abort() } : {}),
       })
       await vi.waitFor(() => expect(harness.sessionUpdates).toHaveLength(1))
-      const audit = agent.session.events.filter(event => event.type === 'approval/asked' || event.type === 'approval/decided')
+      const audit = agent.session.snapshotEvents().filter(event => event.type === 'approval/asked' || event.type === 'approval/decided')
       rows.push({ mode, response, outcome, requests: harness.permissionRequests,
         updates: harness.sessionUpdates, updateBeforePermission,
         audit: { types: audit.map(event => event.type), correlated: audit[0].data.id === audit[1].data.id,

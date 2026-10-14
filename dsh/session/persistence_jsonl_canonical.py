@@ -5,6 +5,7 @@ from dsh.session.sqlite_logical import header_from_stored, validate_inspection, 
 from dsh.session.repair import interrupted_turn_closers
 from dsh.session.jsonl_store import JsonlStore
 from dsh.core.session.types import validate_restored_session_header
+from dsh.core.session.json import UNDEFINED
 
 
 class JsonlSessionPersistence(SessionPersistence):
@@ -22,17 +23,19 @@ class JsonlSessionPersistence(SessionPersistence):
     def locate(self, metadata):
         return SessionLocation('jsonl', self.store.locate(metadata.to_dict()))
 
-    async def create(self, metadata):
-        await self.storage().create(metadata)
+    async def create(self, metadata, inherited_event_count=UNDEFINED):
+        await self.storage().create(metadata, inherited_event_count)
 
     async def append(self, identity, events):
         await self.storage().append(identity, events)
 
     async def append_batch(self, metadata, events, materialized):
-        await self.store.append_batch(metadata.to_dict(), events, materialized)
+        cut = self.storage().states[metadata.id]['inheritedEventCount']
+        await self.store.append_batch(metadata.to_dict(), events, materialized, cut)
 
     async def _create(self, metadata):
-        await self.store.materialize_header(metadata.to_dict())
+        cut = self.storage().states[metadata.id]['inheritedEventCount']
+        await self.store.materialize_header(metadata.to_dict(), cut)
 
     async def ensure_materialized(self, session):
         await self.storage().ensure_materialized(session)
@@ -43,14 +46,15 @@ class JsonlSessionPersistence(SessionPersistence):
         stored = await self.store.load_stored(identity, signal)
         if stored is None:
             raise SessionPersistenceNotFoundError(identity)
-        inspection = SessionInspection(header_from_stored(stored['meta']), stored['events'])
+        inspection = SessionInspection(header_from_stored(stored['meta']), stored['events'], stored['inheritedEventCount'])
         return validate_inspection(inspection, identity)
 
     async def load_stored(self, identity):
         stored = await self.store.load_stored(identity)
         if stored is None:
             return None
-        result = dict(meta=header_from_stored(stored['meta']), events=stored['events'], revision=stored['revision'])
+        result = dict(meta=header_from_stored(stored['meta']), inheritedEventCount=stored['inheritedEventCount'],
+                      events=stored['events'], revision=stored['revision'])
         if 'tornMarker' in stored:
             result['tornMarker'] = stored['tornMarker']
         return result
@@ -73,7 +77,8 @@ class JsonlSessionPersistence(SessionPersistence):
         if stored is None:
             raise SessionPersistenceNotFoundError(identity)
         try:
-            inspection = validate_inspection(SessionInspection(header_from_stored(stored['meta']), stored['events']), identity)
+            inspection = validate_inspection(SessionInspection(header_from_stored(stored['meta']), stored['events'],
+                                                               stored['inheritedEventCount']), identity)
             inspection.meta = validate_restored_session_header(identity, inspection.meta)
             return inspection, interrupted_turn_closers(inspection.events)
         except SessionFormatUnsupportedError:
@@ -113,12 +118,10 @@ class JsonlSessionPersistence(SessionPersistence):
         return await self.prepared().load(identity)
 
     async def read_from(self, identity, sequence, signal=None):
-        from dsh.session.coordinator import safe_integer
+        from dsh.core.session.types import SessionLogOffset
+        from dsh.session.persistence import SessionReadResult
         from dsh.session.preparations import observe_queued_abort, throw_aborted
-        if not safe_integer(sequence) or sequence < 0:
-            from dsh.cordis.utils import js_to_string
-            raise TypeError('readFrom fromSeq must be a non-negative safe integer, got ' + js_to_string(sequence))
-        sequence = int(sequence)
+        sequence = SessionLogOffset(sequence)
         await self.prepared()._retired(identity, signal)
         started = [False]
         async def read():
@@ -127,8 +130,8 @@ class JsonlSessionPersistence(SessionPersistence):
                 throw_aborted(signal)
                 stored = await self.read_stored(identity, signal)
                 throw_aborted(signal)
-                stored.events = [event for event in stored.events if event['seq'] >= sequence]
-                return stored
+                return SessionReadResult(stored.meta, [event for event in stored.events if event['seq'] >= sequence],
+                                         stored.inheritedEventCount, sequence)
         return await observe_queued_abort(read(), signal, lambda: started[0])
 
     async def list(self, signal=None):

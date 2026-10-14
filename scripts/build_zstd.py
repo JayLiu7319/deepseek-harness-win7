@@ -85,7 +85,7 @@ def build(source, compiler, output):
 
 def stage(output, destination):
     provenance = json.loads((output / 'build-provenance.json').read_text(encoding='utf-8'))
-    dictionary = ROOT / 'reference/packages/session/session-persistence-sqlite/resources/zstd-dictionary.bin'
+    dictionary = ROOT / 'dsh/session/bin/zstd/zstd-dictionary.bin'
     if (provenance['source_commit'] != SOURCE_COMMIT or provenance['compiler_sha256'] != COMPILER_SHA256
             or provenance['compiler_archive_sha256'] != COMPILER_ARCHIVE_SHA256
             or provenance['sha256'] != DLL_SHA256 or digest(output / 'zstd.dll') != DLL_SHA256

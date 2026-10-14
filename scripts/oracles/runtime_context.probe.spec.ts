@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import { describe, expect, it } from 'vitest'
 import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
@@ -14,7 +15,7 @@ import * as AgentInvariant from '@deepseek-ai/dsh-agent/invariant'
 import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
 import { MockAdapter, textResponse, toolCallResponse } from '../../reference/packages/core/agent-loop/tests/mock-adapter.ts'
 
-const sourceCommit = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 
 describe('actual Source agent runtime context', () => {
   it('preserves complete attributed model and durable messages at every proposed step', async () => {
@@ -30,7 +31,8 @@ describe('actual Source agent runtime context', () => {
       await ctx.plugin(SessionInvariant)
       await ctx.plugin(AgentInvariant)
       await ctx.plugin(AgentLoopInvariant)
-      await ctx.plugin(AgentLoop, { agents: [] })
+      if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(AgentLoop, { agents: [] })
       ctx.llm.registerAdapter(['mock'], adapter)
       let current = action === 'empty' ? '' : 'initial {{value}}'
       ctx.systemPrompt.variable('value', () => 'interpolated')
@@ -51,7 +53,7 @@ describe('actual Source agent runtime context', () => {
       try {
         parent.followup(createUserMessage({ content: [{ type: 'text', text: 'advance context' }], source: { kind: 'user' } }))
         await parent.whenIdle()
-        const snapshots = parent.session.events.filter(event => event.type === 'user/message'
+        const snapshots = parent.session.snapshotEvents().filter(event => event.type === 'user/message'
           && event.data.source?.kind === 'plugin' && event.data.source.plugin === '@deepseek-ai/dsh-system-prompt')
           .map(event => event.data)
         expect(adapter.requests).toHaveLength(2)

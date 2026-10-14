@@ -62,7 +62,7 @@ async def main():
         persistence = context.get('sessionPersistence')
         try:
             if not item.get('missing'):
-                metadata = dict(id=item['name'], version=item['version'], createdAt=1)
+                metadata = dict(id=item['name'], version=item['version'], createdAt=1, isSeeded=False)
                 await persistence.store.materialize_header(metadata)
                 if item['events']:
                     await persistence.store.append_batch(metadata, item['events'], True)

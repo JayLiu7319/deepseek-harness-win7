@@ -53,7 +53,7 @@ class SessionInspection(SessionStorageMetadata):
         if inherited_event_count is UNDEFINED:
             if meta.isSeeded is True:
                 raise ValueError('seeded session inspection requires an inherited event count')
-            inherited_event_count = meta.seedLength or 0
+            inherited_event_count = 0
         super().__init__(meta, inherited_event_count)
         self.events = events
 
@@ -64,6 +64,14 @@ class SessionPersistenceSnapshot:
     def __init__(self, header: SessionHeader, revision: str):
         self.header = header
         self.revision = revision
+
+
+class SessionReadResult(SessionInspection):
+    """Detached suffix read with its admitted storage offset."""
+
+    def __init__(self, meta, events, inherited_event_count, from_seq):
+        super().__init__(meta, events, inherited_event_count)
+        self.fromSeq = SessionLogOffset(from_seq)
 
 
 class SessionPersistence(ABC):
@@ -84,7 +92,7 @@ class SessionPersistence(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def create(self, meta: SessionHeader) -> None:
+    async def create(self, meta: SessionHeader, inherited_event_count: Any = UNDEFINED) -> None:
         """Register detached metadata; materialize on the first append."""
         raise NotImplementedError
 

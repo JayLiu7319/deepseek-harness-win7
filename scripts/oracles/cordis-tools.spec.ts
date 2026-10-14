@@ -4,6 +4,7 @@ import { apply } from '../../reference/packages/extensions/tool-cordis/src/index
 import { CORDIS_SYSTEM_PROMPT } from '../../reference/packages/extensions/tool-cordis/src/prompt.ts'
 import { DynamicCordisRegistry } from '../../reference/packages/extensions/cordis-host-runner/src/registry.ts'
 import { DynamicCordisRunnerService } from '../../reference/packages/extensions/cordis-host-runner/src/index.ts'
+import { SystemPrompt } from '../../reference/packages/core/system-prompt/src/index.ts'
 
 const detach = (value: any) => JSON.parse(JSON.stringify(value))
 function environment(spec: any) {
@@ -25,7 +26,7 @@ function environment(spec: any) {
   }
   const ctx: any = { reflect: { store }, dynamicCordisRunner: runner,
     tools: { register: (tool: any) => tools.push(tool) },
-    systemPrompt: { section: (section: any) => sections.push(section) },
+    systemPrompt: { section: (section: any) => sections.push(section), getSectionOrder: SystemPrompt.prototype.getSectionOrder },
     cordisInspect: { register: () => () => {}, list: () => [], query: async () => fixture.data },
     effect: (callback: any) => callback(), on: (name: string, fn: any) => { hooks[name] = fn },
     get: (name: string) => name === 'present' ? 0 : undefined,

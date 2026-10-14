@@ -33,7 +33,7 @@ class SessionTitleService(Service):
         ctx.effect(lambda: self.close, "session title lifecycle")
         def projection(child):
             child.get("sessionProjections").register({"key": "title", "stateVersion": 1,
-                "stateSchema": title_schema, "init": lambda _: None,
+                "stateSchema": title_schema, "init": lambda _, cut: None,
                 "apply": lambda state, event: event["data"]["title"] if event["type"] == "session/title" else state,
                 "wire": {"viewSchema": title_schema, "view": lambda state: state}})
         ctx.inject(["sessionProjections"], projection)

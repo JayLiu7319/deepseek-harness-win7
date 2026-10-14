@@ -14,6 +14,7 @@ from dsh.core.consumed_work import ConsumedWork, fold_consumed_work
 from dsh.core.inbox import Inbox
 from dsh.core.abort import AbortController, AbortSignal
 from dsh.core.session import Session, SessionHeader
+from dsh.core.session.json import UNDEFINED
 from dsh.llm.message import create_user_message
 
 _CURRENT_INITIATOR: contextvars.ContextVar[Optional["Agent"]] = contextvars.ContextVar(
@@ -566,7 +567,8 @@ class AgentRegistry(Service):
             m = req.get("meta")
             s = req.get("setup")
             return await self.create(session_id=sid, options=opts, meta=m, setup=s,
-                                     seed=req.get('seed'), signal=req.get('signal'))
+                                     seed=req.get('seed'), signal=req.get('signal'),
+                                     inheritedEventCount=req.get('inheritedEventCount', UNDEFINED))
 
         sid = session_id if session_id is not None else kwargs.get("sessionId")
         opts_raw = options or kwargs.get("agentOptions") or kwargs.get("agent_options")
@@ -591,6 +593,7 @@ class AgentRegistry(Service):
             meta=m,
             setup=s,
             seed=kwargs.get('seed'),
+            inherited_event_count=kwargs.get('inheritedEventCount', UNDEFINED),
             signal=kwargs.get('signal'),
             owner_ctx=self.ctx,
         )

@@ -19,6 +19,7 @@ parser.add_argument('--phase', choices=('fresh', 'cold'), required=True)
 parser.add_argument('--workspace', type=Path, required=True)
 parser.add_argument('--clock', type=int, required=True)
 parser.add_argument('--port', default='0')
+parser.add_argument('--history-turns', type=int, default=0)
 parser.add_argument('--approval-artifact', type=Path, required=True)
 options = parser.parse_args()
 ROOT = options.root.resolve()
@@ -100,12 +101,36 @@ async def main():
     try:
         runtime = await run_profile(dict(profile='web', dshHome=str(home), args=['--no-open', '--port', options.port], waitForExit=False))
         ctx = runtime['ctx']
+        record['loaderEntries'] = [dict(name=entry.options.get('name'), id=entry.options.get('id'),
+            disabled=bool(entry.disabled), state=entry.fiber.state if entry.fiber else None)
+            for entry in ctx.get('loader').entries()]
+        record['clientGraph'] = copy.deepcopy(ctx.get('clientModules').graph())
         session_id = json.loads((RUN / 'selected-session.json').read_text(encoding='utf-8'))['sessionId'] if options.phase == 'cold' else None
         if options.phase == 'fresh':
             record['preparedWorkspace'] = await ctx.get('workspaceController').create(dict(path=str(workspace)))
             session_id = 'session-11111111-1111-4111-8111-111111111111'
             await ctx.get('sessionController').create(dict(sessionId=session_id,
                 workspaceId=record['preparedWorkspace']['workspace']['workspaceId'], agentPreset=options.preset))
+        if options.phase == 'fresh' and options.history_turns:
+            session = ctx.get('sessions').get(session_id)
+            for turn in range(1, options.history_turns + 1):
+                session.append('turn/start', dict(turn=turn))
+                session.append_user_message('HISTORY_PROMPT_%03d' % turn, message_id='history-user-%d' % turn)
+                session.append('step/start', dict(turn=turn, step=1))
+                session.append('request/context', dict(turn=turn, step=1, provider='web-journey-fixture', model='fixture'))
+                session.append_assistant_message(dict(id='history-assistant-%d' % turn, role='assistant',
+                    source=dict(kind='model', provider='web-journey-fixture', model='fixture'),
+                    content=[dict(type='text', text='HISTORY_RESPONSE_%03d' % turn)]), turn=turn, step=1)
+                session.append('step/end', dict(turn=turn, step=1))
+                session.append('turn/end', dict(turn=turn, reason=dict(kind='completed')))
+            ctx.get('sessionTitle').rename(session, 'HISTORY_PROMPT_001')
+            await ctx.get('sessions').flush(session)
+            await ctx.get('sessionProjectionCache').write(session)
+            record['historyTurns'] = options.history_turns
+            runtime['shutdown'].shutdown(0)
+            await runtime['shutdown'].wait()
+            runtime = await run_profile(dict(profile='web', dshHome=str(home), args=['--no-open', '--port', options.port], waitForExit=False))
+            ctx = runtime['ctx']
         record['attachedBeforeBrowser'] = session_id is not None and ctx.get('sessions').get(session_id) is not None
         if options.phase == 'cold' and record['attachedBeforeBrowser']:
             raise ValueError('Cold browser fixture eagerly attached its session')
@@ -130,7 +155,7 @@ async def main():
                         for row in ctx.get('terminals').list(agent)] if agent and ctx.get('terminals') else []))
                 value = dict(attached=session is not None, agentStatus=agent.status if agent else None,
                     header=session.header.to_dict() if session else None,
-                    events=copy.deepcopy(session.events) if session else [],
+                    events=copy.deepcopy(list(session.snapshotEvents())) if session else [],
                     requests=copy.deepcopy(record['requests']), cancellation=copy.deepcopy(record['cancellation']),
                     tools=[tool['name'] for tool in ctx.get('tools').schemas(agent)] if agent else [])
                 record['snapshots'].append(value)

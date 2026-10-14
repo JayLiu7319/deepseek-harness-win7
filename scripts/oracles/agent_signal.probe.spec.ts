@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import { writeFileSync } from 'node:fs'
 import { expect, it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -12,7 +13,8 @@ import { MockAdapter, textResponse, toolCallResponse } from '../../reference/pac
 async function harness(script: any[]) {
   const ctx = new Context()
   for (const plugin of [LlmRuntime, SessionStore, SystemPrompt, ToolRuntime, AgentRegistry]) await ctx.plugin(plugin)
-  await ctx.plugin(AgentLoop, {agents: []})
+  if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(AgentLoop, {agents: []})
   const adapter = new MockAdapter(script)
   ctx.llm.registerAdapter(['mock'], adapter)
   const handle = await ctx.agents.create({sessionId: SessionId('signal-owner'), agentOptions: {provider: 'mock', model: 'fixture'}})
@@ -53,7 +55,7 @@ it('observes original model/tool abort generations and cancellation containment'
       firstAborted: signals[0]!.aborted, reason: signals[0]!.reason, notifications,
       nextDistinct: signals[1] !== signals[0], nextActive: !signals[1]!.aborted,
       modelRequests: first.adapter.requests.length,
-      turnReasons: first.handle.agent.session.events.filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
+      turnReasons: first.handle.agent.session.snapshotEvents().filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
     expect(signals.length).toBe(2)
   } finally {await first.handle.dispose(); await first.ctx.fiber.dispose()}
   const second = await harness([textResponse('recovered after cancellation')])
@@ -70,7 +72,7 @@ it('observes original model/tool abort generations and cancellation containment'
     second.handle.agent.followup(createUserMessage({content: 'next admitted turn'}))
     await second.handle.agent.whenIdle()
     observations.admission = {status: second.handle.agent.status, modelRequests: second.adapter.requests.length,
-      turnReasons: second.handle.agent.session.events.filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
+      turnReasons: second.handle.agent.session.snapshotEvents().filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
     expect(observations.admission.modelRequests).toBe(1)
   } finally {await second.handle.dispose(); await second.ctx.fiber.dispose()}
   const third = await harness([toolCallResponse('queued-first', 'queued_probe', {}), textResponse('first completed'),
@@ -92,7 +94,7 @@ it('observes original model/tool abort generations and cancellation containment'
     await third.handle.agent.whenIdle()
     observations.queued = {signalCount: queuedSignals.length, sameSignal: queuedSignals[0] === queuedSignals[1],
       active: queuedSignals.every(signal => !signal.aborted), modelRequests: third.adapter.requests.length,
-      turnReasons: third.handle.agent.session.events.filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
+      turnReasons: third.handle.agent.session.snapshotEvents().filter(event => event.type === 'turn/end').map(event => (event as any).data.reason)}
     expect(queuedSignals.length).toBe(2)
   } finally {release.resolve(); await third.handle.dispose(); await third.ctx.fiber.dispose()}
   writeFileSync(process.env.AGENT_SIGNAL_OUTPUT!, JSON.stringify(observations, null, 2) + '\n')

@@ -1,3 +1,5 @@
+from dsh.session.projections import SessionProjectionRegistry
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LlmRuntime
 from dsh.core.system_prompt import SystemPrompt as SourceToolsPrompt
 import asyncio
@@ -29,6 +31,8 @@ class MemorySettings(SettingsProvider):
 def test_direct_parallel_cap_rejects_invalid_numbers(cap):
     ctx = Context()
     with pytest.raises(ValueError, match='maxParallelToolCalls must be a positive integer'):
+        if ctx.get('sessionProjections') is None:
+            SessionProjectionRegistry(ctx)
         AgentLoopService(ctx, {'maxParallelToolCalls': cap})
 
 
@@ -36,6 +40,8 @@ def test_direct_parallel_cap_rejects_invalid_numbers(cap):
                                           ({'maxParallelToolCalls': 2.0}, 2)])
 def test_direct_parallel_cap_resolves_original_default_and_integer_numbers(config, expected):
     ctx = Context()
+    if ctx.get('sessionProjections') is None:
+        SessionProjectionRegistry(ctx)
     loop = AgentLoopService(ctx, config)
     assert loop.config['maxParallelToolCalls'] == expected
 
@@ -49,6 +55,8 @@ async def test_parallel_settings_layers_refuses_and_unloads_reversibly():
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
     await ctx.plugin(LlmRuntime)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     loop_fiber = await ctx.plugin(AgentLoopPlugin, {'agents': [], 'maxParallelToolCalls': 4})
     loop = ctx.get('agentLoop')
     settings = ctx.get('settings')
@@ -102,6 +110,8 @@ async def test_factory_model_turn_honors_configured_parallel_pool(cap):
     await ctx.plugin(SourceToolsPrompt)
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin, {'agents': [], 'maxParallelToolCalls': cap})
     handle = await ctx.get('agents').create(session_id='pool-' + str(cap))
     entered = asyncio.Event()

@@ -1,8 +1,8 @@
 {
   "id": "CON-SESSION-FILTERS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session-query/session-query/src/filters.ts",
     "reference/packages/session-query/session-query/src/documents.ts",
@@ -29,6 +29,12 @@
   "cancellation": "Enumerated pre-abort performs no provider access; invalid filter rejection precedes pre-abort as in the source service.",
   "adaptation": "A synchronous Python call prefix captures clauses and returns an awaitable even for validation failure. Python regex explicitly represents ECMAScript whitespace and excludes its extra I-case equivalents.",
   "open_questions": [
-    "New clean complete gate and actual extracted acceptance remain mandatory. Controlled listing/inspection seams are separate from four actual JSONL/SQLite consumers. Complete Unicode version/case-fold parity, all extraction/plugin event types, full FTS/ranking/cursors/generations, provider epochs/Task cancellation, complete Web/profile and deferred Win7 remain unaccepted."
-  ]
+    "New clean complete gate and actual extracted acceptance remain mandatory. Controlled listing/inspection seams are separate from four actual JSONL/SQLite consumers. Complete Unicode version/case-fold parity, all extraction/plugin event types, full FTS/ranking/cursors/generations, provider epochs/Task cancellation, complete Web/profile and deferred Win7 remain unaccepted.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

@@ -57,7 +57,7 @@ class LivePersistence:
                     state['materialized'] = True
                     self.backend.storage().adopted(stored)
                 elif session.id not in self.backend.storage().states:
-                    await self.backend.create(session.header)
+                    await self.backend.create(session.header, session.inheritedEventCount)
                 self.owners[session.id] = session
                 if seed[state['cursor']:]:
                     await persist(seed[state['cursor']:])

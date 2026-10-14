@@ -33,7 +33,7 @@ class WorkspaceController(TypertRemoteService):
     def _require(self, identity):
         value = self._registry().get(identity)
         if value is None:
-            raise failure('workspace-not-found', 'Workspace "%s" not found' % identity, {'workspaceId': identity})
+            raise failure('workspace/not-found', 'Workspace "%s" not found' % identity, {'workspaceId': identity})
         return value
 
     @Remote
@@ -46,18 +46,18 @@ class WorkspaceController(TypertRemoteService):
             except TypertRemoteFailure:
                 raise
             except Exception as error:
-                raise failure('workspace-invalid-path', 'cannot create a Workspace at "%s": %s' % (request['path'], error), {'path': request['path']}) from error
+                raise failure('workspace/invalid-path', 'cannot create a Workspace at "%s": %s' % (request['path'], error), {'path': request['path']}) from error
 
     @Remote
     async def rename(self, request):
         title = request['title'].strip()
         if not title:
-            raise failure('bad-request', 'Workspace rename requires a non-blank title')
+            raise failure('gateway/bad-request', 'Workspace rename requires a non-blank title')
         async with self._commands:
             workspace = self._require(request['workspaceId'])
             if title != workspace.title:
                 if any(row.id != workspace.id and row.title == title for row in self._registry().list()):
-                    raise failure('workspace-name-conflict', "Workspace name '%s' is already in use" % title, {'name': title})
+                    raise failure('workspace/name-conflict', "Workspace name '%s' is already in use" % title, {'name': title})
                 await workspace.setTitle(title)
             return {'workspace': workspace.to_dict()}
 
@@ -73,7 +73,7 @@ class WorkspaceController(TypertRemoteService):
         try:
             return {'workspaceIds': await self._registry().insertBefore(request['workspaceId'], request.get('beforeWorkspaceId'))}
         except WorkspaceOrderInvalidError as error:
-            raise failure('workspace-not-found', 'Workspace "%s" not found' % error.workspace_id, {'workspaceId': error.workspace_id}) from error
+            raise failure('workspace/not-found', 'Workspace "%s" not found' % error.workspace_id, {'workspaceId': error.workspace_id}) from error
 
     @Remote
     async def insertSessionBefore(self, request):
@@ -81,7 +81,7 @@ class WorkspaceController(TypertRemoteService):
         try:
             await workspace.insertSessionBefore(request['sessionId'], request.get('beforeSessionId'))
         except WorkspaceMoveInvalidError as error:
-            raise failure('workspace-move-invalid', str(error), dict(request)) from error
+            raise failure('workspace/move-invalid', str(error), dict(request)) from error
         return {'workspace': workspace.to_dict()}
 
     @Remote
@@ -89,7 +89,7 @@ class WorkspaceController(TypertRemoteService):
         try:
             await self._registry().archiveSession(request['sessionId'])
         except WorkspaceUnknownSessionError as error:
-            raise failure('session-not-found', str(error), {'sessionId': request['sessionId']}) from error
+            raise failure('session/not-found', str(error), {'sessionId': request['sessionId']}) from error
         return {'archivedSessionIds': self._registry().archivedSessionIds}
 
     @Remote({'mode': 'stream'})

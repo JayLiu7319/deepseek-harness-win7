@@ -2,6 +2,7 @@
 Tests for canonical agent loop interception hooks: agent/pre-step, agent/session-start,
 tools/pre-execute, and tools/post-execute matching reference/packages/core/agent-loop/tests/interception.spec.ts.
 """
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 
@@ -50,6 +51,8 @@ async def test_session_start_hook_fires_and_seeds_preamble():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     session_start_sources = []
@@ -90,6 +93,8 @@ async def test_pre_step_hook_prompt_rewrite():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     async def on_pre_step(data, next_fn):
@@ -125,6 +130,8 @@ async def test_pre_step_hook_reject_closes_turn():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
 
     async def on_pre_step_reject(data, next_fn):

@@ -77,7 +77,7 @@ async def observe():
                     if name == 'trace-attach-wins':
                         context.get('sessions').enter(Session.create(meta.id, events, meta))
                     return dict(meta=SessionHeader(meta.id, created_at=9,
-                        cwd='/foreign' if name == 'trace-header-conflict' else meta.cwd), events=events)
+                        cwd='/foreign' if name == 'trace-header-conflict' else meta.cwd), events=events, inheritedEventCount=0)
                 context.set_service('sessionPersistence', SimpleNamespace(list=listing, inspect=inspection))
             if name in ('trace-pre-abort','window-before-abort'):
                 controller.abort(failure)

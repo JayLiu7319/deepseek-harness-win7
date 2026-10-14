@@ -5,6 +5,44 @@ window.__ModuleLoader__.load({
 		var exports = module.exports;
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 		let _deepseek_ai_cordis = require("@deepseek-ai/cordis");
+		//#region ../../typert/protocol/lib/index.js
+		/** The one Remote failure class shared by owners, the Gateway, and consumers. */
+		/**
+		* One Remote call failure: a real Error carrying its stable code and typed
+		* details. Owners throw it at the failure point; the Host Gateway encodes it
+		* onto the wire unchanged; the Client face rebuilds an instance for the
+		* `RemoteResult` error branch, so `throw result.error` keeps throw semantics.
+		* Discrimination is always by `code`, never by instanceof.
+		*/
+		var RemoteError = class extends Error {
+			code;
+			details;
+			/** Structural marker: cross-realm/bundle identification never uses instanceof. */
+			isDSHRemoteError = true;
+			/**
+			* @param code - stable failure code declared in {@link RemoteErrorDetailsMap}.
+			* @param message - human diagnostic carried across the wire.
+			* @param details - structured payload typed by the code.
+			* @param options - standard Error options (`cause` survives in-process only).
+			*/
+			constructor(code, message, details, options) {
+				super(message, options);
+				this.code = code;
+				this.details = details;
+				this.name = "RemoteError";
+			}
+		};
+		/**
+		* Structurally identify a RemoteError thrown across module or realm copies of
+		* this class. Mechanism-internal: the Gateway and test assertions use it;
+		* business code receives typed failures and never needs it.
+		* @param value - a caught value.
+		* @returns the failure when the marker matches, otherwise undefined.
+		*/
+		function remoteErrorOf(value) {
+			if (typeof value === "object" && value !== null && value.isDSHRemoteError === true && typeof value.code === "string") return value;
+		}
+		//#endregion
 		//#region lib/types/stream-protocol.js
 		/** Wire messages for Gateway-owned Remote streams and event-result RPCs. */
 		/** Exact WebSocket route carrying every Typert Remote stream. */
@@ -138,6 +176,91 @@ window.__ModuleLoader__.load({
 			}
 		}
 		//#endregion
+		//#region ../../util/deque/lib/index.js
+		/**
+		* Zero-dependency circular deque for queues that retain entries across asynchronous work.
+		* @module @deepseek-ai/dsh-deque
+		*/
+		const MIN_CAPACITY = 16;
+		/**
+		* A circular deque with amortized constant-time insertion and removal.
+		* Removed entries are cleared immediately, and sparse storage shrinks after
+		* the live entry count reaches one quarter of its capacity.
+		*/
+		var Deque = class {
+			buffer = new Array(MIN_CAPACITY);
+			head = 0;
+			count = 0;
+			/** Number of entries available to remove. */
+			get size() {
+				return this.count;
+			}
+			/**
+			* Append one entry after the current tail.
+			* @param value - entry to append.
+			*/
+			pushBack(value) {
+				this.ensureCapacity();
+				const tail = this.head + this.count;
+				this.buffer[tail < this.buffer.length ? tail : tail - this.buffer.length] = value;
+				this.count += 1;
+			}
+			/**
+			* Insert one entry before the current head.
+			* @param value - entry to prepend.
+			*/
+			pushFront(value) {
+				this.ensureCapacity();
+				this.head = this.head === 0 ? this.buffer.length - 1 : this.head - 1;
+				this.buffer[this.head] = value;
+				this.count += 1;
+			}
+			/**
+			* Remove the current head entry and clear its retained reference.
+			* Callers whose element type includes `undefined` use {@link size} to
+			* distinguish an empty deque from an `undefined` entry.
+			* @returns the removed entry, or `undefined` when the deque is empty.
+			*/
+			popFront() {
+				if (this.count === 0) return void 0;
+				const value = this.buffer[this.head];
+				this.buffer[this.head] = void 0;
+				this.head += 1;
+				if (this.head === this.buffer.length) this.head = 0;
+				this.count -= 1;
+				this.compact();
+				return value;
+			}
+			/** Drop every entry and release the current backing storage. */
+			clear() {
+				this.buffer = new Array(MIN_CAPACITY);
+				this.head = 0;
+				this.count = 0;
+			}
+			ensureCapacity() {
+				if (this.count < this.buffer.length) return;
+				this.resize(this.buffer.length * 2);
+			}
+			compact() {
+				if (this.count === 0) {
+					this.head = 0;
+					return;
+				}
+				if (this.buffer.length > MIN_CAPACITY && this.count <= this.buffer.length / 4) this.resize(Math.max(MIN_CAPACITY, this.buffer.length / 2));
+			}
+			resize(capacity) {
+				const next = new Array(capacity);
+				let source = this.head;
+				for (let index = 0; index < this.count; index += 1) {
+					next[index] = this.buffer[source];
+					source += 1;
+					if (source === this.buffer.length) source = 0;
+				}
+				this.buffer = next;
+				this.head = 0;
+			}
+		};
+		//#endregion
 		//#region ../../util/crypto/lib/index.js
 		/**
 		* Random v4 UUID, minted from `crypto.getRandomValues`.
@@ -154,27 +277,6 @@ window.__ModuleLoader__.load({
 		//#region lib/types/client/stream-client.js
 		/** Browser owner for the Gateway multiplexed Remote stream socket. */
 		const INTERNAL_BASE = "http://dsh.internal";
-		const RECONNECT_BASE_MS = 500;
-		const RECONNECT_FACTOR = 2;
-		const RECONNECT_MAX_MS = 1e4;
-		/** One Host-reported Remote stream failure. */
-		var RemoteStreamError = class extends Error {
-			/** Stable carrier or Gateway error category. */
-			code;
-			/** Host-provided structured failure context. */
-			details;
-			/**
-			* @param code - stable Gateway or business error category.
-			* @param message - Host-provided failure description.
-			* @param details - Host-provided structured failure context.
-			*/
-			constructor(code, message, details) {
-				super(message);
-				this.name = "RemoteStreamError";
-				this.code = code;
-				this.details = details;
-			}
-		};
 		/** Physical Remote stream socket failure that may be retried by a domain transport. */
 		var RemoteStreamCarrierError = class extends Error {
 			/**
@@ -191,26 +293,50 @@ window.__ModuleLoader__.load({
 			socket;
 			cancelCandidate;
 			keepAlive;
-			keepAliveAbort;
+			revision = 0;
 			streams = /* @__PURE__ */ new Map();
 			waiters = /* @__PURE__ */ new Set();
 			running = false;
 			disposed = false;
-			/** Start the persistent physical connection; repeated calls are inert. */
+			/** Ensure a physical attempt exists, following the current attempt once if needed. */
 			start() {
-				if (this.running || this.disposed) return;
+				if (this.disposed) return;
 				this.running = true;
-				this.maintain();
+				if (this.socket?.readyState === WebSocket.OPEN) return;
+				const pending = this.keepAlive;
+				if (pending === void 0) this.maintain();
+				else pending.then(() => {
+					this.maintain();
+				});
+			}
+			/** Cancel the current socket or retry wait and start a fresh attempt immediately. */
+			reconnect() {
+				if (!this.running || this.disposed) return;
+				const failure = new RemoteStreamCarrierError("api gateway: Remote stream reconnect requested");
+				const pending = this.keepAlive;
+				this.revision++;
+				this.cancelCandidate?.(failure);
+				const socket = this.socket;
+				if (socket !== void 0) {
+					this.socket = void 0;
+					this.failAll(failure);
+					socket.close(4e3, "reconnect requested");
+				}
+				if (pending === void 0) this.maintain();
+				else pending.then(() => {
+					this.maintain();
+				});
 			}
 			/**
 			* Open one logical stream on the persistent physical connection.
+			* If no physical attempt is active, opening waits for Connection to request
+			* one or for the signal to abort.
 			* @param endpoint - Typert Remote stream endpoint.
 			* @param payload - endpoint request encoded on the wire.
 			* @param signal - cancellation for this logical stream.
 			* @returns Host items until completion, cancellation, or failure.
 			*/
 			async *open(endpoint, payload, signal) {
-				this.start();
 				signal.throwIfAborted();
 				const streamId = randomUUID();
 				const inbox = new StreamInbox();
@@ -241,7 +367,7 @@ window.__ModuleLoader__.load({
 							continue;
 						}
 						terminal = true;
-						if (frame.type === "error") throw new RemoteStreamError(frame.error.code, frame.error.message, frame.error.details);
+						if (frame.type === "error") throw new RemoteError(frame.error.code, frame.error.message, frame.error.details);
 						return;
 					}
 				} finally {
@@ -254,16 +380,15 @@ window.__ModuleLoader__.load({
 				}
 			}
 			/**
-			* Permanently stop reconnecting, close the physical socket, and fail every active logical stream.
-			* @returns once the background connection loop has stopped.
+			* Permanently stop the carrier, close the physical socket, and fail every
+			* active logical stream.
+			* @returns once the active connection attempt has stopped.
 			*/
 			async close() {
 				if (!this.disposed) {
 					this.disposed = true;
 					this.running = false;
 					const error = /* @__PURE__ */ new Error("api gateway: Remote stream client disposed");
-					this.keepAliveAbort?.abort(error);
-					this.keepAliveAbort = void 0;
 					this.failAll(error);
 					for (const waiter of [...this.waiters]) waiter.reject(error);
 					this.cancelCandidate?.(error);
@@ -324,7 +449,7 @@ window.__ModuleLoader__.load({
 				signal.throwIfAborted();
 				if (this.socket?.readyState === WebSocket.OPEN) return Promise.resolve(this.socket);
 				if (this.disposed) return Promise.reject(/* @__PURE__ */ new Error("api gateway: Remote stream client disposed"));
-				this.start();
+				if (!this.running) return Promise.reject(/* @__PURE__ */ new Error("api gateway: Remote stream client not started"));
 				return new Promise((resolve, reject) => {
 					const aborted = () => {
 						waiter.reject(signal.reason);
@@ -334,6 +459,7 @@ window.__ModuleLoader__.load({
 						signal.removeEventListener("abort", aborted);
 					};
 					const waiter = {
+						revision: this.revision,
 						resolve: (socket) => {
 							cleanup();
 							resolve(socket);
@@ -364,46 +490,19 @@ window.__ModuleLoader__.load({
 				if (this.socket !== socket) return;
 				this.socket = void 0;
 				this.failAll(error);
-				this.maintain(error);
 			}
-			maintain(previousFailure) {
-				if (!this.running) return;
-				if (this.keepAlive !== void 0) {
-					this.keepAlive.then(() => {
-						this.maintain(previousFailure);
-					});
-					return;
-				}
-				const abort = new AbortController();
-				this.keepAliveAbort = abort;
-				const task = this.reconnect(abort.signal, previousFailure);
+			maintain() {
+				if (!this.running || this.disposed) return;
+				if (this.socket?.readyState === WebSocket.OPEN || this.keepAlive !== void 0) return;
+				const revision = this.revision;
+				const task = this.connect().then(() => void 0, (error) => {
+					if (!this.running) return;
+					for (const waiter of [...this.waiters]) if (waiter.revision <= revision) waiter.reject(error);
+				});
 				this.keepAlive = task;
 				task.then(() => {
 					this.keepAlive = void 0;
-					this.keepAliveAbort = void 0;
 				});
-			}
-			async reconnect(signal, previousFailure) {
-				let attempt = 0;
-				let failure = previousFailure;
-				while (this.isRunning(signal) && this.socket?.readyState !== WebSocket.OPEN) {
-					if (failure !== void 0) {
-						attempt += 1;
-						console.warn(`[api-gateway] Remote stream connection unavailable, retry #${String(attempt)}`, failure);
-						await sleep(backoffDelay(attempt), signal);
-						if (!this.isRunning(signal)) return;
-					}
-					try {
-						await this.connect();
-						return;
-					} catch (error) {
-						if (!this.isRunning(signal)) return;
-						failure = error;
-					}
-				}
-			}
-			isRunning(signal) {
-				return this.running && !signal.aborted;
 			}
 			failAll(error) {
 				for (const stream of this.streams.values()) stream.fail(error);
@@ -412,46 +511,31 @@ window.__ModuleLoader__.load({
 				socket.send(JSON.stringify(message));
 			}
 		};
-		function backoffDelay(attempt) {
-			const cap = Math.min(RECONNECT_MAX_MS, RECONNECT_BASE_MS * RECONNECT_FACTOR ** Math.max(0, attempt - 1));
-			return cap / 2 + Math.random() * (cap / 2);
-		}
-		function sleep(ms, signal) {
-			return new Promise((resolve) => {
-				const timer = setTimeout(done, ms);
-				signal.addEventListener("abort", done, { once: true });
-				function done() {
-					clearTimeout(timer);
-					signal.removeEventListener("abort", done);
-					resolve();
-				}
-			});
-		}
 		var StreamInbox = class {
-			frames = [];
+			frames = new Deque();
 			wake;
 			failure;
 			push(frame) {
 				if (this.failure !== void 0) return;
-				this.frames.push(frame);
+				this.frames.pushBack(frame);
 				this.wake?.();
 				this.wake = void 0;
 			}
 			fail(error) {
 				if (this.failure !== void 0) return;
 				this.failure = error instanceof Error ? error : new Error(String(error), { cause: error });
-				this.frames.length = 0;
+				this.frames.clear();
 				this.wake?.();
 				this.wake = void 0;
 			}
 			async next() {
-				while (this.frames.length === 0) {
+				while (this.frames.size === 0) {
 					if (this.failure !== void 0) throw this.failure;
 					await new Promise((resolve) => {
 						this.wake = resolve;
 					});
 				}
-				return this.frames.shift();
+				return this.frames.popFront();
 			}
 		};
 		function remoteStreamUrl() {
@@ -700,10 +784,10 @@ window.__ModuleLoader__.load({
 		/**
 		* Reopens one logical Remote stream across carrier generations.
 		*
-		* The Gateway owns physical retry timing, cancellation, and replacement. The
-		* domain consumer owns its opening item and every later item, and calls
-		* {@link RemoteStreamItem.accept} only after validating the opening
-		* baseline or cursor.
+		* Connection owns physical retry timing; Gateway performs each requested
+		* replacement. The domain consumer owns its opening item and every later
+		* item, and calls {@link RemoteStreamItem.accept} only after validating the
+		* opening baseline or cursor.
 		*/
 		var RemoteStream = class {
 			connection;
@@ -794,7 +878,7 @@ window.__ModuleLoader__.load({
 						} catch (error) {
 							if (isAborted(this.lifetime.signal)) return;
 							if (revision !== this.revision) continue;
-							if (!(error instanceof RemoteStreamCarrierError)) throw error;
+							if (!(error instanceof RemoteStreamCarrierError)) throw terminalStreamFailure(error);
 							this.options.carrierFailed?.(error);
 							if (revision !== this.revision) continue;
 							attempt++;
@@ -803,7 +887,7 @@ window.__ModuleLoader__.load({
 							} catch (retryError) {
 								if (isAborted(this.lifetime.signal)) return;
 								if (revision !== this.revision) continue;
-								throw retryError;
+								throw terminalStreamFailure(retryError);
 							}
 						} finally {
 							this.generationAbort = void 0;
@@ -847,6 +931,16 @@ window.__ModuleLoader__.load({
 				else inspect();
 			});
 		}
+		/**
+		* Mark a terminal escape before it crosses the stream boundary: consumers
+		* discriminate failures by code, so an unmarked throw reads as a local bug.
+		* Marked failures pass through verbatim. The carrier class never escapes as a
+		* terminal outcome — it stays the retry-internal signal fed to `carrierFailed`
+		* and the `ended(true)` retry trigger.
+		*/
+		function terminalStreamFailure(error) {
+			return remoteErrorOf(error) ?? new RemoteError("gateway/internal", error instanceof Error ? error.message : String(error), {}, { cause: error });
+		}
 		function isAborted(signal) {
 			return signal.aborted;
 		}
@@ -858,6 +952,10 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/journal-stream.js
 		/** Cursor, page, and live-tail coordination over a reconnecting Remote stream. */
+		/** Host-side stream protocol violation, marked so consumers surface it as an error state. */
+		function protocolViolation$1(message) {
+			return new RemoteError("gateway/internal", message, {});
+		}
 		/**
 		* Owns snapshot-first opening, ordered live delivery, pagination, and repair.
 		*
@@ -888,7 +986,7 @@ window.__ModuleLoader__.load({
 				this.stream = remote.$stream({
 					name: options.name,
 					open: (signal) => this.follow(this.initialRequest, signal),
-					ended: (accepted) => accepted ? new RemoteStreamCarrierError(`${options.name} ended without a terminal result`) : /* @__PURE__ */ new Error(`${this.hasResumeCursor ? "resumed " : ""}${options.name} ended before its opening cursor`),
+					ended: (accepted) => accepted ? new RemoteStreamCarrierError(`${options.name} ended without a terminal result`) : protocolViolation$1(`${this.hasResumeCursor ? "resumed " : ""}${options.name} ended before its opening cursor`),
 					...options.carrierFailed === void 0 ? {} : { carrierFailed: options.carrierFailed }
 				});
 			}
@@ -908,7 +1006,7 @@ window.__ModuleLoader__.load({
 				const iterator = this.stream[Symbol.asyncIterator]();
 				try {
 					const first = await this.takeNext(iterator);
-					if (first.done) throw new Error(`${this.options.name} ended before its opening cursor`);
+					if (first.done) throw protocolViolation$1(`${this.options.name} ended before its opening cursor`);
 					this.replaceGeneration(first.value, false);
 					this.opened = true;
 					this.done = this.consume(iterator);
@@ -938,7 +1036,7 @@ window.__ModuleLoader__.load({
 						entries: [],
 						hasMore: false
 					});
-					throw new Error(`${this.options.name} history page is discontinuous`);
+					throw protocolViolation$1(`${this.options.name} history page is discontinuous`);
 				}
 				const first = accepted[0];
 				if (first !== void 0) this.firstCursor = this.options.first(first);
@@ -978,7 +1076,7 @@ window.__ModuleLoader__.load({
 							this.replaceGeneration(item, true);
 							continue;
 						}
-						if (item.value.type === "opened") throw new Error(`${this.options.name} emitted more than one opening cursor`);
+						if (item.value.type === "opened") throw protocolViolation$1(`${this.options.name} emitted more than one opening cursor`);
 						await this.acceptEntry(item.value.entry, item, iterator);
 					}
 				} catch (error) {
@@ -990,9 +1088,9 @@ window.__ModuleLoader__.load({
 				this.replaceFromOpening(opening.page, opening.cursor);
 			}
 			opening(item, resumed) {
-				if (item.value.type !== "opened") throw new Error(`${resumed ? "resumed " : ""}${this.options.name} emitted an entry before its opening cursor`);
+				if (item.value.type !== "opened") throw protocolViolation$1(`${resumed ? "resumed " : ""}${this.options.name} emitted an entry before its opening cursor`);
 				const cursor = item.value.cursor;
-				if (resumed && this.lastCursor !== void 0 && this.options.compare(cursor, this.lastCursor) < 0) throw new Error(`${this.options.name} resumed at a cursor behind the last applied entry`);
+				if (resumed && this.lastCursor !== void 0 && this.options.compare(cursor, this.lastCursor) < 0) throw protocolViolation$1(`${this.options.name} resumed at a cursor behind the last applied entry`);
 				this.generation = item.generation;
 				item.accept();
 				return {
@@ -1020,7 +1118,7 @@ window.__ModuleLoader__.load({
 				const { first, last: cursor } = this.entryRange(entry);
 				const last = this.lastCursor;
 				if (this.options.compare(cursor, last) <= 0) return;
-				if (this.options.compare(first, last) <= 0) throw new Error(`${this.options.name} emitted a partially overlapping entry`);
+				if (this.options.compare(first, last) <= 0) throw protocolViolation$1(`${this.options.name} emitted a partially overlapping entry`);
 				if (!this.options.follows(last, first)) {
 					const request = this.repairPageRequest();
 					const superseded = await this.replaceThrough(request, cursor, item.generation, item.signal, iterator, [entry]);
@@ -1050,7 +1148,7 @@ window.__ModuleLoader__.load({
 					entries = this.mergeReplacement(page, queued);
 					target = this.maxCursor(requiredCursor, queued);
 				}
-				if (entries === void 0 || this.options.compare(this.tailCursor(entries), target) < 0) throw new Error(`${this.options.name} page did not reach its opening cursor`);
+				if (entries === void 0 || this.options.compare(this.tailCursor(entries), target) < 0) throw protocolViolation$1(`${this.options.name} page did not reach its opening cursor`);
 				const first = entries[0];
 				/* v8 ignore next -- a successful positive-cursor replacement page cannot be empty. */
 				this.firstCursor = first === void 0 ? void 0 : this.options.first(first);
@@ -1096,14 +1194,14 @@ window.__ModuleLoader__.load({
 					if (result.type === "next-error") throw result.error;
 					if (result.value.done) {
 						signal.throwIfAborted();
-						throw new Error(`${this.options.name} ended while reading its replacement page`);
+						throw protocolViolation$1(`${this.options.name} ended while reading its replacement page`);
 					}
 					const item = result.value.value;
 					if (item.generation !== generation) return {
 						type: "superseded",
 						item
 					};
-					if (item.value.type === "opened") throw new Error(`${this.options.name} emitted more than one opening cursor`);
+					if (item.value.type === "opened") throw protocolViolation$1(`${this.options.name} emitted more than one opening cursor`);
 					queued.push(item.value.entry);
 				}
 			}
@@ -1118,14 +1216,14 @@ window.__ModuleLoader__.load({
 					}
 					if (next.done) {
 						this.stream.signal.throwIfAborted();
-						throw new Error(`${this.options.name} ended while replacing an aborted page generation`);
+						throw protocolViolation$1(`${this.options.name} ended while replacing an aborted page generation`);
 					}
 					const item = next.value;
 					if (item.generation !== generation) return {
 						type: "superseded",
 						item
 					};
-					if (item.value.type === "opened") throw new Error(`${this.options.name} emitted more than one opening cursor`);
+					if (item.value.type === "opened") throw protocolViolation$1(`${this.options.name} emitted more than one opening cursor`);
 					pending = this.nextResult(iterator);
 				}
 			}
@@ -1139,7 +1237,7 @@ window.__ModuleLoader__.load({
 					const first = this.options.first(entry);
 					const last = this.options.last(entry);
 					if (this.options.compare(last, tail) <= 0) continue;
-					if (this.options.compare(first, tail) <= 0) throw new Error(`${this.options.name} replacement contains a partially overlapping entry`);
+					if (this.options.compare(first, tail) <= 0) throw protocolViolation$1(`${this.options.name} replacement contains a partially overlapping entry`);
 					if (!this.options.follows(tail, first)) return void 0;
 					entries.push(entry);
 					tail = last;
@@ -1190,14 +1288,14 @@ window.__ModuleLoader__.load({
 				let previousRange = this.entryRange(first.value);
 				for (const entry of iterator) {
 					const range = this.entryRange(entry);
-					if (!this.options.follows(previousRange.last, range.first)) throw new Error(`${this.options.name} page contains discontinuous entries`);
+					if (!this.options.follows(previousRange.last, range.first)) throw protocolViolation$1(`${this.options.name} page contains discontinuous entries`);
 					previousRange = range;
 				}
 			}
 			entryRange(entry) {
 				const first = this.options.first(entry);
 				const last = this.options.last(entry);
-				if (this.options.compare(first, last) > 0) throw new Error(`${this.options.name} entry has an inverted cursor range`);
+				if (this.options.compare(first, last) > 0) throw protocolViolation$1(`${this.options.name} entry has an inverted cursor range`);
 				return {
 					first,
 					last
@@ -1205,12 +1303,16 @@ window.__ModuleLoader__.load({
 			}
 			assertPageThrough(page, through) {
 				const tail = this.tailCursor(this.options.entries(page));
-				if (this.options.compare(tail, through) !== 0) throw new Error(`${this.options.name} page did not end at its requested cursor`);
+				if (this.options.compare(tail, through) !== 0) throw protocolViolation$1(`${this.options.name} page did not end at its requested cursor`);
 			}
 		};
 		//#endregion
 		//#region lib/types/client/snapshot-stream.js
 		/** Baseline-and-delta protocol layered over a reconnecting Remote stream. */
+		/** Host-side stream protocol violation, marked so consumers surface it as an error state. */
+		function protocolViolation(message) {
+			return new RemoteError("gateway/internal", message, {});
+		}
 		/**
 		* Consumes generations that each contain exactly one opening snapshot followed by deltas.
 		*
@@ -1260,13 +1362,13 @@ window.__ModuleLoader__.load({
 							snapshotSeen = false;
 						}
 						if (this.options.isSnapshot(item.value)) {
-							if (snapshotSeen) throw new Error(`${this.options.name} emitted more than one opening snapshot`);
+							if (snapshotSeen) throw protocolViolation(`${this.options.name} emitted more than one opening snapshot`);
 							this.options.replace(item.value);
 							snapshotSeen = true;
 							item.accept();
 							continue;
 						}
-						if (!snapshotSeen) throw new Error(`${this.options.name} emitted an update before its opening snapshot`);
+						if (!snapshotSeen) throw protocolViolation(`${this.options.name} emitted an update before its opening snapshot`);
 						this.options.update(item.value);
 					}
 				} catch (error) {
@@ -1294,6 +1396,7 @@ window.__ModuleLoader__.load({
 			ownerCtx;
 			connection;
 			namespaces = /* @__PURE__ */ new Map();
+			hostFacts;
 			streams = new RemoteStreamMuxClient();
 			events;
 			mutations = Promise.resolve();
@@ -1308,9 +1411,15 @@ window.__ModuleLoader__.load({
 				let loop;
 				const start = () => {
 					if (disposed) return;
-					loop = connection.start({ onConnected: () => {
-						this.ownerCtx.emit("connection/reset");
-					} });
+					if (connection.rpc.open === void 0) this.streams.start();
+					loop = connection.start({
+						onConnected: () => {
+							this.ownerCtx.emit("connection/reset");
+						},
+						onReconnectRequested: () => {
+							if (connection.rpc.open === void 0) this.streams.reconnect();
+						}
+					});
 				};
 				const loader = ctx.get("loader");
 				if (loader === void 0) start();
@@ -1324,6 +1433,14 @@ window.__ModuleLoader__.load({
 			}
 			$stream(options) {
 				return new RemoteStream(this.connection, options);
+			}
+			get $host() {
+				const home = this.connection.generation.getSnapshot()?.host.home;
+				if (this.hostFacts === void 0 || this.hostFacts.home !== home) this.hostFacts = {
+					home,
+					isLoopback: this.connection.isLoopback
+				};
+				return this.hostFacts;
 			}
 			async $mount(contribution) {
 				const callerCtx = this.ctx;
@@ -1485,13 +1602,14 @@ window.__ModuleLoader__.load({
 					if (!mountActive(token)) return withdrawn(endpoint);
 					if (!result.ok) return {
 						ok: false,
-						error: result.error
+						error: rebuiltFailure(result.error)
 					};
 					return {
 						ok: true,
 						value: result.value
 					};
 				} catch (error) {
+					if (prepared.signal.aborted) return cancelledFailure(endpoint, error);
 					return carrierFailure(endpoint, error);
 				}
 			}
@@ -1709,15 +1827,36 @@ window.__ModuleLoader__.load({
 		function carrierFailure(endpoint, error) {
 			return internalFailure(`client api: ${endpoint} failed: ${error instanceof Error ? error.message : String(error)}`);
 		}
+		function cancelledFailure(endpoint, cause) {
+			return {
+				ok: false,
+				error: new RemoteError("gateway/cancelled", `client api: Remote invocation "${endpoint}" was aborted`, {}, { cause })
+			};
+		}
 		function internalFailure(message) {
 			return {
 				ok: false,
-				error: {
-					code: "internal",
-					message,
-					details: {}
-				}
+				error: new RemoteError("gateway/internal", message, {})
 			};
+		}
+		/**
+		* Whether a caught value is a Remote failure this face delivered or threw.
+		* The one consumer-facing discrimination point: marked instances carry their
+		* Host code; anything else is a local fault the caller should let crash.
+		* @param error - a caught value.
+		* @returns true when the value narrows to RemoteFailure.
+		*/
+		function isRemoteFailure(error) {
+			return remoteErrorOf(error) !== void 0;
+		}
+		/**
+		* Rebuild the wire failure as a local RemoteError instance so the error branch
+		* carries a real Error and `throw result.error` keeps throw semantics. The code
+		* is passed through verbatim without runtime validation: a code outside this
+		* Client's merged map still surfaces as-is, so a newer Host stays readable.
+		*/
+		function rebuiltFailure(error) {
+			return new RemoteError(error.code, error.message, error.details);
 		}
 		/** Preserve Gateway error classes across a worker transport's separately bundled page half. */
 		async function* normalizeConnectionStream(source) {
@@ -1726,7 +1865,7 @@ window.__ModuleLoader__.load({
 			} catch (error) {
 				if (!(error instanceof Error)) throw error;
 				const marker = error.dshRemoteStreamFailure;
-				if (marker?.kind === "remote") throw new RemoteStreamError(marker.code, error.message, marker.details);
+				if (marker?.kind === "remote") throw new RemoteError(marker.code, error.message, marker.details);
 				if (marker?.kind === "carrier") throw new RemoteStreamCarrierError(error.message, { cause: error });
 				throw error;
 			}
@@ -1736,9 +1875,9 @@ window.__ModuleLoader__.load({
 		exports.RemoteSnapshotStream = RemoteSnapshotStream;
 		exports.RemoteStream = RemoteStream;
 		exports.RemoteStreamCarrierError = RemoteStreamCarrierError;
-		exports.RemoteStreamError = RemoteStreamError;
 		exports.apply = apply;
 		exports.inject = inject;
+		exports.isRemoteFailure = isRemoteFailure;
 		return module.exports;
 	}
 });

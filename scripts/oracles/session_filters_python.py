@@ -71,7 +71,7 @@ async def observe():
                     return [cold]
                 async def inspection(identity,signal=None):
                     counters['inspections'] += 1
-                    return dict(meta=cold,events=events)
+                    return dict(meta=cold,events=events, inheritedEventCount=0)
                 context.set_service('sessionPersistence',SimpleNamespace(list=listing,inspect=inspection))
                 query = SessionQueryService(context,open_at='never')
                 if item['name'] in ('public-sessions-pre-abort','public-sessions-invalid-before-abort'):

@@ -1,8 +1,8 @@
 {
   "id": "CON-SESSION-QUERY-ENGINE",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session-query/session-query-sqlite/src/index.ts",
     "reference/packages/session-query/session-query-sqlite/src/query.ts",
@@ -10,7 +10,11 @@
     "reference/packages/session-query/session-query-sqlite/tests/sqlite.spec.ts",
     "dsh/session/query_engine.py"
   ],
-  "consumers": ["dsh/boot/plugin_registry.py", "dsh/api/session.py", "scripts/verify_portable.py"],
+  "consumers": [
+    "dsh/boot/plugin_registry.py",
+    "dsh/api/session.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "Sixteen independent literal observations execute the actual pinned and native engines: durable ranking/pages, unchanged revisions, events, relevant and global cursor generations, live preference, literal operators, empty availability, one stable retry, instability refusal, provider withdrawal/replacement, pre-abort and closed refusal.",
     "The canonical session-query-sqlite package resolves to the modern FTS engine. Three real Web profile/preset consumers assert its identity and perform Remote searches before and after durable reload, including both original and forked sessions.",
@@ -30,6 +34,12 @@
     "CON-SESSION-QUERY-UNICODE and CON-SESSION-TEXT qualify declared current-locale identities and literal/valid semantic text in clean fc275a66. Malformed/plugin payload ABI, other domains and all locales remain separate.",
     "Exhaustive event extraction, all concurrent binding/index histories, public tool/package ABI, very large histories and SQLite canonical schema-19 storage remain separate.",
     "The rejected 24f9f83d original-browser startup cancellation remains independently unrooted. FTS acceptance cannot mark it fixed.",
-    "Windows ACL, cross-process/power-loss and actual Win7 certification remain outside this bounded contract; real Win7 is deferred by the user."
-  ]
+    "Windows ACL, cross-process/power-loss and actual Win7 certification remain outside this bounded contract; real Win7 is deferred by the user.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

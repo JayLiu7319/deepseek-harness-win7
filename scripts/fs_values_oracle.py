@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 GROUPS = ('real', 'read', 'image', 'window', 'escalation', 'diff')
 NAMES = tuple(json.loads((ROOT / 'scripts/oracles/fs-values-cases.json').read_text(encoding='utf-8'))['names'])
 OBSERVER_INPUTS = ('scripts/fs_values_oracle.py', 'scripts/fs_values_cases.py',

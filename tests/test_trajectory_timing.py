@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 import pytest
 import time
@@ -99,6 +100,8 @@ async def test_agent_loop_tool_execution_timing():
 
     ctx.set_service("llm", MockToolLLM())
 
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     agent_loop = AgentLoopService(ctx)
     ctx.set_service("agent_loop", agent_loop)
 

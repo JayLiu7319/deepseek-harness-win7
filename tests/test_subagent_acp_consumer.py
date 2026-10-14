@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('backend', ['jsonl', 'sqlite'])
+@pytest.mark.parametrize('backend', ['jsonl', 'jsonl-zstd'])
 async def test_canonical_profile_actual_tools_consumer_owns_acp_child_exit(tmp_path, backend, monkeypatch):
     runtime, bridge, unused = await boot_profile(tmp_path, backend, monkeypatch)
     ctx = runtime['ctx']

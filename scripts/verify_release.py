@@ -44,7 +44,9 @@ from scripts.query_unicode_oracle import validate_runtime as validate_query_unic
 from scripts.session_text_oracle import validate_runtime as validate_session_text, source_identity as text_source_identity
 from scripts.session_tools_oracle import validate_runtime as validate_session_tools, source_identity as tools_source_identity, module_hashes as tools_module_hashes
 from scripts.sqlite_format_oracle import validate_runtime as validate_sqlite_format, source_identity as format_source_identity, module_hashes as format_module_hashes, asset_hashes as format_asset_hashes
-from scripts.sqlite_provider_oracle import validate_runtime as validate_sqlite_provider, source_identity as provider_source_identity, hashes as provider_hashes, MODULES as PROVIDER_MODULES, ASSETS as PROVIDER_ASSETS
+from scripts.sqlite_provider_oracle import hashes as provider_hashes
+from scripts.legacy_session_reader_oracle import validate_runtime as validate_legacy_reader, hashes as legacy_reader_hashes
+from scripts.rc1_capabilities_oracle import validate_runtime as validate_rc1_capabilities, digest as rc1_digest
 from scripts.jsonl_provider_oracle import validate_runtime as validate_jsonl_provider, source_identity as jsonl_source_identity, MODULES as JSONL_MODULES, ASSETS as JSONL_ASSETS
 from scripts.tool_scheduler_oracle import validate_runtime as validate_tool_scheduler, identity as scheduler_identity
 from scripts.http_redirect_oracle import NAMES as REDIRECT_NAMES, validate_runtime as validate_http_redirect, identity as redirect_identity
@@ -111,7 +113,7 @@ PAIRED_DRIVERS = (
     'approval', 'inspect', 'cordis_guard', 'cordis_runner',
     'cordis_retirement', 'cordis_tools', 'acp_sessions', 'acp_model_output', 'acp_stdio', 'acp_permissions', 'mcp_stdio', 'mcp_http', 'acp_mcp', 'subagent_acp', 'subagent_acp_teardown', 'mcp_disposal', 'subprocess_ownership', 'subprocess_tree', 'projection_cache_failure', 'session_observation_read', 'session_corpus_list', 'session_corpus_read', 'session_lineage', 'session_event_trace', 'session_filters', 'session_requests', 'session_snapshots', 'query_schema', 'query_engine', 'query_unicode', 'session_text',
 )
-PAIRED_DRIVERS = PAIRED_DRIVERS + ('session_tools', 'sqlite_format', 'sqlite_provider', 'jsonl_provider', 'tool_scheduler', 'http_redirect', 'javascript_workflow', 'runtime_context', 'javascript_ready', 'persistence_read')
+PAIRED_DRIVERS = PAIRED_DRIVERS + ('session_tools', 'sqlite_format', 'jsonl_provider', 'tool_scheduler', 'http_redirect', 'javascript_workflow', 'runtime_context', 'javascript_ready', 'persistence_read')
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('javascript_initial', 'session_number', 'session_diagnostic', 'session_restore_sign')
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('runtime_full_request', 'deepseek_error', 'deepseek_capture', 'jsonl_sharing', 'canonical_llm', 'llm_metadata', 'llm_prepared', 'llm_config')
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('win32_stat',)
@@ -126,9 +128,9 @@ PAIRED_DRIVERS = PAIRED_DRIVERS + ('subagent_model',)
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('unicode_carrier',)
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('fs_values',)
 PAIRED_DRIVERS = PAIRED_DRIVERS + ('message_values',)
-OFFICIAL_CONFIGS = ('consumers', 'agent-lifecycle', 'session-recovery', 'session-projection', 'acp', 'acp-app', 'mcp', 'subagent-acp', 'storage-cache', 'session-observation', 'session-corpus', 'session-sqlite-query', 'query-engine-source', 'session-tools-source', 'sqlite-format-source', 'sqlite-provider-source', 'jsonl-provider-source', 'tool-scheduler-source', 'deepseek-source', 'llm-public-source')
+OFFICIAL_CONFIGS = ('consumers', 'agent-lifecycle', 'session-recovery', 'session-projection', 'acp', 'acp-app', 'mcp', 'subagent-acp', 'storage-cache', 'session-observation', 'session-corpus', 'session-sqlite-query', 'query-engine-source', 'session-tools-source', 'jsonl-provider-source', 'tool-scheduler-source', 'deepseek-source', 'llm-public-source')
 OFFICIAL_CONFIGS += ('web-search-deepseek-source',)
-OFFICIAL_CONFIGS += ('plan-source',)
+OFFICIAL_CONFIGS += ('plan-source', 'rc1-subagent')
 REQUIRED_REGRESSION = {
     'test_ucrt_inputs': {
         'test_actual_sdk_files_keep_exact_identity_and_app_local_layout',
@@ -1045,11 +1047,11 @@ REQUIRED_REGRESSION = {
         *{'test_foreign_layout_refusal_preserves_actual_file_and_closes_handle[' + name + ']' for name in (
             'unversioned', 'old', 'future', 'foreign', 'altered')},
     },
-    'test_sqlite_provider_source': {'test_actual_source_and_native_schema19_mutual_files_and_consumers'},
+    'test_legacy_session_reader_source': {'test_actual_archived_source_database_reads_exports_and_continues'},
     'test_sqlite_remote': {
-        'test_canonical_sqlite_remote_model_fork_search_and_cold_restart[minimal]',
-        'test_canonical_sqlite_remote_model_fork_search_and_cold_restart[standard]',
-        'test_canonical_sqlite_remote_model_fork_search_and_cold_restart[cordis]',
+        'test_legacy_sqlite_export_remote_model_fork_search_and_cold_restart[minimal]',
+        'test_legacy_sqlite_export_remote_model_fork_search_and_cold_restart[standard]',
+        'test_legacy_sqlite_export_remote_model_fork_search_and_cold_restart[cordis]',
     },
     'test_sqlite_format': {
         'test_schema_owned_packed_rows_survive_actual_strict_sqlite_and_detached_reads',
@@ -1417,6 +1419,10 @@ REQUIRED_REGRESSION = {
     },
     'test_browser108_gate': {
         'test_all_fixed_observer_resources_are_required',
+        *{'test_profile_reference_and_history_require_actual_observations[' + damage + ']'
+          for damage in ('reference-candidates', 'reference-chip', 'reference-body', 'history-count',
+                         'history-unloaded', 'history-tail', 'history-loaded', 'history-prompt',
+                         'history-offscreen', 'history-untrusted', 'history-focus', 'history-cold')},
         'test_profile_imports_remain_bound_to_zip_after_owned_extraction_cleanup',
         *{'test_warm_lane_requires_successful_fresh_observation_and_unchanged_acknowledgement[' + damage + ']'
           for damage in ('none', 'missing-prior', 'failed-prior', 'prior-not-fresh', 'prior-bytes',
@@ -1487,6 +1493,17 @@ REQUIRED_REGRESSION = {
         'test_smoke_dist_portable_directory[' + profile + ']'
         for profile in ('minimal', 'standard', 'creative', 'web', 'headless')
     },
+}
+
+REQUIRED_REGRESSION['test_current_release_gate'].update({
+    'test_extracted_rc1_capabilities_require_exact_source_and_candidate[' + damage + ']'
+    for damage in ('missing', 'source', 'input', 'root', 'python', 'modules', 'case', 'outcome')
+})
+REQUIRED_REGRESSION['test_storage_atomic_replace'] = {
+    *{'test_windows_transient_replace_preserves_durable_temporary_file[' + str(code) + ']'
+      for code in (5, 32, 33)},
+    'test_replace_failure_is_bounded_and_keeps_original_record[5-6]',
+    'test_replace_failure_is_bounded_and_keeps_original_record[112-1]',
 }
 
 
@@ -1750,16 +1767,17 @@ def validate_extracted(path, archive, candidate):
     except (ValueError, KeyError, TypeError) as error:
         raise RuntimeError('Extracted sqliteFormat observations are incomplete') from error
     try:
-        required = ('sqlite_provider_observations_sha256', 'sqlite_provider_inputs_sha256')
-        if any(not isinstance(candidate[name], str) or not re.fullmatch('[0-9a-f]{64}', candidate[name]) for name in required):
-            raise ValueError('SQLite provider Source identity is missing')
-        if not isinstance(candidate['sqlite_provider_modules'], dict) or not isinstance(candidate['sqlite_provider_assets'], dict):
-            raise ValueError('SQLite provider file closure is missing')
-        validate_sqlite_provider(report.get('sqliteProvider'), report['mcpStdio']['root'],
-            candidate['sqlite_provider_observations_sha256'], candidate['sqlite_provider_inputs_sha256'],
-            candidate['sqlite_provider_modules'], candidate['sqlite_provider_assets'])
+        validate_rc1_capabilities(report.get('rc1Capabilities'), report['mcpStdio']['root'],
+            candidate['rc1_observations_sha256'], candidate['rc1_inputs_sha256'], candidate['rc1_modules'])
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        raise RuntimeError('Extracted rc1Capabilities observations are incomplete') from error
+    try:
+        modules = candidate['legacy_reader_modules']
+        if not isinstance(modules, dict) or not modules:
+            raise ValueError('Legacy reader file closure is missing')
+        validate_legacy_reader(report.get('legacySessionReader'), report['mcpStdio']['root'], modules)
     except (ValueError, KeyError, TypeError) as error:
-        raise RuntimeError('Extracted sqliteProvider observations are incomplete') from error
+        raise RuntimeError('Extracted legacySessionReader observations are incomplete') from error
     try:
         required = ('jsonl_provider_observations_sha256', 'jsonl_provider_inputs_sha256')
         if any(not isinstance(candidate[name], str) or not re.fullmatch('[0-9a-f]{64}', candidate[name]) for name in required):
@@ -2220,12 +2238,23 @@ def verify(args, output):
     candidate['sqlite_format_inputs_sha256'] = digest(format_inputs)
     candidate['sqlite_format_modules'] = format_module_hashes(ROOT)
     candidate['sqlite_format_assets'] = format_asset_hashes(ROOT)
-    provider_source = output / 'sqlite-provider-paired.source.json'
-    provider_inputs = output / 'sqlite-provider-paired.inputs.json'
-    candidate['sqlite_provider_observations_sha256'] = provider_source_identity(json.loads(provider_source.read_text(encoding='utf-8')))
-    candidate['sqlite_provider_inputs_sha256'] = digest(provider_inputs)
-    candidate['sqlite_provider_modules'] = provider_hashes(ROOT, PROVIDER_MODULES)
-    candidate['sqlite_provider_assets'] = provider_hashes(ROOT, PROVIDER_ASSETS)
+    rc1_output = output / 'rc1-capabilities'
+    run([python, 'scripts/rc1_capabilities_oracle.py', '--output', str(rc1_output)],
+        'rc1-capabilities', output, env=environment)
+    rc1_report = json.loads((rc1_output / 'report.json').read_text(encoding='utf-8'))
+    if rc1_report.get('status') != 'matched':
+        raise RuntimeError('rc1 capability observations differ')
+    native_rc1 = rc1_report['native_runtime']
+    candidate['rc1_observations_sha256'] = native_rc1['sourceObservationsSha256']
+    candidate['rc1_inputs_sha256'] = native_rc1['inputSha256']
+    candidate['rc1_modules'] = native_rc1['modules']
+    validate_rc1_capabilities(native_rc1, ROOT, candidate['rc1_observations_sha256'], candidate['rc1_inputs_sha256'])
+    receipts['rc1-capabilities'] = digest(rc1_output / 'report.json')
+    legacy_reader = output / 'legacy-session-reader.json'
+    run([python, 'scripts/legacy_session_reader_oracle.py', '--output', str(legacy_reader)],
+        'legacy-session-reader', output, env=environment)
+    candidate['legacy_reader_modules'] = legacy_reader_hashes(ROOT)
+    receipts['legacy-session-reader'] = digest(legacy_reader)
     jsonl_source = output / 'jsonl-provider-paired.source.json'
     jsonl_inputs = output / 'jsonl-provider-paired.inputs.json'
     candidate['jsonl_provider_observations_sha256'] = jsonl_source_identity(json.loads(jsonl_source.read_text(encoding='utf-8')))
@@ -2429,7 +2458,8 @@ def verify(args, output):
     extracted = output / 'portable-extracted.json'
     extracted.unlink(missing_ok=True)
     command = [python, 'scripts/verify_portable.py', '--archive', str(archive),
-               '--browser108', observer108['binary'],
+               '--browser108', observer108['binary'], '--rc1-inputs', str(rc1_output / 'inputs.json'),
+               '--rc1-source', str(rc1_output / 'source.json'),
                '--browser', str(browser), '--output', str(extracted), '--unicode-source', str(unicode_source),
                '--text-source', str(text_source), '--text-inputs', str(text_inputs), '--tools-source', str(tools_source),
                '--format-source', str(format_source), '--format-inputs', str(format_inputs),

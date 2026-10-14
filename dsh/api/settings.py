@@ -8,7 +8,7 @@ from dsh.credentials.credentials import credential_ref
 from dsh.settings.provider import SettingsConflictError
 from dsh.settings.types import settings_namespace
 from dsh.presets.preset import UnknownPresetError, InvalidPresetIdError, PresetExistsError, PresetNotWritableError
-from dsh.typert.remote import TypertRemoteService, TypertRemoteFailure, Remote
+from dsh.typert.remote import TypertRemoteService, RemoteError, Remote
 from dsh.typert.artifact import UNDEFINED
 from dsh.host.native_command import can_open_path, open_path, open_text_file
 
@@ -18,13 +18,13 @@ async def settled(value):
 
 
 def failure(code, message, details=None):
-    return TypertRemoteFailure(dict(code=code, message=message, details=details or {}))
+    return RemoteError(code, message, details or {})
 
 
 def provider(ctx, key, example):
     value = ctx.get(key)
     if value is None:
-        raise failure('internal', '%s service is absent: this deployment does not mount a %s provider (e.g. %s) in its composition' %
+        raise failure('gateway/internal', '%s service is absent: this deployment does not mount a %s provider (e.g. %s) in its composition' %
                       (key, 'credential' if key == 'credentials' else key, example))
     return value
 
@@ -52,7 +52,7 @@ class CredentialsController(TypertRemoteService):
                 raise ValueError('value must be a non-empty string')
         except (ValueError, TypeError):
             # Never include credential input in diagnostics.
-            raise failure('bad-request', 'invalid payload for credentials.' + method,
+            raise failure('gateway/bad-request', 'invalid payload for credentials.' + method,
                           {'issues': [{'code': 'custom', 'path': ['value' if method == 'set' else 'refs'], 'message': 'Invalid input'}]})
 
     @Remote
@@ -71,7 +71,7 @@ class CredentialsController(TypertRemoteService):
         try:
             await settled(credentials.set(ref, value))
         except Exception as error:
-            raise failure('credential-rejected', str(error), {'ref': ref}) from error
+            raise failure('credential/rejected', str(error), {'ref': ref}) from error
         return UNDEFINED
 
     @Remote
@@ -81,7 +81,7 @@ class CredentialsController(TypertRemoteService):
         try:
             await settled(credentials.unset(ref))
         except Exception as error:
-            raise failure('credential-rejected', str(error), {'ref': ref}) from error
+            raise failure('credential/rejected', str(error), {'ref': ref}) from error
         return UNDEFINED
 
 
@@ -118,65 +118,65 @@ class SettingsController(TypertRemoteService):
 
     async def _write(self, ns, mode, value, expected):
         if not isinstance(ns, str) or not ns:
-            raise failure('bad-request', 'invalid payload for settings.' + mode, {'issues': [{'path': ['ns'], 'message': 'Invalid input'}]})
+            raise failure('gateway/bad-request', 'invalid payload for settings.' + mode, {'issues': [{'path': ['ns'], 'message': 'Invalid input'}]})
         settings = self._provider()
         try:
             settings_namespace(ns)
             await settled(getattr(settings, mode)(ns, value, None if expected is UNDEFINED else expected))
         except SettingsConflictError as error:
-            raise failure('settings-conflict', str(error), dict(ns=ns, expected=error.expected, actual=error.actual)) from error
+            raise failure('settings/conflict', str(error), dict(ns=ns, expected=error.expected, actual=error.actual)) from error
         except Exception as error:
-            raise failure('settings-rejected', str(error), {'ns': ns}) from error
+            raise failure('settings/rejected', str(error), {'ns': ns}) from error
         for row in settings.describe({'redactSecrets': True}):
             if row['ns'] == ns:
                 return namespace_view(row)
-        raise failure('internal', 'settings namespace "%s" was disposed after the %s' % (ns, mode))
+        raise failure('gateway/internal', 'settings namespace "%s" was disposed after the %s' % (ns, mode))
 
     @Remote
     async def openSettingsDocument(self, signal):
         settings = self._provider()
         if signal.aborted:
-            raise failure('cancelled', 'settings document open was aborted')
+            raise failure('gateway/cancelled', 'settings document open was aborted')
         try:
             path = await settled(settings.prepare_document())
         except Exception as error:
-            raise failure('cancelled' if signal.aborted else 'internal',
+            raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal',
                 'settings document preparation was aborted' if signal.aborted else 'settings document preparation failed: ' + str(error)) from error
         if path is None:
-            raise failure('internal', 'settings provider has no local document to open')
+            raise failure('gateway/internal', 'settings provider has no local document to open')
         if signal.aborted:
-            raise failure('cancelled', 'settings document open was aborted')
+            raise failure('gateway/cancelled', 'settings document open was aborted')
         try:
             await open_text_file(path, signal)
             return {'opened': True}
         except Exception as error:
-            raise failure('cancelled' if signal.aborted else 'internal',
+            raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal',
                 'settings document open was aborted' if signal.aborted else 'path open failed: ' + str(error)) from error
 
     @Remote
     async def openAgentPresetDirectory(self, agentPreset, signal):
         if not agentPreset:
-            raise failure('bad-request', 'agent preset id must not be empty')
+            raise failure('gateway/bad-request', 'agent preset id must not be empty')
         presets = self.ctx.get('agentPresets')
         if presets is None:
-            raise failure('agent-preset-not-found', 'this deployment composes no agent presets', dict(agentPreset=agentPreset, available=[]))
+            raise failure('agent-preset/not-found', 'this deployment composes no agent presets', dict(agentPreset=agentPreset, available=[]))
         try:
             preset = await presets.resolve(agentPreset)
             if preset.trust != 'user':
                 raise PresetNotWritableError(preset.id, 'it ships with the deployment')
             directory = os.path.dirname(preset.path)
         except UnknownPresetError as error:
-            raise failure('agent-preset-not-found', str(error), dict(agentPreset=error.preset_id, available=list(error.available))) from error
+            raise failure('agent-preset/not-found', str(error), dict(agentPreset=error.preset_id, available=list(error.available))) from error
         except (PresetNotWritableError, InvalidPresetIdError, PresetExistsError) as error:
             raise failure('agent-preset-read-only' if isinstance(error, PresetNotWritableError) else 'agent-preset-invalid',
                           str(error), dict(agentPreset=agentPreset, reason=str(error))) from error
         except Exception as error:
-            raise failure('internal', 'agent preset "%s": %s' % (agentPreset, error)) from error
+            raise failure('gateway/internal', 'agent preset "%s": %s' % (agentPreset, error)) from error
         if not self.canOpenAgentPresetDirectory():
             return dict(opened=False, path=directory)
         try:
             await open_path(directory, signal)
             return {'opened': True}
         except Exception as error:
-            raise failure('cancelled' if signal.aborted else 'internal',
+            raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal',
                 'path open was aborted' if signal.aborted else 'path open failed: ' + str(error)) from error

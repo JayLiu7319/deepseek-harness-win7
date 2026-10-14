@@ -2,28 +2,26 @@ import {it} from 'vitest'
 import {Context} from '@deepseek-ai/cordis'
 import SessionStore from '@deepseek-ai/dsh-session'
 import Jsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
-import Sqlite from '@deepseek-ai/dsh-session-persistence-sqlite'
 import {mkdtemp,rm,writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {execFileSync} from 'node:child_process'
 
 it('observes queued cancellation, legacy prefix forwarding and SQLite aborted failure priority',async()=>{
-  const pin='cd5ef8148158c3a752a658978873241fdf8e2bbc'
+  const pin='a66e4702047846cdaa10c66c9d3df3951f5ea70d'
   if(process.version!=='v22.22.2'||execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()!==pin
     ||execFileSync('git',['-C','reference','status','--porcelain'],{encoding:'utf8'}).trim())throw new Error('Pinned clean Source required')
   const rows:any[]=[]
-  for(const name of ['jsonl-none/queued','jsonl-zstd/queued','sqlite/queued','sqlite/legacy-forward','sqlite/legacy-after','sqlite/aborted-failure']){
+  for(const name of ['jsonl-none/queued','jsonl-zstd/queued']){
     const root=await mkdtemp(join(tmpdir(),'dsh-read-order-')),context=new Context()
     const row:any={name},controller=new AbortController(),reason=new Error('controlled read retired')
     let enter:any,release:any
     const entered=new Promise(resolve=>{enter=resolve}),released=new Promise(resolve=>{release=resolve})
     try{
       await context.plugin(SessionStore)
-      if(name.startsWith('sqlite'))await context.plugin(Sqlite,{path:join(root,'store.db')})
-      else await context.plugin(Jsonl,{root,compression:name.startsWith('jsonl-zstd')?'zstd':'none'})
+      await context.plugin(Jsonl,{root,compression:name.startsWith('jsonl-zstd')?'zstd':'none'})
       const provider:any=context.sessionPersistence,legacy=name.includes('legacy')
-      await provider.create({id:'s',version:0,createdAt:1})
+      await provider.create({id:'s',version:0,createdAt:1,isSeeded:false})
       await provider.append('s',[{type:legacy?'user/message':'session/end-seed',seq:0,time:1,
         data:legacy?{content:[{type:'text',text:'legacy'}],source:{kind:'user'}}:{}}])
       const owner=name.startsWith('sqlite')?provider.store:provider

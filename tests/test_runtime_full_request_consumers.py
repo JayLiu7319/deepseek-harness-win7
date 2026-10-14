@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 import copy
@@ -132,6 +133,8 @@ async def test_actual_fixed_parameter_adapter_keeps_python_boundary_arguments(co
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     parent = await ctx.get('agent_loop').create('parent', options=AgentOptions(provider='mock', model='mock',
         max_tokens=tokens, reasoning_effort=effort))

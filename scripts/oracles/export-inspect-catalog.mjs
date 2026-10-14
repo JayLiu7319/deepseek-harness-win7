@@ -1,5 +1,5 @@
 // Development-only extraction of the pinned generated catalogs. The product reads JSON.
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync, renameSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { runInNewContext } from 'node:vm'
@@ -26,5 +26,9 @@ const output = new URL('dsh/extensions/inspect_catalog.json', root)
 const text = JSON.stringify(result) + '\n'
 if (process.argv.includes('--check')) {
   if (readFileSync(output, 'utf8').replace(/\r\n/g, '\n') !== text) throw new Error('generated Inspect catalog is stale')
-} else writeFileSync(output, text, 'utf8')
+} else {
+  const temporary = new URL('dsh/extensions/inspect_catalog.json.tmp', root)
+  writeFileSync(temporary, text, 'utf8')
+  renameSync(temporary, output)
+}
 console.log(Object.fromEntries(Object.entries(catalogs).map(([key, rows]) => [key, rows.length])))

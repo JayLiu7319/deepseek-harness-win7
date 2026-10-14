@@ -1,4 +1,5 @@
 """Pinned workflow contracts, native Ralph execution and real child isolation."""
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 
@@ -503,6 +504,8 @@ async def test_actual_agent_loop_ralph_children_have_no_parent_or_prior_child_se
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     await ctx.plugin(SubagentRuntime)
     await ctx.plugin(SpawnInProcess)

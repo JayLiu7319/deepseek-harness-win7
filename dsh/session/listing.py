@@ -25,14 +25,18 @@ class SessionListing:
         projections = ctx.get("sessionProjections")
         if projections is not None:
             projections.register({"key": "sessionListMetadata", "stateVersion": 1,
-                "stateSchema": _metadata, "init": lambda _: {"blank": True, "lastPromptAt": None},
+                "stateSchema": _metadata, "init": lambda _, cut: {"blank": True, "lastPromptAt": None},
                 "apply": apply_list_metadata,
                 "wire": {"viewSchema": _metadata, "view": lambda state: state}})
 
     def _projection(self, header, live):
         try:
             service = self.ctx.get("sessionProjections" if live is not None else "sessionProjectionCache")
-            return service.cached_snapshot(live if live is not None else header) if service is not None else None
+            if service is None:
+                return None
+            if live is not None:
+                return service.cached_snapshot(live)
+            return None if header.isSeeded else service.cached_snapshot(header, 0)
         except Exception as error:
             logging.getLogger("session-list").warning("Cannot read projection: %s", error)
             return None
@@ -62,7 +66,7 @@ class SessionListing:
                     observed = await persistence.inspect(header.id)
                     cache = self.ctx.get("sessionProjectionCache")
                     if cache is not None:
-                        projection = cache.cold_snapshot(observed.meta, observed.events)
+                        projection = cache.cold_snapshot(observed.meta, observed.inheritedEventCount, observed.events)
                     else:
                         registry = self.ctx.get("sessionProjections")
                         if registry is not None:

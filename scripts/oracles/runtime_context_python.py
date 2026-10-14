@@ -30,6 +30,7 @@ class ControlledModel:
 
 async def observe(action):
     from dsh.cordis.context import Context
+    from dsh.session.projections import SessionProjectionRegistry
     from dsh.core.agent_loop import AgentLoopPlugin
     from dsh.core.agent import AgentPlugin
     from dsh.core.session import SessionPlugin
@@ -37,6 +38,7 @@ async def observe(action):
     from dsh.core.system_prompt import SystemPrompt
 
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     model = ControlledModel()
     ctx.set_service('llm', model)
     for plugin in (ToolsPlugin, SystemPrompt, SessionPlugin, AgentPlugin, AgentLoopPlugin):

@@ -10,7 +10,7 @@ const [sourcePath, inputPath, outputPath] = process.argv.slice(2)
 if (!sourcePath || !inputPath || !outputPath) throw new Error('Explicit Source, input and fresh output required')
 const source = resolve(sourcePath)
 const pin = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
-if (execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim() !== pin
+if (process.version !== 'v22.22.2' || execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim() !== pin
     || execFileSync('git', ['-C', source, 'diff', 'HEAD', '--'], { encoding: 'utf8' }) !== '') {
   throw new Error('Source must be the clean pinned rc.1 candidate')
 }
@@ -30,6 +30,10 @@ const { Session, SessionSeq, SessionLogOffset, SessionStore } = await load('pack
 const { toHeaderLine, parseHeader, scanLog } = await load('packages/session/session-persistence-jsonl/src/format.ts')
 const { SessionProjectionRegistry } = await load('packages/session/session-projection/src/index.ts')
 const { default: SystemPrompt } = await load('packages/core/system-prompt/src/index.ts')
+const { turnBoundaryProjectionDefinition: boundaryDefinition } = await load('packages/core/agent-loop/src/index.ts')
+const { decodeStorageRecord, packChunkRuns } = await load('packages/core/session/src/chunk-rows.ts')
+const { scheduleProjectionDefinition: scheduleDefinition } = await load('packages/schedule/schedule/src/projection.ts')
+const retryModule = await load('packages/llm/llm-retry/src/index.ts')
 const require = createRequire(join(source, 'packages/core/system-prompt/package.json'))
 const { Context } = await import(pathToFileURL(require.resolve('@deepseek-ai/cordis')).href)
 const observations: any = {
@@ -42,6 +46,43 @@ const observations: any = {
 function scalar(token: string) {
   return token === '-0' ? -0 : token === 'NaN' ? NaN : token === 'Infinity' ? Infinity : JSON.parse(token)
 }
+observations.chunkDecode = input.chunkRecords.map((row: any) => {
+  try { return { events: decodeStorageRecord(row) } }
+  catch (error: any) { return { error: error.message } }
+})
+observations.chunkPack = input.chunkBatches.map((events: any) => packChunkRuns(events))
+observations.scheduleStates = input.scheduleStates.map((value: any) => {
+  try { return {accepted:true,state:scheduleDefinition.stateSchema.parse(value)} }
+  catch { return {accepted:false} }
+})
+observations.scheduleProjection = [0,1].map((cut: any) => {
+  let state = scheduleDefinition.init(undefined,cut)
+  return input.scheduleEvents.map((event: any) => {
+    state=scheduleDefinition.apply(state,event)
+    return state
+  })
+})
+const retryCtx = new Context()
+try {
+  let definition: any
+  retryCtx.provide('sessionProjections')
+  retryCtx.set('sessionProjections',{register(value: any){definition=value}})
+  retryModule.apply(retryCtx)
+  let state=definition.init()
+  observations.retryProjection=input.retryEvents.map((event: any)=>{
+    state=definition.apply(state,event)
+    return state
+  })
+} finally { await retryCtx.fiber.dispose() }
+observations.turnBoundary = input.boundaryStates.map((value: any) => {
+  try { return { accepted: true, state: boundaryDefinition.stateSchema.parse(value) } }
+  catch { return { accepted: false } }
+})
+let boundaryState = boundaryDefinition.init()
+observations.turnBoundaryEvents = input.boundaryEvents.map((event: any) => {
+  boundaryState = boundaryDefinition.apply(boundaryState, event)
+  return boundaryState
+})
 for (const row of input.lineage) {
   try {
     const cut = row.cut === undefined ? undefined : scalar(row.cut)

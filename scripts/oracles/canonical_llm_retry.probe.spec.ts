@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import { expect, it } from 'vitest'
 import { createServer } from 'node:http'
 import { writeFileSync } from 'node:fs'
@@ -12,7 +13,7 @@ import * as Retry from '../../reference/packages/llm/llm-retry/src/index.ts'
 
 it('records complete real AgentLoop provider retry research', async () => {
   const sourceCommit = execFileSync('git', ['-C','reference','rev-parse','HEAD'], {encoding:'utf8'}).trim()
-  expect(sourceCommit).toBe('cd5ef8148158c3a752a658978873241fdf8e2bbc')
+  expect(sourceCommit).toBe('a66e4702047846cdaa10c66c9d3df3951f5ea70d')
   expect(execFileSync('git', ['-C','reference','status','--porcelain'], {encoding:'utf8'}).trim()).toBe('')
   expect(process.version).toBe('v22.22.2')
   const rows = []
@@ -42,7 +43,8 @@ it('records complete real AgentLoop provider retry research', async () => {
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)
     await ctx.plugin(Retry)
-    await ctx.plugin(AgentLoop,{agents:[]})
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(AgentLoop,{agents:[]})
     ctx.llm.registerAdapter(['deepseek-official'],adapter)
     const executed: string[] = []
     if (name === 'partial-tool') ctx.tools.register({name:'danger',description:'Observe accepted execution',parameters:{type:'object',properties:{},additionalProperties:false},
@@ -55,9 +57,9 @@ it('records complete real AgentLoop provider retry research', async () => {
       await agent.whenIdle()
       const expectedCalls = {recover:2,exhaust:3,unauthorized:1,'retry-after':1,empty:2,'partial-eof':1,'disabled-thinking':0,'partial-tool':3,'cancel-backoff':1}
       expect(requests).toHaveLength(expectedCalls[name])
-      expect(agent.session.events.at(-1)?.type).toBe('turn/end')
+      expect(agent.session.snapshotEvents().at(-1)?.type).toBe('turn/end')
       expect(executed).toEqual(name === 'partial-tool' ? ['danger']:[])
-      rows.push({name,requests,executed,events:agent.session.events.map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
+      rows.push({name,requests,executed,events:agent.session.snapshotEvents().map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
     } finally {
       await ctx.fiber.dispose()
       server.closeAllConnections()

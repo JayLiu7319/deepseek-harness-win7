@@ -225,7 +225,7 @@ def test_session_store_fork_empty_and_default_boundary():
 
     assert child.id == "empty-child"
     assert child.header.parent_session == "empty-parent"
-    assert child.header.seed_length == 0
+    assert child.inheritedEventCount == 0
     assert len(child.events) >= 1  # end-seed marker
 
 
@@ -238,7 +238,7 @@ def test_session_store_fork_completed_turn():
 
     child = store.fork("parent", child_session_id="child")
     assert child.header.parent_session == "parent"
-    assert child.header.seed_length == len(source.events)
+    assert child.inheritedEventCount == len(source.events)
     assert child.events[0]["type"] == "turn/start"
 
 

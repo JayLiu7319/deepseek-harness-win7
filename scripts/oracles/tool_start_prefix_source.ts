@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {Context} from '@deepseek-ai/cordis'
 import Llm from '@deepseek-ai/dsh-llm'
 import Sessions, {SessionId} from '@deepseek-ai/dsh-session'
@@ -17,7 +18,8 @@ export async function observePrefixes() {
       await ctx.plugin(Tools)
       await ctx.plugin(Prompt)
       await ctx.plugin(Agents)
-      await ctx.plugin(Loop, {agents:[], maxParallelToolCalls:3})
+      if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop, {agents:[], maxParallelToolCalls:3})
       const handle = await ctx.agents.create({sessionId:SessionId(implementation + '-' + action)})
       const agent = handle.agent, signal = new AbortController()
       const prefixes: string[] = [], preparations: any[] = []
@@ -68,7 +70,7 @@ export async function observePrefixes() {
             ? {kind:'final-result', result:{content:[{type:'text', text:identity}], isError:false}} : identity)
         }
         const result = await pending
-        const events = agent.session.events
+        const events = agent.session.snapshotEvents()
         observations.push({name:implementation + '-' + action, prefixes, preparations, held, terminal, result,
           calls:events.filter(event => event.type === 'tool/call').map((event: any) => event.data.callId),
           results:events.filter(event => event.type === 'tool/result').map((event: any) => ({

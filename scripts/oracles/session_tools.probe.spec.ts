@@ -1,3 +1,8 @@
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import {Context} from '@deepseek-ai/cordis'
+import {Session} from '@deepseek-ai/dsh-session'
+import SessionProjections from '@deepseek-ai/dsh-session-projection'
+import {turnBoundaryProjectionDefinition} from '@deepseek-ai/dsh-agent-loop'
 import {writeFileSync} from 'node:fs'
 import {it} from 'vitest'
 import {apply} from '../../reference/packages/session-query/tool-session-query/src/index.ts'
@@ -34,10 +39,10 @@ it('observes the actual optional tool consumer and its input contracts', async (
     await observe(`range-${index}`, () => toolInput.buildSessionFilters({query: 'q', created_at_from: range[0], created_at_to: range[1]}))
   }
   const records = [
-    {header: {id: 'caller', version: 2, createdAt: 10, cwd: '/work'}, live: true, persisted: false},
-    {header: {id: 'a', version: 2, createdAt: 100, cwd: '/work', parentSession: 'hidden'}, live: true, persisted: true},
-    {header: {id: 'b', version: 2, createdAt: 101, cwd: '/work'}, live: false, persisted: true},
-    {header: {id: 'hidden', version: 2, createdAt: 102, cwd: '/outside'}, live: true, persisted: false},
+    {header: {id: 'caller', version: 2, createdAt: 10, cwd: '/work',isSeeded:false}, live: true, persisted: false},
+    {header: {id: 'a', version: 2, createdAt: 100, cwd: '/work', parentSession: 'hidden',isSeeded:false}, live: true, persisted: true},
+    {header: {id: 'b', version: 2, createdAt: 101, cwd: '/work',isSeeded:false}, live: false, persisted: true},
+    {header: {id: 'hidden', version: 2, createdAt: 102, cwd: '/outside',isSeeded:false}, live: true, persisted: false},
   ]
   const definitions: any[] = [], sections: unknown[] = [], calls: unknown[] = [], warnings: string[] = []
   const controller = new AbortController()
@@ -88,15 +93,23 @@ it('observes the actual optional tool consumer and its input contracts', async (
         {seq: 2, time: 300, type: 'assistant/message', data: {message: {id: 'reply', role: 'assistant', content: [{type: 'text', text: 'reply'}]}}}]}
     },
   }
+  const projectionCtx = new Context()
+  await projectionCtx.plugin(SessionProjections)
+  projectionCtx.sessionProjections.register(turnBoundaryProjectionDefinition)
   const ctx: any = {tools: {register: (definition: unknown) => definitions.push(definition)},
-    systemPrompt: {section: (section: unknown) => sections.push(section)}, sessionQuery: query,
+    sessionProjections: projectionCtx.sessionProjections,
+    systemPrompt: {getSectionOrder: SystemPrompt.prototype.getSectionOrder, section: (section: unknown) => sections.push(section)}, sessionQuery: query,
     logger: {warn: (message: string) => warnings.push(message)}}
   apply(ctx, {maxSearchResults: 2, searchTimeoutMs: 1234})
   rows.push({name: 'registration', value: {sections: [...sections], tools: definitions.map(definition => ({name: definition.name,
     description: definition.description, parameters: definition.parameters, output: definition.output.schema,
     timeoutMs: definition.timeoutMs ?? null, concurrencySafe: definition.isConcurrencySafe?.({seq: 1}) ?? null}))}})
-  const execution: any = {signal, agent: {session: {id: 'caller', header: records[0].header,
-    events: [{seq: 0, type: 'turn/start'}, {seq: 1, type: 'user/message'}, {seq: 2, type: 'step/start'}]}}}
+  const caller = Session.create('caller' as any, [
+    {type:'turn/start',seq:0,time:1,data:{turn:1}},
+    {type:'user/message',seq:1,time:2,surfaceOp:'append',data:{id:'prior',role:'user',source:{kind:'user'},content:[{type:'text',text:'prior'}]}},
+    {type:'step/start',seq:2,time:3,data:{turn:1,step:1}},
+  ] as any, {...records[0].header,version:0})
+  const execution: any = {signal, agent: {session: caller}}
   for (const [name, toolName, args] of [
     ['empty', 'session_search', {query: 'q'}], ['pages', 'session_search', {query: 'q'}],
     ['private-failure', 'session_search', {query: 'q'}], ['foreign-failure', 'session_search', {query: 'q'}],

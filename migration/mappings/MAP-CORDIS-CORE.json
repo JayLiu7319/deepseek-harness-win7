@@ -1,6 +1,6 @@
 {
   "id": "MAP-CORDIS-CORE",
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
   "cases": [
     {
       "id": "CORDIS-C1",
@@ -541,5 +541,6 @@
   ],
   "official_case_coverage": "Critical source assertions: 11 lifecycle + 69 necessary-consumer instances (57 preset, 6 boot HMR, 6 profile HMR). Unmodified official suites execute 80 tests. Inventory remains discovery only.",
   "note": "C1-C67 require fresh paired report. C58 is retained native Python language divergence, with separate exact-signature scoped acceptance and C59 checkpoint adaptation.",
-  "observation_evidence": "RUN-CORDIS-CLOSURE-20260927"
+  "observation_evidence": "RUN-CORDIS-CLOSURE-20260927",
+  "scope": "Revalidation index only; case existence is retained, original alpha provenance archived and rc.1 behavior requires fresh execution."
 }

@@ -44,12 +44,7 @@ window.__ModuleLoader__.load({
 			* @returns generated Remote result.
 			*/
 			async create(input) {
-				let result;
-				try {
-					result = await this.remote.create(input);
-				} catch (error) {
-					result = failureResult(error);
-				}
+				const result = await this.remote.create(input);
 				if (result.ok) this.upsert(result.value.workspace);
 				return result;
 			}
@@ -88,16 +83,10 @@ window.__ModuleLoader__.load({
 				const frameGeneration = this.orderFrameGeneration;
 				const localOrder = this.items.map((workspace) => workspace.workspaceId);
 				this.installOrder(insertIdBefore(localOrder, workspaceId, beforeWorkspaceId));
-				let result;
-				try {
-					result = await this.remote.insertBefore({
-						workspaceId,
-						...beforeWorkspaceId === void 0 ? {} : { beforeWorkspaceId }
-					});
-				} catch (error) {
-					if (requestGeneration === this.orderRequestGeneration && frameGeneration === this.orderFrameGeneration) this.installOrder(this.committedOrder);
-					throw error;
-				}
+				const result = await this.remote.insertBefore({
+					workspaceId,
+					...beforeWorkspaceId === void 0 ? {} : { beforeWorkspaceId }
+				});
 				if (requestGeneration === this.orderRequestGeneration && frameGeneration === this.orderFrameGeneration) this.installOrder(result.ok ? result.value.workspaceIds : this.committedOrder, result.ok);
 				return result;
 			}
@@ -171,8 +160,9 @@ window.__ModuleLoader__.load({
 			* @param error - terminal stream failure.
 			*/
 			handleStreamFailure(error) {
+				if (!(0, _deepseek_ai_dsh_api_gateway_client.isRemoteFailure)(error)) throw error;
 				this.state = "error";
-				this.error = failureOf(error);
+				this.error = error;
 				this.invalidate();
 			}
 			/**
@@ -282,19 +272,6 @@ window.__ModuleLoader__.load({
 				...without.slice(at)
 			];
 		}
-		function failureResult(error) {
-			return {
-				ok: false,
-				error: failureOf(error)
-			};
-		}
-		function failureOf(error) {
-			return {
-				code: "internal",
-				message: error instanceof Error ? error.message : String(error),
-				details: {}
-			};
-		}
 		//#endregion
 		//#region lib/types/client/service.js
 		/** React-free Client Workspace service and command facade. */
@@ -302,7 +279,7 @@ window.__ModuleLoader__.load({
 		var WorkspaceCreateError = class extends Error {
 			rpcError;
 			name = "WorkspaceCreateError";
-			/** @param rpcError - Host business or folded transport failure. */
+			/** @param rpcError - Host business or folded carrier failure. */
 			constructor(rpcError) {
 				super(`workspace create failed: ${rpcError.code}: ${rpcError.message}`);
 				this.rpcError = rpcError;
@@ -362,10 +339,9 @@ window.__ModuleLoader__.load({
 		* @param ctx - Client root Context.
 		*/
 		function apply(ctx) {
-			const remote = ctx.remote;
-			const model = new ClientWorkspaceModel(remote.workspace);
+			const model = new ClientWorkspaceModel(ctx.remote.workspace);
 			new WorkspaceController(ctx, model);
-			const control = createWorkspaceStateStream(remote, {
+			const control = createWorkspaceStateStream(ctx.remote, {
 				accept: model,
 				carrierFailed: () => {
 					model.handleCarrierFailure();
@@ -381,7 +357,7 @@ window.__ModuleLoader__.load({
 		}
 		/**
 		* Create the reconnecting Workspace state stream.
-		* @param remote - generated Workspace namespace and Gateway stream factory.
+		* @param remote - Client Remote face carrying the Workspace namespace and the stream factory.
 		* @param options - Workspace state destinations.
 		* @returns an unstarted stream owned by the Client Workspace runtime.
 		*/

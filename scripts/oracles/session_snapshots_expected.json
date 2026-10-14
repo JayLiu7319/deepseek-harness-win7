@@ -69,13 +69,13 @@
     }
   },
   {
-    "name": "sqlite-lazy",
+    "name": "jsonl-zstd-lazy",
     "observed": {
       "count": 0
     }
   },
   {
-    "name": "sqlite-stable",
+    "name": "jsonl-zstd-stable",
     "observed": {
       "count": 1,
       "same": true,
@@ -84,34 +84,33 @@
     }
   },
   {
-    "name": "sqlite-append",
+    "name": "jsonl-zstd-append",
     "observed": {
-      "changed": true,
-      "counterDelta": 1
+      "changed": true
     }
   },
   {
-    "name": "sqlite-noop",
+    "name": "jsonl-zstd-noop",
     "observed": {
       "same": true
     }
   },
   {
-    "name": "sqlite-detached",
+    "name": "jsonl-zstd-detached",
     "observed": {
       "createdAt": 1,
       "sameToken": true
     }
   },
   {
-    "name": "sqlite-reopen",
+    "name": "jsonl-zstd-reopen",
     "observed": {
       "same": true,
       "qualified": true
     }
   },
   {
-    "name": "sqlite-copy",
+    "name": "jsonl-zstd-copy",
     "observed": {
       "sameHeader": true,
       "different": true,
@@ -119,21 +118,13 @@
     }
   },
   {
-    "name": "sqlite-preabort",
+    "name": "jsonl-zstd-preabort",
     "observed": {
       "error": {
         "name": "TypeError",
         "message": "snapshot deadline",
         "sameReason": true
       }
-    }
-  },
-  {
-    "name": "sqlite-memory",
-    "observed": {
-      "qualified": true,
-      "same": true,
-      "counterDelta": 1
     }
   }
 ]

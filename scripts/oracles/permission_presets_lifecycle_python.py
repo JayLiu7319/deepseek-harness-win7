@@ -72,6 +72,10 @@ async def main():
             dict(options=[dict(value='v', name='n')], currentValue='v'), dict(options=[dict(value='', name='n')], currentValue='v'),
             dict(options=[dict(value='v', name='')], currentValue='v'), dict(options=[dict(value='v', name='n', description=None)], currentValue='v'),
             dict(options=[], currentValue=''), dict(options={}, currentValue='v'), None]
+        states = [dict(value, seeded=False) if isinstance(value, dict) else value for value in states]
+        states[5].pop('seeded')
+        states[6]['seeded'] = 1
+        states[9]['seeded'] = True
         for kind, values, schema in [('state', states, definition['stateSchema']), ('view', views, definition['wire']['viewSchema'])]:
             for index, value in enumerate(values):
                 name = '%s-%s' % (kind, index)
@@ -87,7 +91,7 @@ async def main():
                                      '/permission danger-full-access', '/permission workspace-write']):
             execution = await ctx.get('commands').execute(agent, line, [], AbortController().signal)
             rows.append(dict(name='command-%s' % index, line=line, value=execution.result if execution else None,
-                current=ctx.get('permissionPresets').current(session.events),
+                current=ctx.get('permissionPresets').current(session),
                 knobs=[dict(type=event['type'], data=copy.deepcopy(event['data'])) for event in session.events
                        if event['type'] in ('permission/preset', 'sandbox/mode', 'approval/policy')],
                 approvalConfig=copy.deepcopy(ctx.get('approval').config), injected=copy.deepcopy(injected)))

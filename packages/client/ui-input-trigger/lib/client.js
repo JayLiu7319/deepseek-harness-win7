@@ -202,10 +202,9 @@ window.__ModuleLoader__.load({
 						generation: state.generation + 1,
 						groups: state.groups.map((g) => ({
 							...g,
-							status: "pending",
-							items: []
+							status: "pending"
 						})),
-						highlight: null
+						highlight: state.highlight
 					};
 				case "source-settled": {
 					if (!state.open || ev.generation !== state.generation) return state;
@@ -450,7 +449,11 @@ window.__ModuleLoader__.load({
 			* Keyboard arbitration while the menu is open.
 			* @param key - intercepted key.
 			* @param composing - inside IME composition: everything passes.
-			* @returns consumed / pick-highlighted / pass.
+			* @returns `pass` when the browser keeps the key (closed menu, no
+			* highlight, or a vanished candidate), `consumed` when the menu handled
+			* the key without a settling pick (move, close, drill descent, or a
+			* pending-refinement no-op), or `pick-highlighted` when the highlighted
+			* candidate settled and the menu closed.
 			*/
 			arbitrate(key, composing) {
 				if (composing || this.disposed) return "pass";
@@ -473,16 +476,25 @@ window.__ModuleLoader__.load({
 						this.stopFetch();
 						this.reduce({ type: "close" });
 						return "consumed";
-					case "enter":
+					case "enter": {
 						if (state.highlight === null) return "pass";
+						const group = state.groups.find((g) => g.source === state.highlight?.source);
+						if (group === void 0 || group.status !== "ready") return "consumed";
 						this.pick(state.highlight.source, state.highlight.index);
 						return "pick-highlighted";
+					}
 					case "tab": {
 						if (state.highlight === null) return "pass";
 						const group = state.groups.find((g) => g.source === state.highlight?.source);
-						if ((group !== void 0 && group.status === "ready" ? group.items[state.highlight.index] : void 0)?.drill !== true) return "pass";
-						this.pick(state.highlight.source, state.highlight.index, "drill");
-						return "consumed";
+						if (group === void 0 || group.status !== "ready") return "consumed";
+						const item = group.items[state.highlight.index];
+						if (item === void 0) return "pass";
+						if (item.drill === true) {
+							this.pick(state.highlight.source, state.highlight.index, "drill");
+							return "consumed";
+						}
+						this.pick(state.highlight.source, state.highlight.index);
+						return "pick-highlighted";
 					}
 				}
 			}
@@ -695,8 +707,8 @@ window.__ModuleLoader__.load({
 				});
 				this.stopFetch();
 				this.reduce({ type: "close" });
-				const applied = this.execute(outcome, hit.span);
-				this.drilled = action === "drill" && applied;
+				this.drilled = action === "drill";
+				if (!this.execute(outcome, hit.span)) this.drilled = false;
 			}
 			/** Re-poll every header-bearing source in the hit roster and publish their crumbs. */
 			refreshHeaders(hit, roster) {
@@ -833,8 +845,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-input-trigger\src\client\MenuView.module.css.mjs
-		const css = ".f2Yazq_menu{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:1px solid var(--dsw-alias-border-inverted);background:var(--dsw-specific-menu);max-height:320px;box-shadow:var(--dsw-shadow-lv3);border-radius:12px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;right:0;overflow:hidden}.f2Yazq_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.f2Yazq_item{cursor:pointer;width:100%;min-height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:8px 10px;font-size:14px;line-height:22px;display:flex}.f2Yazq_item.f2Yazq_active{background:var(--dsw-alias-interactive-bg-hover)}.f2Yazq_sectionTitle{min-height:26px;color:var(--dsw-alias-label-tertiary);flex:none;padding:6px 10px 2px;font-size:12px;font-weight:500;line-height:18px}.f2Yazq_sectionTitle:not(:first-child){margin-top:4px}.f2Yazq_itemIcon{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.f2Yazq_itemName{text-overflow:ellipsis;white-space:nowrap;flex:none;max-width:40%;overflow:hidden}.f2Yazq_itemDescription{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:1;overflow:hidden}.f2Yazq_trailing{flex:none;align-items:center;gap:4px;margin-left:auto;display:inline-flex}.f2Yazq_drillHintText{color:var(--dsw-alias-label-caption);white-space:nowrap;font-size:11px;line-height:18px;display:none}.f2Yazq_drillHint{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-caption);border-radius:4px;padding:0 5px;font-family:inherit;font-size:11px;line-height:18px;display:none}.f2Yazq_item.f2Yazq_active .f2Yazq_drillHintText,.f2Yazq_item.f2Yazq_active .f2Yazq_drillHint{display:inline-flex}.f2Yazq_drill{width:20px;height:20px;color:var(--dsw-alias-label-caption);border-radius:4px;flex:none;place-items:center;display:inline-grid}.f2Yazq_drill:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.f2Yazq_groupTitle{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:12px;line-height:16px}.f2Yazq_skeletonRow{box-sizing:border-box;align-items:center;min-height:40px;padding:8px 10px;display:flex}.f2Yazq_skeletonBar{background:var(--dsw-alias-bg-skeleton);border-radius:4px;height:20px;animation:2s cubic-bezier(.36,0,.64,1) infinite f2Yazq_dsh-menu-skeleton}@keyframes f2Yazq_dsh-menu-skeleton{0%{opacity:1}40%{opacity:.6}80%,to{opacity:1}}.f2Yazq_crumbs{border-bottom:1px solid var(--dsw-alias-border-inverted);flex-wrap:wrap;flex:none;align-items:center;gap:2px;margin-bottom:2px;padding:4px 6px 6px;display:flex}.f2Yazq_crumb{max-width:40%;color:var(--dsw-alias-label-tertiary);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:none;border-radius:6px;flex:0 auto;padding:2px 6px;font-family:inherit;font-size:12px;line-height:18px;overflow:hidden}.f2Yazq_crumb:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.f2Yazq_crumbCurrent,.f2Yazq_crumbCurrent:hover{color:var(--dsw-alias-label-primary);cursor:default;background:0 0}.f2Yazq_crumbSeparator{color:var(--dsw-alias-label-caption);flex:none;display:inline-flex}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-input-trigger\src\client\MenuView.module.css.mjs
+		const css = ".TmuHxG_menu{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);max-height:320px;box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;right:0;overflow:hidden}.TmuHxG_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.TmuHxG_item{cursor:pointer;width:100%;min-height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:8px 10px;font-size:14px;line-height:22px;display:flex}.TmuHxG_item.TmuHxG_active{background:var(--dsw-alias-interactive-bg-hover)}.TmuHxG_sectionTitle{min-height:26px;color:var(--dsw-alias-label-tertiary);flex:none;padding:6px 10px 2px;font-size:12px;font-weight:500;line-height:18px}.TmuHxG_sectionTitle:not(:first-child){margin-top:4px}.TmuHxG_itemIcon{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.TmuHxG_itemName{text-overflow:ellipsis;white-space:nowrap;flex:none;max-width:40%;overflow:hidden}.TmuHxG_itemDescription{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:1;overflow:hidden}.TmuHxG_trailing{flex:none;align-items:center;gap:4px;margin-left:auto;display:inline-flex}.TmuHxG_drillHintText{color:var(--dsw-alias-label-caption);white-space:nowrap;font-size:11px;line-height:18px;display:none}.TmuHxG_drillHint{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-caption);border-radius:4px;padding:0 5px;font-family:inherit;font-size:11px;line-height:18px;display:none}.TmuHxG_item.TmuHxG_active .TmuHxG_drillHintText,.TmuHxG_item.TmuHxG_active .TmuHxG_drillHint{display:inline-flex}.TmuHxG_drill{width:20px;height:20px;color:var(--dsw-alias-label-caption);border-radius:4px;flex:none;place-items:center;display:inline-grid}.TmuHxG_drill:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.TmuHxG_groupTitle{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:12px;line-height:16px}.TmuHxG_skeletonRow{box-sizing:border-box;align-items:center;min-height:40px;padding:8px 10px;display:flex}.TmuHxG_skeletonBar{background:var(--dsw-alias-bg-skeleton);border-radius:4px;height:20px;animation:2s cubic-bezier(.36,0,.64,1) infinite TmuHxG_dsh-menu-skeleton}@keyframes TmuHxG_dsh-menu-skeleton{0%{opacity:1}40%{opacity:.6}80%,to{opacity:1}}.TmuHxG_crumbs{border-bottom:.5px solid var(--dsw-alias-border-l1);flex-wrap:wrap;flex:none;align-items:center;gap:2px;margin-bottom:2px;padding:4px 4px 6px;display:flex}.TmuHxG_crumb{max-width:40%;color:var(--dsw-alias-label-tertiary);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:none;border-radius:6px;flex:0 auto;padding:2px 6px;font-family:inherit;font-size:12px;line-height:18px;overflow:hidden}.TmuHxG_crumb:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.TmuHxG_crumbCurrent,.TmuHxG_crumbCurrent:hover{color:var(--dsw-alias-label-primary);cursor:default;background:0 0}.TmuHxG_crumbSeparator{color:var(--dsw-alias-label-caption);flex:none;display:inline-flex}";
 		const tagId = "@deepseek-ai/dsh-client-ui-input-trigger/MenuView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -844,26 +856,26 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var MenuView_module_css_default = {
-			"active": "f2Yazq_active",
-			"crumb": "f2Yazq_crumb",
-			"crumbCurrent": "f2Yazq_crumbCurrent",
-			"crumbSeparator": "f2Yazq_crumbSeparator",
-			"crumbs": "f2Yazq_crumbs",
-			"drill": "f2Yazq_drill",
-			"drillHint": "f2Yazq_drillHint",
-			"drillHintText": "f2Yazq_drillHintText",
-			"dsh-menu-skeleton": "f2Yazq_dsh-menu-skeleton",
-			"groupTitle": "f2Yazq_groupTitle",
-			"item": "f2Yazq_item",
-			"itemDescription": "f2Yazq_itemDescription",
-			"itemIcon": "f2Yazq_itemIcon",
-			"itemName": "f2Yazq_itemName",
-			"menu": "f2Yazq_menu",
-			"sectionTitle": "f2Yazq_sectionTitle",
-			"skeletonBar": "f2Yazq_skeletonBar",
-			"skeletonRow": "f2Yazq_skeletonRow",
-			"trailing": "f2Yazq_trailing",
-			"viewport": "f2Yazq_viewport"
+			"active": "TmuHxG_active",
+			"crumb": "TmuHxG_crumb",
+			"crumbCurrent": "TmuHxG_crumbCurrent",
+			"crumbSeparator": "TmuHxG_crumbSeparator",
+			"crumbs": "TmuHxG_crumbs",
+			"drill": "TmuHxG_drill",
+			"drillHint": "TmuHxG_drillHint",
+			"drillHintText": "TmuHxG_drillHintText",
+			"dsh-menu-skeleton": "TmuHxG_dsh-menu-skeleton",
+			"groupTitle": "TmuHxG_groupTitle",
+			"item": "TmuHxG_item",
+			"itemDescription": "TmuHxG_itemDescription",
+			"itemIcon": "TmuHxG_itemIcon",
+			"itemName": "TmuHxG_itemName",
+			"menu": "TmuHxG_menu",
+			"sectionTitle": "TmuHxG_sectionTitle",
+			"skeletonBar": "TmuHxG_skeletonBar",
+			"skeletonRow": "TmuHxG_skeletonRow",
+			"trailing": "TmuHxG_trailing",
+			"viewport": "TmuHxG_viewport"
 		};
 		//#endregion
 		//#region lib/types/client/MenuView.js
@@ -871,7 +883,9 @@ window.__ModuleLoader__.load({
 		* Trigger candidate menu: renders the InputTriggerService menu store into the
 		* conversation.input.overlay anchor. Closed state renders null (the overlay
 		* slot stays mounted); groups render in roster order under localized title
-		* rows, pending groups as two skeleton rows; pointer picks route back through
+		* rows. A pending group keeps showing the items it already had (the reducer
+		* retains them across a query refinement) and falls back to two skeleton
+		* rows only while it has none; pointer picks route back through
 		* the service (combobox pattern — focus never leaves the textarea, so rows
 		* are mousedown-handled and the highlight is exposed via
 		* aria-activedescendant on the listbox). A source publishing crumbs gets a
@@ -948,7 +962,7 @@ window.__ModuleLoader__.load({
 						role: "presentation",
 						"data-source": group.source,
 						children: t(group.source)
-					}), group.status === "pending" ? (0, react_jsx_runtime.jsxs)("div", {
+					}), group.status === "pending" && group.items.length === 0 ? (0, react_jsx_runtime.jsxs)("div", {
 						role: "status",
 						"aria-label": t("loading"),
 						"data-source": group.source,

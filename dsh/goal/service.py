@@ -43,7 +43,7 @@ class GoalService(TypertRemoteService):
         ctx.on("agent/session-start", self._session_start)
         def projection(child):
             child.get("sessionProjections").register({"key": "goal", "stateVersion": 4,
-                "stateSchema": projection_schema, "init": lambda _: None, "apply": apply_goal_projection,
+                "stateSchema": projection_schema, "init": lambda _, cut: None, "apply": apply_goal_projection,
                 "wire": {"viewSchema": projection_schema, "view": lambda state: state}})
         ctx.inject(["sessionProjections"], projection)
 

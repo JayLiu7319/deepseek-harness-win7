@@ -23,6 +23,7 @@ import uuid
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 import pytest
 
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.cordis.context import Context
 from dsh.core.agent import Agent, AgentOptions, AgentPlugin, AgentRegistry
 from dsh.core.agent_loop import AgentLoopPlugin, AgentLoopService, BlockAssembler, request_proposal
@@ -225,6 +226,8 @@ async def create_test_context(
     llm_svc.model = "mock-model"
     ctx.set_service("llm", llm_svc)
     llm_svc.register_adapter(["mock-provider", "openai", "deepseek", "deepseek-official"], adapter)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     return ctx
 

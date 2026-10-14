@@ -3,6 +3,7 @@ import json
 from dsh.cordis.context import Context
 from dsh.llm.llm_service import LlmRuntime
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -12,6 +13,7 @@ from dsh.core.tools import ToolsPlugin, ToolExecutionResult
 
 async def observe_prefix(implementation, action):
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolsPlugin)

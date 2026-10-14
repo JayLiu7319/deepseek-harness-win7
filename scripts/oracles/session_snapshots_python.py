@@ -23,8 +23,7 @@ from dsh.cordis import Context
 from dsh.core.abort import AbortController
 from dsh.core.session import SessionHeader
 from dsh.core.session.session import SessionPlugin
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
-from dsh.session.persistence_sqlite import SqliteSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 
 fixture_spec = importlib.util.spec_from_file_location('session_snapshot_fixture', Path(__file__).with_name('session_snapshot_fixture.py'))
 fixture = importlib.util.module_from_spec(fixture_spec)
@@ -33,9 +32,9 @@ fixture_spec.loader.exec_module(fixture)
 
 async def observe():
     rows = []
-    for backend in ('jsonl','sqlite'):
-        modes = ['lazy','stable','append','noop','detached','reopen','copy','preabort',
-                 'restored-stat' if backend == 'jsonl' else 'memory']
+    for backend in ('jsonl','jsonl-zstd'):
+        modes = ['lazy','stable','append','noop','detached','reopen','copy','preabort']
+        if backend == 'jsonl': modes.append('restored-stat')
         for mode in modes:
             parent = Path(tempfile.mkdtemp(prefix='dsh-snapshot-'))
             root = parent/'original'
@@ -47,16 +46,16 @@ async def observe():
                 nonlocal context
                 context = Context()
                 await context.plugin(SessionPlugin)
-                await context.plugin(JsonlSessionPersistencePlugin if backend == 'jsonl' else SqliteSessionPersistencePlugin,
-                    dict(root=str(location)) if backend == 'jsonl' else dict(path=str(location)))
+                await context.plugin(JsonlSessionPersistencePlugin,
+                    dict(root=str(location), compression='none' if backend == 'jsonl' else 'zstd'))
                 return context.get('sessionPersistence')
             def grammar(token):
-                return re.fullmatch(r'\d+:\d+:\d+:-?\d+:-?\d+',token) is not None if backend == 'jsonl' else re.fullmatch(
+                return re.fullmatch(r'\d+:\d+:\d+:-?\d+:-?\d+',token) is not None if backend.startswith('jsonl') else re.fullmatch(
                     r'(?:file:\d+:\d+:-?\d+|memory):store:[0-9a-f-]{36}:incarnation:[0-9a-f-]{36}:revision:\d+',token) is not None
             observed = {}
             reason = TypeError('snapshot deadline')
             try:
-                persistence = await mount(':memory:' if mode == 'memory' else root if backend == 'jsonl' else file)
+                persistence = await mount(':memory:' if mode == 'memory' else root if backend.startswith('jsonl') else file)
                 await persistence.create(header)
                 if mode == 'lazy':
                     observed['count'] = len(await persistence.listSnapshots())
@@ -69,9 +68,9 @@ async def observe():
                     initial = (await persistence.listSnapshots())[0]
                     if mode == 'stable':
                         repeated = await persistence.listSnapshots()
-                        identity = os.stat(persistence.locate(header).path if backend == 'jsonl' else str(file))
+                        identity = os.stat(persistence.locate(header).path if backend.startswith('jsonl') else str(file))
                         prefix = ':'.join(str(value) for value in (
-                            identity.st_dev,identity.st_ino,identity.st_size,identity.st_mtime_ns))+':' if backend == 'jsonl' else (
+                            identity.st_dev,identity.st_ino,identity.st_size,identity.st_mtime_ns))+':' if backend.startswith('jsonl') else (
                             'file:{}:{}:{}:store:'.format(identity.st_dev,identity.st_ino,identity.st_ctime_ns))
                         observed.update(count=len(repeated),same=repeated[0].revision==initial.revision,
                                         qualified=grammar(initial.revision),statIdentity=initial.revision.startswith(prefix))
@@ -99,10 +98,10 @@ async def observe():
                     elif mode in ('reopen','copy'):
                         await context.fiber.dispose()
                         context = None
-                        location = root if backend == 'jsonl' else file
+                        location = root if backend.startswith('jsonl') else file
                         if mode == 'copy':
-                            location = parent/('copied' if backend == 'jsonl' else 'copied.db')
-                            if backend == 'jsonl':
+                            location = parent/('copied' if backend.startswith('jsonl') else 'copied.db')
+                            if backend.startswith('jsonl'):
                                 shutil.copytree(str(root),str(location))
                             else:
                                 shutil.copyfile(str(file),str(location))

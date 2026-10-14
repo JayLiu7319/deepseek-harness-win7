@@ -1,8 +1,8 @@
 {
   "id": "CON-PROFILE-JOURNEYS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/preset/agent-presets/src/index.ts",
     "reference/packages/preset/agent-presets/presets/minimal/agent.cordis.yml",
@@ -28,7 +28,8 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Actual canonical five-profile defaults, seven routes and three real engine compositions, twelve original UI journeys, eighteen full wire processes, six actual modelHTTP processes, cold replay, provider restore and two actual runtime-close consumers. Native Python export is explicit extension. Four directories/mux inter-stream order requires separate approval."
+    "Actual canonical five-profile defaults, seven routes and three real engine compositions, twelve original UI journeys, eighteen full wire processes, six actual modelHTTP processes, cold replay, provider restore and two actual runtime-close consumers. Native Python export is explicit extension. Four directories/mux inter-stream order requires separate approval.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "historical_open_questions": [
     "Ten default-profile tool metadata/instruction baseline providers promoted;75 actual consumer regressions pass with one existing symlink privilege skip. Fresh actual Source/Root/own Python3.8.10 headless all31 events/3 requests/4 lookups match with473 actual imported hashes and15488 owned input guards;53-file archive preserves full observations and previous Git provider bytes.",
@@ -38,7 +39,13 @@
     "Still specify complete source-backed parent contract and required provider revisions; full CLI/headless/web composition, selected child routing, exact wire and user-deferred Win7 certification remain separate.",
     "The additional composed full-parent observations above are not yet accepted. This contract specification is not task acceptance."
   ],
-  "acceptance_review": {
+  "approved_ordering_adaptation": {
+    "approval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26",
+    "scope": "Only four full-row unique-key directory bijections: settings/describe(ns), llm/listProviders(id), llm/listConfigurableProviders(provider), session/modelCatalog.routableProviders(provider identity); and global interleaving of four independent remote.mux streams in the sixteen current comparisons. Complete rows, all fields, each stream sequence, business/durable/request/body/termination/error values, all other ordering and the original sixteen mutation controls stay strict. Original global order remains sealed. No new upstream bug predicate, arbitrary scheduling/ABI/cloud qualification or native Win7 certification.",
+    "proposalSha256": "9ad0e65bd9c89690e806dcbf776d206d7b7d3fe1800e20a374a52a6bf4a1454b",
+    "bindingsSha256": "73399f327175f469aeab4cb3123b37a256a1d67f415dda0bbf1c953b2fbf5711"
+  },
+  "historical_alpha_acceptance_review": {
     "candidate": "f90ded26e96ecfb0c1737a47d9f47b034b26c93a",
     "reviewArtifact": "migration/evidence/artifacts/HANDOFF-PARENT-REVIEW-20261010-F90DED26.zip",
     "originalTaskSnapshot": {
@@ -403,10 +410,9 @@
     "existingUpstreamPredicates": "unchanged",
     "orderingApproval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26"
   },
-  "approved_ordering_adaptation": {
-    "approval": "HANDOFF-ORDER-APPROVAL-20261010-F90DED26",
-    "scope": "Only four full-row unique-key directory bijections: settings/describe(ns), llm/listProviders(id), llm/listConfigurableProviders(provider), session/modelCatalog.routableProviders(provider identity); and global interleaving of four independent remote.mux streams in the sixteen current comparisons. Complete rows, all fields, each stream sequence, business/durable/request/body/termination/error values, all other ordering and the original sixteen mutation controls stay strict. Original global order remains sealed. No new upstream bug predicate, arbitrary scheduling/ABI/cloud qualification or native Win7 certification.",
-    "proposalSha256": "9ad0e65bd9c89690e806dcbf776d206d7b7d3fe1800e20a374a52a6bf4a1454b",
-    "bindingsSha256": "73399f327175f469aeab4cb3123b37a256a1d67f415dda0bbf1c953b2fbf5711"
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
   }
 }

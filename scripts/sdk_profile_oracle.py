@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 OBSERVER_INPUTS = ('scripts/sdk_profile_oracle.py', 'scripts/sdk_profile_values.py', 'scripts/oracles/sdk_profile_driver.py',
     'scripts/oracles/sdk_profile_source.mts', 'scripts/oracles/sdk_profile_python.py', 'scripts/canonical_llm_values.py',
     'scripts/sdk_profile_imports.json', 'scripts/sdk_profile_cases.py', 'scripts/import_paths.py')

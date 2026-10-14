@@ -19,9 +19,8 @@ async def main():
     from dsh.core.session import SessionPlugin, SessionHeader
     from dsh.core.abort import AbortController
     from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
-    from dsh.session.persistence_sqlite_canonical import SqliteSessionPersistencePlugin
     rows = []
-    for name in ('jsonl-none/queued', 'jsonl-zstd/queued', 'sqlite/queued', 'sqlite/legacy-forward', 'sqlite/legacy-after', 'sqlite/aborted-failure'):
+    for name in ('jsonl-none/queued', 'jsonl-zstd/queued'):
         with tempfile.TemporaryDirectory(prefix='dsh-read-order-') as directory:
             ctx = Context()
             row = dict(name=name)
@@ -30,10 +29,7 @@ async def main():
             entered, released = asyncio.Event(), asyncio.Event()
             try:
                 await ctx.plugin(SessionPlugin)
-                if name.startswith('sqlite'):
-                    await ctx.plugin(SqliteSessionPersistencePlugin, dict(path=str(Path(directory) / 'store.db')))
-                else:
-                    await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if name.startswith('jsonl-zstd') else 'none'))
+                await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if name.startswith('jsonl-zstd') else 'none'))
                 provider = ctx.get('sessionPersistence')
                 legacy = 'legacy' in name
                 await provider.create(SessionHeader('s', created_at=1))
@@ -57,7 +53,7 @@ async def main():
                 async def settle(reading):
                     try:
                         value = await reading
-                        return dict(value=dict(meta=value.meta.to_dict(), events=value.events))
+                        return dict(value=dict(meta=value.meta.to_dict(), events=value.events, inheritedEventCount=value.inheritedEventCount, fromSeq=value.fromSeq))
                     except Exception as error:
                         return dict(error=dict(name='TypeError' if isinstance(error, TypeError) else 'Error', message=str(error)), reasonIdentity=error is reason)
                 if name.endswith('queued'):

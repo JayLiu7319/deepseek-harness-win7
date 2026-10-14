@@ -8,6 +8,7 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
+		let react_dom = require("react-dom");
 		//#region ../../util/workspace-path/src/index.ts
 		/**
 		* Browser-safe Workspace path and display helpers.
@@ -31,11 +32,25 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/contract/snapshot.js
 		const EMPTY_LIST$1 = [];
+		const EMPTY_TIMELINE = {
+			turnOrder: EMPTY_LIST$1,
+			turns: /* @__PURE__ */ new Map()
+		};
+		const EMPTY_NODE_SOURCE = {
+			getSnapshot: () => void 0,
+			subscribe: () => () => {}
+		};
+		const EMPTY_NODE_PROCESS_SOURCE = {
+			getSnapshot: () => void 0,
+			subscribe: () => () => {}
+		};
 		/** Empty Chat target used before a view builder is registered. */
 		const EMPTY_CHAT_SNAPSHOT = {
 			order: EMPTY_LIST$1,
 			nodes: {
 				get: () => void 0,
+				source: () => EMPTY_NODE_SOURCE,
+				processSource: () => EMPTY_NODE_PROCESS_SOURCE,
 				values: () => EMPTY_LIST$1
 			},
 			locations: {
@@ -43,10 +58,7 @@ window.__ModuleLoader__.load({
 				getStep: () => EMPTY_LIST$1
 			},
 			navigation: { items: () => EMPTY_LIST$1 },
-			timeline: {
-				turnOrder: EMPTY_LIST$1,
-				turns: /* @__PURE__ */ new Map()
-			},
+			timeline: EMPTY_TIMELINE,
 			legacy: {
 				nodes: EMPTY_LIST$1,
 				turnTimings: /* @__PURE__ */ new Map(),
@@ -102,8 +114,8 @@ window.__ModuleLoader__.load({
 			};
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\MessageItem.module.css.mjs
-		const css$15 = ".aGh9Iq_userRow{flex-direction:column;align-items:flex-end;gap:6px;display:flex}.aGh9Iq_userStack{min-width:0;max-width:min(calc(var(--dsh-chat-content-width,748px) * .702), 82%);flex-direction:column;align-items:flex-end;gap:8px;display:flex}.aGh9Iq_bubble{background:var(--dsw-specific-bubble);max-width:100%;font-size:var(--dsh-content-font-size,14px);line-height:calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary);white-space:pre-wrap;word-break:break-word;border-radius:22px;padding:10px 16px}.aGh9Iq_referenceSummary{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.aGh9Iq_contextRow,.aGh9Iq_compactionRow{padding:2px 0}.aGh9Iq_compactionButton{width:100%;height:calc(24px + var(--dsh-content-font-delta,0px));min-width:0;color:inherit;font:inherit;text-align:left;background:0 0;border:none;border-radius:6px;align-items:center;padding:0;display:flex}.aGh9Iq_compactionButton:not(:disabled){cursor:pointer}.aGh9Iq_compactionButton:not(:disabled):hover{background:var(--dsw-alias-interactive-bg-hover)}.aGh9Iq_compactionLeading{width:calc(16px + var(--dsh-content-font-delta,0px));height:calc(16px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-secondary);flex:none;place-items:center;margin-right:6px;display:inline-grid}.aGh9Iq_compactionLeading svg{width:calc(14px + var(--dsh-content-font-delta,0px));height:calc(14px + var(--dsh-content-font-delta,0px))}.aGh9Iq_compactionContextIcon,.aGh9Iq_compactionDisclosureIcon{grid-area:1/1;justify-content:center;align-items:center;display:inline-flex}.aGh9Iq_compactionDisclosureIcon,.aGh9Iq_compactionButton:not(:disabled):hover .aGh9Iq_compactionContextIcon,.aGh9Iq_compactionButton:not(:disabled):focus-visible .aGh9Iq_compactionContextIcon{opacity:0}.aGh9Iq_compactionButton:not(:disabled):hover .aGh9Iq_compactionDisclosureIcon,.aGh9Iq_compactionButton:not(:disabled):focus-visible .aGh9Iq_compactionDisclosureIcon{opacity:1}.aGh9Iq_compactionTitle{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary-dimmed);flex:none}.aGh9Iq_compactionSep{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.aGh9Iq_compactionSummary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.aGh9Iq_compactionBody{padding:4px 0 4px calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px))}.aGh9Iq_retryRow{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px))}.aGh9Iq_retrySummary{width:fit-content;color:inherit;cursor:pointer;user-select:none;border-radius:3px;align-items:center;gap:7px;padding:2px 0;list-style:none;display:inline-flex}.aGh9Iq_retrySummary::-webkit-details-marker{display:none}.aGh9Iq_retrySummary:after{content:\"\";opacity:.8;border-bottom:1.5px solid;border-right:1.5px solid;width:6px;height:6px;transition:transform .12s;transform:rotate(-45deg)}.aGh9Iq_retrySummary:hover{color:var(--dsw-alias-label-secondary)}.aGh9Iq_retrySummary:focus-visible{outline:1.5px solid var(--dsw-alias-button-info-fill);outline-offset:2px}.aGh9Iq_retryText{color:inherit}.aGh9Iq_retryRow[data-active] .aGh9Iq_retryText{background:linear-gradient(90deg, var(--dsw-alias-label-tertiary) 0%, var(--dsw-alias-label-tertiary) 40%, var(--dsw-alias-label-secondary) 50%, var(--dsw-alias-label-tertiary) 60%, var(--dsw-alias-label-tertiary) 100%);color:#0000;background-position:100%;background-size:200% 100%;background-clip:text;animation:1.6s ease-in-out infinite aGh9Iq_retry-shimmer}.aGh9Iq_retryRow[open] .aGh9Iq_retrySummary:after{transform:rotate(45deg)}.aGh9Iq_retryDetails{overflow-wrap:anywhere;font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px));gap:2px;margin-top:3px;padding-left:14px;display:grid}.aGh9Iq_retryDetailLabel{color:var(--dsw-alias-label-secondary)}.aGh9Iq_turnErrorRow{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));grid-template-columns:10px minmax(0,1fr) auto;align-items:start;gap:8px;padding:2px 0;display:grid}.aGh9Iq_turnErrorDot{margin-top:5px}.aGh9Iq_turnErrorCopy{overflow-wrap:anywhere;min-width:0}.aGh9Iq_turnErrorTitle{color:var(--dsw-alias-state-error-primary);margin-right:6px;font-weight:600}.aGh9Iq_turnErrorMessage{color:var(--dsw-alias-label-secondary)}.aGh9Iq_turnErrorCode{color:var(--dsw-alias-label-tertiary);font:var(--dsw-font-markdown-code-block-small)}.aGh9Iq_maxTokensTitle{color:var(--dsw-alias-state-warn-primary);margin-right:6px;font-weight:600}@keyframes aGh9Iq_retry-shimmer{0%{background-position:100%}to{background-position:0}}@media (prefers-reduced-motion:reduce){.aGh9Iq_retryRow[data-active] .aGh9Iq_retryText{color:inherit;background:0 0;animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\MessageItem.module.css.mjs
+		const css$15 = ".Zjb-dG_userRow{flex-direction:column;align-items:flex-end;gap:6px;display:flex}.Zjb-dG_userStack{min-width:0;max-width:min(calc(var(--dsh-chat-content-width,748px) * .702), 82%);flex-direction:column;align-items:flex-end;gap:8px;display:flex}.Zjb-dG_bubble{background:var(--dsw-specific-bubble);max-width:100%;font-size:var(--dsh-content-font-size,14px);line-height:calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary);white-space:pre-wrap;word-break:break-word;border-radius:22px;padding:10px 16px}.Zjb-dG_referenceSummary{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.Zjb-dG_contextRow,.Zjb-dG_compactionRow{padding:2px 0}.Zjb-dG_compactionButton{width:100%;height:calc(24px + var(--dsh-content-font-delta,0px));min-width:0;color:inherit;font:inherit;text-align:left;background:0 0;border:none;border-radius:6px;align-items:center;padding:0;display:flex}.Zjb-dG_compactionButton:not(:disabled){cursor:pointer}.Zjb-dG_compactionButton:not(:disabled):hover{background:var(--dsw-alias-interactive-bg-hover)}.Zjb-dG_compactionLeading{width:calc(16px + var(--dsh-content-font-delta,0px));height:calc(16px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-secondary);flex:none;place-items:center;margin-right:6px;display:inline-grid}.Zjb-dG_compactionLeading svg{width:calc(14px + var(--dsh-content-font-delta,0px));height:calc(14px + var(--dsh-content-font-delta,0px))}.Zjb-dG_compactionContextIcon,.Zjb-dG_compactionDisclosureIcon{grid-area:1/1;justify-content:center;align-items:center;display:inline-flex}.Zjb-dG_compactionDisclosureIcon,.Zjb-dG_compactionButton:not(:disabled):hover .Zjb-dG_compactionContextIcon,.Zjb-dG_compactionButton:not(:disabled):focus-visible .Zjb-dG_compactionContextIcon{opacity:0}.Zjb-dG_compactionButton:not(:disabled):hover .Zjb-dG_compactionDisclosureIcon,.Zjb-dG_compactionButton:not(:disabled):focus-visible .Zjb-dG_compactionDisclosureIcon{opacity:1}.Zjb-dG_compactionTitle{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary-dimmed);flex:none}.Zjb-dG_compactionSep{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.Zjb-dG_compactionSummary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.Zjb-dG_compactionBody{padding:4px 0 4px calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px))}.Zjb-dG_retryRow{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px))}.Zjb-dG_retrySummary{width:fit-content;color:inherit;cursor:pointer;user-select:none;border-radius:3px;align-items:center;gap:7px;padding:2px 0;list-style:none;display:inline-flex}.Zjb-dG_retrySummary::-webkit-details-marker{display:none}.Zjb-dG_retrySummary:after{content:\"\";opacity:.8;border-bottom:1.5px solid;border-right:1.5px solid;width:6px;height:6px;transition:transform .12s;transform:rotate(-45deg)}.Zjb-dG_retrySummary:hover{color:var(--dsw-alias-label-secondary)}.Zjb-dG_retrySummary:focus-visible{outline:1.5px solid var(--dsw-alias-button-info-fill);outline-offset:2px}.Zjb-dG_retryText{color:inherit}.Zjb-dG_retryRow[data-active] .Zjb-dG_retryText{background:linear-gradient(90deg, var(--dsw-alias-label-tertiary) 0%, var(--dsw-alias-label-tertiary) 40%, var(--dsw-alias-label-secondary) 50%, var(--dsw-alias-label-tertiary) 60%, var(--dsw-alias-label-tertiary) 100%);color:#0000;background-position:100%;background-size:200% 100%;background-clip:text;animation:1.6s ease-in-out infinite Zjb-dG_retry-shimmer}.Zjb-dG_retryRow[open] .Zjb-dG_retrySummary:after{transform:rotate(45deg)}.Zjb-dG_retryDetails{overflow-wrap:anywhere;font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px));gap:2px;margin-top:3px;padding-left:14px;display:grid}.Zjb-dG_retryDetailLabel{color:var(--dsw-alias-label-secondary)}.Zjb-dG_turnErrorRow{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));grid-template-columns:10px minmax(0,1fr) auto;align-items:start;gap:8px;padding:2px 0;display:grid}.Zjb-dG_turnErrorDot{margin-top:5px}.Zjb-dG_turnErrorCopy{overflow-wrap:anywhere;min-width:0}.Zjb-dG_turnErrorTitle{color:var(--dsw-alias-state-error-primary);margin-right:6px;font-weight:600}.Zjb-dG_turnErrorMessage{color:var(--dsw-alias-label-secondary)}.Zjb-dG_turnErrorCode{color:var(--dsw-alias-label-tertiary);font:var(--dsw-font-markdown-code-block-small)}.Zjb-dG_maxTokensTitle{color:var(--dsw-alias-state-warn-primary);margin-right:6px;font-weight:600}@keyframes Zjb-dG_retry-shimmer{0%{background-position:100%}to{background-position:0}}@media (prefers-reduced-motion:reduce){.Zjb-dG_retryRow[data-active] .Zjb-dG_retryText{color:inherit;background:0 0;animation:none}}";
 		const tagId$15 = "@deepseek-ai/dsh-client-ui-chat/MessageItem.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$15) + "]") === null) {
 			const tag = document.createElement("style");
@@ -113,33 +125,33 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var MessageItem_module_css_default = {
-			"bubble": "aGh9Iq_bubble",
-			"compactionBody": "aGh9Iq_compactionBody",
-			"compactionButton": "aGh9Iq_compactionButton",
-			"compactionContextIcon": "aGh9Iq_compactionContextIcon",
-			"compactionDisclosureIcon": "aGh9Iq_compactionDisclosureIcon",
-			"compactionLeading": "aGh9Iq_compactionLeading",
-			"compactionRow": "aGh9Iq_compactionRow",
-			"compactionSep": "aGh9Iq_compactionSep",
-			"compactionSummary": "aGh9Iq_compactionSummary",
-			"compactionTitle": "aGh9Iq_compactionTitle",
-			"contextRow": "aGh9Iq_contextRow",
-			"maxTokensTitle": "aGh9Iq_maxTokensTitle",
-			"referenceSummary": "aGh9Iq_referenceSummary",
-			"retry-shimmer": "aGh9Iq_retry-shimmer",
-			"retryDetailLabel": "aGh9Iq_retryDetailLabel",
-			"retryDetails": "aGh9Iq_retryDetails",
-			"retryRow": "aGh9Iq_retryRow",
-			"retrySummary": "aGh9Iq_retrySummary",
-			"retryText": "aGh9Iq_retryText",
-			"turnErrorCode": "aGh9Iq_turnErrorCode",
-			"turnErrorCopy": "aGh9Iq_turnErrorCopy",
-			"turnErrorDot": "aGh9Iq_turnErrorDot",
-			"turnErrorMessage": "aGh9Iq_turnErrorMessage",
-			"turnErrorRow": "aGh9Iq_turnErrorRow",
-			"turnErrorTitle": "aGh9Iq_turnErrorTitle",
-			"userRow": "aGh9Iq_userRow",
-			"userStack": "aGh9Iq_userStack"
+			"bubble": "Zjb-dG_bubble",
+			"compactionBody": "Zjb-dG_compactionBody",
+			"compactionButton": "Zjb-dG_compactionButton",
+			"compactionContextIcon": "Zjb-dG_compactionContextIcon",
+			"compactionDisclosureIcon": "Zjb-dG_compactionDisclosureIcon",
+			"compactionLeading": "Zjb-dG_compactionLeading",
+			"compactionRow": "Zjb-dG_compactionRow",
+			"compactionSep": "Zjb-dG_compactionSep",
+			"compactionSummary": "Zjb-dG_compactionSummary",
+			"compactionTitle": "Zjb-dG_compactionTitle",
+			"contextRow": "Zjb-dG_contextRow",
+			"maxTokensTitle": "Zjb-dG_maxTokensTitle",
+			"referenceSummary": "Zjb-dG_referenceSummary",
+			"retry-shimmer": "Zjb-dG_retry-shimmer",
+			"retryDetailLabel": "Zjb-dG_retryDetailLabel",
+			"retryDetails": "Zjb-dG_retryDetails",
+			"retryRow": "Zjb-dG_retryRow",
+			"retrySummary": "Zjb-dG_retrySummary",
+			"retryText": "Zjb-dG_retryText",
+			"turnErrorCode": "Zjb-dG_turnErrorCode",
+			"turnErrorCopy": "Zjb-dG_turnErrorCopy",
+			"turnErrorDot": "Zjb-dG_turnErrorDot",
+			"turnErrorMessage": "Zjb-dG_turnErrorMessage",
+			"turnErrorRow": "Zjb-dG_turnErrorRow",
+			"turnErrorTitle": "Zjb-dG_turnErrorTitle",
+			"userRow": "Zjb-dG_userRow",
+			"userStack": "Zjb-dG_userStack"
 		};
 		//#endregion
 		//#region lib/types/client/chat/CompactionItem.js
@@ -204,8 +216,8 @@ window.__ModuleLoader__.load({
 			});
 		});
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\ContextBody.module.css.mjs
-		const css$14 = "._57hGTa_text{color:var(--dsw-alias-label-secondary);font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}._57hGTa_fields{border-top:1px solid var(--dsw-alias-line-secondary);flex-direction:column;gap:2px;margin:8px 0 0;padding-top:8px;display:flex}._57hGTa_field{gap:8px;min-width:0;display:flex}._57hGTa_fieldKey{min-width:96px;color:var(--dsw-alias-label-caption);flex:none}._57hGTa_fieldValue{min-width:0;color:var(--dsw-alias-label-tertiary);overflow-wrap:anywhere;flex:auto;margin:0}._57hGTa_files{flex-wrap:wrap;gap:4px 12px;margin:0 0 8px;padding:0;list-style:none;display:flex}._57hGTa_file{align-items:baseline;gap:6px;min-width:0;display:flex}._57hGTa_filePath{color:var(--dsw-alias-label-secondary);overflow-wrap:anywhere}._57hGTa_fileAction{color:var(--dsw-alias-label-caption)}._57hGTa_catalogNotice{color:var(--dsw-alias-label-caption);margin:0 0 6px}._57hGTa_entries{flex-direction:column;gap:4px;margin:0;padding:0;list-style:none;display:flex}._57hGTa_entry{gap:8px;min-width:0;display:flex}._57hGTa_entryName{color:var(--dsw-alias-label-secondary);flex:none}._57hGTa_entryDescription{min-width:0;color:var(--dsw-alias-label-tertiary);text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}._57hGTa_sections{flex-direction:column;gap:8px;margin:0;display:flex}._57hGTa_section{flex-direction:column;gap:2px;min-width:0;display:flex}._57hGTa_sectionName{color:var(--dsw-alias-label-caption)}._57hGTa_sectionText{color:var(--dsw-alias-label-secondary);white-space:pre-wrap;overflow-wrap:anywhere;margin:0}._57hGTa_relaySender{color:var(--dsw-alias-label-caption);overflow-wrap:anywhere;margin:0 0 6px}._57hGTa_recalls{flex-direction:column;gap:2px;margin:0 0 8px;padding:0;list-style:none;display:flex}._57hGTa_recall{gap:8px;min-width:0;display:flex}._57hGTa_recallLabel{color:var(--dsw-alias-label-secondary);overflow-wrap:anywhere}._57hGTa_recallCounts{color:var(--dsw-alias-label-caption);flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\ContextBody.module.css.mjs
+		const css$14 = ".ABZtdq_text{color:var(--dsw-alias-label-secondary);font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.ABZtdq_fields{border-top:.5px solid var(--dsw-alias-border-l2);flex-direction:column;gap:2px;margin:8px 0 0;padding-top:8px;display:flex}.ABZtdq_field{gap:8px;min-width:0;display:flex}.ABZtdq_fieldKey{min-width:96px;color:var(--dsw-alias-label-caption);flex:none}.ABZtdq_fieldValue{min-width:0;color:var(--dsw-alias-label-tertiary);overflow-wrap:anywhere;flex:auto;margin:0}.ABZtdq_files{flex-wrap:wrap;gap:4px 12px;margin:0 0 8px;padding:0;list-style:none;display:flex}.ABZtdq_file{align-items:baseline;gap:6px;min-width:0;display:flex}.ABZtdq_filePath{color:var(--dsw-alias-label-secondary);overflow-wrap:anywhere}.ABZtdq_fileAction{color:var(--dsw-alias-label-caption)}.ABZtdq_catalogNotice{color:var(--dsw-alias-label-caption);margin:0 0 6px}.ABZtdq_entries{flex-direction:column;gap:4px;margin:0;padding:0;list-style:none;display:flex}.ABZtdq_entry{gap:8px;min-width:0;display:flex}.ABZtdq_entryName{color:var(--dsw-alias-label-secondary);flex:none}.ABZtdq_entryDescription{min-width:0;color:var(--dsw-alias-label-tertiary);text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.ABZtdq_sections{flex-direction:column;gap:8px;margin:0;display:flex}.ABZtdq_section{flex-direction:column;gap:2px;min-width:0;display:flex}.ABZtdq_sectionName{color:var(--dsw-alias-label-caption)}.ABZtdq_sectionText{color:var(--dsw-alias-label-secondary);white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.ABZtdq_relaySender{color:var(--dsw-alias-label-caption);overflow-wrap:anywhere;margin:0 0 6px}.ABZtdq_recalls{flex-direction:column;gap:2px;margin:0 0 8px;padding:0;list-style:none;display:flex}.ABZtdq_recall{gap:8px;min-width:0;display:flex}.ABZtdq_recallLabel{color:var(--dsw-alias-label-secondary);overflow-wrap:anywhere}.ABZtdq_recallCounts{color:var(--dsw-alias-label-caption);flex:none}";
 		const tagId$14 = "@deepseek-ai/dsh-client-ui-chat/ContextBody.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$14) + "]") === null) {
 			const tag = document.createElement("style");
@@ -215,29 +227,29 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ContextBody_module_css_default = {
-			"catalogNotice": "_57hGTa_catalogNotice",
-			"entries": "_57hGTa_entries",
-			"entry": "_57hGTa_entry",
-			"entryDescription": "_57hGTa_entryDescription",
-			"entryName": "_57hGTa_entryName",
-			"field": "_57hGTa_field",
-			"fieldKey": "_57hGTa_fieldKey",
-			"fieldValue": "_57hGTa_fieldValue",
-			"fields": "_57hGTa_fields",
-			"file": "_57hGTa_file",
-			"fileAction": "_57hGTa_fileAction",
-			"filePath": "_57hGTa_filePath",
-			"files": "_57hGTa_files",
-			"recall": "_57hGTa_recall",
-			"recallCounts": "_57hGTa_recallCounts",
-			"recallLabel": "_57hGTa_recallLabel",
-			"recalls": "_57hGTa_recalls",
-			"relaySender": "_57hGTa_relaySender",
-			"section": "_57hGTa_section",
-			"sectionName": "_57hGTa_sectionName",
-			"sectionText": "_57hGTa_sectionText",
-			"sections": "_57hGTa_sections",
-			"text": "_57hGTa_text"
+			"catalogNotice": "ABZtdq_catalogNotice",
+			"entries": "ABZtdq_entries",
+			"entry": "ABZtdq_entry",
+			"entryDescription": "ABZtdq_entryDescription",
+			"entryName": "ABZtdq_entryName",
+			"field": "ABZtdq_field",
+			"fieldKey": "ABZtdq_fieldKey",
+			"fieldValue": "ABZtdq_fieldValue",
+			"fields": "ABZtdq_fields",
+			"file": "ABZtdq_file",
+			"fileAction": "ABZtdq_fileAction",
+			"filePath": "ABZtdq_filePath",
+			"files": "ABZtdq_files",
+			"recall": "ABZtdq_recall",
+			"recallCounts": "ABZtdq_recallCounts",
+			"recallLabel": "ABZtdq_recallLabel",
+			"recalls": "ABZtdq_recalls",
+			"relaySender": "ABZtdq_relaySender",
+			"section": "ABZtdq_section",
+			"sectionName": "ABZtdq_sectionName",
+			"sectionText": "ABZtdq_sectionText",
+			"sections": "ABZtdq_sections",
+			"text": "ABZtdq_text"
 		};
 		//#endregion
 		//#region lib/types/client/chat/ContextBody.js
@@ -761,8 +773,8 @@ window.__ModuleLoader__.load({
 			}
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\ContextInjectionRow.module.css.mjs
-		const css$13 = ".ivuC9q_root{min-width:0}.ivuC9q_root[data-open]{padding-bottom:4px}.ivuC9q_chevron{color:var(--dsw-alias-label-secondary)}.ivuC9q_sep{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.ivuC9q_source{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:none;overflow:hidden}.ivuC9q_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.ivuC9q_body{box-sizing:border-box;width:calc(100% - 22px - var(--dsh-content-font-delta,0px));max-height:141px;margin:4px 0 0 calc(22px + var(--dsh-content-font-delta,0px));background:var(--dsw-alias-markdown-code-block);color:var(--dsw-alias-label-tertiary);font:400 11px/16px var(--ds-font-family-code);border:none;border-radius:8px;padding:10px 16px 12px 12px;overflow:auto}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\ContextInjectionRow.module.css.mjs
+		const css$13 = ".ibrBmq_root{min-width:0}.ibrBmq_root[data-open]{padding-bottom:4px}.ibrBmq_chevron{color:var(--dsw-alias-label-secondary)}.ibrBmq_sep{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.ibrBmq_source{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:none;overflow:hidden}.ibrBmq_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.ibrBmq_body{box-sizing:border-box;width:calc(100% - 22px - var(--dsh-content-font-delta,0px));max-height:141px;margin:4px 0 0 calc(22px + var(--dsh-content-font-delta,0px));background:var(--dsw-alias-markdown-code-block);color:var(--dsw-alias-label-tertiary);font:400 11px/16px var(--ds-font-family-code);border:none;border-radius:8px;padding:10px 16px 12px 12px;overflow:auto}";
 		const tagId$13 = "@deepseek-ai/dsh-client-ui-chat/ContextInjectionRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$13) + "]") === null) {
 			const tag = document.createElement("style");
@@ -772,12 +784,12 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ContextInjectionRow_module_css_default = {
-			"body": "ivuC9q_body",
-			"chevron": "ivuC9q_chevron",
-			"root": "ivuC9q_root",
-			"sep": "ivuC9q_sep",
-			"source": "ivuC9q_source",
-			"summary": "ivuC9q_summary"
+			"body": "ibrBmq_body",
+			"chevron": "ibrBmq_chevron",
+			"root": "ibrBmq_root",
+			"sep": "ibrBmq_sep",
+			"source": "ibrBmq_source",
+			"summary": "ibrBmq_summary"
 		};
 		//#endregion
 		//#region lib/types/client/chat/ContextInjectionRow.js
@@ -945,8 +957,8 @@ window.__ModuleLoader__.load({
 			return day;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\MessageIconActions.module.css.mjs
-		const css$12 = "._92DGDG_actions{height:calc(28px + var(--dsh-content-font-delta,0px));align-items:center;gap:10px;display:flex}._92DGDG_timeStart{font-size:var(--dsh-content-font-size,14px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap;padding-right:12px}._92DGDG_timeEnd{font-size:var(--dsh-content-font-size,14px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap;padding-left:12px}._92DGDG_runTimeDot{margin:0 10px}@media (hover:hover){[data-time-hover-root] :is(._92DGDG_timeStart,._92DGDG_timeEnd){opacity:0;transition:opacity 80ms}[data-time-hover-root]:hover :is(._92DGDG_timeStart,._92DGDG_timeEnd),[data-time-hover-root]:focus-within :is(._92DGDG_timeStart,._92DGDG_timeEnd){opacity:1}}._92DGDG_action{width:calc(28px + var(--dsh-content-font-delta,0px));height:calc(28px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:6px;display:inline-flex}._92DGDG_action svg{width:calc(16px + var(--dsh-content-font-delta,0px));height:calc(16px + var(--dsh-content-font-delta,0px))}._92DGDG_action:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}._92DGDG_action[data-unavailable]{cursor:default;opacity:.4}._92DGDG_action[data-unavailable]:hover{color:var(--dsw-alias-label-tertiary);background:0 0}._92DGDG_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\MessageIconActions.module.css.mjs
+		const css$12 = "._0enwWW_actions{height:calc(28px + var(--dsh-content-font-delta,0px));align-items:center;gap:8px;display:flex}._0enwWW_timeStart{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap;padding-right:12px}._0enwWW_timeEnd{font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap}@media (hover:hover){[data-actions-reveal=hover] ._0enwWW_actions,:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering]):has(~:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering])) ._0enwWW_actions{opacity:0;transition:opacity 80ms}[data-actions-reveal=hover]:hover ._0enwWW_actions,[data-actions-reveal=hover]:focus-within ._0enwWW_actions,:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering]):has(~:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering])):hover ._0enwWW_actions,:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering]):has(~:is([data-chat-flow-kind=user],[data-chat-flow-kind=steering])):focus-within ._0enwWW_actions{opacity:1}}._0enwWW_action{width:calc(28px + var(--dsh-content-font-delta,0px));height:calc(28px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:6px;display:inline-flex}._0enwWW_action svg{width:calc(15px + var(--dsh-content-font-delta,0px));height:calc(15px + var(--dsh-content-font-delta,0px))}._0enwWW_action:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}._0enwWW_action[data-unavailable]{cursor:default;opacity:.4}._0enwWW_action[data-unavailable]:hover{color:var(--dsw-alias-label-tertiary);background:0 0}._0enwWW_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
 		const tagId$12 = "@deepseek-ai/dsh-client-ui-chat/MessageIconActions.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$12) + "]") === null) {
 			const tag = document.createElement("style");
@@ -956,12 +968,11 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var MessageIconActions_module_css_default = {
-			"action": "_92DGDG_action",
-			"actions": "_92DGDG_actions",
-			"runTimeDot": "_92DGDG_runTimeDot",
-			"timeEnd": "_92DGDG_timeEnd",
-			"timeStart": "_92DGDG_timeStart",
-			"visuallyHidden": "_92DGDG_visuallyHidden"
+			"action": "_0enwWW_action",
+			"actions": "_0enwWW_actions",
+			"timeEnd": "_0enwWW_timeEnd",
+			"timeStart": "_0enwWW_timeStart",
+			"visuallyHidden": "_0enwWW_visuallyHidden"
 		};
 		//#endregion
 		//#region lib/types/client/chat/MessageIconActions.js
@@ -970,7 +981,7 @@ window.__ModuleLoader__.load({
 		* @param props - Copy text, event time, clock side, branch callback, className.
 		* @returns The actions row element.
 		*/
-		function MessageIconActions({ text, time, runMs, ttftMs, tokensPerSecond, clock, onBranch, branchUnavailable = false, className, extraActions, t }) {
+		function MessageIconActions({ text, time, clock, onBranch, branchUnavailable = false, className, extraActions, usageAction, t }) {
 			const day = useCalendarDay();
 			const reasonId = (0, react.useId)();
 			const [copied, setCopied] = (0, react.useState)(false);
@@ -997,41 +1008,9 @@ window.__ModuleLoader__.load({
 					}, 1e3);
 				});
 			}, [copied, text]);
-			const clockEl = time === void 0 ? null : (0, react_jsx_runtime.jsxs)("span", {
+			const clockEl = time === void 0 ? null : (0, react_jsx_runtime.jsx)("span", {
 				className: clock === "start" ? MessageIconActions_module_css_default.timeStart : MessageIconActions_module_css_default.timeEnd,
-				children: [
-					formatMessageClock(time, t, day),
-					runMs !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-						" ",
-						(0, react_jsx_runtime.jsx)("span", {
-							className: MessageIconActions_module_css_default.runTimeDot,
-							"aria-hidden": true,
-							children: "·"
-						}),
-						" ",
-						t("message.ranFor", { duration: formatRunDuration(runMs, t) })
-					] }),
-					ttftMs !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-						" ",
-						(0, react_jsx_runtime.jsx)("span", {
-							className: MessageIconActions_module_css_default.runTimeDot,
-							"aria-hidden": true,
-							children: "·"
-						}),
-						" ",
-						t("message.ttft", { seconds: formatLatencySeconds(ttftMs) })
-					] }),
-					tokensPerSecond !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-						" ",
-						(0, react_jsx_runtime.jsx)("span", {
-							className: MessageIconActions_module_css_default.runTimeDot,
-							"aria-hidden": true,
-							children: "·"
-						}),
-						" ",
-						t("message.tokensPerSecond", { tps: formatTokensPerSecond(tokensPerSecond) })
-					] })
-				]
+				children: formatMessageClock(time, t, day)
 			});
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: className === void 0 ? MessageIconActions_module_css_default.actions : `${MessageIconActions_module_css_default.actions} ${className}`,
@@ -1068,6 +1047,7 @@ window.__ModuleLoader__.load({
 						className: MessageIconActions_module_css_default.visuallyHidden,
 						children: t("message.branchUnavailable")
 					}),
+					usageAction,
 					clock === "end" ? clockEl : null
 				]
 			});
@@ -1209,7 +1189,6 @@ window.__ModuleLoader__.load({
 				className: MessageItem_module_css_default.userRow,
 				"data-pending-steering": pending || void 0,
 				"data-submission-echo": echo || void 0,
-				"data-time-hover-root": true,
 				children: [(0, react_jsx_runtime.jsxs)("div", {
 					className: MessageItem_module_css_default.userStack,
 					children: [
@@ -1254,10 +1233,10 @@ window.__ModuleLoader__.load({
 			});
 		}
 		/**
-		* Render one local submission echo with the exact visual language of the
-		* durable user node that replaces it: draft text plus object-URL previews,
-		* visible from the submit click until the durable `user/message` (or its
-		* queue occurrence) renders.
+		* Render one local transcript or steering submission echo with the same
+		* visual language and surface marker as the Host occurrence that replaces
+		* it: draft text plus object-URL previews, visible from the submit click
+		* until the durable `user/message` or steering occurrence renders.
 		* @param props - the session snapshot's pending submission and render seats.
 		* @returns the echoed user bubble.
 		*/
@@ -1274,6 +1253,7 @@ window.__ModuleLoader__.load({
 					...image.height === void 0 ? {} : { height: image.height }
 				} })), [submission.images]),
 				renderMessageImages,
+				pending: submission.placement === "steering",
 				echo: true,
 				t,
 				actions: (text) => (0, react_jsx_runtime.jsx)(MessageIconActions, {
@@ -1363,49 +1343,13 @@ window.__ModuleLoader__.load({
 			"turn-tail"
 		]);
 		/**
-		* Identify one finalized answer generation without using its ordering anchor.
-		* @param spec - current Turn process specification.
-		* @returns stable identity until the finalized answer Step is withdrawn or replaced.
+		* Compare immutable Turn-process specifications by their published fields.
+		* @param left - previous specification.
+		* @param right - next specification.
+		* @returns whether both values describe the same process presentation.
 		*/
-		function turnProcessGeneration(spec) {
-			return `${String(spec.turn)}|${spec.answerStep === null ? "" : String(spec.answerStep)}`;
-		}
-		/**
-		* Encode one process specification as a primitive Location-data value.
-		* @param spec - current Turn process specification.
-		* @returns reference-stable scalar for equal specifications.
-		*/
-		function encodeTurnProcess(spec) {
-			return [
-				spec.turn,
-				spec.controlAnchorSeq,
-				spec.processStartSeq,
-				spec.answerAnchorSeq ?? "",
-				spec.answerStep ?? "",
-				spec.inlineReasoning ? 1 : 0,
-				spec.messageCount,
-				spec.toolCallCount,
-				spec.subagentCount
-			].join("|");
-		}
-		/**
-		* Decode a same-process signature produced by {@link encodeTurnProcess}.
-		* @param signature - encoded Turn process value.
-		* @returns decoded process specification.
-		*/
-		function decodeTurnProcess(signature) {
-			const [turn, controlAnchorSeq, processStartSeq, answerAnchorSeq, answerStep, inlineReasoning, messageCount, toolCallCount, subagentCount] = signature.split("|");
-			return {
-				turn: Number(turn),
-				controlAnchorSeq: Number(controlAnchorSeq),
-				processStartSeq: Number(processStartSeq),
-				answerAnchorSeq: answerAnchorSeq === "" ? null : Number(answerAnchorSeq),
-				answerStep: answerStep === "" ? null : Number(answerStep),
-				inlineReasoning: inlineReasoning === "1",
-				messageCount: Number(messageCount),
-				toolCallCount: Number(toolCallCount),
-				subagentCount: Number(subagentCount)
-			};
+		function sameTurnProcessSpec(left, right) {
+			return left.turn === right.turn && left.controlAnchorSeq === right.controlAnchorSeq && left.processStartSeq === right.processStartSeq && left.answerAnchorSeq === right.answerAnchorSeq && left.answerStep === right.answerStep && left.inlineReasoning === right.inlineReasoning && left.messageCount === right.messageCount && left.toolCallCount === right.toolCallCount && left.subagentCount === right.subagentCount;
 		}
 		/**
 		* Recognize the shipped subagent delegation name and its configured variants.
@@ -1420,7 +1364,7 @@ window.__ModuleLoader__.load({
 		//#region lib/types/client/stores.js
 		/** Per-Session Chat selection store shared by the transcript and details panel. */
 		/**
-		* Resolve any stored generation for one Turn.
+		* Resolve the manually expanded answer for one Turn.
 		* @param state - Chat store snapshot.
 		* @param turn - owning Turn.
 		* @returns the Turn's stored entry, when present.
@@ -1442,7 +1386,7 @@ window.__ModuleLoader__.load({
 					select: (draft, target) => {
 						draft.selection = target;
 					},
-					setTurnProcessOpen: (draft, turn, generation, open) => {
+					setTurnProcessOpen: (draft, turn, answerStep, open) => {
 						const index = draft.turnProcesses.findIndex((entry) => entry.turn === turn);
 						if (!open) {
 							if (index >= 0) draft.turnProcesses.splice(index, 1);
@@ -1450,7 +1394,7 @@ window.__ModuleLoader__.load({
 						}
 						const next = {
 							turn,
-							generation
+							answerStep
 						};
 						if (index < 0) draft.turnProcesses.push(next);
 						else draft.turnProcesses[index] = next;
@@ -1489,8 +1433,8 @@ window.__ModuleLoader__.load({
 			return ref;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\ChatView.module.css.mjs
-		const css$11 = ".bxFrwq_root{flex-direction:column;flex:auto;min-height:0;display:flex;position:relative}.bxFrwq_scroll{min-height:0;padding:16px calc(var(--dsh-composer-side-clearance) + 16px);flex:auto;overflow-y:auto;container-type:inline-size}[data-conversation-scroll] .bxFrwq_root{flex:none;height:auto;min-height:auto}[data-conversation-scroll] .bxFrwq_scroll{flex:none;min-height:auto;overflow:visible}.bxFrwq_column{max-width:var(--dsh-chat-content-width);flex-direction:column;width:100%;margin:0 auto;display:flex}.bxFrwq_column>:not([hidden]):not(.bxFrwq_flowItem:empty)~:not([hidden]):not(.bxFrwq_flowItem:empty){margin-top:var(--dsh-chat-flow-gap,16px)}.bxFrwq_flowItem{min-width:0}.bxFrwq_flowItem[data-turn-process-answer]{--dsh-chat-flow-gap:8px}.bxFrwq_flowItem:empty{display:none}.bxFrwq_callRow{border-radius:6px}.bxFrwq_turnStatus{height:calc(26px + var(--dsh-content-font-delta,0px));font:var(--dsw-font-s-strong-14);font-size:var(--dsh-content-font-size,14px);line-height:calc(22px + var(--dsh-content-font-delta,0px));white-space:nowrap;background:linear-gradient(90deg, var(--dsw-static-deepseek-500) 0%, var(--dsw-static-deepseek-500) 40%, var(--dsw-static-deepseek-200) 50%, var(--dsw-static-deepseek-500) 60%, var(--dsw-static-deepseek-500) 100%);color:#0000;-webkit-text-fill-color:transparent;background-position:100% 0;background-size:250% 100%;-webkit-background-clip:text;background-clip:text;flex:none;align-self:flex-start;align-items:center;animation:1.8s linear infinite bxFrwq_dsh-turn-status-shimmer;display:inline-flex}.bxFrwq_turnStatusClock{font:var(--dsw-font-xs-13);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-caption);-webkit-text-fill-color:var(--dsw-alias-label-caption);margin-left:8px;font-weight:400}@keyframes bxFrwq_dsh-turn-status-shimmer{to{background-position:0 0}}@media (prefers-reduced-motion:reduce){.bxFrwq_turnStatus{background-position:0 0;background-size:100% 100%;animation:none}}.bxFrwq_hint{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.bxFrwq_openError{color:var(--dsw-alias-state-error-primary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.bxFrwq_older{justify-content:center;display:flex}.bxFrwq_older button{color:var(--dsw-alias-label-secondary);background:var(--dsw-alias-interactive-bg-hover-solid);cursor:pointer;border:none;border-radius:14px;padding:4px 12px;font-size:12px}.bxFrwq_older button:disabled{cursor:default;opacity:.6}.bxFrwq_toBottomSlot{z-index:8;height:0;padding-right:max(0px, calc((100% - var(--dsh-chat-content-width)) / 2));pointer-events:none;justify-content:flex-end;display:flex;position:sticky;bottom:16px}[data-conversation-scroll] .bxFrwq_toBottomSlot{bottom:calc(var(--dsh-composer-height,152px) + 16px)}.bxFrwq_toBottom{border:1px solid var(--dsw-alias-border-l2);width:34px;height:34px;color:var(--dsw-alias-label-primary);background:var(--dsw-alias-button-floating-fill);box-shadow:var(--dsw-shadow-lv2);cursor:pointer;pointer-events:auto;border-radius:100px;justify-content:center;align-items:center;margin-top:-34px;padding:0;display:flex}.bxFrwq_toBottom:hover{background:var(--dsw-alias-button-floating-hover)}.bxFrwq_modalAction{min-width:72px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\ChatView.module.css.mjs
+		const css$11 = ".A399Yq_root{flex-direction:column;flex:auto;min-height:0;display:flex;position:relative}.A399Yq_scroll{min-height:0;padding:16px calc(var(--dsh-composer-side-clearance) + 16px);flex:auto;overflow-y:auto;container-type:inline-size}[data-conversation-scroll] .A399Yq_root{flex:none;height:auto;min-height:auto}[data-conversation-scroll] .A399Yq_scroll{flex:none;min-height:auto;overflow:visible}.A399Yq_column{max-width:var(--dsh-chat-content-width);flex-direction:column;width:100%;margin:0 auto;display:flex}.A399Yq_column>:not([hidden]):not(.A399Yq_flowItem:empty)~:not([hidden]):not(.A399Yq_flowItem:empty){margin-top:var(--dsh-chat-flow-gap,16px)}.A399Yq_flowItem{min-width:0}.A399Yq_flowItem[data-turn-process-answer]{--dsh-chat-flow-gap:8px}.A399Yq_flowItem:empty{display:none}.A399Yq_callRow{border-radius:6px}.A399Yq_turnStatus{height:calc(26px + var(--dsh-content-font-delta,0px));font:var(--dsw-font-s-strong-14);font-size:var(--dsh-content-font-size,14px);line-height:calc(22px + var(--dsh-content-font-delta,0px));white-space:nowrap;background:linear-gradient(90deg, var(--dsw-static-deepseek-500) 0%, var(--dsw-static-deepseek-500) 40%, var(--dsw-static-deepseek-200) 50%, var(--dsw-static-deepseek-500) 60%, var(--dsw-static-deepseek-500) 100%);color:#0000;-webkit-text-fill-color:transparent;background-position:100% 0;background-size:250% 100%;-webkit-background-clip:text;background-clip:text;flex:none;align-self:flex-start;align-items:center;animation:1.8s linear infinite A399Yq_dsh-turn-status-shimmer;display:inline-flex}.A399Yq_turnStatusClock{font:var(--dsw-font-xs-13);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));font-variant-numeric:tabular-nums;color:var(--dsw-alias-label-caption);-webkit-text-fill-color:var(--dsw-alias-label-caption);margin-left:8px;font-weight:400}@keyframes A399Yq_dsh-turn-status-shimmer{to{background-position:0 0}}@media (prefers-reduced-motion:reduce){.A399Yq_turnStatus{background-position:0 0;background-size:100% 100%;animation:none}}.A399Yq_hint{color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.A399Yq_openError{color:var(--dsw-alias-state-error-primary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(18px + var(--dsh-content-font-delta-secondary,0px))}.A399Yq_older{justify-content:center;display:flex}.A399Yq_older button{color:var(--dsw-alias-label-secondary);background:var(--dsw-alias-interactive-bg-hover-solid);cursor:pointer;border:none;border-radius:14px;padding:4px 12px;font-size:12px}.A399Yq_older button:disabled{cursor:default;opacity:.6}.A399Yq_toBottomSlot{z-index:8;height:0;padding-right:max(0px, calc((100% - var(--dsh-chat-content-width)) / 2));pointer-events:none;justify-content:flex-end;display:flex;position:sticky;bottom:16px}[data-conversation-scroll] .A399Yq_toBottomSlot{bottom:calc(var(--dsh-composer-height,152px) + 16px)}.A399Yq_toBottom{--dsw-elevation-stroke-color:var(--dsw-alias-border-l3);corner-shape:round;width:34px;height:34px;color:var(--dsw-alias-label-primary);background:var(--dsw-alias-button-floating-fill);box-shadow:var(--dsw-elevation-panel);cursor:pointer;pointer-events:auto;border:0;border-radius:100px;justify-content:center;align-items:center;margin-top:-34px;padding:0;display:flex}.A399Yq_toBottom:hover{background:var(--dsw-alias-button-floating-hover)}.A399Yq_modalAction{min-width:72px}";
 		const tagId$11 = "@deepseek-ai/dsh-client-ui-chat/ChatView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$11) + "]") === null) {
 			const tag = document.createElement("style");
@@ -1500,102 +1444,61 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ChatView_module_css_default = {
-			"callRow": "bxFrwq_callRow",
-			"column": "bxFrwq_column",
-			"dsh-turn-status-shimmer": "bxFrwq_dsh-turn-status-shimmer",
-			"flowItem": "bxFrwq_flowItem",
-			"hint": "bxFrwq_hint",
-			"modalAction": "bxFrwq_modalAction",
-			"older": "bxFrwq_older",
-			"openError": "bxFrwq_openError",
-			"root": "bxFrwq_root",
-			"scroll": "bxFrwq_scroll",
-			"toBottom": "bxFrwq_toBottom",
-			"toBottomSlot": "bxFrwq_toBottomSlot",
-			"turnStatus": "bxFrwq_turnStatus",
-			"turnStatusClock": "bxFrwq_turnStatusClock"
+			"callRow": "A399Yq_callRow",
+			"column": "A399Yq_column",
+			"dsh-turn-status-shimmer": "A399Yq_dsh-turn-status-shimmer",
+			"flowItem": "A399Yq_flowItem",
+			"hint": "A399Yq_hint",
+			"modalAction": "A399Yq_modalAction",
+			"older": "A399Yq_older",
+			"openError": "A399Yq_openError",
+			"root": "A399Yq_root",
+			"scroll": "A399Yq_scroll",
+			"toBottom": "A399Yq_toBottom",
+			"toBottomSlot": "A399Yq_toBottomSlot",
+			"turnStatus": "A399Yq_turnStatus",
+			"turnStatusClock": "A399Yq_turnStatusClock"
 		};
 		//#endregion
 		//#region lib/types/client/chat/ChatNodeSeat.js
-		const EMPTY_PROCESS_KEYS = [];
-		function turnProcessOpeningHumanAnchor(keys, nodes, spec) {
-			let anchor;
-			for (const key of keys) {
-				const node = nodes.get(key);
-				if ((node?.kind === "user" || node?.kind === "steering") && node.anchorSeq < spec.controlAnchorSeq) anchor = Math.min(anchor ?? node.anchorSeq, node.anchorSeq);
-			}
-			return anchor;
+		function turnDataOf(node) {
+			const location = node?.location;
+			return location?.kind === "turn" || location?.kind === "step" ? location.turn.data : void 0;
 		}
-		/** Derive disclosure facts from one content-revisioned Turn index. */
-		function turnProcessLayout(keys, nodes, spec) {
-			let hasExternalProcess = false;
-			let compactAnswer = true;
-			const openingHumanAnchor = turnProcessOpeningHumanAnchor(keys, nodes, spec);
-			for (const key of keys) {
-				const node = nodes.get(key);
-				if (node === void 0 || node.kind === "turn-process") continue;
-				if ((node.kind === "user" || node.kind === "steering") && (openingHumanAnchor === void 0 || node.anchorSeq > openingHumanAnchor) && (spec.answerAnchorSeq === null || node.anchorSeq < spec.answerAnchorSeq)) compactAnswer = false;
-				if (TURN_PROCESS_INDEPENDENT_KINDS.has(node.kind) || node.anchorSeq < spec.processStartSeq || spec.answerAnchorSeq !== null && node.anchorSeq >= spec.answerAnchorSeq) continue;
-				if (node.kind !== "assistant-step" || spec.answerStep === null || node.data.step !== spec.answerStep) hasExternalProcess = true;
-			}
-			return {
-				hasExternalProcess,
-				compactAnswer
-			};
+		function turnOf(node) {
+			const location = node?.location;
+			return location?.kind === "turn" || location?.kind === "step" ? location.turn.turn : void 0;
 		}
 		/** Subscribe, apply Turn-process visibility, and dispatch one stable Context key. */
-		const ChatNodeSeat = (0, react.memo)(function ChatNodeSeat({ nodeKey, historyIncomplete, compactTranscript, selectedCallId, cwd, openFile, inspectCall, forkAt, renderMessageImages, fileMentions, useChat, useStore, actions, renderSlot, t }) {
-			const node = useChat((snapshot) => snapshot.nodes.get(nodeKey));
-			const processSignature = useChat((snapshot) => {
-				const location = snapshot.nodes.get(nodeKey)?.location;
-				return location?.kind === "turn" || location?.kind === "step" ? location.turn.data.get("turn-process") : void 0;
-			});
-			const processSpec = (0, react.useMemo)(() => processSignature === void 0 ? void 0 : decodeTurnProcess(processSignature), [processSignature]);
-			const nodeStore = useChat((snapshot) => snapshot.nodes);
-			const processLayoutKeys = useChat((snapshot) => {
-				if (!compactTranscript || historyIncomplete || processSpec === void 0) return EMPTY_PROCESS_KEYS;
-				const current = snapshot.nodes.get(nodeKey);
-				const location = current?.location;
-				if (current === void 0 || location?.kind !== "turn" && location?.kind !== "step" || location.turn.status !== "closed" || location.turn.turn !== processSpec.turn) return EMPTY_PROCESS_KEYS;
-				return current.kind === "turn-process" || current.kind === "assistant-step" && current.data.step === processSpec.answerStep ? snapshot.locations.getTurn(processSpec.turn) : EMPTY_PROCESS_KEYS;
-			});
-			const processLayout = (0, react.useMemo)(() => processSpec === void 0 || processLayoutKeys.length === 0 ? void 0 : turnProcessLayout(processLayoutKeys, nodeStore, processSpec), [
-				nodeStore,
-				processLayoutKeys,
-				processSpec
-			]);
-			const processGeneration = (0, react.useMemo)(() => processSpec === void 0 ? void 0 : turnProcessGeneration(processSpec), [processSpec]);
-			const storedEntry = useStore((state) => processSpec === void 0 ? void 0 : storedTurnProcessEntry(state, processSpec.turn));
-			const processOpen = (storedEntry?.generation === processGeneration ? storedEntry : void 0) !== void 0;
-			const setOpen = (0, react.useCallback)((open) => {
-				if (processGeneration !== void 0 && processSpec !== void 0) actions.setTurnProcessOpen(processSpec.turn, processGeneration, open);
-			}, [
-				actions,
-				processGeneration,
-				processSpec
-			]);
+		const ChatNodeSeat = (0, react.memo)(function ChatNodeSeat({ nodeKey, useChatNode, useChatNodeProcess, historyIncomplete, compactTranscript, selectedCallId, cwd, openFile, inspectCall, forkAt, renderMessageImages, fileMentions, useStore, actions, renderSlot, t }) {
+			const node = useChatNode(nodeKey);
 			const routedNode = node;
-			const sameTurn = routedNode !== void 0 && processSpec !== void 0 && (routedNode.location.kind === "turn" || routedNode.location.kind === "step") && routedNode.location.turn.turn === processSpec.turn;
-			const turnClosed = sameTurn && routedNode.location.turn.status === "closed";
-			const processWindowReady = processSpec !== void 0 && compactTranscript && processSpec.answerAnchorSeq !== null && turnClosed && !historyIncomplete;
-			const processMember = sameTurn && processWindowReady && !TURN_PROCESS_INDEPENDENT_KINDS.has(routedNode.kind) && routedNode.anchorSeq >= processSpec.processStartSeq && routedNode.anchorSeq < processSpec.answerAnchorSeq;
-			const processAnswer = sameTurn && processWindowReady && routedNode.kind === "assistant-step" && routedNode.data.step === processSpec.answerStep;
+			const turn = turnOf(routedNode);
+			const processPresentation = useChatNodeProcess(nodeKey);
+			const processSpec = processPresentation?.spec;
+			const storedEntry = useStore((state) => processSpec === void 0 ? void 0 : storedTurnProcessEntry(state, processSpec.turn));
+			const processOpen = (processSpec !== void 0 && processSpec.answerStep !== null && storedEntry?.answerStep === processSpec.answerStep ? storedEntry : void 0) !== void 0;
+			const setOpen = (0, react.useCallback)((open) => {
+				if (processSpec !== void 0 && processSpec.answerStep !== null) actions.setTurnProcessOpen(processSpec.turn, processSpec.answerStep, open);
+			}, [actions, processSpec]);
+			const processWindowReady = processSpec !== void 0 && processPresentation !== void 0 && compactTranscript && processSpec.answerAnchorSeq !== null && processPresentation.turn === processSpec.turn && processPresentation.turnClosed && !historyIncomplete;
+			const processMember = routedNode !== void 0 && processWindowReady && !TURN_PROCESS_INDEPENDENT_KINDS.has(routedNode.kind) && routedNode.anchorSeq >= processSpec.processStartSeq && routedNode.anchorSeq < processSpec.answerAnchorSeq;
+			const processAnswer = routedNode !== void 0 && processWindowReady && routedNode.kind === "assistant-step" && routedNode.data.step === processSpec.answerStep;
 			const ownsDisclosure = routedNode?.kind === "turn-process" || processAnswer;
-			const foldable = processWindowReady && (processMember || ownsDisclosure && ((processLayout?.hasExternalProcess ?? false) || processSpec.inlineReasoning));
-			const turnProcess = (0, react.useMemo)(() => processGeneration === void 0 || processSpec === void 0 ? void 0 : {
+			const foldable = processWindowReady && (processMember || ownsDisclosure && (processPresentation.hasExternalProcess || processSpec.inlineReasoning));
+			const turnProcess = (0, react.useMemo)(() => processSpec === void 0 ? void 0 : {
 				spec: processSpec,
 				foldable,
 				open: processOpen,
 				setOpen
 			}, [
 				foldable,
-				processGeneration,
 				processOpen,
 				processSpec,
 				setOpen
 			]);
 			const controllerInactive = routedNode?.kind === "turn-process" && !foldable;
-			const compactAnswer = processAnswer && foldable && processLayout?.compactAnswer === true && !processOpen;
+			const compactAnswer = processAnswer && foldable && processPresentation.compactAnswer && !processOpen;
 			const processHidden = controllerInactive || foldable && processMember && !processOpen;
 			const wrapperRef = useSearchableHidden(processHidden, (0, react.useCallback)(() => {
 				if (processMember) setOpen(true);
@@ -1621,8 +1524,7 @@ window.__ModuleLoader__.load({
 				turnProcess
 			]);
 			if (routedNode === void 0 || owner === null) return null;
-			const location = routedNode.location;
-			const turn = location.kind === "turn" || location.kind === "step" ? location.turn.turn : void 0;
+			const turnData = turnDataOf(routedNode);
 			const routedOwner = {
 				...owner,
 				node: routedNode
@@ -1639,7 +1541,7 @@ window.__ModuleLoader__.load({
 				"data-turn-process-answer": compactAnswer || void 0,
 				children: renderSlot("conversation.chat.node", routedOwner, {
 					entryKey: routedNode.kind,
-					hookContext: nodeKey,
+					hookContext: turnData,
 					fallback: (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.JsonBlock, {
 						label: t("message.unknownSurface", { type: routedNode.kind }),
 						payload: routedNode.data,
@@ -1649,8 +1551,8 @@ window.__ModuleLoader__.load({
 			});
 		});
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\TurnNavigator.module.css.mjs
-		const css$10 = ".kVameW_slot{z-index:6;pointer-events:none;height:0;position:sticky;top:0}.kVameW_rail{--turn-rail-band:calc(var(--dsh-conversation-viewport-height,100dvh) - var(--dsh-composer-height,152px));--turn-preview-height:100px;top:calc(var(--turn-rail-band) / 2);right:calc(12px - (var(--dsh-composer-side-clearance) + 16px));width:28px;height:min(var(--turn-natural-height), max(0px, calc(var(--turn-rail-band) - 64px)), 420px);cursor:pointer;pointer-events:auto;transition:height .22s cubic-bezier(.2,.8,.2,1);position:absolute;transform:translateY(-50%)}.kVameW_marks{inset:var(--turn-rail-inset) 0;position:absolute}.kVameW_markPosition{top:min(var(--turn-natural-position), var(--turn-position));height:10px;transition:top .22s cubic-bezier(.2,.8,.2,1);animation:.15s ease-out kVameW_dsh-turn-mark-enter;position:absolute;left:0;right:0;transform:translateY(-50%)}.kVameW_mark{cursor:pointer;pointer-events:none;background:0 0;border:0;border-radius:8px;width:20px;padding:0;position:absolute;inset:0 0 0 auto}.kVameW_mark:before{background:var(--dsw-alias-border-l4);content:\"\";border-radius:2px;width:12px;height:2px;transition:width .14s,background-color .14s;position:absolute;top:50%;right:0;transform:translateY(-50%)}.kVameW_markPreview:before{background:var(--dsw-alias-label-tertiary);width:18px}.kVameW_markActive:before{background:var(--dsw-alias-label-primary);width:20px}.kVameW_mark:focus-visible:before{background:var(--dsw-alias-state-business-primary);width:20px}.kVameW_mark:focus-visible{outline:1px solid var(--dsw-alias-state-business-primary);outline-offset:2px}.kVameW_preview{top:clamp(0px, calc(min(var(--turn-natural-position), var(--turn-position)) + var(--turn-rail-inset) - var(--turn-preview-height) / 2), calc(100% - var(--turn-preview-height)));box-sizing:border-box;width:min(300px,100cqw - 120px);max-height:var(--turn-preview-height);border:1px solid var(--dsw-alias-border-l2);color:var(--dsw-alias-label-primary);background:var(--dsw-alias-bg-layer-1);box-shadow:var(--dsw-shadow-lv2);pointer-events:none;border-radius:10px;padding:10px 12px;transition:top .14s cubic-bezier(.2,.8,.2,1);animation:.12s ease-out kVameW_dsh-turn-preview-enter;position:absolute;right:calc(100% + 10px);overflow:hidden}.kVameW_previewPrompt,.kVameW_previewResponse{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden}.kVameW_previewPrompt{font:var(--dsw-font-xs-strong-13);-webkit-line-clamp:2}.kVameW_previewResponse{color:var(--dsw-alias-label-caption);font:var(--dsw-font-xxs-12);-webkit-line-clamp:2;margin-top:4px}@keyframes kVameW_dsh-turn-mark-enter{0%{opacity:0}to{opacity:1}}@keyframes kVameW_dsh-turn-preview-enter{0%{opacity:0;transform:translate(4px)}to{opacity:1;transform:translate(0)}}@container (width<=900px){.kVameW_slot{display:none}}@media (prefers-reduced-motion:reduce){.kVameW_rail,.kVameW_markPosition,.kVameW_mark:before,.kVameW_preview{transition:none;animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\TurnNavigator.module.css.mjs
+		const css$10 = ".HOeBSG_slot{z-index:7;pointer-events:none;height:0;position:sticky;top:0}.HOeBSG_frame{--turn-rail-band:calc(var(--dsh-conversation-viewport-height,100dvh) - var(--dsh-composer-height,152px));--turn-preview-height:100px;top:calc(var(--turn-rail-band) / 2);right:calc(12px - (var(--dsh-composer-side-clearance) + 16px));width:28px;height:min(var(--turn-natural-height), max(0px, calc(var(--turn-rail-band) - 64px)), 420px);cursor:pointer;pointer-events:auto;transition:height .22s cubic-bezier(.2,.8,.2,1);position:absolute;transform:translateY(-50%)}.HOeBSG_scroller{overscroll-behavior:contain;scrollbar-width:none;position:absolute;inset:0;overflow-y:auto}.HOeBSG_scroller::-webkit-scrollbar{display:none}.HOeBSG_fadeTop{mask-image:linear-gradient(#0000 0,#000 24px 100%)}.HOeBSG_fadeBottom{mask-image:linear-gradient(#000 0 calc(100% - 24px),#0000 100%)}.HOeBSG_fadeTop.HOeBSG_fadeBottom{mask-image:linear-gradient(#0000 0,#000 24px calc(100% - 24px),#0000 100%)}.HOeBSG_marks{height:var(--turn-natural-height);position:relative}.HOeBSG_markPosition{top:calc(var(--turn-natural-position) + var(--turn-rail-inset));height:10px;transition:top .22s cubic-bezier(.2,.8,.2,1);animation:.15s ease-out HOeBSG_dsh-turn-mark-enter;position:absolute;left:0;right:0;transform:translateY(-50%)}.HOeBSG_mark{cursor:pointer;pointer-events:none;background:0 0;border:0;border-radius:8px;width:20px;padding:0;position:absolute;inset:0 0 0 auto}.HOeBSG_mark:before{background:var(--dsw-alias-border-l4);content:\"\";border-radius:2px;width:12px;height:2px;transition:width .14s,background-color .14s;position:absolute;top:50%;right:0;transform:translateY(-50%)}.HOeBSG_markUnloaded:before{opacity:.6;width:8px}.HOeBSG_markPreview:before{background:var(--dsw-alias-label-tertiary);width:18px}.HOeBSG_markBusy:before{animation:1s ease-in-out infinite HOeBSG_dsh-turn-mark-busy}.HOeBSG_markActive:before{background:var(--dsw-alias-label-primary);width:20px}.HOeBSG_mark:focus-visible:before{background:var(--dsw-alias-state-business-primary);width:20px}.HOeBSG_mark:focus-visible{outline:1px solid var(--dsw-alias-state-business-primary);outline-offset:2px}.HOeBSG_preview{top:clamp(0px, calc(var(--turn-natural-position) + var(--turn-rail-inset) - var(--turn-scroll-top,0px) - var(--turn-preview-height) / 2), calc(100% - var(--turn-preview-height)));box-sizing:border-box;width:min(300px,100cqw - 120px);max-height:var(--turn-preview-height);color:var(--dsw-alias-label-primary);background:var(--dsw-alias-bg-layer-1);box-shadow:var(--dsw-elevation-panel);pointer-events:none;border:0;border-radius:10px;padding:10px 12px;transition:top .14s cubic-bezier(.2,.8,.2,1);animation:.12s ease-out HOeBSG_dsh-turn-preview-enter;position:absolute;right:calc(100% + 10px);overflow:hidden}.HOeBSG_previewPrompt,.HOeBSG_previewResponse{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden}.HOeBSG_previewPrompt{font:var(--dsw-font-xs-strong-13);-webkit-line-clamp:1}.HOeBSG_previewResponse{color:var(--dsw-alias-label-caption);font:var(--dsw-font-xxs-12);-webkit-line-clamp:3;margin-top:4px}@keyframes HOeBSG_dsh-turn-mark-enter{0%{opacity:0}to{opacity:1}}@keyframes HOeBSG_dsh-turn-preview-enter{0%{opacity:0;transform:translate(4px)}to{opacity:1;transform:translate(0)}}@keyframes HOeBSG_dsh-turn-mark-busy{0%,to{opacity:1}50%{opacity:.35}}@container (width<=900px){.HOeBSG_slot{display:none}}@media (prefers-reduced-motion:reduce){.HOeBSG_frame,.HOeBSG_scroller,.HOeBSG_markPosition,.HOeBSG_mark:before,.HOeBSG_markBusy:before,.HOeBSG_preview{scroll-behavior:auto;transition:none;animation:none}}";
 		const tagId$10 = "@deepseek-ai/dsh-client-ui-chat/TurnNavigator.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$10) + "]") === null) {
 			const tag = document.createElement("style");
@@ -1660,96 +1562,173 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var TurnNavigator_module_css_default = {
-			"dsh-turn-mark-enter": "kVameW_dsh-turn-mark-enter",
-			"dsh-turn-preview-enter": "kVameW_dsh-turn-preview-enter",
-			"mark": "kVameW_mark",
-			"markActive": "kVameW_markActive",
-			"markPosition": "kVameW_markPosition",
-			"markPreview": "kVameW_markPreview",
-			"marks": "kVameW_marks",
-			"preview": "kVameW_preview",
-			"previewPrompt": "kVameW_previewPrompt",
-			"previewResponse": "kVameW_previewResponse",
-			"rail": "kVameW_rail",
-			"slot": "kVameW_slot"
+			"dsh-turn-mark-busy": "HOeBSG_dsh-turn-mark-busy",
+			"dsh-turn-mark-enter": "HOeBSG_dsh-turn-mark-enter",
+			"dsh-turn-preview-enter": "HOeBSG_dsh-turn-preview-enter",
+			"fadeBottom": "HOeBSG_fadeBottom",
+			"fadeTop": "HOeBSG_fadeTop",
+			"frame": "HOeBSG_frame",
+			"mark": "HOeBSG_mark",
+			"markActive": "HOeBSG_markActive",
+			"markBusy": "HOeBSG_markBusy",
+			"markPosition": "HOeBSG_markPosition",
+			"markPreview": "HOeBSG_markPreview",
+			"markUnloaded": "HOeBSG_markUnloaded",
+			"marks": "HOeBSG_marks",
+			"preview": "HOeBSG_preview",
+			"previewPrompt": "HOeBSG_previewPrompt",
+			"previewResponse": "HOeBSG_previewResponse",
+			"scroller": "HOeBSG_scroller",
+			"slot": "HOeBSG_slot"
 		};
 		//#endregion
 		//#region lib/types/client/chat/TurnNavigator.js
-		/** Resting gap between neighbouring marks before the rail compresses to fit. */
+		/** Fixed pitch between neighbouring marks; overflow scrolls inside the frame. */
 		const TURN_SPACING_PX = 10;
 		/** Rail padding above the first mark and below the last one, per end. */
 		const RAIL_INSET_PX = 6;
-		function itemPosition(index, count) {
-			const ratio = count <= 1 ? 0 : index / (count - 1);
-			return {
-				"--turn-natural-position": `${String(index * TURN_SPACING_PX)}px`,
-				"--turn-position": `${String(ratio * 100)}%`
-			};
+		/** Fade band the mask reserves at a scrollable end. */
+		const FADE_PX = 24;
+		function itemPosition(index) {
+			return { "--turn-natural-position": `${String(index * TURN_SPACING_PX)}px` };
 		}
-		function railSize(count) {
+		function frameStyle(count, scrollTop) {
 			return {
 				"--turn-natural-height": `${String((count - 1) * TURN_SPACING_PX + 2 * RAIL_INSET_PX)}px`,
-				"--turn-rail-inset": `${String(RAIL_INSET_PX)}px`
+				"--turn-rail-inset": `${String(RAIL_INSET_PX)}px`,
+				"--turn-scroll-top": `${String(scrollTop)}px`
 			};
 		}
-		function itemAtPointer(items, rail, clientY) {
-			const rect = rail.getBoundingClientRect();
-			const usableHeight = Math.max(1, rect.height - 2 * RAIL_INSET_PX);
-			const ratio = Math.max(0, Math.min(1, (clientY - rect.top - RAIL_INSET_PX) / usableHeight));
-			return items[Math.round(ratio * (items.length - 1))];
+		function itemAtPointer(items, frame, scrollTop, clientY) {
+			const offset = clientY - frame.getBoundingClientRect().top + scrollTop - RAIL_INSET_PX;
+			return items[Math.max(0, Math.min(items.length - 1, Math.round(offset / TURN_SPACING_PX)))];
 		}
-		function TurnNavigatorRail({ items, activeTurn, onNavigate, t }) {
+		const RAIL_AT_REST = {
+			top: 0,
+			canScrollUp: false,
+			canScrollDown: false
+		};
+		function railScrollState(scroller) {
+			const top = scroller.scrollTop;
+			return {
+				top,
+				canScrollUp: top > 1,
+				canScrollDown: top < scroller.scrollHeight - scroller.clientHeight - 1
+			};
+		}
+		function sameRailScrollState(left, right) {
+			return left.top === right.top && left.canScrollUp === right.canScrollUp && left.canScrollDown === right.canScrollDown;
+		}
+		function TurnNavigatorRail({ items, activeTurn, busyTurn, onNavigate, t }) {
 			const [previewTurn, setPreviewTurn] = (0, react.useState)(null);
+			const [scrollState, setScrollState] = (0, react.useState)(RAIL_AT_REST);
+			const scrollerRef = (0, react.useRef)(null);
+			/** While the pointer works the rail, follow must not move it under the hand. */
+			const pointerInsideRef = (0, react.useRef)(false);
 			const previewId = (0, react.useId)();
+			const syncScrollState = () => {
+				const scroller = scrollerRef.current;
+				if (scroller === null) return;
+				const next = railScrollState(scroller);
+				setScrollState((current) => sameRailScrollState(current, next) ? current : next);
+			};
+			(0, react.useEffect)(() => {
+				const scroller = scrollerRef.current;
+				if (scroller === null || typeof ResizeObserver === "undefined") return;
+				const observer = new ResizeObserver(syncScrollState);
+				observer.observe(scroller);
+				return () => {
+					observer.disconnect();
+				};
+			}, []);
+			(0, react.useEffect)(syncScrollState, [items.length]);
+			(0, react.useEffect)(() => {
+				const scroller = scrollerRef.current;
+				const index = items.findIndex((item) => item.turn === activeTurn);
+				if (scroller === null || index < 0 || pointerInsideRef.current) return;
+				const markTop = index * TURN_SPACING_PX + RAIL_INSET_PX;
+				const viewTop = scroller.scrollTop;
+				const viewHeight = scroller.clientHeight;
+				if (viewHeight <= 0 || markTop >= viewTop + FADE_PX && markTop <= viewTop + viewHeight - FADE_PX) return;
+				const target = Math.max(0, markTop - viewHeight / 2);
+				const reduced = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+				if (typeof scroller.scrollTo === "function") scroller.scrollTo({
+					top: target,
+					behavior: reduced ? "auto" : "smooth"
+				});
+				else scroller.scrollTop = target;
+				syncScrollState();
+			}, [activeTurn, items]);
 			if (items.length < 2) return null;
 			const previewIndex = items.findIndex((item) => item.turn === previewTurn);
 			const preview = previewIndex < 0 ? void 0 : items[previewIndex];
-			const previewPosition = previewIndex < 0 ? void 0 : itemPosition(previewIndex, items.length);
+			const previewPosition = previewIndex < 0 ? void 0 : itemPosition(previewIndex);
 			const previewAtPointer = (event) => {
-				setPreviewTurn(itemAtPointer(items, event.currentTarget, event.clientY)?.turn ?? null);
+				const scrollTop = scrollerRef.current?.scrollTop ?? 0;
+				setPreviewTurn(itemAtPointer(items, event.currentTarget, scrollTop, event.clientY)?.turn ?? null);
 			};
 			const navigateAtPointer = (event) => {
-				const item = itemAtPointer(items, event.currentTarget, event.clientY);
+				const scrollTop = scrollerRef.current?.scrollTop ?? 0;
+				const item = itemAtPointer(items, event.currentTarget, scrollTop, event.clientY);
 				if (item !== void 0) onNavigate(item);
 			};
+			const fadeClasses = [TurnNavigator_module_css_default.scroller];
+			if (scrollState.canScrollUp) fadeClasses.push(TurnNavigator_module_css_default.fadeTop);
+			if (scrollState.canScrollDown) fadeClasses.push(TurnNavigator_module_css_default.fadeBottom);
 			return (0, react_jsx_runtime.jsx)("div", {
 				className: TurnNavigator_module_css_default.slot,
 				children: (0, react_jsx_runtime.jsxs)("nav", {
-					className: TurnNavigator_module_css_default.rail,
-					style: railSize(items.length),
+					className: TurnNavigator_module_css_default.frame,
+					style: frameStyle(items.length, scrollState.top),
 					"aria-label": t("chat.turnNavigation.label"),
 					onClick: navigateAtPointer,
 					onPointerMove: previewAtPointer,
+					onPointerEnter: () => {
+						pointerInsideRef.current = true;
+					},
 					onPointerLeave: () => {
+						pointerInsideRef.current = false;
 						setPreviewTurn(null);
 					},
 					children: [(0, react_jsx_runtime.jsx)("div", {
-						className: TurnNavigator_module_css_default.marks,
-						children: items.map((item, index) => {
-							const active = item.turn === activeTurn;
-							const showingPreview = item.turn === previewTurn;
-							const markClass = active ? `${TurnNavigator_module_css_default.mark} ${TurnNavigator_module_css_default.markActive}` : showingPreview ? `${TurnNavigator_module_css_default.mark} ${TurnNavigator_module_css_default.markPreview}` : TurnNavigator_module_css_default.mark;
-							return (0, react_jsx_runtime.jsx)("div", {
-								className: TurnNavigator_module_css_default.markPosition,
-								style: itemPosition(index, items.length),
-								children: (0, react_jsx_runtime.jsx)("button", {
-									type: "button",
-									className: markClass,
-									"aria-label": t("chat.turnNavigation.jump", { turn: item.turn }),
-									"aria-current": active ? "true" : void 0,
-									"aria-describedby": showingPreview ? previewId : void 0,
-									onClick: (event) => {
-										event.stopPropagation();
-										onNavigate(item);
-									},
-									onFocus: () => {
-										setPreviewTurn(item.turn);
-									},
-									onBlur: () => {
-										setPreviewTurn(null);
-									}
-								})
-							}, item.turn);
+						ref: scrollerRef,
+						className: fadeClasses.join(" "),
+						onScroll: () => {
+							syncScrollState();
+						},
+						children: (0, react_jsx_runtime.jsx)("div", {
+							className: TurnNavigator_module_css_default.marks,
+							children: items.map((item, index) => {
+								const active = item.turn === activeTurn;
+								const showingPreview = item.turn === previewTurn;
+								const classes = [TurnNavigator_module_css_default.mark];
+								if (item.anchor.kind === "unloaded") classes.push(TurnNavigator_module_css_default.markUnloaded);
+								if (active) classes.push(TurnNavigator_module_css_default.markActive);
+								else if (showingPreview) classes.push(TurnNavigator_module_css_default.markPreview);
+								if (item.turn === busyTurn) classes.push(TurnNavigator_module_css_default.markBusy);
+								return (0, react_jsx_runtime.jsx)("div", {
+									className: TurnNavigator_module_css_default.markPosition,
+									style: itemPosition(index),
+									children: (0, react_jsx_runtime.jsx)("button", {
+										type: "button",
+										className: classes.join(" "),
+										"aria-label": t(item.anchor.kind === "loaded" ? "chat.turnNavigation.jump" : "chat.turnNavigation.jumpLoad", { turn: item.turn }),
+										"aria-current": active ? "true" : void 0,
+										"aria-busy": item.turn === busyTurn ? "true" : void 0,
+										"aria-describedby": showingPreview ? previewId : void 0,
+										onClick: (event) => {
+											event.stopPropagation();
+											onNavigate(item);
+										},
+										onFocus: () => {
+											setPreviewTurn(item.turn);
+										},
+										onBlur: () => {
+											setPreviewTurn(null);
+										}
+									})
+								}, item.turn);
+							})
 						})
 					}), preview !== void 0 && previewPosition !== void 0 && (0, react_jsx_runtime.jsxs)("div", {
 						id: previewId,
@@ -1768,9 +1747,12 @@ window.__ModuleLoader__.load({
 			});
 		}
 		/**
-		* Compact rail of the currently loaded Turns with hover and focus previews.
+		* Fixed-pitch rail of every known Turn — loaded marks scroll, unloaded marks
+		* page history in first — with hover and focus previews. Overflow scrolls
+		* inside the frame, gradient fades marking each scrollable end, and the
+		* active mark keeps itself in view while the pointer is elsewhere.
 		*
-		* Memoized because it renders two host elements per loaded Turn while the
+		* Memoized because it renders two host elements per Turn while the
 		* enclosing view re-renders on every streaming delta: without the guard a long
 		* session rebuilds hundreds of marks per commit for a rail that only changes
 		* when a Turn is added, removed, or becomes active. Its props must therefore
@@ -1778,7 +1760,102 @@ window.__ModuleLoader__.load({
 		*/
 		const TurnNavigator = (0, react.memo)(TurnNavigatorRail);
 		//#endregion
+		//#region ../../util/brand/src/index.ts
+		/**
+		* Apply a compile-time number brand without changing the value.
+		* @param value - number admitted by the domain that owns the target brand.
+		* @returns the same number with the requested compile-time brand.
+		*/
+		function brandNumber(value) {
+			return value;
+		}
+		//#endregion
+		//#region ../../core/session/src/types.ts
+		/**
+		* Admit a numeric value as an existing Session event position.
+		* @param value - non-negative safe integer admitted by the owning log operation.
+		* @returns the same number with the Session-sequence brand.
+		*/
+		function SessionSeq(value) {
+			if (!Number.isSafeInteger(value) || value < 0 || Object.is(value, -0)) throw new TypeError(`SessionSeq must be a non-negative safe integer, got ${String(value)}`);
+			return brandNumber(value);
+		}
+		//#endregion
+		//#region lib/types/client/chat/turn-rail-items.js
+		/**
+		* View-layer union of the host turn outline and the loaded rail items. The
+		* conversation snapshot never carries projection values, so this merge is the
+		* one place the rail's two sources meet: the `turnOutline` projection names
+		* every turn of the session, and the loaded window supplies anchors and
+		* richer previews for the turns it holds.
+		*/
+		const EMPTY_ITEMS$1 = [];
+		/**
+		* Structurally narrow one wire outline entry (projection values cross the
+		* wire). `turn` and `seq` are the load-bearing fields — a mark cannot exist
+		* or jump without them — so their damage drops the entry; the previews are
+		* decorative, so a malformed one degrades to `''` and the turn stays
+		* navigable by number.
+		*/
+		function outlineEntry(value) {
+			if (typeof value !== "object" || value === null) return void 0;
+			const entry = value;
+			if (typeof entry.turn !== "number" || !Number.isSafeInteger(entry.turn) || entry.turn < 0) return void 0;
+			if (typeof entry.seq !== "number" || !Number.isSafeInteger(entry.seq) || entry.seq < 0 || Object.is(entry.seq, -0)) return void 0;
+			return {
+				turn: entry.turn,
+				seq: SessionSeq(entry.seq),
+				prompt: typeof entry.prompt === "string" ? entry.prompt : "",
+				response: typeof entry.response === "string" ? entry.response : ""
+			};
+		}
+		/** Wire outline entries, or none when the projection is absent or malformed. */
+		function outlineEntries(outline) {
+			return Array.isArray(outline) ? outline : EMPTY_ITEMS$1;
+		}
+		/**
+		* Merge the host outline with the loaded rail items into the full ladder.
+		* A turn present in both sides keeps the loaded anchor, taking an outline
+		* preview only where the window's own is empty (a mid-Turn window head, or a
+		* turn whose loaded nodes carry no text); turns on one side only pass
+		* through. Result ascends by turn.
+		* @param loaded - loaded-window rail items (timeline order).
+		* @param outline - `turnOutline` projection value, treated as wire data.
+		* @returns every known turn, ascending; a stable empty array when none.
+		*/
+		function mergeTurnRailItems(loaded, outline) {
+			const byTurn = /* @__PURE__ */ new Map();
+			for (const raw of outlineEntries(outline)) {
+				const entry = outlineEntry(raw);
+				if (entry === void 0) continue;
+				byTurn.set(entry.turn, {
+					turn: entry.turn,
+					prompt: entry.prompt,
+					response: entry.response,
+					anchor: {
+						kind: "unloaded",
+						seq: entry.seq
+					}
+				});
+			}
+			for (const item of loaded) {
+				const preview = byTurn.get(item.turn);
+				byTurn.set(item.turn, {
+					turn: item.turn,
+					prompt: item.prompt !== "" ? item.prompt : preview?.prompt ?? "",
+					response: item.response !== "" ? item.response : preview?.response ?? "",
+					anchor: {
+						kind: "loaded",
+						key: item.anchorKey
+					}
+				});
+			}
+			if (byTurn.size === 0) return EMPTY_ITEMS$1;
+			return [...byTurn.values()].sort((left, right) => left.turn - right.turn);
+		}
+		//#endregion
 		//#region lib/types/client/chat/ChatView.js
+		const SCROLL_SAMPLE_INTERVAL_MS = 500;
 		/** Active column host when present; otherwise the view-local scroller. */
 		function scrollerOf(from) {
 			return from.closest("[data-conversation-scroll]") ?? from;
@@ -1911,14 +1988,22 @@ window.__ModuleLoader__.load({
 				})]
 			});
 		}
+		const ChatNodeList = (0, react.memo)(function ChatNodeList({ order, ...seatProps }) {
+			return order.map((nodeKey) => (0, react_jsx_runtime.jsx)(ChatNodeSeat, {
+				nodeKey,
+				...seatProps
+			}, nodeKey));
+		});
 		/**
 		* The chat view slot entry: pure component over the composed props; each
 		* ordered business Node crosses the keyed renderer seat.
 		*/
-		function ChatView({ useSession, useChat, useSessions, useStore, actions, renderSlot, sessionId, openFile, loadOlder, loadImage, openView, chatScroll, forkAt, fileMentions, useTranscriptView, t }) {
+		function ChatView({ useSession, useChat, useChatNode, useChatNodeProcess, useSessions, useStore, actions, renderSlot, sessionId, openFile, loadOlder, loadThrough, loadImage, openView, chatScroll, forkAt, fileMentions, useTranscriptView, useProjection, t }) {
 			const order = useChat((s) => s.order);
 			const nodeStore = useChat((s) => s.nodes);
 			const turnNavigationItems = useChat((s) => s.navigation.items());
+			const turnOutline = useProjection("turnOutline");
+			const railItems = (0, react.useMemo)(() => mergeTurnRailItems(turnNavigationItems, turnOutline), [turnNavigationItems, turnOutline]);
 			const timeline = useChat((s) => s.timeline);
 			const inbox = useSession((s) => s.queue);
 			const cwd = useSessions((s) => s.byId[sessionId]?.cwd);
@@ -1961,7 +2046,7 @@ window.__ModuleLoader__.load({
 			const visibleSubmissions = (0, react.useMemo)(() => {
 				if (pendingSubmissions.length === 0) return pendingSubmissions;
 				const observed = observedRpcIds(order, nodeStore, inbox);
-				return pendingSubmissions.filter((submission) => !observed.has(submission.requestId));
+				return pendingSubmissions.filter((submission) => submission.placement !== "queued" && !observed.has(submission.requestId));
 			}, [
 				pendingSubmissions,
 				order,
@@ -1977,12 +2062,23 @@ window.__ModuleLoader__.load({
 			const columnRef = (0, react.useRef)(null);
 			const [atBottom, setAtBottom] = (0, react.useState)(() => chatScroll.read() === null);
 			const atBottomRef = (0, react.useRef)(atBottom);
+			const scrollSamplePendingRef = (0, react.useRef)(false);
+			const [, setScrollSampleTick] = (0, react.useState)(0);
 			const [activeTurn, setActiveTurn] = (0, react.useState)(() => turnNavigationItems.at(-1)?.turn ?? null);
 			/** Last position delivered or written on the main thread. */
 			const observedTopRef = (0, react.useRef)(0);
 			/** Paging anchor: semantic row/position at click, updated by reader scrolls
 			* while the request is pending and restored after the prepend lands. */
 			const anchorRef = (0, react.useRef)(null);
+			/** Unloaded-turn jump in flight: target turn plus its load-through seq. */
+			const pendingJumpRef = (0, react.useRef)(null);
+			/** Whether the in-flight jump already landed mid-paging (settle then only corrects an untouched landing). */
+			const jumpLandedRef = (0, react.useRef)(false);
+			const [busyJumpTurn, setBusyJumpTurn] = (0, react.useState)(null);
+			/** Bumped when a loadThrough completion settles, after its last page's commit. */
+			const [jumpSettleTick, setJumpSettleTick] = (0, react.useState)(0);
+			/** Window head at the last settle-time repage; an unmoved head falls back instead of repaging forever. */
+			const jumpRepageHeadRef = (0, react.useRef)(null);
 			const firstSeqRef = (0, react.useRef)(null);
 			const openedRef = (0, react.useRef)(false);
 			const lastKeyRef = (0, react.useRef)(null);
@@ -2000,6 +2096,7 @@ window.__ModuleLoader__.load({
 			const lastSubmissionId = visibleSubmissions[visibleSubmissions.length - 1]?.requestId ?? null;
 			const followSig = `${openState}:${firstSeq}:${lastKey}:${order.length}:${running ? 1 : 0}:${lastSteeringId ?? ""}:${lastSubmissionId ?? ""}`;
 			const syncActiveTurn = (0, react.useCallback)(() => {
+				if (scrollSamplePendingRef.current) return;
 				const local = listRef.current;
 				const first = turnNavigationItems[0];
 				if (local === null || first === void 0) {
@@ -2007,13 +2104,17 @@ window.__ModuleLoader__.load({
 					return;
 				}
 				const el = scrollerOf(local);
+				if (el.scrollHeight - el.scrollTop - el.clientHeight <= 25) {
+					const latest = turnNavigationItems.at(-1)?.turn ?? first.turn;
+					setActiveTurn((current) => current === latest ? current : latest);
+					return;
+				}
 				const reading = turnAtLine(local, el.getBoundingClientRect().top + Math.min(96, el.clientHeight * .2));
 				let next = first.turn;
 				if (reading !== null) for (const item of turnNavigationItems) {
 					if (item.turn > reading) break;
 					next = item.turn;
 				}
-				if (el.scrollHeight - el.scrollTop - el.clientHeight <= 25) next = turnNavigationItems.at(-1)?.turn ?? next;
 				setActiveTurn((current) => current === next ? current : next);
 			}, [turnNavigationItems]);
 			const activeTurnRef = (0, react.useRef)(null);
@@ -2038,6 +2139,8 @@ window.__ModuleLoader__.load({
 			}, [scheduleActiveTurn]);
 			const toBottom = (el) => {
 				anchorRef.current = null;
+				pendingJumpRef.current = null;
+				setBusyJumpTurn((current) => current === null ? current : null);
 				el.scrollTop = el.scrollHeight;
 				observedTopRef.current = el.scrollTop;
 				atBottomRef.current = true;
@@ -2045,7 +2148,52 @@ window.__ModuleLoader__.load({
 				chatScroll.save(null);
 				setActiveTurn(turnNavigationItems.at(-1)?.turn ?? null);
 			};
+			const landOnRowRef = (0, react.useRef)(() => {});
+			landOnRowRef.current = (local, el, row, turn) => {
+				el.scrollTop += flowTop(row, el) - 24;
+				observedTopRef.current = el.scrollTop;
+				const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight <= 25;
+				atBottomRef.current = isAtBottom;
+				setAtBottom(isAtBottom);
+				setActiveTurn(turn);
+				const position = isAtBottom ? null : scrollPosition(local, el);
+				if (isAtBottom) chatScroll.save(null);
+				else if (position !== null) chatScroll.save(position);
+			};
+			/**
+			* Land the pending jump once its Turn has a rendered anchor row; false
+			* while it must keep waiting. Mid-jump landings (`settle` false) keep the
+			* jump armed with the target row as the paging anchor, so later chunks and
+			* the load-earlier button's unmount re-land on the same row; the settling
+			* call clears the jump.
+			*/
+			const realizePendingJump = (local, el, settle) => {
+				const pending = pendingJumpRef.current;
+				if (pending === null) return true;
+				const item = railItems.find((candidate) => candidate.turn === pending.turn);
+				if (item === void 0 || item.anchor.kind !== "loaded") return false;
+				const row = anchorElement(local, item.anchor.key);
+				if (row === null) return false;
+				if (settle) {
+					pendingJumpRef.current = null;
+					setBusyJumpTurn(null);
+					const held = anchorRef.current;
+					const landedEarlier = jumpLandedRef.current;
+					jumpLandedRef.current = false;
+					anchorRef.current = null;
+					if (!landedEarlier || held?.key === item.anchor.key) landOnRowRef.current(local, el, row, pending.turn);
+					return true;
+				}
+				landOnRowRef.current(local, el, row, pending.turn);
+				jumpLandedRef.current = true;
+				anchorRef.current = {
+					key: item.anchor.key,
+					top: flowTop(row, el)
+				};
+				return true;
+			};
 			(0, react.useLayoutEffect)(() => {
+				if (scrollSamplePendingRef.current) return;
 				const local = listRef.current;
 				/* v8 ignore next -- ref-null guard: React attaches the ref before layout effects run. */
 				if (local === null) return;
@@ -2079,6 +2227,10 @@ window.__ModuleLoader__.load({
 					const row = anchorElement(local, anchor.key);
 					if (row !== null) el.scrollTop += flowTop(row, el) - anchor.top;
 					observedTopRef.current = el.scrollTop;
+					if (!realizePendingJump(local, el, false) && row !== null) anchorRef.current = {
+						key: anchor.key,
+						top: flowTop(row, el)
+					};
 					firstSeqRef.current = firstSeq;
 					/* v8 ignore next -- ?? arm: a prepend adds nodes, so the flow list here is never empty. */
 					lastKeyRef.current = lastKey;
@@ -2096,7 +2248,11 @@ window.__ModuleLoader__.load({
 				lastSteeringIdRef.current = lastSteeringId;
 				lastSubmissionIdRef.current = lastSubmissionId;
 				followSigRef.current = followSig;
-				if (appendedUser || appendedSteering || appendedSubmission || tipMoved && atBottomRef.current) toBottom(el);
+				if (appendedUser || appendedSteering || appendedSubmission || tipMoved && atBottomRef.current) {
+					toBottom(el);
+					return;
+				}
+				if (pendingJumpRef.current !== null) realizePendingJump(local, el, false);
 			});
 			const onScrollRef = (0, react.useRef)(() => {});
 			onScrollRef.current = () => {
@@ -2129,16 +2285,31 @@ window.__ModuleLoader__.load({
 				/* v8 ignore next -- ref-null guard: effect runs after the list node commits. */
 				if (local === null) return;
 				const el = scrollerOf(local);
-				const onScroll = () => {
+				let sampleTimer;
+				const sample = () => {
+					if (!scrollSamplePendingRef.current) return;
+					scrollSamplePendingRef.current = false;
+					if (sampleTimer !== void 0) window.clearTimeout(sampleTimer);
+					sampleTimer = void 0;
 					onScrollRef.current();
+					setScrollSampleTick((tick) => tick + 1);
+				};
+				const onScroll = () => {
+					scrollSamplePendingRef.current = true;
+					sampleTimer ??= window.setTimeout(sample, SCROLL_SAMPLE_INTERVAL_MS);
 				};
 				el.addEventListener("scroll", onScroll, { passive: true });
+				el.addEventListener("scrollend", sample, { passive: true });
 				return () => {
 					el.removeEventListener("scroll", onScroll);
+					el.removeEventListener("scrollend", sample);
+					if (sampleTimer !== void 0) window.clearTimeout(sampleTimer);
+					scrollSamplePendingRef.current = false;
 				};
 			}, []);
 			const followRef = (0, react.useRef)(null);
 			followRef.current = () => {
+				if (scrollSamplePendingRef.current) return;
 				const local = listRef.current;
 				if (local !== null && atBottomRef.current) {
 					const el = scrollerOf(local);
@@ -2165,6 +2336,39 @@ window.__ModuleLoader__.load({
 			(0, react.useEffect)(() => {
 				if (!loadingOlder) anchorRef.current = null;
 			}, [loadingOlder]);
+			(0, react.useEffect)(() => {
+				const pending = pendingJumpRef.current;
+				const local = listRef.current;
+				if (pending === null || local === null) return;
+				const el = scrollerOf(local);
+				if (realizePendingJump(local, el, true)) return;
+				if ((firstSeq === null || firstSeq > pending.seq) && hasMore) {
+					if (loadingOlder) return;
+					if (jumpRepageHeadRef.current !== firstSeq) {
+						jumpRepageHeadRef.current = firstSeq;
+						const held = pagingAnchor(local, el);
+						if (held !== null && held.dataset.chatAnchorKey !== void 0) anchorRef.current = {
+							key: held.dataset.chatAnchorKey,
+							top: flowTop(held, el)
+						};
+						loadThrough(pending.seq).finally(() => {
+							setJumpSettleTick((tick) => tick + 1);
+						});
+						return;
+					}
+				}
+				for (const row of local.querySelectorAll("[data-chat-turn]:not([hidden])")) {
+					const turn = Number(row.dataset.chatTurn);
+					if (!Number.isSafeInteger(turn) || turn < pending.turn) continue;
+					landOnRowRef.current(local, el, row, turn);
+					break;
+				}
+				pendingJumpRef.current = null;
+				setBusyJumpTurn(null);
+			}, [jumpSettleTick]);
+			(0, react.useEffect)(() => {
+				if (!loadingOlder && pendingJumpRef.current !== null) setJumpSettleTick((tick) => tick + 1);
+			}, [loadingOlder]);
 			const loadOlderAnchored = () => {
 				const local = listRef.current;
 				/* v8 ignore next -- ref-null guard: the paging button renders inside the list tree. */
@@ -2181,24 +2385,38 @@ window.__ModuleLoader__.load({
 			const navigateToTurn = (0, react.useCallback)((item) => {
 				const local = listRef.current;
 				if (local === null) return;
-				const row = anchorElement(local, item.anchorKey);
-				if (row === null) return;
 				const el = scrollerOf(local);
-				el.scrollTop += flowTop(row, el) - 24;
-				observedTopRef.current = el.scrollTop;
+				if (item.anchor.kind === "unloaded") {
+					atBottomRef.current = false;
+					setAtBottom(false);
+					const held = pagingAnchor(local, el);
+					if (held !== null && held.dataset.chatAnchorKey !== void 0) anchorRef.current = {
+						key: held.dataset.chatAnchorKey,
+						top: flowTop(held, el)
+					};
+					pendingJumpRef.current = {
+						turn: item.turn,
+						seq: item.anchor.seq
+					};
+					jumpRepageHeadRef.current = null;
+					jumpLandedRef.current = false;
+					setBusyJumpTurn(item.turn);
+					loadThrough(item.anchor.seq).finally(() => {
+						setJumpSettleTick((tick) => tick + 1);
+					});
+					return;
+				}
+				const row = anchorElement(local, item.anchor.key);
+				if (row === null) return;
+				pendingJumpRef.current = null;
+				setBusyJumpTurn((current) => current === null ? current : null);
+				landOnRowRef.current(local, el, row, item.turn);
 				const landed = loadingOlder ? pagingAnchor(local, el) : null;
 				anchorRef.current = landed === null || landed.dataset.chatAnchorKey === void 0 ? null : {
 					key: landed.dataset.chatAnchorKey,
 					top: flowTop(landed, el)
 				};
-				const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight <= 25;
-				atBottomRef.current = isAtBottom;
-				setAtBottom(isAtBottom);
-				setActiveTurn(item.turn);
-				const position = isAtBottom ? null : scrollPosition(local, el);
-				if (isAtBottom) chatScroll.save(null);
-				else if (position !== null) chatScroll.save(position);
-			}, [loadingOlder, chatScroll]);
+			}, [loadingOlder, loadThrough]);
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: ChatView_module_css_default.root,
 				children: [(0, react_jsx_runtime.jsxs)("div", {
@@ -2206,8 +2424,9 @@ window.__ModuleLoader__.load({
 					className: ChatView_module_css_default.scroll,
 					children: [
 						(0, react_jsx_runtime.jsx)(TurnNavigator, {
-							items: turnNavigationItems,
+							items: railItems,
 							activeTurn,
+							busyTurn: busyJumpTurn,
 							onNavigate: navigateToTurn,
 							t
 						}),
@@ -2236,11 +2455,12 @@ window.__ModuleLoader__.load({
 										children: loadingOlder ? t("loading") : t("chat.loadOlder")
 									})
 								}),
-								order.map((nodeKey) => (0, react_jsx_runtime.jsx)(ChatNodeSeat, {
-									nodeKey,
+								(0, react_jsx_runtime.jsx)(ChatNodeList, {
+									order,
+									useChatNode,
+									useChatNodeProcess,
 									historyIncomplete: hasMore,
 									compactTranscript,
-									useChat,
 									useStore,
 									actions,
 									selectedCallId,
@@ -2252,7 +2472,7 @@ window.__ModuleLoader__.load({
 									fileMentions,
 									renderSlot,
 									t
-								}, nodeKey)),
+								}),
 								running && (0, react_jsx_runtime.jsx)(TurnStatus, {
 									startTime: runningTurnStart,
 									t
@@ -2351,6 +2571,7 @@ window.__ModuleLoader__.load({
 			"chat.deepDiving": "深度求索中...",
 			"chat.turnNavigation.label": "轮次导航",
 			"chat.turnNavigation.jump": "跳转到第 {turn} 轮",
+			"chat.turnNavigation.jumpLoad": "加载并跳转到第 {turn} 轮",
 			"chat.turnNavigation.turn": "第 {turn} 轮",
 			"settings.transcript.title": "对话显示",
 			"settings.transcript.description": "控制已完成轮次的过程内容",
@@ -2408,18 +2629,21 @@ window.__ModuleLoader__.load({
 			"message.maxTokens": "已达到输出 token 上限",
 			"message.maxTokens.hint": "回答被截断，已有输出保留在对话中。发送“继续”可让模型接着输出。",
 			"message.ranFor": "用时 {duration}",
-			"message.ttft": "首 token {seconds}秒",
 			"message.tokensPerSecond": "{tps} tok/s",
 			"message.turnUsage.title": "本轮用量",
-			"message.turnUsage.summaryWithCache": "{total} · 缓存命中率 {percent}%",
+			"message.turnUsage.consumed": "用量 {total}",
 			"message.turnUsage.model": "提供方 / 模型",
+			"message.turnUsage.cacheHit": "缓存命中",
 			"message.turnUsage.input": "未缓存输入",
 			"message.turnUsage.cacheRead": "缓存读取",
 			"message.turnUsage.cacheWrite": "缓存写入",
 			"message.turnUsage.output": "输出",
 			"message.turnUsage.reasoning": "（其中推理 {tokens}）",
-			"message.turnUsage.total": "总计",
 			"message.turnUsage.count": "{count} tok",
+			"message.turnTime.title": "本轮用时和速度",
+			"message.turnTime.duration": "本轮总用时",
+			"message.turnTime.speed": "输出速度（TPS）",
+			"message.turnTime.ttft": "首 token 用时（TTFT）",
 			"duration.seconds": "{seconds}秒",
 			"duration.minutes": "{minutes}分{seconds}秒",
 			"command.running": "执行中…",
@@ -2460,6 +2684,7 @@ window.__ModuleLoader__.load({
 			"chat.deepDiving": "Deep diving...",
 			"chat.turnNavigation.label": "Turn navigation",
 			"chat.turnNavigation.jump": "Jump to turn {turn}",
+			"chat.turnNavigation.jumpLoad": "Load and jump to turn {turn}",
 			"chat.turnNavigation.turn": "Turn {turn}",
 			"settings.transcript.title": "Conversation display",
 			"settings.transcript.description": "Controls process content in completed turns",
@@ -2517,18 +2742,21 @@ window.__ModuleLoader__.load({
 			"message.maxTokens": "Output token limit reached",
 			"message.maxTokens.hint": "The reply was cut off; earlier output is preserved in the conversation. Send \"continue\" to let the model resume.",
 			"message.ranFor": "Ran for {duration}",
-			"message.ttft": "TTFT {seconds}s",
 			"message.tokensPerSecond": "{tps} tok/s",
 			"message.turnUsage.title": "Turn usage",
-			"message.turnUsage.summaryWithCache": "{total} · Cache hit {percent}%",
+			"message.turnUsage.consumed": "Usage {total}",
 			"message.turnUsage.model": "Provider / model",
+			"message.turnUsage.cacheHit": "Cache hit",
 			"message.turnUsage.input": "Uncached input",
 			"message.turnUsage.cacheRead": "Cached input",
 			"message.turnUsage.cacheWrite": "Cache write",
 			"message.turnUsage.output": "Output",
 			"message.turnUsage.reasoning": " ({tokens} reasoning)",
-			"message.turnUsage.total": "Total",
 			"message.turnUsage.count": "{count} tok",
+			"message.turnTime.title": "Turn time and speed",
+			"message.turnTime.duration": "Total run time",
+			"message.turnTime.speed": "Tokens per second (TPS)",
+			"message.turnTime.ttft": "Time to first token (TTFT)",
 			"duration.seconds": "{seconds}s",
 			"duration.minutes": "{minutes}m {seconds}s",
 			"command.running": "Running…",
@@ -2542,42 +2770,8 @@ window.__ModuleLoader__.load({
 			"clock.ymd": "{y}-{m}-{d}"
 		};
 		//#endregion
-		//#region lib/types/client/chat/use-throttled-visual-update.js
-		/** Frame-throttled scheduling for non-essential visual alignment. */
-		const DEFAULT_INTERVAL_FRAMES = 3;
-		/**
-		* Return a stable scheduler that coalesces visual updates over a frame interval.
-		* @param update - DOM alignment to run after the throttle interval.
-		* @param intervalFrames - frames to wait before applying the latest alignment.
-		* @returns a stable function that schedules the latest update.
-		*/
-		function useThrottledVisualUpdate(update, intervalFrames = DEFAULT_INTERVAL_FRAMES) {
-			const updateRef = (0, react.useRef)(update);
-			updateRef.current = update;
-			const pendingFrameRef = (0, react.useRef)(null);
-			(0, react.useLayoutEffect)(() => () => {
-				if (pendingFrameRef.current === null) return;
-				cancelAnimationFrame(pendingFrameRef.current);
-				pendingFrameRef.current = null;
-			}, []);
-			return (0, react.useCallback)(() => {
-				if (pendingFrameRef.current !== null) return;
-				let remainingFrames = intervalFrames;
-				const advance = () => {
-					remainingFrames -= 1;
-					if (remainingFrames > 0) {
-						pendingFrameRef.current = requestAnimationFrame(advance);
-						return;
-					}
-					pendingFrameRef.current = null;
-					updateRef.current();
-				};
-				pendingFrameRef.current = requestAnimationFrame(advance);
-			}, [intervalFrames]);
-		}
-		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\accessibility.module.css.mjs
-		const css$9 = ".xQRhzG_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\accessibility.module.css.mjs
+		const css$9 = ".ICbRva_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
 		const tagId$9 = "@deepseek-ai/dsh-client-ui-chat/accessibility.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$9) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2586,10 +2780,10 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$9;
 			document.head.appendChild(tag);
 		}
-		var accessibility_module_css_default = { "visuallyHidden": "xQRhzG_visuallyHidden" };
+		var accessibility_module_css_default = { "visuallyHidden": "ICbRva_visuallyHidden" };
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\ReasoningRow.module.css.mjs
-		const css$8 = ".RYW6jq_root{flex-direction:column;display:flex}.RYW6jq_row{position:relative;overflow:hidden}.RYW6jq_root[data-state=running] .RYW6jq_row:after{content:\"\";inset-block:0;background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite RYW6jq_dsh-reasoning-row-sweep;position:absolute;left:0}@keyframes RYW6jq_dsh-reasoning-row-sweep{0%{left:-300px}90%,to{left:100%}}.RYW6jq_leading{flex-shrink:0}.RYW6jq_chevron{color:var(--dsw-alias-label-secondary)}.RYW6jq_title{font-weight:400}.RYW6jq_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.RYW6jq_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.RYW6jq_summary[data-follow-end]{text-overflow:clip}.RYW6jq_thinkBody{padding:4px 0 4px calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));white-space:pre-wrap;word-break:break-word}@media (prefers-reduced-motion:reduce){.RYW6jq_root[data-state=running] .RYW6jq_row:after{animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\ReasoningRow.module.css.mjs
+		const css$8 = "._4BwLxq_root{flex-direction:column;display:flex}._4BwLxq_root:not([data-expanded]){contain:size layout;height:calc(24px + var(--dsh-content-font-delta,0px))}._4BwLxq_row{position:relative;overflow:hidden}._4BwLxq_root[data-state=running] ._4BwLxq_row:after{content:\"\";inset-block:0;background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite _4BwLxq_dsh-reasoning-row-sweep;position:absolute;left:0}@keyframes _4BwLxq_dsh-reasoning-row-sweep{0%{left:-300px}90%,to{left:100%}}._4BwLxq_leading{flex-shrink:0}._4BwLxq_chevron{color:var(--dsw-alias-label-secondary)}._4BwLxq_title{font-weight:400}._4BwLxq_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}._4BwLxq_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));white-space:nowrap;flex:auto;overflow:hidden}._4BwLxq_summaryText{text-overflow:ellipsis;display:block;overflow:hidden}._4BwLxq_summary[data-follow-end]{justify-content:flex-end;display:flex}._4BwLxq_summary[data-follow-end] ._4BwLxq_summaryText{text-align:start;text-overflow:clip;flex:none;width:max-content;min-width:100%;overflow:visible}._4BwLxq_thinkBody{padding:4px 0 4px calc(22px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));white-space:pre-wrap;word-break:break-word}@media (prefers-reduced-motion:reduce){._4BwLxq_root[data-state=running] ._4BwLxq_row:after{animation:none}}";
 		const tagId$8 = "@deepseek-ai/dsh-client-ui-chat/ReasoningRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$8) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2599,15 +2793,16 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ReasoningRow_module_css_default = {
-			"chevron": "RYW6jq_chevron",
-			"dsh-reasoning-row-sweep": "RYW6jq_dsh-reasoning-row-sweep",
-			"leading": "RYW6jq_leading",
-			"root": "RYW6jq_root",
-			"row": "RYW6jq_row",
-			"separator": "RYW6jq_separator",
-			"summary": "RYW6jq_summary",
-			"thinkBody": "RYW6jq_thinkBody",
-			"title": "RYW6jq_title"
+			"chevron": "_4BwLxq_chevron",
+			"dsh-reasoning-row-sweep": "_4BwLxq_dsh-reasoning-row-sweep",
+			"leading": "_4BwLxq_leading",
+			"root": "_4BwLxq_root",
+			"row": "_4BwLxq_row",
+			"separator": "_4BwLxq_separator",
+			"summary": "_4BwLxq_summary",
+			"summaryText": "_4BwLxq_summaryText",
+			"thinkBody": "_4BwLxq_thinkBody",
+			"title": "_4BwLxq_title"
 		};
 		//#endregion
 		//#region lib/types/client/chat/ReasoningRow.js
@@ -2630,24 +2825,12 @@ window.__ModuleLoader__.load({
 		*/
 		function ReasoningRow({ text, running, t }) {
 			const [expanded, setExpanded] = (0, react.useState)(false);
-			const summaryRef = (0, react.useRef)(null);
 			const summary = running ? latestLine(text) : firstLine(text);
-			const scheduleSummaryScroll = useThrottledVisualUpdate(() => {
-				const element = summaryRef.current;
-				if (element === null) return;
-				element.scrollLeft = running ? element.scrollWidth - element.clientWidth : 0;
-			});
-			(0, react.useEffect)(() => {
-				scheduleSummaryScroll();
-			}, [
-				running,
-				scheduleSummaryScroll,
-				summary
-			]);
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: ReasoningRow_module_css_default.root,
 				"data-variant": "think",
 				"data-state": running ? "running" : "ok",
+				"data-expanded": expanded || void 0,
 				children: [running && (0, react_jsx_runtime.jsx)("span", {
 					className: accessibility_module_css_default.visuallyHidden,
 					children: t("row.running")
@@ -2668,10 +2851,12 @@ window.__ModuleLoader__.load({
 						className: ReasoningRow_module_css_default.separator,
 						"aria-hidden": true
 					}), (0, react_jsx_runtime.jsx)("span", {
-						ref: summaryRef,
 						className: ReasoningRow_module_css_default.summary,
 						"data-follow-end": running || void 0,
-						children: summary
+						children: (0, react_jsx_runtime.jsx)("span", {
+							className: ReasoningRow_module_css_default.summaryText,
+							children: summary
+						})
 					})] }),
 					children: (0, react_jsx_runtime.jsx)("div", {
 						className: ReasoningRow_module_css_default.thinkBody,
@@ -2681,8 +2866,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\AssistantMarkdown.module.css.mjs
-		const css$7 = ".AvREPa_root{font-size:var(--dsh-content-font-size,14px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary);flex-direction:column;display:flex}.AvREPa_body{flex-direction:column;gap:16px;display:flex}.AvREPa_body .md-table-wide{--dsh-table-spare:max(0px, calc((100cqw - var(--dsh-chat-content-width)) / 2));--dsh-table-lead:calc(var(--dsh-table-spare) + min(var(--dsh-chat-content-width), 100cqw) - 100%);box-sizing:border-box;width:calc(100% + var(--dsh-table-lead) + var(--dsh-table-spare));max-width:none;margin-left:calc(-1 * var(--dsh-table-lead));padding-left:var(--dsh-table-lead)}.AvREPa_body>[data-turn-process-inline][hidden]{margin-bottom:-16px}.AvREPa_stopped{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-tertiary);border-radius:6px;align-self:flex-start;padding:0 6px;font-size:11px;line-height:18px}.AvREPa_actions{margin-top:16px;margin-left:-6px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\AssistantMarkdown.module.css.mjs
+		const css$7 = ".XrFQeq_root{font-size:var(--dsh-content-font-size,14px);line-height:calc(24px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-primary);flex-direction:column;display:flex}.XrFQeq_body{flex-direction:column;gap:16px;display:flex}.XrFQeq_body .md-table-wide{--dsh-table-spare:max(0px, calc((100cqw - var(--dsh-chat-content-width)) / 2));--dsh-table-lead:calc(var(--dsh-table-spare) + min(var(--dsh-chat-content-width), 100cqw) - 100%);box-sizing:border-box;width:calc(100% + var(--dsh-table-lead) + var(--dsh-table-spare));max-width:none;margin-left:calc(-1 * var(--dsh-table-lead));padding-left:var(--dsh-table-lead)}.XrFQeq_body>[data-turn-process-inline][hidden]{margin-bottom:-16px}.XrFQeq_stopped{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-tertiary);border-radius:6px;align-self:flex-start;padding:0 6px;font-size:11px;line-height:18px}.XrFQeq_actions{margin-top:16px;margin-left:-6px}";
 		const tagId$7 = "@deepseek-ai/dsh-client-ui-chat/AssistantMarkdown.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$7) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2692,10 +2877,10 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var AssistantMarkdown_module_css_default = {
-			"actions": "AvREPa_actions",
-			"body": "AvREPa_body",
-			"root": "AvREPa_root",
-			"stopped": "AvREPa_stopped"
+			"actions": "XrFQeq_actions",
+			"body": "XrFQeq_body",
+			"root": "XrFQeq_root",
+			"stopped": "XrFQeq_stopped"
 		};
 		//#endregion
 		//#region lib/types/client/chat/AssistantMarkdown.js
@@ -2809,8 +2994,8 @@ window.__ModuleLoader__.load({
 			});
 		});
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\GenericCommandCard.module.css.mjs
-		const css$6 = ".SeKMWW_root{flex-direction:column;display:flex}.SeKMWW_row{position:relative;overflow:hidden}.SeKMWW_root[data-state=running] .SeKMWW_row:after{content:\"\";inset-block:0;background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite SeKMWW_dsh-command-row-sweep;position:absolute;left:0}@keyframes SeKMWW_dsh-command-row-sweep{0%{left:-300px}90%,to{left:100%}}.SeKMWW_leading{flex-shrink:0}.SeKMWW_chevron{color:var(--dsw-alias-label-secondary)}.SeKMWW_title{font-weight:400}.SeKMWW_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.SeKMWW_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.SeKMWW_summary[data-error],.SeKMWW_body[data-error]{color:var(--dsw-alias-state-error-primary)}.SeKMWW_body{border:1px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-markdown-code-block);max-height:260px;color:var(--dsw-alias-label-primary);font:var(--dsw-font-markdown-code-block-small);white-space:pre-wrap;border-radius:12px;margin:4px 0 4px 4px;padding:12px 16px;overflow:auto}@media (prefers-reduced-motion:reduce){.SeKMWW_root[data-state=running] .SeKMWW_row:after{animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\GenericCommandCard.module.css.mjs
+		const css$6 = ".KgLt0G_root{flex-direction:column;display:flex}.KgLt0G_row{position:relative;overflow:hidden}.KgLt0G_root[data-state=running] .KgLt0G_row:after{content:\"\";inset-block:0;background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite KgLt0G_dsh-command-row-sweep;position:absolute;left:0}@keyframes KgLt0G_dsh-command-row-sweep{0%{left:-300px}90%,to{left:100%}}.KgLt0G_leading{flex-shrink:0}.KgLt0G_chevron{color:var(--dsw-alias-label-secondary)}.KgLt0G_title{font-weight:400}.KgLt0G_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.KgLt0G_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;flex:auto;overflow:hidden}.KgLt0G_summary[data-error],.KgLt0G_body[data-error]{color:var(--dsw-alias-state-error-primary)}.KgLt0G_body{border:.5px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-markdown-code-block);max-height:260px;color:var(--dsw-alias-label-primary);font:var(--dsw-font-markdown-code-block-small);white-space:pre-wrap;border-radius:12px;margin:4px 0 4px 4px;padding:12px 16px;overflow:auto}@media (prefers-reduced-motion:reduce){.KgLt0G_root[data-state=running] .KgLt0G_row:after{animation:none}}";
 		const tagId$6 = "@deepseek-ai/dsh-client-ui-chat/GenericCommandCard.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$6) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2820,15 +3005,15 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var GenericCommandCard_module_css_default = {
-			"body": "SeKMWW_body",
-			"chevron": "SeKMWW_chevron",
-			"dsh-command-row-sweep": "SeKMWW_dsh-command-row-sweep",
-			"leading": "SeKMWW_leading",
-			"root": "SeKMWW_root",
-			"row": "SeKMWW_row",
-			"separator": "SeKMWW_separator",
-			"summary": "SeKMWW_summary",
-			"title": "SeKMWW_title"
+			"body": "KgLt0G_body",
+			"chevron": "KgLt0G_chevron",
+			"dsh-command-row-sweep": "KgLt0G_dsh-command-row-sweep",
+			"leading": "KgLt0G_leading",
+			"root": "KgLt0G_root",
+			"row": "KgLt0G_row",
+			"separator": "KgLt0G_separator",
+			"summary": "KgLt0G_summary",
+			"title": "KgLt0G_title"
 		};
 		//#endregion
 		//#region lib/types/client/chat/GenericCommandCard.js
@@ -2985,8 +3170,8 @@ window.__ModuleLoader__.load({
 			});
 		});
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\TurnProcessNodeView.module.css.mjs
-		const css$5 = ".j-7tna_root{box-sizing:border-box;border:none;border-bottom:1px solid var(--dsw-alias-border-l2);width:100%;min-width:0;height:33px;color:var(--dsw-alias-label-secondary);cursor:pointer;text-align:left;background:0 0;align-items:center;padding:0 0 8px;display:flex}.j-7tna_root:not([data-open]){margin-bottom:8px}.j-7tna_chevron{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;margin-left:6px;transition:transform .1s;transform:rotate(-90deg)}.j-7tna_root[data-open] .j-7tna_chevron{transform:rotate(0)}.j-7tna_label{text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:14px;line-height:24px;overflow:hidden}@media (prefers-reduced-motion:reduce){.j-7tna_chevron{transition:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\TurnProcessNodeView.module.css.mjs
+		const css$5 = "._77gHmq_root{box-sizing:border-box;border:none;border-bottom:.5px solid var(--dsw-alias-border-l2);width:100%;min-width:0;height:33px;color:var(--dsw-alias-label-secondary);cursor:pointer;text-align:left;background:0 0;align-items:center;padding:0 0 8px;display:flex}._77gHmq_root:not([data-open]){margin-bottom:8px}._77gHmq_chevron{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;margin-left:6px;transition:transform .1s;transform:rotate(-90deg)}._77gHmq_root[data-open] ._77gHmq_chevron{transform:rotate(0)}._77gHmq_label{text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:14px;line-height:24px;overflow:hidden}@media (prefers-reduced-motion:reduce){._77gHmq_chevron{transition:none}}";
 		const tagId$5 = "@deepseek-ai/dsh-client-ui-chat/TurnProcessNodeView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$5) + "]") === null) {
 			const tag = document.createElement("style");
@@ -2996,9 +3181,9 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var TurnProcessNodeView_module_css_default = {
-			"chevron": "j-7tna_chevron",
-			"label": "j-7tna_label",
-			"root": "j-7tna_root"
+			"chevron": "_77gHmq_chevron",
+			"label": "_77gHmq_label",
+			"root": "_77gHmq_root"
 		};
 		//#endregion
 		//#region lib/types/client/chat/TurnProcessNodeView.js
@@ -3113,9 +3298,9 @@ window.__ModuleLoader__.load({
 			return `99.${"9".repeat(distinguishingPlaces - 1)}${10 - roundedLoss}`;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\TurnUsageDisclosure.module.css.mjs
-		const css$4 = ".u7LoEq_root{min-width:0}.u7LoEq_root[data-open]{padding-bottom:4px}.u7LoEq_root [data-disclosure-row]:focus-visible{outline:2px solid var(--dsw-alias-label-tertiary);outline-offset:-2px;border-radius:6px}.u7LoEq_chevron{color:var(--dsw-alias-label-secondary)}.u7LoEq_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.u7LoEq_summary{min-width:0;color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);font-variant-numeric:tabular-nums;line-height:calc(24px + var(--dsh-content-font-delta,0px));text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.u7LoEq_details{box-sizing:border-box;width:calc(100% - 22px - var(--dsh-content-font-delta,0px));margin:4px 0 0 calc(22px + var(--dsh-content-font-delta,0px));background:var(--dsw-alias-markdown-code-block);color:var(--dsw-alias-label-tertiary);border-radius:8px;grid-template-columns:minmax(76px,auto) minmax(0,1fr);gap:6px 16px;padding:10px 16px 12px 12px;font-size:12px;line-height:18px;display:grid}.u7LoEq_details dt,.u7LoEq_details dd{min-width:0;margin:0}.u7LoEq_details dd{color:var(--dsw-alias-label-secondary);font-variant-numeric:tabular-nums;text-align:right}.u7LoEq_details .u7LoEq_route{overflow-wrap:anywhere}.u7LoEq_reasoning{color:var(--dsw-alias-label-tertiary);white-space:nowrap}.u7LoEq_totalLabel,.u7LoEq_details .u7LoEq_totalValue{border-top:1px solid var(--dsw-alias-separator-primary);color:var(--dsw-alias-label-primary);padding-top:6px}@media (width<=480px){.u7LoEq_details{gap-inline:10px;grid-template-columns:minmax(72px,auto) minmax(0,1fr)}}";
-		const tagId$4 = "@deepseek-ai/dsh-client-ui-chat/TurnUsageDisclosure.module.css";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\TurnUsagePanel.module.css.mjs
+		const css$4 = ".MfG7Wa_root{min-width:0;display:inline-flex}.MfG7Wa_root+.MfG7Wa_root{margin-left:-6px}.MfG7Wa_trigger{min-width:0;height:calc(28px + var(--dsh-content-font-delta,0px));color:var(--dsw-alias-label-tertiary);font-size:var(--dsh-content-font-size-secondary,13px);font-variant-numeric:tabular-nums;line-height:calc(24px + var(--dsh-content-font-delta,0px));white-space:nowrap;cursor:pointer;background:0 0;border:none;border-radius:28px;align-items:center;gap:4px;padding:6px 8px;display:inline-flex}.MfG7Wa_label{text-overflow:ellipsis;min-width:0;overflow:hidden}.MfG7Wa_trigger svg{width:calc(15px + var(--dsh-content-font-delta,0px));height:calc(15px + var(--dsh-content-font-delta,0px));flex:none}.MfG7Wa_trigger:hover,.MfG7Wa_trigger[aria-expanded=true]{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}@media (width<=480px){.MfG7Wa_trigger{width:calc(28px + var(--dsh-content-font-delta,0px));justify-content:center;padding:6px}.MfG7Wa_trigger .MfG7Wa_label{display:none}.MfG7Wa_root+.MfG7Wa_root{margin-left:0}}.MfG7Wa_panel{z-index:1100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:max-content;min-width:min(300px,100vw - 24px);max-width:min(440px,100vw - 24px);box-shadow:var(--dsw-elevation-prominent);color:var(--dsw-alias-label-secondary);cursor:default;border:0;border-radius:12px;padding:16px;font-size:12px;line-height:18px;position:fixed}.MfG7Wa_title{color:var(--dsw-alias-label-primary);justify-content:space-between;gap:16px;margin-bottom:8px;font-weight:500;display:flex}.MfG7Wa_titleRule{border-top:.5px solid var(--dsw-alias-border-l2);margin-bottom:10px}.MfG7Wa_titleValue{font-variant-numeric:tabular-nums}.MfG7Wa_titleLabel{align-items:center;gap:6px;min-width:0;display:inline-flex}.MfG7Wa_titleLabel svg{flex:none;width:14px;height:14px}.MfG7Wa_details{color:var(--dsw-alias-label-tertiary);grid-template-columns:minmax(76px,auto) minmax(0,1fr);gap:6px 16px;margin:0;display:grid}.MfG7Wa_details dt,.MfG7Wa_details dd{min-width:0;margin:0}.MfG7Wa_details dd{color:var(--dsw-alias-label-secondary);font-variant-numeric:tabular-nums;text-align:right}.MfG7Wa_details .MfG7Wa_route{overflow-wrap:anywhere}.MfG7Wa_reasoning{color:var(--dsw-alias-label-tertiary);white-space:nowrap}";
+		const tagId$4 = "@deepseek-ai/dsh-client-ui-chat/TurnUsagePanel.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$4) + "]") === null) {
 			const tag = document.createElement("style");
 			tag.dataset.plugin = "@deepseek-ai/dsh-client-ui-chat";
@@ -3123,81 +3308,194 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$4;
 			document.head.appendChild(tag);
 		}
-		var TurnUsageDisclosure_module_css_default = {
-			"chevron": "u7LoEq_chevron",
-			"details": "u7LoEq_details",
-			"reasoning": "u7LoEq_reasoning",
-			"root": "u7LoEq_root",
-			"route": "u7LoEq_route",
-			"separator": "u7LoEq_separator",
-			"summary": "u7LoEq_summary",
-			"totalLabel": "u7LoEq_totalLabel",
-			"totalValue": "u7LoEq_totalValue"
+		var TurnUsagePanel_module_css_default = {
+			"details": "MfG7Wa_details",
+			"label": "MfG7Wa_label",
+			"panel": "MfG7Wa_panel",
+			"reasoning": "MfG7Wa_reasoning",
+			"root": "MfG7Wa_root",
+			"route": "MfG7Wa_route",
+			"title": "MfG7Wa_title",
+			"titleLabel": "MfG7Wa_titleLabel",
+			"titleRule": "MfG7Wa_titleRule",
+			"titleValue": "MfG7Wa_titleValue",
+			"trigger": "MfG7Wa_trigger"
 		};
 		//#endregion
-		//#region lib/types/client/chat/TurnUsageDisclosure.js
+		//#region lib/types/client/chat/TurnUsagePanel.js
 		function formatCompactCount(value, t) {
 			return t("message.turnUsage.count", { count: formatTokens(value, t) });
 		}
 		function formatExactCount(value, t) {
 			return t("message.turnUsage.count", { count: formatExactTokens(value, t) });
 		}
-		/** Compact per-Turn usage summary with an opt-in bucket breakdown. */
-		function TurnUsageDisclosure({ usage, t }) {
+		/** Viewport margin the placement clamp keeps (the Menu portal margin). */
+		const PANEL_MARGIN = 12;
+		/** Distance between the trigger's top edge and the panel's bottom. */
+		const PANEL_GAP = 8;
+		/**
+		* Unplaced portal panel: hidden but laid out so the clamp measures real
+		* dimensions (the `useAnchoredPosition` measure pass).
+		*/
+		const MEASURE_STYLE = {
+			visibility: "hidden",
+			left: 0,
+			top: 0
+		};
+		/** One trigger-anchored dialog seat: open state, viewport-clamped placement, outside-close. */
+		function useStatDialog() {
 			const [open, setOpen] = (0, react.useState)(false);
+			const rootRef = (0, react.useRef)(null);
+			const panelRef = (0, react.useRef)(null);
+			const pos = (0, _deepseek_ai_dsh_client_ui_primitives.useAnchoredPosition)({
+				open,
+				anchorRef: rootRef,
+				panelRef,
+				side: "top",
+				gap: PANEL_GAP,
+				margin: PANEL_MARGIN
+			});
+			(0, _deepseek_ai_dsh_client_ui_primitives.useDismissOnOutsidePointer)(rootRef, open, setOpen, panelRef);
+			(0, react.useEffect)(() => {
+				if (!open) return;
+				const onKeyDown = (e) => {
+					if (e.key === "Escape") setOpen(false);
+				};
+				document.addEventListener("keydown", onKeyDown);
+				return () => {
+					document.removeEventListener("keydown", onKeyDown);
+				};
+			}, [open]);
+			return {
+				open,
+				setOpen,
+				rootRef,
+				panelRef,
+				pos
+			};
+		}
+		/**
+		* Turn-usage IconActions pill with a click-open Turn-usage details dialog.
+		* @param props - Turn usage buckets and locale seat.
+		* @returns The trigger and, while open, its portaled dialog anchored above the trigger.
+		*/
+		function TurnUsagePanel({ usage, t }) {
+			const { open, setOpen, rootRef, panelRef, pos } = useStatDialog();
 			const cacheHit = usage.cacheReadTokens === void 0 ? null : formatCacheHitPercent(usage.cacheReadTokens, usage.totalTokens - usage.outputTokens, 1);
 			const total = formatCompactCount(usage.totalTokens, t);
-			const summary = cacheHit === null ? total : t("message.turnUsage.summaryWithCache", {
-				total,
-				percent: cacheHit
-			});
 			const routes = usage.routes?.map((route) => `${route.provider}/${route.model}`).join(", ") ?? "";
-			return (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.DisclosureRow, {
-				icon: (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconDataOutline16, {}),
-				title: t("message.turnUsage.title"),
-				open,
-				expandable: true,
-				onToggle: () => {
-					setOpen((value) => !value);
-				},
-				expandOnRowClick: true,
-				keepContentWhenOpen: true,
-				collapsedContent: (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("span", {
-					className: TurnUsageDisclosure_module_css_default.separator,
-					"aria-hidden": true
-				}), (0, react_jsx_runtime.jsx)("span", {
-					className: TurnUsageDisclosure_module_css_default.summary,
-					children: summary
-				})] }),
-				className: TurnUsageDisclosure_module_css_default.root,
-				chevronClassName: TurnUsageDisclosure_module_css_default.chevron,
-				children: (0, react_jsx_runtime.jsxs)("dl", {
-					className: TurnUsageDisclosure_module_css_default.details,
-					"data-turn-usage-details": true,
+			return (0, react_jsx_runtime.jsxs)("span", {
+				ref: rootRef,
+				className: TurnUsagePanel_module_css_default.root,
+				children: [(0, react_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: TurnUsagePanel_module_css_default.trigger,
+					"aria-haspopup": "dialog",
+					"aria-expanded": open,
+					onClick: () => {
+						setOpen(!open);
+					},
+					children: [(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconDatabaseOutline16, {}), (0, react_jsx_runtime.jsx)("span", {
+						className: TurnUsagePanel_module_css_default.label,
+						children: t("message.turnUsage.consumed", { total })
+					})]
+				}), open && (0, react_dom.createPortal)((0, react_jsx_runtime.jsxs)("div", {
+					ref: panelRef,
+					className: TurnUsagePanel_module_css_default.panel,
+					role: "dialog",
+					"aria-label": t("message.turnUsage.title"),
+					style: pos ?? MEASURE_STYLE,
 					children: [
-						routes !== "" && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.model") }), (0, react_jsx_runtime.jsx)("dd", {
-							className: TurnUsageDisclosure_module_css_default.route,
-							children: routes
-						})] }),
-						(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.input") }),
-						(0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.uncachedInputTokens, t) }),
-						usage.cacheReadTokens !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.cacheRead") }), (0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.cacheReadTokens, t) })] }),
-						usage.cacheWriteTokens !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.cacheWrite") }), (0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.cacheWriteTokens, t) })] }),
-						(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.output") }),
-						(0, react_jsx_runtime.jsxs)("dd", { children: [formatExactCount(usage.outputTokens, t), usage.reasoningTokens !== void 0 && (0, react_jsx_runtime.jsx)("span", {
-							className: TurnUsageDisclosure_module_css_default.reasoning,
-							children: t("message.turnUsage.reasoning", { tokens: formatExactCount(usage.reasoningTokens, t) })
-						})] }),
-						(0, react_jsx_runtime.jsx)("dt", {
-							className: TurnUsageDisclosure_module_css_default.totalLabel,
-							children: t("message.turnUsage.total")
+						(0, react_jsx_runtime.jsxs)("div", {
+							className: TurnUsagePanel_module_css_default.title,
+							children: [(0, react_jsx_runtime.jsxs)("span", {
+								className: TurnUsagePanel_module_css_default.titleLabel,
+								children: [(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconDatabaseOutline16, {}), t("message.turnUsage.title")]
+							}), (0, react_jsx_runtime.jsx)("span", {
+								className: TurnUsagePanel_module_css_default.titleValue,
+								children: formatExactCount(usage.totalTokens, t)
+							})]
 						}),
-						(0, react_jsx_runtime.jsx)("dd", {
-							className: TurnUsageDisclosure_module_css_default.totalValue,
-							children: formatExactCount(usage.totalTokens, t)
+						(0, react_jsx_runtime.jsx)("div", {
+							className: TurnUsagePanel_module_css_default.titleRule,
+							"aria-hidden": true
+						}),
+						(0, react_jsx_runtime.jsxs)("dl", {
+							className: TurnUsagePanel_module_css_default.details,
+							"data-turn-usage-details": true,
+							children: [
+								routes !== "" && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.model") }), (0, react_jsx_runtime.jsx)("dd", {
+									className: TurnUsagePanel_module_css_default.route,
+									children: routes
+								})] }),
+								cacheHit !== null && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.cacheHit") }), (0, react_jsx_runtime.jsx)("dd", { children: `${cacheHit}%` })] }),
+								(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.input") }),
+								(0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.uncachedInputTokens, t) }),
+								usage.cacheReadTokens !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.cacheRead") }), (0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.cacheReadTokens, t) })] }),
+								usage.cacheWriteTokens !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.cacheWrite") }), (0, react_jsx_runtime.jsx)("dd", { children: formatExactCount(usage.cacheWriteTokens, t) })] }),
+								(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnUsage.output") }),
+								(0, react_jsx_runtime.jsxs)("dd", { children: [formatExactCount(usage.outputTokens, t), usage.reasoningTokens !== void 0 && (0, react_jsx_runtime.jsx)("span", {
+									className: TurnUsagePanel_module_css_default.reasoning,
+									children: t("message.turnUsage.reasoning", { tokens: formatExactCount(usage.reasoningTokens, t) })
+								})] })
+							]
 						})
 					]
-				})
+				}), document.body)]
+			});
+		}
+		/**
+		* Turn-time IconActions pill with a click-open Turn-time details dialog.
+		* @param props - Turn timing facts and locale seat.
+		* @returns The clock-and-duration trigger and, while open, its portaled dialog anchored above the trigger.
+		*/
+		function TurnTimePanel({ runMs, tokensPerSecond, ttftMs, t }) {
+			const { open, setOpen, rootRef, panelRef, pos } = useStatDialog();
+			return (0, react_jsx_runtime.jsxs)("span", {
+				ref: rootRef,
+				className: TurnUsagePanel_module_css_default.root,
+				children: [(0, react_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: TurnUsagePanel_module_css_default.trigger,
+					"aria-haspopup": "dialog",
+					"aria-expanded": open,
+					onClick: () => {
+						setOpen(!open);
+					},
+					children: [(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconClockOutline16, {}), (0, react_jsx_runtime.jsx)("span", {
+						className: TurnUsagePanel_module_css_default.label,
+						children: t("message.ranFor", { duration: formatRunDuration(runMs, t) })
+					})]
+				}), open && (0, react_dom.createPortal)((0, react_jsx_runtime.jsxs)("div", {
+					ref: panelRef,
+					className: TurnUsagePanel_module_css_default.panel,
+					role: "dialog",
+					"aria-label": t("message.turnTime.title"),
+					style: pos ?? MEASURE_STYLE,
+					children: [
+						(0, react_jsx_runtime.jsx)("div", {
+							className: TurnUsagePanel_module_css_default.title,
+							children: (0, react_jsx_runtime.jsxs)("span", {
+								className: TurnUsagePanel_module_css_default.titleLabel,
+								children: [(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconClockOutline16, {}), t("message.turnTime.title")]
+							})
+						}),
+						(0, react_jsx_runtime.jsx)("div", {
+							className: TurnUsagePanel_module_css_default.titleRule,
+							"aria-hidden": true
+						}),
+						(0, react_jsx_runtime.jsxs)("dl", {
+							className: TurnUsagePanel_module_css_default.details,
+							"data-turn-time-details": true,
+							children: [
+								(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnTime.duration") }),
+								(0, react_jsx_runtime.jsx)("dd", { children: formatRunDuration(runMs, t) }),
+								tokensPerSecond !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnTime.speed") }), (0, react_jsx_runtime.jsx)("dd", { children: t("message.tokensPerSecond", { tps: formatTokensPerSecond(tokensPerSecond) }) })] }),
+								ttftMs !== void 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("dt", { children: t("message.turnTime.ttft") }), (0, react_jsx_runtime.jsx)("dd", { children: t("duration.seconds", { seconds: formatLatencySeconds(ttftMs) }) })] })
+							]
+						})
+					]
+				}), document.body)]
 			});
 		}
 		//#endregion
@@ -3211,8 +3509,8 @@ window.__ModuleLoader__.load({
 			return blocks.flatMap((block) => block.kind === "text" ? [block.text] : []).join("");
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\TurnTailNodeView.module.css.mjs
-		const css$3 = "._6sdMeW_root{flex-direction:column;gap:16px;display:flex}._6sdMeW_footer{flex-direction:column;gap:4px;min-width:0;display:flex}._6sdMeW_actions{margin-left:-6px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\TurnTailNodeView.module.css.mjs
+		const css$3 = ".FaItZa_root{flex-direction:column;gap:16px;display:flex}.FaItZa_actions{margin-left:-6px}";
 		const tagId$3 = "@deepseek-ai/dsh-client-ui-chat/TurnTailNodeView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 			const tag = document.createElement("style");
@@ -3222,9 +3520,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var TurnTailNodeView_module_css_default = {
-			"actions": "_6sdMeW_actions",
-			"footer": "_6sdMeW_footer",
-			"root": "_6sdMeW_root"
+			"actions": "FaItZa_actions",
+			"root": "FaItZa_root"
 		};
 		//#endregion
 		//#region lib/types/client/chat/TurnTailNodeView.js
@@ -3232,6 +3529,7 @@ window.__ModuleLoader__.load({
 		const TurnTailNodeView = (0, react.memo)(function TurnTailNodeView({ node, openFile, forkAt, renderSlot, renderSlotChain, t, useChat }) {
 			const data = node.data;
 			const hasLaterChatNode = useChat((snapshot) => snapshot.locations.getTurn(data.turn).at(-1) !== node.key);
+			const isLatestTurn = useChat((snapshot) => snapshot.timeline.turnOrder.at(-1) === data.turn);
 			const turn = node.location.kind === "turn" || node.location.kind === "step" ? node.location.turn : void 0;
 			if (turn === void 0) return null;
 			const closing = data.closing;
@@ -3250,27 +3548,27 @@ window.__ModuleLoader__.load({
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: TurnTailNodeView_module_css_default.root,
 				"data-turn-tail": data.turn,
-				"data-time-hover-root": true,
-				children: [tail, (0, react_jsx_runtime.jsxs)("div", {
-					className: TurnTailNodeView_module_css_default.footer,
-					children: [data.tokenUsage === void 0 ? null : (0, react_jsx_runtime.jsx)(TurnUsageDisclosure, {
+				"data-actions-reveal": isLatestTurn ? "always" : "hover",
+				children: [tail, (0, react_jsx_runtime.jsx)(MessageIconActions, {
+					text: assistantText(closing.blocks),
+					time: closing.time,
+					clock: "end",
+					onBranch: () => {
+						forkAt(closing.finalNode.seq);
+					},
+					branchUnavailable: data.branchUnavailable || hasLaterChatNode,
+					className: TurnTailNodeView_module_css_default.actions,
+					extraActions: assistantActions,
+					usageAction: (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [data.tokenUsage !== void 0 && (0, react_jsx_runtime.jsx)(TurnUsagePanel, {
 						usage: data.tokenUsage,
 						t
-					}), (0, react_jsx_runtime.jsx)(MessageIconActions, {
-						text: assistantText(closing.blocks),
-						time: closing.time,
+					}), runMs !== void 0 && (0, react_jsx_runtime.jsx)(TurnTimePanel, {
 						runMs,
-						ttftMs: data.ttftMs,
 						tokensPerSecond: data.tokensPerSecond,
-						clock: "end",
-						onBranch: () => {
-							forkAt(closing.finalNode.seq);
-						},
-						branchUnavailable: data.branchUnavailable || hasLaterChatNode,
-						className: TurnTailNodeView_module_css_default.actions,
-						extraActions: assistantActions,
+						ttftMs: data.ttftMs,
 						t
-					})]
+					})] }),
+					t
 				})]
 			});
 		});
@@ -3432,8 +3730,8 @@ window.__ModuleLoader__.load({
 			return metrics;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\chat\StatsLine.module.css.mjs
-		const css$2 = ".-\\36 WpWa_root{text-align:center;max-width:var(--dsh-chat-content-width);box-sizing:border-box;width:100%;padding:4px calc(var(--dsh-composer-side-clearance) + 16px) 0px;font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap;text-overflow:ellipsis;margin:0 auto;display:block;overflow:hidden}.-\\36 WpWa_sep{color:var(--dsw-alias-separator-primary);margin:0 10px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\chat\StatsLine.module.css.mjs
+		const css$2 = ".jbrCXW_root{text-align:center;max-width:var(--dsh-chat-content-width);box-sizing:border-box;width:100%;padding:4px calc(var(--dsh-composer-side-clearance) + 16px) 0px;font-size:var(--dsh-content-font-size-secondary,13px);line-height:calc(20px + var(--dsh-content-font-delta-secondary,0px));color:var(--dsw-alias-label-tertiary);white-space:nowrap;text-overflow:ellipsis;margin:0 auto;display:block;overflow:hidden}.jbrCXW_sep{color:var(--dsw-alias-separator-primary);margin:0 10px}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-chat/StatsLine.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -3443,8 +3741,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var StatsLine_module_css_default = {
-			"root": "-6WpWa_root",
-			"sep": "-6WpWa_sep"
+			"root": "jbrCXW_root",
+			"sep": "jbrCXW_sep"
 		};
 		//#endregion
 		//#region lib/types/client/chat/StatsLine.js
@@ -3532,6 +3830,42 @@ window.__ModuleLoader__.load({
 		function billedInputTokens(usage) {
 			return usage.uncachedInputTokens + usage.cacheReadTokens + usage.cacheWriteTokens;
 		}
+		/** Render and measure one non-empty statistics line. */
+		const StatsLineContent = (0, react.memo)(function StatsLineContent({ groups, line }) {
+			const rootRef = (0, react.useRef)(null);
+			const [truncated, setTruncated] = (0, react.useState)(false);
+			const measure = (0, react.useCallback)(() => {
+				const el = rootRef.current;
+				if (el === null) return;
+				const next = el.scrollWidth > el.clientWidth;
+				setTruncated((current) => current === next ? current : next);
+			}, []);
+			(0, react.useLayoutEffect)(() => {
+				const el = rootRef.current;
+				if (el === null || typeof ResizeObserver === "undefined") return;
+				const observer = new ResizeObserver(measure);
+				observer.observe(el);
+				return () => {
+					observer.disconnect();
+				};
+			}, [measure]);
+			(0, react.useLayoutEffect)(measure, [line, measure]);
+			return (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Tooltip, {
+				label: line,
+				side: "top",
+				delayMs: 500,
+				disabled: !truncated,
+				children: (0, react_jsx_runtime.jsx)("div", {
+					ref: rootRef,
+					className: StatsLine_module_css_default.root,
+					children: groups.map((group, i) => (0, react_jsx_runtime.jsxs)(react.Fragment, { children: [i > 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("span", {
+						className: StatsLine_module_css_default.sep,
+						"aria-hidden": true,
+						children: "|"
+					}), " "] }), (0, react_jsx_runtime.jsx)("span", { children: group })] }, group))
+				})
+			});
+		});
 		const StatsLine = (0, react.memo)(function StatsLine({ useChat, useProjection, t }) {
 			const settledNodes = useChat((s) => s.legacy.nodes);
 			const usage = useProjection("tokenUsage");
@@ -3561,37 +3895,10 @@ window.__ModuleLoader__.load({
 				}));
 			}
 			const line = groups.join(" | ");
-			const rootRef = (0, react.useRef)(null);
-			const [truncated, setTruncated] = (0, react.useState)(false);
-			(0, react.useLayoutEffect)(() => {
-				const el = rootRef.current;
-				if (el === null) return;
-				const measure = () => {
-					setTruncated(el.scrollWidth > el.clientWidth);
-				};
-				measure();
-				if (typeof ResizeObserver === "undefined") return;
-				const observer = new ResizeObserver(measure);
-				observer.observe(el);
-				return () => {
-					observer.disconnect();
-				};
-			}, [line]);
 			if (groups.length === 0) return null;
-			return (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Tooltip, {
-				label: line,
-				side: "top",
-				delayMs: 500,
-				disabled: !truncated,
-				children: (0, react_jsx_runtime.jsx)("div", {
-					ref: rootRef,
-					className: StatsLine_module_css_default.root,
-					children: groups.map((group, i) => (0, react_jsx_runtime.jsxs)(react.Fragment, { children: [i > 0 && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("span", {
-						className: StatsLine_module_css_default.sep,
-						"aria-hidden": true,
-						children: "|"
-					}), " "] }), (0, react_jsx_runtime.jsx)("span", { children: group })] }, group))
-				})
+			return (0, react_jsx_runtime.jsx)(StatsLineContent, {
+				groups,
+				line
 			});
 		});
 		//#endregion
@@ -4149,6 +4456,10 @@ window.__ModuleLoader__.load({
 				}
 			};
 		}
+		function publishedAssistantData(context) {
+			const location = context.start?.location ?? context.matches.at(-1)?.location;
+			return location?.kind === "step" ? location.step.data.get("assistant-step") : void 0;
+		}
 		/** Per-step Assistant streaming/final/interruption Definition. */
 		const assistantDefinition = {
 			kind: "assistant-step",
@@ -4213,15 +4524,17 @@ window.__ModuleLoader__.load({
 				};
 			},
 			buildViewNode: (context) => {
-				const projected = projectAssistant(context);
-				if (projected === void 0) return null;
-				if (projected.settled === void 0 && !projected.visible) {
-					const state = context.state ?? fallbackState$5(context);
-					if (state === void 0) return null;
+				const state = context.state ?? fallbackState$5(context);
+				if (state === void 0) return null;
+				const data = publishedAssistantData(context);
+				if (data === void 0) return null;
+				const settled = data.finalNode;
+				const visible = settled === void 0 ? state.visibleBlocks > 0 : hasVisibleContent(data.blocks);
+				if (settled === void 0 && !visible) {
 					const current = context.current.get("chat");
 					if (!state.hidden || current === void 0 || current === null) return null;
 				}
-				return chatNode(context, "assistant-step", projected.anchorSeq, projected.data, { visibility: projected.settled?.interrupted === true || projected.visible ? "visible" : "hidden" });
+				return chatNode(context, "assistant-step", settled?.seq ?? state.firstVisibleSeq ?? context.matches[0]?.event.seq ?? 0, data, { visibility: settled?.interrupted === true || visible ? "visible" : "hidden" });
 			}
 		};
 		/**
@@ -4252,27 +4565,42 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region lib/types/client/conversation-nodes/turn-navigation.js
 		/**
-		* Preview budget per field. The rail clamps two short lines, so anything past
-		* this is invisible; copying whole transcripts into navigation state would
+		* Preview budgets, sized to the rail card's clamps (one prompt line, up to
+		* three response lines) and mirrored by the turnOutline projection so a turn
+		* shows the same words before and after its events load. Anything past a
+		* budget is invisible; copying whole transcripts into navigation state would
 		* otherwise grow with the loaded window on every structural update.
 		*/
-		const PREVIEW_LIMIT = 160;
-		/** Join rendered text until the preview budget is met, then stop reading. */
-		function preview(parts) {
+		const PROMPT_PREVIEW_LIMIT = 50;
+		const RESPONSE_PREVIEW_LIMIT = 120;
+		/** Join rendered text, collapse whitespace, and cap at `limit` with a trailing ellipsis when clipped. */
+		function preview(parts, limit) {
 			let text = "";
+			let unread = false;
 			for (const part of parts) {
-				text += text === "" ? part : ` ${part}`;
-				if (text.length >= PREVIEW_LIMIT) break;
+				if (text.length >= limit * 2) {
+					unread = true;
+					break;
+				}
+				const clipped = part.length > limit * 2;
+				const chunk = clipped ? part.slice(0, limit * 2) : part;
+				text += text === "" ? chunk : ` ${chunk}`;
+				if (clipped) {
+					unread = true;
+					break;
+				}
 			}
-			return text.replace(/\s+/g, " ").trim().slice(0, PREVIEW_LIMIT);
+			const normalized = text.replace(/\s+/g, " ").trim();
+			if (normalized.length > limit - 1) return `${normalized.slice(0, limit - 1).trimEnd()}…`;
+			return unread ? `${normalized}…` : normalized;
 		}
 		function promptText(node) {
 			if (node.kind !== "user") return "";
-			return preview(node.data.content.flatMap((block) => block.type === "text" ? [block.text] : []));
+			return preview(node.data.content.flatMap((block) => block.type === "text" ? [block.text] : []), PROMPT_PREVIEW_LIMIT);
 		}
 		function responseText(node) {
 			if (node.kind !== "assistant-step") return "";
-			return preview(node.data.blocks.flatMap((block) => block.kind === "text" ? [block.text] : []));
+			return preview(node.data.blocks.flatMap((block) => block.kind === "text" ? [block.text] : []), RESPONSE_PREVIEW_LIMIT);
 		}
 		/**
 		* Whether two items carry the same rail state, so the reader can keep its array.
@@ -4305,6 +4633,92 @@ window.__ModuleLoader__.load({
 			};
 		}
 		//#endregion
+		//#region lib/types/client/conversation-nodes/turn-process-presentation.js
+		function nodeTurn(node) {
+			const location = node?.location;
+			return location?.kind === "turn" || location?.kind === "step" ? location.turn.turn : void 0;
+		}
+		function samePresentation(left, right) {
+			return left === right || left !== void 0 && right !== void 0 && left.spec === right.spec && left.turn === right.turn && left.turnClosed === right.turnClosed && left.hasExternalProcess === right.hasExternalProcess && left.compactAnswer === right.compactAnswer;
+		}
+		function derivePresentation(turn, locations, nodes) {
+			const keys = locations.getTurn(turn);
+			const control = keys.map((key) => nodes.get(key)).find((node) => node?.kind === "turn-process");
+			if (control === void 0) return void 0;
+			const spec = control.data;
+			const location = control.location;
+			if (location.kind !== "turn" && location.kind !== "step") return void 0;
+			let openingHumanAnchor;
+			for (const key of keys) {
+				const node = nodes.get(key);
+				if ((node?.kind === "user" || node?.kind === "steering") && node.anchorSeq < spec.controlAnchorSeq) openingHumanAnchor = Math.min(openingHumanAnchor ?? node.anchorSeq, node.anchorSeq);
+			}
+			let hasExternalProcess = false;
+			let compactAnswer = true;
+			for (const key of keys) {
+				const node = nodes.get(key);
+				if (node === void 0 || node.kind === "turn-process") continue;
+				if ((node.kind === "user" || node.kind === "steering") && (openingHumanAnchor === void 0 || node.anchorSeq > openingHumanAnchor) && (spec.answerAnchorSeq === null || node.anchorSeq < spec.answerAnchorSeq)) compactAnswer = false;
+				if (TURN_PROCESS_INDEPENDENT_KINDS.has(node.kind) || node.anchorSeq < spec.processStartSeq || spec.answerAnchorSeq !== null && node.anchorSeq >= spec.answerAnchorSeq) continue;
+				if (node.kind !== "assistant-step" || spec.answerStep === null || node.data.step !== spec.answerStep) hasExternalProcess = true;
+			}
+			return {
+				turn,
+				spec,
+				turnClosed: location.turn.status === "closed",
+				hasExternalProcess,
+				compactAnswer
+			};
+		}
+		/** Mutable projection of cross-Node process layout facts by Turn. */
+		var ChatTurnProcessProjector = class {
+			presentations = /* @__PURE__ */ new Map();
+			/**
+			* Read the retained process presentation for a Node's Turn.
+			* @param node - Current Chat Node.
+			* @returns The Turn's process presentation, when present.
+			*/
+			get(node) {
+				const turn = nodeTurn(node);
+				return turn === void 0 ? void 0 : this.presentations.get(turn);
+			}
+			/**
+			* Replace every projected Turn.
+			* @param order - visible Chat Node order.
+			* @param locations - current Chat Location index.
+			* @param nodes - current Chat Node store.
+			* @returns Turns whose process presentation changed.
+			*/
+			replace(order, locations, nodes) {
+				const turns = /* @__PURE__ */ new Set();
+				for (const key of order) {
+					const turn = nodeTurn(nodes.get(key));
+					if (turn !== void 0) turns.add(turn);
+				}
+				const changed = /* @__PURE__ */ new Set();
+				for (const turn of new Set([...this.presentations.keys(), ...turns])) if (this.set(turn, turns.has(turn) ? derivePresentation(turn, locations, nodes) : void 0)) changed.add(turn);
+				return changed;
+			}
+			/**
+			* Recompute selected Turns after incremental Node changes.
+			* @param turns - affected Turn numbers.
+			* @param locations - current Chat Location index.
+			* @param nodes - current Chat Node store.
+			* @returns Turns whose process presentation changed.
+			*/
+			update(turns, locations, nodes) {
+				const changed = /* @__PURE__ */ new Set();
+				for (const turn of turns) if (this.set(turn, derivePresentation(turn, locations, nodes))) changed.add(turn);
+				return changed;
+			}
+			set(turn, next) {
+				if (samePresentation(this.presentations.get(turn), next)) return false;
+				if (next === void 0) this.presentations.delete(turn);
+				else this.presentations.set(turn, next);
+				return true;
+			}
+		};
+		//#endregion
 		//#region lib/types/client/conversation-nodes/chat-snapshot-builder.js
 		const EMPTY_KEYS = [];
 		const EMPTY_TURNS = [];
@@ -4313,12 +4727,58 @@ window.__ModuleLoader__.load({
 		function sameReferences$1(left, right) {
 			return left.length === right.length && left.every((value, index) => value === right[index]);
 		}
+		function cachedSource(sources, key, create) {
+			let source = sources.get(key);
+			if (source === void 0) {
+				source = create();
+				sources.set(key, source);
+			}
+			return source;
+		}
+		var MutableChatSource = class {
+			read;
+			label;
+			listeners = /* @__PURE__ */ new Set();
+			published;
+			constructor(read, label) {
+				this.read = read;
+				this.label = label;
+				this.published = read();
+			}
+			getSnapshot = () => this.read();
+			subscribe = (listener) => {
+				this.listeners.add(listener);
+				return () => {
+					this.listeners.delete(listener);
+				};
+			};
+			publish() {
+				const next = this.getSnapshot();
+				if (this.published === next) return;
+				this.published = next;
+				(0, _deepseek_ai_dsh_client_store.notifySubscribers)(this.listeners, this.label);
+			}
+		};
 		var MutableChatNodeStore = class {
 			byKey = /* @__PURE__ */ new Map();
+			turnProcesses = new ChatTurnProcessProjector();
+			sources = /* @__PURE__ */ new Map();
+			processSources = /* @__PURE__ */ new Map();
+			dirtyKeys = /* @__PURE__ */ new Set();
+			dirtyProcessKeys = /* @__PURE__ */ new Set();
 			valuesCache = EMPTY_LIST;
 			valuesDirty = false;
 			get(key) {
 				return this.byKey.get(key);
+			}
+			source(key) {
+				return cachedSource(this.sources, key, () => new MutableChatSource(() => this.get(key), `[ui-chat] node source ${key}`));
+			}
+			processSource(key) {
+				return cachedSource(this.processSources, key, () => new MutableChatSource(() => this.process(key), `[ui-chat] node process source ${key}`));
+			}
+			process(key) {
+				return this.turnProcesses.get(this.get(key));
 			}
 			values() {
 				if (this.valuesDirty) {
@@ -4328,8 +4788,20 @@ window.__ModuleLoader__.load({
 				return this.valuesCache;
 			}
 			replace(nodes) {
+				const previous = new Map(this.byKey);
 				this.byKey.clear();
-				for (const node of nodes) this.byKey.set(node.key, node);
+				for (const node of nodes) {
+					this.byKey.set(node.key, node);
+					if (previous.get(node.key) !== node) {
+						this.dirtyKeys.add(node.key);
+						this.dirtyProcessKeys.add(node.key);
+					}
+					previous.delete(node.key);
+				}
+				for (const key of previous.keys()) {
+					this.dirtyKeys.add(key);
+					this.dirtyProcessKeys.add(key);
+				}
 				this.valuesCache = [...this.byKey.values()];
 				this.valuesDirty = false;
 			}
@@ -4338,9 +4810,28 @@ window.__ModuleLoader__.load({
 				for (const node of nodes) {
 					if (this.byKey.get(node.key) === node) continue;
 					this.byKey.set(node.key, node);
+					this.dirtyKeys.add(node.key);
+					this.dirtyProcessKeys.add(node.key);
 					changed = true;
 				}
 				if (changed) this.valuesDirty = true;
+			}
+			touchProcesses(turns, locations) {
+				for (const turn of turns) for (const key of locations.getTurn(turn)) this.dirtyProcessKeys.add(key);
+			}
+			replaceProcesses(order, locations) {
+				this.touchProcesses(this.turnProcesses.replace(order, locations, this), locations);
+			}
+			updateProcesses(turns, locations) {
+				this.touchProcesses(this.turnProcesses.update(turns, locations, this), locations);
+			}
+			publish() {
+				const dirty = [...this.dirtyKeys];
+				const dirtyProcesses = [...this.dirtyProcessKeys];
+				this.dirtyKeys.clear();
+				this.dirtyProcessKeys.clear();
+				for (const key of dirty) this.sources.get(key)?.publish();
+				for (const key of dirtyProcesses) this.processSources.get(key)?.publish();
 			}
 		};
 		var MutableChatLocationIndex = class {
@@ -4456,6 +4947,15 @@ window.__ModuleLoader__.load({
 			};
 			if (location.kind === "turn") return { turn: location.turn.turn };
 			return {};
+		}
+		function locationTurnStatus(location) {
+			return location.kind === "turn" || location.kind === "step" ? location.turn.status : void 0;
+		}
+		function processPresentationInputChanged(previous, next, structural) {
+			if (structural || previous === void 0) return true;
+			if (locationTurnStatus(previous.location) !== locationTurnStatus(next.location)) return true;
+			if (previous.kind === "turn-process" && next.kind === "turn-process") return previous.data !== next.data;
+			return previous.kind === "assistant-step" && next.kind === "assistant-step" && previous.data.step !== next.data.step;
 		}
 		function turnProcessPresentations(nodes) {
 			const presentations = /* @__PURE__ */ new Map();
@@ -4815,12 +5315,16 @@ window.__ModuleLoader__.load({
 				this.store.replace(nodes);
 				this.order = orderedVisibleChatNodes(nodes).map((node) => node.key);
 				this.locations.rebuild(this.order, this.store);
+				this.store.replaceProcesses(this.order, this.locations);
 				this.navigation.rebuild(input.timeline, this.locations, this.store);
 				this.timeline = input.timeline;
-				return this.snapshot(input.timeline, this.legacy.replace(nodes, input.timeline));
+				const snapshot = this.snapshot(input.timeline, this.legacy.replace(nodes, input.timeline));
+				this.store.publish();
+				return snapshot;
 			}
 			apply(input) {
 				const upserts = this.referenceLabels.apply(input.upserts, this.store);
+				const processTurns = /* @__PURE__ */ new Set();
 				let structural = false;
 				const contentOnly = [];
 				for (const node of upserts) {
@@ -4828,6 +5332,12 @@ window.__ModuleLoader__.load({
 					const nodeStructural = previous === void 0 || previous.kind !== node.kind || previous.anchorSeq !== node.anchorSeq || previous.visibility !== node.visibility || locationIdentity(previous.location) !== locationIdentity(node.location);
 					structural ||= nodeStructural;
 					if (!nodeStructural) contentOnly.push(node);
+					if (processPresentationInputChanged(previous, node, nodeStructural)) {
+						const previousTurn = previous === void 0 ? void 0 : locationCoordinates(previous.location).turn;
+						const nextTurn = locationCoordinates(node.location).turn;
+						if (previousTurn !== void 0) processTurns.add(previousTurn);
+						if (nextTurn !== void 0) processTurns.add(nextTurn);
+					}
 				}
 				this.store.upsert(upserts);
 				if (structural) {
@@ -4836,10 +5346,13 @@ window.__ModuleLoader__.load({
 					this.locations.rebuild(this.order, this.store);
 				}
 				this.locations.touch(contentOnly);
+				this.store.updateProcesses(processTurns, this.locations);
 				if (structural || input.timeline !== this.timeline) this.navigation.rebuild(input.timeline, this.locations, this.store);
 				else this.navigation.touch(turnsOf(contentOnly), this.locations, this.store);
 				this.timeline = input.timeline;
-				return this.snapshot(input.timeline, this.legacy.apply(upserts, input.timeline));
+				const snapshot = this.snapshot(input.timeline, this.legacy.apply(upserts, input.timeline));
+				this.store.publish();
+				return snapshot;
 			}
 			snapshot(timeline, legacy = this.legacy.replace(EMPTY_LIST, timeline)) {
 				return {
@@ -5128,43 +5641,87 @@ window.__ModuleLoader__.load({
 		}
 		//#endregion
 		//#region lib/types/client/conversation-nodes/inbox.js
+		const EMPTY_PENDING = {
+			kind: "snapshot",
+			ids: []
+		};
+		const EMPTY_CURRENT_CLAIMED = /* @__PURE__ */ new Set();
+		function materializePending(state) {
+			const splices = [];
+			let current = state;
+			while (current.kind === "splice") {
+				splices.push(current);
+				current = current.previous;
+			}
+			const pending = [...current.ids];
+			for (const splice of splices.reverse()) pending.splice(splice.start, splice.removedCount, ...splice.inserted);
+			return pending;
+		}
+		function withoutInserted(claimed, inserted) {
+			let next;
+			for (const id of inserted) {
+				if (!claimed.has(id)) continue;
+				next ??= new Set(claimed);
+				next.delete(id);
+			}
+			return next ?? claimed;
+		}
+		/**
+		* Apply one next-step splice under the AgentLoop's durable event ordering.
+		* An entered claim logs its complete message batch before another claim; a
+		* rejected claim logs no messages, so only the current claim can classify a
+		* later `user/message`.
+		*/
 		function applySplice(previous, splice) {
-			const pending = [...previous?.state.pending ?? []];
-			const claimed = new Set(previous?.state.claimed ?? []);
-			const removed = pending.splice(splice.start, splice.removedCount ?? 0, ...splice.inserted);
-			for (const identity of splice.inserted) claimed.delete(identity.id);
-			if (splice.target === "next-step" && splice.outcome !== "canceled") for (const identity of removed) claimed.add(identity.id);
+			const priorPending = previous?.state.pending ?? EMPTY_PENDING;
+			const inserted = splice.inserted.map((identity) => identity.id);
+			const removedCount = splice.removedCount ?? 0;
+			if (removedCount > 0 && splice.outcome !== "canceled") {
+				const pending = materializePending(priorPending);
+				const removed = pending.splice(splice.start, removedCount, ...inserted);
+				return {
+					pending: {
+						kind: "snapshot",
+						ids: pending
+					},
+					currentClaimed: new Set(removed)
+				};
+			}
+			const currentClaimed = withoutInserted(previous?.state.currentClaimed ?? EMPTY_CURRENT_CLAIMED, inserted);
 			return {
-				pending,
-				claimed
+				pending: {
+					kind: "splice",
+					previous: priorPending,
+					start: splice.start,
+					removedCount,
+					inserted
+				},
+				currentClaimed
 			};
 		}
-		function inboxDefinition(target) {
-			const kind = `inbox-${target}`;
-			return {
-				kind,
-				match: (event) => event.type === "agent/inbox/spliced" && event.data.target === target ? {
+		const NEXT_STEP_INBOX_KIND = "inbox-next-step";
+		/** Persistent next-step Inbox state used to classify the current claimed batch as steering. */
+		const nextStepInboxDefinition = {
+			kind: NEXT_STEP_INBOX_KIND,
+			match: (event) => {
+				if (event.type === "agent/inbox/spliced" && event.data.target === "next-step") return {
 					id: String(event.seq),
 					role: "start"
-				} : null,
-				start: (_context, match, reader) => {
-					if (match.event.type !== "agent/inbox/spliced") throw new Error(`${kind} start requires agent/inbox/spliced`);
-					return applySplice(reader.previous(kind), match.event.data);
-				},
-				update: (context) => context.state,
-				publication: () => "none"
-			};
-		}
-		/** Cumulative next-turn inbox splice Definition. */
-		const nextTurnInboxDefinition = inboxDefinition("next-turn");
-		/** Cumulative next-step inbox splice Definition used to classify steering. */
-		const nextStepInboxDefinition = inboxDefinition("next-step");
+				};
+				return null;
+			},
+			start: (_context, match, reader) => {
+				if (match.event.type !== "agent/inbox/spliced") throw new Error("inbox-next-step start requires agent/inbox/spliced");
+				return applySplice(reader.previous(NEXT_STEP_INBOX_KIND), match.event.data);
+			},
+			update: (context) => context.state,
+			publication: () => "none"
+		};
 		/**
-		* Register the two durable Inbox-state contributions.
+		* Register the next-step Inbox state used by Chat message classification.
 		* @param ctx - owning UI Conversation context.
 		*/
 		function registerInboxConversationNodes(ctx) {
-			ctx.uiConversation.events.register(nextTurnInboxDefinition);
 			ctx.uiConversation.events.register(nextStepInboxDefinition);
 		}
 		//#endregion
@@ -5194,7 +5751,7 @@ window.__ModuleLoader__.load({
 					provenance: contextProvenance(event.data.source),
 					form: contextForm(event.data.source)
 				};
-				return reader.previous("inbox-next-step")?.state.claimed.has(String(event.data.id)) === true ? {
+				return reader.previous("inbox-next-step")?.state.currentClaimed.has(String(event.data.id)) === true ? {
 					kind: "steering",
 					messageId: event.data.id,
 					seq: event.seq,
@@ -5837,6 +6394,7 @@ window.__ModuleLoader__.load({
 				turn,
 				assistantStartByStep: /* @__PURE__ */ new Map(),
 				messageCountByStep: /* @__PURE__ */ new Map(),
+				messageCount: 0,
 				toolCallCount: 0,
 				subagentCount: 0
 			};
@@ -5852,11 +6410,11 @@ window.__ModuleLoader__.load({
 			return data.blocks.some((block) => block.kind === "tool-call") ? null : data;
 		}
 		function processSpec(state, turn) {
-			const controlAnchorSeq = Math.min(state.otherStartSeq ?? Number.POSITIVE_INFINITY, ...state.assistantStartByStep.values());
-			if (!Number.isFinite(controlAnchorSeq)) return null;
+			const controlAnchorSeq = state.controlAnchorSeq;
+			if (controlAnchorSeq === void 0) return null;
 			const answer = latestAnswer(turn);
 			const counts = {
-				messageCount: answer === null ? [...state.messageCountByStep.values()].reduce((total, count) => total + count, 0) : [...state.messageCountByStep].filter(([step]) => step < answer.step).reduce((total, [, count]) => total + count, 0),
+				messageCount: answer === null ? state.messageCount : [...state.messageCountByStep].filter(([step]) => step < answer.step).reduce((total, [, count]) => total + count, 0),
 				toolCallCount: state.toolCallCount,
 				subagentCount: state.subagentCount
 			};
@@ -5889,7 +6447,8 @@ window.__ModuleLoader__.load({
 				messageCountByStep.set(event.data.step, (messageCountByStep.get(event.data.step) ?? 0) + 1);
 				current = {
 					...current,
-					messageCountByStep
+					messageCountByStep,
+					messageCount: current.messageCount + 1
 				};
 			}
 			if (event.type === "tool/call") {
@@ -5904,14 +6463,16 @@ window.__ModuleLoader__.load({
 			if (evidence === void 0) return current;
 			if (evidence.kind === "other") return current.otherStartSeq === void 0 ? {
 				...current,
-				otherStartSeq: evidence.seq
+				otherStartSeq: evidence.seq,
+				controlAnchorSeq: Math.min(current.controlAnchorSeq ?? Number.POSITIVE_INFINITY, evidence.seq)
 			} : current;
 			if (current.assistantStartByStep.has(evidence.step)) return current;
 			const assistantStartByStep = new Map(current.assistantStartByStep);
 			assistantStartByStep.set(evidence.step, evidence.seq);
 			return {
 				...current,
-				assistantStartByStep
+				assistantStartByStep,
+				controlAnchorSeq: Math.min(current.controlAnchorSeq ?? Number.POSITIVE_INFINITY, evidence.seq)
 			};
 		}
 		/** Turn-scoped process range and answer-boundary Definition. */
@@ -5937,6 +6498,7 @@ window.__ModuleLoader__.load({
 					turn: match.event.data.turn,
 					assistantStartByStep: /* @__PURE__ */ new Map(),
 					messageCountByStep: /* @__PURE__ */ new Map(),
+					messageCount: 0,
 					toolCallCount: 0,
 					subagentCount: 0
 				};
@@ -5950,25 +6512,32 @@ window.__ModuleLoader__.load({
 				}
 				return "immediate";
 			},
-			buildLocationData: (context, scope) => {
+			buildLocationData: (context, scope, previous) => {
 				if (scope !== "turn") return null;
 				const state = context.state ?? fallbackState(context);
 				if (state === void 0) return null;
 				const turn = turnLocation$1(context);
 				if (turn === void 0) return null;
+				const current = context.current.get("chat");
+				const latestStep = turn.steps.at(-1);
+				if (previous?.kind === "turn" && previous.key === "turn-process" && current?.kind === "turn-process" && current.data.answerAnchorSeq === null && current.data.controlAnchorSeq === state.controlAnchorSeq && current.data.messageCount === state.messageCount && current.data.toolCallCount === state.toolCallCount && current.data.subagentCount === state.subagentCount && turn.status !== "closed" && latestStep?.status !== "closed") return previous;
 				const spec = processSpec(state, turn);
-				return spec === null ? null : {
+				if (spec === null) return null;
+				if (previous?.kind === "turn" && previous.turn === spec.turn && previous.key === "turn-process" && sameTurnProcessSpec(previous.value, spec)) return previous;
+				return {
 					kind: "turn",
 					turn: turn.turn,
 					key: "turn-process",
-					value: encodeTurnProcess(spec)
+					value: spec
 				};
 			},
 			buildViewNode: (context) => {
 				const turn = turnLocation$1(context);
-				const signature = turn?.data.get("turn-process");
-				if (turn === void 0 || signature === void 0) return null;
-				const data = decodeTurnProcess(signature);
+				const data = turn?.data.get("turn-process");
+				if (turn === void 0 || data === void 0) return null;
+				const current = context.current.get("chat");
+				const state = context.state;
+				if (current?.kind === "turn-process" && state !== void 0 && current.data.answerAnchorSeq === null && current.data.controlAnchorSeq === state.controlAnchorSeq && current.data.messageCount === state.messageCount && current.data.toolCallCount === state.toolCallCount && current.data.subagentCount === state.subagentCount && turn.status !== "closed" && turn.steps.at(-1)?.status !== "closed" && current.location === (context.start?.location ?? context.matches[0]?.location)) return current;
 				return chatNode(context, "turn-process", data.controlAnchorSeq + CHAT_SYNTHETIC_SEQ_OFFSETS.processControl, data);
 			}
 		};
@@ -6258,7 +6827,7 @@ window.__ModuleLoader__.load({
 			return data.finalNode !== void 0 && data.blocks.some((block) => block.kind === "text" && block.text.trim() !== "");
 		}
 		function tailData(context) {
-			const end = context.state?.end ?? context.matches.find((match) => match.event.type === "turn/end");
+			const end = context.state === void 0 ? context.matches.find((match) => match.event.type === "turn/end") : context.state.end;
 			if (end?.event.type !== "turn/end") return null;
 			const turn = turnLocation(context);
 			if (turn === void 0) return null;
@@ -6387,8 +6956,8 @@ window.__ModuleLoader__.load({
 			}
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\details\DetailsPanel.module.css.mjs
-		const css$1 = ".KIsRqa_root{border-left:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);flex-direction:column;min-width:0;height:100%;display:flex}.KIsRqa_header{border-bottom:1px solid var(--dsw-alias-border-l2);justify-content:space-between;align-items:center;gap:8px;padding:14px 12px 12px;display:flex}.KIsRqa_title{color:var(--dsw-alias-label-primary);text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}.KIsRqa_close{width:28px;height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:999px;flex:none;place-items:center;display:grid}.KIsRqa_close:hover{background:var(--dsw-alias-interactive-bg-hover)}.KIsRqa_body{flex:1;min-height:0;padding:12px 16px;overflow-y:auto}.KIsRqa_empty{color:var(--dsw-alias-label-tertiary);padding:8px 0;font-size:13px;line-height:20px}.KIsRqa_section{margin-bottom:16px}.KIsRqa_sectionLabel{color:var(--dsw-alias-label-secondary);margin-bottom:6px;font-size:12px;font-weight:500;line-height:18px}.KIsRqa_code{background:var(--dsw-alias-markdown-code-block);font-family:var(--ds-font-family-code);color:var(--dsw-alias-label-primary);white-space:pre-wrap;word-break:break-word;border-radius:12px;margin:0;padding:16px;font-size:13px;line-height:22px}.KIsRqa_code[data-error]{color:var(--dsw-alias-state-error-primary)}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\details\DetailsPanel.module.css.mjs
+		const css$1 = ".pMTPyq_root{border-left:.5px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);flex-direction:column;min-width:0;height:100%;display:flex}.pMTPyq_header{border-bottom:.5px solid var(--dsw-alias-border-l2);justify-content:space-between;align-items:center;gap:8px;padding:14px 12px 12px;display:flex}.pMTPyq_title{color:var(--dsw-alias-label-primary);text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}.pMTPyq_close{corner-shape:round;width:28px;height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:999px;flex:none;place-items:center;display:grid}.pMTPyq_close:hover{background:var(--dsw-alias-interactive-bg-hover)}.pMTPyq_body{flex:1;min-height:0;padding:12px 16px;overflow-y:auto}.pMTPyq_empty{color:var(--dsw-alias-label-tertiary);padding:8px 0;font-size:13px;line-height:20px}.pMTPyq_section{margin-bottom:16px}.pMTPyq_sectionLabel{color:var(--dsw-alias-label-secondary);margin-bottom:6px;font-size:12px;font-weight:500;line-height:18px}.pMTPyq_code{background:var(--dsw-alias-markdown-code-block);font-family:var(--ds-font-family-code);color:var(--dsw-alias-label-primary);white-space:pre-wrap;word-break:break-word;border-radius:12px;margin:0;padding:16px;font-size:13px;line-height:22px}.pMTPyq_code[data-error]{color:var(--dsw-alias-state-error-primary)}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-chat/DetailsPanel.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -6398,15 +6967,15 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var DetailsPanel_module_css_default = {
-			"body": "KIsRqa_body",
-			"close": "KIsRqa_close",
-			"code": "KIsRqa_code",
-			"empty": "KIsRqa_empty",
-			"header": "KIsRqa_header",
-			"root": "KIsRqa_root",
-			"section": "KIsRqa_section",
-			"sectionLabel": "KIsRqa_sectionLabel",
-			"title": "KIsRqa_title"
+			"body": "pMTPyq_body",
+			"close": "pMTPyq_close",
+			"code": "pMTPyq_code",
+			"empty": "pMTPyq_empty",
+			"header": "pMTPyq_header",
+			"root": "pMTPyq_root",
+			"section": "pMTPyq_section",
+			"sectionLabel": "pMTPyq_sectionLabel",
+			"title": "pMTPyq_title"
 		};
 		//#endregion
 		//#region lib/types/client/details/DetailsPanel.js
@@ -6515,8 +7084,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-chat\src\client\settings\TranscriptViewRow.module.css.mjs
-		const css = ".xpqZpa_row{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.xpqZpa_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.xpqZpa_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.xpqZpa_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.xpqZpa_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.xpqZpa_selector:hover{background:var(--dsw-alias-interactive-bg-hover)}.xpqZpa_chevron{flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-chat\src\client\settings\TranscriptViewRow.module.css.mjs
+		const css = ".WEGD7a_row{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.WEGD7a_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.WEGD7a_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.WEGD7a_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.WEGD7a_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.WEGD7a_selector:hover{background:var(--dsw-alias-interactive-bg-hover)}.WEGD7a_chevron{flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-ui-chat/TranscriptViewRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -6526,12 +7095,12 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var TranscriptViewRow_module_css_default = {
-			"chevron": "xpqZpa_chevron",
-			"desc": "xpqZpa_desc",
-			"row": "xpqZpa_row",
-			"rowText": "xpqZpa_rowText",
-			"selector": "xpqZpa_selector",
-			"title": "xpqZpa_title"
+			"chevron": "WEGD7a_chevron",
+			"desc": "WEGD7a_desc",
+			"row": "WEGD7a_row",
+			"rowText": "WEGD7a_rowText",
+			"selector": "WEGD7a_selector",
+			"title": "WEGD7a_title"
 		};
 		//#endregion
 		//#region lib/types/client/settings/TranscriptViewRow.js
@@ -7434,12 +8003,25 @@ window.__ModuleLoader__.load({
 			}
 		};
 		//#endregion
+		//#region lib/types/client/chat/use-turn-data.js
+		const EMPTY_SOURCE = {
+			getSnapshot: () => void 0,
+			subscribe: () => () => {}
+		};
+		/**
+		* Subscribe to one value from a Turn's keyed Location-data store.
+		* @param data - current Turn data store, or absence for a Node outside a Turn.
+		* @param key - declaration-merged business key.
+		* @returns the current value for that key.
+		*/
+		function useTurnDataValue(data, key) {
+			const source = data?.source(key) ?? EMPTY_SOURCE;
+			return (0, react.useSyncExternalStore)(source.subscribe, source.getSnapshot);
+		}
+		//#endregion
 		//#region lib/types/client/apply.js
-		const CHAT_NODE_INJECT = { hooks: { turnData: ({ useChat }, nodeKey) => function useTurnData(key) {
-			return useChat((snapshot) => {
-				const location = snapshot.nodes.get(nodeKey)?.location;
-				return location?.kind === "turn" || location?.kind === "step" ? location.turn.data.get(key) : void 0;
-			});
+		const CHAT_NODE_INJECT = { hooks: { turnData: (_standard, data) => function useTurnData(key) {
+			return useTurnDataValue(data, key);
 		} } };
 		/** Services required by the Chat target and its presentation registrations. */
 		const inject = [
@@ -7517,10 +8099,16 @@ window.__ModuleLoader__.load({
 					},
 					store: chatStore,
 					inject: (sessionId, actions) => {
-						const session = ctx.sessions.binding(sessionId)?.session;
-						if (session === void 0) throw new Error(`ui-chat: unknown session "${sessionId}"`);
+						const binding = ctx.sessions.binding(sessionId);
+						if (binding === void 0) throw new Error(`ui-chat: unknown session "${sessionId}"`);
+						const session = binding.session;
+						const chat = chatSource(binding);
 						return {
 							hooks: { transcriptView: transcriptView.mode },
+							keyedHooks: {
+								chatNode: (key) => chat.getSnapshot().nodes.source(key),
+								chatNodeProcess: (key) => chat.getSnapshot().nodes.processSource(key)
+							},
 							openDetails: (target) => {
 								actions.select(target);
 								ctx.layout.openDetails();
@@ -7534,6 +8122,7 @@ window.__ModuleLoader__.load({
 							loadOlder: () => {
 								session.loadOlder();
 							},
+							loadThrough: (seq) => session.loadThrough(seq),
 							loadImage: Object.assign((attachment) => ctx.uiConversation.imageUrl(sessionId, attachment), { peek: (attachment) => ctx.uiConversation.peekImageUrl(sessionId, attachment) }),
 							chatScroll: {
 								save: (position) => {

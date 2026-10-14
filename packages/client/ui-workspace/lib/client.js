@@ -322,6 +322,10 @@ window.__ModuleLoader__.load({
 		function sessionTitle(session) {
 			return session.blank ? "" : session.displayTitle;
 		}
+		/** The list projection alone owns the best-effort active-Schedule indicator. */
+		function hasActiveSchedule(session) {
+			return (session.projectionValues?.schedule?.length ?? 0) > 0;
+		}
 		/** Build one group without projecting session lineage into presentation. */
 		function buildGroup(key, workspaceId, cwd, createdAt, label, members, order) {
 			const sessions = [...members];
@@ -394,6 +398,7 @@ window.__ModuleLoader__.load({
 				running: s.running,
 				runningSubagentCount: descendants.get(s.id)?.runningCount ?? 0,
 				completed: s.completed === true,
+				hasActiveSchedule: hasActiveSchedule(s),
 				updatedAt: s.updatedAt,
 				...pendingInteraction === void 0 ? {} : { pendingInteraction }
 			};
@@ -514,6 +519,7 @@ window.__ModuleLoader__.load({
 						runningSubagentCount: descendants.get(summary.id)?.runningCount ?? 0,
 						...pendingInteraction === void 0 ? {} : { pendingInteraction },
 						completed: summary.completed === true,
+						hasActiveSchedule: hasActiveSchedule(summary),
 						...match === void 0 ? {} : { snippet: match.snippet }
 					};
 				}),
@@ -521,8 +527,8 @@ window.__ModuleLoader__.load({
 			};
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-workspace\src\client\rows\Rows.module.css.mjs
-		const css$2 = ".kYXOta_projectRow,.kYXOta_sessionRow{cursor:pointer;user-select:none;color:var(--dsw-alias-label-primary);border-radius:8px;align-items:center;gap:6px;padding:0 8px;display:flex}.kYXOta_projectRow:hover,.kYXOta_sessionRow:hover,.kYXOta_sessionRow.kYXOta_selected{background:var(--dsw-alias-interactive-bg-hover)}.kYXOta_searchResultRow{box-sizing:border-box;cursor:pointer;text-align:left;width:100%;min-height:48px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:8px;flex-direction:column;align-items:stretch;padding:4px 8px;display:flex}.kYXOta_searchResultRow:hover,.kYXOta_searchResultRow.kYXOta_selected{background:var(--dsw-alias-interactive-bg-hover)}.kYXOta_searchResultHeading{align-items:center;min-width:0;display:flex}.kYXOta_searchResultTitle{text-overflow:ellipsis;white-space:nowrap;min-width:0;margin-left:4px;font-size:14px;line-height:20px;overflow:hidden}.kYXOta_searchResultMeta{align-items:center;gap:6px;min-width:0;margin-left:20px;display:flex}.kYXOta_searchResultWorkspace,.kYXOta_searchResultSnippet{text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:17px;overflow:hidden}.kYXOta_searchResultWorkspace{max-width:40%;color:var(--dsw-alias-label-tertiary);flex:none}.kYXOta_searchResultSnippet{min-width:0;color:var(--dsw-alias-label-secondary);flex:1}.kYXOta_projectRow{box-sizing:border-box;align-items:center;height:34px}.kYXOta_projectRow .kYXOta_rowActions{height:20px}.kYXOta_sessionRow{height:32px;animation:kYXOta_row-in .15s var(--ds-ease-in-out);gap:0}.kYXOta_sessionRow .kYXOta_title{margin:0 6px 0 4px}.kYXOta_flatSessionRowWithoutStatus .kYXOta_title{margin-left:0}@keyframes kYXOta_row-in{0%{opacity:0}}.kYXOta_slot{width:16px;height:20px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.kYXOta_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}.kYXOta_folderActive{color:var(--dsw-alias-state-business-primary)}.kYXOta_projectRow .kYXOta_chevron{display:none}.kYXOta_projectRow:hover .kYXOta_chevron{display:inline-flex}.kYXOta_projectRow:hover .kYXOta_folder{display:none}.kYXOta_arrow{transition:transform .15s var(--ds-ease-in-out)}.kYXOta_arrowOpen{transform:rotate(90deg)}.kYXOta_projectText{flex-direction:column;flex:1;gap:2px;min-width:0;display:flex}.kYXOta_title{text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:14px;line-height:20px;overflow:hidden}.kYXOta_renameInput{border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-button-elevated-fill);min-width:0;color:inherit;border-radius:4px;outline:none;padding:0 2px;font-size:14px;line-height:20px}.kYXOta_sessionRow .kYXOta_title{flex:1}.kYXOta_meta{text-overflow:ellipsis;white-space:nowrap;color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:20px;overflow:hidden}.kYXOta_time{color:var(--dsw-alias-label-tertiary);flex:none;font-size:12px;line-height:20px}.kYXOta_dot{flex:none}.kYXOta_rowActions{flex:none;align-items:center;gap:12px;display:none}.kYXOta_projectRow:hover .kYXOta_rowActions,.kYXOta_sessionRow:hover .kYXOta_rowActions,.kYXOta_projectRow.kYXOta_menuOpen .kYXOta_rowActions,.kYXOta_sessionRow.kYXOta_menuOpen .kYXOta_rowActions{display:inline-flex}.kYXOta_sessionRow:hover .kYXOta_time,.kYXOta_sessionRow.kYXOta_menuOpen .kYXOta_time{display:none}.kYXOta_projectRow.kYXOta_menuOpen,.kYXOta_sessionRow.kYXOta_menuOpen{background:var(--dsw-alias-interactive-bg-hover)}.kYXOta_sessionRow.kYXOta_dropBefore,.kYXOta_sessionRow.kYXOta_dropAfter{position:relative}.kYXOta_sessionRow.kYXOta_dropBefore:before,.kYXOta_sessionRow.kYXOta_dropAfter:after{content:\"\";z-index:1;background:linear-gradient(55deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 0 / 5px 7px no-repeat, linear-gradient(125deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 5px / 5px 7px no-repeat, linear-gradient(var(--dsw-alias-state-business-primary) 0 0) 4px 5px / calc(100% - 4px) 2px no-repeat;pointer-events:none;height:12px;position:absolute;left:0;right:4px}.kYXOta_sessionRow.kYXOta_dropBefore:before{top:-7px}.kYXOta_sessionRow.kYXOta_dropAfter:after{bottom:-7px}.kYXOta_hoverContent{flex-direction:column;gap:8px;display:flex}.kYXOta_hoverTitle{color:#fff;overflow-wrap:break-word;font-size:14px;line-height:20px}.kYXOta_hoverPath{color:#cfd3d6;word-break:break-all;font-size:12px;line-height:16px}.kYXOta_hoverTime{color:#cfd3d6;font-size:12px;line-height:16px}.kYXOta_hoverStatus{color:#adb2b8;align-items:center;gap:8px;font-size:12px;line-height:20px;display:flex}.kYXOta_iconButton{cursor:pointer;width:16px;height:16px;color:var(--dsw-alias-label-tertiary);background:0 0;border:none;border-radius:4px;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.kYXOta_iconButton:hover{color:var(--dsw-alias-label-primary)}.kYXOta_chevron{color:var(--dsw-alias-label-caption)}@media (prefers-reduced-motion:reduce){.kYXOta_sessionRow,.kYXOta_arrow{transition:none;animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-workspace\src\client\rows\Rows.module.css.mjs
+		const css$2 = ".PKAsFa_projectRow,.PKAsFa_sessionRow{cursor:pointer;user-select:none;color:var(--dsw-alias-label-primary);border-radius:8px;align-items:center;gap:6px;padding:0 8px;display:flex}.PKAsFa_projectRow:hover,.PKAsFa_sessionRow:hover,.PKAsFa_sessionRow.PKAsFa_selected{background:var(--dsw-alias-interactive-bg-hover)}.PKAsFa_searchResultRow{box-sizing:border-box;cursor:pointer;text-align:left;width:100%;min-height:48px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:8px;flex-direction:column;align-items:stretch;padding:4px 8px;display:flex}.PKAsFa_searchResultRow:hover,.PKAsFa_searchResultRow.PKAsFa_selected{background:var(--dsw-alias-interactive-bg-hover)}.PKAsFa_searchResultHeading{align-items:center;min-width:0;display:flex}.PKAsFa_searchResultTitle{text-overflow:ellipsis;white-space:nowrap;flex:0 auto;min-width:0;margin-left:4px;font-size:14px;line-height:20px;overflow:hidden}.PKAsFa_searchResultMeta{align-items:center;gap:6px;min-width:0;margin-left:20px;display:flex}.PKAsFa_searchResultWorkspace,.PKAsFa_searchResultSnippet{text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:17px;overflow:hidden}.PKAsFa_searchResultWorkspace{max-width:40%;color:var(--dsw-alias-label-tertiary);flex:none}.PKAsFa_searchResultSnippet{min-width:0;color:var(--dsw-alias-label-secondary);flex:1}.PKAsFa_projectRow{box-sizing:border-box;align-items:center;height:34px}.PKAsFa_projectRow .PKAsFa_rowActions{height:20px}.PKAsFa_sessionRow{height:32px;animation:PKAsFa_row-in .15s var(--ds-ease-in-out);gap:0}.PKAsFa_sessionRow .PKAsFa_title{margin:0 6px 0 4px}.PKAsFa_flatSessionRowWithoutStatus .PKAsFa_title{margin-left:0}@keyframes PKAsFa_row-in{0%{opacity:0}}.PKAsFa_slot{width:16px;height:20px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.PKAsFa_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}.PKAsFa_folderActive{color:var(--dsw-alias-state-business-primary)}.PKAsFa_projectRow .PKAsFa_chevron{display:none}.PKAsFa_projectRow:hover .PKAsFa_chevron{display:inline-flex}.PKAsFa_projectRow:hover .PKAsFa_folder{display:none}.PKAsFa_arrow{transition:transform .15s var(--ds-ease-in-out)}.PKAsFa_arrowOpen{transform:rotate(90deg)}.PKAsFa_projectText{flex-direction:column;flex:1;gap:2px;min-width:0;display:flex}.PKAsFa_title{text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:14px;line-height:20px;overflow:hidden}.PKAsFa_renameInput{border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-button-elevated-fill);min-width:0;color:inherit;border-radius:4px;outline:none;padding:0 2px;font-size:14px;line-height:20px}.PKAsFa_sessionRow .PKAsFa_title{flex:1}.PKAsFa_meta{text-overflow:ellipsis;white-space:nowrap;color:var(--dsw-alias-label-tertiary);font-size:12px;line-height:20px;overflow:hidden}.PKAsFa_time{color:var(--dsw-alias-label-tertiary);flex:none;font-size:12px;line-height:20px}.PKAsFa_scheduleIndicator{width:16px;height:20px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;margin-right:6px;display:inline-flex}.PKAsFa_searchScheduleIndicator{margin-left:4px;margin-right:0}.PKAsFa_dot{flex:none}.PKAsFa_rowActions{flex:none;align-items:center;gap:12px;display:none}.PKAsFa_projectRow:hover .PKAsFa_rowActions,.PKAsFa_sessionRow:hover .PKAsFa_rowActions,.PKAsFa_projectRow.PKAsFa_menuOpen .PKAsFa_rowActions,.PKAsFa_sessionRow.PKAsFa_menuOpen .PKAsFa_rowActions{display:inline-flex}.PKAsFa_sessionRow:hover .PKAsFa_time,.PKAsFa_sessionRow.PKAsFa_menuOpen .PKAsFa_time{display:none}.PKAsFa_projectRow.PKAsFa_menuOpen,.PKAsFa_sessionRow.PKAsFa_menuOpen{background:var(--dsw-alias-interactive-bg-hover)}.PKAsFa_sessionRow.PKAsFa_dropBefore,.PKAsFa_sessionRow.PKAsFa_dropAfter{position:relative}.PKAsFa_sessionRow.PKAsFa_dropBefore:before,.PKAsFa_sessionRow.PKAsFa_dropAfter:after{content:\"\";z-index:1;background:linear-gradient(55deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 0 / 5px 7px no-repeat, linear-gradient(125deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 5px / 5px 7px no-repeat, linear-gradient(var(--dsw-alias-state-business-primary) 0 0) 4px 5px / calc(100% - 4px) 2px no-repeat;pointer-events:none;height:12px;position:absolute;left:0;right:4px}.PKAsFa_sessionRow.PKAsFa_dropBefore:before{top:-7px}.PKAsFa_sessionRow.PKAsFa_dropAfter:after{bottom:-7px}.PKAsFa_hoverContent{flex-direction:column;gap:8px;display:flex}.PKAsFa_hoverTitle{color:#fff;overflow-wrap:break-word;font-size:14px;line-height:20px}.PKAsFa_hoverPath{color:#cfd3d6;word-break:break-all;font-size:12px;line-height:16px}.PKAsFa_hoverTime{color:#cfd3d6;font-size:12px;line-height:16px}.PKAsFa_hoverStatus{color:#adb2b8;align-items:center;gap:8px;font-size:12px;line-height:20px;display:flex}.PKAsFa_iconButton{cursor:pointer;width:16px;height:16px;color:var(--dsw-alias-label-tertiary);background:0 0;border:none;border-radius:4px;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.PKAsFa_iconButton:hover{color:var(--dsw-alias-label-primary)}.PKAsFa_chevron{color:var(--dsw-alias-label-caption)}@media (prefers-reduced-motion:reduce){.PKAsFa_sessionRow,.PKAsFa_arrow{transition:none;animation:none}}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-workspace/Rows.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -532,40 +538,42 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var Rows_module_css_default = {
-			"arrow": "kYXOta_arrow",
-			"arrowOpen": "kYXOta_arrowOpen",
-			"chevron": "kYXOta_chevron",
-			"dot": "kYXOta_dot",
-			"dropAfter": "kYXOta_dropAfter",
-			"dropBefore": "kYXOta_dropBefore",
-			"flatSessionRowWithoutStatus": "kYXOta_flatSessionRowWithoutStatus",
-			"folder": "kYXOta_folder",
-			"folderActive": "kYXOta_folderActive",
-			"hoverContent": "kYXOta_hoverContent",
-			"hoverPath": "kYXOta_hoverPath",
-			"hoverStatus": "kYXOta_hoverStatus",
-			"hoverTime": "kYXOta_hoverTime",
-			"hoverTitle": "kYXOta_hoverTitle",
-			"iconButton": "kYXOta_iconButton",
-			"menuOpen": "kYXOta_menuOpen",
-			"meta": "kYXOta_meta",
-			"projectRow": "kYXOta_projectRow",
-			"projectText": "kYXOta_projectText",
-			"renameInput": "kYXOta_renameInput",
-			"row-in": "kYXOta_row-in",
-			"rowActions": "kYXOta_rowActions",
-			"searchResultHeading": "kYXOta_searchResultHeading",
-			"searchResultMeta": "kYXOta_searchResultMeta",
-			"searchResultRow": "kYXOta_searchResultRow",
-			"searchResultSnippet": "kYXOta_searchResultSnippet",
-			"searchResultTitle": "kYXOta_searchResultTitle",
-			"searchResultWorkspace": "kYXOta_searchResultWorkspace",
-			"selected": "kYXOta_selected",
-			"sessionRow": "kYXOta_sessionRow",
-			"slot": "kYXOta_slot",
-			"time": "kYXOta_time",
-			"title": "kYXOta_title",
-			"visuallyHidden": "kYXOta_visuallyHidden"
+			"arrow": "PKAsFa_arrow",
+			"arrowOpen": "PKAsFa_arrowOpen",
+			"chevron": "PKAsFa_chevron",
+			"dot": "PKAsFa_dot",
+			"dropAfter": "PKAsFa_dropAfter",
+			"dropBefore": "PKAsFa_dropBefore",
+			"flatSessionRowWithoutStatus": "PKAsFa_flatSessionRowWithoutStatus",
+			"folder": "PKAsFa_folder",
+			"folderActive": "PKAsFa_folderActive",
+			"hoverContent": "PKAsFa_hoverContent",
+			"hoverPath": "PKAsFa_hoverPath",
+			"hoverStatus": "PKAsFa_hoverStatus",
+			"hoverTime": "PKAsFa_hoverTime",
+			"hoverTitle": "PKAsFa_hoverTitle",
+			"iconButton": "PKAsFa_iconButton",
+			"menuOpen": "PKAsFa_menuOpen",
+			"meta": "PKAsFa_meta",
+			"projectRow": "PKAsFa_projectRow",
+			"projectText": "PKAsFa_projectText",
+			"renameInput": "PKAsFa_renameInput",
+			"row-in": "PKAsFa_row-in",
+			"rowActions": "PKAsFa_rowActions",
+			"scheduleIndicator": "PKAsFa_scheduleIndicator",
+			"searchResultHeading": "PKAsFa_searchResultHeading",
+			"searchResultMeta": "PKAsFa_searchResultMeta",
+			"searchResultRow": "PKAsFa_searchResultRow",
+			"searchResultSnippet": "PKAsFa_searchResultSnippet",
+			"searchResultTitle": "PKAsFa_searchResultTitle",
+			"searchResultWorkspace": "PKAsFa_searchResultWorkspace",
+			"searchScheduleIndicator": "PKAsFa_searchScheduleIndicator",
+			"selected": "PKAsFa_selected",
+			"sessionRow": "PKAsFa_sessionRow",
+			"slot": "PKAsFa_slot",
+			"time": "PKAsFa_time",
+			"title": "PKAsFa_title",
+			"visuallyHidden": "PKAsFa_visuallyHidden"
 		};
 		//#endregion
 		//#region lib/types/client/rows/Rows.js
@@ -802,6 +810,17 @@ window.__ModuleLoader__.load({
 				children: status.label
 			}, status.label))] });
 		}
+		/** Non-interactive active-Schedule marker; the enclosing row remains the only action. */
+		function ActiveScheduleIndicator({ t, search = false }) {
+			const label = t("schedule.active");
+			return (0, react_jsx_runtime.jsx)("span", {
+				className: clsx(Rows_module_css_default.scheduleIndicator, search && Rows_module_css_default.searchScheduleIndicator),
+				role: "img",
+				"aria-label": label,
+				title: label,
+				children: (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconAlarmClockOutline16, {})
+			});
+		}
 		/** Hover-card body: full title, relative time, and every relevant live status. */
 		function SessionHoverContent({ node, now, t }) {
 			const statuses = sessionStatuses(node, t);
@@ -847,13 +866,20 @@ window.__ModuleLoader__.load({
 				},
 				children: [(0, react_jsx_runtime.jsxs)("span", {
 					className: Rows_module_css_default.searchResultHeading,
-					children: [(0, react_jsx_runtime.jsx)("span", {
-						className: Rows_module_css_default.slot,
-						children: (primaryStatus.state !== "done" || result.completed) && (0, react_jsx_runtime.jsx)(SessionStatusDots, { statuses })
-					}), (0, react_jsx_runtime.jsx)("span", {
-						className: Rows_module_css_default.searchResultTitle,
-						children: result.title
-					})]
+					children: [
+						(0, react_jsx_runtime.jsx)("span", {
+							className: Rows_module_css_default.slot,
+							children: (primaryStatus.state !== "done" || result.completed) && (0, react_jsx_runtime.jsx)(SessionStatusDots, { statuses })
+						}),
+						(0, react_jsx_runtime.jsx)("span", {
+							className: Rows_module_css_default.searchResultTitle,
+							children: result.title
+						}),
+						result.hasActiveSchedule && (0, react_jsx_runtime.jsx)(ActiveScheduleIndicator, {
+							t,
+							search: true
+						})
+					]
 				}), (0, react_jsx_runtime.jsxs)("span", {
 					className: Rows_module_css_default.searchResultMeta,
 					children: [(0, react_jsx_runtime.jsx)("span", {
@@ -940,6 +966,7 @@ window.__ModuleLoader__.load({
 							className: Rows_module_css_default.title,
 							children: title
 						}),
+						row.hasActiveSchedule && (0, react_jsx_runtime.jsx)(ActiveScheduleIndicator, { t }),
 						!row.blank && (0, react_jsx_runtime.jsx)("span", {
 							className: Rows_module_css_default.time,
 							children: timeLabel(row.updatedAt, now, t)
@@ -986,8 +1013,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-workspace\src\client\WorkspacePicker.module.css.mjs
-		const css$1 = ".ZyB8ua_modalAction{min-width:72px}.ZyB8ua_modalError,.ZyB8ua_menuStatus{margin-top:8px;font-size:12px;line-height:18px}.ZyB8ua_modalError{color:var(--dsw-alias-state-error-primary)}.ZyB8ua_menuStatus{color:var(--dsw-alias-label-secondary)}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-workspace\src\client\WorkspacePicker.module.css.mjs
+		const css$1 = ".ImY4Ca_modalAction{min-width:72px}.ImY4Ca_modalError,.ImY4Ca_menuStatus{margin-top:8px;font-size:12px;line-height:18px}.ImY4Ca_modalError{color:var(--dsw-alias-state-error-primary)}.ImY4Ca_menuStatus{color:var(--dsw-alias-label-secondary)}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-workspace/WorkspacePicker.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -997,9 +1024,9 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var WorkspacePicker_module_css_default = {
-			"menuStatus": "ZyB8ua_menuStatus",
-			"modalAction": "ZyB8ua_modalAction",
-			"modalError": "ZyB8ua_modalError"
+			"menuStatus": "ImY4Ca_menuStatus",
+			"modalAction": "ImY4Ca_modalAction",
+			"modalError": "ImY4Ca_modalError"
 		};
 		//#endregion
 		//#region lib/types/client/WorkspacePicker.js
@@ -1156,8 +1183,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-workspace\src\client\rows\WorkspaceBrowser.module.css.mjs
-		const css = ".O_1DcG_root{--dsh-session-list-edge-inset:var(--dsh-sidebar-inline-padding);--dsh-session-list-scrollbar-width:8px;--dsh-session-list-scrollbar-offset:2px;box-sizing:border-box;min-height:0;padding-right:var(--dsh-session-list-edge-inset);flex-direction:column;flex:1;display:flex}.O_1DcG_root.O_1DcG_rail{padding-right:0}.O_1DcG_iconButton{cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.O_1DcG_iconButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.O_1DcG_sectionHeader{box-sizing:border-box;height:36px;color:var(--dsw-alias-label-tertiary);border-radius:12px;flex:none;justify-content:flex-end;align-items:center;gap:4px;margin-bottom:4px;padding-left:4px;display:flex;overflow:hidden}.O_1DcG_root:not(.O_1DcG_rail) .O_1DcG_sectionHeader{margin-top:2px;margin-right:-4px}.O_1DcG_sectionLabel{white-space:nowrap;opacity:1;visibility:visible;min-width:0;max-width:45%;transition:max-width .18s var(--ds-ease-in-out), margin-right .18s var(--ds-ease-in-out), opacity .12s var(--ds-ease-in-out), transform .18s var(--ds-ease-in-out), visibility 0s linear;flex:none;line-height:20px;overflow:hidden}.O_1DcG_sectionLabelHidden{opacity:0;visibility:hidden;max-width:0;margin-right:-4px;transition-delay:0s,0s,0s,0s,.18s;transform:translate(-4px)}.O_1DcG_searchSlot{box-sizing:border-box;min-width:0;max-width:28px;transition:max-width .18s var(--ds-ease-in-out), padding-left .18s var(--ds-ease-in-out);flex:1;align-items:center;margin-left:auto;padding-left:0;display:flex}.O_1DcG_searchSlotExpanded{max-width:100%;padding-left:0}.O_1DcG_headerActions{opacity:1;visibility:visible;max-width:60px;transition:max-width .18s var(--ds-ease-in-out), opacity .12s var(--ds-ease-in-out), transform .18s var(--ds-ease-in-out), visibility 0s linear;flex:none;align-items:center;gap:4px;display:flex;overflow:hidden}.O_1DcG_headerActionsHidden{opacity:0;visibility:hidden;pointer-events:none;max-width:0;transition-delay:0s,0s,0s,.18s;transform:translate(4px)}.O_1DcG_search{box-sizing:border-box;cursor:text;width:100%;height:28px;color:var(--dsw-alias-label-secondary);transition:width .18s var(--ds-ease-in-out), padding .18s var(--ds-ease-in-out), border-color .18s var(--ds-ease-in-out), background-color .18s var(--ds-ease-in-out);background:0 0;border:none;border-radius:50%;flex:none;align-items:center;gap:0;margin:0;padding:0;display:flex;overflow:hidden}.O_1DcG_searchExpanded{border:1px solid var(--dsw-alias-border-l2);width:calc(100% + 4px);height:30px;color:var(--dsw-alias-label-caption);background:0 0;border-radius:10px;margin-inline:-2px;padding:0 4px 0 0}.O_1DcG_searchButton{cursor:pointer;width:28px;height:28px;color:inherit;background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.O_1DcG_searchExpanded .O_1DcG_searchButton{width:28px;height:30px}.O_1DcG_searchButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.O_1DcG_searchExpanded .O_1DcG_searchButton:hover{background:0 0}.O_1DcG_searchInput{opacity:0;pointer-events:none;width:0;min-width:0;color:var(--dsw-alias-label-primary);transition:opacity .12s var(--ds-ease-in-out);background:0 0;border:none;outline:none;flex:1;font-size:13px;line-height:18px}.O_1DcG_searchExpanded .O_1DcG_searchInput{opacity:1;pointer-events:auto;margin-left:-2px}.O_1DcG_searchInput::placeholder{color:var(--dsw-alias-label-tertiary)}.O_1DcG_clearButton{cursor:pointer;width:24px;height:24px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.O_1DcG_clearButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.O_1DcG_rail .O_1DcG_sectionHeader{justify-content:flex-start;gap:0;margin-bottom:12px;padding-left:0}.O_1DcG_rail .O_1DcG_headerActions{max-width:none}.O_1DcG_rail .O_1DcG_iconButton{width:36px;height:36px;color:var(--dsw-alias-label-primary)}.O_1DcG_rail .O_1DcG_search{background:0 0;border-color:#0000;gap:0;width:36px;height:36px;margin:0 0 12px;padding:0}.O_1DcG_rail .O_1DcG_searchButton{width:36px;height:36px;color:var(--dsw-alias-label-primary)}.O_1DcG_rail .O_1DcG_searchButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.O_1DcG_listArea{min-height:0;margin-left:-4px;margin-right:calc(-1 * var(--dsh-session-list-edge-inset));flex-direction:column;flex:1;padding-left:4px;display:flex;overflow:visible}.O_1DcG_rail .O_1DcG_listArea{margin-left:0;margin-right:0;padding-left:0}.O_1DcG_treeBody{flex-direction:column;flex:1;min-height:0;display:flex;position:relative}.O_1DcG_fade{left:0;right:var(--dsh-session-list-edge-inset);background:linear-gradient(to bottom, transparent, var(--dsw-specific-sidebar-fill));pointer-events:none;height:24px;position:absolute;bottom:0}.O_1DcG_wide{animation:O_1DcG_wide-in .2s var(--ds-ease-in-out)}@keyframes O_1DcG_wide-in{0%{opacity:0}}.O_1DcG_list{min-height:0;margin-left:-4px;margin-right:var(--dsh-session-list-scrollbar-offset);padding-left:4px;padding-right:calc(var(--dsh-session-list-edge-inset) - var(--dsh-session-list-scrollbar-width) - var(--dsh-session-list-scrollbar-offset));scrollbar-gutter:stable;flex:1;padding-bottom:16px;overflow-y:auto}.O_1DcG_flatList>*+*,.O_1DcG_searchTree>[role=treeitem]+[role=treeitem],.O_1DcG_groupSection>*+*{margin-top:2px}.O_1DcG_searchStatus,.O_1DcG_searchWarning{color:var(--dsw-alias-label-tertiary);padding:10px 12px;font-size:12px;line-height:18px}.O_1DcG_searchWarning{color:var(--dsw-alias-label-secondary)}.O_1DcG_groupSection{position:relative}.O_1DcG_groupSection+.O_1DcG_groupSection{margin-top:4px}.O_1DcG_listTopDropIndicator,.O_1DcG_workspaceDropBefore:before,.O_1DcG_workspaceDropAfter:after{content:\"\";z-index:1;background:linear-gradient(55deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 0 / 5px 7px no-repeat, linear-gradient(125deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 5px / 5px 7px no-repeat, linear-gradient(var(--dsw-alias-state-business-primary) 0 0) 4px 5px / calc(100% - 4px) 2px no-repeat;pointer-events:none;height:12px;position:absolute;left:0;right:0}.O_1DcG_listTopDropIndicator{top:-8px;left:0;right:var(--dsh-session-list-edge-inset)}.O_1DcG_listTopDropActive>.O_1DcG_workspaceDropBefore:first-child:before{display:none}.O_1DcG_workspaceDropBefore:before{top:-8px}.O_1DcG_workspaceDropAfter:after{bottom:-8px}.O_1DcG_sessionOverflowButton{cursor:pointer;text-align:left;width:100%;height:28px;color:var(--dsw-alias-label-tertiary);background:0 0;border:none;border-radius:8px;padding:0 12px 0 28px;font-size:12px}.O_1DcG_groupSection>.O_1DcG_sessionOverflowButton{margin-top:0}.O_1DcG_sessionOverflowButton:hover{color:var(--dsw-alias-label-secondary);background:0 0}.O_1DcG_empty{color:var(--dsw-alias-label-tertiary);padding:16px 12px;font-size:13px}.O_1DcG_renameInput{box-sizing:border-box;border:1px solid var(--dsw-alias-border-l2);width:100%;height:44px;color:var(--dsw-alias-label-primary);background:0 0;border-radius:22px;outline:none;padding:7px 14px;font-size:14px;font-weight:400;line-height:22px}.O_1DcG_renameInput:disabled{color:var(--dsw-alias-label-dimmed)}.O_1DcG_renameError{color:var(--dsw-alias-state-error-primary);margin-top:8px;font-size:12px;line-height:18px}.O_1DcG_deleteAction:not(:disabled){color:var(--dsw-alias-state-error-primary)}.O_1DcG_deleteStatus{color:var(--dsw-alias-label-secondary);font-size:12px;line-height:18px}@media (prefers-reduced-motion:reduce){.O_1DcG_wide{animation:none}.O_1DcG_search,.O_1DcG_sectionLabel,.O_1DcG_searchSlot,.O_1DcG_searchInput,.O_1DcG_headerActions{transition:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-workspace\src\client\rows\WorkspaceBrowser.module.css.mjs
+		const css = ".Ik57Eq_root{--dsh-session-list-edge-inset:var(--dsh-sidebar-inline-padding);--dsh-session-list-scrollbar-width:8px;--dsh-session-list-scrollbar-offset:2px;box-sizing:border-box;min-height:0;padding-right:var(--dsh-session-list-edge-inset);flex-direction:column;flex:1;display:flex}.Ik57Eq_root.Ik57Eq_rail{padding-right:0}.Ik57Eq_iconButton{corner-shape:round;cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.Ik57Eq_iconButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.Ik57Eq_sectionHeader{box-sizing:border-box;height:36px;color:var(--dsw-alias-label-tertiary);border-radius:12px;flex:none;justify-content:flex-end;align-items:center;gap:4px;margin-bottom:4px;padding-left:4px;display:flex;overflow:hidden}.Ik57Eq_root:not(.Ik57Eq_rail) .Ik57Eq_sectionHeader{margin-top:2px;margin-right:-4px}.Ik57Eq_sectionLabel{white-space:nowrap;opacity:1;visibility:visible;min-width:0;max-width:45%;transition:max-width .18s var(--ds-ease-in-out), margin-right .18s var(--ds-ease-in-out), opacity .12s var(--ds-ease-in-out), transform .18s var(--ds-ease-in-out), visibility 0s linear;flex:none;line-height:20px;overflow:hidden}.Ik57Eq_sectionLabelHidden{opacity:0;visibility:hidden;max-width:0;margin-right:-4px;transition-delay:0s,0s,0s,0s,.18s;transform:translate(-4px)}.Ik57Eq_searchSlot{box-sizing:border-box;min-width:0;max-width:28px;transition:max-width .18s var(--ds-ease-in-out), padding-left .18s var(--ds-ease-in-out);flex:1;align-items:center;margin-left:auto;padding-left:0;display:flex}.Ik57Eq_searchSlotExpanded{max-width:100%;padding-left:0}.Ik57Eq_headerActions{opacity:1;visibility:visible;max-width:60px;transition:max-width .18s var(--ds-ease-in-out), opacity .12s var(--ds-ease-in-out), transform .18s var(--ds-ease-in-out), visibility 0s linear;flex:none;align-items:center;gap:4px;display:flex;overflow:hidden}.Ik57Eq_headerActionsHidden{opacity:0;visibility:hidden;pointer-events:none;max-width:0;transition-delay:0s,0s,0s,.18s;transform:translate(4px)}.Ik57Eq_search{box-sizing:border-box;corner-shape:round;cursor:text;width:100%;height:28px;color:var(--dsw-alias-label-secondary);transition:width .18s var(--ds-ease-in-out), padding .18s var(--ds-ease-in-out), border-color .18s var(--ds-ease-in-out), background-color .18s var(--ds-ease-in-out);background:0 0;border:none;border-radius:50%;flex:none;align-items:center;gap:0;margin:0;padding:0;display:flex;overflow:hidden}.Ik57Eq_searchExpanded{border:.5px solid var(--dsw-alias-border-l4);width:calc(100% + 4px);height:30px;color:var(--dsw-alias-label-caption);background:0 0;border-radius:10px;margin-inline:-2px;padding:0 4px 0 0}.Ik57Eq_searchButton{corner-shape:round;cursor:pointer;width:28px;height:28px;color:inherit;background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.Ik57Eq_searchExpanded .Ik57Eq_searchButton{width:28px;height:30px}.Ik57Eq_searchButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.Ik57Eq_searchExpanded .Ik57Eq_searchButton:hover{background:0 0}.Ik57Eq_searchInput{opacity:0;pointer-events:none;width:0;min-width:0;color:var(--dsw-alias-label-primary);transition:opacity .12s var(--ds-ease-in-out);background:0 0;border:none;outline:none;flex:1;font-size:13px;line-height:18px}.Ik57Eq_searchExpanded .Ik57Eq_searchInput{opacity:1;pointer-events:auto;margin-left:-2px}.Ik57Eq_searchInput::placeholder{color:var(--dsw-alias-label-tertiary)}.Ik57Eq_clearButton{corner-shape:round;cursor:pointer;width:24px;height:24px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.Ik57Eq_clearButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.Ik57Eq_rail .Ik57Eq_sectionHeader{justify-content:flex-start;gap:0;margin-bottom:12px;padding-left:0}.Ik57Eq_rail .Ik57Eq_headerActions{max-width:none}.Ik57Eq_rail .Ik57Eq_iconButton{width:36px;height:36px;color:var(--dsw-alias-label-primary)}.Ik57Eq_rail .Ik57Eq_search{background:0 0;border-color:#0000;gap:0;width:36px;height:36px;margin:0 0 12px;padding:0}.Ik57Eq_rail .Ik57Eq_searchButton{width:36px;height:36px;color:var(--dsw-alias-label-primary)}.Ik57Eq_rail .Ik57Eq_searchButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.Ik57Eq_listArea{min-height:0;margin-left:-4px;margin-right:calc(-1 * var(--dsh-session-list-edge-inset));flex-direction:column;flex:1;padding-left:4px;display:flex;overflow:visible}.Ik57Eq_rail .Ik57Eq_listArea{margin-left:0;margin-right:0;padding-left:0}.Ik57Eq_treeBody{flex-direction:column;flex:1;min-height:0;display:flex;position:relative}.Ik57Eq_fade{left:0;right:var(--dsh-session-list-edge-inset);background:linear-gradient(to bottom, transparent, var(--dsw-specific-sidebar-fill));pointer-events:none;height:24px;position:absolute;bottom:0}.Ik57Eq_wide{animation:Ik57Eq_wide-in .2s var(--ds-ease-in-out)}@keyframes Ik57Eq_wide-in{0%{opacity:0}}.Ik57Eq_list{min-height:0;margin-left:-4px;margin-right:var(--dsh-session-list-scrollbar-offset);padding-left:4px;padding-right:calc(var(--dsh-session-list-edge-inset) - var(--dsh-session-list-scrollbar-width) - var(--dsh-session-list-scrollbar-offset));scrollbar-gutter:stable;flex:1;padding-bottom:16px;overflow-y:auto}.Ik57Eq_flatList>*+*,.Ik57Eq_searchTree>[role=treeitem]+[role=treeitem],.Ik57Eq_groupSection>*+*{margin-top:2px}.Ik57Eq_searchStatus,.Ik57Eq_searchWarning{color:var(--dsw-alias-label-tertiary);padding:10px 12px;font-size:12px;line-height:18px}.Ik57Eq_searchWarning{color:var(--dsw-alias-label-secondary)}.Ik57Eq_groupSection{position:relative}.Ik57Eq_groupSection+.Ik57Eq_groupSection{margin-top:4px}.Ik57Eq_listTopDropIndicator,.Ik57Eq_workspaceDropBefore:before,.Ik57Eq_workspaceDropAfter:after{content:\"\";z-index:1;background:linear-gradient(55deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 0 / 5px 7px no-repeat, linear-gradient(125deg, transparent calc(50% - 1px), var(--dsw-alias-state-business-primary) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)) 0 5px / 5px 7px no-repeat, linear-gradient(var(--dsw-alias-state-business-primary) 0 0) 4px 5px / calc(100% - 4px) 2px no-repeat;pointer-events:none;height:12px;position:absolute;left:0;right:0}.Ik57Eq_listTopDropIndicator{top:-8px;left:0;right:var(--dsh-session-list-edge-inset)}.Ik57Eq_listTopDropActive>.Ik57Eq_workspaceDropBefore:first-child:before{display:none}.Ik57Eq_workspaceDropBefore:before{top:-8px}.Ik57Eq_workspaceDropAfter:after{bottom:-8px}.Ik57Eq_sessionOverflowButton{cursor:pointer;text-align:left;width:100%;height:28px;color:var(--dsw-alias-label-tertiary);background:0 0;border:none;border-radius:8px;padding:0 12px 0 28px;font-size:12px}.Ik57Eq_groupSection>.Ik57Eq_sessionOverflowButton{margin-top:0}.Ik57Eq_sessionOverflowButton:hover{color:var(--dsw-alias-label-secondary);background:0 0}.Ik57Eq_empty{color:var(--dsw-alias-label-tertiary);padding:16px 12px;font-size:13px}.Ik57Eq_renameInput{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);width:100%;height:44px;color:var(--dsw-alias-label-primary);background:0 0;border-radius:22px;outline:none;padding:7px 14px;font-size:14px;font-weight:400;line-height:22px}.Ik57Eq_renameInput:disabled{color:var(--dsw-alias-label-dimmed)}.Ik57Eq_renameError{color:var(--dsw-alias-state-error-primary);margin-top:8px;font-size:12px;line-height:18px}.Ik57Eq_deleteAction:not(:disabled){color:var(--dsw-alias-state-error-primary)}.Ik57Eq_deleteStatus{color:var(--dsw-alias-label-secondary);font-size:12px;line-height:18px}@media (prefers-reduced-motion:reduce){.Ik57Eq_wide{animation:none}.Ik57Eq_search,.Ik57Eq_sectionLabel,.Ik57Eq_searchSlot,.Ik57Eq_searchInput,.Ik57Eq_headerActions{transition:none}}";
 		const tagId = "@deepseek-ai/dsh-client-ui-workspace/WorkspaceBrowser.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -1167,42 +1194,42 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var WorkspaceBrowser_module_css_default = {
-			"clearButton": "O_1DcG_clearButton",
-			"deleteAction": "O_1DcG_deleteAction",
-			"deleteStatus": "O_1DcG_deleteStatus",
-			"empty": "O_1DcG_empty",
-			"fade": "O_1DcG_fade",
-			"flatList": "O_1DcG_flatList",
-			"groupSection": "O_1DcG_groupSection",
-			"headerActions": "O_1DcG_headerActions",
-			"headerActionsHidden": "O_1DcG_headerActionsHidden",
-			"iconButton": "O_1DcG_iconButton",
-			"list": "O_1DcG_list",
-			"listArea": "O_1DcG_listArea",
-			"listTopDropActive": "O_1DcG_listTopDropActive",
-			"listTopDropIndicator": "O_1DcG_listTopDropIndicator",
-			"rail": "O_1DcG_rail",
-			"renameError": "O_1DcG_renameError",
-			"renameInput": "O_1DcG_renameInput",
-			"root": "O_1DcG_root",
-			"search": "O_1DcG_search",
-			"searchButton": "O_1DcG_searchButton",
-			"searchExpanded": "O_1DcG_searchExpanded",
-			"searchInput": "O_1DcG_searchInput",
-			"searchSlot": "O_1DcG_searchSlot",
-			"searchSlotExpanded": "O_1DcG_searchSlotExpanded",
-			"searchStatus": "O_1DcG_searchStatus",
-			"searchTree": "O_1DcG_searchTree",
-			"searchWarning": "O_1DcG_searchWarning",
-			"sectionHeader": "O_1DcG_sectionHeader",
-			"sectionLabel": "O_1DcG_sectionLabel",
-			"sectionLabelHidden": "O_1DcG_sectionLabelHidden",
-			"sessionOverflowButton": "O_1DcG_sessionOverflowButton",
-			"treeBody": "O_1DcG_treeBody",
-			"wide": "O_1DcG_wide",
-			"wide-in": "O_1DcG_wide-in",
-			"workspaceDropAfter": "O_1DcG_workspaceDropAfter",
-			"workspaceDropBefore": "O_1DcG_workspaceDropBefore"
+			"clearButton": "Ik57Eq_clearButton",
+			"deleteAction": "Ik57Eq_deleteAction",
+			"deleteStatus": "Ik57Eq_deleteStatus",
+			"empty": "Ik57Eq_empty",
+			"fade": "Ik57Eq_fade",
+			"flatList": "Ik57Eq_flatList",
+			"groupSection": "Ik57Eq_groupSection",
+			"headerActions": "Ik57Eq_headerActions",
+			"headerActionsHidden": "Ik57Eq_headerActionsHidden",
+			"iconButton": "Ik57Eq_iconButton",
+			"list": "Ik57Eq_list",
+			"listArea": "Ik57Eq_listArea",
+			"listTopDropActive": "Ik57Eq_listTopDropActive",
+			"listTopDropIndicator": "Ik57Eq_listTopDropIndicator",
+			"rail": "Ik57Eq_rail",
+			"renameError": "Ik57Eq_renameError",
+			"renameInput": "Ik57Eq_renameInput",
+			"root": "Ik57Eq_root",
+			"search": "Ik57Eq_search",
+			"searchButton": "Ik57Eq_searchButton",
+			"searchExpanded": "Ik57Eq_searchExpanded",
+			"searchInput": "Ik57Eq_searchInput",
+			"searchSlot": "Ik57Eq_searchSlot",
+			"searchSlotExpanded": "Ik57Eq_searchSlotExpanded",
+			"searchStatus": "Ik57Eq_searchStatus",
+			"searchTree": "Ik57Eq_searchTree",
+			"searchWarning": "Ik57Eq_searchWarning",
+			"sectionHeader": "Ik57Eq_sectionHeader",
+			"sectionLabel": "Ik57Eq_sectionLabel",
+			"sectionLabelHidden": "Ik57Eq_sectionLabelHidden",
+			"sessionOverflowButton": "Ik57Eq_sessionOverflowButton",
+			"treeBody": "Ik57Eq_treeBody",
+			"wide": "Ik57Eq_wide",
+			"wide-in": "Ik57Eq_wide-in",
+			"workspaceDropAfter": "Ik57Eq_workspaceDropAfter",
+			"workspaceDropBefore": "Ik57Eq_workspaceDropBefore"
 		};
 		//#endregion
 		//#region lib/types/client/rows/WorkspaceBrowser.js
@@ -1884,8 +1911,8 @@ window.__ModuleLoader__.load({
 		* @param props - composed slot props (shell owner share + store + injected actions).
 		* @returns the region element tree.
 		*/
-		function WorkspaceBrowser({ wide, expandSidebar, useSessions, useSessionPendingInteraction, useWorkspaces, useStore, actions, startSession, open, renameSession, forkSession, renameWorkspace, deleteWorkspace, insertWorkspaceBefore, archiveSession, insertSessionBefore, createWorkspace, searchSessions, searchResultLimit, useDirectoryFlow, useConnectionGeneration, renderSlot, t }) {
-			const home = useConnectionGeneration((generation) => generation?.host.home);
+		function WorkspaceBrowser({ wide, expandSidebar, useSessions, useSessionPendingInteraction, useWorkspaces, useStore, actions, startSession, open, renameSession, forkSession, renameWorkspace, deleteWorkspace, insertWorkspaceBefore, archiveSession, insertSessionBefore, createWorkspace, searchSessions, searchResultLimit, useDirectoryFlow, useHostInfo, renderSlot, t }) {
+			const home = useHostInfo((info) => info.home);
 			const workspaces = useWorkspaces((state) => state.items);
 			const workspacePhase = useWorkspaces((state) => state.phase);
 			const archivedSessionIds = useWorkspaces((state) => state.archivedSessionIds);
@@ -2507,6 +2534,7 @@ window.__ModuleLoader__.load({
 			"status.planReview": "计划待审",
 			"status.waitingAnswer": "等待回答",
 			"status.completed": "已完成",
+			"schedule.active": "有活动定时任务",
 			"hover.created": "创建于 {time}",
 			"hover.copied": "已复制",
 			"date.ymd": "{y}年{m}月{d}日",
@@ -2572,6 +2600,7 @@ window.__ModuleLoader__.load({
 			"status.planReview": "Plan awaiting review",
 			"status.waitingAnswer": "Waiting for answer",
 			"status.completed": "Completed",
+			"schedule.active": "Has active scheduled task",
 			"hover.created": "Created {time}",
 			"hover.copied": "Copied",
 			"date.ymd": "{y}-{m}-{d}",
@@ -2600,7 +2629,6 @@ window.__ModuleLoader__.load({
 			"sessions",
 			"workspaces",
 			"locale",
-			"connection",
 			"remote",
 			"remote.directoryPicker"
 		];
@@ -2611,10 +2639,8 @@ window.__ModuleLoader__.load({
 		* @param ctx - client root context.
 		*/
 		function apply(ctx) {
-			const connection = ctx.get("connection");
 			const sessions = ctx.get("sessions");
 			const workspaces = ctx.get("workspaces");
-			const connectionGeneration = connection.generation;
 			const uiWorkspace = new UiWorkspaceService(ctx, ctx.remote.directoryPicker, workspaces, sessions);
 			ctx.slots.provideRoot({ hooks: { workspaces: workspaces.list } });
 			ctx.effect(() => ctx.locale.register(NS, {
@@ -2631,6 +2657,10 @@ window.__ModuleLoader__.load({
 				subscribe: (listener) => ctx.slots.subscribe(hole, listener)
 			});
 			const browserFlowSource = flowSource("sidebar.workspaces.directoryFlow");
+			const hostInfo = {
+				getSnapshot: () => ctx.remote.$host,
+				subscribe: (listener) => ctx.on("connection/reset", listener)
+			};
 			const pickerFlowSource = flowSource("conversation.hero.workspace.directoryFlow");
 			const browserInjected = () => ({
 				startSession: (workspaceId) => {
@@ -2673,7 +2703,7 @@ window.__ModuleLoader__.load({
 				createWorkspace: (input) => workspaces.create(input),
 				hooks: {
 					directoryFlow: browserFlowSource,
-					connectionGeneration
+					hostInfo
 				}
 			});
 			const pickerInjected = () => ({

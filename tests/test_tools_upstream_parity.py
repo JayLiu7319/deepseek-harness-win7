@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LlmRuntime
 from dsh.core.session import SessionPlugin
 from dsh.core.agent import AgentPlugin
@@ -36,6 +37,8 @@ async def test_agent_loop_waits_for_owned_tools_and_retires_on_loss():
         await ctx.plugin(AgentPlugin)
         await ctx.plugin(SessionPlugin)
         await ctx.plugin(LlmRuntime)
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin)
         assert ctx.get('tools') is None
         assert ctx.get('agentLoop') is None

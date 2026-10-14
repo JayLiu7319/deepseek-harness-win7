@@ -189,7 +189,7 @@ async def test_query_engine_abort_ignoring_source_holds_serialization_until_clea
             if boundary == 'inspect' and not release.is_set():
                 entered.set()
                 await release.wait()
-            return dict(meta=SessionHeader('s', created_at=1), events=[message('needle')])
+            return dict(meta=SessionHeader('s', created_at=1), inheritedEventCount=0, events=[message('needle')])
     provider = context.provide('sessionPersistence', Persistence())
     query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='first-search'))
     controller = AbortController()

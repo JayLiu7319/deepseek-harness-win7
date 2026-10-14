@@ -155,13 +155,13 @@ def fold_breakdown(state, event):
 
 
 TOKEN_USAGE = dict(key="tokenUsage", stateVersion=2, stateSchema=usage_state,
-                   init=lambda _: dict(totals=dict.fromkeys(BUCKETS, 0), last=None), apply=fold_usage,
+                   init=lambda _, cut: dict(totals=dict.fromkeys(BUCKETS, 0), last=None), apply=fold_usage,
                    wire=dict(viewSchema=lambda value: _counts(value, BUCKETS), view=lambda state: state["totals"]))
 CONTEXT_PRESSURE = dict(key="contextPressure", stateVersion=4, stateSchema=pressure_state,
-                        init=lambda _: dict(surfaceTokens=0), apply=fold_pressure,
+                        init=lambda _, cut: dict(surfaceTokens=0), apply=fold_pressure,
                         wire=dict(viewSchema=lambda value: _counts(value, (), ("contextWindow", "pressureTokens", "projectedTokens")), view=pressure_view))
 CONTEXT_BREAKDOWN = dict(key="contextBreakdown", stateVersion=2, stateSchema=breakdown_state,
-                         init=lambda _: dict(systemTokens=0, toolsTokens=0, messageTokens=0), apply=fold_breakdown,
+                         init=lambda _, cut: dict(systemTokens=0, toolsTokens=0, messageTokens=0), apply=fold_breakdown,
                          wire=dict(viewSchema=lambda value: _counts(value, ("systemTokens", "toolsTokens", "messageTokens")),
                                    view=lambda state: {key: state[key] for key in ("systemTokens", "toolsTokens", "messageTokens")}))
 DEFINITIONS = (TOKEN_USAGE, CONTEXT_PRESSURE, CONTEXT_BREAKDOWN)

@@ -10,6 +10,7 @@ import Tools from '../../reference/packages/core/tools/src/index.ts'
 import Prompt from '../../reference/packages/core/system-prompt/src/index.ts'
 import Agents from '../../reference/packages/core/agent/src/index.ts'
 import Loop from '../../reference/packages/core/agent-loop/src/index.ts'
+import SessionProjectionRegistry from '../../reference/packages/session/session-projection/src/index.ts'
 import {executeToolCalls} from '../../reference/packages/core/agent-loop/src/tool-calls.ts'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
@@ -22,7 +23,7 @@ try {
     const ctx = new Context()
     let handle: any
     try {
-      for (const plugin of [Llm, Sessions, Tools, Prompt, Agents]) await ctx.plugin(plugin)
+      for (const plugin of [Llm, Sessions, Tools, Prompt, Agents, SessionProjectionRegistry]) await ctx.plugin(plugin)
       await ctx.plugin(Loop, {agents:[], maxParallelToolCalls:1})
       handle = await ctx.agents.create({sessionId:SessionId('durable-' + spec.name)})
       const agent = handle.agent
@@ -48,7 +49,7 @@ try {
         ['c1','c2','c3'].map(identity => ({type:'tool-call' as const, id:identity as any,
           name:'probe', arguments:JSON.stringify({identity})})), controller.signal, () => {}))
       rows.push({name:spec.name, calls, outcome, publicResults,
-        events:structuredClone(agent.session.events.filter(event => event.type === 'tool/call' || event.type === 'tool/result'))})
+        events:structuredClone(agent.session.snapshotEvents().filter(event => event.type === 'tool/call' || event.type === 'tool/result'))})
     } finally {
       if (handle) await handle.dispose()
       await ctx.fiber.dispose()

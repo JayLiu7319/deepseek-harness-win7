@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {it} from 'vitest'
 import {writeFile} from 'node:fs/promises'
 import {Context} from '@deepseek-ai/cordis'
@@ -26,7 +27,8 @@ async function boot(cap: number, settings = false) {
   await ctx.plugin(Prompt)
   await ctx.plugin(Agents)
   const settingsFiber = settings ? await ctx.plugin(MemorySettings) : undefined
-  const loopFiber = await ctx.plugin(Loop,{agents:[],maxParallelToolCalls:cap})
+  if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const loopFiber = await ctx.plugin(Loop,{agents:[],maxParallelToolCalls:cap})
   return {ctx,settingsFiber,loopFiber}
 }
 
@@ -40,7 +42,8 @@ it('observes actual original caps, settings ownership and factory model consumer
       await ctx.plugin(Tools)
       await ctx.plugin(Prompt)
       await ctx.plugin(Agents)
-      const loop = new Loop(ctx,{agents:[],...value === undefined ? {} : {maxParallelToolCalls:value as any}})
+      if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+const loop = new Loop(ctx,{agents:[],...value === undefined ? {} : {maxParallelToolCalls:value as any}})
       rows.push({name:'cap-'+name,value:loop.config.maxParallelToolCalls})
     } catch (error: any) {rows.push({name:'cap-'+name,error:error.message})}
     finally {await ctx.fiber.dispose()}
@@ -53,7 +56,8 @@ it('observes actual original caps, settings ownership and factory model consumer
     ctx.on('agent/created',() => {published.push(true)})
     await ctx.plugin(Llm);await ctx.plugin(Sessions);await ctx.plugin(Tools);await ctx.plugin(Prompt);await ctx.plugin(Agents)
     try {
-      await ctx.plugin(Loop,config as any)
+      if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop,config as any)
       rows.push({name,admitted:true,published})
     } catch (error: any) {rows.push({name,error:error.name,expected:error.message.includes(expected),published})}
     finally {await ctx.fiber.dispose()}
@@ -116,8 +120,8 @@ it('observes actual original caps, settings ownership and factory model consumer
       for (let index=4;index<7;index++) {await entered[index].promise;release[index].resolve()}
       await idle
       rows.push({name:'model-group-snapshot',initial,continuation,peaks,started,cap:ctx.agentLoop.config.maxParallelToolCalls,
-        requests:handle.agent.session.events.filter(event => event.type === 'assistant/message').length,
-        results:handle.agent.session.events.filter(event => event.type === 'tool/result').map((event: any) => event.data.message.source.callId)})
+        requests:handle.agent.session.snapshotEvents().filter(event => event.type === 'assistant/message').length,
+        results:handle.agent.session.snapshotEvents().filter(event => event.type === 'tool/result').map((event: any) => event.data.message.source.callId)})
     } finally {release.forEach(gate => gate.resolve());await handle.dispose();await ctx.fiber.dispose()}
   }
   for (const cap of [1,2,10]) {
@@ -148,8 +152,8 @@ it('observes actual original caps, settings ownership and factory model consumer
       release.resolve()
       await idle
       rows.push({name:'model-pool-'+cap,peak,started,
-        requests:handle.agent.session.events.filter(event => event.type === 'assistant/message').length,
-        results:handle.agent.session.events.filter(event => event.type === 'tool/result').map((event: any) => ({
+        requests:handle.agent.session.snapshotEvents().filter(event => event.type === 'assistant/message').length,
+        results:handle.agent.session.snapshotEvents().filter(event => event.type === 'tool/result').map((event: any) => ({
           callId:event.data.message.source.callId,isError:event.data.message.content[0].isError}))})
     } finally {release.resolve();await handle.dispose();await ctx.fiber.dispose()}
   }

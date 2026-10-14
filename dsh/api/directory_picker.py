@@ -14,7 +14,7 @@ class DirectoryPickerController(TypertRemoteService):
     def _capability(self, kind, method):
         cap = self.ctx.get('directoryPicker').capability()
         if cap['kind'] != kind:
-            raise failure('directory-picker-unavailable',
+            raise failure('directory-picker/unavailable',
                           'directoryPicker.%s needs the %s capability; the composed picker serves "%s"' % (method, kind, cap['kind']),
                           {'capability': cap['kind']})
         return cap[method]
@@ -25,7 +25,7 @@ class DirectoryPickerController(TypertRemoteService):
         try:
             return await pick(signal)
         except Exception as error:
-            raise failure('cancelled' if signal.aborted else 'internal',
+            raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal',
                           'directory picker was aborted' if signal.aborted else 'directory picker failed: ' + str(error)) from error
 
     @Remote
@@ -35,13 +35,13 @@ class DirectoryPickerController(TypertRemoteService):
             return await listing(None if path is UNDEFINED else path, signal)
         except Exception as error:
             if signal.aborted:
-                raise failure('cancelled', 'directory listing was aborted') from error
+                raise failure('gateway/cancelled', 'directory listing was aborted') from error
             raise self._browse_failure(error) from error
 
     @Remote
     async def createDirectory(self, path, name):
         if not isinstance(name, str) or not name.strip() or name in ('.', '..') or '/' in name or '\\' in name:
-            raise failure('bad-request', 'invalid payload for host.createDirectory',
+            raise failure('gateway/bad-request', 'invalid payload for host.createDirectory',
                           {'issues': [{'code': 'custom', 'path': [], 'message': 'host.createDirectory requires a single non-blank path segment name'}]})
         create = self._capability('browse', 'createDirectory')
         try:
@@ -53,4 +53,4 @@ class DirectoryPickerController(TypertRemoteService):
     def _browse_failure(error):
         if isinstance(error, DirectoryPickerError):
             return failure(error.code, str(error), {'path': error.path})
-        return failure('internal', str(error))
+        return failure('gateway/internal', str(error))

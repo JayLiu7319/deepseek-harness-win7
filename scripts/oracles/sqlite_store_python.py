@@ -26,7 +26,7 @@ def visible(value):
 
 async def observe(directory, mode):
     meta = dict(id='store-session', version=0, createdAt=1234, cwd=str(directory), origin='subagent',
-                delegationDepth=2, agentPreset='standard')
+                delegationDepth=2, agentPreset='standard', isSeeded=False)
     if mode == 'produce':
         store = SqliteStore(str(directory / 'native.db'), journal_mode='delete')
         try:

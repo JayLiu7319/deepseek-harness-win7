@@ -19,7 +19,7 @@ async def composition(root):
     await ctx.plugin(StorageJsonPlugin, config={"root": str(root)})
     await ctx.plugin(StorageDomainPlugin, config={"backend": "json"})
     ctx.get("sessionProjections").register({"key": "count", "stateVersion": 1,
-        "stateSchema": lambda value: int(value), "init": lambda header: 0,
+        "stateSchema": lambda value: int(value), "init": lambda header, inherited_event_count: 0,
         "apply": lambda state, event: state + 1, "wire": {"viewSchema": lambda value: int(value), "view": lambda state: state}})
     await ctx.plugin(SessionProjectionCachePlugin, config={"writeEveryEvents": 10, "writeIntervalMs": 5000})
     return ctx
@@ -33,18 +33,18 @@ async def test_checkpoint_reopens_and_recreated_identity_does_not_reuse_it(tmp_p
     session.append("test/event", {"value": 1}, ignorable=True)
     cache = ctx.get("sessionProjectionCache")
     await cache.write(session)
-    expected = cache.cached_snapshot(session.header)
+    expected = cache.cached_snapshot(session.header, session.inheritedEventCount)
     assert expected["values"]["count"] == len(session.events)
     document = tmp_path / "session_projcache" / "sessions" / "cache-session.json"
-    assert json.loads(document.read_text(encoding="utf-8"))["version"] == 4
+    assert json.loads(document.read_text(encoding="utf-8"))["version"] == 5
     header = session.header
     await ctx.fiber.dispose()
     fresh = await composition(tmp_path)
     try:
-        assert fresh.get("sessionProjectionCache").cached_snapshot(header) == expected
+        assert fresh.get("sessionProjectionCache").cached_snapshot(header, 0) == expected
         from dsh.core.session import SessionHeader
         replacement = SessionHeader("cache-session", created_at=header.createdAt + 1, cwd=header.cwd)
-        assert fresh.get("sessionProjectionCache").cached_snapshot(replacement) is None
+        assert fresh.get("sessionProjectionCache").cached_snapshot(replacement, 0) is None
     finally:
         await fresh.fiber.dispose()
 
@@ -88,7 +88,7 @@ async def test_invalid_legacy_cache_is_ignored_and_preserved(tmp_path, document)
 
 @pytest.mark.asyncio
 async def test_cold_session_listing_survives_restart_without_activating_agent(tmp_path):
-    from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+    from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
     from dsh.session.listing import SessionListing
     first = await composition(tmp_path / "storage")
     await first.plugin(JsonlSessionPersistencePlugin, config={"root": str(tmp_path / "logs")})
@@ -109,4 +109,47 @@ async def test_cold_session_listing_survives_restart_without_activating_agent(tm
         assert fresh.get("agents") is None
     finally:
         await fresh.fiber.dispose()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('version', [3, 4])
+async def test_prior_checkpoint_reuses_only_unseeded_identity(tmp_path, version):
+    from dsh.core.session import SessionHeader
+    directory = tmp_path / 'session_projcache' / 'sessions'
+    directory.mkdir(parents=True)
+    record = dict(identity=dict(createdAt=1), rows=dict(count=dict(ver=1, seq=7, val=8)))
+    (directory / 'old.json').write_text(json.dumps(dict(version=version, record=record)), encoding='utf-8')
+    ctx = await composition(tmp_path)
+    try:
+        cache = ctx.get('sessionProjectionCache')
+        assert cache.cached_snapshot(SessionHeader('old', created_at=1), 0)['values']['count'] == 8
+        assert cache.cached_snapshot(SessionHeader('old', created_at=1, is_seeded=True), 0) is None
+        assert cache.cached_snapshot(SessionHeader('old', created_at=1, is_seeded=True), 2) is None
+    finally:
+        await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
+async def test_seeded_checkpoint_requires_exact_cut_and_invalid_record_is_backed_up(tmp_path):
+    from dsh.core.session import SessionHeader
+    directory = tmp_path / 'session_projcache' / 'sessions'
+    directory.mkdir(parents=True)
+    record = dict(identity=dict(createdAt=1, isSeeded=True, inheritedEventCount=2),
+                  rows=dict(count=dict(ver=1, seq=7, val=8)))
+    (directory / 'seeded.json').write_text(json.dumps(dict(version=5, record=record)), encoding='utf-8')
+    broken = directory / 'broken.json'
+    raw = json.dumps(dict(version=5, record=dict(identity=None, rows={})))
+    broken.write_text(raw, encoding='utf-8')
+    ctx = await composition(tmp_path)
+    try:
+        cache = ctx.get('sessionProjectionCache')
+        header = SessionHeader('seeded', created_at=1, is_seeded=True)
+        assert cache.cached_snapshot(header, 2)['values']['count'] == 8
+        assert cache.cached_snapshot(header, 0) is None
+        assert cache.cached_snapshot(header, 1) is None
+        assert not broken.exists()
+        backups = list(directory.glob('broken.json.bak.*'))
+        assert len(backups) == 1 and backups[0].read_text(encoding='utf-8') == raw
+    finally:
+        await ctx.fiber.dispose()
 

@@ -1,8 +1,8 @@
 {
   "id": "CON-DEEPSEEK-CAPTURE",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/llm/llm-deepseek/src/index.ts",
     "reference/packages/llm/llm-deepseek/src/serialize.ts",
@@ -39,6 +39,12 @@
   "adaptation": "Native configuration errors remain ValueError subclasses with name/message matching Source. Preparation errors are wrapped inside the actual prepare boundary; base-field collision stays outside that catch and retains the offending JSON field. Deployment reasoning and unsupported image-role messages match their actual original branches. Numeric and opaque-id digest adaptations preserve all raw reports.",
   "open_questions": [
     "Extra exception properties/cause/stack, internal settings fallback logs, full immutable/public graph ABI, arbitrary malformed transport/configuration and full canonical provider/profile/retry/error recovery remain unqualified.",
-    "Static Source guards do not prove complete dynamic import closure; exact Source pin/cleanliness and wider frozen gate inputs are mandatory. OAuth/cloud/paid model and realWin7 remain separate open scopes."
-  ]
+    "Static Source guards do not prove complete dynamic import closure; exact Source pin/cleanliness and wider frozen gate inputs are mandatory. OAuth/cloud/paid model and realWin7 remain separate open scopes.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

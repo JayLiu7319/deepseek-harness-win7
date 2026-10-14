@@ -38,6 +38,7 @@ async def observe(name):
         raise ValueError('Unknown runtime full request observation')
     action, configuration = name.split('/')
     from dsh.cordis.context import Context
+    from dsh.session.projections import SessionProjectionRegistry
     from dsh.core.agent_loop import AgentLoopPlugin
     from dsh.core.agent import AgentPlugin
     from dsh.core.session import SessionPlugin
@@ -68,6 +69,7 @@ async def observe(name):
                 yield chunk
 
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     await ctx.plugin(LlmRuntime)
     model = ctx.get('llm')
     adapter = Adapter()

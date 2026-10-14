@@ -3,7 +3,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from dsh.cordis.context import Context
 from dsh.core.session import SessionPlugin,SessionHeader
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 MODES=['lazy','duplicate','cursor','legacy','unknown','cold-adopt','materialize','invalid-read']
 def event(seq=0,kind='session/end-seed',data=None):return dict(seq=seq,type=kind,time=seq+1,data={} if data is None else data)
 async def observe():

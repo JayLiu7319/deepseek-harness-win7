@@ -1,4 +1,5 @@
 """Maintenance is externally idle, but retains Agent lifetime ownership."""
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LlmRuntime
 import asyncio
 import json
@@ -136,6 +137,8 @@ async def test_factory_disposal_joins_real_compaction_before_releasing_scope(sta
         await ctx.plugin(SystemPrompt)
         await ctx.plugin(ToolsPlugin)
         await ctx.plugin(LlmRuntime)
+        if ctx.get('sessionProjections') is None:
+            await ctx.plugin(SessionProjectionsPlugin)
         await ctx.plugin(AgentLoopPlugin)
         TokenMeter(ctx)
         engine = CompactionEngine(ctx=ctx, config=dict(auto=False))

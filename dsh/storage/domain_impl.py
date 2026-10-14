@@ -367,6 +367,10 @@ class DomainFacility:
                         try:
                             recs[k] = tbl_spec.value_schema.parse(raw)
                         except Exception as e:
+                            backup = getattr(unit, 'backup_record', None)
+                            if spec.invalid_records == 'backup-and-skip' and callable(backup):
+                                await backup(tbl_name, k)
+                                continue
                             raise DomainError(
                                 "invalid-record",
                                 f"domain '{spec.name}': stored record '{k}' in table '{tbl_name}' does not match its schema",

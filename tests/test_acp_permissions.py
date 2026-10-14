@@ -123,7 +123,7 @@ async def test_canonical_agent_tool_permission_and_next_request_preserve_machine
     profile = home / 'profiles' / 'permission-owned'
     init_profile(str(profile), [], 'startup')
     rows = [{'id': name, 'name': '@deepseek-ai/dsh-' + name} for name in
-            ('session', 'tools', 'system-prompt', 'llm', 'agent', 'agent-loop', 'user-approval', 'acp')]
+            ('session', 'session-projection', 'tools', 'system-prompt', 'llm', 'agent', 'agent-loop', 'user-approval', 'acp')]
     rows.append({'id': 'persistence', 'name': '@deepseek-ai/dsh-session-persistence-jsonl',
                  'config': {'root': str(tmp_path / 'sessions'), 'packChunks': False}})
     (profile / 'cordis.patch.yml').write_text(yaml.safe_dump([{'insert': rows}]), encoding='utf-8')

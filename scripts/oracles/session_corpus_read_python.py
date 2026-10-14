@@ -104,7 +104,7 @@ async def observe():
                                     timeline.append('project:' + identity)
                                 return super().get(key, default)
                         event['data'] = ProjectedData(event['data'])
-                    inspected = SimpleNamespace(meta=header(identity, 8 if name == 'load-header-conflict' else 9), events=[event])
+                    inspected = SimpleNamespace(meta=header(identity, 8 if name == 'load-header-conflict' else 9), events=[event], inheritedEventCount=0)
                     return inspected
                 finally:
                     counters['inFlight'] -= 1

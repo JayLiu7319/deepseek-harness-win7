@@ -82,9 +82,10 @@ async def start_run(request, seed=None):
                 payload["agent"].session.append("subagent/descriptor", request["descriptor"])
             return decision
         child_ctx.on("agent/pre-step", descriptor)
-    handle = await parent.ctx.get("agents").create({"sessionId": str(uuid.uuid4()), "meta": child_meta(parent, depth, boundary),
+    handle = await parent.ctx.get("agents").create({"sessionId": str(uuid.uuid4()), "meta": child_meta(parent, depth, seed is not None),
+        "inheritedEventCount": boundary,
         "agentOptions": child_options(parent, request.get("agentOptions"), depth), "signal": signal, "setup": setup,
-        **({"seed": seed} if seed else {})})
+        **({"seed": seed} if seed is not None else {})})
     return InProcessRun(handle, signal, request["prompt"], boundary, structured)
 
 
@@ -95,10 +96,11 @@ class InProcessProvider:
         self.name, self.inheritsParentContext = name, fork
 
     async def start(self, request):
-        return await start_run(request, completed_turn_prefix(request["parent"]) if self.inheritsParentContext else None)
+        seed = completed_turn_prefix(request["parent"]) if self.inheritsParentContext else None
+        return await start_run(request, seed if seed else None)
 
     async def prepareContinuable(self, request):
-        seed = completed_turn_prefix(request["parent"]) if self.inheritsParentContext else []
+        seed = completed_turn_prefix(request["parent"]) if self.inheritsParentContext else None
         return {"seed": seed} if seed else {}
 
 

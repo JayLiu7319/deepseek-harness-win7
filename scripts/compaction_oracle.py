@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BUG_TARGET = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+BUG_TARGET = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 BUG_CASE = dict(mode='embedded-nul-routes', kind='config', config=dict(modelPolicies=[
     dict(provider='a\0b', model='c', maxTokens=1), dict(provider='a', model='b\0c', maxTokens=2)]),
     target=dict(provider='a', model='b\0c'), window=1000)

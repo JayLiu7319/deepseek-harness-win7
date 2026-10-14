@@ -61,8 +61,8 @@ for reverse in (False, True):
     values = list(reversed(identities)) if reverse else list(identities)
     for times in ('same', 'mixed', 'separate'):
         for provider in ('live', 'persisted', 'mixed'):
-            headers = [dict(version=0, id='root', createdAt=0)]
-            headers.extend(dict(version=0, id=identity, createdAt=1 if times == 'same' else index % 3 + 1 if times == 'mixed' else index + 1,
+            headers = [dict(version=0, id='root', createdAt=0, isSeeded=False)]
+            headers.extend(dict(version=0, id=identity, isSeeded=False, createdAt=1 if times == 'same' else index % 3 + 1 if times == 'mixed' else index + 1,
                                 parentSession='root') for index, identity in enumerate(values))
             orders.append(dict(name=str(reverse)+'-'+times+'-'+provider, provider=provider, headers=headers))
 report['orders'] = orders

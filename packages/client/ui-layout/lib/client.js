@@ -69,8 +69,8 @@ window.__ModuleLoader__.load({
 			return null;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-layout\src\client\AppFrame.module.css.mjs
-		const css = ".QRHTIa_frame{background:var(--dsw-alias-bg-base);height:100%;transition:grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);grid-template-rows:100%;display:grid;position:relative;overflow:hidden}.QRHTIa_frame[data-dragging]{transition:none}@media (prefers-reduced-motion:reduce){.QRHTIa_frame{transition:none}}.QRHTIa_sidebarCol{background:var(--dsw-specific-sidebar-fill);border-right:1px solid var(--dsw-alias-border-l1);min-width:0;overflow:hidden}.QRHTIa_centerCol{flex-direction:column;min-width:0;display:flex;overflow:hidden}.QRHTIa_detailsCol{border-left:1px solid var(--dsw-alias-border-l2);min-width:0;overflow:hidden}.QRHTIa_frame[data-details-collapsed] .QRHTIa_detailsCol{border-left:none}.QRHTIa_handle{cursor:col-resize;z-index:2;touch-action:none;width:8px;transition:left var(--ds-transition-duration-slow) var(--ds-ease-in-out);margin-left:-4px;position:absolute;top:0;bottom:0}.QRHTIa_frame[data-dragging] .QRHTIa_handle{transition:none}@media (prefers-reduced-motion:reduce){.QRHTIa_handle{transition:none}}.QRHTIa_handle[data-side=details]:after{content:\"\";box-sizing:border-box;background:var(--dsw-alias-button-floating-fill);border:1px solid var(--dsw-alias-border-l2-darkmode-thin);opacity:0;width:12px;height:32px;transition:opacity var(--ds-transition-duration-slow) var(--ds-ease-in-out), background var(--ds-transition-duration-slow) var(--ds-ease-in-out);border-radius:10px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.QRHTIa_detailsCol:hover~.QRHTIa_handle[data-side=details]:after,.QRHTIa_handle[data-side=details]:hover:after,.QRHTIa_handle[data-side=details][data-dragging=true]:after{opacity:1}.QRHTIa_handle[data-side=details]:hover:after,.QRHTIa_handle[data-side=details][data-dragging=true]:after{background:var(--dsw-alias-button-floating-hover);border-color:var(--dsw-alias-border-l3)}.QRHTIa_overlayLayer{z-index:20;pointer-events:none;position:absolute;inset:0}.QRHTIa_overlayLayer>*{pointer-events:auto}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-layout\src\client\AppFrame.module.css.mjs
+		const css = "._3uBoha_frame{background:var(--dsw-alias-bg-base);height:100%;transition:grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);grid-template-rows:100%;display:grid;position:relative;overflow:hidden}._3uBoha_frame[data-dragging]{transition:none}@media (prefers-reduced-motion:reduce){._3uBoha_frame{transition:none}}._3uBoha_sidebarCol{background:var(--dsw-specific-sidebar-fill);border-right:.5px solid var(--dsw-alias-border-l3);min-width:0;overflow:hidden}._3uBoha_centerCol{flex-direction:column;min-width:0;display:flex;overflow:hidden}._3uBoha_detailsCol{border-left:.5px solid var(--dsw-alias-border-l3);min-width:0;overflow:hidden}._3uBoha_frame[data-details-collapsed] ._3uBoha_detailsCol{border-left:none}._3uBoha_handle{cursor:col-resize;z-index:2;touch-action:none;width:8px;transition:left var(--ds-transition-duration-slow) var(--ds-ease-in-out);margin-left:-4px;position:absolute;top:0;bottom:0}._3uBoha_frame[data-dragging] ._3uBoha_handle{transition:none}@media (prefers-reduced-motion:reduce){._3uBoha_handle{transition:none}}._3uBoha_handle[data-side=details]:after{content:\"\";box-sizing:border-box;background:var(--dsw-alias-button-floating-fill);border:.5px solid var(--dsw-alias-border-l2-darkmode-thin);opacity:0;width:12px;height:32px;transition:opacity var(--ds-transition-duration-slow) var(--ds-ease-in-out), background var(--ds-transition-duration-slow) var(--ds-ease-in-out);border-radius:10px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}._3uBoha_detailsCol:hover~._3uBoha_handle[data-side=details]:after,._3uBoha_handle[data-side=details]:hover:after,._3uBoha_handle[data-side=details][data-dragging=true]:after{opacity:1}._3uBoha_handle[data-side=details]:hover:after,._3uBoha_handle[data-side=details][data-dragging=true]:after{background:var(--dsw-alias-button-floating-hover);border-color:var(--dsw-alias-border-l3)}._3uBoha_overlayLayer{z-index:20;pointer-events:none;position:absolute;inset:0}._3uBoha_overlayLayer>*{pointer-events:auto}";
 		const tagId = "@deepseek-ai/dsh-client-ui-layout/AppFrame.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -80,12 +80,12 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var AppFrame_module_css_default = {
-			"centerCol": "QRHTIa_centerCol",
-			"detailsCol": "QRHTIa_detailsCol",
-			"frame": "QRHTIa_frame",
-			"handle": "QRHTIa_handle",
-			"overlayLayer": "QRHTIa_overlayLayer",
-			"sidebarCol": "QRHTIa_sidebarCol"
+			"centerCol": "_3uBoha_centerCol",
+			"detailsCol": "_3uBoha_detailsCol",
+			"frame": "_3uBoha_frame",
+			"handle": "_3uBoha_handle",
+			"overlayLayer": "_3uBoha_overlayLayer",
+			"sidebarCol": "_3uBoha_sidebarCol"
 		};
 		//#endregion
 		//#region lib/types/client/AppFrame.js

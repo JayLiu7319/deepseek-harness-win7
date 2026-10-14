@@ -1,10 +1,22 @@
 {
   "id": "CON-ACP-MCP",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/acp/acp/src/mcp.ts", "reference/packages/acp/acp/src/session.ts", "reference/packages/acp/acp/tests/harness.ts", "reference/packages/acp/acp/tests/mcp.spec.ts", "reference/packages/acp/acp/tests/bridge.spec.ts"],
-  "consumers": ["dsh/acp/server.py", "dsh/acp/mcp.py", "dsh/core/agent_loop.py", "scripts/acp_mcp_journey.py", "scripts/verify_portable.py"],
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/acp/acp/src/mcp.ts",
+    "reference/packages/acp/acp/src/session.ts",
+    "reference/packages/acp/acp/tests/harness.ts",
+    "reference/packages/acp/acp/tests/mcp.spec.ts",
+    "reference/packages/acp/acp/tests/bridge.spec.ts"
+  ],
+  "consumers": [
+    "dsh/acp/server.py",
+    "dsh/acp/mcp.py",
+    "dsh/core/agent_loop.py",
+    "scripts/acp_mcp_journey.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "The complete declared stdio/HTTP list is validated before mounting any provider; selected original normalized names, config/defaults, environment/header fields and exact indexed errors match the native mapping.",
     "MCP providers are activated in the unpublished Agent scope after model control installation and before factory Agent/Session publication; siblings may reuse the same server namespace without global tool leakage.",
@@ -18,5 +30,13 @@
   "errors": "Caller-correctable mapping failures preserve AcpMcpConfigError and exact indexed source messages and become ACP Invalid params; connection/startup errors remain startup failures and roll back the owned scope.",
   "cancellation": "Unpublished setup abort prevents Agent/Session publication and reaps real children after the declared late initialization release; this contract does not claim immediate disposal of an indefinitely unresponsive initializer before the SDK default timeout.",
   "adaptation": "Python 3.8 setup returns an awaitable when declarations are nonempty, preserving synchronous compatibility for existing empty-list factory adapters; the production factory awaits it. The installation-owned plugin registry resolves the provider. Windows child-exit observation uses Win7-compatible process synchronization handles.",
-  "open_questions": ["Clean candidate e24fe1dbeaa804553179cdace7bc46703073682e passed complete regression, current original/paired gates and actual extracted Portable; bounded acceptance is archived in ACP-MCP-20261004-e24fe1db.zip. The 58 mapped declaration cases and selected cancellation barrier do not certify complete WHATWG URL/Unicode behavior, infinite blocked initialization, full SDK HTTP, subprocess subagent-acp or overall ACP; Win7 execution remains deferred by the user."]
+  "open_questions": [
+    "Clean candidate e24fe1dbeaa804553179cdace7bc46703073682e passed complete regression, current original/paired gates and actual extracted Portable; bounded acceptance is archived in ACP-MCP-20261004-e24fe1db.zip. The 58 mapped declaration cases and selected cancellation barrier do not certify complete WHATWG URL/Unicode behavior, infinite blocked initialization, full SDK HTTP, subprocess subagent-acp or overall ACP; Win7 execution remains deferred by the user.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

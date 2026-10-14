@@ -38,6 +38,10 @@ try{
     {preset:null,sandbox:'foreign',approval:null},{preset:null,sandbox:null,approval:'foreign'},
     {preset:null,sandbox:null,approval:null,extra:true},{preset:null,sandbox:null},
     {preset:5,sandbox:null,approval:null},null,[],{preset:'custom',sandbox:'workspace-write',approval:'ask'}]
+  for(const value of states)if(value&&typeof value==='object'&&!Array.isArray(value))value.seeded=false
+  delete states[5].seeded
+  states[6].seeded=1
+  states[9].seeded=true
   const views:any[]=[{options:[],currentValue:'custom'},{options:[{value:'v',name:'n',description:'',extra:1}],currentValue:'v',extra:1},
     {options:[{value:'v',name:'n'}],currentValue:'v'},{options:[{value:'',name:'n'}],currentValue:'v'},
     {options:[{value:'v',name:''}],currentValue:'v'},{options:[{value:'v',name:'n',description:null}],currentValue:'v'},
@@ -55,8 +59,8 @@ try{
   for(const line of ['/permission','/permission foreign','/permission danger-full-access','/permission danger-full-access','/permission workspace-write']){
     const execution=await ctx.commands.execute(agent,line,[],new AbortController().signal)
     rows.push({name:'command-'+rows.filter(row=>row.name.startsWith('command-')).length,line,
-      value:execution?.result,current:ctx.permissionPresets.current(session.events),
-      knobs:session.events.filter(event=>['permission/preset','sandbox/mode','approval/policy'].includes(event.type)).map(event=>({type:event.type,data:event.data})),
+      value:execution?.result,current:ctx.permissionPresets.current(session),
+      knobs:session.snapshotEvents().filter(event=>['permission/preset','sandbox/mode','approval/policy'].includes(event.type)).map(event=>({type:event.type,data:event.data})),
       approvalConfig:structuredClone(ctx.approval.config),injected:structuredClone(injected)})
   }
   await ctx.settings.replace('permission' as any,{defaultPreset:'danger-full-access'})

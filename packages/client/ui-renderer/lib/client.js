@@ -336,20 +336,22 @@ window.__ModuleLoader__.load({
 			const args = [];
 			if (binding !== void 0) args.push(binding.key);
 			if (actions !== void 0) args.push(actions);
-			return bindInjectHooks(inject(...args));
+			return bindInjectSources(inject(...args));
 		}
-		/**
-		* Normalize one entry-owned inject face on its existing cache axis. Its hooks
-		* compartment remains the original Observable-only contract.
-		*/
-		function bindInjectHooks(face) {
+		/** Bind one entry-owned inject face on its existing cache axis. */
+		function bindInjectSources(face) {
 			const sources = face["hooks"];
-			if (sources === void 0) return face;
-			const { hooks: _hooks, ...rest } = face;
+			const keyedSources = face["keyedHooks"];
+			if (sources === void 0 && keyedSources === void 0) return face;
+			const { hooks: _hooks, keyedHooks: _keyedHooks, ...rest } = face;
 			const bound = rest;
-			for (const [name, source] of Object.entries(sources)) {
+			for (const [name, source] of Object.entries(sources ?? {})) {
 				const hookName = (0, _deepseek_ai_dsh_client_ui_slots.standardHookPropName)(name);
 				bound[hookName] = observableHook(source);
+			}
+			for (const [name, source] of Object.entries(keyedSources ?? {})) {
+				const hookName = (0, _deepseek_ai_dsh_client_ui_slots.standardHookPropName)(name);
+				bound[hookName] = keyedObservableHook(source);
 			}
 			return bound;
 		}

@@ -11,7 +11,7 @@ from dsh.core.runtime_context import RuntimeContextProjection
 from dsh.core.session import Session, SessionHeader, SessionStore, SessionPlugin
 from dsh.session.checkpoint_policy import SessionCheckpointPolicyPlugin, aborted_before_dispatch_result
 from dsh.session.coordinator import PersistenceCoordinator
-from dsh.session.persistence_jsonl import JsonlSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 from dsh.session.stats import SessionStatsPlugin
 from dsh.session.title import SessionTitlePlugin, normalize_session_title
 

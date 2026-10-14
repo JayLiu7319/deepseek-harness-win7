@@ -37,6 +37,13 @@ def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=True, separators=(',', ':')).encode('ascii')).hexdigest()
 
 
+# rc.1 retired this provider. These exact observations qualify the product's
+# legacy reader codec against historical alpha Source, never a current provider.
+HISTORICAL_SOURCE = 'migration/history/2026-10-14-alpha1/sqlite-format.source.json'
+INPUTS = [name for name in INPUTS if not name.startswith('reference/packages/session/session-persistence-sqlite/')]
+INPUTS.append(HISTORICAL_SOURCE)
+
+
 def names():
     inputs = build_inputs(inventory_only=True)
     return ([item['name'] for item in inputs['packs'] + inputs['decodes'] + inputs['varints']['encode'] + inputs['varints']['decode']]
@@ -124,9 +131,8 @@ def main():
         node = shutil.which('node')
         if node is None:
             raise ValueError('SQLite format requires pinned Node')
-        commands = [[node, str(ROOT / 'scripts/oracles/official/node_modules/vitest/vitest.mjs'), 'run', '--config',
-                     str(ROOT / 'scripts/oracles/vitest.sqlite-format-probe.config.mts')],
-                    [sys.executable, '-I', str(ROOT / 'scripts/oracles/sqlite_format_python.py'), str(native_path),
+        source_path.write_bytes((ROOT / HISTORICAL_SOURCE).read_bytes())
+        commands = [[sys.executable, '-I', str(ROOT / 'scripts/oracles/sqlite_format_python.py'), str(native_path),
                      '--inputs', str(inputs_path), '--source', str(source_path)]]
         for index, command in enumerate(commands):
             result = subprocess.run(command, cwd=str(ROOT), env=dict(os.environ, SQLITE_FORMAT_INPUT=str(inputs_path),
@@ -142,7 +148,8 @@ def main():
             raise ValueError('SQLite format observation inputs changed')
         report.update(status='passed', cases=len(source['rows']), observationsSha256=expected_digest,
                       frameInputsSha256=expected_frames, generatedInputsSha256=hashlib.sha256(inputs_path.read_bytes()).hexdigest(),
-                      scope='Bounded actual schema-19 codec/compression/provenance/physical-tail format; canonical store, complete malformed/plugin ABI and real Win7 remain unaccepted.')
+                      historical_source='cd5ef8148158c3a752a658978873241fdf8e2bbc',
+                      scope='Product legacy-reader codec compatibility against archived alpha.1 Source; rc.1 has no SQLite persistence provider. Real Win7 remains unaccepted.')
     except Exception as error:
         report['failure'] = str(error)
     output.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')

@@ -576,7 +576,7 @@ SOURCE_INPUTS = {
     'migration/modules.json',
     'reference/packages/compaction/compaction-basic/src/config.ts',
     'reference/packages/compaction/compaction-basic/src/index.ts',
-    'reference/packages/compaction/compaction-basic/src/invariant.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/compaction/compaction-basic/src/region.ts',
     'reference/packages/compaction/compaction-basic/src/summarizer.ts',
     'reference/packages/compaction/compaction-basic/src/types.ts',
@@ -592,7 +592,7 @@ SOURCE_INPUTS = {
     'reference/packages/llm/llm-deepseek/src/files-api.ts',
     'reference/packages/llm/llm-deepseek/src/image-tokens.ts',
     'reference/packages/llm/llm-deepseek/src/index.ts',
-    'reference/packages/llm/llm-deepseek/src/invariant.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/llm/llm-deepseek/src/request-pricing.ts',
     'reference/packages/llm/llm-deepseek/src/serialize.ts',
     'reference/packages/llm/llm-deepseek/src/sse.ts',
@@ -615,7 +615,7 @@ SOURCE_INPUTS = {
     'reference/packages/llm/llm/src/index.ts',
     'reference/packages/llm/llm/src/invariant.ts',
     'reference/packages/llm/llm/src/message.ts',
-    'reference/packages/llm/llm/src/never.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/llm/llm/src/retry-policy.ts',
     'reference/packages/llm/llm/src/types.ts',
     'scripts/canonical_llm_oracle.py',
@@ -639,6 +639,10 @@ SOURCE_INPUTS = {
     'scripts/oracles/vitest.core.config.mts',
     'scripts/oracles/vitest.deepseek-probe.config.mts',
 }
+# rc1 constructor validation and AgentLoop now import lineage and turn-boundary providers.
+GROUP_MODULES['retry'] += ['dsh/core/session/lineage.py', 'dsh/core/turn_boundary.py']
+GROUP_MODULES['auxiliary'] += ['dsh/core/session/lineage.py']
+
 REQUIRED_MODULES = {'dsh/llm/llm_service.py', 'dsh/llm/adapter_failure.py',
     'dsh/core/agent_loop.py', 'dsh/compaction/native_summary.py', 'dsh/cordis/context.py',
     'dsh/llm/llm_deepseek.py', 'dsh/llm/llm_retry.py', 'dsh/core/session/session.py'}

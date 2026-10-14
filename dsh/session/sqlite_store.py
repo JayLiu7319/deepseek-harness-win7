@@ -20,10 +20,11 @@ class SqliteRollbackError(RuntimeError):
 class SqliteStore:
     name = 'session-persistence-sqlite'
 
-    def __init__(self, path, journal_mode='wal', busy_timeout_ms=5000):
+    def __init__(self, path, journal_mode='wal', busy_timeout_ms=5000, read_only=False):
         self.path = path
         self.journal_mode = journal_mode
         self.busy_timeout_ms = busy_timeout_ms
+        self.read_only = read_only
         self.database = None
         self.path_job = None
         self.open_job = None
@@ -37,7 +38,12 @@ class SqliteStore:
 
     async def prepare_path(self):
         self.database_path = self.path if self.path == ':memory:' else os.path.abspath(self.path)
-        if self.database_path != ':memory:':
+        if self.read_only:
+            if self.database_path == ':memory:':
+                raise ValueError('legacy session reader requires an existing database file')
+            self.validate_file()
+            return
+        if self.database_path != ':memory:' and not self.read_only:
             parent = os.path.dirname(self.database_path)
             os.makedirs(parent, mode=0o700, exist_ok=True)
             info = os.lstat(parent)
@@ -68,14 +74,14 @@ class SqliteStore:
 
     async def open_database(self):
         await self.validate_path()
-        if self.database_path != ':memory:':
+        if self.database_path != ':memory:' and not self.read_only:
             try:
                 descriptor = os.open(self.database_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
                 os.close(descriptor)
             except FileExistsError:
                 pass
             self.validate_file()
-        self.database = await open_database(self.database_path, self.journal_mode, self.busy_timeout_ms)
+        self.database = await open_database(self.database_path, self.journal_mode, self.busy_timeout_ms, self.read_only)
         try:
             row = self.database.prepare(sql('select-store-id')).get()
             if row is None:
@@ -100,6 +106,8 @@ class SqliteStore:
         throw_aborted(signal)
 
     def transaction(self, operation, mutation=False, label='read'):
+        if mutation and self.read_only:
+            raise PermissionError('legacy session database is read-only; export to JSONL to continue')
         self.database.exec(sql('begin-immediate' if mutation else 'begin'))
         try:
             if mutation:

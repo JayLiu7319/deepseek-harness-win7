@@ -10,7 +10,7 @@ it('observes original cross-process busy reservation and stale repair refusal', 
   const python = process.env.SQLITE_LOCK_PYTHON!
   const script = join(process.cwd(), 'scripts/oracles/sqlite_store_lock_peer.py')
   const store = new SqliteStore({path, journalMode: 'wal', busyTimeoutMs: 100})
-  const meta: any = {id: 'locked', version: 0, createdAt: 1}
+  const meta: any = {id: 'locked', version: 0, createdAt: 1,isSeeded:false}
   let peer: ReturnType<typeof spawn> | undefined
   try {
     await store.appendBatch(meta, [{type: 'turn/start', seq: 0, time: 0, data: {turn: 1}} as any], false)

@@ -25,15 +25,15 @@ def test_snapshot_observer_refuses_changed_provider_contract(damage):
     elif damage == 'append':
         indexed['jsonl-append']['changed'] = False
     elif damage == 'batch':
-        indexed['sqlite-append']['counterDelta'] = 2
+        indexed['jsonl-zstd-append']['changed'] = False
     elif damage == 'noop':
-        indexed['sqlite-noop']['same'] = False
+        indexed['jsonl-zstd-noop']['same'] = False
     elif damage == 'detached':
-        indexed['sqlite-detached']['createdAt'] = 999
+        indexed['jsonl-zstd-detached']['createdAt'] = 999
     elif damage == 'reopen':
         indexed['jsonl-reopen']['same'] = False
     elif damage == 'copy':
-        indexed['sqlite-copy']['different'] = False
+        indexed['jsonl-zstd-copy']['different'] = False
     elif damage.startswith('abort-'):
         indexed['jsonl-preabort']['error'][{'abort-name': 'name', 'abort-message': 'message',
             'abort-identity': 'sameReason'}[damage]] = False
@@ -41,9 +41,9 @@ def test_snapshot_observer_refuses_changed_provider_contract(damage):
         indexed['jsonl-restored-stat'][{'same-size': 'sameSize', 'same-file': 'sameFile',
             'same-mtime': 'sameMtime', 'rewrite': 'changedToken', 'change-time': 'changeFieldAdvanced'}[damage]] = False
     elif damage == 'memory':
-        indexed['sqlite-memory']['qualified'] = False
+        indexed['jsonl-zstd-stable']['qualified'] = False
     elif damage == 'memory-counter':
-        indexed['sqlite-memory']['counterDelta'] = 2
+        indexed['jsonl-zstd-stable']['count'] = 2
     else:
         indexed['jsonl-stable']['same'] = 1
     with pytest.raises(ValueError):

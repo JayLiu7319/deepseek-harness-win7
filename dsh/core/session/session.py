@@ -175,17 +175,9 @@ class Session:
         else:
             self.header = snapshot_session_header(session_id, header)
 
-        if self.header.isSeeded is UNDEFINED:
-            # Historical alpha admission remains until the coordinated pin /
-            # storage consumer transition. Its physical seed length is only
-            # translated here, never inferred from the restore replay length.
-            self._inherited_event_count = SessionLogOffset(self.header.seedLength or 0)
-            if inherited_event_count is not UNDEFINED:
-                raise ValueError('an inherited event count requires an isSeeded header')
-        else:
-            from dsh.core.session.lineage import inherited_cut
-            self._inherited_event_count = inherited_cut(
-                self.header, seed is not None, len(self._log), inherited_event_count)
+        from dsh.core.session.lineage import inherited_cut
+        self._inherited_event_count = inherited_cut(
+            self.header, seed is not None, len(self._log), inherited_event_count)
 
         # Append end-seed marker if seed is non-empty or explicitly provided
         if seed is not None and (len(self._log) == 0 or self._log[-1].get("type") != "session/end-seed"):
@@ -642,7 +634,7 @@ class Session:
         seed_events = [snapshot_json_value(ev) for ev in self._log[:cut]]
         meta_dict = dict(meta or {})
         meta_dict["parentSession"] = self.id
-        meta_dict["seedLength"] = cut
+        meta_dict["isSeeded"] = True
         meta_dict["delegationDepth"] = (getattr(self.header, "delegation_depth", 0) or 0) + 1
         if self.header.cwd is not None:
             meta_dict.setdefault("cwd", self.header.cwd)
@@ -651,7 +643,8 @@ class Session:
         # them (index.ts:875-885): the validator requires all three, so this
         # convenience cannot hand it a partial record.
         header = SessionHeader.from_dict({"id": child_session_id, **meta_dict})
-        return Session(session_id=child_session_id, seed=seed_events, header=header, ctx=self.ctx)
+        return Session(session_id=child_session_id, seed=seed_events, header=header, ctx=self.ctx,
+                       inherited_event_count=cut)
 
     async def flush(self) -> bool:
         if self.ctx:
@@ -826,15 +819,11 @@ class SessionStore(Service):
             "version": SESSION_FORMAT_VERSION,
             "id": sid,
             "createdAt": meta.get("createdAt", meta.get("created_at", int(time.time() * 1000))),
+            "isSeeded": meta.get("isSeeded") if meta.get("isSeeded") is not None else False,
         }
-        for k in ("cwd", "parentSession", "seedLength", "origin", "delegationDepth", "agentPreset", "isSeeded"):
+        for k in ("cwd", "parentSession", "origin", "delegationDepth", "agentPreset"):
             if k in meta and meta[k] is not None:
                 header_dict[k] = meta[k]
-        if 'isSeeded' in meta or 'inheritedEventCount' in opts:
-            header_dict['isSeeded'] = meta.get('isSeeded') if meta.get('isSeeded') is not None else False
-            # Like rc.1 prepare's fixed metadata vocabulary, the retired
-            # physical field is not copied into a logical creation header.
-            header_dict.pop('seedLength', None)
 
         return Session.create(session_id=sid, seed=seed, header=header_dict, ctx=self.ctx,
                               inherited_event_count=opts.get('inheritedEventCount', UNDEFINED))
@@ -982,12 +971,13 @@ class SessionStore(Service):
         seed = self._fork_seed(live_source, boundary)
         meta_dict: Dict[str, Any] = {
             "parentSession": live_source.id,
-            "seedLength": len(seed),
+            "isSeeded": True,
         }
         if live_source.header.cwd is not None:
             meta_dict["cwd"] = live_source.header.cwd
 
-        return self.create(child_session_id, options={"seed": seed, "meta": meta_dict})
+        return self.create(child_session_id, options={"seed": seed, "meta": meta_dict,
+                                                     "inheritedEventCount": len(seed)})
 
     def _resolve_fork_source(self, source: Union[str, Session]) -> Session:
         if isinstance(source, str):

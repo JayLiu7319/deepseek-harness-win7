@@ -1,10 +1,20 @@
 {
   "id": "CON-SESSION-OBSERVATION-READS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
-  "source_paths": ["reference/packages/session-query/session-query/src/observation.ts", "reference/packages/session-query/session-query/tests/observation.spec.ts", "reference/packages/session/session-persistence/src/errors.ts", "reference/packages/session/session-persistence/src/coordinator.ts"],
-  "consumers": ["dsh/session/observation.py", "dsh/session/session_query.py", "dsh/api/session_list.py", "scripts/verify_portable.py"],
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
+  "source_paths": [
+    "reference/packages/session-query/session-query/src/observation.ts",
+    "reference/packages/session-query/session-query/tests/observation.spec.ts",
+    "reference/packages/session/session-persistence/src/errors.ts",
+    "reference/packages/session/session-persistence/src/coordinator.ts"
+  ],
+  "consumers": [
+    "dsh/session/observation.py",
+    "dsh/session/session_query.py",
+    "dsh/api/session_list.py",
+    "scripts/verify_portable.py"
+  ],
   "invariants": [
     "Absent sources, borrowed rejection, identity conflict and prepared projection errors retain exact source messages/codes and the original cause value.",
     "Abort before borrow performs no borrow; abort after borrow releases that source once and preserves the signal reason.",
@@ -20,5 +30,13 @@
   "errors": "Source name/code/message and failure identity are compared literally. ThrownValueError is only a Python carrier for the original non-Error rejection.",
   "cancellation": "Controlled abort cuts before and after borrow preserve exact signal reason and settle ownership; full durable preparation cancellation remains separate.",
   "adaptation": "FileNotFoundError represents typed persistence not-found; generic JavaScript Error disposal refusal maps to exact Python RuntimeError construction. No browser or upstream source is changed.",
-  "open_questions": ["Complete main clean gate and extracted acceptance pending; durable borrowed-source behavior, full FTS/long replay/Web/profile consumers, JavaScript execution and deferred Win7 remain outside this contract."]
+  "open_questions": [
+    "Complete main clean gate and extracted acceptance pending; durable borrowed-source behavior, full FTS/long replay/Web/profile consumers, JavaScript execution and deferred Win7 remain outside this contract.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

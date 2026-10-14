@@ -243,13 +243,13 @@ class JsonlStore:
         except FileNotFoundError:
             return None
 
-    async def materialize_header(self, meta):
-        await self.append_batch(meta, [], False)
+    async def materialize_header(self, meta, inherited_event_count=0):
+        await self.append_batch(meta, [], False, inherited_event_count)
 
-    async def append_batch(self, meta, events, materialized):
-        await self._run(self._append_batch, meta, events, materialized)
+    async def append_batch(self, meta, events, materialized, inherited_event_count=0):
+        await self._run(self._append_batch, meta, events, materialized, inherited_event_count)
 
-    def _append_batch(self, meta, events, materialized):
+    def _append_batch(self, meta, events, materialized, inherited_event_count=0):
         self._ensure_encoding()
         path = self.locate(meta)
         if materialized:
@@ -260,7 +260,7 @@ class JsonlStore:
         if self._exists(opposite):
             raise self._encoding_error(opposite)
         from dsh.session.sqlite_logical import header_from_stored
-        header = header_bytes(header_from_stored(meta))
+        header = header_bytes(header_from_stored(meta), inherited_event_count)
         content = compress_frame(header) if self.compression == 'zstd' else header
         if events:
             content += self._event_frame(events)
@@ -399,10 +399,13 @@ class JsonlStore:
                 pieces.append(self._decode(buffer, frame))
             buffer = b''.join(pieces)
         content = buffer.decode('utf-8', 'replace')
-        metadata = parse_header_meta(content.split('\n', 1)[0])
+        from dsh.session.lineage_storage import parse_header
+        storage = parse_header(content.split('\n', 1)[0])
+        metadata = storage.meta if storage is not None else None
         if metadata is None or metadata.id != identity:
             raise ValueError('corrupt session log: invalid header line in "%s"' % path)
-        return dict(meta=metadata, filename='session.jsonl', content=content)
+        return dict(meta=metadata, inheritedEventCount=storage.inheritedEventCount,
+                    filename='session.jsonl', content=content)
 
     async def close(self):
         pass

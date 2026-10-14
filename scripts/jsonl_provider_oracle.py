@@ -20,6 +20,7 @@ MODULES = ['dsh/session/persistence_jsonl_canonical.py', 'dsh/session/jsonl_stor
     'dsh/session/seq_ranges.py', 'dsh/session/file_revision.py', 'dsh/session/durable_publish.py',
     'dsh/session/persistence.py', 'dsh/session/coordinator.py', 'dsh/session/prepared_persistence.py',
     'dsh/session/preparations.py', 'dsh/session/live_persistence.py', 'dsh/session/write_behind.py',
+    'dsh/session/lineage_storage.py', 'dsh/core/session/chunk_rows.py',
     'dsh/core/session/types.py', 'dsh/core/session/json.py', 'dsh/core/session/__init__.py',
     'dsh/core/session/session.py', 'dsh/core/session/preparation.py', 'dsh/core/session/repair.py',
     'dsh/session/repair.py', 'dsh/boot/plugin_registry.py', 'dsh/session/__init__.py']
@@ -30,7 +31,9 @@ INPUTS = MODULES + ASSETS + ['scripts/jsonl_provider_oracle.py', 'scripts/oracle
     'scripts/oracles/jsonl_metadata.probe.spec.ts', 'scripts/oracles/vitest.jsonl-metadata.config.mts',
     'scripts/oracles/vitest.jsonl-provider-probe.config.mts', 'scripts/oracles/vitest.jsonl-provider-source.config.mts'] + [
     'reference/packages/session/session-persistence-jsonl/src/' + name + '.ts'
-    for name in ('index', 'format', 'zstd', 'zstd-public-decoder', 'zstd-private-decoder', 'win32', 'invariant')]
+    for name in ('index', 'format', 'zstd', 'zstd-public-decoder', 'zstd-private-decoder', 'win32')] + [
+    'reference/packages/core/session/src/index.ts',
+    'reference/packages/core/session/src/chunk-rows.ts']
 
 
 def observation_digest(rows):

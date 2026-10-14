@@ -62,6 +62,9 @@ class PackageIdentityResolver:
                 directory = workspace_package_index(__file__).get(package)
                 if directory is not None:
                     manifest = os.path.join(directory, "package.json")
+                elif package == '@deepseek-ai/dsh-win7-session-sqlite-reader':
+                    manifest = os.path.join(os.path.dirname(__file__), '..', 'session',
+                                            'legacy-sqlite-reader', 'package.json')
             if manifest is None:
                 raise ValueError("plugin-package-inventory-deepseek: cannot resolve active package {!r}".format(package))
         elif not name.startswith("cordis:"):

@@ -27,7 +27,7 @@ from dsh.session.chunk_rows import (
     is_chunk_row,
     chunk_row_length,
 )
-from dsh.session.persistence_jsonl import JsonlSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 
 
 def test_chunk_rows_text_packing_and_decoding():

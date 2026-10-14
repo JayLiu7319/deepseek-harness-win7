@@ -1,8 +1,8 @@
 {
   "id": "CON-SEARCH-CROSS-DRIVE",
-  "revision": 2,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 3,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/fs/tool-fs-search/package.json"
   ],
@@ -10,11 +10,18 @@
     "Cross-drive glob and grep must retain usable absolute Windows result paths."
   ],
   "consumers": [],
-  "open_questions": [],
+  "open_questions": [
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
   "identity": "Same-volume results remain workdir-relative; different-drive/UNC-volume results retain absolute identity.",
   "ownership": "Search owns path formatting; no global cwd mutation.",
   "ordering": "Format after search without altering match ordering.",
   "errors": "Catch only relpath ValueError for incompatible roots; other errors propagate.",
   "cancellation": "No added tasks or cancellation behavior; search lifecycle unchanged.",
-  "adaptation": "Python ntpath.relpath raises across drives where Node path.win32.relative returns an absolute path; retain the input path."
+  "adaptation": "Python ntpath.relpath raises across drives where Node path.win32.relative returns an absolute path; retain the input path.",
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

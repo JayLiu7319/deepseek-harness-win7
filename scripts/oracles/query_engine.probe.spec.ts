@@ -4,7 +4,7 @@ import SessionStore from '@deepseek-ai/dsh-session'
 import { it } from 'vitest'
 import { SqliteSessionQueryEngine } from '../../reference/packages/session-query/session-query-sqlite/src/index.ts'
 
-const header = (id: string) => ({id,version:0,createdAt:1})
+const header = (id: string) => ({id,version:0,createdAt:1,isSeeded:false})
 const event = (text: string, seq=0) => ({type:'user/message',seq,time:seq+1,surfaceOp:'append',
   data:{id:'message-'+seq,role:'user',content:[{type:'text',text}],source:{kind:'user'}}})
 const sessions = (page: any) => page.items.map((item: any) => ({id:item.header.id,live:item.live,persisted:item.persisted,
@@ -24,7 +24,7 @@ it('observes actual query lifecycle, FTS selection, stable revisions and cursor 
     snapshots += 1
     if (unstable > 0) {entries.get('alpha').revision = String(100+snapshots);unstable -= 1}
     return [...entries.values()].map(({header,revision}) => ({header:structuredClone(header),revision}))
-  }, inspect:async (id: string) => {inspected += 1;const entry=entries.get(id);return {meta:structuredClone(entry.header),events:structuredClone(entry.events)}}}
+  }, inspect:async (id: string) => {inspected += 1;const entry=entries.get(id);return {meta:structuredClone(entry.header),events:structuredClone(entry.events),inheritedEventCount:0}}}
   const provider = ctx.provide('sessionPersistence',persistence as any)
   const query = new SqliteSessionQueryEngine(ctx,{path:':memory:',openAt:'first-search',defaultLimit:1,maxLimit:2})
   try {

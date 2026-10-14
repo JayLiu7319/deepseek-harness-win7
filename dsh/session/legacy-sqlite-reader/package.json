@@ -1,0 +1,6 @@
+{
+  "name": "@deepseek-ai/dsh-win7-session-sqlite-reader",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Product-owned read-only compatibility reader for retired alpha.1 SQLite session logs"
+}

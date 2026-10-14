@@ -82,12 +82,37 @@ try{
   }
   runtime=await runProfile({profile:'web',patchFiles:[],args:['--no-open','--port',options.port??'0'],
     environment:createLaunchEnvironmentSnapshot([{source:'process',values:{DSH_HOME:home,DSH_TELEMETRY_DISABLED:'1'}}])})
-  const ctx=runtime.ctx
+  let ctx=runtime.ctx
   let sessionId=options.phase==='cold'?JSON.parse(readFileSync(join(run,'selected-session.json'),'utf8')).sessionId:undefined
   if(options.phase==='fresh'){
     record.preparedWorkspace=await ctx.get('workspaceController').create({path:workspace})
     sessionId='session-11111111-1111-4111-8111-111111111111'
     await ctx.get('sessionController').create({sessionId,workspaceId:record.preparedWorkspace.workspace.workspaceId,agentPreset:options.preset})
+  }
+  if (options.phase === 'fresh' && Number(options['history-turns'] ?? 0)) {
+    const session = ctx.get('sessions').get(sessionId)
+    for (let turn = 1; turn <= Number(options['history-turns']); turn++) {
+      session.append('turn/start', { turn })
+      session.append('user/message', {id:'history-user-'+turn, role:'user', source:{kind:'user'},
+        content:[{type:'text',text:'HISTORY_PROMPT_'+String(turn).padStart(3,'0')}]}, {surfaceOp:'append'})
+      session.append('step/start', {turn, step:1})
+      session.append('request/context', {turn,step:1,provider:'web-journey-fixture',model:'fixture'})
+      session.append('assistant/message', {turn,step:1,message:{id:'history-assistant-'+turn,role:'assistant',
+        source:{kind:'model',provider:'web-journey-fixture',model:'fixture'},
+        content:[{type:'text',text:'HISTORY_RESPONSE_'+String(turn).padStart(3,'0')}]}}, {surfaceOp:'append'})
+      session.append('step/end', {turn,step:1})
+      session.append('turn/end', {turn,reason:{kind:'completed'}})
+    }
+    ctx.get('sessionTitle').rename(session,'HISTORY_PROMPT_001')
+    await ctx.get('sessions').flush(session)
+    await ctx.get('sessionProjectionCache').write(session)
+    record.historyTurns=Number(options['history-turns'])
+    // Reconstruct the Agent from the durable history, as a real resumed
+    // conversation does; the pre-history Agent owns an idle phase at turn 0.
+    await runtime.shutdown.shutdown(0)
+    runtime=await runProfile({profile:'web',patchFiles:[],args:['--no-open','--port',options.port??'0'],
+      environment:createLaunchEnvironmentSnapshot([{source:'process',values:{DSH_HOME:home,DSH_TELEMETRY_DISABLED:'1'}}])})
+    ctx=runtime.ctx
   }
   record.attachedBeforeBrowser=sessionId!==undefined&&ctx.get('sessions').get(sessionId)!==undefined
   if(options.phase==='cold'&&record.attachedBeforeBrowser)throw new Error('Cold browser fixture eagerly attached its session')
@@ -102,7 +127,7 @@ try{
       const agent=sessionId===undefined?undefined:ctx.get('agents').get(sessionId)
       const session=sessionId===undefined?undefined:ctx.get('sessions').get(sessionId)
       const value={attached:session!==undefined,agentStatus:agent?.status??null,
-        header:session?structuredClone(session.header):null,events:session?structuredClone(session.events):[],
+        header:session?structuredClone(session.header):null,events:session?structuredClone(session.snapshotEvents()):[],
         requests:structuredClone(record.requests),cancellation:structuredClone(record.cancellation),
         tools:agent?ctx.get('tools').schemas(agent).map((tool:any)=>tool.name):[]}
       record.snapshots.push(value)

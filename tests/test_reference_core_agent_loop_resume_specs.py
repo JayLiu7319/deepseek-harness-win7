@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 """
 1:1 Test Parity Suite matching reference/packages/core/agent-loop/tests/resume.spec.ts.
 Covers:
@@ -20,7 +21,7 @@ from dsh.core.agent_loop import AgentLoopPlugin, AgentLoopService
 from dsh.core.session import SESSION_FORMAT_VERSION, Session, SessionHeader, SessionPlugin, SessionStore
 from dsh.core.tools import ToolsPlugin
 from dsh.llm.message import createUserMessage
-from dsh.session.persistence_jsonl import JsonlSessionPersistence, JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence, JsonlSessionPersistencePlugin
 
 
 class MockLlmService:
@@ -49,6 +50,7 @@ async def mount_persistent_harness(root: str, responses: Optional[List[Dict[str,
     SessionPlugin().apply(ctx)
     ToolsPlugin().apply(ctx)
     AgentPlugin().apply(ctx)
+    SessionProjectionsPlugin().apply(ctx)
     AgentLoopPlugin().apply(ctx)
 
     persist_svc = JsonlSessionPersistence(root=root)
@@ -87,6 +89,7 @@ async def test_resumes_pre_react_loop_session_including_pre_identity_events():
                     "turn": 1,
                     "step": 1,
                     "content": [{"type": "text", "text": "old answer"}],
+                    "provenance": {"provider": "mock", "model": "mock"},
                 },
                 "surfaceOp": "append",
             },

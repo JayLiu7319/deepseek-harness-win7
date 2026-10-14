@@ -44,6 +44,12 @@ class SubagentRuntime(TypertRemoteService):
     async def followup(self, parent, child_id, content, options=None):
         return await self.continuation_manager().followup(parent, child_id, content, options)
 
+    async def sendMessage(self, sender, target_id, content, options):
+        return await self.continuation_manager().send_message(sender, target_id, content, options)
+
+    async def queuePrompt(self, parent, child_id, content, source, signal):
+        return await self.continuation_manager().followup(parent, child_id, content, dict(source=source, signal=signal))
+
     def reportFrom(self, child, content, options=None):
         return self.continuation_manager().report(child, content, options)
 

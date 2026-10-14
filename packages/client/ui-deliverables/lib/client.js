@@ -174,11 +174,15 @@ window.__ModuleLoader__.load({
 					}]
 				};
 			},
-			buildLocationData: (context, scope) => scope !== "turn" || context.state === void 0 ? null : {
-				kind: "turn",
-				turn: context.state.turn,
-				key: "deliverables",
-				value: { produced: context.state.produced }
+			buildLocationData: (context, scope, previous) => {
+				if (scope !== "turn" || context.state === void 0) return null;
+				if (previous?.kind === "turn" && previous.turn === context.state.turn && previous.key === "deliverables" && previous.value.produced === context.state.produced) return previous;
+				return {
+					kind: "turn",
+					turn: context.state.turn,
+					key: "deliverables",
+					value: { produced: context.state.produced }
+				};
 			}
 		};
 		/**
@@ -221,8 +225,8 @@ window.__ModuleLoader__.load({
 			return matches.length === 1 ? matches[0] : void 0;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\ui-deliverables\src\client\ProducedFiles.module.css.mjs
-		const css = "._5HCHCa_root{grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:6px 8px;margin-top:16px;font-size:13px;line-height:22px;display:grid;position:relative}._5HCHCa_label{color:var(--dsw-alias-label-tertiary);grid-area:1/1}._5HCHCa_row{flex-wrap:nowrap;grid-area:1/2;align-items:center;gap:8px;min-width:0;display:flex;overflow:hidden}._5HCHCa_file{text-overflow:ellipsis;white-space:nowrap;background:var(--dsw-alias-interactive-bg-hover);max-width:320px;color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:6px;flex:none;margin:0;padding:0 8px;overflow:hidden}._5HCHCa_file:hover{color:var(--dsw-alias-label-primary);text-decoration:underline}._5HCHCa_file:focus-visible,._5HCHCa_showFolder:focus-visible{box-shadow:inset 0 0 0 2px var(--dsw-alias-border-l3);outline:none}._5HCHCa_more{white-space:nowrap;color:var(--dsw-alias-label-tertiary);flex:none}._5HCHCa_showFolder{color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:4px;grid-area:2/2;justify-self:start;margin:0;padding:0 2px;line-height:20px}._5HCHCa_showFolder:hover{color:var(--dsw-alias-label-secondary);text-decoration:underline}._5HCHCa_measure{visibility:hidden;pointer-events:none;contain:strict;width:0;height:0;position:absolute;overflow:hidden}._5HCHCa_probe{width:max-content;position:absolute;inset:0 auto auto 0}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-deliverables\src\client\ProducedFiles.module.css.mjs
+		const css = ".YCZ-Cq_root{grid-template-columns:max-content minmax(0,1fr);align-items:start;column-gap:8px;margin-top:16px;font-size:13px;line-height:22px;display:grid}.YCZ-Cq_label{color:var(--dsw-alias-label-tertiary);grid-area:1/1}.YCZ-Cq_lane{--produced-file-chip-max:96px;--produced-file-gap:8px;grid-area:1/2;row-gap:6px;min-width:0;display:grid;container-type:inline-size}.YCZ-Cq_row{align-items:center;gap:var(--produced-file-gap);flex-wrap:nowrap;min-width:0;display:flex;overflow:hidden}.YCZ-Cq_file{box-sizing:border-box;min-width:0;max-width:var(--produced-file-chip-max);text-overflow:ellipsis;white-space:nowrap;background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary);font:inherit;cursor:pointer;border:none;border-radius:6px;flex:0 auto;margin:0;padding:0 8px;overflow:hidden}.YCZ-Cq_file:hover{color:var(--dsw-alias-label-primary);text-decoration:underline}.YCZ-Cq_file:focus-visible,.YCZ-Cq_showFolder:focus-visible{box-shadow:inset 0 0 0 2px var(--dsw-alias-border-l3);outline:none}.YCZ-Cq_more{white-space:nowrap;color:var(--dsw-alias-label-tertiary);flex:none;display:none}.YCZ-Cq_more[data-shown=\"6\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"6\"])>.YCZ-Cq_showFolder{display:block}@container (width<=687px){.YCZ-Cq_file:nth-of-type(6),.YCZ-Cq_more[data-shown=\"6\"]{display:none}.YCZ-Cq_more[data-shown=\"5\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"5\"])>.YCZ-Cq_showFolder{display:block}}@container (width<=583px){.YCZ-Cq_file:nth-of-type(5),.YCZ-Cq_more[data-shown=\"5\"]{display:none}.YCZ-Cq_more[data-shown=\"4\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"4\"])>.YCZ-Cq_showFolder{display:block}}@container (width<=479px){.YCZ-Cq_file:nth-of-type(4),.YCZ-Cq_more[data-shown=\"4\"]{display:none}.YCZ-Cq_more[data-shown=\"3\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"3\"])>.YCZ-Cq_showFolder{display:block}}@container (width<=375px){.YCZ-Cq_file:nth-of-type(3),.YCZ-Cq_more[data-shown=\"3\"]{display:none}.YCZ-Cq_more[data-shown=\"2\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"2\"])>.YCZ-Cq_showFolder{display:block}}@container (width<=271px){.YCZ-Cq_file:nth-of-type(2),.YCZ-Cq_more[data-shown=\"2\"]{display:none}.YCZ-Cq_more[data-shown=\"1\"]{display:inline}.YCZ-Cq_showFolder{display:none}.YCZ-Cq_lane:has(.YCZ-Cq_more[data-shown=\"1\"])>.YCZ-Cq_showFolder{display:block}}.YCZ-Cq_showFolder{color:var(--dsw-alias-label-tertiary);font:inherit;cursor:pointer;background:0 0;border:none;border-radius:4px;justify-self:start;margin:0;padding:0 2px;line-height:20px}.YCZ-Cq_showFolder:hover{color:var(--dsw-alias-label-secondary);text-decoration:underline}";
 		const tagId = "@deepseek-ai/dsh-client-ui-deliverables/ProducedFiles.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -232,43 +236,18 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ProducedFiles_module_css_default = {
-			"file": "_5HCHCa_file",
-			"label": "_5HCHCa_label",
-			"measure": "_5HCHCa_measure",
-			"more": "_5HCHCa_more",
-			"probe": "_5HCHCa_probe",
-			"root": "_5HCHCa_root",
-			"row": "_5HCHCa_row",
-			"showFolder": "_5HCHCa_showFolder"
+			"file": "YCZ-Cq_file",
+			"label": "YCZ-Cq_label",
+			"lane": "YCZ-Cq_lane",
+			"more": "YCZ-Cq_more",
+			"root": "YCZ-Cq_root",
+			"row": "YCZ-Cq_row",
+			"showFolder": "YCZ-Cq_showFolder"
 		};
 		//#endregion
 		//#region lib/types/client/ProducedFiles.js
-		/** At most six chips compete for the one-line summary; every other path stays counted. */
+		/** Maximum number of file chips rendered before the remainder counter. */
 		const SHOWN_LIMIT = 6;
-		/**
-		* Select the largest prefix whose measured chips and exact remainder fit.
-		* @param available - usable width of the one-line file lane.
-		* @param gap - computed flex gap between adjacent visible items.
-		* @param chipWidths - measured widths for the candidate file chips.
-		* @param moreWidthsByShown - exact localized remainder width for each shown count.
-		* @returns Number of leading chips to render.
-		*/
-		function fitProducedFiles(available, gap, chipWidths, moreWidthsByShown) {
-			if (available <= 0) return chipWidths.length;
-			const prefix = [0];
-			let prefixWidth = 0;
-			for (const width of chipWidths) {
-				prefixWidth += width;
-				prefix.push(prefixWidth);
-			}
-			let largestFit = 0;
-			for (const [shown, width] of prefix.entries()) {
-				const more = moreWidthsByShown[shown];
-				const items = shown + (more === void 0 ? 0 : 1);
-				if (width + (more ?? 0) + Math.max(0, items - 1) * gap <= available) largestFit = shown;
-			}
-			return largestFit;
-		}
 		function moreLabel(t, count) {
 			return count === 1 ? t("produced.moreOne") : t("produced.more", { count: String(count) });
 		}
@@ -283,52 +262,15 @@ window.__ModuleLoader__.load({
 			}, [ensureWorkspacePathOpen]);
 			const hostCanOpenPath = useWorkspacePathOpen((available) => available === true);
 			const canOpenPath = isLoopback && hostCanOpenPath;
-			const limit = Math.min(paths.length, SHOWN_LIMIT);
-			const [shownCount, setShownCount] = (0, react.useState)(limit);
-			const rowRef = (0, react.useRef)(null);
-			const chipProbes = (0, react.useRef)([]);
-			const moreProbe = (0, react.useRef)(null);
-			(0, react.useLayoutEffect)(() => {
-				const row = rowRef.current;
-				const remainderProbe = moreProbe.current;
-				/* v8 ignore next -- React attaches both refs before the layout effect runs. */
-				if (row === null || remainderProbe === null) return;
-				const measure = () => {
-					const styles = getComputedStyle(row);
-					const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-					const chips = chipProbes.current.slice(0, limit).map((probe) => probe.getBoundingClientRect().width);
-					const more = Array.from({ length: limit + 1 }, (_, candidate) => {
-						if (paths.length === candidate) return void 0;
-						remainderProbe.textContent = moreLabel(t, paths.length - candidate);
-						return remainderProbe.getBoundingClientRect().width;
-					});
-					setShownCount(fitProducedFiles(row.clientWidth, gap, chips, more));
-				};
-				measure();
-				if (typeof ResizeObserver === "undefined") return;
-				const observer = new ResizeObserver(measure);
-				observer.observe(row);
-				for (const probe of [...chipProbes.current, moreProbe.current]) if (probe !== null) observer.observe(probe);
-				return () => {
-					observer.disconnect();
-				};
-			}, [
-				limit,
-				paths,
-				t
-			]);
-			const visibleCount = Math.min(shownCount, limit);
-			const shown = paths.slice(0, visibleCount);
-			const hidden = paths.length - shown.length;
+			const shown = paths.slice(0, SHOWN_LIMIT);
 			return (0, react_jsx_runtime.jsxs)("div", {
 				className: ProducedFiles_module_css_default.root,
-				children: [
-					(0, react_jsx_runtime.jsx)("span", {
-						className: ProducedFiles_module_css_default.label,
-						children: t("produced.label")
-					}),
-					(0, react_jsx_runtime.jsxs)("div", {
-						ref: rowRef,
+				children: [(0, react_jsx_runtime.jsx)("span", {
+					className: ProducedFiles_module_css_default.label,
+					children: t("produced.label")
+				}), (0, react_jsx_runtime.jsxs)("div", {
+					className: ProducedFiles_module_css_default.lane,
+					children: [(0, react_jsx_runtime.jsxs)("div", {
 						className: ProducedFiles_module_css_default.row,
 						"data-produced-files-row": true,
 						children: [shown.map((path) => (0, react_jsx_runtime.jsx)("button", {
@@ -340,36 +282,25 @@ window.__ModuleLoader__.load({
 								openFile(path);
 							},
 							children: basename(path)
-						}, path)), hidden > 0 && (0, react_jsx_runtime.jsx)("span", {
-							className: ProducedFiles_module_css_default.more,
-							children: moreLabel(t, hidden)
+						}, path)), shown.map((_, index) => {
+							const shownCount = index + 1;
+							const remainder = paths.length - shownCount;
+							if (remainder <= 0) return null;
+							return (0, react_jsx_runtime.jsx)("span", {
+								className: ProducedFiles_module_css_default.more,
+								"data-shown": shownCount,
+								children: moreLabel(t, remainder)
+							}, shownCount);
 						})]
-					}),
-					hidden > 0 && canOpenPath && (0, react_jsx_runtime.jsx)("button", {
+					}), paths.length > 1 && canOpenPath && (0, react_jsx_runtime.jsx)("button", {
 						type: "button",
 						className: ProducedFiles_module_css_default.showFolder,
 						onClick: () => {
 							openFile(".");
 						},
 						children: t("produced.showInFolder")
-					}),
-					(0, react_jsx_runtime.jsxs)("div", {
-						className: ProducedFiles_module_css_default.measure,
-						"aria-hidden": "true",
-						children: [paths.slice(0, limit).map((path, index) => (0, react_jsx_runtime.jsx)("button", {
-							ref: (node) => {
-								chipProbes.current[index] = node;
-							},
-							type: "button",
-							tabIndex: -1,
-							className: `${ProducedFiles_module_css_default.file} ${ProducedFiles_module_css_default.probe}`,
-							children: basename(path)
-						}, path)), (0, react_jsx_runtime.jsx)("span", {
-							ref: moreProbe,
-							className: `${ProducedFiles_module_css_default.more} ${ProducedFiles_module_css_default.probe}`
-						})]
-					})
-				]
+					})]
+				})]
 			});
 		}
 		//#endregion
@@ -400,7 +331,6 @@ window.__ModuleLoader__.load({
 			"slots",
 			"locale",
 			"uiConversation",
-			"connection",
 			"remote",
 			"remote.session"
 		];
@@ -409,7 +339,6 @@ window.__ModuleLoader__.load({
 		* @param ctx - client root context.
 		*/
 		function apply(ctx) {
-			const connection = ctx.get("connection");
 			const workspacePathOpen = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)(void 0);
 			let requestedWorkspacePathOpen = false;
 			let capabilityRevision = 0;
@@ -419,8 +348,6 @@ window.__ModuleLoader__.load({
 				const revision = capabilityRevision;
 				const pending = ctx.remote.session.canOpenWorkspacePath().then((result) => {
 					if (revision === capabilityRevision) workspacePathOpen.set(result.ok && result.value);
-				}, () => {
-					if (revision === capabilityRevision) workspacePathOpen.set(false);
 				}).finally(() => {
 					if (pendingCapability === pending) pendingCapability = void 0;
 				});
@@ -446,7 +373,7 @@ window.__ModuleLoader__.load({
 				select: selectProducedFiles,
 				locale: NS,
 				inject: () => ({
-					isLoopback: connection.isLoopback,
+					isLoopback: ctx.remote.$host.isLoopback,
 					ensureWorkspacePathOpen,
 					hooks: { workspacePathOpen }
 				})

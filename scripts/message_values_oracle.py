@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'cd5ef8148158c3a752a658978873241fdf8e2bbc'
+SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 NAMES = ('base', 'base-given-id', 'base-null-id', 'user', 'user-role', 'user-string', 'user-no-source', 'assistant', 'assistant-extra', 'assistant-kind', 'tool', 'freeze', 'graph-first', 'graph-repeat', 'projection-empty', 'projection-current', 'projection-section', 'projection-same', 'projection-changed', 'projection-cleared')
 OBSERVER_INPUTS = ('scripts/message_values_oracle.py', 'scripts/oracles/message_values_source.mts', 'scripts/oracles/message_values_python.py', 'scripts/oracles/message-values-cases.json', 'scripts/message_values_cases.py') + ('scripts/import_paths.py',)
 REQUIRED_IMPORTS = {'dsh/llm/message.py', 'dsh/core/session/json.py', 'dsh/core/runtime_context.py', 'dsh/core/session/session.py', 'dsh/cordis/context.py'}
@@ -57,7 +57,7 @@ def identity(source, source_root, check_files=True):
             or source.get('sourceCommit') != SOURCE_COMMIT or source.get('node') != 'v22.22.2'):
         raise ValueError('Message Source runtime differs')
     inputs = source['inputs']
-    required = set(OBSERVER_INPUTS) | {'reference/packages/llm/llm/src/message.ts', 'reference/packages/core/agent-loop/src/runtime-context.ts', 'reference/packages/core/session/src/json.ts'}
+    required = set(OBSERVER_INPUTS) | {'reference/packages/llm/llm/src/message.ts', 'reference/packages/core/agent-loop/src/runtime-context.ts', 'reference/packages/util/values/src/index.ts'}
     if not isinstance(inputs, dict) or not required.issubset(inputs):
         raise ValueError('Message Source input identity missing')
     for name, expected in inputs.items():

@@ -6,33 +6,31 @@ import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import SessionStore from '@deepseek-ai/dsh-session'
 import Jsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
-import Sqlite from '@deepseek-ai/dsh-session-persistence-sqlite'
 
 it('observes actual durable snapshot qualification, stable reopening, copied stores and caller abort', async () => {
   const rows: any[] = []
-  for (const backend of ['jsonl','sqlite']) {
+  for (const backend of ['jsonl','jsonl-zstd']) {
     const modes = ['lazy','stable','append','noop','detached','reopen','copy','preabort',
-      ...(backend === 'jsonl' ? ['restored-stat'] : ['memory'])]
+      ...(backend === 'jsonl' ? ['restored-stat'] : [])]
     for (const mode of modes) {
       const parent = await mkdtemp(join(tmpdir(),'dsh-snapshot-'))
       const root = join(parent,'original')
       const file = join(parent,'original.db')
-      const meta = {version:0,id:'s',createdAt:1} as any
+      const meta = {version:0,id:'s',createdAt:1,isSeeded:false} as any
       const firstEvent = {type:'session/end-seed',seq:0,time:1,data:{}} as any
       let context: Context | undefined
       const mount = async (location: string) => {
         context = new Context()
         await context.plugin(SessionStore)
-        await context.plugin(backend === 'jsonl' ? Jsonl : Sqlite,
-          backend === 'jsonl' ? {root:location,compression:'none'} : {path:location})
+        await context.plugin(Jsonl, {root:location,compression:backend === 'jsonl' ? 'none' : 'zstd'})
         return context.sessionPersistence
       }
-      const grammar = (token: string) => backend === 'jsonl' ? /^\d+:\d+:\d+:-?\d+:-?\d+$/.test(token)
+      const grammar = (token: string) => backend.startsWith('jsonl') ? /^\d+:\d+:\d+:-?\d+:-?\d+$/.test(token)
         : /^(?:file:\d+:\d+:-?\d+|memory):store:[0-9a-f-]{36}:incarnation:[0-9a-f-]{36}:revision:\d+$/.test(token)
       const observed: any = {}
       const reason = new TypeError('snapshot deadline')
       try {
-        let persistence = await mount(mode === 'memory' ? ':memory:' : backend === 'jsonl' ? root : file)
+        let persistence = await mount(mode === 'memory' ? ':memory:' : backend.startsWith('jsonl') ? root : file)
         await persistence.create(meta)
         if (mode === 'lazy') observed.count = (await persistence.listSnapshots()).length
         else if (mode === 'preabort') {
@@ -44,8 +42,8 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
           const initial = (await persistence.listSnapshots())[0]
           if (mode === 'stable') {
             const repeated = await persistence.listSnapshots()
-            const identity = await stat(backend === 'jsonl' ? persistence.locate(meta)!.path : file,{bigint:true})
-            const prefix = backend === 'jsonl'
+            const identity = await stat(backend.startsWith('jsonl') ? persistence.locate(meta)!.path : file,{bigint:true})
+            const prefix = backend.startsWith('jsonl')
               ? [identity.dev,identity.ino,identity.size,identity.mtimeNs].join(':')+':'
               : 'file:'+ [identity.dev,identity.ino,identity.birthtimeNs].join(':')+':store:'
             Object.assign(observed,{count:repeated.length,same:repeated[0].revision===initial.revision,
@@ -73,10 +71,10 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
           } else if (mode === 'reopen' || mode === 'copy') {
             await context!.fiber.dispose()
             context = undefined
-            let location = backend === 'jsonl' ? root : file
+            let location = backend.startsWith('jsonl') ? root : file
             if (mode === 'copy') {
-              location = backend === 'jsonl' ? join(parent,'copied') : join(parent,'copied.db')
-              if (backend === 'jsonl') await cp(root,location,{recursive:true})
+              location = backend.startsWith('jsonl') ? join(parent,'copied') : join(parent,'copied.db')
+              if (backend.startsWith('jsonl')) await cp(root,location,{recursive:true})
               else await copyFile(file,location)
             }
             persistence = await mount(location)

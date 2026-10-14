@@ -31,7 +31,15 @@ def digest(path):
 def observation_digest(rows):
     if not isinstance(rows, list) or tuple(row.get('name') for row in rows) != NAMES:
         raise ValueError('JSONL sharing rows missing, duplicate or reordered')
-    return hashlib.sha256(json.dumps(rows, sort_keys=True, ensure_ascii=True,
+    def numbers(value):
+        if type(value) is float and value.is_integer():
+            return int(value)
+        if isinstance(value, dict):
+            return {key: numbers(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [numbers(item) for item in value]
+        return value
+    return hashlib.sha256(json.dumps(numbers(rows), sort_keys=True, ensure_ascii=True,
         allow_nan=False, separators=(',', ':')).encode('utf-8')).hexdigest()
 
 

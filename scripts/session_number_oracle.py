@@ -14,7 +14,7 @@ from scripts.oracles.session_number_python import NAMES
 
 SOURCE_INPUTS = {
     'reference/packages/core/session/src/index.ts',
-    'reference/packages/core/session/src/json.ts',
+    'reference/packages/util/values/src/index.ts',
     'reference/packages/core/session/src/types.ts',
     'scripts/oracles/session_number.probe.spec.ts',
     'scripts/oracles/vitest.session-number-probe.config.mts',

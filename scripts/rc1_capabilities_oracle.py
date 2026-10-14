@@ -1,4 +1,4 @@
-"""Candidate-only paired checks; never promotes the active migration baseline."""
+"""Bounded rc.1 Source/runtime checks; acceptance remains a separate receipt."""
 import argparse
 import asyncio
 import hashlib
@@ -10,6 +10,65 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PIN = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+REQUIRED = {'grammar', 'mentions', 'searches', 'positions', 'outline', 'changes', 'orders',
+            'searchLimits', 'indexed', 'checkpoint', 'lineage', 'storageLineage', 'strictHeaders',
+            'projectionLineage', 'turnBoundary', 'turnBoundaryEvents', 'chunkDecode', 'chunkPack',
+            'scheduleProjection', 'scheduleStates', 'retryProjection'}
+
+
+def digest(value):
+    def numbers(item):
+        if type(item) is float and item.is_integer():
+            return int(item)
+        if isinstance(item, dict):
+            return {key: numbers(child) for key, child in item.items()}
+        if isinstance(item, list):
+            return [numbers(child) for child in item]
+        return item
+    return hashlib.sha256(json.dumps(numbers(value), sort_keys=True, ensure_ascii=True,
+                                    allow_nan=False, separators=(',', ':')).encode('utf-8')).hexdigest()
+
+
+def validate_runtime(report, root, source_digest, input_digest, modules=None):
+    root = Path(root).resolve()
+    executable = root / 'python.exe' if modules is not None or (root / 'python.exe').is_file() else Path(sys.executable)
+    if (not isinstance(report, dict) or report.get('root') != str(root)
+            or Path(report.get('executable', '')).resolve() != executable.resolve()
+            or report.get('python') != [3, 8, 10] or report.get('sourcePin') != PIN
+            or report.get('sourceObservationsSha256') != source_digest
+            or report.get('inputSha256') != input_digest
+            or set(report.get('observations', {})) != REQUIRED
+            or digest(report['observations']) != source_digest
+            or not isinstance(report.get('modules'), dict) or not report['modules']
+            or (modules is not None and report['modules'] != modules)):
+        raise ValueError('rc.1 observations or runtime identity differ')
+    if modules is None:
+        for name, expected in report['modules'].items():
+            path = (root / name).resolve()
+            if root / 'dsh' not in path.parents or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError('rc.1 runtime imported foreign or changed bytes')
+
+
+def observe_runtime(inputs, root, input_digest):
+    sys.path.insert(0, str(root))
+    import time
+    clock = time.time
+    time.time = lambda: inputs['clock'] / 1000
+    try:
+        rows = asyncio.run(native(inputs))
+    finally:
+        time.time = clock
+    modules = {}
+    for name, module in list(sys.modules.items()):
+        if name == 'dsh' or name.startswith('dsh.'):
+            filename = getattr(module, '__file__', None)
+            if filename:
+                path = Path(filename).resolve()
+                relative = path.relative_to(root)
+                modules[relative.as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return dict(root=str(root), executable=sys.executable, python=list(sys.version_info[:3]),
+                sourcePin=PIN, observations=rows, sourceObservationsSha256=digest(rows),
+                inputSha256=input_digest, modules=modules)
 
 
 def source_inputs(source):
@@ -37,6 +96,47 @@ async def native(inputs):
     from dsh.session.projections import SessionProjectionRegistry
     from dsh.session.turn_outline import TURN_OUTLINE_DEFINITION
     rows = dict(grammar=[], mentions=[], searches=[], positions=[], outline=[], changes=[], orders={})
+    from dsh.core.session.chunk_rows import decodeStorageRecord, packChunkRuns
+    rows['chunkDecode'] = []
+    for row in inputs['chunkRecords']:
+        try:
+            rows['chunkDecode'].append(dict(events=decodeStorageRecord(row)))
+        except (ValueError, TypeError) as error:
+            rows['chunkDecode'].append(dict(error=str(error)))
+    rows['chunkPack'] = [packChunkRuns(events) for events in inputs['chunkBatches']]
+    from dsh.schedule.projection import SCHEDULE_DEFINITION, schedule_state
+    from dsh.llm.llm_retry import RETRY_DEFINITION
+    rows['scheduleStates'] = []
+    for value in inputs['scheduleStates']:
+        try:
+            rows['scheduleStates'].append(dict(accepted=True, state=schedule_state(value)))
+        except (ValueError, TypeError):
+            rows['scheduleStates'].append(dict(accepted=False))
+    rows['scheduleProjection'] = []
+    for cut in (0, 1):
+        state = SCHEDULE_DEFINITION['init'](None, cut)
+        values = []
+        for event in inputs['scheduleEvents']:
+            state = SCHEDULE_DEFINITION['apply'](state, event)
+            values.append(state)
+        rows['scheduleProjection'].append(values)
+    state = RETRY_DEFINITION['init'](None, 0)
+    rows['retryProjection'] = []
+    for event in inputs['retryEvents']:
+        state = RETRY_DEFINITION['apply'](state, event)
+        rows['retryProjection'].append(state)
+    from dsh.core.turn_boundary import boundary_state, apply_boundary, TURN_BOUNDARY_DEFINITION
+    rows['turnBoundary'] = []
+    for state in inputs['boundaryStates']:
+        try:
+            rows['turnBoundary'].append(dict(accepted=True, state=boundary_state(state)))
+        except (ValueError, TypeError, KeyError):
+            rows['turnBoundary'].append(dict(accepted=False))
+    state = TURN_BOUNDARY_DEFINITION['init'](None, 0)
+    rows['turnBoundaryEvents'] = []
+    for event in inputs['boundaryEvents']:
+        state = apply_boundary(state, event)
+        rows['turnBoundaryEvents'].append(state)
     def scalar(token):
         return -0.0 if token == '-0' else json.loads(token)
     rows['lineage'] = []
@@ -147,12 +247,21 @@ async def native(inputs):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root', type=Path, required=True)
+    parser.add_argument('--source-root', type=Path, default=ROOT / 'reference')
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--root', type=Path, default=ROOT)
+    parser.add_argument('--python', default=sys.executable)
+    parser.add_argument('--inputs', type=Path)
+    parser.add_argument('--runtime', action='store_true')
     options = parser.parse_args()
+    if options.runtime:
+        inputs = json.loads(options.inputs.read_text(encoding='utf-8'))
+        report = observe_runtime(inputs, options.root.resolve(), hashlib.sha256(options.inputs.read_bytes()).hexdigest())
+        options.output.write_text(json.dumps(report, ensure_ascii=True, indent=2) + '\n', encoding='utf-8')
+        return 0
     source, output = options.source_root.resolve(), options.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    report = dict(status='runner-error', pin=PIN, scope='rc1 candidate capability checks; no baseline or release promotion')
+    report = dict(status='runner-error', pin=PIN, scope='bounded rc1 Source/runtime observations; no automatic acceptance')
     try:
         actual = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], encoding='utf-8').strip()
         if actual != PIN:
@@ -215,6 +324,42 @@ def main():
         add('user/message', dict(source=dict(kind='user'), content=[dict(type='text', text=' ' * 10000)]))
         add('turn/end', dict(turn=2))
         input_path = output / 'inputs.json'
+        def chunk_record(count):
+            return dict(type='text-chunks', seq0=0, time0=1,
+                        data=dict(turn=1, step=1, index=0, texts=['x'] * count, dt=[1] * max(0, count - 1)))
+        inputs['chunkRecords'] = [chunk_record(count) for count in (1, 2, 3, 1025)]
+        inputs['chunkRecords'] += [dict(chunk_record(2), seq0=-0.0), dict(type='future', seq=-1),
+            dict(type='future', seq=-0.0), dict(type='future', seq=0.5), dict(type='future', seq=True)]
+        def chunks(count):
+            return [dict(type='assistant/chunk', seq=seq, time=seq + 1,
+                         data=dict(turn=1, step=1, chunk=dict(type='text-delta', index=0, text='x')))
+                    for seq in range(count)]
+        inputs['chunkBatches'] = [chunks(count) for count in (2, 3, 1025)]
+        inputs['chunkBatches'].append([dict(event, seq=float(event['seq']), time=float(event['time'])) for event in chunks(3)])
+        schedule = dict(id='schedule-1', kind='after', prompt='paired reminder', afterSeconds=60,
+                        scheduledAt='2026-10-15T00:01:00.000Z')
+        state = dict(inheritedEventCount=0, active=[schedule], seenIds=['schedule-1'])
+        inputs['scheduleStates'] = [state, dict(state, inheritedEventCount=-0.0), dict(state, extra=True),
+            dict(state, seenIds=[]), dict(state, seenIds=['schedule-1', 'schedule-1']), dict(state, active=[schedule, schedule])]
+        inputs['scheduleEvents'] = [dict(type='schedule/change', seq=0,
+            data=dict(version=1, operation='create', schedule=dict(schedule, id='inherited'))),
+            dict(type='schedule/change', seq=1, data=dict(version=1, operation='create', schedule=schedule)),
+            dict(type='schedule/change', seq=2, data=dict(version=1, operation='delete', id='schedule-1'))]
+        retry = dict(provider='provider', policyKey='policy', retryId='retry-1', retry=1)
+        inputs['retryEvents'] = [dict(type='step/start', data={}), dict(type='llm/retry', data=retry),
+            dict(type='llm/retry', data=retry), dict(type='llm/retry', data=dict(retry, provider='provider\u0000x')),
+            dict(type='step/start', data={}), dict(type='llm/retry', data=retry), dict(type='turn/end', data={})]
+        state = dict(openTurnStartSeq=None, lastStepStartSeq=None, lastStepBoundary=None, lastTurn=0)
+        inputs['boundaryStates'] = [state, dict(state, ignored='strip'),
+            dict(state, lastStepBoundary=dict(kind='start', seq=0, ignored='strip')),
+            dict(state, lastTurn=-0.0), dict(state, openTurnStartSeq=-0.0),
+            dict(state, lastTurn=True), dict(state, lastTurn=-1), dict(state, lastTurn=0.5),
+            dict(state, lastStepBoundary=dict(kind='invalid', seq=0)),
+            dict(state, lastStepBoundary=dict(kind='end', seq=2)),
+            dict(state, lastTurn=9007199254740992), dict(lastTurn=1)]
+        inputs['boundaryEvents'] = [dict(type=kind, seq=seq, data=dict(turn=turn)) for seq, kind, turn in
+            [(0, 'turn/start', 1), (1, 'step/start', 1), (2, 'step/end', 1), (3, 'turn/end', 1),
+             (4, 'turn/start', 2), (5, 'probe/ignored', 2)]]
         input_path.write_text(json.dumps(inputs, ensure_ascii=True, indent=2) + '\n', encoding='utf-8')
         environment = dict(os.environ, TSX_TSCONFIG_PATH=str(source / 'tsconfig.json'))
         frozen = source_inputs(source)
@@ -232,32 +377,22 @@ def main():
         expected_hash = hashlib.sha256(input_path.read_bytes()).hexdigest()
         if source_rows['pin'] != PIN or source_rows['inputSha256'] != expected_hash:
             raise ValueError('Source identity or input digest differs')
-        # Freeze the wall clock solely for paired event-envelope observations.
-        import time
-        clock = time.time
-        time.time = lambda: inputs['clock'] / 1000
-        try:
-            native_rows = asyncio.run(native(inputs))
-        finally:
-            time.time = clock
-        (output / 'native.json').write_text(json.dumps(native_rows, ensure_ascii=True, indent=2) + '\n', encoding='utf-8')
-        modules = {}
-        for module in list(sys.modules.values()):
-            filename = getattr(module, '__file__', None)
-            if not filename:
-                continue
-            path = Path(filename).resolve()
-            if path.is_file() and ROOT / 'dsh' in path.parents:
-                modules[path.relative_to(ROOT).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
-        report['native_runtime'] = dict(python=sys.version, executable=sys.executable, modules=modules)
+        command = [options.python, '-I', str(Path(__file__).resolve()), '--runtime', '--root', str(options.root.resolve()),
+                   '--inputs', str(input_path), '--output', str(output / 'native.json')]
+        run = subprocess.run(command, capture_output=True, timeout=60)
+        (output / 'native.log').write_bytes(run.stdout + run.stderr)
+        if run.returncode:
+            raise RuntimeError('Native observer failed; see native.log')
+        native_report = json.loads((output / 'native.json').read_text(encoding='utf-8'))
+        native_rows = native_report['observations']
+        validate_runtime(native_report, options.root.resolve(), digest(source_rows['observations']), expected_hash)
+        report['native_runtime'] = native_report
         report['source_inputs_sha256'] = hashlib.sha256((output / 'source-inputs.json').read_bytes()).hexdigest()
         report['input_sha256'] = expected_hash
         report['observer_sha256'] = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
             for name in ('scripts/rc1_capabilities_oracle.py', 'scripts/oracles/rc1_capabilities.mts')}
         report['cases'] = [dict(name=name, matched=value == native_rows.get(name)) for name, value in source_rows['observations'].items()]
-        required = {'grammar', 'mentions', 'searches', 'positions', 'outline', 'changes', 'orders',
-                    'searchLimits', 'indexed', 'checkpoint', 'lineage', 'storageLineage', 'strictHeaders', 'projectionLineage'}
-        if set(source_rows['observations']) != required or set(native_rows) != required:
+        if set(source_rows['observations']) != REQUIRED or set(native_rows) != REQUIRED:
             raise ValueError('Incomplete or unexpected observation categories')
         report['status'] = 'matched' if all(row['matched'] for row in report['cases']) else 'different'
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as error:

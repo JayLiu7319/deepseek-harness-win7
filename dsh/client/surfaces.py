@@ -102,6 +102,7 @@ EMPTY_HOST_HALVES: Dict[str, Tuple[str, str]] = {
     ),
     "ClientUiRendererPlugin": ("@deepseek-ai/dsh-client-ui-renderer", "packages/client/ui-renderer/src/index.ts"),
     "ClientUiSessionPlugin": ("@deepseek-ai/dsh-client-ui-session", "packages/client/ui-session/src/index.ts"),
+    "ClientUiSchedulePlugin": ("@deepseek-ai/dsh-client-ui-schedule", "packages/client/ui-schedule/src/index.ts"),
     "ClientUiSettingsPlugin": ("@deepseek-ai/dsh-client-ui-settings", "packages/client/ui-settings/src/index.ts"),
     "ClientUiSettingsModelsPlugin": (
         "@deepseek-ai/dsh-client-ui-settings-models",

@@ -1,5 +1,5 @@
 {
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
   "source_sha256": {
     "scripts/oracles/cordis-runner-cases.json": "7778fe560aaef7aafd7f901202435d63875147b143b78947fd4bf43e030da546",
     "scripts/oracles/cordis-runner.spec.ts": "bcba4ef3a26fac402d44411f75c7088ed1ded37efe7b96aa892fdb9706c103dc",
@@ -7,11 +7,11 @@
     "scripts/oracles/vitest.agent-lifecycle.config.mts": "1f781c93abe83d7fed3815becbacdf8b639601fae31242baf476e8314508055e",
     "scripts/oracles/vitest.consumers.config.mts": "b70704a79f8c14cbccbaa62ac717ca4a48402767893e3e85850f491f6a68108f",
     "scripts/oracles/vitest.core.config.mts": "1e5c431e8bfb8a36462353049517f01dab46455c95e5184c8ab0e97856977bd1",
-    "reference/packages/extensions/cordis-host-runner/src/index.ts": "e45c3d691be1a46653c7aaf8a360e3b0ccdad1a5ec92dcec764d3a2e4c2d74c4",
+    "reference/packages/extensions/cordis-host-runner/src/index.ts": "3e8bc7152a398bf629fe588b44d5b9ab532c34d661064c03c346249aad28781c",
     "reference/packages/extensions/cordis-host-runner/src/registry.ts": "8d37d583a0e0f94581416ccb9c82b5bd37873c603c0a2c010fafa5366008587e",
-    "reference/packages/extensions/cordis-host-runner/src/types.ts": "e624af77db5368de052f27728f6fc6fa8058c712cb6f7969cb4436153ba594b5",
+    "reference/packages/extensions/cordis-host-runner/src/types.ts": "2bf88fd24feeb3c6ae05bd739fabdd72a61dbad2362f9b46cbdcd588313c83c1",
     "reference/packages/extensions/cordis-host-runner/src/sandbox.ts": "a7deb6432593dab5f3976eb1c3f63ff8457112048a0a03294581ab6d42baed05",
-    "reference/packages/extensions/cordis-host-runner/src/guard.ts": "3627aa67e89d65b8d72c8d303f2336e00a23c0f3396048387d15d2125eb9718a",
+    "reference/packages/extensions/cordis-host-runner/src/guard.ts": "95dd68b8b5a295b950b6c8421c9630dd4155c5d93c903dd49d042ce4325e2735",
     "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts": "cbe2d9beb583151fe590e2b8ebcdf1656cedc083cfde60532251f11c4f4a673f",
     "reference/packages/extensions/cordis-host-runner/tests/helpers.ts": "53b47a4bff82da4c952b33a03df450b26f07c48d30254c4dc6e82143315f5de0"
   },

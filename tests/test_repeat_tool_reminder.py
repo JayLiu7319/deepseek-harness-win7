@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.system_prompt import SystemPrompt as SourceToolsPrompt
 import asyncio
@@ -181,6 +182,8 @@ async def loop_harness(calls, config=None):
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     await ctx.plugin(RepeatToolReminderPlugin, config or {})
     for name in ("probe", "other"):

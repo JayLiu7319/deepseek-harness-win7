@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt as SourceToolsPrompt
@@ -37,6 +38,8 @@ async def setup():
     await ctx.plugin(ToolsPlugin)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     await ctx.plugin(GoalService)
     driver = await ctx.plugin(GoalRoundDriver)

@@ -3,6 +3,7 @@
 Parameter IDs are upstream source lines, not locally invented completion counts.
 Node absolute-file-URL import is adapted to Python absolute file import.
 """
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LlmRuntime
 import asyncio
 from types import SimpleNamespace
@@ -197,6 +198,8 @@ async def test_roster_configuration_guards(tmp_path,monkeypatch,line):
                 warnings=[];monkeypatch.setattr(type(ctx.logger),'warn',lambda self,message,*args:warnings.append(str(message)))
                 await ctx.plugin(LlmRuntime)
                 await ctx.plugin(SessionPlugin);await ctx.plugin(AgentPlugin)
+                if ctx.get('sessionProjections') is None:
+                    await ctx.plugin(SessionProjectionsPlugin)
                 await ctx.plugin(SystemPrompt);await ctx.plugin(ToolsPlugin);await ctx.plugin(AgentLoopPlugin)
                 handle=await ctx.agents.create('no-roster');assert warnings==[];await handle.dispose()
     finally: await ctx.fiber.dispose()

@@ -85,7 +85,10 @@ def metadata_detached(value):
     if hasattr(value, 'to_dict'):
         return metadata_detached(value.to_dict())
     if hasattr(value, 'meta') and hasattr(value, 'events'):
-        return dict(meta=metadata_detached(value.meta), events=metadata_detached(value.events))
+        result = dict(meta=metadata_detached(value.meta), events=metadata_detached(value.events), inheritedEventCount=value.inheritedEventCount)
+        if hasattr(value, 'fromSeq'):
+            result['fromSeq'] = value.fromSeq
+        return result
     if isinstance(value, dict):
         return {name: metadata_detached(item) for name, item in value.items() if name != 'revision'}
     if isinstance(value, list):
@@ -203,7 +206,7 @@ async def main():
                 mutual.append(dict(id='mutual/' + item['key'], meta=loaded.meta.to_dict(), events=loaded.events,
                     inspected=len(inspected.events), suffix=suffix.events, raw=raw['content'], filename=raw['filename'],
                     prepared=len(prepared.session.events), endSeed=prepared.session.events[-1]['type'],
-                    unpublished=context.get('sessions').get(metadata.id) is None, revisionMatched=True))
+                    unpublished=context.get('sessions').get(metadata.id) is None, revisionMatched=True, inheritedEventCount=0))
             finally:
                 prepared.dispose()
         finally:

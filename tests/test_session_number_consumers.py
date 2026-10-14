@@ -99,7 +99,7 @@ def test_portable_number_cli_refuses_partial_receipts(tmp_path, side):
 
 @pytest.mark.parametrize('action', ['copy', 'deepcopy', 'export', 'delete'])
 def test_published_header_copies_and_exports_preserve_source_ownership(action):
-    supplied = dict(id='s', version=0, createdAt=1, extra=dict(nested=[1, 2]))
+    supplied = dict(id='s', version=0, createdAt=1, isSeeded=False, extra=dict(nested=[1, 2]))
     original = Session.create('s', [], supplied).header
     header = copy.copy(original) if action == 'copy' else copy.deepcopy(original) if action == 'deepcopy' else original
     if action == 'export':

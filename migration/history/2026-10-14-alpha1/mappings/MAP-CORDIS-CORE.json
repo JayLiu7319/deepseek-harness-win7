@@ -1,0 +1,545 @@
+{
+  "id": "MAP-CORDIS-CORE",
+  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "cases": [
+    {
+      "id": "CORDIS-C1",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c1_returned_thenable_disposer_is_collected_not_awaited",
+      "status": "indexed-unverified",
+      "description": "C1: `apply` returning a callable-and-awaitable disposer keeps the service alive."
+    },
+    {
+      "id": "CORDIS-C2",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c2_apply_returning_promise_of_disposer_owns_it",
+      "status": "indexed-unverified",
+      "description": "C2: `apply` may return a promise of a disposer; activation awaits it."
+    },
+    {
+      "id": "CORDIS-C3",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c3_strict_get_ignores_inactive_provider",
+      "status": "indexed-unverified",
+      "description": "C3: strict `ctx.get` sees only ACTIVE providers; loose/attribute reads differ."
+    },
+    {
+      "id": "CORDIS-C4",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c4_pending_consumer_activates_when_dependency_provided",
+      "status": "indexed-unverified",
+      "description": "C4: injected dependencies drive LOADING/UNLOADING through composite epochs."
+    },
+    {
+      "id": "CORDIS-C5",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c5_status_sequence_for_dependency_loss",
+      "status": "indexed-unverified",
+      "description": "C5: `internal/status` reports (fiber, oldState) for every real transition."
+    },
+    {
+      "id": "CORDIS-C6",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c6_dispose_drains_effects_registered_on_pending_fiber",
+      "status": "indexed-unverified",
+      "description": "C6: a PENDING fiber's pre-activation effects are torn down by `dispose()`."
+    },
+    {
+      "id": "CORDIS-C7",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c7_fiber_scoped_internal_update_hook_chain",
+      "status": "indexed-unverified",
+      "description": "C7: fiber-scoped `internal/update` hooks chain (config, noSave, next) and veto."
+    },
+    {
+      "id": "CORDIS-C8",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c8_internal_get_dispatches_only_for_proxy_reads",
+      "status": "indexed-unverified",
+      "description": "C8: `internal/get` runs for plugin-fiber proxy reads only."
+    },
+    {
+      "id": "CORDIS-C9",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c9_ctx_on_registers_one_labeled_effect",
+      "status": "indexed-unverified",
+      "description": "C9: `ctx.on` adds one effect labeled `ctx.on(\"name\")`; its disposer removes it."
+    },
+    {
+      "id": "CORDIS-C10",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c10_effect_takes_ownership_of_nested_effect",
+      "status": "indexed-unverified",
+      "description": "C10: an effect that collects another effect owns it and nests its metadata."
+    },
+    {
+      "id": "CORDIS-C11",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c11_plain_disposer_from_apply_has_no_effect_metadata",
+      "status": "indexed-unverified",
+      "description": "C11: a plain function returned by `apply` is collected without metadata."
+    },
+    {
+      "id": "CORDIS-C12",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c12_provide_disposer_awaits_dependents_before_dropping_store_entry",
+      "status": "indexed-unverified",
+      "description": "C12: `ctx.provide` teardown wakes dependents, awaits their unload, then drops"
+    },
+    {
+      "id": "CORDIS-C13",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c13_dispose_starts_teardown_synchronously_and_returns_awaitable",
+      "status": "indexed-unverified",
+      "description": "C13: disposal is an async function whose body starts at the call site."
+    },
+    {
+      "id": "CORDIS-C14",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c14_reentrant_disposal_during_loading_never_runs_the_plugin_body",
+      "status": "indexed-unverified",
+      "description": "C14: a load invalidated while LOADING was reported never runs `apply`."
+    },
+    {
+      "id": "CORDIS-C15",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c15_iterable_result_disposers_are_collected_without_metadata",
+      "status": "indexed-unverified",
+      "description": "C15: an iterable returned by `apply` yields bare collected disposers."
+    },
+    {
+      "id": "CORDIS-C16",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c16_async_effect_setup_failure_propagates_from_the_disposer",
+      "status": "indexed-unverified",
+      "description": "C16: the public disposer reports an async setup failure."
+    },
+    {
+      "id": "CORDIS-C17",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c17_intercept_config_merges_once_per_ancestor_level",
+      "status": "indexed-unverified",
+      "description": "C17: every intercept level contributes one merge input, root first."
+    },
+    {
+      "id": "CORDIS-C18",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c18_parallel_resolves_without_results",
+      "status": "indexed-unverified",
+      "description": "C18: `parallel` waits for every listener and resolves with no value."
+    },
+    {
+      "id": "CORDIS-C19",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c19_bail_dispatches_synchronously",
+      "status": "indexed-unverified",
+      "description": "C19: `bail` runs listeners synchronously until one returns a bail value."
+    },
+    {
+      "id": "CORDIS-C20",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c20_async_iterable_result_disposers_are_collected_on_the_fiber",
+      "status": "indexed-unverified",
+      "description": "C20: an async-iterable `apply` result is drained onto the fiber."
+    },
+    {
+      "id": "CORDIS-C21",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/1to1/cordis/test_cordis_core_semantics_parity.py::test_c21_context_get_second_positional_parameter_is_strict",
+      "status": "indexed-unverified",
+      "description": "C21: `ctx.get(name, strict)` follows the reference parameter order."
+    },
+    {
+      "id": "CORDIS-C22",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Mixed asynchronous prefixes and synchronous listener ordering."
+    },
+    {
+      "id": "CORDIS-C23",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Synchronous failure stops dispatch."
+    },
+    {
+      "id": "CORDIS-C24",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Async prefix rejection reports once while peers execute."
+    },
+    {
+      "id": "CORDIS-C25",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Repeated effect disposal remains owned by child."
+    },
+    {
+      "id": "CORDIS-C26",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "In-flight async iterator yield transfers late disposer after invalidation."
+    },
+    {
+      "id": "CORDIS-C27",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Root waits for pending repeated effect disposal."
+    },
+    {
+      "id": "CORDIS-C28",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Owner disposal rejects pending Timer timeout."
+    },
+    {
+      "id": "CORDIS-C29",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Owner disposal rejects pending Timer interval next."
+    },
+    {
+      "id": "CORDIS-C30",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_wave2_observations.py::test_python_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Observer abandonment/cancellation preserves owned teardown."
+    },
+    {
+      "id": "CORDIS-C31",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Loader config update preserves entry/options identity and lifecycle ordering."
+    },
+    {
+      "id": "CORDIS-C32",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Loader remove retains store row until pending cleanup settles."
+    },
+    {
+      "id": "CORDIS-C33",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "HMR config refresh coalesces repeated events for one identity."
+    },
+    {
+      "id": "CORDIS-C34",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "HMR config refresh uses independent identities for the same filename."
+    },
+    {
+      "id": "CORDIS-C35",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Public HMR registration and watcher shutdown join pending refresh."
+    },
+    {
+      "id": "CORDIS-C36",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_consumer_observations.py::test_consumer_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Old registration cleanup preserves public same-path replacement."
+    },
+    {
+      "id": "CORDIS-C37",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_include_observations.py::test_include_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Include serializes a later refresh behind pending apply."
+    },
+    {
+      "id": "CORDIS-C38",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_include_observations.py::test_include_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Include executes a later refresh after its predecessor fails."
+    },
+    {
+      "id": "CORDIS-C39",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_include_observations.py::test_include_matches_frozen_upstream_observation",
+      "status": "indexed-unverified",
+      "description": "Include initial apply shares serialization with refresh and cannot overwrite newer config."
+    },
+    {
+      "id": "CORDIS-C40",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Single Include startup failure settles with uncommitted data and FAILED state."
+    },
+    {
+      "id": "CORDIS-C41",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Disposal during initial Include apply waits for startup and cleanup."
+    },
+    {
+      "id": "CORDIS-C42",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Include disposal during refresh matches upstream completion before the gated child settles; handle/raw ownership retained."
+    },
+    {
+      "id": "CORDIS-C43",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Aggregate startup failure plus tree await observes LOADING before final root disposal."
+    },
+    {
+      "id": "CORDIS-C44",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Repeated public fiber disposal is a no-op; owned cleanup remains in flight."
+    },
+    {
+      "id": "CORDIS-C45",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Registry returns a distinct inheriting handle; await and disposal target the original fiber, while update shadows handle state."
+    },
+    {
+      "id": "CORDIS-C46",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Handle-only recovery preserves the original startup error through thenable assimilation."
+    },
+    {
+      "id": "CORDIS-C47",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Raw fiber recovery clears the original error and updates inherited handle fields."
+    },
+    {
+      "id": "CORDIS-C48",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Handle restart preserves raw identity"
+    },
+    {
+      "id": "CORDIS-C49",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Raw restart updates lifecycle state"
+    },
+    {
+      "id": "CORDIS-C50",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Handle dependency recovery"
+    },
+    {
+      "id": "CORDIS-C51",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_lifecycle_observations.py::test_matched_lifecycle_observation",
+      "status": "indexed-unverified",
+      "description": "Raw dependency recovery"
+    },
+    {
+      "id": "CORDIS-C52",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Module replacement"
+    },
+    {
+      "id": "CORDIS-C53",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Module import failure retains old runtime"
+    },
+    {
+      "id": "CORDIS-C54",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Apply failure retains failed replacement"
+    },
+    {
+      "id": "CORDIS-C55",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Repeated replacement uses current runtime"
+    },
+    {
+      "id": "CORDIS-C56",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Dependency cache invalidation"
+    },
+    {
+      "id": "CORDIS-C57",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Import rollback restores caches"
+    },
+    {
+      "id": "CORDIS-C58",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "scripts/oracles/cordis_boundaries.py::scenario",
+      "status": "indexed-unverified",
+      "description": "Completed Future native scheduling divergence"
+    },
+    {
+      "id": "CORDIS-C59",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "scripts/oracles/cordis_boundaries.py::scenario",
+      "status": "indexed-unverified",
+      "description": "Explicit checkpoint adaptation"
+    },
+    {
+      "id": "CORDIS-C60",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Cyclic package-relative dependency reload"
+    },
+    {
+      "id": "CORDIS-C61",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_hmr_observations.py::test_module_reload_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Multi-file import transaction rollback"
+    },
+    {
+      "id": "CORDIS-C62",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "scripts/oracles/cordis_schema.py::scenario",
+      "status": "indexed-unverified",
+      "description": "Standard Schema defaults and nested issues"
+    },
+    {
+      "id": "CORDIS-C63",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_serial_boundary_observations.py::test_serial_await_boundary_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Serial synchronous result checkpoint"
+    },
+    {
+      "id": "CORDIS-C64",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_serial_boundary_observations.py::test_serial_await_boundary_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Serial resolved Future checkpoint"
+    },
+    {
+      "id": "CORDIS-C65",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_serial_boundary_observations.py::test_serial_await_boundary_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Serial immediate coroutine checkpoint"
+    },
+    {
+      "id": "CORDIS-C66",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_serial_boundary_observations.py::test_serial_await_boundary_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "Serial rejected coroutine checkpoint"
+    },
+    {
+      "id": "CORDIS-C67",
+      "origin": "source-derived",
+      "contract": "CON-CORDIS-CORE",
+      "test": "tests/test_cordis_serial_boundary_observations.py::test_serial_await_boundary_matches_upstream",
+      "status": "indexed-unverified",
+      "description": "HMR settled refresh coalescing checkpoint"
+    }
+  ],
+  "official_case_coverage": "Critical source assertions: 11 lifecycle + 69 necessary-consumer instances (57 preset, 6 boot HMR, 6 profile HMR). Unmodified official suites execute 80 tests. Inventory remains discovery only.",
+  "note": "C1-C67 require fresh paired report. C58 is retained native Python language divergence, with separate exact-signature scoped acceptance and C59 checkpoint adaptation.",
+  "observation_evidence": "RUN-CORDIS-CLOSURE-20260927"
+}

@@ -71,13 +71,13 @@ def load_sqlite():
 
 
 class SqliteDatabase:
-    def __init__(self, path):
+    def __init__(self, path, read_only=False):
         if not isinstance(path, str) or '\0' in path:
             raise ValueError('SQLite database path must be a NUL-free string')
         self._library = _library()
         self._lock = threading.RLock()
         self._handle = ctypes.c_void_p()
-        result = self._library.sqlite3_open_v2(path.encode('utf-8'), ctypes.byref(self._handle), 6, None)
+        result = self._library.sqlite3_open_v2(path.encode('utf-8'), ctypes.byref(self._handle), 1 if read_only else 6, None)
         if result:
             try:
                 self._check(result)

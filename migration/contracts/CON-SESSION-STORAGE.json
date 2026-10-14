@@ -1,8 +1,8 @@
 {
   "id": "CON-SESSION-STORAGE",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session/session-persistence/src/coordinator.ts",
     "reference/packages/session/session-persistence/tests/contract.ts",
@@ -22,11 +22,18 @@
     "Retired request/header-delta, mode/set and fallback headers reject writes. Unknown event types remain writable but reject on reads with artifact diagnostics.",
     "Cold inspect/load validate current envelopes, message/request shape, header and surface rules via Session before durable repair. read_from remains a stored-prefix read and observes retirement/serialization/abort."
   ],
-  "open_questions": [],
+  "open_questions": [
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
   "identity": "The session ID is shared by creation intent, cursor, reservation and exact live identity. Cwd is checked before live claims.",
   "ownership": "PersistenceCoordinator replaces the unused legacy queue facade. Backend methods own physical append/materialization; shared live/prepared layers own lifecycle and reservations.",
   "ordering": "Detach batch before awaiting the ID lock; validate cursor for the entire batch; commit header+first batch atomically; then advance cursor and invalidate cached source.",
   "errors": "First JSONL publication uses fsynced staging plus exclusive write-through MoveFileExW on Windows, or link/directory-fsync on POSIX. Missing Windows directories publish through the same write-through operation. SQLite uses a transaction and INSERT rather than replacement. Failed writes retain cursor and can retry.",
   "cancellation": "Queued read cancellation preserves the caller reason and does not cancel writers. Cold preparation cancellation retains its prior shared-work guarantees.",
-  "adaptation": "Python 3.8 async methods snapshot when execution starts before waiting for the storage lock. ctypes calls the same Win7-compatible MoveFileExW API as upstream Windows publication. Two independent backend objects test exclusive publication, not arbitrary cross-process/multi-cwd coordination or power-loss behavior. SQLite shares local tests, without native upstream SQLite certification. Win7 machine validation remains deferred."
+  "adaptation": "Python 3.8 async methods snapshot when execution starts before waiting for the storage lock. ctypes calls the same Win7-compatible MoveFileExW API as upstream Windows publication. Two independent backend objects test exclusive publication, not arbitrary cross-process/multi-cwd coordination or power-loss behavior. SQLite shares local tests, without native upstream SQLite certification. Win7 machine validation remains deferred.",
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

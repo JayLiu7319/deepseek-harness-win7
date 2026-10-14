@@ -88,10 +88,10 @@ def test_portable_restore_sign_cli_refuses_partial_receipts(tmp_path, side):
 
 
 @pytest.mark.parametrize('field,attribute', [('version', 'version'), ('createdAt', 'created_at'),
-    ('seedLength', 'seed_length'), ('delegationDepth', 'delegation_depth')])
+    ('delegationDepth', 'delegation_depth')])
 @pytest.mark.parametrize('consumer', ['attribute', 'copy', 'deepcopy', 'export'])
 def test_restored_header_signed_zero_survives_public_consumers(field, attribute, consumer):
-    header = dict(id='s', version=0, createdAt=1)
+    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
     header[field] = -0.0
     session = Session.from_restore('s', [], header)
     if consumer == 'export':

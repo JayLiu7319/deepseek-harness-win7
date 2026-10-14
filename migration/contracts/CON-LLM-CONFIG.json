@@ -1,8 +1,8 @@
 {
   "id": "CON-LLM-CONFIG",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/llm/llm/src/index.ts",
     "reference/packages/llm/llm/src/call-config.ts",
@@ -31,6 +31,12 @@
   "adaptation": "Python snake-case adapter lookup hooks implement the original public query contract; existing108 prepared observations remain unchanged.",
   "open_questions": [
     "Arbitrary malformed/accessor/non-JSON call graphs, all callback/registration/cancellation schedules and complete canonical profiles remain in broad migration parents.",
-    "Actual Win7 remains user-deferred; no accepted_upstream or full API certification follows from selected26 captures."
-  ]
+    "Actual Win7 remains user-deferred; no accepted_upstream or full API certification follows from selected26 captures.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

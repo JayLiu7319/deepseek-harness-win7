@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {Context} from '@deepseek-ai/cordis'
 import {LlmAdapter,LlmRuntime,ToolCallId} from '@deepseek-ai/dsh-llm'
 import Sessions,{SessionId} from '@deepseek-ai/dsh-session'
@@ -32,7 +33,8 @@ for(const enabled of [false,true])for(const inherits of [false,true])for(const d
   let handle:any
   try{
     for(const provider of [LlmRuntime,Sessions,Tools,Prompt,Agents])await ctx.plugin(provider)
-    await ctx.plugin(Loop,{agents:[]})
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(Loop,{agents:[]})
     await ctx.plugin(Subagents)
     await ctx.plugin(Settings,{enabled,allowedModels:[{provider:'alpha',model:'fast'},{provider:'alpha',model:'plain'},{provider:'alpha',model:'unlisted'},{provider:'missing',model:'hidden'}]})
     ctx.llm.registerAdapter(['alpha'],new Adapter())
@@ -44,7 +46,7 @@ for(const enabled of [false,true])for(const inherits of [false,true])for(const d
     } as any)
     handle=await ctx.agents.create({sessionId:SessionId('model-probe-'+name),agentOptions:{provider:'alpha',model:'fast'},
       setup:async agentCtx=>{await agentCtx.plugin(Tool,{provider:'probe',modelSelectionSettings:true,backgroundMode:mode})}})
-    rows.push({name:name+'/schema',schemas:ctx.tools.schemas(handle.agent),events:handle.agent.session.events})
+    rows.push({name:name+'/schema',schemas:ctx.tools.schemas(handle.agent),events:handle.agent.session.snapshotEvents()})
     if(enabled){
       for(const [position,args] of calls.entries()){
         const result=await ctx.tools.execute({name:'list_subagent_models',arguments:args,callId:ToolCallId('model-call-'+position),signal:new AbortController().signal,agent:handle.agent})

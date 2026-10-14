@@ -56,7 +56,7 @@ async def observe():
                 return [dict(header=copy.deepcopy(entry['header']), revision='1') for entry in entries]
             async def inspect(self, session_id, signal=None):
                 entry = next(entry for entry in entries if entry['header'].id == session_id)
-                return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']))
+                return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']), inheritedEventCount=0)
         context.provide('sessionPersistence', Persistence())
         query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='first-search', defaultLimit=1, maxLimit=2))
         try:

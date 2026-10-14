@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 """
 1:1 Test Parity Suite for @deepseek-ai/dsh-agent-loop:
@@ -60,6 +61,8 @@ async def test_cancel_on_idle_agent_is_noop_f2_leak_guard():
     ])
     ctx.set_service("llm", mock_llm)
 
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     agent_loop = AgentLoopService(ctx)
     ctx.set_service("agent_loop", agent_loop)
 
@@ -116,6 +119,8 @@ async def test_cancel_during_tool_execution_aborts_turn_and_sets_aborted_reason(
     ])
     ctx.set_service("llm", mock_llm)
 
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     agent_loop = AgentLoopService(ctx)
     ctx.set_service("agent_loop", agent_loop)
 
@@ -153,6 +158,8 @@ async def test_agent_request_error_retry_recovery():
     ])
     ctx.set_service("llm", mock_llm)
 
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     agent_loop = AgentLoopService(ctx)
     ctx.set_service("agent_loop", agent_loop)
 

@@ -24,6 +24,7 @@ from dsh.core.agent_loop_settings import (
 from dsh.core.agent_factory import FactoryTransaction
 from dsh.core.abort import AbortController
 from dsh.core.session.preparation import SessionPreparation
+from dsh.core.session.json import UNDEFINED
 from dsh.core.configured_agents import ConfiguredStartup, configured_agents, CONFIGURED_AGENT_IDENTITIES_KEY
 from dsh.llm.error import error_chain
 from dsh.llm.llm_service import LlmError
@@ -395,6 +396,8 @@ class AgentLoopService:
         self._configured = ConfiguredStartup(self)
         self._default_agent: Optional[Agent] = None
         self._request_header_logged: Dict[str, bool] = {}
+        from dsh.core.turn_boundary import TURN_BOUNDARY_DEFINITION
+        ctx.get('sessionProjections').register(TURN_BOUNDARY_DEFINITION)
 
     @property
     def config(self) -> Dict[str, Any]:
@@ -402,12 +405,8 @@ class AgentLoopService:
 
     def _get_turn_number(self, agent: Agent) -> int:
         session = agent.session
-        last_turn = 0
-        for ev in reversed(session.events):
-            if isinstance(ev, dict) and ev.get("type") == "turn/start":
-                last_turn = ev.get("data", {}).get("turn", 0)
-                break
-        return last_turn + 1
+        boundary = self.ctx.get('sessionProjections').stateOf(session, 'turnBoundary')
+        return boundary['lastTurn'] + 1
 
     async def _publish_preparation(self, tx, preparation, options, setup, source):
         session = preparation.session
@@ -455,7 +454,7 @@ class AgentLoopService:
             raise ValueError('agent maxTokens must be a positive safe integer')
 
     async def create_agent(self, session_id=None, options=None, meta=None, setup=None,
-                           seed=None, signal=None, owner_ctx=None):
+                           seed=None, signal=None, owner_ctx=None, inherited_event_count=UNDEFINED):
         self._validate_options(options)
         sid = session_id if session_id is not None else 'session-' + uuid.uuid4().hex[:8]
         sessions = self.ctx.sessions
@@ -464,7 +463,8 @@ class AgentLoopService:
         self._wrappers.add(wrapper)
         preparation = None
         try:
-            preparation = SessionPreparation.create(sessions.prepare(sid, seed=seed, meta=meta))
+            preparation = SessionPreparation.create(sessions.prepare(
+                sid, seed=seed, meta=meta, inheritedEventCount=inherited_event_count))
             return await self._publish_preparation(tx, preparation, options, setup, 'startup')
         except BaseException:
             await tx.dispose()
@@ -504,7 +504,8 @@ class AgentLoopService:
             # Their snapshot is wrapped once at this boundary, never published early.
             inspection = await persistence.load(sid)
             return SessionPreparation.create(self.ctx.get('sessions').prepare(
-                sid, seed=inspection.events, meta=inspection.meta, seedSource='persistence'))
+                sid, seed=inspection.events, meta=inspection.meta, seedSource='persistence',
+                inheritedEventCount=inspection.inheritedEventCount))
         try:
             preparation = await tx.race(prepare, lambda late: late.dispose())
             return await self._publish_preparation(tx, preparation, options, setup, 'resume')
@@ -1091,7 +1092,7 @@ class AgentLoopPlugin(Plugin):
     id = "agent-loop"
     name = "@deepseek-ai/dsh-agent-loop"
     Config = AGENT_LOOP_CONFIG_SCHEMA
-    inject = ["agents", "sessions", "llm", "tools", "systemPrompt"]
+    inject = ["agents", "sessions", "llm", "tools", "systemPrompt", "sessionProjections"]
 
     def apply(self, ctx: Context) -> None:
         rows = configured_agents(self.config, ctx.get(CONFIGURED_AGENT_IDENTITIES_KEY))

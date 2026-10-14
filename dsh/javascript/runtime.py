@@ -13,7 +13,7 @@ RESOURCE_ROOT = Path(__file__).resolve().parent / 'bin'
 BINARY_SHA256 = '032d3ad64ccdd38e0b7afb35153db156fe6469a385f707f31234dc9d2982b7e9'
 MANIFEST_SHA256 = '1ca94baf686d00971c0b35a331948de5a478353b2262a4154e378fa0a1d06dfb'
 WORKFLOW_ROOT = Path(__file__).resolve().parent / 'workflow'
-WORKFLOW_MANIFEST_SHA256 = 'c151658c0832e62dae18c804ef052ed022fb061303a918e900ff2facd244af14'
+WORKFLOW_MANIFEST_SHA256 = 'dbbab7b5a9b154aca1dd57dff9971bcf52b84f3d3e8de4c1dda9eb6f1a834aa2'
 
 
 class JavaScriptRuntimeError(RuntimeError):
@@ -71,7 +71,7 @@ def workflow_bootstrap():
     if digest(WORKFLOW_ROOT / 'workflow.json') != WORKFLOW_MANIFEST_SHA256:
         raise JavaScriptRuntimeError('JavaScript workflow manifest bytes differ')
     manifest = json.loads((WORKFLOW_ROOT / 'workflow.json').read_text(encoding='utf-8'))
-    if manifest.get('sourceCommit') != 'cd5ef8148158c3a752a658978873241fdf8e2bbc':
+    if manifest.get('sourceCommit') != 'a66e4702047846cdaa10c66c9d3df3951f5ea70d':
         raise JavaScriptRuntimeError('JavaScript workflow Source pin differs')
     for name, expected in manifest['resources'].items():
         relative = Path(name)

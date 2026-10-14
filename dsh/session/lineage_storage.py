@@ -54,6 +54,7 @@ def parse_header(line: str) -> Any:
         value = parse_json(line)
     except Exception:
         return None
+    refuse_version(value)
     return from_header_line(value) if is_header_line(value) else None
 
 

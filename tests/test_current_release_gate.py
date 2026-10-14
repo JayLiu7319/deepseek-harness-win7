@@ -888,9 +888,9 @@ def test_extracted_read_requires_source_assets_and_complete_observations(tmp_pat
     elif damage == 'signal':
         next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')['calls'][0]['signalForwarded'] = False
     elif damage == 'queue':
-        next(row for row in runtime['rows'] if row['name'] == 'sqlite/queued')['settledBeforeRelease'] = False
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-zstd/queued')['settledBeforeRelease'] = False
     else:
-        next(row for row in runtime['rows'] if row['name'] == 'sqlite/legacy-forward')['calls'][0]['signalForwarded'] = False
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/read/whole')['value']['fromSeq'] = 1
     output = tmp_path / 'extracted.json'
     output.write_text(json.dumps(report), encoding='utf-8')
     with pytest.raises(RuntimeError, match='persistenceRead'):
@@ -2314,14 +2314,10 @@ def extracted_receipt(tmp_path):
     candidate['sqlite_format_inputs_sha256'] = format_inputs_digest
     candidate['sqlite_format_modules'] = format_report['modules'].copy()
     candidate['sqlite_format_assets'] = format_report['assets'].copy()
-    provider, provider_inputs_digest = copy.deepcopy(sqlite_provider_runtime_fixture())
+    provider = copy.deepcopy(legacy_reader_runtime_fixture())
     provider['root'] = str(tmp_path)
-    provider['moduleFile'] = str(tmp_path / 'dsh/session/sqlite_store.py')
-    report['sqliteProvider'] = provider
-    candidate['sqlite_provider_observations_sha256'] = provider_observation_digest(provider['rows'])
-    candidate['sqlite_provider_inputs_sha256'] = provider_inputs_digest
-    candidate['sqlite_provider_modules'] = provider['modules'].copy()
-    candidate['sqlite_provider_assets'] = provider['assets'].copy()
+    report['legacySessionReader'] = provider
+    candidate['legacy_reader_modules'] = provider['modules'].copy()
     jsonl, jsonl_inputs_digest = copy.deepcopy(jsonl_provider_runtime_fixture())
     jsonl['root'] = str(tmp_path)
     jsonl['moduleFile'] = str(tmp_path / 'dsh/session/jsonl_store.py')
@@ -2334,6 +2330,12 @@ def extracted_receipt(tmp_path):
         python='3.8.10', platform='win32', observations=[
             dict(mode='http-stream', resets=3, owned=True, alive=True, retired=True, errors=[]),
             dict(mode='upgrade', resets=3, owned=True, alive=True, retired=True, errors=[])])
+    rc1 = copy.deepcopy(rc1_runtime_fixture())
+    rc1['root'], rc1['executable'] = str(tmp_path), str(tmp_path / 'python.exe')
+    report['rc1Capabilities'] = rc1
+    candidate['rc1_observations_sha256'] = rc1['sourceObservationsSha256']
+    candidate['rc1_inputs_sha256'] = rc1['inputSha256']
+    candidate['rc1_modules'] = rc1['modules'].copy()
     return archive, candidate, report
 
 
@@ -2396,61 +2398,53 @@ def test_extracted_jsonl_provider_requires_fresh_source_and_owned_resources(tmp_
 
 
 @functools.lru_cache(maxsize=1)
-def sqlite_provider_runtime_fixture():
-    with tempfile.TemporaryDirectory(prefix='sqlite-provider-validator-fixture-') as directory:
-        output = Path(directory) / 'paired.json'
-        result = subprocess.run([sys.executable, str(ROOT / 'scripts/sqlite_provider_oracle.py'), '--output', str(output)],
-                                capture_output=True, timeout=150)
+def legacy_reader_runtime_fixture():
+    with tempfile.TemporaryDirectory(prefix='legacy-reader-validator-fixture-') as directory:
+        output = Path(directory) / 'reader.json'
+        result = subprocess.run([sys.executable, str(ROOT / 'scripts/legacy_session_reader_oracle.py'), '--output', str(output)],
+                                capture_output=True, timeout=90)
         assert result.returncode == 0 and not result.stderr, result.stderr
-        paired = json.loads(output.read_text(encoding='utf-8'))
-        native = json.loads(output.with_name('paired.native.json').read_text(encoding='utf-8'))
-        return native, paired['generatedInputsSha256']
+        return json.loads(output.read_text(encoding='utf-8'))
 
 
 @pytest.mark.parametrize('damage', ['omit', 'skip', 'duplicate', 'failure'])
-def test_sqlite_provider_lanes_are_mandatory(tmp_path, damage):
-    for module in ('test_sqlite_canonical', 'test_sqlite_provider_source', 'test_sqlite_remote'):
+def test_legacy_reader_lanes_are_mandatory(tmp_path, damage):
+    for module in ('test_sqlite_canonical', 'test_legacy_session_reader_source', 'test_sqlite_remote'):
         for name in GATE.REQUIRED_REGRESSION[module]:
-            path = tmp_path / 'provider-regression.xml'
+            path = tmp_path / 'reader-regression.xml'
             regression_xml(path, **{damage: (module, name)})
             with pytest.raises(RuntimeError):
                 GATE.validate_regression(path)
 
 
-@pytest.mark.parametrize('damage', ['missing', 'root', 'module', 'runtime', 'hash', 'asset', 'inventory', 'value',
-                                  'digest', 'inputs', 'null-digest', 'null-modules', 'null-assets'])
-def test_extracted_sqlite_provider_requires_fresh_source_and_owned_resources(tmp_path, damage):
+@pytest.mark.parametrize('damage', ['missing', 'root', 'runtime', 'hash', 'asset', 'inventory', 'value',
+                                  'historical-source', 'fixture', 'null-modules'])
+def test_extracted_legacy_reader_requires_owned_resources_and_historical_identity(tmp_path, damage):
     archive, candidate, report = extracted_receipt(tmp_path)
-    current = report['sqliteProvider']
+    current = report['legacySessionReader']
     if damage == 'missing':
-        del report['sqliteProvider']
+        del report['legacySessionReader']
     elif damage == 'root':
         current['root'] = str(tmp_path / 'foreign')
-    elif damage == 'module':
-        current['moduleFile'] = 'foreign'
     elif damage == 'runtime':
-        current['python'] = '3.9.0'
+        current['python'] = [3, 9, 0]
     elif damage == 'hash':
         current['modules']['dsh/session/sqlite_store.py'] = '0' * 64
     elif damage == 'asset':
-        current['assets']['dsh/session/resources/sql/schema.sql'] = '0' * 64
+        current['modules']['dsh/session/bin/sqlite3.dll'] = '0' * 64
     elif damage == 'inventory':
         current['rows'].pop()
     elif damage == 'value':
-        current['rows'][0]['value'] = False
-    elif damage == 'digest':
-        candidate['sqlite_provider_observations_sha256'] = '0' * 64
-    elif damage == 'inputs':
-        candidate['sqlite_provider_inputs_sha256'] = '0' * 64
-    elif damage == 'null-digest':
-        candidate['sqlite_provider_observations_sha256'] = None
-    elif damage == 'null-modules':
-        candidate['sqlite_provider_modules'] = None
+        current['rows'][0]['readonly'] = False
+    elif damage == 'historical-source':
+        current['historicalSource'] = candidate['target_upstream'] if 'target_upstream' in candidate else 'wrong'
+    elif damage == 'fixture':
+        current['fixtureSha256'] = '0' * 64
     else:
-        candidate['sqlite_provider_assets'] = None
-    output = tmp_path / 'provider-extracted.json'
+        candidate['legacy_reader_modules'] = None
+    output = tmp_path / 'reader-extracted.json'
     output.write_text(json.dumps(report), encoding='utf-8')
-    with pytest.raises(RuntimeError, match='sqliteProvider'):
+    with pytest.raises(RuntimeError, match='legacySessionReader'):
         GATE.validate_extracted(output, archive, candidate)
 
 
@@ -3661,3 +3655,47 @@ def test_extracted_filters_require_exact_observations_and_runtime(tmp_path,damag
     path.write_text(json.dumps(report),encoding='utf-8')
     with pytest.raises(RuntimeError):
         GATE.validate_extracted(path,archive,candidate)
+
+
+@functools.lru_cache(maxsize=1)
+def rc1_runtime_fixture():
+    with tempfile.TemporaryDirectory(prefix='rc1-runtime-fixture-') as private:
+        output = Path(private) / 'pair'
+        try:
+            # Two independently bounded 60s observers plus both Source input
+            # scans must fit inside the caller's deadline.
+            completed = subprocess.run([sys.executable, str(ROOT / 'scripts/rc1_capabilities_oracle.py'),
+                '--output', str(output)], cwd=str(ROOT), capture_output=True, timeout=180)
+            if completed.returncode:
+                raise RuntimeError((output / 'report.json').read_text(encoding='utf-8'))
+        except BaseException:
+            retained = Path(tempfile.mkdtemp(prefix='rc1-gate-fixture-failed-', dir=str(ROOT / '.goose/out')))
+            shutil.copytree(private, str(retained), dirs_exist_ok=True)
+            raise
+        return json.loads((output / 'native.json').read_text(encoding='utf-8'))
+
+
+@pytest.mark.parametrize('damage', ['missing', 'source', 'input', 'root', 'python', 'modules', 'case', 'outcome'])
+def test_extracted_rc1_capabilities_require_exact_source_and_candidate(tmp_path, damage):
+    archive, candidate, report = extracted_receipt(tmp_path)
+    rc1 = report['rc1Capabilities']
+    if damage == 'missing':
+        del report['rc1Capabilities']
+    elif damage == 'source':
+        candidate['rc1_observations_sha256'] = '0' * 64
+    elif damage == 'input':
+        rc1['inputSha256'] = '0' * 64
+    elif damage == 'root':
+        rc1['root'] = str(tmp_path / 'foreign')
+    elif damage == 'python':
+        rc1['python'] = [3, 9, 0]
+    elif damage == 'modules':
+        rc1['modules'].pop(next(iter(rc1['modules'])))
+    elif damage == 'case':
+        rc1['observations'].pop('chunkDecode')
+    else:
+        rc1['observations']['outline'] = []
+    path = tmp_path / 'extracted.json'
+    path.write_text(json.dumps(report), encoding='utf-8')
+    with pytest.raises(RuntimeError, match='rc1Capabilities'):
+        GATE.validate_extracted(path, archive, candidate)

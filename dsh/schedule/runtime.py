@@ -172,7 +172,7 @@ class ScheduleRuntime:
         try:
             events = getattr(self.agent.session, "events", [])
             header = getattr(self.agent.session, "header", None)
-            seed_length = getattr(header, "seedLength", 0) if header else 0
+            seed_length = getattr(self.agent.session, "inheritedEventCount", 0)
             return fold_schedule_events(events, seed_length)
         except Exception as e:
             self.faulted = True

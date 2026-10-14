@@ -16,7 +16,7 @@ def integer(value):
 
 
 def count(key="count", wire=True, **overrides):
-    definition = dict(key=key, stateSchema=integer, init=lambda header: 0,
+    definition = dict(key=key, stateSchema=integer, init=lambda header, cut: 0,
                       apply=lambda state, event: state + 1, stateVersion=1)
     if wire:
         definition["wire"] = wire if isinstance(wire, dict) else dict(viewSchema=integer, view=lambda state: state)
@@ -87,7 +87,7 @@ def test_invalid_versions_reject_before_registration(version):
 def test_version_conflict_and_first_definition_ownership():
     registry = SessionProjectionRegistry()
     remove = registry.register(count())
-    other = registry.register(count(init=lambda header: 100))
+    other = registry.register(count(init=lambda header, cut: 100))
     with pytest.raises(ValueError):
         registry.register(count(stateVersion=2))
     assert registry.stateOf(Session("s"), "count") == 0
@@ -103,7 +103,7 @@ def test_selective_snapshot_materializes_host_units_without_viewing_them():
     session.append("test/mark", {})
     assert registry.snapshot(session) == {"asOfSeq": 0, "values": {}}
     seen = []
-    registry.register(count("host", wire=False, init=lambda header: seen.append(header.id) or 0))
+    registry.register(count("host", wire=False, init=lambda header, cut: seen.append(header.id) or 0))
     registry.register(count("wire"))
     assert registry.cachedSnapshot(session) is None
     assert registry.snapshot(session, []) == {"asOfSeq": 0, "values": {}}
@@ -134,7 +134,7 @@ def test_wire_validation_and_listener_errors_propagate_after_watermark_commit():
 
 def test_equal_primitive_states_do_not_emit_changes():
     registry, session = SessionProjectionRegistry(), Session("s")
-    registry.register(count(init=lambda header: 1000, apply=lambda state, event: int("1000")))
+    registry.register(count(init=lambda header, cut: 1000, apply=lambda state, event: int("1000")))
     changes = []
     registry.onChanged(lambda *args: changes.append(args))
     registry.on_session_event(session, session.append("test/mark", {}))
@@ -144,7 +144,7 @@ def test_equal_primitive_states_do_not_emit_changes():
 def test_checkpoint_detaches_mutable_state_and_includes_host_only_units():
     registry, session = SessionProjectionRegistry(), Session("s")
     registry.register(count("host", wire=False))
-    registry.register(count("list", wire=False, init=lambda header: [],
+    registry.register(count("list", wire=False, init=lambda header, cut: [],
                             apply=lambda state, event: state + [event["seq"]]))
     session.append("test/mark", {})
     rows = registry.checkpoint(session)

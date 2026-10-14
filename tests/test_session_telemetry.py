@@ -28,7 +28,7 @@ async def test_otel_wire_export_respects_consent(tmp_path, monkeypatch, mode):
     class Session: pass
     session = Session()
     session.id, session.firstLiveSeq = 'telemetry-test', 0
-    session.header = SimpleNamespace(cwd=None, parentSession=None, seedLength=None)
+    session.header = SimpleNamespace(cwd=None, parentSession=None, isSeeded=False)
     event = dict(seq=0, time=1000, type='user/message', data=dict(text='local-test-content'))
     session.events = [event]
     async def flush():

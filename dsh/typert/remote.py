@@ -21,6 +21,23 @@ class TypertRemoteFailure(Exception):
         self.failure = failure
 
 
+class RemoteError(Exception):
+    """Shared, structurally identified rc.1 Remote failure."""
+    isDSHRemoteError = True
+    name = 'RemoteError'
+
+    def __init__(self, code, message, details, cause=None):
+        super().__init__(message)
+        self.code, self.message, self.details, self.cause = code, message, details, cause
+        self.failure = dict(code=code, message=message, details=details)
+
+
+def remote_error_of(value):
+    if getattr(value, 'isDSHRemoteError', None) is True and isinstance(getattr(value, 'code', None), str):
+        return dict(code=value.code, message=str(value), details=value.details)
+    return None
+
+
 def bind_typert_remote(service, service_key, options=None):
     namespace = (options or {}).get("namespace", service_key)
     wire_name("service key", service_key)

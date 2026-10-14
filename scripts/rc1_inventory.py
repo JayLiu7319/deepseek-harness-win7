@@ -1,4 +1,4 @@
-"""Discover rc.1 candidate capabilities without changing active migration records."""
+"""Inventory rc.1 responsibilities and distinguish registration from observed activation."""
 import argparse
 from collections import Counter, deque
 import hashlib
@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PIN = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
 
 
-def generate(source):
+def generate(source, active=False, runtime_reports=()):
     from scripts.migration_inventory import classification
     from dsh.boot.plugin_registry import HARNESS_PLUGIN_CLASSES
     from dsh.boot.profile import PROFILE_TEMPLATES
@@ -59,7 +59,8 @@ def generate(source):
         profiles[profile] = dict(roots=roots, declared_dependency_closure=sorted(reached),
             limitation='Installation profile template + literal candidate bundle rows + non-dev workspace dependencies; potential reachability, never observed activation')
     contracts = [json.loads(path.read_text(encoding='utf-8')) for path in (ROOT / 'migration/contracts').glob('*.json')]
-    old = json.loads((ROOT / 'migration/modules.json').read_text(encoding='utf-8'))
+    history = ROOT / 'migration/history/2026-10-14-alpha1/modules.json'
+    old = json.loads((history if history.is_file() else ROOT / 'migration/modules.json').read_text(encoding='utf-8'))
     old_paths = {row['path'][len('reference/'):]: row for row in old['manifests']}
     changed = subprocess.check_output(['git', '-C', str(source), 'diff', '--name-only', '-z', old['target_upstream'], PIN]).decode('utf-8').rstrip('\0').split('\0')
     paired = {
@@ -70,7 +71,21 @@ def generate(source):
         '@deepseek-ai/dsh-session': ['positions', 'indexed', 'lineage', 'strictHeaders'],
         '@deepseek-ai/dsh-session-persistence-jsonl': ['storageLineage'],
         '@deepseek-ai/dsh-system-prompt': ['orders'],
+        '@deepseek-ai/dsh-agent-loop': ['turnBoundary', 'turnBoundaryEvents'],
+        '@deepseek-ai/dsh-schedule': ['scheduleProjection', 'scheduleStates'],
+        '@deepseek-ai/dsh-llm-retry': ['retryProjection'],
     }
+    observed = {}
+    receipts = []
+    for path in runtime_reports:
+        report = json.loads(path.read_text(encoding='utf-8'))
+        if report.get('status') != 'qualified' or report.get('side') != 'native':
+            raise ValueError('Only qualified native browser observations may describe activation')
+        receipts.append(dict(path=path.as_posix(), sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+        for phase in report['phases']:
+            for entry in phase['hostReceipt']['loaderEntries']:
+                observed.setdefault(package_name(entry['name']), []).append(dict(
+                    preset=report['preset'], phase=phase['name'], entry=entry))
     for row in manifests:
         owner = Path(row['path']).parent.as_posix()
         affected = [path for path in changed if path == row['path'] or owner != '.' and path.startswith(owner + '/')]
@@ -90,6 +105,7 @@ def generate(source):
             changed_paths=affected, declared_profiles=runtime_profiles, python_loader_provider=implementation,
             changed_runtime_sources=runtime_changed,
             python_loader_entrypoints=aliases,
+            observed_loader_entries=observed.get(row['name'], []),
             client_bundle='lib/client.js' if (source / owner / 'lib/client.js').is_file() else None,
             historical_alpha_contracts=related, rc1_bounded_paired_cases=paired.get(row['name'], []),
             parity='not-certified-by-inventory',
@@ -107,8 +123,10 @@ def generate(source):
                 'Optional LSP stdio server; no new default dependency' if 'lsp' in owner else
                 'Optional external cloud credentials and real-provider evidence' if any(name in owner for name in ('e2b', 'exa', 'perplexity')) else
                 'Retain upstream ownership; classify implementation before choosing a platform adaptation')
-    return dict(schema_version=1, target_upstream=PIN, active_upstream_unchanged=old['target_upstream'],
-        scope='candidate inventory, not active baseline or accepted parity',
+    return dict(schema_version=2, target_upstream=PIN, historical_upstream=old['target_upstream'],
+        active_upstream=PIN if active else None,
+        scope='active rc1 capability triage; registration and executable observations are separate; optional providers are not default-profile parity claims' if active else 'candidate inventory, not active baseline or accepted parity',
+        runtime_receipts=receipts,
         counts=dict(manifests=len(manifests), classifications=dict(Counter(row['classification'] for row in manifests))),
         profiles=profiles, bundle_declarations=declarations,
         removed_manifests=[dict(path=path, name=row['name'], action='preserve historical evidence; triage canonical retirement and user-data compatibility')
@@ -120,8 +138,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-root', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--active', action='store_true')
+    parser.add_argument('--runtime-report', type=Path, action='append', default=[])
     args = parser.parse_args()
-    value = generate(args.source_root.resolve())
+    value = generate(args.source_root.resolve(), args.active, args.runtime_report)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x', encoding='utf-8') as stream:
         json.dump(value, stream, ensure_ascii=False, indent=2)

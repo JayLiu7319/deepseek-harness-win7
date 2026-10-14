@@ -18,7 +18,7 @@ def integer(value):
 
 def unit(key='probe', wire=True):
     definition = dict(key=key, stateVersion=1, stateSchema=integer,
-                      init=lambda header: 0, apply=lambda state, event: state + 1)
+                      init=lambda header, inherited_event_count: 0, apply=lambda state, event: state + 1)
     if wire:
         definition['wire'] = dict(viewSchema=integer, view=lambda state: state)
     return definition

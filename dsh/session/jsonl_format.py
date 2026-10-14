@@ -4,7 +4,7 @@ from dsh.cordis.json_text import stringify_json
 from dsh.cordis.utils import js_to_string
 from dsh.core.session import SESSION_FORMAT_VERSION
 from dsh.session.persistence import SessionFormatUnsupportedError
-from dsh.session.sqlite_codec import decode_storage_record, pack_chunk_runs
+from dsh.core.session.chunk_rows import decode_storage_record, pack_chunk_runs
 from dsh.session.sqlite_json import parse_json
 from dsh.session.sqlite_logical import header_from_stored, logical_numbers
 from dsh.session.seq_ranges import decode_seq_ranges, encode_seq_ranges
@@ -74,9 +74,8 @@ def is_header(value):
 
 
 def from_header(value):
-    if 'sandboxMode' in value or 'approvalPolicy' in value:
-        raise ValueError('session header uses retired policy baseline fields')
-    return header_from_stored(logical_numbers(value))
+    from dsh.session.lineage_storage import from_header_line
+    return from_header_line(logical_numbers(value)).meta
 
 
 def parse_header_meta(line):
@@ -84,7 +83,9 @@ def parse_header_meta(line):
         value = parse_json(line)
     except Exception:
         return None
-    return from_header(value) if is_header(value) else None
+    refuse_version(value)
+    from dsh.session.lineage_storage import is_header_line
+    return from_header(value) if is_header_line(value) else None
 
 
 def refuse_version(value):
@@ -106,27 +107,13 @@ def refuse_version(value):
 
 
 def parse_header_record(record):
-    if not record or record[-1:] != b'\n' or record.find(b'\n') != len(record) - 1:
-        raise ValueError('empty or header-less session log')
-    try:
-        value = parse_json(record[:-1].decode('utf-8', 'replace'))
-    except Exception:
-        raise ValueError('corrupt session log: header line is not valid JSON') from None
-    refuse_version(value)
-    if not is_header(value):
-        raise ValueError('corrupt session log: first line is not a session header')
-    return from_header(value)
+    from dsh.session.lineage_storage import parse_header_record as parse_storage_header
+    return parse_storage_header(record).meta
 
 
-def header_bytes(meta):
-    value = dict(type='session', version=meta.version, id=meta.id, createdAt=meta.created_at)
-    metadata = meta.to_dict()
-    for name in ('cwd', 'parentSession', 'seedLength', 'origin'):
-        if name in metadata:
-            value[name] = metadata[name]
-    value['delegationDepth'] = meta.delegation_depth or 0
-    if 'agentPreset' in metadata:
-        value['agentPreset'] = metadata['agentPreset']
+def header_bytes(meta, inherited_event_count=0):
+    from dsh.session.lineage_storage import to_header_line
+    value = to_header_line(meta, inherited_event_count)
     return (stringify_json(value) + '\n').encode('utf-8')
 
 
@@ -143,7 +130,10 @@ def event_bytes(events, pack_chunks=True):
 
 class SessionLogScanner:
     def __init__(self, record):
-        self.meta = parse_header_record(record)
+        from dsh.session.lineage_storage import parse_header_record as parse_storage_header
+        storage = parse_storage_header(record)
+        self.meta = storage.meta
+        self.inherited_event_count = storage.inheritedEventCount
         self.events = []
         self.fragments = bytearray()
         self.input_bytes = self.committed_bytes = len(record)
@@ -201,7 +191,8 @@ class SessionLogScanner:
 
     def finish(self):
         self.finished = True
-        return dict(meta=self.meta, events=self.events, committedBytes=self.committed_bytes)
+        return dict(meta=self.meta, inheritedEventCount=self.inherited_event_count,
+                    events=self.events, committedBytes=self.committed_bytes)
 
 
 def scan_log(buffer):

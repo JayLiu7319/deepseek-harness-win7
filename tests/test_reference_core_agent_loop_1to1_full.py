@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 """
 1:1 Test Parity Suite matching reference/packages/core/agent-loop/tests/loop.spec.ts.
 Covers:
@@ -71,6 +72,7 @@ async def setup_harness(adapter: MockLlmAdapter) -> Context:
     SessionPlugin().apply(ctx)
     ToolsPlugin().apply(ctx)
     AgentPlugin().apply(ctx)
+    SessionProjectionsPlugin().apply(ctx)
     AgentLoopPlugin().apply(ctx)
 
     # Set up LLM mock

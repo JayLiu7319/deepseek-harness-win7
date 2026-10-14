@@ -1,3 +1,4 @@
+import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {execFileSync} from 'node:child_process'
 import {writeFileSync} from 'node:fs'
 import {expect,it} from 'vitest'
@@ -12,7 +13,8 @@ it('captures actual AgentLoop public prepared request consumers',async()=>{
   for(const name of ['defaults','request-overrides','signal','registration-switch','missing-middleware']){
     const ctx=new Context()
     await mountAgentLoopTestDependencies(ctx)
-    await ctx.plugin(AgentLoop,{agents:[]})
+    if (!ctx.sessionProjections) await ctx.plugin(Rc1SessionProjections);
+await ctx.plugin(AgentLoop,{agents:[]})
     const trace:any[]=[],requests:any[]=[]
     let agent:any
     let requestSignal:any
@@ -53,7 +55,7 @@ it('captures actual AgentLoop public prepared request consumers',async()=>{
     try{
       agent.followup(createUserMessage({content:[{type:'text',text:'prepared request'}],source:{kind:'user'}}))
       await agent.whenIdle()
-      rows.push({name,trace,requests,events:agent.session.events.map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
+      rows.push({name,trace,requests,events:agent.session.snapshotEvents().map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
     }finally{await ctx.fiber.dispose()}
   }
   expect(rows).toHaveLength(5)

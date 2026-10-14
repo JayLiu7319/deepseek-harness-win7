@@ -6,10 +6,11 @@ from dsh.llm.llm_service import LlmRuntime
 from dsh.cordis.schema import ValidationError
 from dsh.core.session import SessionPlugin
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin,CONFIGURED_AGENT_IDENTITIES_KEY
 from dsh.core.system_prompt import SystemPrompt
 from dsh.core.tools import ToolsPlugin
-from dsh.session.persistence_jsonl import JsonlSessionPersistencePlugin
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
 async def wait(check):
  async def poll():
   while not check():await asyncio.sleep(0)
@@ -19,6 +20,7 @@ async def observe():
  for mode in ['identity','invalid','missing','reload','overlap','cancel','deferred']:
   with tempfile.TemporaryDirectory() as root:
    ctx=Context();gate=asyncio.Event()
+   SessionProjectionRegistry(ctx)
    try:
     await ctx.plugin(LlmRuntime)
     await ctx.plugin(SessionPlugin);await ctx.plugin(AgentPlugin)

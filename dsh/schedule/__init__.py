@@ -44,6 +44,8 @@ inject = ["agents", "sessions", "tools", "sessionPersistence"]
 
 def apply(ctx: Any) -> Callable[[], None]:
     """Install Schedule plugin for root agents published in context."""
+    from dsh.schedule.projection import SCHEDULE_DEFINITION
+    ctx.inject(['sessionProjections'], lambda projection_ctx: projection_ctx.get('sessionProjections').register(SCHEDULE_DEFINITION))
     runtimes: Dict[Any, Callable[[], None]] = {}
     stopping = [False]
 

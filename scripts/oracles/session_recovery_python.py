@@ -5,7 +5,7 @@ import sys
 import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from dsh.core.session import SessionHeader
-from dsh.session.persistence_jsonl import JsonlSessionPersistence
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 
 async def observe():
     rows = []
@@ -13,7 +13,7 @@ async def observe():
     for fixture in fixtures:
         with tempfile.TemporaryDirectory() as root:
             p = JsonlSessionPersistence(root)
-            meta = SessionHeader.from_dict(dict(id=fixture['mode'], version=0, createdAt=1, delegationDepth=0))
+            meta = SessionHeader.from_dict(dict(id=fixture['mode'], version=0, createdAt=1, delegationDepth=0, isSeeded=False))
             path = Path(p.locate(meta).path)
             path.parent.mkdir(parents=True, exist_ok=True)
             header = dict(type='session', id=meta.id, version=0, createdAt=1, delegationDepth=0)

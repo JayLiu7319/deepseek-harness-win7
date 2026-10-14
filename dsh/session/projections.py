@@ -89,19 +89,6 @@ class SessionProjectionRegistry(Service):
             if view is not None:
                 definition["wire"] = dict(view=view, viewSchema=lambda value: value)
         definition = dict(definition)
-        initializer = definition["init"]
-        try:
-            signature = inspect.signature(initializer)
-        except (TypeError, ValueError):
-            signature = None
-        if signature is not None:
-            try:
-                signature.bind(None, 0)
-            except TypeError:
-                # Explicit adapter for historical one-header definitions. Do
-                # not catch an initializer's own TypeError while invoking it.
-                signature.bind(None)
-                definition["init"] = lambda header, cut: initializer(header)
         key, version = definition["key"], definition["stateVersion"]
         if type(version) is not int or not 0 <= version <= 9007199254740991:
             raise ValueError('session projection %r stateVersion must be a non-negative integer' % key)
@@ -279,8 +266,7 @@ class SessionProjectionRegistry(Service):
             seeded = header.get('isSeeded', False) if isinstance(header, dict) else getattr(header, 'isSeeded', False)
             if seeded is True:
                 raise ValueError('seeded projection restore requires an inherited event count')
-            inherited_event_count = (header.get('seedLength', 0) if isinstance(header, dict)
-                                     else getattr(header, 'seedLength', 0)) or 0
+            inherited_event_count = 0
         end_seq = events[-1]["seq"] if events else base_seq - 1
         values, refreshed = {}, {}
         for key, registration in self._registrations.items():

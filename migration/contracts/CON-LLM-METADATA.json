@@ -1,8 +1,8 @@
 {
   "id": "CON-LLM-METADATA",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/llm/llm/src/index.ts",
     "reference/packages/llm/llm/tests/service.spec.ts",
@@ -31,6 +31,12 @@
   "adaptation": "Python model dictionaries normalize at the shared public/final boundary. Established legacy settings-derived catalog remains outside canonical parity. A stale test adapter effort list is corrected to the actual upstream object shape;no production string-effort alias is added.",
   "open_questions": [
     "Full public prepared-call one-shot/deep freezing/config equality/registration generation remains a separate part.",
-    "Arbitrary malformed/accessor/null/noniterable objects,identity/graph ABI,full model/profile/races and user-deferred realWin7 remain unqualified."
-  ]
+    "Arbitrary malformed/accessor/null/noniterable objects,identity/graph ABI,full model/profile/races and user-deferred realWin7 remain unqualified.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

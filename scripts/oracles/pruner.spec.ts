@@ -131,7 +131,7 @@ async function observe(spec: any): Promise<any> {
     if (spec.recipe === 'invariants') {
       const beforeTokens = meter.measure(session).totalTokens
       try { pruner.pruneSession(session) } catch (error) {
-        rejection = { error: (error as Error).message, addedEvents: session.events.length - 7,
+        rejection = { error: (error as Error).message, addedEvents: session.snapshotEvents().length - 7,
           beforeTokens, afterTokens: meter.measure(session).totalTokens, generation: session.surface.replaceGeneration }
       }
     }
@@ -145,7 +145,7 @@ async function observe(spec: any): Promise<any> {
       }
       const event = originalAppend(type, data, options)
       if (type === 'compaction/prune' && replacements === 0 && spec.recipe === 'snapshot') {
-        originalAppend('tool/result', { ...session.events[second!]!.data } as any, { surfaceOp: 'append' })
+        originalAppend('tool/result', { ...session.snapshotEvents()[second!]!.data } as any, { surfaceOp: 'append' })
       }
       return event
     }) as typeof session.append
@@ -153,11 +153,11 @@ async function observe(spec: any): Promise<any> {
     try { result = pruner.pruneSession(session) } catch (caught) { error = (caught as Error).message }
     session.append = originalAppend
     const repeat = ['preserve', 'multiple', 'invariants'].includes(spec.recipe) ? pruner.pruneSession(session) : null
-    const replay = Session.create(session.id, [...session.events])
-    const events = session.events.map(({ time, ...event }) => event)
+    const replay = Session.create(session.id, [...session.snapshotEvents()])
+    const events = session.snapshotEvents().map(({ time, ...event }) => event)
     return { mode: spec.mode, result, error, repeat, rejection, events, nodes: [...session.surface.nodes], generation: session.surface.replaceGeneration,
       messages: session.deriveMessages(), replayMessages: replay.deriveMessages(), replayGeneration: replay.surface.replaceGeneration,
-      originalPrice: meter.estimateMessage((session.events[first]!.data as any).message) }
+      originalPrice: meter.estimateMessage((session.snapshotEvents()[first]!.data as any).message) }
   } finally { await ctx.fiber.dispose() }
 }
 

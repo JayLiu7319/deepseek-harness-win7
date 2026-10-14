@@ -26,7 +26,7 @@ from dsh.session.session_query import (
 )
 
 
-HEADER_COLUMNS = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'seedLength', 'delegationDepth', 'agentPreset')
+HEADER_COLUMNS = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'isSeeded', 'delegationDepth', 'agentPreset')
 
 
 def invalid_config(detail):
@@ -113,12 +113,12 @@ def json_text(value):
     return stringify_json(value)
 
 
-def observe(header, events):
+def observe(header, events, inherited_event_count=0):
     detached_header, detached_events = copy.deepcopy(header), copy.deepcopy(list(events))
     fingerprint = base64.urlsafe_b64encode(hashlib.sha256(json_text(dict(
-        header=header_dict(detached_header), events=detached_events)).encode('utf-8')).digest()).decode('ascii').rstrip('=')
+        header=header_dict(detached_header), inheritedEventCount=inherited_event_count, events=detached_events)).encode('utf-8')).digest()).decode('ascii').rstrip('=')
     session_id = header_dict(detached_header)['id']
-    return dict(header=detached_header,
+    return dict(header=detached_header, inheritedEventCount=inherited_event_count,
                 documents=build_session_event_search_documents(session_id, detached_events), fingerprint=fingerprint)
 
 
@@ -301,7 +301,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
                         loaded = inspection_source(await persistence.inspect(session_id, signal))
                         check_abort(signal)
                         assert_headers_compatible(entry['header'], loaded['header'])
-                        entry['loaded'] = observe(loaded['header'], loaded['events'])
+                        entry['loaded'] = observe(loaded['header'], loaded['events'], loaded['inheritedEventCount'])
                     check_abort(signal)
                     after = snapshots(await persistence.listSnapshots(signal))
                     check_abort(signal)
@@ -320,7 +320,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
                                             'SESSION_QUERY_PERSISTENCE_FAILED', failure) from error
             live = {}
             for session in sessions.list():
-                entry = observe(session.header, session.events)
+                entry = observe(session.header, session.events, session.inheritedEventCount)
                 if session.id in persisted:
                     assert_headers_compatible(entry['header'], persisted[session.id]['header'])
                 live[session.id] = entry
@@ -400,6 +400,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
         columns = 'id,version,created_at,cwd,parent_session,seed_length,delegation_depth,agent_preset,'
         columns += 'revision,generation' if source == 'persisted' else 'fingerprint,persisted,generation'
         values = [header.get(name) for name in ('id', 'version', 'createdAt', 'cwd', 'parentSession', 'seedLength', 'delegationDepth', 'agentPreset')]
+        values[5] = entry['inheritedEventCount'] if header['isSeeded'] else None
         values.extend([qualifier, generation] if source == 'persisted' else [entry['fingerprint'], qualifier, generation])
         database = self._require_db()
         database.prepare('INSERT INTO ' + prefix + '_sessions(' + columns + ') VALUES(' + ','.join('?' for value in values) + ')').run(*values)
@@ -451,7 +452,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
 
 def row_header(row):
     return SessionHeader(row['session_id'], version=row['version'], created_at=row['created_at'], cwd=row['cwd'],
-                         parent_session=row['parent_session'], seed_length=row['seed_length'],
+                         parent_session=row['parent_session'], is_seeded=row['seed_length'] is not None,
                          delegation_depth=row['delegation_depth'], agent_preset=row['agent_preset'])
 
 

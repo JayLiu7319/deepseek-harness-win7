@@ -24,7 +24,7 @@ def observe(name):
             'negative-infinite': -float('inf'), 'empty-array': [], 'string': 's', 'object': {},
             'nested-array': ['x', None, ['y']], 'large-exponent': 1e21, 'small-exponent': 1e-7,
             'decimal-threshold': 1e-6, 'integer-threshold': 1e20})
-    header = dict(id='s', version=0, createdAt=1)
+    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
     if label == 'missing':
         del header[field]
     else:

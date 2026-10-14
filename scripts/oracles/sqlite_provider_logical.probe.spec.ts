@@ -14,7 +14,7 @@ it('observes original physical provider logical refusals and stored legacy upgra
     const persistence: any = context.sessionPersistence
     try {
       if (!item.missing) {
-        const meta = {id: item.name, version: item.version, createdAt: 1}
+        const meta = {id: item.name, version: item.version, createdAt: 1,isSeeded:false}
         await persistence.store.materializeHeader(meta)
         if (item.events.length) await persistence.store.appendBatch(meta, item.events, true)
       }

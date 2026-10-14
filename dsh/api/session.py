@@ -88,7 +88,7 @@ class SessionController(TypertRemoteService):
     async def search(self, request, signal):
         query = request['query'].strip()
         if not query or len(query.encode('utf-16-le', 'surrogatepass')) // 2 > 500 or '\0' in query:
-            raise failure('bad-request', 'session search query must be non-empty, contain no NUL, and contain at most 500 UTF-16 code units')
+            raise failure('gateway/bad-request', 'session search query must be non-empty, contain no NUL, and contain at most 500 UTF-16 code units')
         provider = self.ctx.get('sessionQuery')
         visible = {row['header'].id for row in await provider.listSessions(signal) if row['header'].cwd is not None}
         accepted, seen, cursors, cursor = [], set(), set(), None
@@ -103,9 +103,9 @@ class SessionController(TypertRemoteService):
                 if getattr(error, 'code', None) == 'SESSION_QUERY_STALE_CURSOR':
                     accepted, seen, cursors, cursor = [], set(), set(), None
                     continue
-                raise failure('cancelled' if signal.aborted else 'internal', 'session search failed: ' + str(error)) from error
+                raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal', 'session search failed: ' + str(error)) from error
             if len(page['items']) > 20:
-                raise failure('internal', 'session search provider exceeded its page limit')
+                raise failure('gateway/internal', 'session search provider exceeded its page limit')
             for hit in page['items']:
                 sid, match = hit['header'].id, hit['bestMatch']
                 if sid in visible and sid not in seen and match['sessionId'] == sid and match['surface'] == 'current' and match['type'] in ('user/message', 'assistant/message'):
@@ -114,34 +114,34 @@ class SessionController(TypertRemoteService):
             next_cursor = page.get('nextCursor')
             if next_cursor is not None:
                 if next_cursor in cursors:
-                    raise failure('internal', 'session search provider repeated a continuation cursor')
+                    raise failure('gateway/internal', 'session search provider repeated a continuation cursor')
                 cursors.add(next_cursor)
             if len(accepted) > 20 or next_cursor is None:
                 return dict(items=accepted[:20], hasMore=len(accepted) > 20)
             cursor = next_cursor
-        raise failure('internal', 'session search provider exceeded the 100-call work budget')
+        raise failure('gateway/internal', 'session search provider exceeded the 100-call work budget')
 
     @Remote
     async def create(self, request):
         if 'workspaceId' in request and 'cwd' in request:
-            raise failure('bad-request', 'session.create accepts workspaceId or cwd, not both')
+            raise failure('gateway/bad-request', 'session.create accepts workspaceId or cwd, not both')
         sid = request.get('sessionId', 'session-' + str(uuid.uuid4()))
         workspace = None
         if 'workspaceId' in request:
             workspace = self.ctx.get('workspaceRegistry').get(request['workspaceId'])
             if workspace is None:
-                raise failure('workspace-not-found', 'workspace "%s" not found' % request['workspaceId'], {'workspaceId': request['workspaceId']})
+                raise failure('workspace/not-found', 'workspace "%s" not found' % request['workspaceId'], {'workspaceId': request['workspaceId']})
         cwd = workspace.path if workspace is not None else request.get('cwd', os.getcwd())
         try:
             agent = await self.agents.ensure(sid, cwd, 'sessionId' in request, request.get('agentPreset'))
         except TypertRemoteFailure:
             raise
         except UnknownPresetError as error:
-            raise failure('agent-preset-not-found', str(error), dict(agentPreset=error.preset_id, available=error.available)) from error
+            raise failure('agent-preset/not-found', str(error), dict(agentPreset=error.preset_id, available=error.available)) from error
         except PresetMountError as error:
-            raise failure('agent-preset-invalid', str(error), dict(agentPreset=error.preset_id, reason=error.reason)) from error
+            raise failure('gateway/bad-request', str(error), dict(agentPreset=error.preset_id, reason=error.reason)) from error
         except Exception as error:
-            raise failure('internal', 'failed to create session "%s": %s' % (sid, error)) from error
+            raise failure('gateway/internal', 'failed to create session "%s": %s' % (sid, error)) from error
         if workspace is not None:
             await self.attach(workspace, sid)
         value = dict(sessionId=sid)
@@ -154,7 +154,7 @@ class SessionController(TypertRemoteService):
         try:
             await workspace.attachSession(sid)
         except Exception as error:
-            raise failure('workspace-attach-failed', 'session "%s" was created but could not attach to workspace "%s": %s' % (sid, workspace.id, error), dict(sessionId=sid, workspaceId=workspace.id)) from error
+            raise failure('session/workspace-attach-failed', 'session "%s" was created but could not attach to workspace "%s": %s' % (sid, workspace.id, error), dict(sessionId=sid, workspaceId=workspace.id)) from error
 
     @Remote
     async def selectModel(self, request):
@@ -171,7 +171,7 @@ class SessionController(TypertRemoteService):
                     self.ctx.logger.warn('Session model changed but default was not saved: ' + str(error))
                 return dict(selected=selected)
             except Exception as error:
-                raise failure('model-unavailable', str(error), {key: request[key] for key in ('provider', 'model')}) from error
+                raise failure('session/model-unavailable', str(error), {key: request[key] for key in ('provider', 'model')}) from error
 
     @Remote
     async def modelCatalog(self):
@@ -201,25 +201,25 @@ class SessionController(TypertRemoteService):
     @Remote
     async def openWorkspacePath(self, request, signal):
         if not request['path']:
-            raise failure('bad-request', 'session.openWorkspacePath requires a non-empty path')
+            raise failure('gateway/bad-request', 'session.openWorkspacePath requires a non-empty path')
         signal.throw_if_aborted()
         try:
             await open_path(request['path'], signal)
             return dict(opened=True)
         except Exception as error:
-            raise failure('cancelled' if signal.aborted else 'internal', 'path open was aborted' if signal.aborted else 'path open failed: ' + str(error)) from error
+            raise failure('gateway/cancelled' if signal.aborted else 'gateway/internal', 'path open was aborted' if signal.aborted else 'path open failed: ' + str(error)) from error
 
     @Remote
     async def rename(self, request):
         agent = await self.agents.resolve(request['sessionId'])
         titles = self.ctx.get('sessionTitle')
         if titles is None:
-            raise failure('internal', 'renaming is unavailable: this deployment mounts no session-title service')
+            raise failure('gateway/internal', 'renaming is unavailable: this deployment mounts no session-title service')
         try:
             accepted = titles.rename(agent.session, request['title'])
             return dict(title=accepted['title'], seq=accepted['eventSeq'])
         except ValueError as error:
-            raise failure('title-invalid', str(error), {'sessionId': request['sessionId']}) from error
+            raise failure('session/title-invalid', str(error), {'sessionId': request['sessionId']}) from error
 
     @Remote
     async def prompt(self, request, signal):
@@ -231,11 +231,11 @@ class SessionController(TypertRemoteService):
                 if source['clientTimeZone'] is None:
                     raise ValueError('missing zone')
             except (ValueError, TypeError) as error:
-                raise failure('invalid-time-zone', 'clientTimeZone must be UTC or a valid IANA Area/Location name', {'value': request['clientTimeZone']}) from error
+                raise failure('session/invalid-time-zone', 'clientTimeZone must be UTC or a valid IANA Area/Location name', {'value': request['clientTimeZone']}) from error
         agent = await self.agents.resolve(request['sessionId'])
         selection = self.agents.selection(agent).current
         if not any(row['id'] == selection.provider for row in self.ctx.get('llm').listProviders()):
-            raise failure('model-unavailable', 'no adapter serves provider "%s"; select a model for this session' % selection.provider,
+            raise failure('session/model-unavailable', 'no adapter serves provider "%s"; select a model for this session' % selection.provider,
                           dict(provider=selection.provider, model=selection.model))
         images = [part for part in request['content'] if part['type'] == 'image']
         async def admit():
@@ -244,7 +244,7 @@ class SessionController(TypertRemoteService):
                     chosen = self.agents.selection(agent).current
                     info = await self.ctx.get('llm').resolve_model_info(chosen.provider, chosen.model)
                     if 'inputModalities' in info and 'image' not in info['inputModalities']:
-                        raise failure('attachment-error', 'Model "%s" does not support image input.' % chosen.model, {'reason': 'MODEL_DOES_NOT_SUPPORT_IMAGES'})
+                        raise failure('session/attachment-invalid', 'Model "%s" does not support image input.' % chosen.model, {'reason': 'MODEL_DOES_NOT_SUPPORT_IMAGES'})
                 refs = iter(await settled(admit_encoded_images(self.ctx.get('attachments'), images))) if images else iter([])
                 content = [dict(type='text', text=part['text']) if part['type'] == 'text' else dict(type='image', attachment=next(refs)) for part in request['content']]
                 message = create_user_message(dict(content=content, source=source))
@@ -253,9 +253,9 @@ class SessionController(TypertRemoteService):
             except TypertRemoteFailure:
                 raise
             except AttachmentError as error:
-                raise failure('attachment-error', str(error), {'reason': error.code}) from error
+                raise failure('session/attachment-invalid', str(error), {'reason': error.code}) from error
             except Exception as error:
-                raise failure('agent-busy', 'prompt rejected', {'reason': str(error)}) from error
+                raise failure('session/agent-busy', 'prompt rejected', {'reason': str(error)}) from error
         if images:
             async with self.agents.admission(agent):
                 return await admit()
@@ -265,7 +265,7 @@ class SessionController(TypertRemoteService):
     def cancel(self, request):
         agent = self.ctx.get('agents').get(request['sessionId'])
         if agent is None:
-            raise failure('session-not-found', 'session "%s" not found (not attached)' % request['sessionId'], {'sessionId': request['sessionId']})
+            raise failure('session/not-found', 'session "%s" not found (not attached)' % request['sessionId'], {'sessionId': request['sessionId']})
         self.agents.check_owner(agent.session.header, agent)
         agent.cancel({'kind': 'user'}, keep_inbox=True)
         return dict(accepted=True)
@@ -274,16 +274,16 @@ class SessionController(TypertRemoteService):
     def updateQueue(self, request):
         action, item_id = request['action'], request['itemId']
         if action['kind'] == 'edit' and any(part['type'] != 'text' for part in action['content']):
-            raise failure('attachment-error', 'queue edits accept text content only', {'reason': 'QUEUE_EDIT_NON_TEXT'})
+            raise failure('session/attachment-invalid', 'queue edits accept text content only', {'reason': 'QUEUE_EDIT_NON_TEXT'})
         agent = self.ctx.get('agents').get(request['sessionId'])
         if agent is not None:
             self.agents.check_owner(agent.session.header, agent)
         located = next(((target, message) for target, messages in [('next-turn', agent.inbox.next_turn), ('next-step', agent.inbox.next_step)] for message in messages if message['id'] == item_id), None) if agent is not None else None
         if located is None:
-            raise failure('queue-item-not-found', 'queued item is no longer pending', {'itemId': item_id})
+            raise failure('session/queue-item-not-found', 'queued item is no longer pending', {'itemId': item_id})
         target, message = located
         if action['kind'] == 'steer' and (target != 'next-turn' or agent.status != 'running'):
-            raise failure('steer-unavailable', 'current turn no longer accepts steering', {'itemId': item_id})
+            raise failure('session/steer-unavailable', 'current turn no longer accepts steering', {'itemId': item_id})
         if action['kind'] == 'edit':
             agent.inbox.replace(item_id, dict(message, content=action['content']))
         else:
@@ -300,7 +300,7 @@ class SessionController(TypertRemoteService):
     async def fork(self, request):
         anchor = request.get('atSeq')
         if anchor is not None and (type(anchor) is not int or anchor < 0):
-            raise failure('bad-request', 'atSeq must be a non-negative integer')
+            raise failure('gateway/bad-request', 'atSeq must be a non-negative integer')
         source = await self.ctx.get('sessionQuery').observeSession(request['sessionId'])
         try:
             boundaries = [event for event in source.events if event['type'] == 'turn/end']
@@ -308,7 +308,7 @@ class SessionController(TypertRemoteService):
             if boundary is None and (anchor is None or anchor > source.cursor):
                 boundary = boundaries[-1] if boundaries else None
             if boundary is None:
-                raise failure('fork-unavailable', 'session has no completed turn at the requested boundary', {'sessionId': request['sessionId']})
+                raise failure('session/fork-unavailable', 'session has no completed turn at the requested boundary', {'sessionId': request['sessionId']})
             cut = boundary['seq'] + 1
             while cut < len(source.events) and source.events[cut]['type'] != 'turn/start':
                 cut += 1
@@ -325,12 +325,13 @@ class SessionController(TypertRemoteService):
                     header = headers[header.parentSession]
             preset, setup = await self.agents.compose(source.projections['values'].get('agentPreset'))
             sid = 'session-' + str(uuid.uuid4())
-            meta = dict(parentSession=source.header.id, seedLength=cut)
+            meta = dict(parentSession=source.header.id, isSeeded=True)
             if source.header.cwd is not None:
                 meta['cwd'] = source.header.cwd
             if preset is not None:
                 meta['agentPreset'] = preset
             await self.ctx.get('agents').create(dict(sessionId=sid, seed=list(source.events[:cut]), meta=meta,
+                                                    inheritedEventCount=cut,
                                                     agentOptions=self.agents.options(), setup=setup))
             if workspace is not None:
                 await self.attach(workspace, sid)
@@ -363,12 +364,12 @@ class SessionController(TypertRemoteService):
             if ref is not None:
                 break
         if ref is None:
-            raise failure('attachment-error', 'Image is not referenced by this session.', {'reason': 'ATTACHMENT_NOT_REFERENCED'})
+            raise failure('session/attachment-invalid', 'Image is not referenced by this session.', {'reason': 'ATTACHMENT_NOT_REFERENCED'})
         try:
             stored = await settled(self.ctx.get('attachments').read_image(ref))
             return dict(attachment=stored['ref'], data=base64.b64encode(stored['data']).decode('ascii'))
         except AttachmentError as error:
-            raise failure('attachment-error', str(error), {'reason': error.code}) from error
+            raise failure('session/attachment-invalid', str(error), {'reason': error.code}) from error
 
     @Remote({'mode': 'stream'})
     def follow(self, request, signal):

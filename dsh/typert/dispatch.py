@@ -8,14 +8,17 @@ from collections.abc import Mapping
 from dsh.core.abort import NEVER_ABORTED
 from dsh.core.session.json import FrozenDict, FrozenList
 from dsh.typert.artifact import UNDEFINED
-from dsh.typert.remote import TypertLookupFailure, TypertRemoteFailure, remote_methods
+from dsh.typert.remote import TypertLookupFailure, TypertRemoteFailure, RemoteError, remote_error_of, remote_methods
 from dsh.typert.stores import field, resolve_async
 
 
-class TypertGatewayError(Exception):
+class TypertGatewayError(RemoteError):
     def __init__(self, code, endpoint, message, field=None):
-        super().__init__("typert gateway: " + endpoint + ": " + message)
-        self.code, self.endpoint, self.field = code, endpoint, field
+        details = dict(endpoint=endpoint)
+        if field is not None:
+            details['field'] = field
+        super().__init__('gateway/' + code, "typert gateway: " + endpoint + ": " + message, details)
+        self.endpoint, self.field = endpoint, field
 
 
 class RemoteInvocationCancelled(Exception):
@@ -101,12 +104,15 @@ def remote_request(endpoint, payload, signal):
 
 
 def rpc_failure(error):
-    if isinstance(error, RemoteInvocationCancelled):
-        failure = {"code": "cancelled", "message": str(error), "details": {}}
+    recognized = remote_error_of(error)
+    if recognized is not None:
+        failure = recognized
+    elif isinstance(error, RemoteInvocationCancelled):
+        failure = {"code": "gateway/cancelled", "message": str(error), "details": {}}
     elif isinstance(error, (TypertLookupFailure, TypertRemoteFailure)):
         failure = error.failure
     else:
-        failure = {"code": "internal", "message": str(error), "details": {}}
+        failure = {"code": "gateway/internal", "message": str(error), "details": {}}
     return {"ok": False, "error": failure}
 
 

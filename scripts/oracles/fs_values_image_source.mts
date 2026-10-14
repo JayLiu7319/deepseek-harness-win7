@@ -26,13 +26,14 @@ for(const [name,dimensions] of [['plain',undefined],['same',{width:16,height:16}
   const value={...image,...dimensions===undefined?{}:{originalDimensions:dimensions}}
   rows.push({name:'render:'+name,value:{text:formatImageReadOutput('red.png',value),reference:imageRefFromValue(value)}})
 }
-const cases=['positive','fallback','latest-header','text-model','unknown-modalities','missing-llm','missing-provider','missing-model','missing-agent','bad-extension','blank-path','missing-file','directory','type-mismatch','pixel-limit','dimension-limit','byte-cap','disallowed-type','attachment-gate','unmount-store','remount-store','cancel-before']
+const cases=['positive','fallback','latest-header','text-model','unknown-modalities','missing-llm','missing-provider','missing-model','missing-agent','bad-extension','blank-path','missing-file','directory','type-mismatch','pixel-limit','dimension-limit','byte-cap','disallowed-type','attachment-gate','unmount-store','remount-store','cancel-before','extensionless','extensionless-unknown','extensionless-corrupt','extensionless-disallowed','extensionless-text-model']
 for(const name of cases){
   const directory=join(fixture,name)
   mkdirSync(directory,{recursive:true})
   mkdirSync(join(directory,'folder.png'),{recursive:true})
   if(!existsSync(join(directory,'red.png')))writeFileSync(join(directory,'red.png'),['pixel-limit','dimension-limit'].includes(name)?largePng:png)
   if(!existsSync(join(directory,'red.jpg')))writeFileSync(join(directory,'red.jpg'),png)
+  if(name.startsWith('extensionless'))writeFileSync(join(directory,'object'),name==='extensionless-unknown'?Buffer.from('plain text'):name==='extensionless-corrupt'?png.subarray(0,8):png)
   const ctx=new Context()
   const lookups:any[]=[],observed:any[]=[]
   class Adapter extends LlmAdapter{
@@ -62,19 +63,19 @@ for(const name of cases){
       await store.dispose()
       if(name==='remount-store')store=await ctx.plugin(LocalAttachmentStore,configuration)
     }
-    if(name==='disallowed-type'){
+    if(['disallowed-type','extensionless-disallowed'].includes(name)){
       const original=ctx.attachments.imageLimits
       Object.defineProperty(ctx.attachments,'imageLimits',{value:{...original,mediaTypes:['image/jpeg']}})
     }
     ctx.on('fs/observed',(target,observation)=>observed.push({path:target.displayPath,...observation}))
-    let model=name==='text-model'?'text':name==='unknown-modalities'?'unknown':'vision'
+    let model=['text-model','extensionless-text-model'].includes(name)?'text':name==='unknown-modalities'?'unknown':'vision'
     const provider=name==='missing-provider'?undefined:'image-fixture'
     const header=name==='fallback'?undefined:{config:{provider,model:name==='missing-model'?undefined:model}}
     const agent:any={options:name==='fallback'?{provider,model}:name==='latest-header'?{provider,model:'text'}:{},
       session:{header:{cwd:directory},requestHeader:()=>header,deriveMessages:()=>[],append:()=>{}}}
     const signal=new AbortController()
     if(name==='cancel-before')signal.abort()
-    const file_path=name==='bad-extension'?'red.txt':name==='blank-path'?'  ':name==='missing-file'?'missing.png':name==='directory'?'folder.png':name==='type-mismatch'?'red.jpg':'red.png'
+    const file_path=name.startsWith('extensionless')?'object':name==='bad-extension'?'red.txt':name==='blank-path'?'  ':name==='missing-file'?'missing.png':name==='directory'?'folder.png':name==='type-mismatch'?'red.jpg':'red.png'
     const result=await ctx.tools.execute({signal:signal.signal,callId:ToolCallId('image-call'),name:'read_image',arguments:{file_path},...name==='missing-agent'?{}:{agent}})
     record.result=result
     record.allSchemas=ctx.tools.schemas()

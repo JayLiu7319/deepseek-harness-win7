@@ -847,7 +847,6 @@ window.__ModuleLoader__.load({
 			"unknown": "未知",
 			"none": "无",
 			"truncated": "已截断",
-			"connection.reconnecting": "连接已断开，正在重连…",
 			"json.collapseNode": "收起 JSON 节点",
 			"json.expandNode": "展开 JSON 节点",
 			"json.label": "JSON",
@@ -892,7 +891,6 @@ window.__ModuleLoader__.load({
 			"unknown": "Unknown",
 			"none": "None",
 			"truncated": "Truncated",
-			"connection.reconnecting": "Connection lost; reconnecting…",
 			"json.collapseNode": "Collapse JSON node",
 			"json.expandNode": "Expand JSON node",
 			"json.label": "JSON",
@@ -909,8 +907,8 @@ window.__ModuleLoader__.load({
 		/** English dictionary, checked complete against the zh key set. */
 		const en = { "language.title": "Language" };
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\reference\packages\client\locale\src\client\LanguageRow.module.css.mjs
-		const css = ".DKq47q_row{border-bottom:1px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.DKq47q_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.DKq47q_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.DKq47q_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.DKq47q_selector:hover{background:var(--dsw-alias-interactive-bg-hover)}.DKq47q_chevron{flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\locale\src\client\LanguageRow.module.css.mjs
+		const css = ".iPf_Va_row{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.iPf_Va_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.iPf_Va_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.iPf_Va_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.iPf_Va_selector:hover{background:var(--dsw-alias-interactive-bg-hover)}.iPf_Va_chevron{flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-locale/LanguageRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -920,11 +918,11 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var LanguageRow_module_css_default = {
-			"chevron": "DKq47q_chevron",
-			"row": "DKq47q_row",
-			"rowText": "DKq47q_rowText",
-			"selector": "DKq47q_selector",
-			"title": "DKq47q_title"
+			"chevron": "iPf_Va_chevron",
+			"row": "iPf_Va_row",
+			"rowText": "iPf_Va_rowText",
+			"selector": "iPf_Va_selector",
+			"title": "iPf_Va_title"
 		};
 		//#endregion
 		//#region lib/types/client/LanguageRow.js
@@ -1358,7 +1356,6 @@ window.__ModuleLoader__.load({
 		/** Required services: slot registration plus the settings transport. */
 		const inject = [
 			"slots",
-			"connection",
 			"remote",
 			"settingsScope"
 		];

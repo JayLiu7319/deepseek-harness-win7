@@ -26,8 +26,10 @@ def restore_frontend(root, source):
     dirty = subprocess.check_output(['git', '-C', str(source), 'status', '--porcelain'], encoding='utf-8').strip()
     if pin != manifest['target_upstream'] or dirty:
         raise ValueError('Frontend restore requires the unchanged pinned Source')
-    archive = root / ARCHIVE
-    if import_frontend.digest(archive) != ARCHIVE_SHA256:
+    carrier = manifest.get('original_carrier', dict(path=ARCHIVE, sha256=ARCHIVE_SHA256))
+    archive = root / carrier['path']
+    archive.resolve().relative_to(root.resolve())
+    if import_frontend.digest(archive) != carrier['sha256']:
         raise ValueError('Original frontend observation carrier differs')
     with zipfile.ZipFile(str(archive)) as bundle:
         if bundle.testzip() is not None:
@@ -61,7 +63,7 @@ def restore_frontend(root, source):
     if actual != manifest['build_record'] or {p.relative_to(source).as_posix(): import_frontend.digest(p) for p in paths} != {
             row['path']: row['sha256'] for row in manifest['files'] + manifest['client_files']}:
         raise ValueError('Restored original frontend observations differ')
-    return dict(originalCarrier=ARCHIVE, sha256=ARCHIVE_SHA256, restored=restored, buildRecord=actual,
+    return dict(originalCarrier=carrier['path'], sha256=carrier['sha256'], restored=restored, buildRecord=actual,
                 scope='Original sealed build bytes, not a build at the current checkout path')
 
 
@@ -85,8 +87,10 @@ def main():
     commands = []
     for name, args in [('install', ['install', '--frozen-lockfile']), ('host-build', ['run', 'build:lib:host'])]:
         command = ['node', str(pnpm), '--dir', str(source)] + args
+        environment = dict(os.environ, CI='true')
         with (output / (name + '.log')).open('xb') as log:
-            result = subprocess.run(command, cwd=str(ROOT), stdout=log, stderr=subprocess.STDOUT, timeout=1800)
+            result = subprocess.run(command, cwd=str(ROOT), env=environment,
+                                    stdout=log, stderr=subprocess.STDOUT, timeout=1800)
         commands.append(dict(command=command, exit_code=result.returncode))
         if result.returncode:
             raise RuntimeError('Pinned Source ' + name + ' failed; see ' + str(output / (name + '.log')))

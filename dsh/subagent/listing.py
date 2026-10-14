@@ -67,7 +67,7 @@ async def list_children(ctx, root, signal=None, descendants=False):
         except Exception:
             rows[index] = dict(kind='diagnostic', id=header.id, reason='corrupt')
             continue
-        if identity is not None and identity['seq'] >= (header.seedLength or 0):
+        if identity is not None and identity['seq'] >= live.inheritedEventCount:
             rows[index] = child_row(header.id, identity, 'running', header.id in parents)
     async def worker():
         while cold:
@@ -94,7 +94,7 @@ async def cold_row(ctx, query, header, has_children, signal):
         try:
             cached = cache.cachedSnapshot(header, ['subagent'])
             identity = (cached or {}).get('values', {}).get('subagent')
-            if identity is not None and identity['seq'] >= (header.seedLength or 0):
+            if not header.isSeeded and identity is not None:
                 return child_row(header.id, identity, 'inactive', has_children)
         except Exception:
             pass
@@ -107,10 +107,10 @@ async def cold_row(ctx, query, header, has_children, signal):
         return dict(kind='diagnostic', id=header.id, reason='corrupt' if corrupt else 'unavailable')
     try:
         check(signal)
-        keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'seedLength', 'delegationDepth', 'origin', 'agentPreset')
+        keys = ('version', 'id', 'createdAt', 'cwd', 'parentSession', 'isSeeded', 'delegationDepth', 'origin', 'agentPreset')
         identity = (observed.projections or {}).get('values', {}).get('subagent')
         if (any(getattr(observed.header, key) != getattr(header, key) for key in keys) or
-                identity is None or identity['seq'] < (header.seedLength or 0)):
+                identity is None or identity['seq'] < observed.inheritedEventCount):
             return dict(kind='diagnostic', id=header.id, reason='corrupt')
         return child_row(header.id, identity, 'inactive', has_children)
     finally:

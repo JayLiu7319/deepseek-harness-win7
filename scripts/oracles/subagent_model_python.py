@@ -10,6 +10,7 @@ root = Path(sys.argv[1]).resolve()
 sys.path.insert(0, str(root))
 from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
+from dsh.session.projections import SessionProjectionRegistry
 from dsh.core.agent_loop import AgentLoopPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.tools import ToolsPlugin, ToolExecutionInput
@@ -51,6 +52,7 @@ async def main():
                 for mode in ('one-shot','continuable'):
                     name = '/'.join([str(enabled).lower(),str(inherits).lower(),str(defaults).lower(),mode])
                     ctx, handle = Context(), None
+                    SessionProjectionRegistry(ctx)
                     try:
                         for provider in (LlmRuntime,SessionPlugin,ToolsPlugin,SystemPrompt,AgentPlugin):
                             await ctx.plugin(provider)

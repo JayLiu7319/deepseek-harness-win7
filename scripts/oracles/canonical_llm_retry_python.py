@@ -15,6 +15,7 @@ NAMES = ('recover', 'exhaust', 'unauthorized', 'retry-after', 'empty', 'partial-
 async def observe(name):
     from dsh.cordis.context import Context
     from dsh.cordis.environment import LaunchEnvironmentSnapshot
+    from dsh.session.projections import SessionProjectionRegistry
     from dsh.core.agent_loop import AgentLoopPlugin
     from dsh.core.agent import AgentPlugin
     from dsh.core.session import SessionPlugin
@@ -57,6 +58,7 @@ async def observe(name):
     worker = threading.Thread(target=lambda: server.serve_forever(poll_interval=.01), daemon=True)
     worker.start()
     ctx = Context()
+    SessionProjectionRegistry(ctx)
     ctx.set_service('launchEnvironment', LaunchEnvironmentSnapshot([dict(source='process', values=dict(DEEPSEEK_API_KEY='fixture-key'))]))
     for plugin in (LlmRuntime, ToolsPlugin, SystemPrompt, LLMRetryPlugin, SessionPlugin, AgentPlugin, AgentLoopPlugin):
         await ctx.plugin(plugin)

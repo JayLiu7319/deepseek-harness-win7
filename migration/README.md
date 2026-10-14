@@ -1,5 +1,7 @@
 # 持续对齐记录
 
+2026-10-15 活动基线已切换为 **dsh-v0.1.2-rc.1 / a66e4702047846cdaa10c66c9d3df3951f5ea70d**。Session/投影/Remote/SDK/ACP/子代理、文件引用、原样 Web 和旧 SQLite 只读迁移已实现并通过多批定向对照；当前处于新候选统一资格阶段，尚不将 alpha 发行回执或 manifest 清单当作 rc.1 验收。见 [本轮记录](../docs/research/2026-10-15-rc1-baseline-migration-progress.md) 和 [活动能力矩阵](rc1-capabilities.json)。以下保留各阶段历史，时间较早的 alpha/候选状态不代表当前 pin。
+
 2026-10-14 后续 Session 批次：显式 rc.1 logical header、独立 inherited cut/ownEvents/isOwnSeq、私有 version-0 JSONL 翻译、preparation/projection 消费和 ignorable 保留已定向实现；最终 136 Python 用例通过，实际 Source/native 14 类匹配，审批消费者按原 Node 身份复验 122 项通过。默认 alpha 准入与 canonical decode、完整 query/Remote/SDK/子代理闭包仍待协调切换；不是 rc.1 或发行签收。见 [继承切分推进记录](../docs/research/2026-10-14-rc1-session-lineage-progress.md)。
 
 2026-10-14 用户授权 rc.1 推进：候选目标固定 `a66e4702047846cdaa10c66c9d3df3951f5ea70d`，正式差分观察、274-manifest 候选清单、路径引用提供端/Remote/原版 Chromium108 首次启动与冷恢复、轮次摘要/raw-view gate、索引读取和提示词顺序接口已完成首批定向验证。独立 rc.1 原版官方构建和有限 Source/native 配对保留；当前 alpha 台账结构检查通过，既有 86 项及历史验收未提升为 rc.1。Session 逻辑 lineage/持久化/消费者闭合后整体切换 pin、台账和原样前端，稳定后执行一次完整资格。见 [推进记录](../docs/research/2026-10-14-rc1-bootstrap-progress.md) 和 [候选行动区](candidates/rc1/README.md)。

@@ -12,7 +12,7 @@ UNIT_NAME_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 class KvUnitDescriptor:
     """Static identity and shape of one KV unit."""
 
-    def __init__(self, name: str, version: int, tables: List[str], has_global: bool = False, layout: str = "single"):
+    def __init__(self, name: str, version: int, tables: List[str], has_global: bool = False, layout: str = "single", compatible_versions=None):
         self.name = name
         self.version = version
         self.tables = tables
@@ -21,6 +21,8 @@ class KvUnitDescriptor:
         if layout not in ("single", "per-record"):
             raise ValueError("unknown KV layout: " + layout)
         self.layout = layout
+        self.compatible_versions = list(compatible_versions or [])
+        self.compatibleVersions = self.compatible_versions
 
 
 class KvUnit:

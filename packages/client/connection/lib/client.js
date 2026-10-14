@@ -11,6 +11,8 @@ window.__ModuleLoader__.load({
 			backoffMaxMs: 1e4,
 			generationReadyTimeoutMs: 3e3
 		};
+		const MANUAL_RECONNECT = /* @__PURE__ */ new Error("connection: manual reconnect requested");
+		const NETWORK_STATE_CHANGED = /* @__PURE__ */ new Error("connection: browser network state changed");
 		function sleep(ms, signal) {
 			return new Promise((resolve) => {
 				const t = setTimeout(done, ms);
@@ -20,6 +22,14 @@ window.__ModuleLoader__.load({
 					signal.removeEventListener("abort", done);
 					resolve();
 				}
+			});
+		}
+		function waitForAbort(signal) {
+			if (signal.aborted) return Promise.resolve();
+			return new Promise((resolve) => {
+				signal.addEventListener("abort", () => {
+					resolve();
+				}, { once: true });
 			});
 		}
 		/**
@@ -33,8 +43,11 @@ window.__ModuleLoader__.load({
 			generation = 0;
 			attempt = 0;
 			current = null;
+			retryDelay = null;
 			running = false;
-			lastState = null;
+			immediateRetry = false;
+			networkAvailable = true;
+			lastState;
 			config;
 			constructor(source, sinks = {}, config = {}) {
 				this.source = source;
@@ -55,11 +68,46 @@ window.__ModuleLoader__.load({
 				this.running = false;
 				this.current?.abort();
 				this.current = null;
+				this.retryDelay?.abort();
+				this.retryDelay = null;
+			}
+			/** Reset the retry sequence and replace the current generation or retry delay immediately. */
+			reconnect() {
+				if (!this.running) return;
+				this.attempt = 0;
+				this.immediateRetry = true;
+				this.emitState("connecting");
+				if (!this.isRunning()) return;
+				this.current?.abort(MANUAL_RECONNECT);
+				this.retryDelay?.abort(MANUAL_RECONNECT);
+			}
+			/**
+			* Suspend automatic retries while offline and restart backoff when the network returns.
+			* @param available - whether the browser reports network access.
+			*/
+			setNetworkAvailable(available) {
+				if (this.networkAvailable === available) return;
+				this.networkAvailable = available;
+				this.attempt = 0;
+				this.immediateRetry = false;
+				if (!this.running) return;
+				this.emitState(available ? "connecting" : "disconnected");
+				if (!this.isRunning()) return;
+				this.current?.abort(NETWORK_STATE_CHANGED);
+				this.retryDelay?.abort(NETWORK_STATE_CHANGED);
+			}
+			backoffCap(attempt) {
+				const { backoffBaseMs, backoffFactor, backoffMaxMs } = this.config;
+				return Math.min(backoffMaxMs, backoffBaseMs * backoffFactor ** Math.max(0, attempt - 1));
 			}
 			backoffDelay(attempt) {
-				const { backoffBaseMs, backoffFactor, backoffMaxMs } = this.config;
-				const cap = Math.min(backoffMaxMs, backoffBaseMs * backoffFactor ** Math.max(0, attempt - 1));
+				const cap = this.backoffCap(attempt);
 				return cap / 2 + Math.random() * (cap / 2);
+			}
+			isFinalBackoffTier(attempt) {
+				const cap = this.backoffCap(attempt);
+				const nextCap = this.backoffCap(attempt + 1);
+				return cap >= this.config.backoffMaxMs || !Number.isFinite(nextCap) || nextCap <= cap;
 			}
 			/** Read through a method: stop() flips the flag across awaits, so narrowing from the loop condition must not stick. */
 			isRunning() {
@@ -70,7 +118,49 @@ window.__ModuleLoader__.load({
 				return this.isRunning() && !controller.signal.aborted;
 			}
 			async loop() {
+				let retry = false;
 				while (this.running) {
+					if (!this.networkAvailable && !this.immediateRetry) {
+						const retryDelay = new AbortController();
+						this.retryDelay = retryDelay;
+						this.emitState("disconnected");
+						await waitForAbort(retryDelay.signal);
+						if (this.retryDelay === retryDelay) this.retryDelay = null;
+						if (!this.isRunning()) return;
+						retry = true;
+						continue;
+					}
+					let manualAttempt = false;
+					if (retry) {
+						const immediate = this.immediateRetry;
+						this.immediateRetry = false;
+						if (immediate) this.attempt = 0;
+						manualAttempt = immediate;
+						if (!immediate && this.attempt > 0 && this.isFinalBackoffTier(this.attempt)) {
+							const retryDelay = new AbortController();
+							this.retryDelay = retryDelay;
+							this.emitState("disconnected");
+							await waitForAbort(retryDelay.signal);
+							if (this.retryDelay === retryDelay) this.retryDelay = null;
+							continue;
+						}
+						const attempt = ++this.attempt;
+						this.emitState("connecting");
+						if (!this.isRunning()) return;
+						if (!immediate) {
+							const retryDelay = new AbortController();
+							this.retryDelay = retryDelay;
+							await sleep(this.backoffDelay(attempt), retryDelay.signal);
+							if (this.retryDelay === retryDelay) this.retryDelay = null;
+							if (!this.isRunning()) return;
+							if (retryDelay.signal.aborted) continue;
+						}
+						console.warn(`[connection] connection lost, retry #${String(attempt)}`);
+						this.callSink(() => {
+							this.sinks.onReconnectRequested?.();
+						});
+						if (!this.isRunning()) return;
+					}
 					const gen = ++this.generation;
 					const ac = new AbortController();
 					this.current = ac;
@@ -115,16 +205,11 @@ window.__ModuleLoader__.load({
 						if (this.isGenerationActive(ac)) this.callSink(() => {
 							this.sinks.onConnected?.(host);
 						});
-					} catch {
-						if (!ac.signal.aborted) ac.abort();
-					}
+					} catch {}
 					await failed;
 					if (!this.isRunning()) return;
-					this.emitState("reconnecting");
-					this.attempt += 1;
-					console.warn(`[connection] connection lost, retry #${this.attempt}`);
-					const idle = new AbortController();
-					await sleep(this.backoffDelay(this.attempt), idle.signal);
+					if (manualAttempt) this.attempt = 0;
+					retry = true;
 				}
 			}
 			/** Deduplicated state emission (sink isolation applies). */
@@ -142,12 +227,12 @@ window.__ModuleLoader__.load({
 				}
 			}
 		};
-		/** Await source readiness without letting a stalled carrier wedge startup forever. */
+		/** Await source readiness while reporting, but not cancelling, a slow Host. */
 		function waitForReady(ready, timeoutMs, signal) {
 			return new Promise((resolve, reject) => {
 				let settled = false;
 				const timeout = setTimeout(() => {
-					finish({ error: /* @__PURE__ */ new Error(`connection generation was not ready within ${String(timeoutMs)}ms`) });
+					console.warn(`[connection] generation is still not ready after ${String(timeoutMs)}ms`);
 				}, timeoutMs);
 				const aborted = () => {
 					finish({ error: new Error("connection generation aborted", { cause: signal.reason }) });
@@ -182,43 +267,42 @@ window.__ModuleLoader__.load({
 			return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 		}
 		//#endregion
-		//#region ../../llm/llm/lib/types/brand.js
+		//#region ../../util/brand/lib/index.js
 		/**
-		* dsh-llm's owned branded ids: tool-call correlation and provider request
-		* diagnostics.
+		* Duplicate-install-safe nominal primitive helpers.
 		*
-		* The `Branded<B>` primitive itself lives in `@deepseek-ai/dsh-brand` (a
-		* zero-dependency type-only package) so every owner of a cross-boundary id can
-		* brand it without depending on dsh-llm; see that package's README for the
-		* nominal-typing policy.
+		* A brand makes structurally identical strings or numbers non-interchangeable
+		* at the type level: a `SessionId` cannot be passed where a `ToolCallId` is
+		* expected, and an event sequence cannot be passed as a log offset. Comparison,
+		* logging, and serialization retain the underlying primitive behavior.
 		*
-		* @module @deepseek-ai/dsh-llm/brand
+		* This package owns no concrete domain value and keeps no runtime identity or mutable
+		* state, so independently installed copies produce interchangeable values.
+		*
+		* @module @deepseek-ai/dsh-brand
 		*/
 		/**
-		* Brand a message identifier.
-		* @param id - the opaque message identifier.
-		* @returns the same string, branded; no validation is performed.
+		* Apply a compile-time string brand without changing the value.
+		* @param value - string admitted by the domain that owns the target brand.
+		* @returns the same string with the requested compile-time brand.
 		*/
-		function MessageId(id) {
-			return id;
+		function brandString(value) {
+			return value;
 		}
 		/**
-		* Brand a string as a {@link ToolCallId}.
-		* @param id - the provider-issued (or synthesized) call id.
-		* @returns the same string, branded; no validation is performed.
+		* Apply a compile-time number brand without changing the value.
+		* @param value - number admitted by the domain that owns the target brand.
+		* @returns the same number with the requested compile-time brand.
 		*/
-		function ToolCallId(id) {
-			return id;
+		function brandNumber(value) {
+			return value;
 		}
 		//#endregion
-		//#region ../../llm/llm/lib/types/call-config.js
+		//#region ../../util/values/lib/index.js
 		/**
-		* Deep-freeze a value in place with an iterative traversal, guarding cycles,
-		* so later mutation throws without imposing a JavaScript call-stack depth cap.
-		* {@link AbortSignal} objects are deliberately skipped because they are the
-		* request's live cancellation channel and freezing them breaks abort.
-		* @param value - the value to freeze in place.
-		* @returns the same value, frozen.
+		* Deep-freeze an object graph in place while leaving live AbortSignal objects mutable.
+		* @param value - value to freeze.
+		* @returns the same value after every reachable enumerable child is frozen.
 		*/
 		function deepFreeze(value) {
 			const seen = /* @__PURE__ */ new WeakSet();
@@ -276,7 +360,7 @@ window.__ModuleLoader__.load({
 		function createMessage(input) {
 			return freezeMessage({
 				...input,
-				id: MessageId(randomUUID())
+				id: brandString(randomUUID())
 			});
 		}
 		/**
@@ -325,6 +409,26 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
+		//#region ../../core/session/lib/types/types.js
+		/**
+		* Admit a numeric value as an existing Session event position.
+		* @param value - non-negative safe integer admitted by the owning log operation.
+		* @returns the same number with the Session-sequence brand.
+		*/
+		function SessionSeq(value) {
+			if (!Number.isSafeInteger(value) || value < 0 || Object.is(value, -0)) throw new TypeError(`SessionSeq must be a non-negative safe integer, got ${String(value)}`);
+			return brandNumber(value);
+		}
+		/**
+		* Admit a numeric value as a Session log offset.
+		* @param value - non-negative safe integer used as a gap or prefix length.
+		* @returns the same number with the Session-log-offset brand.
+		*/
+		function SessionLogOffset(value) {
+			if (!Number.isSafeInteger(value) || value < 0 || Object.is(value, -0)) throw new TypeError(`SessionLogOffset must be a non-negative safe integer, got ${String(value)}`);
+			return brandNumber(value);
+		}
+		//#endregion
 		//#region ../../core/session/lib/types/chunk-rows.js
 		/**
 		* Lossless row packing for `assistant/chunk` delta runs. Providers stream
@@ -335,7 +439,7 @@ window.__ModuleLoader__.load({
 		* `tool-call-chunks` — and expands rows back to the exact original events.
 		*
 		* Packed rows are an encoding vocabulary, NOT session events: they never enter
-		* `Session.events`, have no `SessionEventMap` entry, and use bare (slash-less)
+		* `Session.snapshotEvents()`, have no `SessionEventMap` entry, and use bare (slash-less)
 		* type tags so a reader cannot confuse them with the event taxonomy
 		* (precedent: the JSONL header line's `session` tag). Persistence and bounded
 		* history transport both use the codec. The encoder whitelists exact shapes —
@@ -383,7 +487,7 @@ window.__ModuleLoader__.load({
 				"time",
 				"data"
 			])) return void 0;
-			if (!Number.isSafeInteger(event.seq) || event.seq < 0 || !Number.isSafeInteger(event.time)) return void 0;
+			if (!Number.isSafeInteger(event.seq) || event.seq < 0 || Object.is(event.seq, -0) || !Number.isSafeInteger(event.time)) return void 0;
 			const data = event.data;
 			if (!isRecord$1(data) || !hasExactKeys(data, [
 				"turn",
@@ -454,7 +558,7 @@ window.__ModuleLoader__.load({
 					...envelope,
 					data: {
 						...base,
-						id: ToolCallId(call.id),
+						id: brandString(call.id),
 						...Object.hasOwn(call, "name") ? { name: call.name } : {},
 						args: run.map((event) => event.data.chunk.argumentsDelta)
 					}
@@ -571,7 +675,7 @@ window.__ModuleLoader__.load({
 		}
 		/** Whether a runtime value is a non-negative safe event sequence. */
 		function isEventSeq(value) {
-			return typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
+			return typeof value === "number" && Number.isSafeInteger(value) && value >= 0 && !Object.is(value, -0);
 		}
 		/** Whether a runtime value is the exact positional-replacement shape. */
 		function isReplaceOp(value) {
@@ -722,7 +826,7 @@ window.__ModuleLoader__.load({
 			const state = createFoldState();
 			const replacements = [];
 			for (const [index, event] of events.entries()) {
-				const replacement = applySurfaceEvent(state, event, index, events, 0);
+				const replacement = applySurfaceEvent(state, event, SessionSeq(index), events, SessionLogOffset(0));
 				if (replacement !== void 0) replacements.push(replacement);
 			}
 			return {
@@ -779,7 +883,7 @@ window.__ModuleLoader__.load({
 		}
 		function toolResultMessage(callId, content, isError) {
 			return createToolResultMessage({
-				callId: ToolCallId(callId),
+				callId: brandString(callId),
 				content,
 				isError
 			});
@@ -2264,7 +2368,7 @@ window.__ModuleLoader__.load({
 					return {
 						ok: false,
 						error: {
-							code: "settings-rejected",
+							code: "settings/rejected",
 							message: "fixture: the minimal readiness settings descriptor is read-only",
 							details: { ns }
 						}
@@ -2274,7 +2378,7 @@ window.__ModuleLoader__.load({
 					return {
 						ok: false,
 						error: {
-							code: "settings-rejected",
+							code: "settings/rejected",
 							message: "fixture: the minimal readiness settings descriptor is read-only",
 							details: { ns }
 						}
@@ -2284,7 +2388,7 @@ window.__ModuleLoader__.load({
 					return {
 						ok: false,
 						error: {
-							code: "settings-rejected",
+							code: "settings/rejected",
 							message: "fixture: no settings namespaces are registered",
 							details: { ns }
 						}
@@ -2301,7 +2405,7 @@ window.__ModuleLoader__.load({
 					if (existing === void 0 || existing.trust === "system") return {
 						ok: false,
 						error: {
-							code: "agent-preset-read-only",
+							code: "agent-preset/read-only",
 							message: `agent preset "${agentPreset}" ships with the deployment`,
 							details: {
 								agentPreset,
@@ -2530,7 +2634,7 @@ window.__ModuleLoader__.load({
 			const requireRemoteSession = (request) => {
 				if (summaryOf(request.sessionId) !== void 0) return void 0;
 				return sessionErr({
-					code: "session-not-found",
+					code: "session/not-found",
 					message: `no session ${request.sessionId}`,
 					details: { sessionId: request.sessionId }
 				});
@@ -2552,7 +2656,7 @@ window.__ModuleLoader__.load({
 			const append = (id, e) => {
 				const log = logOf(id);
 				const event = {
-					seq: log.length,
+					seq: SessionSeq(log.length),
 					time: Date.now(),
 					...e
 				};
@@ -2580,7 +2684,7 @@ window.__ModuleLoader__.load({
 			const goalFailure = (message) => ({
 				ok: false,
 				error: {
-					code: "internal",
+					code: "gateway/internal",
 					message,
 					details: {}
 				}
@@ -2588,7 +2692,7 @@ window.__ModuleLoader__.load({
 			const requireGoalSession = (id) => summaryOf(id) === void 0 ? {
 				ok: false,
 				error: {
-					code: "session-not-found",
+					code: "session/not-found",
 					message: `no session ${id}`,
 					details: { sessionId: id }
 				}
@@ -2903,7 +3007,7 @@ window.__ModuleLoader__.load({
 					if (children === void 0) return {
 						ok: false,
 						error: {
-							code: "directory-unreadable",
+							code: "directory-picker/unreadable",
 							message: `cannot list ${target}: not in the fixture tree`,
 							details: { path: target }
 						}
@@ -2928,7 +3032,7 @@ window.__ModuleLoader__.load({
 					if (children === void 0) return {
 						ok: false,
 						error: {
-							code: "directory-create-failed",
+							code: "directory-picker/create-failed",
 							message: `missing parent ${parent}`,
 							details: { path: parent }
 						}
@@ -2937,7 +3041,7 @@ window.__ModuleLoader__.load({
 					if (children.includes(name)) return {
 						ok: false,
 						error: {
-							code: "directory-exists",
+							code: "directory-picker/exists",
 							message: `${target} already exists`,
 							details: { path: target }
 						}
@@ -3088,7 +3192,7 @@ window.__ModuleLoader__.load({
 					if (preset === void 0) return {
 						ok: false,
 						error: {
-							code: "agent-preset-not-found",
+							code: "agent-preset/not-found",
 							message: `unknown agent preset "${agentPreset}"`,
 							details: {
 								agentPreset,
@@ -3110,7 +3214,7 @@ window.__ModuleLoader__.load({
 					if (source === void 0) return {
 						ok: false,
 						error: {
-							code: "agent-preset-not-found",
+							code: "agent-preset/not-found",
 							message: `unknown agent preset "${from}"`,
 							details: {
 								agentPreset: from,
@@ -3121,7 +3225,7 @@ window.__ModuleLoader__.load({
 					if (fixturePresets.has(id)) return {
 						ok: false,
 						error: {
-							code: "agent-preset-invalid",
+							code: "agent-preset/invalid",
 							message: `agent preset "${id}" already exists`,
 							details: {
 								agentPreset: id,
@@ -3142,7 +3246,7 @@ window.__ModuleLoader__.load({
 					if (fixturePresets.get(id)?.trust === "system") return {
 						ok: false,
 						error: {
-							code: "agent-preset-read-only",
+							code: "agent-preset/read-only",
 							message: `agent preset "${id}" ships with the deployment`,
 							details: {
 								agentPreset: id,
@@ -3487,7 +3591,7 @@ window.__ModuleLoader__.load({
 					log.push({
 						type: "user/message",
 						surfaceOp: "append",
-						seq: log.length,
+						seq: SessionSeq(log.length),
 						time: Date.now(),
 						data: userMessage(text(msg))
 					});
@@ -3599,7 +3703,7 @@ window.__ModuleLoader__.load({
 				list: (_request) => sessionOk({ items: [...sessions].sort((a, b) => b.updatedAt - a.updatedAt) }),
 				search: (request, signal) => {
 					if (signal.aborted) return sessionErr({
-						code: "cancelled",
+						code: "gateway/cancelled",
 						message: "fixture session search was aborted",
 						details: {}
 					});
@@ -3637,7 +3741,7 @@ window.__ModuleLoader__.load({
 				create: async (request) => {
 					const workspace = request.workspaceId === void 0 ? void 0 : workspaces.find((w) => w.workspaceId === request.workspaceId);
 					if (request.workspaceId !== void 0 && workspace === void 0) return sessionErr({
-						code: "workspace-not-found",
+						code: "workspace/not-found",
 						message: `no workspace ${request.workspaceId}`,
 						details: { workspaceId: request.workspaceId }
 					});
@@ -3654,7 +3758,7 @@ window.__ModuleLoader__.load({
 						});
 					};
 					const attachFailure = (sessionId, workspaceId) => sessionErr({
-						code: "workspace-attach-failed",
+						code: "session/workspace-attach-failed",
 						message: `fixture rejected Workspace attachment for ${sessionId}`,
 						details: {
 							sessionId,
@@ -3665,7 +3769,7 @@ window.__ModuleLoader__.load({
 						const existing = summaryOf(requestedId);
 						if (existing !== void 0) {
 							if (existing.cwd !== cwd) return sessionErr({
-								code: "session-conflict",
+								code: "session/conflict",
 								message: `session ${requestedId} already uses ${existing.cwd ?? "no cwd"}`,
 								details: {
 									sessionId: requestedId,
@@ -3715,7 +3819,7 @@ window.__ModuleLoader__.load({
 					const { sessionId, title } = request;
 					const normalized = title.trim().replace(/\s+/g, " ");
 					if (normalized.length === 0) return sessionErr({
-						code: "title-invalid",
+						code: "session/title-invalid",
 						message: "session title must contain visible characters",
 						details: { sessionId }
 					});
@@ -3736,7 +3840,7 @@ window.__ModuleLoader__.load({
 					const { sessionId, atSeq } = request;
 					const source = summaryOf(sessionId);
 					if (source === void 0) return sessionErr({
-						code: "session-not-found",
+						code: "session/not-found",
 						message: `no session ${sessionId}`,
 						details: { sessionId }
 					});
@@ -3744,7 +3848,7 @@ window.__ModuleLoader__.load({
 					const lastSeq = log.at(-1)?.seq ?? -1;
 					const boundary = (atSeq === void 0 ? void 0 : log.find((e) => e.type === "turn/end" && e.seq >= atSeq)) ?? (atSeq === void 0 || atSeq > lastSeq ? log.findLast((e) => e.type === "turn/end") : void 0);
 					if (boundary === void 0) return sessionErr({
-						code: "fork-unavailable",
+						code: "session/fork-unavailable",
 						message: atSeq !== void 0 && atSeq <= lastSeq ? `session ${sessionId} has not completed the turn containing event ${String(atSeq)}` : `session ${sessionId} has no completed turn`,
 						details: { sessionId }
 					});
@@ -3800,18 +3904,18 @@ window.__ModuleLoader__.load({
 					const { sessionId: id, mode, content } = request;
 					const summary = summaryOf(id);
 					if (summary === void 0) return sessionErr({
-						code: "session-not-found",
+						code: "session/not-found",
 						message: `no session ${id}`,
 						details: { sessionId: id }
 					});
 					if (options.rejectPrompt) {
 						if (content.some((block) => block.type === "image")) return sessionErr({
-							code: "attachment-error",
+							code: "session/attachment-invalid",
 							message: "fixture: image side exceeds the deployment limit",
 							details: { reason: "IMAGE_DIMENSION_TOO_LARGE" }
 						});
 						return sessionErr({
-							code: "agent-busy",
+							code: "session/agent-busy",
 							message: "fixture: prompt rejected before acceptance",
 							details: { reason: "fixture-prompt-rejection" }
 						});
@@ -3900,19 +4004,19 @@ window.__ModuleLoader__.load({
 				attachment: (request) => {
 					const stored = attachments.get(String(request.attachmentId));
 					if (stored === void 0) return sessionErr({
-						code: "attachment-error",
+						code: "session/attachment-invalid",
 						message: "fixture attachment missing",
 						details: { reason: "ATTACHMENT_NOT_FOUND" }
 					});
 					if (!logReferencesAttachment(logs.get(request.sessionId) ?? [], String(request.attachmentId))) return sessionErr({
-						code: "attachment-error",
+						code: "session/attachment-invalid",
 						message: "fixture attachment is not referenced by this session",
 						details: { reason: "ATTACHMENT_NOT_REFERENCED" }
 					});
 					return sessionOk(stored);
 				},
 				updateQueue: (request) => sessionErr({
-					code: "queue-item-not-found",
+					code: "session/queue-item-not-found",
 					message: "fixture has no pending queue item",
 					details: { itemId: request.itemId }
 				}),
@@ -4080,7 +4184,7 @@ window.__ModuleLoader__.load({
 				if (!remoteEventConns.has(result.clientId)) return {
 					ok: false,
 					error: {
-						code: "invocation-unavailable",
+						code: "gateway/invocation-unavailable",
 						message: "fixture Remote event result identifies no active event stream",
 						details: {}
 					}
@@ -4140,19 +4244,19 @@ window.__ModuleLoader__.load({
 				rename: (request) => {
 					const workspace = workspaces.find((candidate) => candidate.workspaceId === request.workspaceId);
 					if (workspace === void 0) return sessionErr({
-						code: "workspace-not-found",
+						code: "workspace/not-found",
 						message: `no workspace ${request.workspaceId}`,
 						details: { workspaceId: request.workspaceId }
 					});
 					const title = request.title.trim();
 					if (title === "") return sessionErr({
-						code: "bad-request",
+						code: "gateway/bad-request",
 						message: "Workspace rename requires a non-blank title",
 						details: {}
 					});
 					if (title !== workspace.title) {
 						if (workspaces.some((candidate) => candidate.workspaceId !== request.workspaceId && candidate.title === title)) return sessionErr({
-							code: "workspace-name-conflict",
+							code: "workspace/name-conflict",
 							message: `workspace name '${title}' is already in use`,
 							details: { name: title }
 						});
@@ -4168,7 +4272,7 @@ window.__ModuleLoader__.load({
 				delete: (request) => {
 					const index = workspaces.findIndex((workspace) => workspace.workspaceId === request.workspaceId);
 					if (index === -1) return sessionErr({
-						code: "workspace-not-found",
+						code: "workspace/not-found",
 						message: `no workspace ${request.workspaceId}`,
 						details: { workspaceId: request.workspaceId }
 					});
@@ -4184,7 +4288,7 @@ window.__ModuleLoader__.load({
 					const anchor = request.beforeWorkspaceId === void 0 ? workspaces.length : workspaces.findIndex((workspace) => workspace.workspaceId === request.beforeWorkspaceId);
 					const missing = source === -1 ? request.workspaceId : anchor === -1 ? request.beforeWorkspaceId : void 0;
 					if (missing !== void 0) return sessionErr({
-						code: "workspace-not-found",
+						code: "workspace/not-found",
 						message: `no workspace ${missing}`,
 						details: { workspaceId: missing }
 					});
@@ -4205,12 +4309,12 @@ window.__ModuleLoader__.load({
 				insertSessionBefore: (request) => {
 					const workspace = workspaces.find((candidate) => candidate.workspaceId === request.workspaceId);
 					if (workspace === void 0) return sessionErr({
-						code: "workspace-not-found",
+						code: "workspace/not-found",
 						message: `no workspace ${request.workspaceId}`,
 						details: { workspaceId: request.workspaceId }
 					});
 					if (!workspace.sessionIds.includes(request.sessionId) || request.beforeSessionId !== void 0 && !workspace.sessionIds.includes(request.beforeSessionId)) return sessionErr({
-						code: "workspace-move-invalid",
+						code: "workspace/move-invalid",
 						message: `session or anchor is not accounted by workspace ${request.workspaceId}`,
 						details: {
 							workspaceId: request.workspaceId,
@@ -4237,7 +4341,7 @@ window.__ModuleLoader__.load({
 				},
 				archiveSession: (request) => {
 					if (summaryOf(request.sessionId) === void 0) return sessionErr({
-						code: "session-not-found",
+						code: "session/not-found",
 						message: `no session ${request.sessionId}`,
 						details: { sessionId: request.sessionId }
 					});
@@ -4481,7 +4585,7 @@ window.__ModuleLoader__.load({
 			return {
 				ok: false,
 				error: {
-					code: "internal",
+					code: "gateway/internal",
 					message: error instanceof Error ? error.message : String(error),
 					details: {}
 				}
@@ -4587,6 +4691,24 @@ window.__ModuleLoader__.load({
 		//#region lib/types/client/index.js
 		/** Required services (none — this is the wire root). */
 		const inject = [];
+		function watchBrowserNetwork(controller) {
+			const browser = globalThis.window;
+			const initiallyAvailable = browser?.navigator?.onLine;
+			if (browser === void 0 || initiallyAvailable === void 0) return () => {};
+			const online = () => {
+				controller.setNetworkAvailable(true);
+			};
+			const offline = () => {
+				controller.setNetworkAvailable(false);
+			};
+			controller.setNetworkAvailable(initiallyAvailable);
+			browser.addEventListener("online", online);
+			browser.addEventListener("offline", offline);
+			return () => {
+				browser.removeEventListener("online", online);
+				browser.removeEventListener("offline", offline);
+			};
+		}
 		/**
 		* Client plugin body: pick the api by page mode and provide ctx.connection.
 		* @param ctx - client cordis context.
@@ -4600,7 +4722,9 @@ window.__ModuleLoader__.load({
 			let owner;
 			let generationId = 0;
 			let generation;
+			let state;
 			const generationListeners = /* @__PURE__ */ new Set();
+			const stateListeners = /* @__PURE__ */ new Set();
 			const publishGeneration = (next) => {
 				if (Object.is(generation, next)) return;
 				generation = next;
@@ -4610,11 +4734,22 @@ window.__ModuleLoader__.load({
 					console.error("[connection] generation listener threw:", error);
 				}
 			};
+			const publishState = (next) => {
+				if (state === next) return;
+				state = next;
+				for (const listener of [...stateListeners]) try {
+					listener();
+				} catch (error) {
+					console.error("[connection] state listener threw:", error);
+				}
+			};
 			const releaseOwner = (current) => {
 				if (owner !== current) return;
 				owner = void 0;
+				current.stopNetworkWatch();
 				current.controller.stop();
 				publishGeneration(void 0);
+				publishState(void 0);
 			};
 			const handle = {
 				isLoopback: transport?.ownsHost === true || pageLocation === void 0 || isLoopbackHostname(pageLocation.hostname),
@@ -4627,7 +4762,19 @@ window.__ModuleLoader__.load({
 						};
 					}
 				},
+				state: {
+					getSnapshot: () => state,
+					subscribe: (listener) => {
+						stateListeners.add(listener);
+						return () => {
+							stateListeners.delete(listener);
+						};
+					}
+				},
 				rpc,
+				reconnect() {
+					owner?.controller.reconnect();
+				},
 				registerGenerationSource(source) {
 					if (generationSource !== void 0) throw new Error("connection: a generation source is already registered");
 					generationSource = source;
@@ -4656,15 +4803,17 @@ window.__ModuleLoader__.load({
 							sinks.onConnected?.(host);
 						},
 						onStateChange: (state) => {
-							if (state === "reconnecting") publishGeneration(void 0);
+							if (state !== "connected") publishGeneration(void 0);
 							if (!ownsGeneration()) return;
+							publishState(state);
 							sinks.onStateChange?.(state);
 						}
 					}, config ?? {});
 					const current = {
 						token,
 						source,
-						controller
+						controller,
+						stopNetworkWatch: watchBrowserNetwork(controller)
 					};
 					owner = current;
 					controller.start();

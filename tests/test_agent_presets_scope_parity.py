@@ -1,4 +1,5 @@
 """Scope identity contracts from upstream agent-presets mount.spec.ts."""
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.system_prompt import SystemPrompt as SourceToolsPrompt
 import pytest
 from dsh.core.scope import create_scope, ScopeKey, scope_of, scope_parent_of
@@ -66,6 +67,8 @@ async def test_real_factory_awaits_preset_setup_and_limits_model_tools(tmp_path)
     await ctx.plugin(SessionPlugin)
     await ctx.plugin(AgentPlugin)
     adapter=StrictMockLlmAdapter([{"text":"done"}]);ctx.provide("llm",adapter)
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     await ctx.plugin(AgentLoopPlugin)
     handles=[]
     try:

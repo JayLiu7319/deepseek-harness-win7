@@ -292,7 +292,7 @@ class PlanModePlugin(Plugin):
                     raise ValueError('Invalid plan projection')
                 return dict(active=value['active'], pending=value['pending'])
             pctx.get('sessionProjections').register(dict(key='plan', stateSchema=state_schema,
-                init=lambda header: dict(active=False, wanted=None, running=None), apply=apply_projection,
+                init=lambda header, cut: dict(active=False, wanted=None, running=None), apply=apply_projection,
                 wire=dict(view=wire_view, viewSchema=wire_schema), stateVersion=2))
         ctx.inject(['sessionProjections'], mount_projection)
 

@@ -4,6 +4,8 @@ Ported 1:1 from reference packages/core/session/src/chunk-rows.ts.
 Compatible with Python 3.8.10 and Windows 7 SP1.
 """
 
+import math
+
 from typing import Any, Dict, List, Optional, Sequence, Union
 
 MIN_RUN = 3
@@ -38,7 +40,8 @@ def _is_number(value: Any) -> bool:
 
 def _is_safe_integer(value: Any) -> bool:
     """`Number.isSafeInteger`: an integer within +/-(2**53 - 1)."""
-    return isinstance(value, int) and not isinstance(value, bool) and abs(value) <= MAX_SAFE_INTEGER
+    return (_is_number(value) and math.isfinite(value)
+            and value % 1 == 0 and abs(value) <= MAX_SAFE_INTEGER)
 
 
 def _classify(event: Dict[str, Any]) -> Optional[str]:
@@ -48,7 +51,8 @@ def _classify(event: Dict[str, Any]) -> Optional[str]:
         return None
     seq = event.get("seq")
     time_val = event.get("time")
-    if not _is_safe_integer(seq) or seq < 0 or not _is_safe_integer(time_val):
+    if (not _is_safe_integer(seq) or seq < 0
+            or (seq == 0 and math.copysign(1, seq) < 0) or not _is_safe_integer(time_val)):
         return None
     data = event.get("data")
     if not isinstance(data, dict) or not _has_exact_keys(data, ["turn", "step", "chunk"]):
@@ -202,7 +206,7 @@ def _validate_row(value: Dict[str, Any], tag: str) -> Dict[str, Any]:
     if not _has_exact_keys(value, ["type", "seq0", "time0", "data"]):
         _malformed(tag, "envelope must be exactly {type, seq0, time0, data}")
     seq0 = value.get("seq0")
-    if not _is_safe_integer(seq0) or seq0 < 0:
+    if not _is_safe_integer(seq0) or seq0 < 0 or (seq0 == 0 and math.copysign(1, seq0) < 0):
         _malformed(tag, "seq0 must be a non-negative safe integer")
     time0 = value.get("time0")
     if not _is_safe_integer(time0):
@@ -276,6 +280,10 @@ def decode_storage_record(value: Any) -> List[Dict[str, Any]]:
         return [value]
     tag = value.get("type")
     if tag not in ("text-chunks", "reasoning-chunks", "tool-call-chunks"):
+        seq = value.get("seq")
+        if _is_number(seq):
+            from .types import SessionSeq
+            SessionSeq(seq)
         return [value]
     return _expand_row(_validate_row(value, tag))
 

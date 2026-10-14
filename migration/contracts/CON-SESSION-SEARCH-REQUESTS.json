@@ -1,8 +1,8 @@
 {
   "id": "CON-SESSION-SEARCH-REQUESTS",
-  "revision": 1,
-  "target_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
-  "status": "specified",
+  "revision": 2,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "status": "draft",
   "source_paths": [
     "reference/packages/session-query/session-query-sqlite/src/query.ts",
     "reference/packages/session-query/session-query-sqlite/src/index.ts",
@@ -32,6 +32,12 @@
   "open_questions": [
     "Complete searchEvents, configurable public limits, journal/schema/foreign database ownership, ranking/selected documents, cursors/canonical fingerprint locale, reconciliation/incremental index generations, provider epochs and serialized close remain unaccepted.",
     "The existing searchSessions carrier still rebuilds a transient view and lacks the complete metadata/ranking protocol. query.ts SQL helpers and snippets are source-backed preparation, not full FTS acceptance.",
-    "Full Tools/Wire, Web/profile/reconnect, arbitrary Task cancellation, ecosystem/auth, fresh uncached installation/remote Actions and deferred Win7 remain unaccepted."
-  ]
+    "Full Tools/Wire, Web/profile/reconnect, arbitrary Task cancellation, ecosystem/auth, fresh uncached installation/remote Actions and deferred Win7 remain unaccepted.",
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "awaiting-exact-candidate-qualification",
+    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+  }
 }

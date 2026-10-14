@@ -1,3 +1,4 @@
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 import json
 import pytest
@@ -92,6 +93,8 @@ async def test_agent_loop_with_stream_mock():
     chunks_received = []
     ctx.on("assistant/chunk", lambda data: chunks_received.append(data))
 
+    if ctx.get('sessionProjections') is None:
+        await ctx.plugin(SessionProjectionsPlugin)
     agent_loop = AgentLoopService(ctx)
     ctx.set_service("agent_loop", agent_loop)
 
