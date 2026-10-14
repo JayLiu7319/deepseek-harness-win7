@@ -82,7 +82,12 @@ async def test_revision_change_between_inspection_and_reserve_reloads(backend):
     try:
         await p.inspect('s')
         # Simulate a different writer bypassing this coordinator's invalidation.
-        await p._append('s',[dict(type='turn/start',seq=2,time=3,data=dict(turn=2))])
+        external = backend[2]()
+        try:
+            await external.load('s')
+            await external.append('s', [dict(type='turn/start',seq=2,time=3,data=dict(turn=2))])
+        finally:
+            await external.store.close()
         held=await p.prepare('s')
         assert len(held.session.events)==5;held.dispose()
     finally:await ctx.fiber.dispose()

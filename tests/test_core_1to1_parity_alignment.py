@@ -236,7 +236,8 @@ def test_session_fork_boundary_and_tool_balance():
     child = session.fork("child-valid", boundary=3)
     assert child.id == "child-valid"
     assert child.header.parent_session == "parent-session"
-    assert child.header.seed_length == 3
+    assert child.header.isSeeded is True
+    assert child.inheritedEventCount == 3
     assert len(child.events) >= 3
 
 
@@ -245,6 +246,7 @@ def test_validate_session_header_fail_closed():
     valid_hdr = {
         "version": 0,
         "id": "valid-id",
+        "isSeeded": False,
         "createdAt": 1700000000000,
         "cwd": "C:\\workspace\\project" if os.name == "nt" else "/workspace/project",
     }
@@ -271,7 +273,7 @@ def test_validate_session_header_fail_closed():
 @pytest.mark.asyncio
 async def test_persistence_rejects_corrupt_event_lines():
     with tempfile.TemporaryDirectory() as temp_dir:
-        persistence = JsonlSessionPersistence(root=temp_dir, pack_chunks=True)
+        persistence = JsonlSessionPersistence(root=temp_dir, compression="none", pack_chunks=True)
         meta = SessionHeader(session_id="test-unrecognized", cwd=os.path.abspath(temp_dir))
         await persistence.create(meta)
 

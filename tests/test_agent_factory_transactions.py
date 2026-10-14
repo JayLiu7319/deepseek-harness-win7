@@ -4,6 +4,7 @@ import pytest
 from dsh.cordis.context import Context
 from dsh.core.agent import AgentPlugin
 from dsh.core.agent_loop import AgentLoopPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.session.preparation import SessionPreparation
 from dsh.core.abort import AbortController
@@ -30,6 +31,7 @@ def harness():
     ctx = Context()
     SessionPlugin().apply(ctx)
     AgentPlugin().apply(ctx)
+    SessionProjectionsPlugin().apply(ctx)
     AgentLoopPlugin().apply(ctx)
     storage = Storage(ctx)
     ctx.set_service('session_persistence', storage)

@@ -8,7 +8,7 @@ from dsh.cordis.context import Context
 from dsh.cordis.environment import LaunchEnvironmentSnapshot
 from dsh.credentials.credentials_local import CredentialsService
 from dsh.typert.dispatch import RemoteDispatcher
-from dsh.typert.remote import TypertRemoteFailure
+from dsh.typert.remote import RemoteError
 
 
 @pytest.mark.parametrize('snapshot_type', [BootSnapshot, LaunchEnvironmentSnapshot])
@@ -70,8 +70,9 @@ async def test_web_credentials_remote_uses_launch_layers_and_preserves_them_on_r
             fallback: dict(configured=True, source='project-env', writable=True),
         }
         assert ctx.get('credentials').resolve(inherited).value == 'inherited-fixture'
-        with pytest.raises(TypertRemoteFailure):
+        with pytest.raises(RemoteError) as rejected:
             await call(ctx, 'set', ref=inherited, value='refused')
+        assert rejected.value.code == 'credential/rejected'
         await call(ctx, 'set', ref=fallback, value='stored-fixture')
         assert ctx.get('credentials').resolve(fallback).value == 'stored-fixture'
     finally:

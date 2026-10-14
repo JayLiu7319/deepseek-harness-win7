@@ -227,7 +227,7 @@ def test_pressure_samples_precede_message_surface_and_window_can_clear():
 @pytest.mark.parametrize("definition", DEFINITIONS, ids=lambda item: item["key"])
 def test_projection_cache_schemas_are_executable_and_strict(definition):
     parser = definition["stateSchema"]
-    state = definition["init"]({})
+    state = definition["init"]({}, 0)
     assert parser(copy.deepcopy(state)) == state
     with pytest.raises(ValueError):
         parser(dict(state, obsolete=True))

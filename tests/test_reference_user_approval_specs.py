@@ -19,6 +19,7 @@ def fake_agent(seed=None):
     class DummySession:
         def __init__(self):
             self.events = list(seed)
+            self.inheritedEventCount = 0
 
         def append(self, etype, data):
             ev = {'type': etype, 'data': data, 'seq': len(self.events), 'time': 100}

@@ -168,6 +168,7 @@ async def test_session_store_prepare_persistence():
         "id": "p-session",
         "version": 0,
         "createdAt": 100,
+        "isSeeded": False,
         "cwd": "C:\\test_dir" if os.name == "nt" else "/test_dir",
     }
 

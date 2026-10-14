@@ -9,7 +9,8 @@ from dsh.cordis import Context
 from dsh.core.session import SessionPlugin, SessionHeader
 from dsh.session.persistence_sqlite_canonical import SqliteSessionPersistencePlugin
 from dsh.session.sqlite_database import SqliteDatabase, DatabaseError
-from dsh.session.sqlite_sql import sql, SQL_RESOURCES
+from dsh.session.sqlite_sql import sql, SQL_RESOURCES, verify_sql_files
+from dsh.session.sqlite_legacy_reader import LegacySqliteSessionReaderPlugin
 from dsh.session.sqlite_store import SqliteStore, SqliteRollbackError
 
 
@@ -18,16 +19,17 @@ def chunk(sequence):
                 data=dict(turn=1, step=1, chunk=dict(type='text-delta', index=0, text='界' * 100)))
 
 
-def test_canonical_registry_and_unchanged_closed_sql_resources():
+def test_retired_registry_and_product_owned_closed_sql_resources():
     from dsh.session import SqliteSessionPersistencePlugin as PublicPlugin
     root = Path(__file__).resolve().parents[1]
-    assert resolve_harness_plugin('@deepseek-ai/dsh-session-persistence-sqlite') is SqliteSessionPersistencePlugin
+    assert resolve_harness_plugin('@deepseek-ai/dsh-session-persistence-sqlite') is None
+    assert resolve_harness_plugin('@deepseek-ai/dsh-win7-session-sqlite-reader') is LegacySqliteSessionReaderPlugin
     assert PublicPlugin is SqliteSessionPersistencePlugin
-    source = root / 'reference/packages/session/session-persistence-sqlite/resources/sql'
-    assert {path.stem for path in source.glob('*.sql')} == set(SQL_RESOURCES)
+    assert not (root / 'reference/packages/session/session-persistence-sqlite').exists()
+    directory = root / 'dsh/session/resources/sql'
+    assert set(verify_sql_files(directory)) == {name + '.sql' for name in SQL_RESOURCES}
     for name in SQL_RESOURCES:
         native = root / 'dsh/session/resources/sql' / (name + '.sql')
-        assert native.read_bytes() == (source / (name + '.sql')).read_bytes()
         assert sql(name) == native.read_text(encoding='utf-8')
     with pytest.raises(ValueError, match='Unknown SQLite resource'):
         sql('../schema')
@@ -208,8 +210,9 @@ async def test_failed_journal_attempt_preserves_budget_and_retires_real_handle(m
     from dsh.session import sqlite_schema
     instances = []
     class FailingDatabase(SqliteDatabase):
-        def __init__(self, path):
-            super().__init__(path)
+        def __init__(self, path, read_only=False):
+            assert read_only is False
+            super().__init__(path, read_only=read_only)
             self.attempts = 0
             instances.append(self)
         def prepare(self, statement):
@@ -230,8 +233,9 @@ async def test_failed_journal_attempt_preserves_budget_and_retires_real_handle(m
 async def test_busy_journal_retry_reuses_real_handle_and_keeps_security(monkeypatch):
     from dsh.session import sqlite_schema
     class BusyOnceDatabase(SqliteDatabase):
-        def __init__(self, path):
-            super().__init__(path)
+        def __init__(self, path, read_only=False):
+            assert read_only is False
+            super().__init__(path, read_only=read_only)
             self.attempts = 0
         def prepare(self, statement):
             if statement == sql('journal-mode-wal'):

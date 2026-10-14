@@ -89,7 +89,9 @@ async def test_damage_inside_closed_turn_is_refused_not_truncated(tmp_path):
 async def test_live_open_turn_is_never_crash_repaired(tmp_path):
     ctx = Context()
     SessionPlugin().apply(ctx)
-    JsonlSessionPersistencePlugin(root=str(tmp_path)).apply(ctx)
+    # Exercise the active provider; scanner cases above retain historical format probes.
+    from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin as CanonicalJsonl
+    await ctx.plugin(CanonicalJsonl, {'root': str(tmp_path), 'compression': 'none'})
     p = ctx.get('sessionPersistence')
     session = ctx.get('sessions').create('live')
     try:

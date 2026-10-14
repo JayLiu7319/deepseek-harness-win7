@@ -1,6 +1,6 @@
 # rc.1 基线迁移与验收记录
 
-本轮按用户授权将活动基线从 `dsh-v0.1.1-alpha.1` 切换到 `dsh-v0.1.2-rc.1`，固定 Source 为 `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。本产品版本和发行标签仍单独管理；本轮不发布 Release。
+本轮按用户授权将活动基线从 `dsh-v0.1.2-alpha.1` 切换到 `dsh-v0.1.2-rc.1`，固定 Source 为 `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。本产品版本和发行标签仍单独管理；本轮不发布 Release。
 
 ## 已完成的实现
 
@@ -48,3 +48,7 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 当前状态：实现及定向检查完成后冻结候选，执行 `scripts/verify_release.py`。在完整 Python、固定 Source 配置、全部选定配对合同和实际解压 Portable/浏览器都通过前，`accepted_upstream` 保持 null，迁移任务保持 running，不宣称已完成正式验收。
 
 首轮干净 `a6191cdb197c9e317fe6c358193ebd255c11b1fa` 的 Portable 构建完成，但完整 Python 在145项通过后因缺失上游测试镜像停止。原 XML、日志、冻结输入和精确失败 ZIP 保存在 `.goose/out/rc1-release-a6191cdb-20261015/`；ZIP SHA256为 `74942c18f58377a9763f65bd868331089aa7bf5a24c9c9a3af9801d1c42067b5`。该运行保持 failed，后续修正不得补签它。
+
+第二轮干净 `be4c1d4b4e94086fce2b3edda290a9033f061514` 构建完成，完整 Python 在1,606项通过、1项跳过后因旧 Session header 夹具缺少 `isSeeded` 停止。原 XML、日志、冻结输入和失败 ZIP 保存在 `.goose/out/rc1-release-be4c1d4b-20261015/`；ZIP SHA256为 `bbc23b8d5a5259c63d6286d269f4004dc5c10393cd01a13d6dd443015dfce269`，保持 failed。
+
+随后按 Session/Agent 共享服务及直接消费者选取246个测试文件，实际得到3,281项通过、106项失败、3项跳过。失败归并到15个文件：补齐观察器的 `sessionProjections`、独立 inherited cut 和当前 Remote 错误码；改用第二个实际 persistence 实例验证外部写入失效；重新构建示例 Web 插件；旧 SQLite 测试改为断言 canonical 名称退役及产品自有 SQL hash/reader。修复批次329项通过，最后39项 ACP/JSONL/Web 定向复验全部通过。各次原始日志和 XML 保留于 `.goose/out/rc1-session-spine-consumers-20261015/` 与 `.goose/out/rc1-session-spine-repair-20261015/`，这些分段结果不能替代下一份完整回执。

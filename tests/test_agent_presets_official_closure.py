@@ -31,7 +31,7 @@ async def harness(tmp_path):
     ctx = Context()
     ctx.baseUrl = str(tmp_path)
     await ctx.plugin(Loader)
-    for plugin in (SessionPlugin, SystemPrompt, ToolsPlugin, AgentPlugin, LlmRuntime, AgentLoopPlugin):
+    for plugin in (SessionPlugin, SystemPrompt, ToolsPlugin, AgentPlugin, LlmRuntime, SessionProjectionsPlugin, AgentLoopPlugin):
         await ctx.plugin(plugin)
 
     def contribute(c, config):

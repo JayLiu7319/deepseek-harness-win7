@@ -40,7 +40,7 @@ def prepare_profile(root, workspace):
     init_profile(str(profile), [], 'startup')
     rows = [{'id': name, 'name': '@deepseek-ai/dsh-' + name} for name in
             ('session', 'tools', 'system-prompt', 'llm', 'llm-deepseek', 'credentials-local',
-             'agent', 'agent-loop', 'user-approval', 'acp-app')]
+             'agent', 'session-projection', 'agent-loop', 'user-approval', 'acp-app')]
     rows.extend([{'id': 'acp', 'name': '@deepseek-ai/dsh-acp', 'inject': ['acpAppStartup'],
         'config': {'provider': 'deepseek-official', 'model': 'deepseek-v4-flash'}},
         {'id': 'persistence', 'name': '@deepseek-ai/dsh-session-persistence-jsonl',

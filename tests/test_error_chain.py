@@ -7,6 +7,7 @@ import pytest
 
 from dsh.cordis.context import Context
 from dsh.core.agent_loop import AgentLoopPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.agent import AgentPlugin
 from dsh.core.session import SessionPlugin
 from dsh.core.system_prompt import SystemPrompt
@@ -143,7 +144,7 @@ async def test_real_agent_loop_durable_failure(kind):
             yield None
     ctx = Context()
     ctx.set_service('llm', Model())
-    for plugin in (SessionPlugin, ToolsPlugin, SystemPrompt, AgentPlugin, AgentLoopPlugin):
+    for plugin in (SessionPlugin, ToolsPlugin, SystemPrompt, AgentPlugin, SessionProjectionsPlugin, AgentLoopPlugin):
         await ctx.plugin(plugin)
     handle = await ctx.get('agent_loop').create('error-' + kind)
     try:

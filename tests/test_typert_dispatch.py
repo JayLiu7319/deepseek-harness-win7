@@ -145,7 +145,7 @@ async def test_src_markers_rename_lookup_and_absent_arguments():
         assert result["session"] == "resolved:s1" and result["data"] is UNDEFINED
         with pytest.raises(TypertGatewayError) as caught:
             await gateway.invoke(request("invalid"))
-        assert caught.value.code == "signature-invalid"
+        assert caught.value.code == "gateway/signature-invalid"
     finally:
         await ctx.fiber.dispose()
 
@@ -208,7 +208,7 @@ async def test_strict_duplicate_exports_reject_before_domain_invocation():
         ctx.get('typert').register(dict(package='fixture', face='host', schemas=[], model={}, invocations=[row]))
         with pytest.raises(TypertGatewayError) as caught:
             await RemoteDispatcher(ctx).invoke(dict(namespace='ambiguous', method='read', args={}))
-        assert caught.value.code == 'ambiguous-endpoint'
+        assert caught.value.code == 'gateway/ambiguous-endpoint'
     finally:
         await ctx.fiber.dispose()
 
@@ -224,14 +224,14 @@ async def test_strict_codec_exact_fields_and_withdrawal_forbids_src_fallback():
     try:
         result = await gateway.invoke(request("read", {"sessionId": "s", "data": {"text": "yes", "unused": 1}}))
         assert result == {"session": "resolved:s", "data": {"text": "yes"}}
-        for args, code in [({"sessionId": "s"}, "arguments-invalid"), ({"sessionId": "s", "data": {"text": 2}}, "input-invalid"), ({"sessionId": "s", "data": {"text": "yes"}, "extra": None}, "arguments-invalid")]:
+        for args, code in [({"sessionId": "s"}, "gateway/arguments-invalid"), ({"sessionId": "s", "data": {"text": 2}}, "gateway/input-invalid"), ({"sessionId": "s", "data": {"text": "yes"}, "extra": None}, "gateway/arguments-invalid")]:
             with pytest.raises(TypertGatewayError) as caught:
                 await gateway.invoke(request("read", args))
             assert caught.value.code == code
         dispose()
         with pytest.raises(TypertGatewayError) as caught:
             await gateway.invoke(request("read", {"sessionId": "s"}))
-        assert caught.value.code == "definition-unavailable"
+        assert caught.value.code == "gateway/definition-unavailable"
         assert gateway.claims_endpoint("example/read")
     finally:
         await ctx.fiber.dispose()
@@ -265,7 +265,7 @@ async def test_stream_abort_closes_iterator_and_unary_stream_modes_do_not_mix():
     try:
         with pytest.raises(TypertGatewayError) as caught:
             await gateway.invoke(request("watch", signal=controller.signal))
-        assert caught.value.code == "signature-invalid"
+        assert caught.value.code == "gateway/signature-invalid"
         stream = await gateway.stream(request("watch", signal=controller.signal))
         pending = asyncio.create_task(stream.__anext__())
         await ctx.get("example").entered.wait()

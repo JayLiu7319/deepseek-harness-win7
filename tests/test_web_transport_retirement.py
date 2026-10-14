@@ -14,7 +14,7 @@ from dsh.boot.plugin_registry import harness_plugin_spec
 from dsh.core.abort import AbortController
 from dsh.typert.artifact import UNDEFINED
 from dsh.typert.dispatch import RemoteDispatcher
-from dsh.typert.remote import TypertRemoteFailure
+from dsh.typert.remote import RemoteError
 
 
 async def request(ctx, method, path, cookie=None, payload=None):
@@ -97,9 +97,9 @@ async def test_canonical_session_and_fork_publish_only_complete_agents(tmp_path)
         # Canonical fork requires a completed turn, unlike the retired bridge's
         # unanchored synthetic copy. Prepare a real log boundary without a model call.
         agent = ctx.get('agents').get('web')
-        agent.session.append('turn/start', {})
+        agent.session.append('turn/start', {'turn': 1})
         agent.session.append_user_message('fork boundary')
-        agent.session.append('turn/end', {})
+        agent.session.append('turn/end', {'turn': 1, 'reason': {'kind': 'completed'}})
         await agent.session.flush()
         fork = await call(ctx, 'session', 'fork', request=dict(sessionId='web'))
         assert ctx.get('agents').get(fork['sessionId']) is not None
@@ -107,8 +107,9 @@ async def test_canonical_session_and_fork_publish_only_complete_agents(tmp_path)
         assert ctx.get('sessions').get('web').header.cwd == str(tmp_path)
         assert 'attached' in ctx.get('workspaceRegistry').get(wid).sessionIds
         before = list(states)
-        with pytest.raises(TypertRemoteFailure):
+        with pytest.raises(RemoteError) as rejected:
             await call(ctx, 'session', 'create', request=dict(sessionId='rejected', cwd=str(tmp_path), agentPreset='absent'))
+        assert rejected.value.code == 'agent-preset/not-found'
         assert states == before
         assert ctx.get('agents').get('rejected') is None
         assert ctx.get('sessions').get('rejected') is None
@@ -171,7 +172,7 @@ async def test_scoped_human_request_uses_gateway_event_result_and_cancellation(t
                 assert tool is not None
                 action = tool.handler(projected, agent=agent, signal=signal.signal)
         else:
-            agent.session.append('turn/start', {})
+            agent.session.append('turn/start', {'turn': 1})
             event, projected = 'approval/request', dict(toolName='pwsh', reason='Run reviewed command')
             action = agent.ctx.get('approval').request(dict(agent=agent, signal=signal.signal, **projected))
         task = asyncio.create_task(action)
