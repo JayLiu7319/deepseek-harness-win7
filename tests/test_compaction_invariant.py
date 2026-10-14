@@ -32,7 +32,9 @@ async def test_compaction_relations_and_precommit_atomicity(case):
     assert result['installation'] is None
     assert len(result['receipts']) == len(case['actions'])
     for action, receipt in zip(case['actions'], result['receipts']):
-        if 'expectedError' in action:
+        if 'expectedEnvelopeError' in action:
+            assert receipt == dict(accepted=False, error=action['expectedEnvelopeError'], code=None, unchanged=True)
+        elif 'expectedError' in action:
             detail = action['expectedError']
             assert receipt['accepted'] is False
             assert receipt['unchanged'] is True

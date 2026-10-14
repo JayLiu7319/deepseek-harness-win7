@@ -5,7 +5,8 @@ import weakref
 from typing import Any, Callable, Dict, Optional, Set
 
 from dsh.cordis.plugin import Plugin
-from dsh.core.session import is_replacement_surface_event
+from dsh.core.session import SessionSeq, is_replacement_surface_event
+from dsh.core.surface import SurfaceManager
 from dsh.core.session.json import UNDEFINED
 from dsh.diagnostics.invariants import registration_result
 
@@ -36,6 +37,8 @@ class _Trace:
     def __init__(self) -> None:
         self.open_turn: Any = None
         self.compaction: Optional[Dict[str, Any]] = None
+        self.surface_events: Any = []
+        self.surface = SurfaceManager(self.surface_events)
 
 
 def _id(value: Any, label: str, fail: Callable[[str], None]) -> None:
@@ -80,11 +83,40 @@ def _apply_boundary(trace: _Trace, event: Dict[str, Any]) -> bool:
     return False
 
 
+def _shadowed(trace: _Trace, event: Dict[str, Any], fail: Callable[[str], None]) -> None:
+    kind, data = event["type"], event["data"]
+
+    def seq(value: Any, label: str) -> Any:
+        try:
+            return SessionSeq(value)
+        except TypeError:
+            fail(label + " must be a non-negative safe integer event seq")
+
+    start = seq(data["shadowedRange"]["start"], kind + " shadowedRange.start")
+    end = seq(data["shadowedRange"]["end"], kind + " shadowedRange.end")
+    seqs = [seq(value, "{} shadowedSeqs[{}]".format(kind, index))
+            for index, value in enumerate(data["shadowedSeqs"])]
+    if not seqs:
+        fail(kind + " shadowedSeqs must be non-empty")
+    if seqs[0] != start or seqs[-1] != end:
+        fail(kind + " shadowedRange must match the first and last shadowedSeqs")
+    surface = trace.surface.nodes
+    start_index = surface.index(start) if start in surface else -1
+    end_index = surface.index(end) if end in surface else -1
+    if start_index < 0 or end_index < start_index:
+        fail(kind + " shadowed seqs must name an earlier current surface span")
+    if surface[start_index:end_index + 1] != seqs:
+        fail(kind + " shadowedSeqs must list every node in the current surface span")
+
+
 def _validate(trace: _Trace, event: Dict[str, Any], fail: Callable[[str], None]) -> Optional[Dict[str, Any]]:
     kind = event["type"]
     if kind == "session/end-seed":
         return {"kind": "end-seed"}
     data = event["data"]
+    if kind == "compaction/prune":
+        _shadowed(trace, event, fail)
+        return None
     opened = trace.compaction
     if kind == "user/message" and is_replacement_surface_event(event):
         source = data["source"]
@@ -124,11 +156,7 @@ def _validate(trace: _Trace, event: Dict[str, Any], fail: Callable[[str], None])
         _owner(opened["turn"], trace.open_turn, kind, fail)
         if opened["summarized"]:
             fail("compaction/summary repeated within one compaction")
-        seqs, span = data["shadowedSeqs"], data["shadowedRange"]
-        if not seqs:
-            fail("compaction/summary shadowedSeqs must be non-empty")
-        if not _same(seqs[0], span["start"]) or not _same(seqs[-1], span["end"]):
-            fail("compaction/summary shadowedRange must match the first and last shadowedSeqs")
+        _shadowed(trace, event, fail)
         count = data.get("shadowedTokenCount", UNDEFINED)
         if (isinstance(count, bool) or not isinstance(count, (int, float))
                 or not 0 <= count <= 9007199254740991 or not math.isfinite(count) or count != int(count)):
@@ -183,6 +211,7 @@ def install(ctx: Any, fail: Callable[[str], None]) -> Callable[[], None]:
             if transition is not None:
                 advance(trace, transition)
             _apply_boundary(trace, event)
+            trace.surface_events.append(event)
         return trace
 
     def trace_for(session: Any) -> _Trace:
@@ -197,11 +226,13 @@ def install(ctx: Any, fail: Callable[[str], None]) -> Callable[[], None]:
         trace = trace_for(session)
         _boundary(trace, event, fail)
         if _apply_boundary(trace, event) or event["type"] not in TRANSACTIONS:
+            trace.surface_events.append(event)
             return
         candidate = staged.pop(id(event), None)
         if candidate is None or candidate[0]() is not event or candidate[1]() is not session:
             fail("compaction event published without pre-commit validation")
         advance(trace, candidate[2])
+        trace.surface_events.append(event)
 
     def dispatch(_mode: str, event_name: str, args: Any, *extra: Any) -> None:
         if event_name != "session/event":

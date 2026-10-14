@@ -60,3 +60,7 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 缓存恢复复核另外确认：Source `hydratePrepared` 对任意解析异常回退，Python 原来只捕获三类异常。新增实际 Source 的 `prepared-runtime-malformed` 场景，修复前保留 Source 成功重放而 Python 抛出同一个 RuntimeError 的完整观察；修复后9个实际 Source/native 场景匹配，72项缓存、投影和 preparation 消费者通过。观察器继续验证 v4 读取兼容、v5 写入、精确 identity、错误身份及 prepared fallback 不改写旧记录。证据保留于 `.goose/out/rc1-unexecuted-consumers-20261015/`；本批仍不能替代下一份完整候选资格。
 
 冻结前53项检查通过，包含真实必跑用例定义、SQLite 退役声明、CLI/minimal 配置、9场景缓存 Source/native 配对及迁移记录消费者；Python3.8 AST 与 diff 检查通过。
+
+第四轮干净 `91414951d8c7bb29c177c49ef0d1d1e0f1383403` 构建完成，完整 Python 得到7,861项通过、5项跳过、1项失败：真实浏览器插件卸载后返回新版结构化 RemoteError，旧观察器只匹配 `JSON.stringify(error)` 中的 message，而 message 不可枚举。原始 XML、日志、冻结输入及失败 ZIP 保留于 `.goose/out/rc1-release-91414951-20261015/`；ZIP SHA256为 `07872c7b89f6472f58c2d266914b40c6436821854742ab24d74a7f253a7b635c`。修正后的观察器断言完整线上错误信封、endpoint、code、message 和浏览器错误结构；导出适配器沿用普通 Error 的公开契约。三个实际 Edge 安装/HMR/卸载/刷新/重启/升级回滚旅程通过，保持失败回执不补签。
+
+随后单独诊断21组 Source 配置及82个配对驱动：98组通过，5组失败；这不是完整资格。修正 session-recovery 明文损伤夹具的压缩设置、storage-cache 的显式 inherited cut，以及 pruner/compaction/ACP-MCP 观察组合缺失的 session-projection 服务，分别复验成功。compaction 进一步暴露实际产品遗漏：rc.1 invariant 新增 summary/prune 当前完整可见区间校验，Python 仍仅校验首尾。已按原版补齐严格 seq、完整区间、重放和预提交状态，只在提交后推进 surface；旧合法摘要夹具补上真实较早 surface 输入，新增17项非法区间/已替换区间/序号/合法裁剪观察。172项 Source/Python 配对通过（含两项原有、未放宽判据的上游差异）；214项 compaction、pruner、事务及 Agent/HTTP 消费者通过。负零由两端相同的 JSON envelope 边界先行拒绝，独立记录而不伪称触发 invariant。另101项 ACP-MCP、JSONL 恢复及迁移记录消费者通过。诊断与修复原始证据保留于 `.goose/out/rc1-source-paired-diagnostics-20261015/`，下一干净候选重新统一资格。

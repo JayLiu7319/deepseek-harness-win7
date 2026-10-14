@@ -56,6 +56,93 @@
           }
         }
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -150,6 +237,93 @@
             "kind": "completed"
           }
         }
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -405,6 +579,93 @@
         },
         "expectedError": "compaction/summary compactionId must be a non-empty string"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -444,6 +705,93 @@
         },
         "expectedError": "compaction/summary sourceCommandId must be a non-empty string"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -474,6 +822,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary has no matching compaction/start"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -512,6 +947,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary id other does not match compaction/start id fixture"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -553,6 +1075,93 @@
         },
         "expectedError": "compaction/summary sourceCommandId other does not match compaction/start sourceCommandId command"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -591,6 +1200,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary sourceCommandId undefined does not match compaction/start sourceCommandId command"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -783,6 +1479,93 @@
         },
         "expectedError": "compaction/summary repeated within one compaction"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -816,6 +1599,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary shadowedSeqs must be non-empty"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -855,6 +1725,93 @@
         },
         "expectedError": "compaction/summary shadowedRange must match the first and last shadowedSeqs"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -892,6 +1849,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary shadowedTokenCount must be a non-negative safe integer"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -931,6 +1975,93 @@
         },
         "expectedError": "compaction/summary shadowedTokenCount must be a non-negative safe integer"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -968,6 +2099,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary shadowedTokenCount must be a non-negative safe integer"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -1007,6 +2225,93 @@
         },
         "expectedError": "compaction/summary shadowedTokenCount must be a non-negative safe integer"
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -1044,6 +2349,93 @@
           "model": "mock"
         },
         "expectedError": "compaction/summary shadowedTokenCount must be a non-negative safe integer"
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -1088,6 +2480,93 @@
           "compactionId": "fixture",
           "turn": null
         }
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -1250,11 +2729,11 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "start": 5,
+          "end": 5
         },
         "sourceEventSeqs": [
-          0
+          5
         ]
       },
       {
@@ -1264,6 +2743,93 @@
           "turn": null,
           "sourceCommandId": "command"
         }
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -1933,6 +3499,93 @@
           "turn": null
         }
       }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
     ]
   },
   {
@@ -2000,6 +3653,93 @@
             "kind": "completed"
           }
         }
+      }
+    ],
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
       }
     ]
   },
@@ -2121,6 +3861,2003 @@
           "turn": null,
           "error": "failed"
         }
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-missing-surface",
+    "kind": "invariant",
+    "prefix": [],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowed seqs must name an earlier current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-missing-surface",
+    "kind": "invariant",
+    "prefix": [],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowed seqs must name an earlier current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-missing-node",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowedSeqs must list every node in the current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-missing-node",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowedSeqs must list every node in the current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-reordered-node",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            4,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowedSeqs must list every node in the current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-reordered-node",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            4,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowedSeqs must list every node in the current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-invalid-start",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": -1,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowedRange.start must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-invalid-start",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": -1,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowedRange.start must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-invalid-end",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": true
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowedRange.end must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-invalid-end",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": true
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowedRange.end must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-invalid-seq",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3.5,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowedSeqs[1] must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-invalid-seq",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3.5,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowedSeqs[1] must be a non-negative safe integer event seq"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-negative-zero",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": -0.0,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedEnvelopeError": "session event \"compaction/summary\" carries non-JSON-serializable data"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-negative-zero",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": -0.0,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedEnvelopeError": "session event \"compaction/prune\" carries non-JSON-serializable data"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-valid",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        }
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-summary-replaced-span",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-replacement",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier replacement"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": {
+          "op": "replace",
+          "start": 2,
+          "end": 4
+        },
+        "sourceEventSeqs": [
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/summary",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/summary shadowed seqs must name an earlier current surface span"
+      }
+    ]
+  },
+  {
+    "mode": "invariant-rc1-prune-replaced-span",
+    "kind": "invariant",
+    "prefix": [
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-0",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 0"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 1"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 2"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-3",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 3"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-4",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier 4"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": "append"
+      },
+      {
+        "type": "user/message",
+        "data": {
+          "id": "prefix-replacement",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "earlier replacement"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        },
+        "surfaceOp": {
+          "op": "replace",
+          "start": 2,
+          "end": 4
+        },
+        "sourceEventSeqs": [
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "compaction/start",
+        "data": {
+          "compactionId": "fixture",
+          "turn": null
+        }
+      },
+      {
+        "type": "compaction/prune",
+        "data": {
+          "compactionId": "fixture",
+          "summary": [
+            {
+              "type": "text",
+              "text": "short"
+            }
+          ],
+          "shadowedRange": {
+            "start": 2,
+            "end": 4
+          },
+          "shadowedSeqs": [
+            2,
+            3,
+            4
+          ],
+          "shadowedTokenCount": 12,
+          "provider": "mock",
+          "model": "mock"
+        },
+        "expectedError": "compaction/prune shadowed seqs must name an earlier current surface span"
       }
     ]
   }

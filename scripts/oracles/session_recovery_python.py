@@ -12,7 +12,7 @@ async def observe():
     fixtures = json.loads(Path(__file__).with_name('session-recovery-fixtures.json').read_text(encoding='utf-8'))
     for fixture in fixtures:
         with tempfile.TemporaryDirectory() as root:
-            p = JsonlSessionPersistence(root)
+            p = JsonlSessionPersistence(root, compression='none')
             meta = SessionHeader.from_dict(dict(id=fixture['mode'], version=0, createdAt=1, delegationDepth=0, isSeeded=False))
             path = Path(p.locate(meta).path)
             path.parent.mkdir(parents=True, exist_ok=True)

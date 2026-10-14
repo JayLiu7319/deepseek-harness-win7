@@ -10,6 +10,7 @@ import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
 import * as SessionInvariant from '@deepseek-ai/dsh-session/invariant'
 import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import ToolResultPruner, { DEFAULTS, PRUNE_MARKER, codePointLength, resolveConfig } from '@deepseek-ai/dsh-compaction-tool-result-pruner'
 
 const SMALL = { thresholdChars: 50, headChars: 4, tailChars: 3 }
@@ -94,6 +95,8 @@ async function loaderObservation(ctx: Context, spec: any): Promise<any> {
 async function observe(spec: any): Promise<any> {
   const ctx = new Context()
   try {
+    await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     if (spec.kind === 'loader') return await loaderObservation(ctx, spec)
     if (spec.kind === 'config') {
       const raw = { ...spec.config }
@@ -105,7 +108,6 @@ async function observe(spec: any): Promise<any> {
       } catch (error) { return { mode: spec.mode, error: (error as Error).message } }
     }
     if (spec.recipe === 'invariants') {
-      await ctx.plugin(SessionStore)
       await ctx.plugin(InvariantRegistry)
       await ctx.plugin(SessionInvariant)
     }

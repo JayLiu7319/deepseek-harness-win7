@@ -15,6 +15,7 @@ from dsh.core.abort import AbortController
 from dsh.core.session import SessionPlugin, Session
 from dsh.core.session.json import FrozenDict, FrozenList
 from dsh.llm.token_meter import TokenMeter
+from dsh.session.projections import SessionProjectionsPlugin
 from dsh.llm.llm_service import LLMService
 from dsh.compaction.command_compact import CommandCompactPlugin
 from dsh.interaction.commands import CommandsPlugin
@@ -184,6 +185,7 @@ async def transaction(spec):
     ctx = Context()
     try:
         await ctx.plugin(SessionPlugin)
+        await ctx.plugin(SessionProjectionsPlugin)
         meter = TokenMeter(ctx)
         session = ctx.get('sessions').create()
         session.append_user_message('important facts ' * 300)
@@ -301,6 +303,7 @@ async def observe():
         ctx = Context()
         try:
             await ctx.plugin(SessionPlugin)
+            await ctx.plugin(SessionProjectionsPlugin)
             llm = Llm(spec)
             runtime = LLMService(ctx)
             ctx.set_service('llm', runtime)

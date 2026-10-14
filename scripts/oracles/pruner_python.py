@@ -17,6 +17,7 @@ from dsh.core.session.invariant import SessionInvariantPlugin
 from dsh.core.session.json import FrozenDict
 from dsh.diagnostics.invariants import InvariantRegistry
 from dsh.llm.token_meter import TokenMeter, TokenMeterPlugin
+from dsh.session.projections import SessionProjectionsPlugin
 
 SMALL = dict(thresholdChars=50, headChars=4, tailChars=3)
 
@@ -117,6 +118,8 @@ async def loader_observation(ctx, spec):
 async def observe(spec):
     ctx = Context()
     try:
+        await ctx.plugin(SessionPlugin)
+        await ctx.plugin(SessionProjectionsPlugin)
         if spec['kind'] == 'loader':
             return await loader_observation(ctx, spec)
         if spec['kind'] == 'config':
@@ -130,7 +133,6 @@ async def observe(spec):
             except Exception as error:
                 return dict(mode=spec['mode'], error=str(error))
         if spec.get('recipe') == 'invariants':
-            await ctx.plugin(SessionPlugin)
             await ctx.plugin(InvariantRegistry)
             await ctx.plugin(SessionInvariantPlugin)
         meter = TokenMeter(ctx)

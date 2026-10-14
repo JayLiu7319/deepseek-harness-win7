@@ -5,6 +5,7 @@ import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
 import { LlmRuntime, LlmAdapter, createUserMessage, createMessage, errorChain } from '@deepseek-ai/dsh-llm'
 import { build as buildErrorGraph } from './error_chain_fixtures.ts'
 import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
 import { resolveConfig, resolveTargetPolicy, resolveCompactSpec } from '../../reference/packages/compaction/compaction-basic/src/config.ts'
 import { compactSurfaceRegion } from '../../reference/packages/compaction/compaction-basic/src/region.ts'
@@ -124,6 +125,7 @@ async function transaction(spec: any): Promise<any> {
   const ctx = new Context()
   try {
     await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(TokenMeter)
     const session = ctx.sessions.create()
     session.append('user/message', createUserMessage({ content: [{ type: 'text', text: 'important facts '.repeat(300) }], source: { kind: 'user' } }), { surfaceOp: 'append' })
@@ -254,6 +256,7 @@ it('observes pinned compaction policies and real routed transactions', async () 
     try {
       await ctx.plugin(SessionStore)
       await ctx.plugin(LlmRuntime)
+      await ctx.plugin(SessionProjectionRegistry)
       await ctx.plugin(TokenMeter)
       const adapter = new Adapter(spec.window === undefined || spec.window === 'measured' ? 1000 : spec.window, spec)
       ctx.llm.registerAdapter(['routed', 'summary-p'], adapter)

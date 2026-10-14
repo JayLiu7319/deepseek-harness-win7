@@ -28,6 +28,24 @@ const requestDetails = new Map();
 let phase = 'startup';
 let networkChanged = Date.now();
 const delay = ms => new Promise(done => setTimeout(done, ms));
+async function assertWithdrawnRemote(result) {
+  assert.equal(result.ok, false);
+  const message = 'typert gateway: ' + rpcEndpoint + ': strict definition was withdrawn and SRC fallback is forbidden';
+  await Promise.all([...replyJobs]);
+  const reply = report.replies.findLast(row => row.request.method === rpcEndpoint);
+  assert.deepEqual(reply.response.result, {ok: false, error: {
+    code: 'gateway/definition-unavailable', message, details: {endpoint: rpcEndpoint},
+  }});
+  if (report.exported) {
+    assert.equal(result.error.message, 'gateway/definition-unavailable: ' + message);
+    return;
+  }
+  const {code, details, isDSHRemoteError, name} = result.error;
+  assert.deepEqual({code, details, isDSHRemoteError, name}, {
+    code: 'gateway/definition-unavailable', details: {endpoint: rpcEndpoint},
+    isDSHRemoteError: true, name: 'RemoteError',
+  });
+}
 async function until(read, label, timeout = 20000) {
   const end = Date.now() + timeout;
   while (Date.now() < end) { const value = await read(); if (value) return value; await delay(100); }
@@ -181,7 +199,8 @@ async function sessionJourney(boot) {
   report.steps.push({step: 'page-reload-restores-selected-session-with-preset-host-retained', passed: true});
   await command('unload');
   await click('[data-python-web-echo-call]');
-  await until(() => cdp.evaluate(`(() => {try {const v=JSON.parse(document.querySelector('[data-python-web-echo-result]')?.textContent); return v.ok === false && /strict definition was withdrawn/.test(v.error.message);} catch {return false;}})()`), 'withdrawn Session bridge rejects retained Client');
+  const withdrawn = await until(() => cdp.evaluate(`(() => {try {const v=JSON.parse(document.querySelector('[data-python-web-echo-result]')?.textContent); return v.ok === false && v;} catch {return false;}})()`), 'withdrawn Session bridge rejects retained Client');
+  await assertWithdrawnRemote(withdrawn);
   await reloadPage();
   await until(async () => !await count('[data-python-web-echo]') && await count('[class*="frame"]'), 'no Session Client after bridge graph withdrawal');
   report.steps.push({step: 'bridge-withdrawal-forbids-src-fallback-and-reload-removes-client', passed: true});
@@ -415,7 +434,7 @@ try {
   assert.equal(await count('[data-python-web-echo]'), 1);
   await click('[data-python-web-echo-call]');
   const rejected = await until(() => cdp.evaluate(`(() => {try {const value=JSON.parse(document.querySelector('[data-python-web-echo-result]')?.textContent); return value.ok === false && value;} catch {return false;}})()`), 'retained Client rejected after Host withdrawal');
-  assert.match(JSON.stringify(rejected), /strict definition was withdrawn/);
+  await assertWithdrawnRemote(rejected);
   assert.equal((await command('snapshot')).calls, null);
   report.steps.push({ step: 'host-unload-withdraws-strict-remote-retained-client-call-rejected', passed: true });
   await reloadPage();

@@ -88,17 +88,17 @@ it('observes routed provider lifecycles and detached durable cuts', async () => 
     contexts.push(cut)
     const session = cut.sessions.create(SessionId('cut'))
     append(session, 1)
-    await until(() => cut.sessionProjectionCache.cachedSnapshot(session.header) !== undefined)
-    const creation = cut.sessionProjectionCache.cachedSnapshot(session.header)
+    await until(() => cut.sessionProjectionCache.cachedSnapshot(session.header, session.inheritedEventCount) !== undefined)
+    const creation = cut.sessionProjectionCache.cachedSnapshot(session.header, session.inheritedEventCount)
     const pending = cut.sessionProjectionCache.write(session)
     append(session, 2)
     await pending
-    rows.push({mode: 'call-cut', creation, written: cut.sessionProjectionCache.cachedSnapshot(session.header)})
+    rows.push({mode: 'call-cut', creation, written: cut.sessionProjectionCache.cachedSnapshot(session.header, session.inheritedEventCount)})
 
     const threshold = await cacheContext(join(root, 'threshold'), 3)
     contexts.push(threshold)
     const counted = threshold.sessions.create(SessionId('threshold'))
-    await until(() => threshold.sessionProjectionCache.cachedSnapshot(counted.header) !== undefined)
+    await until(() => threshold.sessionProjectionCache.cachedSnapshot(counted.header, counted.inheritedEventCount) !== undefined)
     const changes: any[] = []
     threshold.on('domain/changed', change => {
       if (change.domain === 'session_projcache' && change.key === counted.id && change.operation === 'put') {
@@ -112,7 +112,7 @@ it('observes routed provider lifecycles and detached durable cuts', async () => 
     const invalid = await cacheContext(join(root, 'invalid'))
     contexts.push(invalid)
     const bad = invalid.sessions.create(SessionId('invalid'))
-    await until(() => invalid.sessionProjectionCache.cachedSnapshot(bad.header) !== undefined)
+    await until(() => invalid.sessionProjectionCache.cachedSnapshot(bad.header, bad.inheritedEventCount) !== undefined)
     const unregister = invalid.sessionProjections.register({
       key: 'invalid', stateVersion: 1, stateSchema: z.custom(() => true),
       init: () => new Set(['not-json']), apply: (state: unknown) => state,
@@ -124,7 +124,7 @@ it('observes routed provider lifecycles and detached durable cuts', async () => 
     append(bad, 1)
     await invalid.sessionProjectionCache.write(bad)
     rows.push({mode: 'non-json', rejected, invalidPersisted: 'invalid' in document.record.rows,
-      recovered: invalid.sessionProjectionCache.cachedSnapshot(bad.header)})
+      recovered: invalid.sessionProjectionCache.cachedSnapshot(bad.header, bad.inheritedEventCount)})
     await writeFile(process.env.STORAGE_CACHE_OUTPUT!, JSON.stringify(rows, null, 2) + '\n')
   } finally {
     for (const ctx of contexts.reverse()) await ctx.fiber.dispose()
