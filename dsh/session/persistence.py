@@ -6,6 +6,8 @@ import asyncio
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 from dsh.core.session import SessionHeader
+from dsh.core.session.json import UNDEFINED
+from dsh.core.session.types import SessionLogOffset
 
 
 class SessionFormatUnsupportedError(ValueError):
@@ -33,11 +35,26 @@ class SessionLocation:
         return {"kind": self.kind, "path": self.path}
 
 
-class SessionInspection:
+class SessionStorageMetadata:
+    """Logical metadata paired with the exact persisted inheritance cut."""
+    def __init__(self, meta: SessionHeader, inherited_event_count: Any):
+        self.meta = meta
+        self.inherited_event_count = SessionLogOffset(inherited_event_count)
+
+    @property
+    def inheritedEventCount(self) -> int:
+        return self.inherited_event_count
+
+
+class SessionInspection(SessionStorageMetadata):
     """Immutable logical session inspection result."""
 
-    def __init__(self, meta: SessionHeader, events: List[Dict[str, Any]]):
-        self.meta = meta
+    def __init__(self, meta: SessionHeader, events: List[Dict[str, Any]], inherited_event_count: Any = UNDEFINED):
+        if inherited_event_count is UNDEFINED:
+            if meta.isSeeded is True:
+                raise ValueError('seeded session inspection requires an inherited event count')
+            inherited_event_count = meta.seedLength or 0
+        super().__init__(meta, inherited_event_count)
         self.events = events
 
 
@@ -104,7 +121,8 @@ class SessionPersistence(ABC):
         from dsh.core.session.preparation import SessionPreparation
         inspection = await self.load(session_id)
         return SessionPreparation.create(Session.from_restore(
-            session_id=session_id, seed=inspection.events, header=inspection.meta, ctx=self.ctx))
+            session_id=session_id, seed=inspection.events, header=inspection.meta, ctx=self.ctx,
+            inherited_event_count=inspection.inheritedEventCount if inspection.meta.isSeeded is not UNDEFINED else UNDEFINED))
 
     async def borrowSession(self, session_id, signal=None):
         return await self.prepared().borrow(session_id, signal)

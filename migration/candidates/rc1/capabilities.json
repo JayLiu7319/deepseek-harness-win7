@@ -13554,7 +13554,9 @@
       ],
       "rc1_bounded_paired_cases": [
         "positions",
-        "indexed"
+        "indexed",
+        "lineage",
+        "strictHeaders"
       ],
       "parity": "not-certified-by-inventory",
       "evidence_scope": "Loader provider and alpha contract discovery require rc1 requalification; listed candidate paired cases cover only their observations",
@@ -23656,7 +23658,9 @@
         "CON-SESSION-LIVE-WRITES",
         "CON-SESSION-SNAPSHOTS"
       ],
-      "rc1_bounded_paired_cases": [],
+      "rc1_bounded_paired_cases": [
+        "storageLineage"
+      ],
       "parity": "not-certified-by-inventory",
       "evidence_scope": "Loader provider and alpha contract discovery require rc1 requalification; listed candidate paired cases cover only their observations",
       "gap": "Requalify changed provider, consumers and source tests",
@@ -23966,7 +23970,8 @@
       ],
       "rc1_bounded_paired_cases": [
         "changes",
-        "checkpoint"
+        "checkpoint",
+        "projectionLineage"
       ],
       "parity": "not-certified-by-inventory",
       "evidence_scope": "Loader provider and alpha contract discovery require rc1 requalification; listed candidate paired cases cover only their observations",

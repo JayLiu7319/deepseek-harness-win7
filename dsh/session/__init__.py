@@ -1,5 +1,6 @@
 from dsh.session.persistence import (
     SessionInspection,
+    SessionStorageMetadata,
     SessionLocation,
     SessionPersistence,
     SessionPersistenceSnapshot,
@@ -27,6 +28,7 @@ from dsh.session import checkpoint_policy_invariant
 __all__ = [
     "SessionLocation",
     "SessionInspection",
+    "SessionStorageMetadata",
     "SessionPersistenceSnapshot",
     "SessionPersistence",
     "JsonlSessionPersistence",

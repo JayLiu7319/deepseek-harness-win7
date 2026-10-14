@@ -84,7 +84,7 @@ class JsonlSessionPersistence(SessionPersistence):
     async def _inspect_unshared(self, identity):
         live = self._live_session(identity)
         if live is not None:
-            return SessionInspection(live.header, list(live.events))
+            return SessionInspection(live.header, list(live.events), live.inheritedEventCount)
         stored = await self.store.load_stored(identity)
         inspection, closers = self._validate_cold(stored, identity)
         inspection.events.extend(closers)
@@ -98,7 +98,7 @@ class JsonlSessionPersistence(SessionPersistence):
                 await self._live_writes.flush(live)
             if interrupted_turn_closers(events):
                 raise ValueError('cannot load session while its live turn is open')
-            return SessionInspection(live.header, events)
+            return SessionInspection(live.header, events, live.inheritedEventCount)
         stored = await self.store.load_stored(identity)
         inspection, closers = self._validate_cold(stored, identity)
         if 'tornMarker' in stored or closers:

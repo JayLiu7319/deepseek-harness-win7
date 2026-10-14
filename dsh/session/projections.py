@@ -1,5 +1,6 @@
 """Pinned session projection drive; keyword registration adapts older domains."""
 import copy
+import inspect
 import math
 from typing import Any, Callable, Dict, Optional
 from weakref import WeakKeyDictionary
@@ -83,11 +84,24 @@ class SessionProjectionRegistry(Service):
             # Older domains supplied descriptive JSON schemas, not state parsers.
             # Canonical definitions below always use their executable parsers.
             definition = dict(key=key, stateSchema=lambda value: value,
-                              init=lambda header: init(), apply=apply,
+                              init=lambda header, inherited_event_count: init(), apply=apply,
                               stateVersion=state_version)
             if view is not None:
                 definition["wire"] = dict(view=view, viewSchema=lambda value: value)
         definition = dict(definition)
+        initializer = definition["init"]
+        try:
+            signature = inspect.signature(initializer)
+        except (TypeError, ValueError):
+            signature = None
+        if signature is not None:
+            try:
+                signature.bind(None, 0)
+            except TypeError:
+                # Explicit adapter for historical one-header definitions. Do
+                # not catch an initializer's own TypeError while invoking it.
+                signature.bind(None)
+                definition["init"] = lambda header, cut: initializer(header)
         key, version = definition["key"], definition["stateVersion"]
         if type(version) is not int or not 0 <= version <= 9007199254740991:
             raise ValueError('session projection %r stateVersion must be a non-negative integer' % key)
@@ -128,10 +142,11 @@ class SessionProjectionRegistry(Service):
         if session.seq == 0:
             for registration in self._registrations.values():
                 if session not in registration.cells:
-                    registration.cells[session] = UnitCell(registration.definition["init"](session.header))
+                    registration.cells[session] = UnitCell(registration.definition["init"](
+                        session.header, session.inheritedEventCount))
 
-    def _build(self, definition, header, events):
-        state = definition["init"](header)
+    def _build(self, definition, header, events, inherited_event_count):
+        state = definition["init"](header, inherited_event_count)
         for event in events:
             state = definition["apply"](state, event)
         return UnitCell(state, events[-1]["seq"] if events else -1)
@@ -149,7 +164,7 @@ class SessionProjectionRegistry(Service):
     def _cell(self, registration, session):
         cell = registration.cells.get(session)
         if cell is None:
-            cell = self._build(registration.definition, session.header, session.events)
+            cell = self._build(registration.definition, session.header, session.events, session.inheritedEventCount)
             registration.cells[session] = cell
         else:
             self._advance(registration.definition, cell, session.events, session.seq - 1)
@@ -170,7 +185,7 @@ class SessionProjectionRegistry(Service):
             if cell is not None and cell.observed_seq >= seq:
                 continue
             if cell is None:
-                cell = self._build(registration.definition, session.header, session.events[:seq])
+                cell = self._build(registration.definition, session.header, session.events[:seq], session.inheritedEventCount)
                 registration.cells[session] = cell
             else:
                 self._advance(registration.definition, cell, session.events, seq - 1)
@@ -259,7 +274,13 @@ class SessionProjectionRegistry(Service):
 
     viewCheckpoint = view_checkpoint
 
-    def restore(self, checkpoint, events, base_seq, header):
+    def restore(self, checkpoint, events, base_seq, header, inherited_event_count=UNDEFINED):
+        if inherited_event_count is UNDEFINED:
+            seeded = header.get('isSeeded', False) if isinstance(header, dict) else getattr(header, 'isSeeded', False)
+            if seeded is True:
+                raise ValueError('seeded projection restore requires an inherited event count')
+            inherited_event_count = (header.get('seedLength', 0) if isinstance(header, dict)
+                                     else getattr(header, 'seedLength', 0)) or 0
         end_seq = events[-1]["seq"] if events else base_seq - 1
         values, refreshed = {}, {}
         for key, registration in self._registrations.items():
@@ -271,7 +292,8 @@ class SessionProjectionRegistry(Service):
                 raise ValueError('session projection %r cannot restore from seq %s: '
                                  'its checkpoint row is missing, version-mismatched, or beyond '
                                  'the supplied log end; re-read from seq 0' % (key, base_seq))
-            state = _parse(definition["stateSchema"], row["val"]) if usable else definition["init"](header)
+            state = (_parse(definition["stateSchema"], row["val"]) if usable
+                     else definition["init"](header, inherited_event_count))
             start = row["seq"] - base_seq + 1 if usable else 0
             for index in range(start, len(events)):
                 event = events[index]
@@ -291,7 +313,7 @@ class SessionProjectionRegistry(Service):
                 key: self._view(registration, registration.cells[session])
                 for key, registration in self._registrations.items()
                 if registration.definition.get("wire") is not None})
-        restored = self.restore(checkpoint, events, base_seq, session.header)
+        restored = self.restore(checkpoint, events, base_seq, session.header, session.inheritedEventCount)
         for key, registration in self._registrations.items():
             row = restored["checkpoint"][key]
             current = registration.cells.get(session)

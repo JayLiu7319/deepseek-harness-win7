@@ -26,7 +26,8 @@ async function load(path: string) {
 const { activeAtToken, formatFileMention } = await load('packages/context/file-reference/src/grammar.ts')
 const { WorkspaceFileSearch, DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES } = await load('packages/context/file-reference-local/src/search.ts')
 const { turnOutlineProjectionDefinition: definition } = await load('packages/session/session-turn-outline/src/projection.ts')
-const { SessionSeq, SessionLogOffset, SessionStore } = await load('packages/core/session/src/index.ts')
+const { Session, SessionSeq, SessionLogOffset, SessionStore } = await load('packages/core/session/src/index.ts')
+const { toHeaderLine, parseHeader, scanLog } = await load('packages/session/session-persistence-jsonl/src/format.ts')
 const { SessionProjectionRegistry } = await load('packages/session/session-projection/src/index.ts')
 const { default: SystemPrompt } = await load('packages/core/system-prompt/src/index.ts')
 const require = createRequire(join(source, 'packages/core/system-prompt/package.json'))
@@ -36,6 +37,38 @@ const observations: any = {
   mentions: input.mentions.map((row: any) => formatFileMention(row.candidate, row.quote) ?? null),
   searches: [], positions: [], outline: [], changes: [], orders: {},
   searchLimits: [],
+  lineage: [], storageLineage: [], strictHeaders: [],
+}
+function scalar(token: string) {
+  return token === '-0' ? -0 : token === 'NaN' ? NaN : token === 'Infinity' ? Infinity : JSON.parse(token)
+}
+for (const row of input.lineage) {
+  try {
+    const cut = row.cut === undefined ? undefined : scalar(row.cut)
+    const session = row.mode === 'restore'
+      ? Session.fromRestore(row.header.id, row.seed, row.header, cut)
+      : Session.create(row.header.id, row.seed, row.header, cut)
+    const owned = session.ownEvents()
+    observations.lineage.push({ header: session.header, firstLiveSeq: session.firstLiveSeq,
+      inheritedEventCount: session.inheritedEventCount, seq: session.seq, owned,
+      ownPositions: [-1, 0, 1, 2, 3, session.seq].map(seq => session.isOwnSeq(seq)) })
+  } catch (error: any) { observations.lineage.push({ error: error.message }) }
+}
+for (const row of input.storageLineage) {
+  try {
+    const physical = row.physical ?? toHeaderLine(row.header, row.cut === undefined ? undefined : scalar(row.cut))
+    const line = JSON.stringify(physical)
+    const parsed = parseHeader(line)
+    const scanned = scanLog(Buffer.from(line + '\n'))
+    observations.storageLineage.push({ physical, parsed: parsed ?? null,
+      scanned: { meta: scanned.meta, inheritedEventCount: scanned.inheritedEventCount } })
+  } catch (error: any) { observations.storageLineage.push({ error: error.message }) }
+}
+for (const row of input.strictHeaders) {
+  const header = { ...row }
+  if (header.seedLength === 'UNDEFINED') header.seedLength = undefined
+  try { observations.strictHeaders.push({ header: Session.fromRestore('child', [], header, 0).header }) }
+  catch (error: any) { observations.strictHeaders.push({ error: error.message }) }
 }
 const search = new WorkspaceFileSearch(input.workspace, {
   maxResults: 20, maxEntries: 50000, excludedDirectories: DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES,
@@ -84,5 +117,20 @@ try {
   for (const name of input.sectionNames) observations.orders[name] = ctx.systemPrompt.getSectionOrder(name)
   for (const name of input.contextNames) observations.orders[name] = ctx.systemPrompt.getContextOrder(name)
   observations.checkpoint = ctx.sessionProjections.checkpoint(session)
+  ctx.sessionProjections.register({ key: 'lineageProbe', stateVersion: 1,
+    stateSchema: { parse: (value: any) => value },
+    init: (_header: any, cut: number) => ({ cut, own: [] }),
+    apply: (state: any, event: any) => event.seq < state.cut ? state : { cut: state.cut, own: [...state.own, event.seq] },
+    wire: { view: (state: any) => state, viewSchema: { parse: (value: any) => value } },
+  })
+  const child = Session.create('lineage-child', input.lineage[1].seed,
+    { ...input.lineage[1].header, id: 'lineage-child' }, SessionLogOffset(2))
+  const checkpoint = ctx.sessionProjections.checkpoint(child)
+  child.append('probe/owned', {})
+  observations.projectionLineage = {
+    initial: checkpoint.lineageProbe,
+    full: ctx.sessionProjections.restore({}, child.snapshotEvents(), 0, child.header, child.inheritedEventCount),
+    tail: ctx.sessionProjections.restore(checkpoint, child.snapshotEvents(SessionLogOffset(4)), 4, child.header, child.inheritedEventCount),
+  }
 } finally { await ctx.fiber.dispose() }
 await writeFile(outputPath, JSON.stringify({ pin, node: process.version, inputSha256: createHash('sha256').update(bytes).digest('hex'), imported, observations }, null, 2) + '\n', { flag: 'wx' })

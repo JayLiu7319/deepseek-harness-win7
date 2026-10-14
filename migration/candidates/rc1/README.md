@@ -6,7 +6,7 @@
 
 本批已经实现差分观察器修复、路径引用服务、公共提示词顺序 API 及消费者、新轮次摘要和 raw-view 通知门控、seq/offset 数值准入及索引读取。完整 Session 逻辑 header/继承切分、持久化和其他调用消费者仍需闭包；生产 `reference`、`baseline.json` 和官方 Web 产物尚未切换。轮次摘要已经可以通过 Loader 显式安装，未向 alpha 默认组合增加未来版本行。
 
-方案见 [行动评估](../../../docs/research/2026-10-14-rc1-baseline-and-capability-action-plan.md)，结果和证据边界见 [首批推进记录](../../../docs/research/2026-10-14-rc1-bootstrap-progress.md)。
+方案见 [行动评估](../../../docs/research/2026-10-14-rc1-baseline-and-capability-action-plan.md)，结果和证据边界见 [首批推进记录](../../../docs/research/2026-10-14-rc1-bootstrap-progress.md) 和 [继承切分推进记录](../../../docs/research/2026-10-14-rc1-session-lineage-progress.md)。后者交付显式新 metadata 的精确 cut、ownEvents/isOwnSeq、JSONL 边界、preparation/projection 消费和 ignorable 保留；默认入口、canonical decode 和全部 query/Remote 等消费者尚待统一切换。
 
 候选清单可以在另一个干净的 rc.1 checkout 重建；输出必须选择新路径，以免覆盖已有观察：
 

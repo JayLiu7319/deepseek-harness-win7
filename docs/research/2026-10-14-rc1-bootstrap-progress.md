@@ -46,4 +46,4 @@ rc.1 **逻辑** `SessionHeader` 禁止 `seedLength`，要求 `isSeeded:boolean`�
 
 现有 JSONL 优先在 decode 边界转换，不提前批量改写文件。需要闭合 seeded/unseeded、0/负零/超长 cut、fork/end-seed、准备/恢复、冷历史/查询、projection init/restore、Remote、SDK/ACP 和子代理；旧 SQLite 数据及历史证据保留，独立确定兼容 reader/export，再退休 canonical 旧包名。
 
-下一批见 [候选行动台账](../../migration/candidates/rc1/actions.json) 和 [候选区说明](../../migration/candidates/rc1/README.md)。A02 正式 pin/台账换代、A03/A04 剩余契约、A06 原版资源导入和 rc.1 深历史导航、A08 稳定候选完整门禁仍待完成。旧 86 项 integrated 继续描述历史冻结候选，不作为 rc.1 完成证明。
+后续继承切分批次见 [Session 推进记录](2026-10-14-rc1-session-lineage-progress.md)、[候选行动台账](../../migration/candidates/rc1/actions.json) 和 [候选区说明](../../migration/candidates/rc1/README.md)。A02 正式 pin/台账换代、A03/A04 剩余契约、A06 原版资源导入和 rc.1 深历史导航、A08 稳定候选完整门禁仍待完成。旧 86 项 integrated 继续描述历史冻结候选，不作为 rc.1 完成证明。

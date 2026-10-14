@@ -66,8 +66,9 @@ def generate(source):
         '@deepseek-ai/dsh-file-reference': ['grammar', 'mentions'],
         '@deepseek-ai/dsh-file-reference-local': ['searches', 'searchLimits'],
         '@deepseek-ai/dsh-session-turn-outline': ['outline', 'changes', 'checkpoint'],
-        '@deepseek-ai/dsh-session-projection': ['changes', 'checkpoint'],
-        '@deepseek-ai/dsh-session': ['positions', 'indexed'],
+        '@deepseek-ai/dsh-session-projection': ['changes', 'checkpoint', 'projectionLineage'],
+        '@deepseek-ai/dsh-session': ['positions', 'indexed', 'lineage', 'strictHeaders'],
+        '@deepseek-ai/dsh-session-persistence-jsonl': ['storageLineage'],
         '@deepseek-ai/dsh-system-prompt': ['orders'],
     }
     for row in manifests:

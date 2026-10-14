@@ -5,6 +5,7 @@ import hashlib
 import json
 from types import SimpleNamespace
 from dsh.core.session import Session
+from dsh.core.session.json import UNDEFINED
 from dsh.core.session.preparation import SessionPreparation
 from dsh.session.preparations import SessionPreparations, throw_aborted, observe_queued_abort
 
@@ -42,7 +43,9 @@ class PreparedPersistence:
             after = await self.revision(sid)
             if before == after:
                 session = Session.from_restore(session_id=sid, seed=copy.deepcopy(inspection.events),
-                                               header=inspection.meta, ctx=self.backend.ctx)
+                                               header=inspection.meta, ctx=self.backend.ctx,
+                                               inherited_event_count=(inspection.inheritedEventCount
+                                                   if inspection.meta.isSeeded is not UNDEFINED else UNDEFINED))
                 return SimpleNamespace(session=session, inspection=inspection, revision=after,
                                        length=len(session.events))
 
@@ -63,7 +66,7 @@ class PreparedPersistence:
         from dsh.session.persistence import SessionInspection
         def live_view(live):
             return SimpleNamespace(source='live', inspection=SessionInspection(
-                live.header, tuple(live.events)), dispose=lambda: None)
+                live.header, tuple(live.events), live.inheritedEventCount), dispose=lambda: None)
         while True:
             await self._retired(sid, signal)
             live = self._live(sid)
@@ -147,7 +150,8 @@ class PreparedPersistence:
                 if reservation.source.session is None:
                     view = reservation.source.inspection
                     reservation.source.session = Session.from_restore(session_id=sid,
-                        seed=view.events, header=view.meta, ctx=self.backend.ctx)
+                        seed=view.events, header=view.meta, ctx=self.backend.ctx,
+                        inherited_event_count=view.inheritedEventCount if view.meta.isSeeded is not UNDEFINED else UNDEFINED)
                     reservation.source.length = len(reservation.source.session.events)
             except BaseException:
                 self.pool.release(reservation, False)

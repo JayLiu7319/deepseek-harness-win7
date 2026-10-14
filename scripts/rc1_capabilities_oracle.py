@@ -29,12 +29,49 @@ async def native(inputs):
     from dsh.cordis.context import Context
     from dsh.context.file_reference import active_at_token, format_file_mention
     from dsh.context.file_reference_local.search import WorkspaceFileSearch
-    from dsh.core.session import SessionStore, SessionSeq, SessionLogOffset
+    from dsh.core.session import Session, SessionStore, SessionSeq, SessionLogOffset
+    from dsh.core.session.types import validate_rc1_session_header
+    from dsh.session.lineage_storage import to_header_line, parse_header, parse_header_record
     from dsh.core.session.json import UNDEFINED
     from dsh.core.system_prompt import SystemPrompt
     from dsh.session.projections import SessionProjectionRegistry
     from dsh.session.turn_outline import TURN_OUTLINE_DEFINITION
     rows = dict(grammar=[], mentions=[], searches=[], positions=[], outline=[], changes=[], orders={})
+    def scalar(token):
+        return -0.0 if token == '-0' else json.loads(token)
+    rows['lineage'] = []
+    for row in inputs['lineage']:
+        try:
+            cut = scalar(row['cut']) if 'cut' in row else UNDEFINED
+            constructor = Session.fromRestore if row.get('mode') == 'restore' else Session.create
+            session = constructor(row['header']['id'], row.get('seed'), row['header'], cut)
+            rows['lineage'].append(dict(header=session.header.to_dict(), firstLiveSeq=session.firstLiveSeq,
+                inheritedEventCount=session.inheritedEventCount, seq=session.seq, owned=session.ownEvents(),
+                ownPositions=[session.isOwnSeq(seq) for seq in (-1, 0, 1, 2, 3, session.seq)]))
+        except (ValueError, TypeError) as error:
+            rows['lineage'].append(dict(error=str(error)))
+    rows['storageLineage'] = []
+    for row in inputs['storageLineage']:
+        try:
+            physical = row['physical'] if 'physical' in row else to_header_line(
+                row['header'], scalar(row['cut']) if 'cut' in row else UNDEFINED)
+            line = json.dumps(physical)
+            parsed = parse_header(line)
+            scanned = parse_header_record((line + '\n').encode('utf-8'))
+            rows['storageLineage'].append(dict(physical=physical,
+                parsed=None if parsed is None else dict(meta=parsed.meta.to_dict(), inheritedEventCount=parsed.inheritedEventCount),
+                scanned=dict(meta=scanned.meta.to_dict(), inheritedEventCount=scanned.inheritedEventCount)))
+        except (ValueError, TypeError) as error:
+            rows['storageLineage'].append(dict(error=str(error)))
+    rows['strictHeaders'] = []
+    for row in inputs['strictHeaders']:
+        header = dict(row)
+        if header.get('seedLength') == 'UNDEFINED':
+            header['seedLength'] = UNDEFINED
+        try:
+            rows['strictHeaders'].append(dict(header=validate_rc1_session_header('child', header).to_dict()))
+        except (ValueError, TypeError) as error:
+            rows['strictHeaders'].append(dict(error=str(error)))
     for row in inputs['tokens']:
         token = active_at_token(row['line'], row['cursor'])
         rows['grammar'].append(token.to_dict() if token else None)
@@ -92,6 +129,17 @@ async def native(inputs):
         rows['orders'].update((name, prompt.getSectionOrder(name)) for name in inputs['sectionNames'])
         rows['orders'].update((name, prompt.getContextOrder(name)) for name in inputs['contextNames'])
         rows['checkpoint'] = registry.checkpoint(session)
+        registry.register(dict(key='lineageProbe', stateVersion=1, stateSchema=lambda value: value,
+            init=lambda _header, cut: dict(cut=cut, own=[]),
+            apply=lambda state, event: state if event['seq'] < state['cut'] else dict(cut=state['cut'], own=state['own'] + [event['seq']]),
+            wire=dict(view=lambda state: state, viewSchema=lambda value: value)))
+        child = Session.create('lineage-child', inputs['lineage'][1]['seed'],
+                               dict(inputs['lineage'][1]['header'], id='lineage-child'), 2)
+        checkpoint = registry.checkpoint(child)
+        child.append('probe/owned', {})
+        rows['projectionLineage'] = dict(initial=checkpoint['lineageProbe'],
+            full=registry.restore({}, child.snapshotEvents(), 0, child.header, child.inheritedEventCount),
+            tail=registry.restore(checkpoint, child.snapshotEvents(4), 4, child.header, child.inheritedEventCount))
     finally:
         await ctx.fiber.dispose()
     return rows
@@ -127,6 +175,29 @@ def main():
                 ('plain.py', 'file', True), ('bad".py', 'file', False), ('a\ufeffb', 'file', False)]],
             positions=['0', '1', '1.0', '9007199254740991', '-0', '-1', '1.5', 'true', 'null', '"0"', 'NaN', 'Infinity', '9007199254740992'],
             sectionNames=list(FIRST_PARTY_SECTION_ORDER), contextNames=['SANDBOX_POLICY', 'APPROVAL_POLICY', 'SUBAGENT_DELEGATION'], events=[])
+        base = [dict(type='turn/start', seq=0, time=1, data=dict(turn=1)),
+                dict(type='turn/end', seq=1, time=2, data=dict(turn=1, reason=dict(kind='completed')))]
+        suffix = base + [dict(type='session/end-seed', seq=2, time=3, data={}),
+                        dict(type='request/context', seq=3, time=4, data=dict(provider='provider', model='model'))]
+        meta = dict(version=0, id='child', createdAt=1, isSeeded=True)
+        inputs['lineage'] = [dict(header=meta, seed=base, cut='2'), dict(header=meta, seed=suffix, cut='2'),
+            dict(header=meta, seed=suffix, cut='2', mode='restore'), dict(header=meta, seed=[], cut='0'),
+            dict(header=dict(meta, isSeeded=False), seed=[], cut='0'), dict(header=meta, cut='0'),
+            dict(header=meta, seed=[]), dict(header=dict(meta, isSeeded=False), seed=[], cut='1'),
+            dict(header=meta, seed=[], cut='1')]
+        inputs['lineage'] += [dict(header=meta, seed=[], cut=cut) for cut in ['-0', '-1', '1.5', 'true', '"1"', 'NaN', 'Infinity', '9007199254740992', 'null']]
+        optional = dict(type='future/optional', seq=0, time=1, data=dict(info='future'))
+        inputs['lineage'] += [dict(header=meta, seed=[dict(optional, ignorable=flag)], cut='0')
+                              for flag in [True, False, None, 0, 1, 'true']]
+        inputs['storageLineage'] = [dict(header=meta, cut='0'), dict(header=meta, cut='2.0'),
+            dict(header=dict(meta, isSeeded=False)), dict(header=meta),
+            dict(header=dict(meta, isSeeded=False), cut='1')]
+        physical = dict(type='session', version=0, id='child', createdAt=1, delegationDepth=0)
+        inputs['storageLineage'] += [dict(physical=dict(physical, seedLength=cut)) for cut in [0, 2, -1, 0.5, True, None, '1', 9007199254740992]]
+        inputs['storageLineage'] += [dict(physical=dict(physical, sandboxMode=None)),
+            dict(physical=dict(version=1, id='future', seedLength='invalid'))]
+        inputs['strictHeaders'] = [meta, dict(meta, isSeeded=False), dict(version=0, id='child', createdAt=1),
+            dict(meta, isSeeded=1), dict(meta, seedLength=0), dict(meta, seedLength='UNDEFINED')]
         def add(kind, data):
             row = dict(type=kind, data=data)
             if kind in ('user/message', 'assistant/message'):
@@ -181,7 +252,13 @@ def main():
         report['native_runtime'] = dict(python=sys.version, executable=sys.executable, modules=modules)
         report['source_inputs_sha256'] = hashlib.sha256((output / 'source-inputs.json').read_bytes()).hexdigest()
         report['input_sha256'] = expected_hash
+        report['observer_sha256'] = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+            for name in ('scripts/rc1_capabilities_oracle.py', 'scripts/oracles/rc1_capabilities.mts')}
         report['cases'] = [dict(name=name, matched=value == native_rows.get(name)) for name, value in source_rows['observations'].items()]
+        required = {'grammar', 'mentions', 'searches', 'positions', 'outline', 'changes', 'orders',
+                    'searchLimits', 'indexed', 'checkpoint', 'lineage', 'storageLineage', 'strictHeaders', 'projectionLineage'}
+        if set(source_rows['observations']) != required or set(native_rows) != required:
+            raise ValueError('Incomplete or unexpected observation categories')
         report['status'] = 'matched' if all(row['matched'] for row in report['cases']) else 'different'
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as error:
         report['error'] = str(error)

@@ -31,7 +31,7 @@ def validate_stored(inspection, sid, location):
     assert_supported_events(inspection.events)
     for event in inspection.events:
         assert_message_event_shape(event, 'session event at seq {}'.format(event.get('seq')))
-        if event.get('type') not in KNOWN_SESSION_EVENT_TYPES:
+        if event.get('type') not in KNOWN_SESSION_EVENT_TYPES and event.get('ignorable') is not True:
             raise SessionFormatUnsupportedError('session "{}" contains unsupported event type "{}"; upgrade the harness (raw log: {})'.format(sid, event.get('type'), location))
     return inspection
 

@@ -60,8 +60,9 @@ def project_key(cwd):
 
 
 def safe_nonnegative(value):
-    return (type(value) in (int, float) and math.isfinite(value) and value == int(value)
-            and 0 <= value <= 9007199254740991 and not (value == 0 and math.copysign(1, value) < 0))
+    return (type(value) in (int, float) and 0 <= value <= 9007199254740991
+            and math.isfinite(value) and value == int(value)
+            and not (value == 0 and math.copysign(1, value) < 0))
 
 
 def is_header(value):

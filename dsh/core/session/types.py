@@ -53,6 +53,7 @@ ALLOWED_ENVELOPE_KEYS: FrozenSet[str] = frozenset([
     "data",
     "surfaceOp",
     "sourceEventSeqs",
+    "ignorable",
 ])
 
 ALLOWED_ADAPTER_DEFAULTS: FrozenSet[str] = frozenset([
@@ -89,6 +90,7 @@ class SessionHeader:
         origin: Optional[str] = None,
         delegation_depth: Optional[int] = None,
         agent_preset: Optional[str] = None,
+        is_seeded: Any = UNDEFINED,
     ):
         self.version = version
         self.id = SessionId(session_id)
@@ -99,6 +101,7 @@ class SessionHeader:
         self.origin = origin
         self.delegation_depth = delegation_depth
         self.agent_preset = agent_preset
+        self.is_seeded = is_seeded
         self._extra: Dict[str, Any] = {}
 
     @property
@@ -112,6 +115,10 @@ class SessionHeader:
     @property
     def seedLength(self) -> Optional[int]:
         return self.seed_length
+
+    @property
+    def isSeeded(self) -> Any:
+        return self.is_seeded
 
     @property
     def delegationDepth(self) -> Optional[int]:
@@ -134,6 +141,8 @@ class SessionHeader:
             result["parentSession"] = self.parent_session
         if self.seed_length is not None:
             result["seedLength"] = self.seed_length
+        if self.is_seeded is not UNDEFINED:
+            result["isSeeded"] = self.is_seeded
         if self.origin is not None:
             result["origin"] = self.origin
         if self.delegation_depth is not None:
@@ -238,9 +247,10 @@ class _ValidatedSessionHeader(SessionHeader):
     def __copy__(self) -> "SessionHeader":
         header = SessionHeader(session_id=self.id, version=self.version, created_at=self.created_at,
             cwd=self.cwd, parent_session=self.parent_session, seed_length=self.seed_length,
-            origin=self.origin, delegation_depth=self.delegation_depth, agent_preset=self.agent_preset)
+            origin=self.origin, delegation_depth=self.delegation_depth, agent_preset=self.agent_preset,
+            is_seeded=self.is_seeded)
         known = {"version", "id", "createdAt", "cwd", "parentSession", "seedLength",
-            "origin", "delegationDepth", "agentPreset"}
+            "origin", "delegationDepth", "agentPreset", "isSeeded"}
         header._extra = {key: value for key, value in self._record.items() if key not in known}
         return header
 
@@ -312,6 +322,8 @@ def assert_session_event_envelope(event: Any, index: Optional[int] = None) -> No
     # `rejects pre-provider request headers ... on seed/load` adopts a
     # `plugin/event` seed whose data is null verbatim).
     if "data" not in event:
+        raise ValueError(f"{subject} has an invalid event envelope")
+    if event.get('ignorable', UNDEFINED) is not UNDEFINED and event['ignorable'] is not True:
         raise ValueError(f"{subject} has an invalid event envelope")
 
 
@@ -478,6 +490,12 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
     if input_data is None or not isinstance(input_data, dict):
         raise ValueError("session header is not a plain JSON record")
 
+    # Until the coordinated baseline transition, alpha records still enter
+    # this boundary. Explicit rc.1 metadata always uses the strict validator.
+    if "isSeeded" in input_data:
+        if "seedLength" in input_data:
+            raise ValueError('session header has invalid field "seedLength"')
+
     raw_version = input_data.get("version", UNDEFINED)
     if type(raw_version) not in (int, float) or raw_version != SESSION_FORMAT_VERSION:
         raise ValueError(
@@ -510,6 +528,10 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
         if not isinstance(raw_parent, str):
             raise ValueError("session header parentSession must be a string")
         parent_session = raw_parent
+
+    is_seeded = input_data.get("isSeeded", UNDEFINED)
+    if "isSeeded" in input_data and type(is_seeded) is not bool:
+        raise ValueError("session header isSeeded must be a boolean")
 
     seed_length: Optional[int] = None
     raw_seed_len = input_data.get("seedLength", UNDEFINED)
@@ -548,6 +570,7 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
         cwd=cwd,
         parent_session=parent_session,
         seed_length=seed_length,
+        is_seeded=is_seeded,
         origin=origin,
         delegation_depth=delegation_depth,
         agent_preset=agent_preset,
@@ -557,6 +580,24 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
 def validate_restored_session_header(session_id: str, input_data: Any) -> SessionHeader:
     """Validate exclusively owned persistence header."""
     return validate_session_header(session_id, input_data)
+
+
+def validate_rc1_session_header(session_id: str, input_data: Any) -> SessionHeader:
+    """Strict rc.1 logical metadata admission, separate from legacy decoding.
+
+    The alpha admission path remains until its dependent storage and evidence
+    consumers transition together; this function never admits that old shape.
+    """
+    record = input_data.to_dict() if isinstance(input_data, SessionHeader) else input_data
+    if record is None or not isinstance(record, dict):
+        raise ValueError("session header is not a plain JSON record")
+    if "seedLength" in record:
+        raise ValueError('session header has invalid field "seedLength"')
+    # Match the Source validation order: version/id/createdAt/cwd/parent precede
+    # isSeeded, while origin/depth/preset follow it.
+    if "isSeeded" not in record:
+        record = dict(record, isSeeded=UNDEFINED)
+    return validate_session_header(session_id, record)
 
 
 def snapshot_session_header(session_id: str, source: Any = UNDEFINED) -> SessionHeader:

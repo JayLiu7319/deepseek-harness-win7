@@ -1,5 +1,7 @@
 # 持续对齐记录
 
+2026-10-14 后续 Session 批次：显式 rc.1 logical header、独立 inherited cut/ownEvents/isOwnSeq、私有 version-0 JSONL 翻译、preparation/projection 消费和 ignorable 保留已定向实现；最终 136 Python 用例通过，实际 Source/native 14 类匹配，审批消费者按原 Node 身份复验 122 项通过。默认 alpha 准入与 canonical decode、完整 query/Remote/SDK/子代理闭包仍待协调切换；不是 rc.1 或发行签收。见 [继承切分推进记录](../docs/research/2026-10-14-rc1-session-lineage-progress.md)。
+
 2026-10-14 用户授权 rc.1 推进：候选目标固定 `a66e4702047846cdaa10c66c9d3df3951f5ea70d`，正式差分观察、274-manifest 候选清单、路径引用提供端/Remote/原版 Chromium108 首次启动与冷恢复、轮次摘要/raw-view gate、索引读取和提示词顺序接口已完成首批定向验证。独立 rc.1 原版官方构建和有限 Source/native 配对保留；当前 alpha 台账结构检查通过，既有 86 项及历史验收未提升为 rc.1。Session 逻辑 lineage/持久化/消费者闭合后整体切换 pin、台账和原样前端，稳定后执行一次完整资格。见 [推进记录](../docs/research/2026-10-14-rc1-bootstrap-progress.md) 和 [候选行动区](candidates/rc1/README.md)。
 
 **2026-10-11 v0.1.1已发布：** 干净`919efa919aea9dccdfd87f9ddbc9a44aa642999a`的[完整CI 38117543454](https://github.com/czh869452912/deepseek-harness-win7/actions/runs/38117543454)单次统一门禁通过，Python10564通过/2跳过、22组固定Source、83组配对及实际解压Portable/现代Edge/固定Chromium108旅程均通过。公开[Release](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.1)的实际下载ZIP SHA-256 `697dc0368f810c135b28e8d3dd94c529fea7c9f35de90cb1f42bdc1e1e6b56c9`与完整回执及CI验收资产相同；标签保留在该合格候选，不把后续记录提交算作产品。发布附带SHA256SUMS.txt与原始release-verification.json，正式资格见RUN-RELEASE-V011-CI-20261011-919EFA91。已核验清理本次4个传输重复件/959380004字节，此前亦核验清理三份重建夹具副本14541924字节和四份已结束回执控制1532字节；正式原始观察/此前工作流阻断保留。原16有限闭环/九项Source判据不变，Win7真机继续延期，浏览器realm等后续审查不自动认证。以下为此前阶段历史。

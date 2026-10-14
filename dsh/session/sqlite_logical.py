@@ -26,7 +26,8 @@ class StoredSessionHeader(SessionHeader):
     def __init__(self, metadata):
         super().__init__(session_id=metadata['id'], version=metadata['version'], created_at=metadata['createdAt'],
             cwd=metadata.get('cwd'), parent_session=metadata.get('parentSession'), seed_length=metadata.get('seedLength'),
-            origin=metadata.get('origin'), delegation_depth=metadata.get('delegationDepth'), agent_preset=metadata.get('agentPreset'))
+            origin=metadata.get('origin'), delegation_depth=metadata.get('delegationDepth'), agent_preset=metadata.get('agentPreset'),
+            **({'is_seeded': metadata['isSeeded']} if 'isSeeded' in metadata else {}))
         self.present_optional = frozenset(metadata) & frozenset([
             'cwd', 'parentSession', 'seedLength', 'origin', 'delegationDepth', 'agentPreset'])
 
@@ -189,7 +190,7 @@ def validate_inspection(inspection, identity):
         if isinstance(message, dict) and isinstance(message.get('id'), str):
             message_ids[event['seq']] = message['id']
     for event in events:
-        if event['type'] not in KNOWN_SESSION_EVENT_TYPES:
+        if event['type'] not in KNOWN_SESSION_EVENT_TYPES and event.get('ignorable') is not True:
             raise SessionFormatUnsupportedError('session "%s" contains event type "%s" (seq %s) unknown to this harness; refusing to interpret the log — it was likely written by a newer harness' % (identity, event['type'], event['seq']))
     inspection.events = events
     return inspection

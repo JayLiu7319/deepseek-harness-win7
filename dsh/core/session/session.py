@@ -35,6 +35,7 @@ from dsh.core.session.types import (
     SessionForkError,
     SessionHeader,
     SessionId,
+    SessionLogOffset,
     adopt_session_event,
     assert_current_llm_shape,
     assert_message_event_shape,
@@ -118,6 +119,7 @@ class Session:
         header: Any = UNDEFINED,
         mode: str = "snapshot",
         ctx: Optional[Any] = None,
+        inherited_event_count: Any = UNDEFINED,
     ):
         self.ctx = ctx
         restored_header = (
@@ -172,6 +174,18 @@ class Session:
             self.header = restored_header
         else:
             self.header = snapshot_session_header(session_id, header)
+
+        if self.header.isSeeded is UNDEFINED:
+            # Historical alpha admission remains until the coordinated pin /
+            # storage consumer transition. Its physical seed length is only
+            # translated here, never inferred from the restore replay length.
+            self._inherited_event_count = SessionLogOffset(self.header.seedLength or 0)
+            if inherited_event_count is not UNDEFINED:
+                raise ValueError('an inherited event count requires an isSeeded header')
+        else:
+            from dsh.core.session.lineage import inherited_cut
+            self._inherited_event_count = inherited_cut(
+                self.header, seed is not None, len(self._log), inherited_event_count)
 
         # Append end-seed marker if seed is non-empty or explicitly provided
         if seed is not None and (len(self._log) == 0 or self._log[-1].get("type") != "session/end-seed"):
@@ -247,15 +261,35 @@ class Session:
 
     snapshotEvents = snapshot_events
 
+    @property
+    def inherited_event_count(self) -> int:
+        return self._inherited_event_count
+
+    @property
+    def inheritedEventCount(self) -> int:
+        return self._inherited_event_count
+
+    def own_events(self) -> List[Dict[str, Any]]:
+        return self.snapshot_events(self._inherited_event_count)
+
+    ownEvents = own_events
+
+    def is_own_seq(self, seq: int) -> bool:
+        return self._inherited_event_count <= seq < self.seq
+
+    isOwnSeq = is_own_seq
+
     @classmethod
     def create(
         cls,
         session_id: str,
         seed: Optional[Sequence[Dict[str, Any]]] = None,
         header: Any = UNDEFINED,
+        inherited_event_count: Any = UNDEFINED,
         ctx: Optional[Any] = None,
     ) -> "Session":
-        return cls(session_id=session_id, seed=seed, header=header, mode="snapshot", ctx=ctx)
+        return cls(session_id=session_id, seed=seed, header=header, mode="snapshot", ctx=ctx,
+                   inherited_event_count=inherited_event_count)
 
     @classmethod
     def from_restore(
@@ -263,6 +297,7 @@ class Session:
         session_id: str,
         seed: Sequence[Dict[str, Any]],
         header: Union[SessionHeader, Dict[str, Any]],
+        inherited_event_count: Any = UNDEFINED,
         ctx: Optional[Any] = None,
     ) -> "Session":
         # Exactly `new Session(id, seed, header, 'restore')` (index.ts:493-494):
@@ -270,7 +305,8 @@ class Session:
         # NOT migrate legacy events and does NOT synthesize interrupted-turn
         # closers - that repair belongs to the persistence layer, which performs
         # it before handing the seed over.
-        return cls(session_id=session_id, seed=seed, header=header, mode="restore", ctx=ctx)
+        return cls(session_id=session_id, seed=seed, header=header, mode="restore", ctx=ctx,
+                   inherited_event_count=inherited_event_count)
 
     fromRestore = from_restore
 
@@ -776,12 +812,14 @@ class SessionStore(Service):
         if seed_source == "persistence":
             seed = opts.get("seed", [])
             meta = opts.get("meta", {})
-            return Session.from_restore(session_id=sid, seed=seed, header=meta, ctx=self.ctx)
+            return Session.from_restore(session_id=sid, seed=seed, header=meta, ctx=self.ctx,
+                                        inherited_event_count=opts.get('inheritedEventCount', UNDEFINED))
 
         seed = opts.get("seed")
         meta = opts.get("meta") or {}
         parent_session = opts.get("parent_session_id") or meta.get("parentSession")
         if parent_session:
+            meta = meta.to_dict() if isinstance(meta, SessionHeader) else dict(meta)
             meta["parentSession"] = parent_session
 
         header_dict: Dict[str, Any] = {
@@ -789,11 +827,17 @@ class SessionStore(Service):
             "id": sid,
             "createdAt": meta.get("createdAt", meta.get("created_at", int(time.time() * 1000))),
         }
-        for k in ("cwd", "parentSession", "seedLength", "origin", "delegationDepth", "agentPreset"):
+        for k in ("cwd", "parentSession", "seedLength", "origin", "delegationDepth", "agentPreset", "isSeeded"):
             if k in meta and meta[k] is not None:
                 header_dict[k] = meta[k]
+        if 'isSeeded' in meta or 'inheritedEventCount' in opts:
+            header_dict['isSeeded'] = meta.get('isSeeded') if meta.get('isSeeded') is not None else False
+            # Like rc.1 prepare's fixed metadata vocabulary, the retired
+            # physical field is not copied into a logical creation header.
+            header_dict.pop('seedLength', None)
 
-        return Session.create(session_id=sid, seed=seed, header=header_dict, ctx=self.ctx)
+        return Session.create(session_id=sid, seed=seed, header=header_dict, ctx=self.ctx,
+                              inherited_event_count=opts.get('inheritedEventCount', UNDEFINED))
 
     def enter(self, session: Union[Session, SessionPreparation]) -> Callable[[], None]:
         sess = session.session if isinstance(session, SessionPreparation) else session

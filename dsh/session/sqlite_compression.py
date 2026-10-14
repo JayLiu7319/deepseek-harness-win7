@@ -23,6 +23,10 @@ def decode_data(value, max_output_length=None):
 
 
 def bind_record(record):
+    if 'ignorable' in record:
+        # The retired upstream SQLite schema has no envelope-marker column.
+        # Refuse before committing instead of silently dropping ownership data.
+        raise ValueError('legacy SQLite format cannot encode ignorable events; use JSONL')
     if record['type'] in TAGS and 'seq0' in record and 'seq' not in record:
         return dict(seq=record['seq0'], type=record['type'], time=record['time0'],
                     data=encode_data(stringify_json(record['data'])), source_event_seqs=None, surface_op=None, is_packed=1)
