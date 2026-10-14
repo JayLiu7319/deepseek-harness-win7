@@ -1,16 +1,14 @@
-import os
 import pytest
 from dsh.cordis.context import Context
 from dsh.context.file_reference_local import FileReferenceLocalPlugin
 from dsh.context.time_context import TimeContextPlugin
-from dsh.fs.fs_local import FsLocalPlugin
+from dsh.core.agent import AgentPlugin
 
 
 @pytest.mark.asyncio
 async def test_file_reference_local_injection(tmp_path):
     ctx = Context()
-    fs_plugin = FsLocalPlugin({"cwd": str(tmp_path)})
-    await ctx.plugin(fs_plugin)
+    await ctx.plugin(AgentPlugin)
     await ctx.plugin(FileReferenceLocalPlugin)
 
     # Create a test file
@@ -24,11 +22,12 @@ async def test_file_reference_local_injection(tmp_path):
         ]
     }
 
-    result = await ctx.waterfall("agent/pre-step", payload, lambda value: value)
+    await ctx.waterfall("agent/pre-step", payload, lambda value: value)
     user_msg = payload["messages"][0]["content"]
 
-    assert "@sample.py content" in user_msg
-    assert "def hello():" in user_msg
+    assert user_msg == "Please check @sample.py and fix it."
+    assert "def hello():" not in user_msg
+    await ctx.fiber.dispose()
 
 
 @pytest.mark.asyncio

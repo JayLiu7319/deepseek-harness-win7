@@ -37,6 +37,19 @@ class SystemPrompt(Service):
 
     name = "systemPrompt"
 
+    def get_section_order(self, name: str) -> int:
+        """Resolve a centrally allocated prompt section placement."""
+        return FIRST_PARTY_SECTION_ORDER[name]
+
+    getSectionOrder = get_section_order
+
+    def get_context_order(self, name: str) -> int:
+        """Resolve a centrally allocated runtime context placement."""
+        return {"SANDBOX_POLICY": 110, "APPROVAL_POLICY": 115,
+                "SUBAGENT_DELEGATION": 120}[name]
+
+    getContextOrder = get_context_order
+
     def __init__(self, ctx: Context, config: Optional[Dict[str, Any]] = None):
         super().__init__(ctx, "systemPrompt")
         # Backwards compatible alias

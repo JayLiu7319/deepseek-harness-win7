@@ -9,7 +9,6 @@ from pathlib import Path
 from dsh.boot.app_boot import add_harness_source_section
 from dsh.cordis.environment import launch_environment_of
 from dsh.cordis.plugin import Plugin
-from dsh.core.system_prompt import FIRST_PARTY_SECTION_ORDER
 from dsh.host.frontend_static.frontend_static import FrontendStaticPlugin
 from dsh.host.browser_compat.plugin import BrowserCompatibilityPlugin
 from dsh.subprocess.service import scrubbed_parent_env
@@ -78,7 +77,7 @@ class WebRuntimePlugin(Plugin):
             def prompt(child):
                 add_harness_source_section(child, str(SOURCE_ROOT))
                 child.get('systemPrompt').section(dict(name='app:web-surface',
-                    order=FIRST_PARTY_SECTION_ORDER.WEB_SURFACE, text=lambda *_: web_surface_prompt(local_url(child))))
+                    order=child.get('systemPrompt').getSectionOrder('WEB_SURFACE'), text=lambda *_: web_surface_prompt(local_url(child))))
             ctx.inject(['systemPrompt'], prompt)
             def environment(child):
                 child.get('shellEnv').register(dict(name='web-runtime',

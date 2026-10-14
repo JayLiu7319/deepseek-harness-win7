@@ -8,7 +8,6 @@ file references.
 
 from typing import Any
 
-from dsh.core.system_prompt.types import FIRST_PARTY_SECTION_ORDER
 from dsh.cordis.plugin import Plugin
 
 # Stable final-response guidance owned by the matching renderer.
@@ -33,7 +32,7 @@ class ClientUiDeliverablesPlugin(Plugin):
         ctx.systemPrompt.section(
             {
                 "name": "ui:deliverable-file-references",
-                "order": FIRST_PARTY_SECTION_ORDER.DELIVERABLE_FILE_REFERENCES,
+                "order": ctx.get("systemPrompt").getSectionOrder("DELIVERABLE_FILE_REFERENCES"),
                 "text": FILE_REFERENCE_PROMPT,
             }
         )

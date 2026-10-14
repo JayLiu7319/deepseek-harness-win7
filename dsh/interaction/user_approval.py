@@ -80,7 +80,7 @@ class ApprovalService(Service):
             def contribute(scope):
                 scope.get('systemPrompt').context({
                     "name": "approval:policy",
-                    "order": 115,
+                    "order": scope.get("systemPrompt").getContextOrder("APPROVAL_POLICY"),
                     "text": self._context_text,
                 })
             ctx.inject(['systemPrompt'], contribute)

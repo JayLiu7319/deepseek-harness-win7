@@ -160,7 +160,7 @@ class SandboxPolicyService(Service):
             prompt.context(
                 {
                     "name": "sandbox:policy",
-                    "order": 110,
+                    "order": prompt.getContextOrder("SANDBOX_POLICY"),
                     "text": self._policy_context_text,
                 }
             )

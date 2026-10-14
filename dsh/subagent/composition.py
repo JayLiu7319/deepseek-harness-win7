@@ -2,7 +2,6 @@
 import math
 
 from dsh.core.agent import AgentOptions
-from dsh.core.system_prompt import PERSONA_ORDER
 
 MAX_SAFE = 9007199254740991
 DELEGATION_CONTEXT = ('You are a delegated subagent: your permission scope was fixed when you were started and cannot be '
@@ -97,8 +96,8 @@ def apply_composition(child_ctx, parent, composition):
     presets = child_ctx.get("agentPresets")
     if presets is not None:
         presets.composeFrom(child_ctx, parent.ctx)
-    child_ctx.get("systemPrompt").context({"name": "subagent:delegation", "order": 120, "text": DELEGATION_CONTEXT})
+    child_ctx.get("systemPrompt").context({"name": "subagent:delegation", "order": child_ctx.get("systemPrompt").getContextOrder("SUBAGENT_DELEGATION"), "text": DELEGATION_CONTEXT})
     if "persona" in composition:
-        child_ctx.get("systemPrompt").section({"name": "deployment:persona", "order": PERSONA_ORDER, "text": composition["persona"]})
+        child_ctx.get("systemPrompt").section({"name": "deployment:persona", "order": child_ctx.get("systemPrompt").getSectionOrder("DEPLOYMENT_PERSONA"), "text": composition["persona"]})
     if "toolFilter" in composition:
         child_ctx.get("tools").restrict(composition["toolFilter"])

@@ -75,6 +75,8 @@ from dsh.core.session.types import (
     SessionForkError,
     SessionHeader,
     SessionId,
+    SessionSeq,
+    SessionLogOffset,
     adopt_session_event,
     adoptSessionEvent,
     assert_adapter_defaults,
@@ -104,6 +106,8 @@ from dsh.llm.message import (
 __all__ = [
     "SESSION_FORMAT_VERSION",
     "SessionId",
+    "SessionSeq",
+    "SessionLogOffset",
     "SessionEvent",
     "ALLOWED_ENVELOPE_KEYS",
     "ALLOWED_ADAPTER_DEFAULTS",

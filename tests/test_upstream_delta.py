@@ -82,7 +82,14 @@ def test_nul_parser_preserves_whitespace_unicode_and_both_copy_names():
         dict(status='D', before='removed', after=None)]
 
 
+@pytest.mark.parametrize('status', ['R066', 'R092', 'C075', 'R000', 'C001', 'R099', 'C100'])
+def test_git_padded_similarity_preserves_both_path_identities(status):
+    rows = delta.parse_changes((status + '\0old\t中文\0new\nname\0').encode('utf-8'))
+    assert rows == [dict(status=status, before='old\t中文', after='new\nname')]
+
+
 @pytest.mark.parametrize('data', [b'M\0name', b'R100\0old\0', b'A\0\0', b'R101\0old\0new\0',
+    b'C101\0old\0new\0', b'R1000\0old\0new\0', b'R-1\0old\0new\0',
     b'Q\0name\0', b'M\0../outside\0', b'M\0/absolute\0'])
 def test_invalid_git_stream_is_refused(data):
     with pytest.raises(ValueError):
@@ -156,5 +163,23 @@ def test_actual_pinned_source_parent_delta_is_readonly_and_source_qualified():
     assert all(row['status'] == 'M' and row['after'].endswith('package.json') for row in report['changes'])
     assert len(report['package_impact']['direct']) == 250
     assert len(report['package_impact']['transitive']) == 1
+    assert delta.source_state(repository) == before
+    assert inventory.read_bytes() == original
+
+
+def test_actual_alpha_to_rc1_delta_preserves_source_and_maps_padded_renames():
+    repository = delta.ROOT / 'reference'
+    inventory = delta.ROOT / 'migration/modules.json'
+    before, original = delta.source_state(repository), inventory.read_bytes()
+    report = delta.observe(repository, inventory,
+        'cd5ef8148158c3a752a658978873241fdf8e2bbc',
+        'a66e4702047846cdaa10c66c9d3df3951f5ea70d')
+    assert len(report['changes']) == 3732
+    renames = [row for row in report['changes'] if row['status'].startswith('R')]
+    assert len(renames) == 34
+    assert any(row['status'] == 'R066' for row in renames)
+    assert all(row['before'] and row['after'] and row['pinned_package_owners'] for row in renames)
+    assert report['source_pin'] == before['head']
+    assert report['target_commit'] == 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
     assert delta.source_state(repository) == before
     assert inventory.read_bytes() == original

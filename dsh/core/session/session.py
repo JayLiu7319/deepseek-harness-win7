@@ -232,6 +232,21 @@ class Session:
             self._events_snapshot = FrozenList(self._log)
         return self._events_snapshot
 
+    def event_at(self, seq: int) -> Any:
+        if type(seq) not in (int, float) or not 0 <= seq < len(self._log) or int(seq) != seq:
+            return UNDEFINED
+        return self._log[int(seq)]
+
+    eventAt = event_at
+
+    def snapshot_events(self, from_seq: int = 0, to_seq_exclusive: Optional[int] = None) -> List[Dict[str, Any]]:
+        end = self.seq if to_seq_exclusive is None else to_seq_exclusive
+        if from_seq == 0 and end == self.seq:
+            return self.events
+        return FrozenList(self._log[int(from_seq):int(end)])
+
+    snapshotEvents = snapshot_events
+
     @classmethod
     def create(
         cls,

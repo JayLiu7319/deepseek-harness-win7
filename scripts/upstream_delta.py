@@ -51,7 +51,9 @@ def parse_changes(data):
     offset = 0
     while offset < len(fields):
         status = fields[offset].decode('ascii')
-        if not re.fullmatch(r'[ADMTUXB]|[RC](?:100|[0-9]{1,2})', status):
+        # Git pads similarity scores to three digits (for example R066).
+        # Keep accepting unpadded scores, with the same 0..100 bound.
+        if not re.fullmatch(r'[ADMTUXB]|[RC](?:100|0?[0-9]{1,2})', status):
             raise ValueError('Git change status is unsupported')
         size = 3 if status.startswith(('R', 'C')) else 2
         if offset + size > len(fields):

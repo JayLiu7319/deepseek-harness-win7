@@ -62,17 +62,6 @@ from dsh.boot.profile import (
 HARNESS_SOURCE_SECTION = "harness:source"
 FAIL_LOUD_RELEASE_TIMEOUT_MS = 2000
 
-try:
-    from dsh.core.system_prompt import FIRST_PARTY_SECTION_ORDER
-except Exception:
-    class _FallbackFirstPartySectionOrder(dict):
-        def __getattr__(self, name: str) -> int:
-            try:
-                return self[name]
-            except KeyError:
-                raise AttributeError(name)
-    FIRST_PARTY_SECTION_ORDER = _FallbackFirstPartySectionOrder({"HARNESS_SOURCE": -900})
-
 
 def path_to_file_url(path: str) -> str:
     return Path(os.path.abspath(path)).as_uri()
@@ -870,7 +859,7 @@ def add_harness_source_section(ctx: Context, source_root: str) -> Optional[Calla
         return None
     return system_prompt.section({
         "name": HARNESS_SOURCE_SECTION,
-        "order": FIRST_PARTY_SECTION_ORDER.HARNESS_SOURCE,
+        "order": system_prompt.getSectionOrder("HARNESS_SOURCE"),
         "text": (
             f"The DeepSeek Harness implementation checkout is at {source_root}. "
             f"The checkout location and current working directory are separate values and may differ; "

@@ -7,6 +7,7 @@ from weakref import WeakKeyDictionary
 from dsh.cordis.plugin import Plugin
 from dsh.cordis.service import Service
 from dsh.core.session import snapshot_json_value
+from dsh.core.session.json import UNDEFINED
 
 
 def _parse(schema, value):
@@ -41,6 +42,7 @@ class ProjectionDefinition:
 class UnitCell:
     def __init__(self, state, observed_seq=-1):
         self.state, self.observed_seq = state, observed_seq
+        self.views = [UNDEFINED, UNDEFINED]
 
 
 class Registration:
@@ -138,7 +140,10 @@ class SessionProjectionRegistry(Service):
         for seq in range(cell.observed_seq + 1, through + 1):
             if seq >= len(events) or events[seq]["seq"] != seq:
                 raise ValueError('session projection %r cannot advance across missing seq %s' % (definition["key"], seq))
-            cell.state = definition["apply"](cell.state, events[seq])
+            state = definition["apply"](cell.state, events[seq])
+            if not _same(state, cell.state):
+                cell.views = [cell.views[1], UNDEFINED]
+            cell.state = state
             cell.observed_seq = seq
 
     def _cell(self, registration, session):
@@ -172,10 +177,17 @@ class SessionProjectionRegistry(Service):
             state = registration.definition["apply"](cell.state, event)
             changed = not _same(state, cell.state)
             cell.state, cell.observed_seq = state, seq
-            if changed and registration.definition.get("wire") is not None and self._listeners:
-                value = self._view(registration, cell)
-                for listener in list(self._listeners):
-                    listener(session, registration.definition["key"], value, seq)
+            wire = registration.definition.get("wire")
+            if changed and wire is not None:
+                cell.views[0] = cell.views[1]
+                if self._listeners:
+                    cell.views[1] = wire["view"](state)
+                    if not _same(cell.views[0], cell.views[1]):
+                        value = _parse(wire["viewSchema"], cell.views[1])
+                        for listener in list(self._listeners):
+                            listener(session, registration.definition["key"], value, seq)
+                else:
+                    cell.views[1] = UNDEFINED
 
     def state_of(self, session, key):
         registration = self._registrations.get(key)

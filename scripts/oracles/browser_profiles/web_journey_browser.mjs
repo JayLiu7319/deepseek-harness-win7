@@ -16,6 +16,7 @@ if(!options.browser||!options.output||!options['run-dir']||!['source','native'].
 const output=resolve(options.output),stage=dirname(fileURLToPath(import.meta.url));
 await mkdir(output);
 const report={side:options.side,preset:options.preset,phases:[],errors:[],consoleErrors:[],consoleLogs:[],responses:[],clicks:[],wire:[],requests:[]};
+if(options['file-references']==='true')report.fileReferenceScope='Actual original composer and remote.mux; isolated paths, no file-body injection';
 const delay=milliseconds=>new Promise(done=>setTimeout(done,milliseconds));
 
 async function until(read,description,timeout=30000){
@@ -100,6 +101,10 @@ async function phase(name){
   const common=['--run-dir',resolve(options['run-dir']),'--output',receipt,'--preset',options.preset,'--phase',name];
   if(!options.workspace||!options.clock||!options['approval-artifact'])throw new Error('Controlled workspace, clock and approval artifact required');
   common.push('--workspace',resolve(options.workspace),'--clock',options.clock,'--approval-artifact',resolve(options['approval-artifact']));
+  if(options['file-references']==='true'){
+    await mkdir(join(resolve(options.workspace),'references space'),{recursive:true});
+    await writeFile(join(resolve(options.workspace),'references space','中文 file.md'),'PRIVATE_REFERENCE_BODY_MUST_NOT_ENTER_MODEL_REQUEST\n','utf8');
+  }
   if(options['source-receipt']){
     const sourceReport=JSON.parse(await readFile(join(resolve(options['source-receipt']),'report.json'),'utf8'));
     assert.equal(sourceReport.status,'qualified');
@@ -194,6 +199,34 @@ async function phase(name){
     }else{
       await until(()=>cdp.evaluate('document.querySelectorAll('+JSON.stringify(row)+').length===1'),'one controlled original blank Session row');
       await click(cdp,row);
+    }
+    if(options['file-references']==='true'){
+      const before=await until(async()=>{const value=await snapshot();return value.attached&&value.agentStatus==='idle'&&value;},'selected session attached before reference input');
+      await click(cdp,'[data-composer-input][contenteditable="true"]');
+      await cdp.call('Input.insertText',{text:'@"references space/'});
+      state.fileReferenceCandidates=await until(()=>cdp.evaluate(`(()=>{
+        const rows=[...document.querySelectorAll('[role="listbox"] [role="option"]')].map(row=>row.textContent);
+        return rows.some(text=>text.includes('中文 file.md'))&&rows;
+      })()`),'actual original @file menu from the workspace');
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
+      state.fileReferenceSelection=await until(()=>cdp.evaluate(`(()=>{
+        const composer=document.querySelector('[data-composer-input]');
+        const chip=composer?.querySelector('[data-composer-chip]');
+        return chip?.textContent.includes('中文 file.md')&&{text:composer.textContent,html:composer.innerHTML};
+      })()`),'actual file mention selection in original composer');
+      assert.ok(!state.fileReferenceSelection.html.includes('PRIVATE_REFERENCE_BODY'));
+      const referenceScreenshot=await cdp.call('Page.captureScreenshot');
+      await writeFile(join(output,name+'.file-reference.png'),Buffer.from(referenceScreenshot.data,'base64'));
+      const after=await snapshot();
+      assert.equal(createHash('sha256').update(JSON.stringify(after.events)).digest('hex'),
+        createHash('sha256').update(JSON.stringify(before.events)).digest('hex'),'file selection must not change durable history');
+      assert.deepEqual(after.requests,before.requests);
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'a',code:'KeyA',windowsVirtualKeyCode:65,modifiers:2});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'a',code:'KeyA',windowsVirtualKeyCode:65,modifiers:2});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'Backspace',code:'Backspace',windowsVirtualKeyCode:8});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'Backspace',code:'Backspace',windowsVirtualKeyCode:8});
+      await until(()=>cdp.evaluate('!document.querySelector("[data-composer-input]")?.textContent'),'reference draft cleared by actual keys');
     }
     const submit=async scenario=>{
       await click(cdp,'[data-composer-input][contenteditable="true"]');

@@ -4,7 +4,6 @@ import asyncio
 
 from dsh.cordis.plugin import Plugin
 from dsh.cordis.schema import Schema
-from dsh.core.system_prompt import FIRST_PARTY_SECTION_ORDER
 from dsh.core.cancellation import subscribe_abort
 from .ralph import RALPH_META, RALPH_SCRIPT, execute_ralph, read_result, render_result
 from .text import js_trim
@@ -44,7 +43,7 @@ class ToolRalphPlugin(Plugin):
         # Only this fixed, deployment-owned script has a native translation.
         if ctx.get('jsRuntime') is None and hasattr(engine, "register_native_program"):
             engine.register_native_program(RALPH_SCRIPT, execute_ralph)
-        ctx.get("systemPrompt").section(dict(name="tool:ralph", order=FIRST_PARTY_SECTION_ORDER["TOOL_RALPH"],
+        ctx.get("systemPrompt").section(dict(name="tool:ralph", order=ctx.get("systemPrompt").getSectionOrder("TOOL_RALPH"),
             text="Use the ralph tool ONLY when the direct human explicitly asks for a Ralph loop or fresh-agent iterative execution. Each Ralph round starts a fresh child with no conversation seed and uses the shared workspace as durable memory. Completion and blockers are worker reports, not independent evaluation. Use same-session goal tools for ordinary long-running objectives, and plain subagents or workflows for bounded delegation and fan-out."))
 
         async def execute(args, execution):

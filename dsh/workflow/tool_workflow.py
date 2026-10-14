@@ -5,7 +5,6 @@ import logging
 
 from dsh.cordis.plugin import Plugin
 from dsh.cordis.schema import Schema
-from dsh.core.system_prompt import FIRST_PARTY_SECTION_ORDER
 from dsh.core.cancellation import subscribe_abort
 from .text import json_text, utf16_length, utf16_slice
 from .workflow_service import render_error, safe_integer
@@ -99,7 +98,7 @@ class ToolWorkflowPlugin(Plugin):
             raise TypeError("workflow maxResultChars must be a positive safe integer")
         cap = int(cap)
         recorder = WorkflowRecorder(ctx)
-        ctx.get("systemPrompt").section(dict(name="tool:" + name, order=FIRST_PARTY_SECTION_ORDER["TOOL_WORKFLOW"],
+        ctx.get("systemPrompt").section(dict(name="tool:" + name, order=ctx.get("systemPrompt").getSectionOrder("TOOL_WORKFLOW"),
             text="Use the " + name + " tool ONLY when the user explicitly asks for a workflow or for large multi-agent orchestration: you write a JavaScript script (the tool description documents the exact format) that fans work out across many subagents with phases and structured results. For one or two delegations, prefer plain subagent calls."))
 
         async def execute(args, execution):

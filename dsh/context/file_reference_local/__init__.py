@@ -1,114 +1,105 @@
+"""Local file-reference service with Agent-owned caches and prompt effects."""
+import asyncio
 import os
-import re
-from typing import Any, Dict, List, Optional
-from dsh.cordis.plugin import Plugin
-from dsh.core.system_prompt.types import FIRST_PARTY_SECTION_ORDER
-from dsh.context.file_reference_local.grammar import active_at_token, format_file_mention
+
+from dsh.context.file_reference import FILE_REFERENCE_PROMPT, FileReferenceService
+from dsh.context.file_reference.grammar import active_at_token, format_file_mention
 from dsh.context.file_reference_local.search import (
     DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES,
     DEFAULT_FILE_SEARCH_MAX_ENTRIES,
     DEFAULT_FILE_SEARCH_MAX_RESULTS,
     WorkspaceFileSearch,
-)
-
-FILE_REFERENCE_PROMPT = (
-    "Tokens prefixed with @ are workspace paths the user explicitly referenced, "
-    "relative to the workspace root. A trailing slash marks a directory: "
-    "list it when its contents matter. Anything else is a file: use the read tool "
-    "when its contents are needed, and do not claim to have inspected it before "
-    'reading. @"..." quotes a path containing spaces.'
+    validate_config,
 )
 
 
-class FileReferenceLocalPlugin(Plugin):
-    """
-    Plugin `@deepseek-ai/dsh-file-reference-local`: Resolves `@filename` references
-    in user prompts and injects file reference guidance into system prompt.
-    """
+class LocalFileReferenceService(FileReferenceService):
+    """Discover paths without reading or changing any model-visible message."""
 
     id = "file-reference-local"
-    name = "@deepseek-ai/dsh-file-reference-local"
+    inject = ["agents"]
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
-        super().__init__(config)
-        cfg = config or {}
-        self.max_inline_bytes = int(cfg.get("maxInlineBytes", 16384))
-        self.max_results = int(cfg.get("maxResults", DEFAULT_FILE_SEARCH_MAX_RESULTS))
-        self.max_entries = int(cfg.get("maxEntries", DEFAULT_FILE_SEARCH_MAX_ENTRIES))
-        self.excluded_directories = list(cfg.get("excludedDirectories", DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES))
-        self.searcher: Optional[WorkspaceFileSearch] = None
+    def __init__(self, ctx, config=None):
+        self.config = validate_config(config or {})
+        self.searches = {}
+        self.prompt_fibers = {}
+        self.prompt_disposals = set()
+        self.retired_searches = set()
+        super().__init__(ctx)
+        for agent in ctx.get("agents").list():
+            self.install_prompt(agent)
+        ctx.on("agent/created", lambda payload: self.install_prompt(payload["agent"]))
+        ctx.on("agent/disposed", lambda payload: self.dispose_agent(payload["agent"]))
+        ctx.on("session/event", self.on_session_event)
+        ctx.effect(lambda: self.dispose, "file-reference-local: search cache")
 
-    def apply(self, ctx: Any) -> None:
-        cwd = ctx.get("fs").cwd if ctx.has("fs") and hasattr(ctx.get("fs"), "cwd") else os.getcwd()
-        self.searcher = WorkspaceFileSearch(cwd, {
-            "maxResults": self.max_results,
-            "maxEntries": self.max_entries,
-            "excludedDirectories": self.excluded_directories,
-        })
-        ctx.set_service("fileReferences", self.searcher)
+    def install_prompt(self, agent):
+        if agent in self.prompt_fibers:
+            return
 
-        # Register system prompt section if system_prompt or systemPrompt is available.
-        # Matching reference/packages/context/file-reference-local/src/index.ts, the
-        # section is contributed at FIRST_PARTY_SECTION_ORDER.FILE_REFERENCE.
-        sp = ctx.get("system_prompt") if ctx.has("system_prompt") else (ctx.get("systemPrompt") if ctx.has("systemPrompt") else None)
-        if sp and hasattr(sp, "section"):
-            sp.section({
+        def install(scope):
+            scope.get("systemPrompt").section({
                 "name": "context:file-reference",
-                "order": FIRST_PARTY_SECTION_ORDER["FILE_REFERENCE"],
-                "text": FILE_REFERENCE_PROMPT,
+                "order": scope.get("systemPrompt").getSectionOrder("FILE_REFERENCE"),
+                "text": lambda _context: FILE_REFERENCE_PROMPT
+                if agent.ctx.get("tools").get("read", agent) is not None else "",
             })
 
-        # Invalidate search index on tool result
-        ctx.on("tools/result", lambda *a, **kw: self.searcher.invalidate() if self.searcher else None)
+        self.prompt_fibers[agent] = agent.ctx.inject(["systemPrompt", "tools"], install)
 
-        # Hook agent/pre-step to expand file mentions if user explicitly typed @file
-        async def hook_file_references(payload: Dict[str, Any], next_fn: Any = None) -> Dict[str, Any]:
-            messages = payload.get("messages", [])
-            if not messages:
-                return await next_fn() if callable(next_fn) else payload
+    def dispose_agent(self, agent):
+        search = self.searches.pop(agent, None)
+        if search is not None:
+            search.dispose()
+            self.retired_searches.add(search)
+        fiber = self.prompt_fibers.pop(agent, None)
+        if fiber is None and search is None:
+            return
 
-            for msg in messages:
-                if msg.get("role") == "user" and isinstance(msg.get("content"), str):
-                    text = msg["content"]
-                    matches = re.findall(r'@(?:\"([^\"]+)\"|([a-zA-Z0-9_\-\.\/\\]+))', text)
-                    if matches:
-                        inlined_snippets = []
-                        for m_quoted, m_plain in matches:
-                            rel_path = m_quoted or m_plain
-                            if not rel_path or rel_path.startswith("deepseek-ai"):
-                                continue
-                            abs_path = os.path.normpath(os.path.join(cwd, rel_path))
-                            if os.path.isfile(abs_path):
-                                try:
-                                    size = os.path.getsize(abs_path)
-                                    if size <= self.max_inline_bytes:
-                                        with open(abs_path, "r", encoding="utf-8", errors="replace") as f:
-                                            snippet = f.read()
-                                        inlined_snippets.append(f"[@{rel_path} content]:\n```\n{snippet}\n```")
-                                    else:
-                                        with open(abs_path, "r", encoding="utf-8", errors="replace") as f:
-                                            snippet = f.read(self.max_inline_bytes)
-                                        inlined_snippets.append(
-                                            f"[@{rel_path} content (first {self.max_inline_bytes} bytes)]:\n```\n{snippet}\n```\n(File exceeds max inline size)"
-                                        )
-                                except Exception:
-                                    pass
+        async def cleanup():
+            try:
+                await asyncio.gather(*([fiber.dispose()] if fiber is not None else []) +
+                                     ([search.drain()] if search is not None else []))
+            except Exception as error:
+                self.ctx.logger.warn("file-reference-local: prompt cleanup failed: " + str(error))
+            finally:
+                self.retired_searches.discard(search)
 
-                        if inlined_snippets:
-                            msg["content"] = text + "\n\n" + "\n\n".join(inlined_snippets)
+        task = asyncio.ensure_future(cleanup())
+        self.prompt_disposals.add(task)
+        task.add_done_callback(self.prompt_disposals.discard)
 
-            return await next_fn() if callable(next_fn) else payload
+    def on_session_event(self, session, event):
+        if event["type"] != "tool/result":
+            return
+        agent = self.ctx.get("agents").get(session.id)
+        search = self.searches.get(agent)
+        if search is not None:
+            search.invalidate()
 
-        ctx.on("agent/pre-step", hook_file_references)
+    async def list(self, agent, query, signal):
+        search = self.searches.get(agent)
+        if search is None:
+            search = WorkspaceFileSearch(agent.session.header.cwd or os.getcwd(), self.config)
+            self.searches[agent] = search
+        return await search.list(query, signal)
+
+    async def dispose(self):
+        searches = list(self.searches.values())
+        self.searches.clear()
+        for search in searches:
+            search.dispose()
+        fibers = list(self.prompt_fibers.values())
+        self.prompt_fibers.clear()
+        await asyncio.gather(*(list(self.prompt_disposals) +
+                               [fiber.dispose() for fiber in fibers] +
+                               [search.drain() for search in searches]))
 
 
-__all__ = [
-    "FileReferenceLocalPlugin",
-    "WorkspaceFileSearch",
-    "FILE_REFERENCE_PROMPT",
-    "active_at_token",
-    "format_file_mention",
-    "DEFAULT_FILE_SEARCH_MAX_RESULTS",
-    "DEFAULT_FILE_SEARCH_MAX_ENTRIES",
-    "DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES",
-]
+# Existing Python imports keep resolving while the Loader mounts the service.
+FileReferenceLocalPlugin = LocalFileReferenceService
+
+__all__ = ["FileReferenceLocalPlugin", "LocalFileReferenceService", "WorkspaceFileSearch",
+           "FILE_REFERENCE_PROMPT", "active_at_token", "format_file_mention",
+           "DEFAULT_FILE_SEARCH_MAX_RESULTS", "DEFAULT_FILE_SEARCH_MAX_ENTRIES",
+           "DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES"]

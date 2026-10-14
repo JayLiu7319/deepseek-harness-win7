@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "candidate-action-plan-not-migration-task-state",
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "active_upstream": "cd5ef8148158c3a752a658978873241fdf8e2bbc",
+  "base_product": "38e650cf56d0c8a9d423057cf2c044055aa4a143",
+  "accepted_upstream": null,
+  "branch": "codex/rc1-baseline-upgrade",
+  "scope": "Authorized rc1 work. Candidate staging neither promotes historical tasks nor certifies a release.",
+  "actions": [
+    {"id": "A01", "state": "targeted-complete", "delivered": ["Strict padded Git rename parsing", "Real alpha-to-rc1 observation", "Complete candidate manifest discovery"], "remaining": ["Per-contract dynamic consumer impact review"]},
+    {"id": "A02", "state": "staged", "delivered": ["Independent clean fixed Source", "274-manifest capability matrix", "Candidate action dependencies"], "remaining": ["Coordinated reference, baseline, contract revisions, mappings, module/test/dynamic inventories and new task transition", "Preserve alpha evidence; recheck defect exceptions"]},
+    {"id": "A03", "state": "partial", "delivered": ["Numeric position admission", "eventAt/snapshotEvents", "turnOutline", "Raw-view gate/checkpoint tests"], "remaining": ["isSeeded/inheritedEventCount and ownEvents/isOwnSeq", "Ignorable envelope", "JSONL physical/logical translation with restore/fork/cold/query consumers", "Projection init/restore inherited count", "Legacy SQLite reader/export preservation"]},
+    {"id": "A04", "state": "partial", "delivered": ["Public SystemPrompt placement API and production consumers"], "remaining": ["Other public-value APIs", "Remote failure vocabulary", "SDK/ACP cursor ownership", "Subagent steer/adjacent delivery/image follow-up"]},
+    {"id": "A05", "state": "targeted-complete-on-current-profile", "delivered": ["Agent-cwd async path-only discovery", "Index/cancel/refresh/disposal", "UTF16 grammar/ranking", "Three-preset two-workspace Remote tests", "Original Chromium108 fresh/cold mention selection"], "remaining": ["Integrated rc1 frontend journey after coordinated switch"]},
+    {"id": "A06", "state": "source-prepared", "delivered": ["Frozen rc1 install and original official build", "220 client artifacts and Web dist"], "remaining": ["Import verified original resources", "Active Loader roster, turn-outline/ui-schedule", "Rail, deep paging/jumps, streaming, settings/schedule browser journeys"]},
+    {"id": "A07", "state": "inventory-discovered", "delivered": ["All 274 manifests with dependency/provider/client/evidence/platform triage"], "remaining": ["Resolve potential dependency reach to actual activation", "Per-capability review", "Separate optional LSP stdio sample"]},
+    {"id": "A08", "state": "pending-stable-candidate", "delivered": [], "remaining": ["Close required A02-A06 contracts", "One verify_release.py run for exact frozen candidate/ZIP", "Keep Win7/real external provider evidence separate"]}
+  ],
+  "next_batch": ["Session lineage/storage boundary", "Projection/Remote/SDK/ACP/subagent consumers", "Coordinated current-record/pin transition", "Original frontend/browser acceptance", "Frozen full release qualification"],
+  "progress_report": "docs/research/2026-10-14-rc1-bootstrap-progress.md",
+  "capability_inventory": "migration/candidates/rc1/capabilities.json"
+}

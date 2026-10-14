@@ -27,6 +27,22 @@ def SessionId(id: str) -> str:
     return str(id)
 
 
+def _brand_log_position(value: Any, name: str) -> Union[int, float]:
+    if (type(value) not in (int, float) or value < 0 or value > 9007199254740991
+            or not math.isfinite(value) or int(value) != value
+            or (value == 0 and math.copysign(1, value) < 0)):
+        raise TypeError("%s must be a non-negative safe integer, got %s" % (name, js_to_string(value)))
+    return value
+
+
+def SessionSeq(value: Any) -> Union[int, float]:
+    return _brand_log_position(value, "SessionSeq")
+
+
+def SessionLogOffset(value: Any) -> Union[int, float]:
+    return _brand_log_position(value, "SessionLogOffset")
+
+
 SessionEvent = Dict[str, Any]
 
 

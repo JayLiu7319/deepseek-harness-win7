@@ -11,7 +11,6 @@ from typing import Any, Dict, List, Optional
 from dsh.cordis.awaiting import await_callback_result
 from dsh.cordis.plugin import Plugin
 from dsh.core.session import Session
-from dsh.core.system_prompt.types import FIRST_PARTY_SECTION_ORDER
 from dsh.interaction.user_questions import UserQuestionError
 from dsh.llm.message import create_user_message
 
@@ -114,7 +113,7 @@ class PlanModeController:
 
         ctx.get("systemPrompt").section({
             "name": "plan:policy",
-            "order": FIRST_PARTY_SECTION_ORDER["PLAN_POLICY"],
+            "order": ctx.get("systemPrompt").getSectionOrder("PLAN_POLICY"),
             "text": lambda context: self.section if context.get("agent") is not None and self.is_active(context["agent"]) else "",
         })
 
