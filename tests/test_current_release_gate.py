@@ -2182,7 +2182,7 @@ def extracted_receipt(tmp_path):
     message_values = tool_pair['native']
     message_values['root'], message_values['executable'] = str(tmp_path), str(tmp_path / 'python.exe')
     tool_pair['source']['inputs'] = {name: sha256 for name, sha256 in tool_pair['source']['inputs'].items()
-        if name in MESSAGE_VALUES_OBSERVER_INPUTS or name in ('reference/packages/llm/llm/src/message.ts', 'reference/packages/core/agent-loop/src/runtime-context.ts', 'reference/packages/core/session/src/json.ts')}
+        if name in MESSAGE_VALUES_OBSERVER_INPUTS or name in ('reference/packages/llm/llm/src/message.ts', 'reference/packages/core/agent-loop/src/runtime-context.ts', 'reference/packages/util/values/src/index.ts')}
     candidate['message_values_source'] = tool_pair['source']
     candidate['message_values_source_sha256'] = hashlib.sha256(json.dumps(tool_pair['source'], sort_keys=True).encode('utf-8')).hexdigest()
     candidate['message_values_observations_sha256'] = GATE.message_values_digest(tool_pair['source']['rows'])
