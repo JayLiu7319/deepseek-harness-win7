@@ -2,7 +2,7 @@
   "id": "CON-PYTHON-DIRECTORY-PUBLICATION",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "dsh/boot/python_directory_mutation.py",
     "dsh/boot/python_plugins.py",
@@ -29,12 +29,14 @@
   "open_questions": [
     "The original bc7028c2 external sharing holder is not identified; the same failure mechanism is measured with controlled actual handles.",
     "Arbitrary new external writers between checks, share-delete readers during removal, metadata/ACL changes, power loss and every filesystem failure remain unaccepted.",
-    "Full native package ecosystem/ABI/dependencies/trust and deferred Win7 remain separate.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Full native package ecosystem/ABI/dependencies/trust and deferred Win7 remain separate."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

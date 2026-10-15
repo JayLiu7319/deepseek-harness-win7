@@ -2,7 +2,7 @@
   "id": "CON-ACP-TRANSPORT",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/bundle/acp-app/src/index.ts",
     "reference/packages/sdk/server/src/index.ts"
@@ -27,8 +27,7 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Canonical ACP/MCP/subagent owned publication, prompt/model/permissions, overlapping64/EOF and fragmented/malformed finite carriers; actual SDK/routes/process-tree and independent cold consumers. Arbitrary supervisors/orphan Jobs, unspecified TLS/URL and cloud/OAuth/paid use are not certified.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Canonical ACP/MCP/subagent owned publication, prompt/model/permissions, overlapping64/EOF and fragmented/malformed finite carriers; actual SDK/routes/process-tree and independent cold consumers. Arbitrary supervisors/orphan Jobs, unspecified TLS/URL and cloud/OAuth/paid use are not certified."
   ],
   "historical_open_questions": [
     "A1/A2/A3 permissions, controlled MCP stdio/HTTP/SSE mounting, subprocess ACP, teardown/disposal and one measured Windows descendant tree are accepted only under their bounded contracts at 5c0b3c5e. The parent has no complete source-backed contract or integrated acceptance.",
@@ -403,7 +402,10 @@
   },
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

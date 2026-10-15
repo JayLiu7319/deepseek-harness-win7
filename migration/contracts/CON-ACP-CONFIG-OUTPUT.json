@@ -2,7 +2,7 @@
   "id": "CON-ACP-CONFIG-OUTPUT",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/acp/acp/src/model-control.ts",
     "reference/packages/acp/acp/src/content.ts",
@@ -33,8 +33,7 @@
     "AgentLoop uses prepared model defaults in actual requests and durable headers, marking only defaults that were materialized; model context capacity is taken from resolved metadata rather than fabricated."
   ],
   "open_questions": [
-    "Complete stdio/SDK wire envelopes, MCP/permission/subagent consumers and real remote-provider certification remain separate closures; primitive paired projections are not proof of these domains.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Complete stdio/SDK wire envelopes, MCP/permission/subagent consumers and real remote-provider certification remain separate closures; primitive paired projections are not proof of these domains."
   ],
   "identity": "Complete provider/model tuple, explicit reasoning effort, exact Agent/Session/message/turn and committed message id.",
   "ownership": "ACP owns serialized selected state, admission and output tail; Agent-scoped reversible model-selection listeners route requests; LLM and attachment services own exact model metadata and durable image storage.",
@@ -44,7 +43,10 @@
   "adaptation": "Python 3.8 async service adapters, canonical JSONL/SQLite profiles and eight exact semantic original-source paired projections. No browser changes, MCP capabilities, full stdio parity or Win7 certification are inferred.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

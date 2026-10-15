@@ -2,7 +2,7 @@
   "id": "CON-JS-INITIAL-WRITE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/workflow/workflow-worker-thread/src/host.ts",
     "reference/packages/workflow/workflow-worker-thread/src/worker.ts",
@@ -33,12 +33,14 @@
   "cancellation": "First empty-reason cancellation wins and remains the first result after physical exit and disposal.",
   "adaptation": "Python initial stdin delivery substitutes for Node structured-clone workerData delivery. Both controlled cases block before any original worker Ready emission; the Source bootstrap is disclosed and its original bundle bytes retained. Neither control rewrites original worker or host algorithms.",
   "open_questions": [
-    "Every spawn/initial-write/Ready schedule, exits whose code has not yet been observed, protocol failures, callbacks/reentry, complete model/profile/Node delivery, eight original engine/parse differences, complete C2 and deferred real Win7 remain outside this contract.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Every spawn/initial-write/Ready schedule, exits whose code has not yet been observed, protocol failures, callbacks/reentry, complete model/profile/Node delivery, eight original engine/parse differences, complete C2 and deferred real Win7 remain outside this contract."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

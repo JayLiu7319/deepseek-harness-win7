@@ -2,7 +2,7 @@
   "id": "CON-JS-READY",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/workflow/workflow-worker-thread/src/host.ts",
     "reference/packages/workflow/workflow-worker-thread/src/worker.ts",
@@ -31,12 +31,14 @@
   "cancellation": "An already settled cancellation wins over later physical exit. Late Ready and disposal do not replace the first result.",
   "adaptation": "The Source WorkerRun and worker algorithms are bundled unchanged. Native uses existing Python3.8 futures and dynamic typed failure attributes; browser code and Source predicates remain unchanged.",
   "open_questions": [
-    "This does not cover death before Ready emission, every readiness/reentry schedule, arbitrary Node APIs, full model/profile or C2, engine-specific raw error differences, or deferred real Win7 certification.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "This does not cover death before Ready emission, every readiness/reentry schedule, arbitrary Node APIs, full model/profile or C2, engine-specific raw error differences, or deferred real Win7 certification."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

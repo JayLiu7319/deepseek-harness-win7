@@ -1,5 +1,7 @@
 # Web 输入框 @ 引用文件未索引原因分析与未迁移包全景审查报告
 
+> 2026-10-15 补记：以下是切换前的静态评估，包数量和完成状态以 [行动评估中的校正](2026-10-14-rc1-baseline-and-capability-action-plan.md) 为准。文件引用现已完成提供端、Remote、多工作区及原样浏览器 fresh/cold 验证；当前274-manifest 能力矩阵仍逐项区分实现、激活与证据。详见 [实施与完整签收](2026-10-15-rc1-baseline-migration-progress.md)。
+
 **日期**：2026-10-14  
 **审查方式**：静态代码与架构契约审查（Static Code & Contract Inspection）  
 **当前基线**：`dsh-v0.1.2-alpha.1`（Commit: `cd5ef8148158c3a752a658978873241fdf8e2bbc`）  

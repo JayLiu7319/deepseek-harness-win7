@@ -2,7 +2,7 @@
   "id": "CON-CURRENT-RELEASE-GATE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "scripts/verify_release.py",
     "scripts/verify_portable.py",
@@ -21,8 +21,7 @@
   ],
   "open_questions": [
     "Remote Actions execution/publication and deferred Win7 validation are not certified by local acceptance.",
-    "Passing a changed candidate does not establish a fix for rejected 24f9f83d original startup cancellations, the source fixed-wait cache race or the existing Proactor destructor warning; their exact historical evidence remains retained.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Passing a changed candidate does not establish a fix for rejected 24f9f83d original startup cancellations, the source fixed-wait cache race or the existing Proactor destructor warning; their exact historical evidence remains retained."
   ],
   "identity": "Pinned reference SHA, candidate commit, dirty state, source-input manifest and exact archive/receipt hashes identify each run. A preview is not formal acceptance.",
   "ownership": "The coordinator owns current gate drivers, disposable browser profiles, isolated credential-free Host environments and reports; publishing never rebuilds the archive.",
@@ -32,7 +31,10 @@
   "adaptation": "Current Windows, Python 3.8.10 and pinned Node development observer only; no full upstream parity, remote-model authentication or Windows 7 certification is claimed.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

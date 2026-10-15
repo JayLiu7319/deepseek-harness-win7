@@ -1,6 +1,6 @@
 # 持续对齐记录
 
-2026-10-15 活动基线已切换为 **dsh-v0.1.2-rc.1 / a66e4702047846cdaa10c66c9d3df3951f5ea70d**。Session/投影/Remote/SDK/ACP/子代理、文件引用、原样 Web 和旧 SQLite 只读迁移已实现并通过多批定向对照；当前处于新候选统一资格阶段，尚不将 alpha 发行回执或 manifest 清单当作 rc.1 验收。见 [本轮记录](../docs/research/2026-10-15-rc1-baseline-migration-progress.md) 和 [活动能力矩阵](rc1-capabilities.json)。以下保留各阶段历史，时间较早的 alpha/候选状态不代表当前 pin。
+2026-10-15 活动基线 **dsh-v0.1.2-rc.1 / a66e4702047846cdaa10c66c9d3df3951f5ea70d** 已完成约定范围签收。干净代码 `d5f74c2da78f4d81b5fe3d9f1251fed31c03174e` 的单次完整门禁通过：Python 10,738通过/6项既有环境跳过、21组 Source 配置、82个配对驱动及实际解压/现代和108浏览器三预设 fresh/cold 通过。新任务 `MIG-RC1-ALIGNMENT-001` 集成86份当前有限合同；旧任务和 alpha 原始证据保留历史身份，九项既有缺陷判据重新实测。精确 ZIP 与原始观察封存在 [资格载体](evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip)，见 [正式回执](evidence/RUN-RC1-QUALIFICATION-20261015-D5F74C2D.json)、[本轮记录](../docs/research/2026-10-15-rc1-baseline-migration-progress.md) 和 [能力矩阵](rc1-capabilities.json)。`accepted_upstream` 仍为 null：这不是全部274个 manifest、任意插件 ABI、真实云 provider 或 Win7 真机的完整认证。本轮不发布 Release；后续记录提交不重标合格代码。以下是各阶段历史，较早状态不代表当前 pin。
 
 2026-10-14 后续 Session 批次：显式 rc.1 logical header、独立 inherited cut/ownEvents/isOwnSeq、私有 version-0 JSONL 翻译、preparation/projection 消费和 ignorable 保留已定向实现；最终 136 Python 用例通过，实际 Source/native 14 类匹配，审批消费者按原 Node 身份复验 122 项通过。默认 alpha 准入与 canonical decode、完整 query/Remote/SDK/子代理闭包仍待协调切换；不是 rc.1 或发行签收。见 [继承切分推进记录](../docs/research/2026-10-14-rc1-session-lineage-progress.md)。
 

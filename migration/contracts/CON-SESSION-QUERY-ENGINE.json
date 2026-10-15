@@ -2,7 +2,7 @@
   "id": "CON-SESSION-QUERY-ENGINE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session-query/session-query-sqlite/src/index.ts",
     "reference/packages/session-query/session-query-sqlite/src/query.ts",
@@ -34,12 +34,14 @@
     "CON-SESSION-QUERY-UNICODE and CON-SESSION-TEXT qualify declared current-locale identities and literal/valid semantic text in clean fc275a66. Malformed/plugin payload ABI, other domains and all locales remain separate.",
     "Exhaustive event extraction, all concurrent binding/index histories, public tool/package ABI, very large histories and SQLite canonical schema-19 storage remain separate.",
     "The rejected 24f9f83d original-browser startup cancellation remains independently unrooted. FTS acceptance cannot mark it fixed.",
-    "Windows ACL, cross-process/power-loss and actual Win7 certification remain outside this bounded contract; real Win7 is deferred by the user.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Windows ACL, cross-process/power-loss and actual Win7 certification remain outside this bounded contract; real Win7 is deferred by the user."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

@@ -2,7 +2,7 @@
   "id": "CON-RUNTIME-FULL-REQUEST",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/core/agent-loop/src/agent.ts",
     "reference/packages/core/agent-loop/src/runtime-context.ts",
@@ -36,12 +36,14 @@
   "adaptation": "Source object options map to native declared AgentOptions. Snake-case arguments belong to fixed-parameter Python invocation only, not canonical GenerateOptions or persisted messages.",
   "open_questions": [
     "All models/providers/profiles, arbitrary middleware/config defaults/stream recovery, cancellation/reentry/late callbacks and fullB3/C2/Win7 are unqualified.",
-    "Static Source guards are not complete dynamic import closure; frozen gate inputs bind wider bundles. Native prototype extraction failures and unsupported observer assumptions remain retained.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Static Source guards are not complete dynamic import closure; frozen gate inputs bind wider bundles. Native prototype extraction failures and unsupported observer assumptions remain retained."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

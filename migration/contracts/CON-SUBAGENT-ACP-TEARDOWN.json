@@ -2,7 +2,7 @@
   "id": "CON-SUBAGENT-ACP-TEARDOWN",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/subagent/subagent-acp/src/run.ts",
     "reference/packages/subagent/subagent/src/out-of-process.ts",
@@ -27,12 +27,14 @@
   "cancellation": "Python Task cancellation uses shielded owned teardown; observed canceled startup has no published session. JavaScript Promise cancellation is not invented.",
   "adaptation": "Python 3.8 standard-library asyncio and the canonical subprocess service. Source wait rejection is a declared handle seam occurring after actual child exit, not an invented process outcome.",
   "open_questions": [
-    "Main complete candidate and extracted consumer are pending; fifth provider clean acceptance remains open after two preserved browser startup failures. This contract does not certify pathological piped streams, complete process trees, background Jobs, full ACP/SDK or deferred Win7.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Current bounded qualification is recorded in rc1_review. This contract does not certify pathological piped streams, complete process trees, background Jobs, full ACP/SDK or deferred Win7."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

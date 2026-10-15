@@ -2,7 +2,7 @@
   "id": "CON-DEEPSEEK-WIRE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/llm/llm-deepseek/src/index.ts",
     "reference/packages/core/agent-loop/src/index.ts"
@@ -27,8 +27,7 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Five actual default profile HTTP model/tool continuations, SDK normal/cancel/error, actual Web HTTP/cold graphs and full current LLM error/capture/metadata/config/prepared corpus. Exact creative language tool-description mapping only; cloud/OAuth/paid endpoints, arbitrary accessor graphs and schedules are not certified.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Five actual default profile HTTP model/tool continuations, SDK normal/cancel/error, actual Web HTTP/cold graphs and full current LLM error/capture/metadata/config/prepared corpus. Exact creative language tool-description mapping only; cloud/OAuth/paid endpoints, arbitrary accessor graphs and schedules are not certified."
   ],
   "historical_open_questions": [
     "24 complete local HTTP adapter error controls045 are bounded accepted in clean54361bd9, with exact oldafd ownPortable baseline retained. Every captured request/chunk/error/failure value compares; only JSON whole numeric token spelling is canonicalized for digest.446 unchanged Source assertions add reference coverage but are not extra native parity. Existing76 historical wire/config/model/files/settings observations still need their full Source-backed contract and selected/extracted runtime closure; full canonical retry/profile/cancellation/malformed transport and OAuth/cloud/paid scope remain open.",
@@ -412,7 +411,10 @@
   },
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

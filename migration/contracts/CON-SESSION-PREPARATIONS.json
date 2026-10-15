@@ -2,7 +2,7 @@
   "id": "CON-SESSION-PREPARATIONS",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence/src/preparations.ts",
     "reference/packages/session/session-persistence/src/coordinator.ts",
@@ -22,9 +22,7 @@
     "Public nonempty append and create reject reserved identities, snapshot append JSON before waiting and invalidate cached reads after successful writes; load waits for held reservations.",
     "Cold revision changes cause reload/retry before reserve; repair is durably committed then reread. Unload invalidates entries, wakes waiters and drains active preparation work before backend close."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "SessionPreparations reserves exact source.session, not a same-ID replacement. Persisted cold inspection is detached from mutable setup state. Session end-seed counts toward the reuse boundary.",
   "ownership": "PreparedPersistence owns the per-backend pool; LivePersistence consumes exact publication reservations and drains it during owned teardown. A lease releases its pin once.",
   "ordering": "Shared source -> revision check -> serialized repair commit -> reread changed revision -> reserve -> unpublished setup -> exact live attach -> seed/suffix persistence. Storage locks serialize public writes with repair; empty appends remain no-ops.",
@@ -33,7 +31,10 @@
   "adaptation": "Python 3.8 futures, OrderedDict and locks replace Promises/Map. Canonical JSONL uses detached revision snapshots; historical product-owned SQLite fixtures use metadata/event hashes and do not expose a retired canonical Loader provider. Detached inspection copies substitute immutable reference views. Five real JSONL paired observations compare exact identity outcomes, event types, rejection/cancellation and physical lengths; they do not assert full storage-schema or cross-process parity.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

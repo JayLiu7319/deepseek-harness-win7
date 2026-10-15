@@ -2270,22 +2270,22 @@
     {
       "path": "packages/code-runtime/code-runtime-python/package.json",
       "name": "@deepseek-ai/dsh-code-runtime-python",
-      "action": "preserve historical evidence; triage canonical retirement and user-data compatibility"
+      "action": "Retired package absent from the canonical registry; current Source python-process package remains separate. Historical evidence preserved."
     },
     {
       "path": "packages/examples/agent-spine-demo/package.json",
       "name": "@deepseek-ai/dsh-agent-spine-demo",
-      "action": "preserve historical evidence; triage canonical retirement and user-data compatibility"
+      "action": "Removed Source example; old native demo alias remains inactive historical compatibility, absent from default profiles and not rc.1 package parity."
     },
     {
       "path": "packages/session/session-persistence-sqlite/package.json",
       "name": "@deepseek-ai/dsh-session-persistence-sqlite",
-      "action": "preserve historical evidence; triage canonical retirement and user-data compatibility"
+      "action": "Retired canonical Loader name; explicit product-owned read-only legacy reader exports to canonical JSONL without modifying the source database."
     },
     {
       "path": "packages/subagent/tool-subagent-report/package.json",
       "name": "@deepseek-ai/dsh-tool-subagent-report",
-      "action": "preserve historical evidence; triage canonical retirement and user-data compatibility"
+      "action": "Retired canonical Loader name; current subagent adjacent/steer and bidirectional content delivery use current contracts."
     }
   ],
   "manifests": [
@@ -37914,5 +37914,12 @@
       ],
       "platform_policy": "Retain upstream ownership; classify implementation before choosing a platform adaptation"
     }
-  ]
+  ],
+  "qualification": {
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "archive_sha256": "2ab1c51e8a64ee95ab4be8e41fc7e7f9d04f4d5c81b96c41bb9dc568b14cafd6",
+    "scope": "Default profiles and declared finite contracts only; 274 manifest rows retain their individual discovery/triage limitations."
+  }
 }

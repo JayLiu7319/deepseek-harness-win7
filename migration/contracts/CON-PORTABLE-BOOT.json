@@ -2,7 +2,7 @@
   "id": "CON-PORTABLE-BOOT",
   "revision": 3,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "scripts/build_portable.py",
     "tests/test_portable_smoke.py"
@@ -12,9 +12,7 @@
     "Fresh profile boot and shutdown work outside host Python import paths."
   ],
   "consumers": [],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Portable launchers select adjacent Python 3.8 and dsh.py, independent of PATH.",
   "ownership": "Build owns generated dist folder/zip; source checkout remains development input.",
   "ordering": "Resolve pinned ripgrep metadata and Python DLL before replacing output; stage runtime, framework, frontend and dependencies, then zip.",
@@ -23,7 +21,10 @@
   "adaptation": "Only current Windows runtime smoke is specified here. Win7 SP1/browser validation is explicitly deferred by user; no certification inferred.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

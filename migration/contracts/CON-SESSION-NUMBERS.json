@@ -2,7 +2,7 @@
   "id": "CON-SESSION-NUMBERS",
   "revision": 3,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/core/session/src/index.ts",
     "reference/packages/core/session/src/types.ts",
@@ -34,12 +34,14 @@
   "open_questions": [
     "Session.fromRestore identity/number-sign and all malformed/public plugin ABI operations, arbitrary metadata graphs, all consumer mutation/copy cycles, multi-process/workspace/long histories, fullB1/profile and deferred real Win7 remain outside these53 cases.",
     "The Source input inventory is a static guard, not a full dynamic import closure; clean pinned checkout and frozen full gate input manifests bind the wider source tree.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision.",
     "Removed Source paths: reference/packages/core/session/src/json.ts"
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

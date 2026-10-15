@@ -2,7 +2,7 @@
   "id": "CON-REPRO-RELEASE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "scripts/build_portable.py",
     "scripts/verify_release.py",
@@ -16,9 +16,7 @@
     "A clean Windows checkout resolves only versioned and pinned inputs before replacing a release.",
     "Publishing consumes the exact archive produced by a successful reusable verification job."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Candidate Git commit and pinned reference SHA identify the gate; frontend bytes are separately pinned prebuilt inputs.",
   "ownership": "Verification owns build directory, dependency environment and reports. Publish job consumes uploaded archive and never rebuilds it.",
   "ordering": "Resolve runtime, locked dependencies and frontend manifest before replacing dist; build, full pytest, upstream consumer tests, raw Cordis oracle, scoped acceptance, isolated boot, then artifact upload.",
@@ -27,7 +25,10 @@
   "adaptation": "Current Windows/Python 3.8.10 gate. Frontend is the exact checked-in build, not a fresh target-source rebuild; Web Connection batch owns source/protocol alignment. Win7 is deferred.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

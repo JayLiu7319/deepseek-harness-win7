@@ -2,7 +2,7 @@
   "id": "CON-SDK-PROFILE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/apps/cli/src/bin.ts",
     "reference/packages/sdk/server/src/index.ts",
@@ -37,12 +37,14 @@
   "adaptation": "Python3.8 coroutine driving and typed native message identifiers preserve the observed Source semantics. The original browser bundle and Source pin remain unchanged.",
   "open_questions": [
     "SDK resume, arbitrary plugins/transports, standard/creative full journeys and Web user chains remain in broader contracts.",
-    "Actual Windows7 certification is user-deferred; these current-host observations do not certify it.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Actual Windows7 certification is user-deferred; these current-host observations do not certify it."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

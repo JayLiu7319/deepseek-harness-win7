@@ -2,7 +2,7 @@
   "id": "CON-SESSION-LIVE-WRITES",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence/src/write-behind.ts",
     "reference/packages/session/session-persistence/src/coordinator.ts",
@@ -21,9 +21,7 @@
     "HMR adopts only matching cwd and stored event prefixes, repairs byte tails without synthesizing interrupted-turn closers, and persists each seed/suffix once.",
     "Retirement drains the old Session before a replacement claims its ID; cancellation of a Python flush observer does not cancel durability."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Live state is keyed by exact Session object; owners, locks and retiring jobs are indexed by ID. Cold shared preparation reservations are not implemented by this layer.",
   "ownership": "LivePersistence owns initialization tasks, write controllers and retirement jobs. Cordis owns listener cleanup and the final drain. The canonical JSONL plugin uses the shared coordinator in both compression modes.",
   "ordering": "Initialize/adopt prefix -> persist seed -> queued suffix; same-ID lock serializes live writes. Concurrent flush reaches quiescence including admitted tails. Backend close follows all drains, even on failure.",
@@ -32,8 +30,11 @@
   "adaptation": "Python 3.8 call_later implements bounded batching and settled empty flush is synchronous. Local deterministic clock probes cover source write-behind cases; four paired real upstream JSONL journeys compare type/seq/data and rejection boolean (generated timestamps and diagnostic wording are not compared). Legacy SQLite lifecycle tests remain native compatibility controls and are not canonical rc.1 Source evidence.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
   "historical_native_compatibility_notes": "Any retained legacy native SQLite unit controls are product compatibility tests, not evidence for a canonical rc.1 SQLite persistence provider. Current Source persistence comparisons mount canonical JSONL none/zstd."
 }

@@ -2,7 +2,7 @@
   "id": "CON-RC1-CAPABILITIES",
   "revision": 1,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/core/session/src/index.ts",
     "reference/packages/core/agent-loop/src/index.ts",
@@ -32,7 +32,14 @@
   "cancellation": "Selected local search, projection and session consumers preserve caller signals and drain owned work.",
   "adaptation": "Python3.8 standard-library ports and Win7-owned browser compatibility adapter; real Win7 deferred.",
   "open_questions": [
-    "Exact clean candidate release qualification is pending.",
     "Optional LSP, cloud/search providers and all274 manifests are not certified by these bounded categories."
-  ]
+  ],
+  "rc1_review": {
+    "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
+  }
 }

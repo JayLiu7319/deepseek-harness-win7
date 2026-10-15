@@ -2,7 +2,7 @@
   "id": "CON-SESSION-CORPUS-LIST",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session-query/session-query/src/corpus.ts",
     "reference/packages/session-query/session-query/src/sources.ts",
@@ -31,13 +31,15 @@
   "cancellation": "Optional signal extends the public Python persistence.list interface compatibly for ordinary callers; owned providers check before and during enumeration.",
   "adaptation": "ThrownValueError carries a JavaScript non-Error rejection. Only tested ASCII tie ordering is covered; full locale collation is unverified.",
   "open_questions": [
-    "Clean complete gate and actual extracted acceptance pending. Full corpus exact reads, bounded concurrent title folding, FTS, long history, arbitrary locale sorting, Web/profile journeys and deferred Win7 remain outside this contract.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Current bounded qualification is recorded in rc1_review. Full corpus exact reads, bounded concurrent title folding, FTS, long history, arbitrary locale sorting, Web/profile journeys and deferred Win7 remain outside this contract."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
   "historical_native_compatibility_notes": "Any retained legacy native SQLite unit controls are product compatibility tests, not evidence for a canonical rc.1 SQLite persistence provider. Current Source persistence comparisons mount canonical JSONL none/zstd."
 }

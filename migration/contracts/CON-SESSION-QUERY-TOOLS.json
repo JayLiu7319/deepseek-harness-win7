@@ -2,7 +2,7 @@
   "id": "CON-SESSION-QUERY-TOOLS",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session-query/tool-session-query/src/index.ts",
     "reference/packages/session-query/tool-session-query/src/input.ts",
@@ -41,12 +41,14 @@
   "open_questions": [
     "Full malformed/public plugin ABI and all concurrent/cross-process/domain-provider histories are separate qualification scopes.",
     "Canonical physical persistence schema-19, compressed/chunk histories, OAuth/public acquisition, full profile/UI journeys, startup cancellation and the overall migration remain open.",
-    "Real Windows 7 certification remains explicitly deferred.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Real Windows 7 certification remains explicitly deferred."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

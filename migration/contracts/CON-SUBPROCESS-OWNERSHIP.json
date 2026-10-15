@@ -2,7 +2,7 @@
   "id": "CON-SUBPROCESS-OWNERSHIP",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/subprocess/subprocess-local/src/index.ts",
     "reference/packages/subprocess/subprocess-local/tests/local.spec.ts"
@@ -26,12 +26,14 @@
   "cancellation": "This contract covers awaited normal disposal and invoked finalizer at explicit handle barriers; actual operating-system Host termination, process trees and caller cancellation beyond the existing owner are separate.",
   "adaptation": "Python 3.8 terminal Task admission mirrors the source synchronous async-function prefix versus resolved Promise continuation. Controlled handles are declared observer seams, with no invented pid or OS outcome.",
   "open_questions": [
-    "Main complete clean candidate and actual extracted acceptance are pending. Original five-file subprocess baseline has two Windows fixture translation failures retained separately. Real root/descendant trees, Host crash/exit, terminal/WinPTY, background Jobs and deferred Win7 remain unaccepted.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Current bounded qualification is recorded in rc1_review. Original five-file subprocess baseline has two Windows fixture translation failures retained separately. Real root/descendant trees, Host crash/exit, terminal/WinPTY, background Jobs and deferred Win7 remain unaccepted."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

@@ -2,7 +2,7 @@
   "id": "CON-SESSION-STORAGE",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence/src/coordinator.ts",
     "reference/packages/session/session-persistence/tests/contract.ts",
@@ -21,9 +21,7 @@
     "Retired request/header-delta, mode/set and fallback headers reject writes. Unknown event types remain writable but reject on reads with artifact diagnostics.",
     "Cold inspect/load validate current envelopes, message/request shape, header and surface rules via Session before durable repair. read_from remains a stored-prefix read and observes retirement/serialization/abort."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "The session ID is shared by creation intent, cursor, reservation and exact live identity. Cwd is checked before live claims.",
   "ownership": "PersistenceCoordinator replaces the unused legacy queue facade. Backend methods own physical append/materialization; shared live/prepared layers own lifecycle and reservations.",
   "ordering": "Detach batch before awaiting the ID lock; validate cursor for the entire batch; commit header+first batch atomically; then advance cursor and invalidate cached source.",
@@ -32,8 +30,11 @@
   "adaptation": "Python 3.8 async methods snapshot when execution starts before waiting for the storage lock. ctypes calls the same Win7-compatible MoveFileExW API as upstream Windows publication. Two independent backend objects test exclusive publication, not arbitrary cross-process/multi-cwd coordination or power-loss behavior. Legacy native SQLite shares local compatibility tests only; canonical Source persistence acceptance uses JSONL none/zstd. Win7 machine validation remains deferred.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
   "historical_native_compatibility_notes": "Any retained legacy native SQLite unit controls are product compatibility tests, not evidence for a canonical rc.1 SQLite persistence provider. Current Source persistence comparisons mount canonical JSONL none/zstd."
 }

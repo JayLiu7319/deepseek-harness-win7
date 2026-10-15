@@ -2,7 +2,7 @@
   "id": "CON-ACP-PERMISSIONS",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/acp/acp/src/index.ts",
     "reference/packages/acp/acp/tests/approval.spec.ts",
@@ -22,9 +22,7 @@
     "A selected allow-once grants only this decision; unknown choices reject, explicit cancellation cancels, and disconnected or malformed peers fail closed through ApprovalService and retain paired audit records.",
     "Pending decisions retain actual RPC correlation and close ownership; real canonical Agent/tool/next-request process consumers must be verified before integration."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Exact Agent object, exact owned Session, protocol tool-call identity and outgoing typed request id.",
   "ownership": "Bridge-owned ordered updates and outgoing RPC; ApprovalService owns per-decision audit and caller cancellation.",
   "ordering": "Committed tool update before permission request; peer answer before per-action execution and audit completion.",
@@ -33,7 +31,10 @@
   "adaptation": "Python 3.8 async waterfall, exact object ownership and an owned asyncio.Event cancellation adapter for canonical Agent tools. The separately reviewed UPSTREAM-ACP-PERMISSION-001 predicate accepts only two fixed malformed grant responses; earlier eight predicates and C58 are unchanged.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

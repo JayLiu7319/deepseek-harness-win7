@@ -2,7 +2,7 @@
   "id": "CON-WIN32-STAT",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/fs/fs-local/src/index.ts",
     "reference/packages/fs/fs-local/src/fsio.ts",
@@ -32,12 +32,14 @@
   "adaptation": "Python3.8 ctypes supplies Win32 file metadata unavailable through os.stat. Only longstanding Windows APIs are used; actual Windows7 runtime certification is user-deferred.",
   "open_questions": [
     "Arbitrary concurrent rename/reparse/permissions and non-observed filesystem/error schedules remain in the broader tool/profile contracts.",
-    "The original WinError1175 holder/cause is not identified by these successful metadata observations; no causality or Win7 certificate is inferred.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "The original WinError1175 holder/cause is not identified by these successful metadata observations; no causality or Win7 certificate is inferred."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

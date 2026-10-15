@@ -1,5 +1,7 @@
 # rc.1 候选推进区
 
+2026-10-15：约定范围已完成，合格代码为 `d5f74c2d`，单次完整门禁通过。A01–A06、A08 的退出条件和精确证据已更新到 `actions.json`；A07 的274-manifest 审计保留逐项边界，LSP/云搜索/ingress 等仍是独立可选工作。当前活动清单为 [rc1-capabilities.json](../../rc1-capabilities.json)，本目录较早的 `capabilities.json` 是候选发现快照。详见 [完整签收记录](../../../docs/research/2026-10-15-rc1-baseline-migration-progress.md)。以下保留2026-10-14 的推进历史与原计划，不代表当前仍待切换。
+
 固定目标：`a66e4702047846cdaa10c66c9d3df3951f5ea70d`（`dsh-v0.1.2-rc.1`）。
 
 这里记录已获用户授权的 rc.1 增量工作。`capabilities.json` 是目标的全部 274 个 manifest、声明依赖、候选 profile 可达性、Python Loader 提供端、编译 client、alpha 历史合同和缺口分类；`actions.json` 是行动项的推进记录。二者**不是** `tasks/*.json` 的 migration 状态，也不能使 alpha 的既有证据满足 rc.1。

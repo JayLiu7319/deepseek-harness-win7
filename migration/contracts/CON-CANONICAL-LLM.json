@@ -2,7 +2,7 @@
   "id": "CON-CANONICAL-LLM",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/core/agent-loop/src/agent.ts",
     "reference/packages/llm/llm/src/index.ts",
@@ -37,12 +37,14 @@
   "adaptation": "Python thrown-value and attribute-access exceptions preserve captured Source failure semantics without changing generic error_chain. Canonical assistant/chunk data retains turn/step/chunk only; legacy Python tuple/list chunk consumers retain their established flattened boundary. No browser/Source edits.",
   "open_questions": [
     "Arbitrary malformed metadata/failure properties,exception identity/stack/cause/public graph ABI,all request headers,all model/profile journeys and all concurrency schedules remain unqualified.",
-    "Unchanged original public LLM assertions qualify their original implementation;their pass count is not additional native parity. RealWin7/browser remains user-deferred and accepted_upstream null.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Unchanged original public LLM assertions qualify their original implementation;their pass count is not additional native parity. RealWin7/browser remains user-deferred and accepted_upstream null."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

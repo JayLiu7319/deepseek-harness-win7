@@ -2,7 +2,7 @@
   "id": "CON-SESSION-COLD-RECOVERY",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence/src/coordinator.ts",
     "reference/packages/session/session-persistence-jsonl/src/format.ts",
@@ -21,9 +21,7 @@
     "Damage followed by a committed turn/end, mismatched identity and future format are refused without changing bytes.",
     "An active open live turn is flushed and refused by load, never cold-repaired."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Requested ID must match the stored header for every physical read. Synthetic tool results preserve call identity and source sequence.",
   "ownership": "Cold reads own detached event graphs; live inspect borrows the Session snapshot. This bounded contract does not certify shared preparation reservations or persistence retirement ownership.",
   "ordering": "Inspect/read_from leave bytes unchanged. Load scans and truncates to the last valid contiguous record, fsyncs, then appends tool results, step/end and turn/end. Read-back and second load see the same balanced graph.",
@@ -32,7 +30,10 @@
   "adaptation": "Python 3.8/Win7 uses JSONL without Zstandard. Seven exact TS/Python observations run the real upstream JSONL service and local backend; 164 unmodified upstream assertions are a source baseline, not 164 Python parity claims.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

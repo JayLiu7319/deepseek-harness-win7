@@ -2,7 +2,7 @@
   "id": "MIG-RC1-ALIGNMENT-001",
   "goal": "Complete fixed rc.1 baseline, shared runtime consumers, original Web resources and exact-candidate qualification",
   "kind": "implementation",
-  "state": "running",
+  "state": "integrated",
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
   "base_product": "2e4b84abd1b14e968741b54dfcec43b204b2f067",
   "owner": "current-rc1-coordinator",
@@ -370,6 +370,10 @@
   ],
   "open_findings": [],
   "conflicts_with": [],
-  "evidence_ids": [],
-  "next_action": "Complete current rc.1 implementations and revalidation before promoting any revised contract or candidate."
+  "evidence_ids": [
+    "RUN-RC1-QUALIFICATION-20261015-D5F74C2D"
+  ],
+  "next_action": "Maintain this bounded rc.1 baseline; optional providers, remote publication and deferred Win7 require their own evidence.",
+  "candidate_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+  "integrated_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e"
 }

@@ -2,7 +2,7 @@
   "id": "CON-ACP-PROMPT-OWNERSHIP",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/acp/acp/src/index.ts",
     "reference/packages/acp/acp/src/session.ts",
@@ -20,8 +20,7 @@
     "Canonical run_profile/Loader/real AgentLoop integration claims a real turn and releases the Agent without replacing providers with a legacy harness."
   ],
   "open_questions": [
-    "Full ACP stdio registration, output drain, request-signal cancellation, persistent list/resume/close/config and MCP/permissions remain a separate provider/consumer contract.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Full ACP stdio registration, output drain, request-signal cancellation, persistent list/resume/close/config and MCP/permissions remain a separate provider/consumer contract."
   ],
   "identity": "Exact owned Agent, exact owned Session, accepted message id and claimed turn identify one prompt; no global turn-end broadcast settlement.",
   "ownership": "The ACP SessionRecord owns its one prompt slot; all error paths clear only the local identity they admitted. Context owns reversible handlers and Agent disposal.",
@@ -31,7 +30,10 @@
   "adaptation": "Python 3.8.10 native bridge handler contract only. Original 139-test ACP source baseline is distinct from bounded Python coverage; no full ACP wire/MCP parity or Win7 certification is claimed.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

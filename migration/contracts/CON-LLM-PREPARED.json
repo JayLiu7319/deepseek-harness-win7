@@ -2,7 +2,7 @@
   "id": "CON-LLM-PREPARED",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/llm/llm/src/index.ts",
     "reference/packages/llm/llm/src/call-config.ts",
@@ -35,12 +35,14 @@
   "adaptation": "Python snake-case adapter hooks and legacy ScriptedMockAdapter chat_completion_stream are dispatched on the captured object. Legacy ctx-less standalone AgentLoop stubs preserve internal preparation; canonical mounted services use public prepareCall.",
   "open_questions": [
     "Arbitrary malformed/accessor/null/noniterable graphs, all cancellation/registration schedules and complete five-profile chains remain in broad migration parents.",
-    "Actual Win7 remains user-deferred. No accepted_upstream certification follows from this bounded scope.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Actual Win7 remains user-deferred. No accepted_upstream certification follows from this bounded scope."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

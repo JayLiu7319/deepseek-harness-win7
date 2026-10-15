@@ -2,7 +2,7 @@
   "id": "CON-SESSION-PROJECTION",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-projection/src/index.ts",
     "reference/packages/session/session-projection/tests/registry.spec.ts",
@@ -24,9 +24,7 @@
     "Checkpoint values detach from live cells. restoreFloor includes a one-below anchor; unusable rows on nonzero tails require a full reread, and replay rejects missing sequence positions.",
     "hydrate reuses exact cuts, installs only non-regressing cells and allows constructor/live suffixes to advance once."
   ],
-  "open_questions": [
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
-  ],
+  "open_questions": [],
   "identity": "Cells use weak exact Session object keys, never reusable string IDs.",
   "ownership": "Cordis Service rebinding attaches registrations and listeners to each caller's fiber; shared registrations reference-count owners.",
   "ordering": "History prefix -> current event -> watermark commit -> validated view -> listeners. Read materialization suppresses subsequent duplicate event delivery.",
@@ -35,7 +33,10 @@
   "adaptation": "Python parser callable or parse(value) replaces Zod. None represents absent optional reads. Existing keyword domain registrations and projection/change notifications remain explicit compatibility adapters, outside schema/domain parity certification. Canonical Remote and durable projection-cache consumers retain their own finite acceptance scopes.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

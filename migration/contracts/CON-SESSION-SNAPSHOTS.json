@@ -2,7 +2,7 @@
   "id": "CON-SESSION-SNAPSHOTS",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
     "dsh/session/persistence.py",
@@ -30,13 +30,15 @@
   "adaptation": "Python uses the canonical JSONL provider for both compression modes. Native Windows file identity/ChangeTime corresponds to the actual Source stat token; finite fixtures do not certify arbitrary cross-process or power-loss histories.",
   "open_questions": [
     "All provider epochs, incremental FTS generations, two-attempt reconciliation, raw duplicate-artifact ordering and non-Windows physical birthtime qualification remain unaccepted.",
-    "Windows 7 real-machine certification is deferred.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Windows 7 real-machine certification is deferred."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
   "historical_native_compatibility_notes": "Legacy native SQLite unit controls retain store UUID, incarnation, transactional revision and atomic backfill coverage. They neither mount a canonical rc.1 SQLite persistence package nor add Source rows; the removed Source provider and its old acceptance remain in alpha history."
 }

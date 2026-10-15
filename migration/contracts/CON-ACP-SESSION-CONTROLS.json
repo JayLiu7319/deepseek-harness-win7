@@ -2,7 +2,7 @@
   "id": "CON-ACP-SESSION-CONTROLS",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/acp/acp/src/index.ts",
     "reference/packages/acp/acp/src/session.ts",
@@ -23,8 +23,7 @@
     "Bridge unload cancels every captured Session before awaiting drains, disposes all owned Agents, clears exact records and reports aggregated teardown failures rather than swallowing them."
   ],
   "open_questions": [
-    "ACP stdio/MCP/configuration/ordered semantic output are separate remaining provider/consumer closures; this contract does not certify those capabilities.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "ACP stdio/MCP/configuration/ordered semantic output are separate remaining provider/consumer closures; this contract does not certify those capabilities."
   ],
   "identity": "Exact owned Agent/Session, opaque Session id, activation reservation and canonical cursor ordering key; active foreign Sessions cannot be resumed or listed.",
   "ownership": "ACP owns admission records and memoized close operations; services own Agent construction and durable storage, and descendant teardown is requested through the optional subagents service.",
@@ -34,7 +33,10 @@
   "adaptation": "Python 3.8.10 provider/handler lifecycle, JSONL/SQLite and canonical profile tests. No complete ACP wire, MCP, model/config controls, ordered updates or Win7 certification is inferred.",
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

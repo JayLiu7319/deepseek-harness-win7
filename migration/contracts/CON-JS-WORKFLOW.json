@@ -2,7 +2,7 @@
   "id": "CON-JS-WORKFLOW",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/workflow/workflow-worker-thread/src/index.ts",
     "reference/packages/workflow/workflow-worker-thread/src/runtime.ts",
@@ -31,8 +31,7 @@
     "Win7 native certification remains user-deferred.",
     "Existing nine Source bug predicates and the four approved policy-token scenes remain unchanged.",
     "Original HTTP10054,40ms cache/1175/5 histories and the v5 missing private-temp producer and v7 checkpoint replacement WinError5 remain unclassified. Actual later passing finite observations do not identify or eliminate those original causes.",
-    "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "Real private Win6.1-targeted executable/resources,32 actual parse/error corpus with exact existing frame/diagnostic/descriptor adaptation,34 WorkerRun corpus, workflow/Ralph/selected-child consumers and four actual HELD_UNLOAD/CANCEL_PUBLISHED/CANCEL_UNPUBLISHED/DISPOSE_REENTRANT ownership schedules. No arbitrary Node/Intl/Wasm/SDK/Cordis delivery/trust or Win7 claim."
   ],
   "historical_open_questions": [
     "The first engine research has fourteen complete matches and eight retained parse/error-text differences; those raw differences remain open after Source-backed worker/host integration.",
@@ -412,7 +411,10 @@
   },
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

@@ -45,7 +45,7 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 
 ## 统一资格
 
-当前状态：实现及定向检查完成后冻结候选，执行 `scripts/verify_release.py`。在完整 Python、固定 Source 配置、全部选定配对合同和实际解压 Portable/浏览器都通过前，`accepted_upstream` 保持 null，迁移任务保持 running，不宣称已完成正式验收。
+当前状态：干净候选 `d5f74c2da78f4d81b5fe3d9f1251fed31c03174e` 的单次完整门禁已通过，物理退出0、`passed / publishable`。`MIG-RC1-ALIGNMENT-001` 按86份当前有限合同集成，A01–A06/A08 签收；A07 可选扩展继续单独管理。`accepted_upstream` 保持 null，因为本轮不认证全部274个 manifest、任意 ABI/并发历史、真实云 provider 或 Win7 真机。本轮没有发布 Release，后续台账/文档提交不冒充新的合格产品提交。以下保留五轮完整失败及修复历史。
 
 首轮干净 `a6191cdb197c9e317fe6c358193ebd255c11b1fa` 的 Portable 构建完成，但完整 Python 在145项通过后因缺失上游测试镜像停止。原 XML、日志、冻结输入和精确失败 ZIP 保存在 `.goose/out/rc1-release-a6191cdb-20261015/`；ZIP SHA256为 `74942c18f58377a9763f65bd868331089aa7bf5a24c9c9a3af9801d1c42067b5`。该运行保持 failed，后续修正不得补签它。
 
@@ -70,3 +70,24 @@ LSP stdio 样机、外部搜索/云 provider、GitHub ingress 等按既定评估
 修正必跑参数后新增实际 pytest 收集检查，覆盖缺失参数、取消选择、重复实例及完整仓库当前收集；在执行测试体前拒绝清单漂移，保留最终 XML 执行检查。33项门禁、外部工作区、保留控制及收集检查通过，用时25.30秒。合同同步区分当前 canonical JSONL 与历史 SQLite 原生兼容测试，移除旧固定门禁计数；不据此提升验收状态。
 
 后续独立诊断在同一失败 ZIP 上完成21组 Source 配置、82个配对驱动、21类 rc.1 能力、legacy reader、Cordis、实际解压 Python3.8.10，以及现代 Edge 和固定 Chromium108 的 minimal/standard/cordis 三预设 fresh/cold 旅程；minimal 包括140轮历史与引用选择，全部通过。原始观察与明确标记为 `post-python-diagnostics-only` 的摘要保存在 `.goose/out/rc1-post-python-diagnostics-20261015/`。这些结果不与第五轮 Python 拼接成完整资格；下一干净候选仍重新执行完整入口。
+
+## 第六轮完整签收
+
+`d5f74c2da78f4d81b5fe3d9f1251fed31c03174e` 从干净工作树重新构建并执行同一完整入口，没有拼接前轮结果：
+
+| 范围 | 实际结果 |
+|---|---|
+| 完整 Python | 收集10,744；10,738通过、6项既有环境跳过、9项 warning；4,213.37秒 |
+| 必跑清单 | 收集与最终 XML 均确认3,925个实例完整、唯一执行且未跳过 |
+| 固定 Source | 21组配置通过；配置执行合计2,360通过、2项原有跳过，不宣称这些是去重用例 |
+| 配对及增量 | 82个驱动、21类 rc.1 能力、只读 legacy reader、Cordis 原始观察及有限验收通过 |
+| 同包实际解压 | 包内 Python3.8.10、实际 native/runtime/ACP/MCP/查询消费者及现代 Edge 通过；固定 Chromium108 的 minimal/standard/cordis 三预设 fresh/cold 通过，minimal 含140轮历史、可信跳转与文件引用 |
+| 冻结身份 | 代码、Source、输入与 ZIP 最终一致性检查通过；主进程退出0、`passed / publishable` |
+
+产品 ZIP SHA256：`2ab1c51e8a64ee95ab4be8e41fc7e7f9d04f4d5c81b96c41bb9dc568b14cafd6`。冻结输入清单 SHA256：`9d637932024dc261d1d7a15bc9cc55adf3aa080057cef6163a863bb90710bee6`。实际 ZIP 仍使用产品版本 `v0.1.1` 的内部候选文件名，不将上游 RC tag 当作产品发布版本。
+
+正式 [回执](../../migration/evidence/RUN-RC1-QUALIFICATION-20261015-D5F74C2D.json) 绑定当前合同修订、命令、实际计数和原始输入；[LFS 资格载体](../../migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip) 包含730份原始文件及精确 `qualified-candidate.zip`，载体 SHA256为 `e46a05046b0a8ed908038704bf8830f087390ce88b513cbcb1ce93efbb5d67a0`。实际 pytest 工作区、解压副本和可重建夹具保留本地，不全部归档。封装最后重命名曾遇 WinError32；原完整临时载体经过 CRC、逐成员 SHA 与 staging 字节复核后仅重命名恢复成功，没有重建产品或改变门禁结果。正式回执保留该处理记录。
+
+九项已有上游缺陷均在本轮按原驱动、原谓词及精确 mode/status 重现并续记；没有增加例外或放宽判据。C58 原始 Python 调度差异仍可见，原 C59 checkpoint 继续必须匹配。alpha 历史任务、夹具、原始验收和五轮失败回执均保留原身份。
+
+收尾记录验证：`migration.py check`、`status --write`、`ready` 均退出0；生成状态确认新任务为 `integrated / current acceptance`，新回执为 `passed / current`。86个历史任务逐文件与冻结输入的 SHA 相同，alpha 历史目录无改动，新增本地链接及 diff 检查通过。收尾仅修改声明的记录/文档和新增正式证据，不重新构建或重标产品候选。

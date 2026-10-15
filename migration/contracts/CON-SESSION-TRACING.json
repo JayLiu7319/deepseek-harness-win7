@@ -2,7 +2,7 @@
   "id": "CON-SESSION-TRACING",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session-query/session-query/src/tracing.ts",
     "reference/packages/session-query/session-query/src/index.ts",
@@ -34,13 +34,15 @@
   "cancellation": "Existing direct signals reach corpus; traceSession also accepts the historical internal options adapter. Enumerated pre-abort and persisted failures preserve reason identity.",
   "adaptation": "Explicit stacks replace recursive descendant construction. Canonical JSONL serialization uses the current persistence provider; legacy SQLite serialization controls remain native compatibility coverage. ASCII collation only is certified; message snapshots use canonical adoption.",
   "open_questions": [
-    "A new clean full gate and actual extracted Python 3.8.10 remain required. Controlled listing/inspection/failure seams are distinct from six actual canonical JSONL none/zstd consumer lanes. Complete FTS/filter/index generations, non-ASCII locale collation, arbitrary Task cancellation/provider epochs, Web/profile composition and deferred Win7 are unaccepted.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
+    "A new clean full gate and actual extracted Python 3.8.10 remain required. Controlled listing/inspection/failure seams are distinct from six actual canonical JSONL none/zstd consumer lanes. Complete FTS/filter/index generations, non-ASCII locale collation, arbitrary Task cancellation/provider epochs, Web/profile composition and deferred Win7 are unaccepted."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
   "historical_native_compatibility_notes": "Any retained legacy native SQLite unit controls are product compatibility tests, not evidence for a canonical rc.1 SQLite persistence provider. Current Source persistence comparisons mount canonical JSONL none/zstd."
 }

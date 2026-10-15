@@ -4,9 +4,9 @@
 
 [README.md](README.md) | [AGENTS.md](AGENTS.md)
 
-当前迁移验收：最新完整签收仍为干净产品 `83026446` 的65个有界范围。后续16项尚待统一闭环；干净 `b73277e6` 第十三轮完整Python **10474通过、1失败、20 setup error、6既有skip**，外部工作区的两个旧消费者假设拒绝后续发行，输入/精确ZIP和原始诊断已封存。显式嵌套归属/逐子XML及精确搜索工作区校验已修正，真实外部门禁181项、同ZIP自有Python13步探针分别通过；不替代新稳定完整验收。及时清理约13.95GB可重建输出、定向约95MB回执及248MB包副本，真实观察和正式证据保留。详见 [迁移台账](migration/README.md) 和 [最新接续记录](docs/research/2026-10-10-external-workspace-consumer-progress.md)。
+当前上游基线为 **dsh-v0.1.2-rc.1**（`a66e4702047846cdaa10c66c9d3df3951f5ea70d`）。合格代码 `d5f74c2d` 已通过单次完整门禁：Python **10,738通过、6项既有环境跳过**，21组固定 Source 配置、82个配对驱动及同包实际解压/现代浏览器/Chromium108 三预设 fresh/cold 验收通过。Session、投影、Remote、SDK/ACP、子代理、文件引用和原样 Web 已完成本轮约定范围迁移；这不是全部274个 manifest 的完整 parity 或 Win7 真机认证。本轮未发布 Release，产品版本仍单独管理。详见 [迁移台账](migration/README.md) 和 [本轮签收记录](docs/research/2026-10-15-rc1-baseline-migration-progress.md)。
 
-规范 JSONL 与原版一致，默认写 `session.jsonl.zstd`，逻辑导出仍为 `session.jsonl`。已有 plaintext 根目录须显式配置 `compression: none`，或为默认压缩选择单独的 root；两种物理格式不能混用同一个 root，也不会静默转换已有日志。新提供端的完整发布验收仍在执行，见 [推进记录](docs/research/2026-10-05-jsonl-provider-progress.md)。
+规范 JSONL 与原版一致，默认写 `session.jsonl.zstd`，逻辑导出仍为 `session.jsonl`。已有 plaintext 根目录须显式配置 `compression: none`，或为默认压缩选择单独的 root；两种物理格式不能混用同一个 root，也不会静默转换已有日志。rc.1 逻辑 header 使用 `isSeeded` 和独立 inherited cut，既有私有 version-0 JSONL 继续在编码/解码边界转换；旧 SQLite 数据通过显式产品自有只读 reader 导出，不重新引入已删除的 canonical provider。历史设计见 [JSONL 推进记录](docs/research/2026-10-05-jsonl-provider-progress.md)。
 
 > Web 核心链路已通过原版前端与本地模拟模型验收（创建工作区、对话、工具执行、恢复、反馈、分支、导出）；完整上游 parity、真实模型和 Win7 真机验收仍未完成。见 [Web 验收记录](docs/research/2026-09-29-web-usable-baseline.md)。历史审查见 [当前状态审查](docs/research/2026-09-28-current-state-mvp-audit.md) 和 [入口切换实施记录](docs/research/2026-09-28-canonical-entry-progress.md)。CLI 已统一到正式 profile 入口，旧 CLI 分流不再保留。
 

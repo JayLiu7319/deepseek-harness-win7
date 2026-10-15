@@ -1,5 +1,7 @@
 # 原版 DeepSeek Harness 升级基线评估与选型调研报告
 
+> 2026-10-15 补记：以下保留切换前的历史评估；完整对齐、包数量和风险等判断以 [行动评估中的校正](2026-10-14-rc1-baseline-and-capability-action-plan.md) 为准。当前已切换并完成固定 rc.1 的约定范围迁移，详见 [实施与完整签收](2026-10-15-rc1-baseline-migration-progress.md)；不据此宣称全部上游 parity 或 Win7 真机认证。
+
 **日期**：2026-10-14  
 **作者**：Antigravity Agent  
 **状态**：已完成（已归档入 `docs/research/`）  

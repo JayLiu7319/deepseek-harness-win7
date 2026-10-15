@@ -2,7 +2,7 @@
   "id": "CON-SQLITE-FORMAT",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "dsh/session/sqlite_codec.py",
     "dsh/session/sqlite_compression.py",
@@ -31,11 +31,14 @@
   "cancellation": "Synchronous bounded physical format calls; store lock budgets, asynchronous coordinator ownership and cancellation remain provider contracts.",
   "adaptation": "Python 3.8 UTF-16/IEEE-754/varint operations plus an unchanged-source MSVCRT native build targeting Windows 6.1. This does not certify real Win7 execution.",
   "open_questions": [
-    "Exact-candidate full release qualification and real Windows 7 remain pending."
+    "Real Windows 7 machine validation remains deferred; current bounded qualification is recorded in rc1_review."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }

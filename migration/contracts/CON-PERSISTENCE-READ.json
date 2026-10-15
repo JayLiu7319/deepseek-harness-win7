@@ -2,7 +2,7 @@
   "id": "CON-PERSISTENCE-READ",
   "revision": 2,
   "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "status": "draft",
+  "status": "specified",
   "source_paths": [
     "reference/packages/session/session-persistence/src/coordinator.ts",
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
@@ -32,12 +32,14 @@
   "open_questions": [
     "Arbitrary metadata/event graphs, complete public plugin ABI, all signal values/retirement/unload schedules, multi-process/multi-workspace/long histories, profiles/fullB1 and deferred Win7 remain unaccepted.",
     "The Source guard inventory is static, not a complete dynamic import inventory; clean pinned Source and frozen release input manifests bind the full checkout.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision.",
     "Removed Source paths: reference/packages/session/session-persistence-sqlite/src/index.ts, reference/packages/session/session-persistence-sqlite/src/store.ts"
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-    "state": "awaiting-exact-candidate-qualification",
-    "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
+    "state": "bounded-qualified",
+    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+    "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   }
 }
