@@ -19,12 +19,12 @@
   ],
   "invariants": [
     "Actual public Source Session.fromRestore and native Session.from_restore compare all18 numeric result rows without filtering or output normalization.",
-    "For six header/event fields crossed with whole, negative-zero and fractional values, compare acceptance, exact error and actual safe-integer/Object.is(value,-0)/Object.is(value,input) predicates.",
+    "Five admitted header/event fields crossed with whole, negative-zero and fractional values compare acceptance, exact error and actual safe-integer/Object.is predicates. Three additional retired seedLength values all reject as an invalid header field.",
     "Validated restored numbers retain the original admitted numeric values. Do not cast away signed zero after validation. Creation continues using its lossless snapshot and rejecting negative zero.",
     "Published header attributes, exports, shallow and detached deep copies preserve restored signs. These independent native controls are not additional Source rows.",
     "Fresh Source/Node22.22.2 guards and complete selected/extracted ownPython3.8.10 imported module and executable identities are required."
   ],
-  "identity": "Six fields version/createdAt/seedLength/delegationDepth/seq/time crossed with whole/negative-zero/fraction. Observer NAMES fixes complete ordering. Python numeric equality plus zero sign expresses the actual Source Object.is number predicates.",
+  "identity": "Five fields version/createdAt/delegationDepth/seq/time crossed with whole/negative-zero/fraction plus three retired seedLength rejection rows. Observer NAMES fixes complete ordering. Python numeric equality plus zero sign expresses the actual Source Object.is number predicates.",
   "ownership": "Use actual public restore and inspect published numeric values; preserve frozen publication and mutable detached query clones.",
   "ordering": "Field validation precedes publication without a second numeric coercion. Creation snapshot remains a separate boundary.",
   "errors": "Native ValueError corresponds to Source Error only at this admission boundary; exact error text is compared and unexpected exceptions fail.",

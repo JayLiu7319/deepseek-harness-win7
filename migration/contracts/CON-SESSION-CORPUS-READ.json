@@ -22,7 +22,7 @@
     "Title batches deduplicate in first-occurrence order, use one persistence listing, and isolate per-id operational failures while preserving known live results.",
     "Persisted title inspections use the configured safe integer concurrency and project each completed source before a worker claims its next id; batch results retain no full log.",
     "Cancellation stops queued inspection admission, drains already-started inspections, then rejects with the exact signal reason.",
-    "Title values are immutable detached snapshots; batch headers remain caller-owned clones. Public readSession/readTitleSnapshot/readTitle and JSONL/SQLite consumers stay cold."
+    "Title values are immutable detached snapshots; batch headers remain caller-owned clones. Public readSession/readTitleSnapshot/readTitle and canonical JSONL none/zstd consumers stay cold."
   ],
   "identity": "Exact Session headers, original error/cause and signal identity, first-occurrence result identity, immutable title snapshot and runtime root/module are retained.",
   "ownership": "The source resolves one live or persisted cut; bounded workers own started inspections through signal cancellation, and project logs immediately without retaining them in batch output.",
@@ -31,7 +31,7 @@
   "cancellation": "Signal abort before source work performs no listing; controlled batch cancellation preserves exact reason and observed drain. Arbitrary Python task cancellation is not certified.",
   "adaptation": "Python supports integral floats in configuration as JavaScript safe integer Numbers; booleans, fractions, non-finite values, strings and unsafe values are refused. Deep-freeze represents original immutable title values.",
   "open_questions": [
-    "Clean complete gate and actual extracted acceptance pending. These nineteen observations use controlled persistence listing/inspection/failure/drain seams; four JSONL/SQLite consumers separately cover real cold reads and pre-abort. Full FTS, filters/event tracing, long history, all title source variants, provider replacement epochs, arbitrary Task cancellation, complete Web/profile and deferred Win7 remain open.",
+    "Clean complete gate and actual extracted acceptance pending. These nineteen observations use controlled persistence listing/inspection/failure/drain seams; four canonical JSONL none/zstd consumers separately cover real cold reads and pre-abort. Full FTS, filters/event tracing, long history, all title source variants, provider replacement epochs, arbitrary Task cancellation, complete Web/profile and deferred Win7 remain open.",
     "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "rc1_review": {

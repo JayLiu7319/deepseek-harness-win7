@@ -6,8 +6,7 @@
   "source_paths": [
     "reference/packages/session/session-persistence-jsonl/src/index.ts",
     "dsh/session/persistence.py",
-    "dsh/session/persistence_jsonl.py",
-    "dsh/session/persistence_sqlite.py",
+    "dsh/session/persistence_jsonl_canonical.py",
     "dsh/session/file_revision.py"
   ],
   "consumers": [
@@ -16,30 +15,28 @@
     "dsh/session/coordinator.py"
   ],
   "invariants": [
-    "The eighteen declared actual source/native provider observations must match independent literals; they are not full SQLite physical-schema or FTS acceptance.",
-    "Canonical listSnapshots exposes detached headers and source-qualified tokens. JSONL includes dev/ino/size/mtimeNs/ctimeNs; a changed Windows ChangeTime invalidates same-size rewrites even after restoring mtime. Both observer fixtures explicitly assign identical before/after ChangeTime values; arbitrary rewrites with all five stat fields unchanged remain outside this guarantee.",
-    "SQLite tokens include physical store namespace, persisted store UUID, per-row incarnation and transactional revision. One nonempty append batch advances once; a failed batch rolls back events and revision together. Reopen preserves tokens and copying a store changes its physical namespace.",
-    "Lazy creation produces no stored snapshot; no-op append preserves revision; :memory: uses an actual isolated memory store.",
-    "Exact pre-abort is checked before backend work. JSONL stat completion and stat error check caller cancellation before publication or ENOENT handling.",
-    "Legacy native SQLite revision-column/identity backfill upgrades are atomic, preserve headers and retain incarnations on reopen. These are native legacy-format upgrades, not pinned upstream schema-19 migrations.",
-    "File-attribute handles are closed after success or failure; long Unicode Windows paths use ordinary extended-path syntax without modern OS patches."
+    "Seventeen actual Source/native observations cover canonical JSONL with compression none and zstd; no retired Source SQLite provider is mounted.",
+    "listSnapshots exposes detached headers and tokens qualified by dev/ino/size/mtimeNs/ctimeNs. The plaintext restored-stat fixture explicitly controls Windows ChangeTime on both sides; arbitrary rewrites preserving every stat field remain outside the guarantee.",
+    "Both compression modes cover lazy creation, repeated stable reads, nonempty append, no-op append, detached mutation, reopening, copying and exact caller pre-abort. The extra plaintext restored-stat row completes the seventeen observations.",
+    "Lazy creation produces no stored snapshot; no-op append preserves the token. Reopen preserves identity while a copied log has a different physical identity.",
+    "Pre-abort precedes backend work; asynchronous stat completion/error checks cancellation before publication or missing-log handling.",
+    "File-attribute handles close after success/failure; long Unicode Windows paths use Win7-compatible extended-path handling."
   ],
-  "identity": "Logical snapshot tokens are scoped to the actual physical provider and stored session incarnation; eighteen paired observations independently assert stable/change/copy semantics.",
-  "ownership": "Providers own persisted SQLite UUID/counters and temporary Win32 attribute handles; callers own cancellation reasons and detached returned headers.",
-  "ordering": "Validate pre-abort, obtain one provider cut, check abort at each asynchronous stat boundary, and publish detached snapshots only after successful revision reads. SQLite writes and revision increments share one transaction.",
-  "errors": "Preserve exact caller abort and native stat failures; only missing JSONL logs are omitted after checking cancellation. Failed native legacy upgrade rolls back DDL/backfill and closes the unpublished connection.",
+  "identity": "Tokens identify a physical JSONL log revision; seventeen paired observations assert declared stable/change/copy semantics independently.",
+  "ownership": "The JSONL provider owns file operations and temporary Win32 attribute handles; callers own cancellation reasons and detached returned headers.",
+  "ordering": "Validate pre-abort, capture provider state, check cancellation at asynchronous stat boundaries, then publish detached snapshots.",
+  "errors": "Preserve exact caller abort and native stat failures; omit missing logs only after checking cancellation.",
   "cancellation": "Pre-abort and JSONL stat-failure boundaries are tested. Full provider epoch/FTS reconciliation and shared-task close/abort serialization remain outside this contract.",
-  "adaptation": "Native SQLite retains its existing legacy storage tables plus identity/revision columns. The actual original provider and native provider are compared for declared logical snapshot behavior only; no SQLite on-disk interoperability or schema-19 certification is claimed.",
+  "adaptation": "Python uses the canonical JSONL provider for both compression modes. Native Windows file identity/ChangeTime corresponds to the actual Source stat token; finite fixtures do not certify arbitrary cross-process or power-loss histories.",
   "open_questions": [
-    "Full source SQLite schema-19/chunk/compression/foreign-database validation and cross-process power-loss behavior remain unaccepted.",
     "All provider epochs, incremental FTS generations, two-attempt reconciliation, raw duplicate-artifact ordering and non-Windows physical birthtime qualification remain unaccepted.",
     "Windows 7 real-machine certification is deferred.",
-    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision.",
-    "Removed Source paths: reference/packages/session/session-persistence-sqlite/src/index.ts, reference/packages/session/session-persistence-sqlite/src/store.ts, reference/packages/session/session-persistence-sqlite/src/schema.ts"
+    "Review rc.1 provider/consumer changes and obtain new acceptance; alpha observations cannot certify this revision."
   ],
   "rc1_review": {
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
     "state": "awaiting-exact-candidate-qualification",
     "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
-  }
+  },
+  "historical_native_compatibility_notes": "Legacy native SQLite unit controls retain store UUID, incarnation, transactional revision and atomic backfill coverage. They neither mount a canonical rc.1 SQLite persistence package nor add Source rows; the removed Source provider and its old acceptance remain in alpha history."
 }

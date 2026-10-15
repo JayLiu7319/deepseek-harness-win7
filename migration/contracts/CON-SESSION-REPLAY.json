@@ -11,7 +11,7 @@
     "scripts/verify_portable.py"
   ],
   "invariants": [
-    "Live and cold canonical Session projections, revisions, signed admission, events, queries, lineage and snapshots match complete Source values for plaintext/zstd JSONL and SQLite.",
+    "Live and cold canonical Session projections, revisions, signed admission, events, queries, lineage and snapshots match complete Source values for canonical plaintext/zstd JSONL; retained legacy SQLite controls are historical native compatibility coverage.",
     "Independent processes and working directories replay public event/message graphs without alias leakage; malformed extension events and graph/copy cycles receive source-backed outcomes.",
     "Writer/reader retirement, cancellation/reentrancy and Web reconnect/cold recovery preserve sequence, first error, owned preparations and durable state; long-history cases retain actual scale and deadlines.",
     "A fresh clean frozen complete release gate, all required child contracts, same-scenario Source/native observations and isolated own-Python3.8.10 extracted consumers pass before parent integration. Child counts, historical receipts and browser functional success alone are insufficient."

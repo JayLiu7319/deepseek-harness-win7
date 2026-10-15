@@ -24,6 +24,8 @@ def test_short_pytest_workspace_retains_owned_success_and_failure_artifacts(tmp_
         with pytest.raises(ValueError):
             selected.relative_to(gate.ROOT.resolve())
         assert command[1:4] == ['-m', 'pytest', 'tests']
+        assert command[4:6] == ['-p', 'scripts.release_pytest_collection']
+        assert env['DSH_RELEASE_COLLECTION_REPORT'] == str((output / 'pytest-collection.json').resolve())
         assert options['timeout'] == timeout and name == 'pytest' and selected_output == output
         assert accepted == (0, 1)
         executions.append(selected)
@@ -58,6 +60,10 @@ def test_short_pytest_workspace_runs_actual_shared_checkpoint_git_consumer(tmp_p
         commands.append(command)
         command = list(command)
         command[3] = 'tests/test_goose_project.py::test_split_tasks_fork_shared_checkpoint_without_losing_progress'
+        # This test selects one resource-retention consumer rather than the
+        # complete release collection, which is independently tested.
+        assert command[4:6] == ['-p', 'scripts.release_pytest_collection']
+        del command[4:6]
         return original_run(command, name, selected_output, **arguments)
 
     monkeypatch.setattr(gate, 'run', selected_consumer)
@@ -148,6 +154,11 @@ def test_actual_release_pytest_exits_before_owned_artifact_cleanup(tmp_path, mon
     tests.mkdir()
     (scripts / '__init__.py').write_text('', encoding='utf-8')
     (scripts / 'process_artifact_retention.py').write_bytes((gate.ROOT / 'scripts/process_artifact_retention.py').read_bytes())
+    (scripts / 'release_pytest_collection.py').write_bytes((gate.ROOT / 'scripts/release_pytest_collection.py').read_bytes())
+    import inspect
+    (scripts / 'verify_release.py').write_text(
+        "REQUIRED_REGRESSION = {'test_process':{'test_process'}, 'test_z_following':{'test_following'}}\n\n"
+        + inspect.getsource(gate.validate_regression_collection), encoding='utf-8')
     (tests / 'conftest.py').write_bytes((gate.ROOT / 'tests/conftest.py').read_bytes())
     (tests / 'test_process.py').write_text(
         "def test_process(tmp_path):\n"
@@ -173,6 +184,8 @@ def test_actual_release_pytest_exits_before_owned_artifact_cleanup(tmp_path, mon
         gate.run_python_regression(sys.executable, output, environment)
     assert environment['DSH_RELEASE_PYTEST_OUTPUT'] == 'inherited owner must be replaced'
     assert (child / 'following-ran').exists() == (outcome == 'passed')
+    collected = json.loads((output / 'pytest-collection.json').read_text(encoding='utf-8'))
+    assert collected['result'] == 'collection-valid' and collected['required_lanes'] == 2
     import xml.etree.ElementTree as ET
     suites = ET.parse(str(output / 'pytest.xml')).getroot()
     assert len(suites.findall('.//testcase')) == (2 if outcome == 'passed' else 1)

@@ -455,6 +455,11 @@ REQUIRED_REGRESSION = {
         *{'test_actual_retry_hint_keeps_json_numeric_value[' + spelling + ']' for spelling in ('native-float', 'source-float', 'fraction')},
         *{'test_portable_deepseek_error_cli_refuses_partial_receipts[' + side + ']' for side in ('source', 'native')},
     },
+    'test_release_collection': {
+        'test_current_manifest_resolves_actual_collected_parameters',
+        *{'test_actual_collection_guards_parameter_instances_before_test_bodies[' + damage + ']'
+          for damage in ('none', 'stale-parameter', 'deselected', 'duplicate')},
+    },
     'test_release_external_workspace': {
         'test_mapped_external_finished_case_prunes_only_synthetic_receipt',
         'test_repository_temp_is_rejected_before_pytest_or_allocation',
@@ -493,7 +498,7 @@ REQUIRED_REGRESSION = {
         *{'test_session_restore_sign_source_identity_is_required[' + damage + ']' for damage in ('pin', 'node', 'inputs', 'bytes')},
         *{'test_portable_restore_sign_cli_refuses_partial_receipts[' + side + ']' for side in ('source', 'native')},
         *{'test_restored_header_signed_zero_survives_public_consumers[' + consumer + '-' + field + '-' + attribute + ']' for consumer in ('attribute', 'copy', 'deepcopy', 'export')
-            for field, attribute in (('version', 'version'), ('createdAt', 'created_at'), ('seedLength', 'seed_length'), ('delegationDepth', 'delegation_depth'))},
+            for field, attribute in (('version', 'version'), ('createdAt', 'created_at'), ('delegationDepth', 'delegation_depth'))},
     },
     'test_session_diagnostic_consumers': {
         *{'test_actual_public_session_admission_diagnostics_match_source[' + name + ']' for name in DIAGNOSTIC_NAMES},
@@ -1087,7 +1092,6 @@ REQUIRED_REGRESSION = {
     'test_session_tools_profile': {
         'test_optional_profile_model_tools_next_request_and_cold_restart[jsonl]',
         'test_optional_profile_model_tools_next_request_and_cold_restart[jsonl-zstd]',
-        'test_optional_profile_model_tools_next_request_and_cold_restart[sqlite]',
     },
     "test_session_text": {
         "test_literal_simple_case_equivalents_match_in_both_directions[\\u0412-\\u1c80]",
@@ -1338,7 +1342,7 @@ REQUIRED_REGRESSION = {
     'test_subagent_acp_signal': {'test_actual_agent_model_tool_signal_preserves_abort_reason_and_next_turn_generation'},
     'test_subagent_acp_consumer': {
         'test_canonical_profile_actual_tools_consumer_owns_acp_child_exit[' + backend + ']'
-        for backend in ('jsonl', 'sqlite')
+        for backend in ('jsonl', 'jsonl-zstd')
     },
     'test_subagent_acp': {
         'test_real_acp_child_output_protocol_and_terminal_reason[' + reason + '-' + expected + ']'
@@ -1586,6 +1590,27 @@ def prepare_node_dependencies(output, environment):
     run([str(ROOT / '.venv/Scripts/python.exe'), 'scripts/prepare_reference.py', '--output',
          str(output / 'reference-preparation')], 'reference-preparation', output,
         env=environment, timeout=3600)
+
+
+def validate_regression_collection(rows):
+    """Check actual collected identities, without treating collection as execution."""
+    required = {(module, name) for module, names in REQUIRED_REGRESSION.items() for name in names}
+    observed = set()
+    for row in rows:
+        classname, name = row['classname'], row['name']
+        segments = classname.split('.')
+        matches = [(".".join(segments[position:]), name) for position in range(len(segments))
+                   if (".".join(segments[position:]), name) in required]
+        if len(matches) > 1:
+            raise RuntimeError('Collected regression lane identity is ambiguous: ' + classname + '.' + name)
+        if matches:
+            key = matches[0]
+            if key in observed:
+                raise RuntimeError('Required regression lane collected more than once: ' + str(key))
+            observed.add(key)
+    if observed != required:
+        raise RuntimeError('Required regression lanes not collected: ' + str(sorted(required - observed)))
+    return dict(required_lanes=len(observed), collected=len(rows))
 
 
 def validate_regression(path):
@@ -2103,6 +2128,7 @@ def run_python_regression(python, output, environment, timeout=None):
     owned_output = False
     regression_environment = dict(environment)
     regression_environment.pop('DSH_RELEASE_PYTEST_OUTPUT', None)
+    regression_environment['DSH_RELEASE_COLLECTION_REPORT'] = str((output / 'pytest-collection.json').resolve())
     try:
         output.resolve().relative_to(parent)
         owned_output = True
@@ -2110,7 +2136,7 @@ def run_python_regression(python, output, environment, timeout=None):
     except ValueError:
         pass
     try:
-        exitstatus = run([python, '-m', 'pytest', 'tests', '-ra', '--maxfail=1', '--junitxml=' + str(output / 'pytest.xml'),
+        exitstatus = run([python, '-m', 'pytest', 'tests', '-p', 'scripts.release_pytest_collection', '-ra', '--maxfail=1', '--junitxml=' + str(output / 'pytest.xml'),
             '--basetemp=' + str(workspace)], 'pytest', output, env=regression_environment, timeout=timeout, accepted=(0, 1))
         if exitstatus == 1:
             primary_failure = RuntimeError('pytest failed (1); see ' + str(output / 'pytest.log'))

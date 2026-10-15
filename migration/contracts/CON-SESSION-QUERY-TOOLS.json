@@ -28,9 +28,9 @@
     "Searches remain exclusive and internally drain authorized non-self results with lookahead to the deployment cap; no cursor reaches the model and repeated continuation is refused.",
     "Known provider errors retain private causes only in diagnostics; model messages use the closed safe taxonomy. Foreign/unknown/hostile failures and throwing logs use the fixed generic error.",
     "Search deadline and caller abort propagate the exact execution signal to authorization, paging and enrichment, and do not settle before cooperative provider cleanup.",
-    "Two actual canonical JSONL/SQLite profiles complete model -> each of five tools -> next request, flush, shutdown, new Context resume and cold prior-session search.",
+    "Two actual canonical canonical JSONL none/zstd profiles complete model -> each of five tools -> next request, flush, shutdown, new Context resume and cold prior-session search.",
     "Canonical ToolArgsError retains the original INVALID_ARGS code, violations and invalid arguments message; providers are not locally wrapped to conceal the shared Tools interface difference.",
-    "Release acceptance requires a clean committed complete suite, 312 mandatory lanes, fourteen unchanged source groups/1082 assertions, fifty paired drivers and actual extracted original-browser verification with the fresh full source digest and owned module hashes."
+    "Release acceptance requires a clean committed complete suite, all currently enumerated mandatory lanes, pinned Source configurations, paired drivers and actual extracted original-browser verification with fresh full Source digest and owned module hashes; exact counts belong to the frozen receipt."
   ],
   "identity": "Opt-in @deepseek-ai/dsh-tool-session-query with pinned original five-tool schemas and model-safe presentations.",
   "ownership": "Cordis effect-owned Tools and SystemPrompt registrations; existing Context-owned query engine, sessions and durable providers.",

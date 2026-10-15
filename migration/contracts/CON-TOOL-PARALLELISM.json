@@ -26,7 +26,7 @@
     "The factory model loop actually passes the current cap to the scheduler; controlled twelve-call consumers at caps one/two/ten retain model-order result identities and perform the next model request.",
     "The cap is read at each scheduler group boundary; changing settings cannot alter a group already in flight. A separate controlled group-snapshot observation is required before integration.",
     "Fresh actual Source/native and isolated extracted observations must retain complete ordered identities and all imported candidate runtime module hashes. Omitted/reordered/changed rows, absent modules, foreign roots/Python or stale Source receipts refuse.",
-    "The complete clean candidate must pass all pytest, eighteen unchanged Source groups including the original 27 scheduler/settings assertions, all selected paired drivers and actual extracted/original-browser acceptance. Existing failures and scoped bug predicates are retained without retries or new exceptions."
+    "The complete clean candidate must pass all pytest, all currently pinned Source configurations including scheduler/settings assertions, all selected paired drivers and actual extracted/original-browser acceptance. Existing failures and scoped bug predicates are retained without retries or new exceptions."
   ],
   "identity": "Pinned original group scheduler/configuration/settings, actual tool call IDs and candidate-imported module bytes identify these bounded observations.",
   "ownership": "The loop composition owns the base cap and configured agents; optional settings owns stored overrides; reversible injection releases namespace bindings and keeps composed agents out of editable settings.",

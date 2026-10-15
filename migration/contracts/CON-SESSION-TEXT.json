@@ -23,7 +23,7 @@
     "Explicit UTF-16 pairs and scalar strings match the same astral literal; a lone surrogate cannot match half an astral pair. Regex operators and NUL remain literal data.",
     "First-party semantic strings use ECMAScript trimming, including BOM and excluding Python-only control whitespace; nested tool results preserve semantic text while reasoning, images, structural and unknown events remain excluded.",
     "The actual canonical query engine's complete list and descendant trace use stable ICU tie order after the required descending/ascending timestamp order. Live, persisted and mixed providers and reversed insertion histories are observed.",
-    "Two real JSONL/SQLite canonical filter consumers repeat Unicode matching after Context retirement and fresh durable reload without materializing live sessions.",
+    "Two real canonical JSONL none/zstd canonical filter consumers repeat Unicode matching after Context retirement and fresh durable reload without materializing live sessions.",
     "Missing/corrupt Unicode data cannot replace a prior Portable release. Extracted Python 3.8.10 requires exact provider module, data hash, ICU identity, source locale, generated-input hash and full fresh source observation digest."
   ],
   "identity": "Pinned Unicode 17 CaseFolding common/simple classes, ECMAScript whitespace and actual default-locale stable corpus/lineage ties.",

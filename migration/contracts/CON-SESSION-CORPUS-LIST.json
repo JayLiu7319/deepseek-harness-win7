@@ -13,8 +13,7 @@
   "consumers": [
     "dsh/session/session_query.py",
     "dsh/session/persistence.py",
-    "dsh/session/persistence_jsonl.py",
-    "dsh/session/persistence_sqlite.py",
+    "dsh/session/persistence_jsonl_canonical.py",
     "dsh/api/session_list.py",
     "scripts/verify_portable.py"
   ],
@@ -23,7 +22,7 @@
     "Listing failures retain the literal source message and original Error or foreign rejection value as cause; cancellation preserves the exact signal reason.",
     "Live records win after the persistence listing and retain persisted availability; immutable header mismatches identify the precise session.",
     "Duplicate durable records use the final occurrence; cloned output does not mutate live metadata and selected ASCII identities retain newest-first tie ordering.",
-    "Twelve fresh actual corpus/SessionStore observations and seventy unchanged source baseline assertions execute from the pinned source; actual JSONL/SQLite regressions refuse pre-abort before touching the backend."
+    "Twelve fresh actual corpus/SessionStore observations and the current pinned Source configuration execute; canonical JSONL none/zstd consumers refuse pre-abort before touching the backend. Historical native SQLite controls are separate."
   ],
   "identity": "Session id, original failure/cause and signal identity, exact cloned header, live/persisted availability and runtime import root are retained.",
   "ownership": "The query lists once and owns detached output headers; persistence owns backend enumeration, which must not begin for an already aborted signal.",
@@ -39,5 +38,6 @@
     "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
     "state": "awaiting-exact-candidate-qualification",
     "scope": "The revised executable corpus and current Source inputs define bounded acceptance; historical alpha reviews remain historical."
-  }
+  },
+  "historical_native_compatibility_notes": "Any retained legacy native SQLite unit controls are product compatibility tests, not evidence for a canonical rc.1 SQLite persistence provider. Current Source persistence comparisons mount canonical JSONL none/zstd."
 }

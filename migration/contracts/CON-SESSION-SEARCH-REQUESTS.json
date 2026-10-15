@@ -20,7 +20,7 @@
     "openAt never refuses before normalization, abort, provider or SQLite access. Enumerated invalid requests precede pre-abort; valid pre-abort retains the SQLite search-specific typed SESSION_QUERY_ABORTED taxonomy.",
     "Session and event SQL fragments preserve literal column names, nullable OR clauses, placeholder order, range casts, predicate counts and portable binding/planner budgets. Both probes evaluate them in actual SQLite over a declared controlled document table.",
     "FTS caller syntax is quoted as one inert phrase; reserved marker collisions are sanitized. Snippets count Unicode code points and retain the matched character at small late-match windows using the source ECMAScript whitespace set.",
-    "Four real JSONL/SQLite consumer lanes verify public input mutation before awaiting, cold durable results, typed refusal before index/provider access and native oversized-integer rejection.",
+    "Four real canonical JSONL none/zstd consumer lanes verify public input mutation before awaiting, cold durable results, typed refusal before index/provider access and native oversized-integer rejection.",
     "Ten unchanged original query.spec.ts declarations establish a mandatory source baseline; these are not ten additional Python parity claims."
   ],
   "identity": "Caller-owned request/filter values are copied; source diagnostic code/name/message is observed directly, without Python display-string prefixes. The SQL bindings correspond positionally to the source predicates.",
