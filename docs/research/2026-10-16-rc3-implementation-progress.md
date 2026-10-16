@@ -221,3 +221,9 @@ The upstream SDK business source has no functional rc.1-to-rc.3 delta. Its exist
 ### R04-D — 子代理 Remote 与时区规范名（2026-10-17）
 
 CurrentSubagent 接入 list/prompt/interruptByParent Remote，浏览器 prompt 显式 delivery=queue/steer，保留 requestId/canonicalClientTimeZone 与稳定错误/原因。12个实际旅程和610时区输入匹配；最终Python622通过、原版5套件271通过。首次扩大回归742通过/2处新断言失败：快照只有events而非messages；修正后又确认原版空闲/不存在目标的interrupt是不校验身份的接受空操作，运行中才拒绝错误父身份。相应原始失败保留，新加入运行中授权配对并完成最终复验。Python ZoneInfo不回规范别名，因此使用固定Node22.22.2/ICU78.2派生的597名称映射，原严格输入规则先于查表；这是明确Win7运行时适配，无Node依赖。磁盘约179GiB空闲，成功短测试工作区继续自动收尾，原始凭据保留。接下来优先R05附件/文件提供端，再回接session-controller，生产基线未切。
+
+### R05-A / 2026-10-17: verbatim file storage and admission
+
+Added the explicit candidate AttachmentStore file/prompt capability and local content-addressed files. Publication stages and fsyncs bytes, hard-links without replacement, verifies existing digests, removes staging before setting the NTFS shared read-only bit, and publishes filename-preserving aliases. Streaming writes pull incrementally; reads cap chunks at 64 KiB and verify final byte count/digest. Python executor operations finish before cancellation closes their descriptor. Windows directory durability follows the original NTFS boundary; no newer OS API or Python runtime is required.
+
+15 frozen actual Source/native contracts match; 660 selected native tests and 37 unchanged original Source tests pass. Additional native faults exercise a cancelled in-flight disk write and failed alias publication. This is targeted provider completion only: current image publication/projection, LLM file handles, SessionController carriers and production activation remain open. Raw receipts are preserved; owned temporary read-only names are released only inside the actor root, successful short pytest workspaces auto-prune, and free disk remains about 179 GiB. Evidence: migration/candidates/rc3/attachment-files-current-checks.json.

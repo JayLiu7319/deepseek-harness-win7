@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-runtime'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='attachment-files-current'
+    ? await (await import('./attachment_files_current_source.mts')).attachmentFilesCase(resolve(sourceArg),test)
+    : test.kind==='session-runtime'
     ? sessionRuntimeCase(sessionRuntime,test,decode)
     : test.kind==='query-current'
     ? await (await import('./session_query_current_source.mts')).queryCurrentCase(resolve(sourceArg),test,decode)

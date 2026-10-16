@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-A-verbatim-file-storage-and-admission",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 15,
+    "report": {
+      "path": ".goose/out/rc3-r05-files-frozen-20261017/report.json",
+      "sha256": "f4165c2f2d0382281722f8b6c8dedf9952974810d00b46c9aa16595931f39210"
+    },
+    "corpus": {
+      "path": "scripts/oracles/attachment_files_current_cases.json",
+      "sha256": "3820193cbbbc8c4a00a140f0d27d62710e1170c44f8a06758a8a77ac7514b4f7"
+    }
+  },
+  "native": {
+    "passed": 660,
+    "command": {
+      "path": ".goose/out/rc3-r05-files-native-20261017/command.json",
+      "sha256": "4fc7aa4bd9c10e225590614df1b74cb4300bedf7c0ed9b5d80369fa1f459f0ad"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-files-native-20261017/pytest.xml",
+      "sha256": "d5828ab5fc525d477c426b6336a460cddbcbe82009b9420dce4adb061b50dfaf"
+    }
+  },
+  "source": {
+    "passed": 37,
+    "suites": 3,
+    "command": {
+      "path": ".goose/out/rc3-r05-files-source-20261017/command.json",
+      "sha256": "f3699df66eaf88a10db6ca74e26e7c6118cb95dac0c25806f792abaf521450d7"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-files-source-20261017/source.xml",
+      "sha256": "4f2021442404cea98268f4c23650e9e00fe0aa85f3dcac3f03f1d613aa8f3971"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/attachment/immutable_current.py",
+      "sha256": "ccfe49917977072cbffe281e747b351c8a694ccc004a2dae9867721cac6659d1"
+    },
+    {
+      "path": "dsh/attachment/files_current.py",
+      "sha256": "f3acd54aded22f6dacccda455ed8fee1a6905341fbd7be135ef2e138b15b3c4d"
+    },
+    {
+      "path": "dsh/attachment/store_current.py",
+      "sha256": "075e3d47a0dd2c1610f5ed5a298533c452de7abb0d830156446b22fa3cfada68"
+    }
+  ],
+  "scope": [
+    "Actual local raw/empty/base64 file persistence, canonical admission and filename sanitization, byte-identical bounded reads, read-only hard-link aliases, digest-verified deduplication and concurrent publication.",
+    "Source and native producer cancellation/failure, missing/malformed/corrupt references and recorded-length mismatch. Native tests additionally cover inflight executor cancellation and alias faults.",
+    "Base provider file capability failures and ordered batched image admission for mixed prompt parts; this does not qualify image codec output or current image request variants."
+  ],
+  "remaining": [
+    "Production provider activation and unchanged original frontend upload receipts are not switched.",
+    "LLM file handles, SessionController upload/download streams, current image projection and unified release qualification remain open."
+  ],
+  "retention": {
+    "policy": "Owned temporary actors unlock only their own files for removal; successful short pytest fixtures automatically pruned; raw reports retained.",
+    "free_bytes": 192401334272
+  }
+}

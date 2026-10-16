@@ -1,0 +1,1087 @@
+[
+  {
+    "case": "files-leaf-names",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "name",
+        "value": ""
+      },
+      {
+        "op": "name",
+        "value": " "
+      },
+      {
+        "op": "name",
+        "value": "."
+      },
+      {
+        "op": "name",
+        "value": ".."
+      },
+      {
+        "op": "name",
+        "value": "C:\\Users\\private\\report.txt"
+      },
+      {
+        "op": "name",
+        "value": "/private/leaf.txt"
+      },
+      {
+        "op": "name",
+        "value": "../escape.txt"
+      },
+      {
+        "op": "name",
+        "value": "NUL.txt"
+      },
+      {
+        "op": "name",
+        "value": "con .txt"
+      },
+      {
+        "op": "name",
+        "value": "COM1"
+      },
+      {
+        "op": "name",
+        "value": "LPT9.log"
+      },
+      {
+        "op": "name",
+        "value": "com10.txt"
+      },
+      {
+        "op": "name",
+        "value": "a<>:\"|?*.bin"
+      },
+      {
+        "op": "name",
+        "value": "a\u0000b\u001fc\u007f"
+      },
+      {
+        "op": "name",
+        "value": "report. "
+      },
+      {
+        "op": "name",
+        "value": "\ufeff hi \ufeff"
+      },
+      {
+        "op": "name",
+        "value": "\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587.txt"
+      },
+      {
+        "op": "name",
+        "value": "safe-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\ud83d\ude00"
+      },
+      {
+        "op": "name",
+        "value": "\ud800.txt"
+      },
+      {
+        "op": "name",
+        "value": ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. "
+      },
+      {
+        "op": "name"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": "file"
+        },
+        {
+          "outcome": "value",
+          "value": "file"
+        },
+        {
+          "outcome": "value",
+          "value": "file"
+        },
+        {
+          "outcome": "value",
+          "value": "file"
+        },
+        {
+          "outcome": "value",
+          "value": "report.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "leaf.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "escape.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "_NUL.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "_con .txt"
+        },
+        {
+          "outcome": "value",
+          "value": "_COM1"
+        },
+        {
+          "outcome": "value",
+          "value": "_LPT9.log"
+        },
+        {
+          "outcome": "value",
+          "value": "com10.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "a_______.bin"
+        },
+        {
+          "outcome": "value",
+          "value": "abc"
+        },
+        {
+          "outcome": "value",
+          "value": "report"
+        },
+        {
+          "outcome": "value",
+          "value": "hi"
+        },
+        {
+          "outcome": "value",
+          "value": "\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587\u6587"
+        },
+        {
+          "outcome": "value",
+          "value": "safe-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        {
+          "outcome": "value",
+          "value": "\ufffd.txt"
+        },
+        {
+          "outcome": "value",
+          "value": "file"
+        },
+        {
+          "outcome": "value",
+          "value": "file"
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-verbatim",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "save",
+        "hex": "000102fafbfc",
+        "name": "C:\\secret\\blob.bin"
+      },
+      {
+        "op": "path"
+      },
+      {
+        "op": "inspect"
+      },
+      {
+        "op": "read"
+      },
+      {
+        "op": "save",
+        "hex": "000102fafbfc",
+        "name": "renamed.bin"
+      },
+      {
+        "op": "inspect",
+        "index": 1
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a",
+            "name": "blob.bin",
+            "bytes": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": "<root>/files/20/205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a/blob.bin"
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "hex": "000102fafbfc",
+            "maxChunk": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a",
+            "name": "renamed.bin",
+            "bytes": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-empty-encoded",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "encoded",
+        "data": "",
+        "name": "NUL.txt"
+      },
+      {
+        "op": "read"
+      },
+      {
+        "op": "inspect"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "name": "_NUL.txt",
+            "bytes": 0
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "hex": "",
+            "maxChunk": 0
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-encoded-invalid",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "encoded",
+        "data": "a"
+      },
+      {
+        "op": "encoded",
+        "data": "YQ"
+      },
+      {
+        "op": "encoded",
+        "data": "YR=="
+      },
+      {
+        "op": "encoded",
+        "data": "YQ==\n"
+      },
+      {
+        "op": "encoded",
+        "data": "-___"
+      },
+      {
+        "op": "encoded",
+        "data": "!!!!"
+      },
+      {
+        "op": "encoded",
+        "data": "YQ=="
+      },
+      {
+        "op": "read"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File upload is not canonical base64.",
+            "code": "INVALID_FILE_BASE64"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "file",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "hex": "61",
+            "maxChunk": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-stream",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "stream",
+        "chunks": [
+          "0001",
+          "",
+          "02fa",
+          "fbfc"
+        ],
+        "name": "large.bin"
+      },
+      {
+        "op": "read"
+      },
+      {
+        "op": "inspect"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a",
+            "name": "large.bin",
+            "bytes": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "hex": "000102fafbfc",
+            "maxChunk": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-stream-cancel",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "stream",
+        "chunks": [
+          "0102",
+          "0304"
+        ],
+        "abortAt": 1
+      },
+      {
+        "op": "staging"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "upload cancelled"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": []
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-stream-source-failed",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "stream",
+        "chunks": [
+          "0102"
+        ],
+        "fail": true
+      },
+      {
+        "op": "staging"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "Unable to persist attachment.",
+            "code": "ATTACHMENT_WRITE_FAILED"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": []
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-concurrent",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "concurrent",
+        "hex": "070707",
+        "names": [
+          "a.txt",
+          "b.txt",
+          "a.txt",
+          "c.txt"
+        ]
+      },
+      {
+        "op": "inspect"
+      },
+      {
+        "op": "inspect",
+        "index": 1
+      },
+      {
+        "op": "read",
+        "index": 3
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "attachmentId": "sha256:6a7dc6f4267242f01f6636a45c31da51c036da1e9879abce7e1d0aaa76aad876",
+              "name": "a.txt",
+              "bytes": 3
+            },
+            {
+              "attachmentId": "sha256:6a7dc6f4267242f01f6636a45c31da51c036da1e9879abce7e1d0aaa76aad876",
+              "name": "b.txt",
+              "bytes": 3
+            },
+            {
+              "attachmentId": "sha256:6a7dc6f4267242f01f6636a45c31da51c036da1e9879abce7e1d0aaa76aad876",
+              "name": "a.txt",
+              "bytes": 3
+            },
+            {
+              "attachmentId": "sha256:6a7dc6f4267242f01f6636a45c31da51c036da1e9879abce7e1d0aaa76aad876",
+              "name": "c.txt",
+              "bytes": 3
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sameObject": true,
+            "readOnly": true,
+            "staging": []
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "hex": "070707",
+            "maxChunk": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-corrupt",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "save",
+        "hex": "010203",
+        "name": "data.bin"
+      },
+      {
+        "op": "mutate",
+        "hex": "030201"
+      },
+      {
+        "op": "read"
+      },
+      {
+        "op": "save",
+        "hex": "010203",
+        "name": "data.bin"
+      },
+      {
+        "op": "staging"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81",
+            "name": "data.bin",
+            "bytes": 3
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "error": {
+              "name": "AttachmentError",
+              "message": "Stored file attachment failed integrity verification.",
+              "code": "ATTACHMENT_CORRUPT"
+            },
+            "delivered": "030201"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "Stored attachment failed integrity verification.",
+            "code": "ATTACHMENT_CORRUPT"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": []
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-length",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "save",
+        "hex": "010203"
+      },
+      {
+        "op": "read",
+        "bytes": 4
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81",
+            "name": "file",
+            "bytes": 3
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "error": {
+              "name": "AttachmentError",
+              "message": "Stored file attachment failed integrity verification.",
+              "code": "ATTACHMENT_CORRUPT"
+            },
+            "delivered": "010203"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-cancel-read",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "save",
+        "hex": "010203"
+      },
+      {
+        "op": "read",
+        "before": true
+      },
+      {
+        "op": "read",
+        "during": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81",
+            "name": "file",
+            "bytes": 3
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "error": {
+              "name": "Error",
+              "message": "read cancelled"
+            },
+            "delivered": ""
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "error": {
+              "name": "Error",
+              "message": "read cancelled"
+            },
+            "delivered": "010203"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-references",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "readMissing",
+        "ref": {
+          "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "name": "missing.bin",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "name": "../escape",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "name": "nested/name.txt",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "name": "NUL.txt",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:short",
+          "name": "missing.bin",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "name": "missing.bin",
+          "bytes": 1
+        }
+      },
+      {
+        "op": "path",
+        "ref": {
+          "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "name": "missing.bin",
+          "bytes": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "error": {
+              "name": "AttachmentError",
+              "message": "File attachment object is missing.",
+              "code": "ATTACHMENT_NOT_FOUND"
+            },
+            "delivered": ""
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File attachment reference is invalid.",
+            "code": "INVALID_ATTACHMENT_REF"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File attachment reference is invalid.",
+            "code": "INVALID_ATTACHMENT_REF"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File attachment reference is invalid.",
+            "code": "INVALID_ATTACHMENT_REF"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File attachment reference is invalid.",
+            "code": "INVALID_ATTACHMENT_REF"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "File attachment reference is invalid.",
+            "code": "INVALID_ATTACHMENT_REF"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": "<root>/files/cc/cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc/missing.bin"
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-base-unsupported",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "base",
+        "method": "saveFile"
+      },
+      {
+        "op": "base",
+        "method": "saveFileStream"
+      },
+      {
+        "op": "base",
+        "method": "readFileStream"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "The mounted attachment provider cannot store verbatim files.",
+            "code": "ATTACHMENT_FILES_UNSUPPORTED"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "The mounted attachment provider cannot stream verbatim files.",
+            "code": "ATTACHMENT_FILES_UNSUPPORTED"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "The mounted attachment provider cannot read verbatim files.",
+            "code": "ATTACHMENT_FILES_UNSUPPORTED"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-prompt-admission",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "base",
+        "method": "admitPromptContent",
+        "content": [
+          {
+            "type": "text",
+            "text": " hello "
+          },
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "name": "missing.bin",
+              "bytes": 1
+            }
+          }
+        ]
+      },
+      {
+        "op": "base",
+        "method": "admitPromptContent",
+        "content": [
+          {
+            "type": "image",
+            "data": "YQ==",
+            "mediaType": "image/png",
+            "name": "first"
+          },
+          {
+            "type": "text",
+            "text": "between"
+          },
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "name": "missing.bin",
+              "bytes": 1
+            }
+          },
+          {
+            "type": "image",
+            "data": "Yg==",
+            "mediaType": "image/jpeg"
+          }
+        ]
+      },
+      {
+        "op": "base",
+        "method": "admitPromptContent",
+        "content": [
+          {
+            "type": "image",
+            "data": "",
+            "mediaType": "image/png"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "content": [
+              {
+                "type": "text",
+                "text": " hello "
+              },
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "name": "missing.bin",
+                  "bytes": 1
+                }
+              }
+            ],
+            "images": []
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "content": [
+              {
+                "type": "image",
+                "attachment": {
+                  "attachmentId": "image-0"
+                }
+              },
+              {
+                "type": "text",
+                "text": "between"
+              },
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "name": "missing.bin",
+                  "bytes": 1
+                }
+              },
+              {
+                "type": "image",
+                "attachment": {
+                  "attachmentId": "image-1"
+                }
+              }
+            ],
+            "images": [
+              {
+                "data": "61",
+                "mediaType": "image/png",
+                "name": "first"
+              },
+              {
+                "data": "62",
+                "mediaType": "image/jpeg"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AttachmentError",
+            "message": "Image upload is not canonical base64.",
+            "code": "INVALID_IMAGE_BASE64"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "files-bounded-read",
+    "kind": "attachment-files-current",
+    "actions": [
+      {
+        "op": "save",
+        "size": 131075,
+        "name": "bounded.bin"
+      },
+      {
+        "op": "read",
+        "summary": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:f6589d93167a38ddd6bd9337c012f163142839caf8667ce80e012469649e58fb",
+            "name": "bounded.bin",
+            "bytes": 131075
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "digest": "f6589d93167a38ddd6bd9337c012f163142839caf8667ce80e012469649e58fb",
+            "bytes": 131075,
+            "maxChunk": 65536
+          }
+        }
+      ]
+    }
+  }
+]
