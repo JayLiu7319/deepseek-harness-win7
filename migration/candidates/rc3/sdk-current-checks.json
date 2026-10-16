@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-K-current-SDK-consumers",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 16,
+    "report": {
+      "path": ".goose/out/rc3-r03-sdk-frozen-20261017/report.json",
+      "sha256": "1c3784a107af534c20eb37495b64b4d869f60334b37ffe45c49e4cebbc296cb6"
+    },
+    "corpus": {
+      "path": "scripts/oracles/sdk_current_cases.json",
+      "sha256": "f5163594b3350470e3ca2a5077a12281ab013ff71849f79c3dc90ce4a09ddd79"
+    },
+    "scope": "Real current factories/requests, v3 embedded stream notifications, capable/incapable system updates, concurrent prompts, exact Agent carrier after local child disposal, exclusion of external completions, handshake numeric/error admission and shutdown."
+  },
+  "native": {
+    "passed": 95,
+    "command": {
+      "path": ".goose/out/rc3-r03-sdk-native-20261017/command.json",
+      "sha256": "8ca9bbc2d3cfc5309019cc1e280b91587c854eb2a9ad76cc1fc2fef7acfa2b71"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-sdk-native-20261017/pytest.xml",
+      "sha256": "41f48c2bd367064fad1a4b706f033549b1749fafc71b5ecd484fc2534f60b096"
+    },
+    "scope": "Actual current SDK/ACP frozen journeys, SDK server/transport/wait/profile consumers and current Agent machine regressions."
+  },
+  "source": {
+    "passed": 131,
+    "suites": 8,
+    "command": {
+      "path": ".goose/out/rc3-r03-sdk-source-20261017/command.json",
+      "sha256": "0e48c2f555c2ab06dbbc5a991e378fe3533817a11d2054bf5ab462baa06ab58f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-sdk-source-20261017/source.xml",
+      "sha256": "13fb9a63c1d36a5a6a3fbf0662abfbb8600963724cae25bc4867964adf418715"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/sdk/server.py",
+      "sha256": "34bf75545e1e1929eca8b5084b0821e87e3566fb2c09cd1fccb890d6c850dce2"
+    }
+  ],
+  "corrected_external_receipt": {
+    "path": "migration/candidates/rc3/external-acp-current-checks.json",
+    "sha256": "a8cfba942ddc9c690b75e7a2adf335278f948217a5b41b7db92cbad1a9696765"
+  },
+  "diagnostics": [
+    ".goose/out/rc3-r03-sdk-pair-20261017"
+  ],
+  "limits": [
+    "No functional upstream SDK source delta; the existing host server now has explicit current runtime qualification.",
+    "The first incapable-route fixture used explicit null instead of omitting the capability; original rejects null as intended. Corrected input retains strict rejection elsewhere.",
+    "Missing cwd in earlier ACP parent fixtures is corrected and disclosed in the ACP receipt; Source/current parent now actually returns child output.",
+    "Production pin/profile, Remote/carrier-neutral registry, file admission, absent Claude Code/Codex providers and full R03/release qualification remain open."
+  ]
+}

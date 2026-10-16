@@ -1,6 +1,7 @@
 """Actual candidate factory, model runtime and handle-backed machine observations."""
 import asyncio
 import json
+import os
 import re
 import tempfile
 from types import SimpleNamespace
@@ -44,7 +45,7 @@ class ScriptAdapter:
 
 async def run(test,decode):
     ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[]
-    handle=None;agent=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
+    handle=None;agent=None;sdk=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
     def normalize(value,key=''):
         if value is UNDEFINED:return None
         if key=='signal':return '<signal>'
@@ -127,11 +128,25 @@ async def run(test,decode):
                     ctx.on(name,fail)
                 ctx.on(name,lambda payload,key=name:notify(key,payload))
             ctx.on('agent/error',lambda payload:errors.append(normalize(payload['error'])))
-            handle=await ctx.get('agents').create(dict(sessionId='machine',agentOptions=test.get('options',dict(provider='script',model='model')),meta=dict(createdAt=1000)));agent=handle.agent
+            meta=dict(createdAt=1000)
+            if test.get('cwd'):meta['cwd']=os.getcwd()
+            handle=await ctx.get('agents').create(dict(sessionId='machine',agentOptions=test.get('options',dict(provider='script',model='model')),meta=meta));agent=handle.agent
             for action in test['actions']:
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='sdkConfig':
+                        from dsh.sdk.server import HarnessSdkJsonRpcServer
+                        sdk=HarnessSdkJsonRpcServer(ctx,SimpleNamespace(notify=lambda name,params:notifications.append(normalize(dict(name=name,payload=params)))),action.get('options'))
+                    elif method=='sdkInitialize':
+                        value=await sdk.initialize(dict(dict(cwd=os.getcwd(),provider='script',model='model'),**action.get('params',{})))
+                    elif method=='sdkPrompt':value=await sdk.prompt(action['params'])
+                    elif method=='sdkBatch':value=await asyncio.gather(*(sdk.prompt(params) for params in action['params']))
+                    elif method=='sdkIdle':await ctx.get('agents').get(action['id']).whenIdle()
+                    elif method=='sdkView':
+                        subject=ctx.get('agents').get(action['id'])
+                        value=dict(status=subject.status,events=subject.session.snapshotEvents(),messages=subject.session.deriveMessages()) if subject else None
+                    elif method=='sdkShutdown':value=await sdk.shutdown()
                     elif method=='goal':
                         goals=ctx.get('goals');operation=action['operation']
                         if operation=='create':value=goals.create(agent,action['request'])
@@ -265,6 +280,7 @@ async def run(test,decode):
             if handle is not None:await handle.dispose();handle=None
             return dict(results=results,final=final,requests=requests,notifications=notifications,errors=errors)
         finally:
+            if sdk is not None:await sdk.shutdown()
             if handle is not None:await handle.dispose()
             await ctx.fiber.dispose()
 

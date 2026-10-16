@@ -775,6 +775,7 @@
         ]
       }
     ],
+    "cwd": true,
     "expected": {
       "results": [
         {
@@ -782,14 +783,19 @@
           "value": null
         },
         {
-          "outcome": "error",
-          "error": {
-            "name": "AcpRunFailure",
-            "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: configuration)",
-            "cause": {
-              "name": "Error",
-              "message": "subagent-acp: no working directory for the child — configure `cwd` or delegate from a parent session that has one"
-            }
+          "outcome": "value",
+          "value": {
+            "id": "generated:2",
+            "result": {
+              "output": [
+                {
+                  "type": "text",
+                  "text": "child answer"
+                }
+              ],
+              "stopReason": "completed"
+            },
+            "localAgent": false
           }
         }
       ],
@@ -815,6 +821,31 @@
           "payload": {
             "source": "startup",
             "agent": "machine"
+          }
+        },
+        {
+          "name": "subagent/start",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false
+          }
+        },
+        {
+          "name": "subagent/end",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false,
+            "stopReason": "completed",
+            "lastAssistantMessage": [
+              {
+                "type": "text",
+                "text": "child answer"
+              }
+            ]
           }
         },
         {
@@ -848,6 +879,7 @@
         ]
       }
     ],
+    "cwd": true,
     "expected": {
       "results": [
         {
@@ -855,14 +887,19 @@
           "value": null
         },
         {
-          "outcome": "error",
-          "error": {
-            "name": "AcpRunFailure",
-            "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: configuration)",
-            "cause": {
-              "name": "Error",
-              "message": "subagent-acp: no working directory for the child — configure `cwd` or delegate from a parent session that has one"
-            }
+          "outcome": "value",
+          "value": {
+            "id": "generated:2",
+            "result": {
+              "output": [
+                {
+                  "type": "text",
+                  "text": "child answer"
+                }
+              ],
+              "stopReason": "refusal"
+            },
+            "localAgent": false
           }
         }
       ],
@@ -888,6 +925,31 @@
           "payload": {
             "source": "startup",
             "agent": "machine"
+          }
+        },
+        {
+          "name": "subagent/start",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false
+          }
+        },
+        {
+          "name": "subagent/end",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false,
+            "stopReason": "refusal",
+            "lastAssistantMessage": [
+              {
+                "type": "text",
+                "text": "child answer"
+              }
+            ]
           }
         },
         {

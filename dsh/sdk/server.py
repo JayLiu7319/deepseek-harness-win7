@@ -41,8 +41,8 @@ class HarnessSdkJsonRpcServer:
         if not info.get('local'):
             return
         key = carrier_key_of(caller_ctx)
-        # The Python AgentLoop mints ScopeKey({sessionId}) rather than using
-        # the Agent object as its key. Only the service-owned carrier supplies it.
+        # Current carriers use the exact Agent. Historical carriers retained
+        # a session-id ScopeKey; both recover identity from the service carrier.
         value = getattr(key, 'value', key)
         parent_id = value.get('sessionId') if isinstance(value, dict) else getattr(getattr(value, 'session', None), 'id', None)
         if parent_id is None:
@@ -59,7 +59,7 @@ class HarnessSdkJsonRpcServer:
         effort, cap = params.get('reasoningEffort'), params.get('maxTokens')
         if 'reasoningEffort' in params and (not isinstance(effort, str) or not effort):
             raise TypeError('initialize reasoningEffort must be a non-empty string')
-        if 'maxTokens' in params and (type(cap) is not int or not 0 < cap <= 9007199254740991):
+        if 'maxTokens' in params and (type(cap) not in (int, float) or not 0 < cap <= 9007199254740991 or int(cap) != cap):
             raise TypeError('initialize maxTokens must be a positive safe integer')
         cwd, provider, model = os.path.abspath(params['cwd']), params['provider'], params['model']
         llm = self.ctx.get('llm')

@@ -1,0 +1,6608 @@
+[
+  {
+    "case": "sdk-current-history-False",
+    "kind": "machine-current",
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "sdk",
+          "contentBlocks": [
+            {
+              "type": "text",
+              "text": "one"
+            }
+          ]
+        }
+      },
+      {
+        "method": "sdkIdle",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      },
+      {
+        "method": "prompt",
+        "text": "updated prompt"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "sdk",
+          "contentBlocks": [
+            {
+              "type": "text",
+              "text": "two"
+            }
+          ]
+        }
+      },
+      {
+        "method": "sdkIdle",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkShutdown"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "messageId": "generated:1"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "status": "idle",
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "one"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:2"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:1"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:3"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ],
+            "messages": [
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:2"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:3"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "messageId": "generated:4"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "status": "idle",
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "one"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:2"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:1"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:3"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 11,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "two"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:4"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 12,
+                "time": 1000,
+                "data": {
+                  "turn": 2
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 13,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 14,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 15,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "updated prompt"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:5"
+                  }
+                },
+                "sourceEventSeqs": [
+                  4
+                ],
+                "surfaceOp": {
+                  "op": "replace",
+                  "startSeq": 4,
+                  "endSeq": 4
+                }
+              },
+              {
+                "type": "user/message",
+                "seq": 16,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "two"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:4"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 17,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "series"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 18,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:6"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 19,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 20,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ],
+            "messages": [
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "updated prompt"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:5"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:3"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:4"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:6"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:2"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        },
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "updated prompt"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:5"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "SDK answer"
+                }
+              ],
+              "source": {
+                "kind": "model",
+                "provider": "script",
+                "model": "model"
+              },
+              "id": "generated:3"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 0,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 1,
+              "time": 1000,
+              "data": {
+                "turn": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 2,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "turn": 1,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 3,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "system/message",
+              "seq": 4,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "prompt one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:2"
+                }
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 5,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/header",
+              "seq": 6,
+              "time": 1000,
+              "data": {
+                "header": {
+                  "config": {
+                    "provider": "script",
+                    "model": "model"
+                  }
+                },
+                "reason": "initial"
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/context",
+              "seq": 7,
+              "time": 1000,
+              "data": {
+                "provider": "script",
+                "model": "model"
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 8,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:3"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 9,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 10,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 11,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 12,
+              "time": 1000,
+              "data": {
+                "turn": 2
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 13,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            },
+            "turn": 2,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 14,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "system/message",
+              "seq": 15,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "updated prompt"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:5"
+                }
+              },
+              "sourceEventSeqs": [
+                4
+              ],
+              "surfaceOp": {
+                "op": "replace",
+                "startSeq": 4,
+                "endSeq": 4
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 16,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:4"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/header",
+              "seq": 17,
+              "time": 1000,
+              "data": {
+                "header": {
+                  "config": {
+                    "provider": "script",
+                    "model": "model"
+                  }
+                },
+                "reason": "series"
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:2",
+              "revision": 5,
+              "turn": 2,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 6,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 7,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 18,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:6"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:2",
+              "revision": 8,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 18
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 19,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 20,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-current-history-True",
+    "kind": "machine-current",
+    "systemPromptUpdate": "in-history",
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "sdk",
+          "contentBlocks": [
+            {
+              "type": "text",
+              "text": "one"
+            }
+          ]
+        }
+      },
+      {
+        "method": "sdkIdle",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      },
+      {
+        "method": "prompt",
+        "text": "updated prompt"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "sdk",
+          "contentBlocks": [
+            {
+              "type": "text",
+              "text": "two"
+            }
+          ]
+        }
+      },
+      {
+        "method": "sdkIdle",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkShutdown"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "messageId": "generated:1"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "status": "idle",
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "one"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:2"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:1"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model",
+                  "systemPromptUpdate": "in-history"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:3"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ],
+            "messages": [
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:2"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:3"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "messageId": "generated:4"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "status": "idle",
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "one"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:2"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:1"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model",
+                  "systemPromptUpdate": "in-history"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:3"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 11,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "two"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:4"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 12,
+                "time": 1000,
+                "data": {
+                  "turn": 2
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 13,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 14,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 15,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "updated prompt"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:5"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 16,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "two"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:4"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "assistant/message",
+                "seq": 17,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:6"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 18,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 19,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ],
+            "messages": [
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:2"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:3"
+              },
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "updated prompt"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:5"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:4"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:6"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:2"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        },
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:2"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "SDK answer"
+                }
+              ],
+              "source": {
+                "kind": "model",
+                "provider": "script",
+                "model": "model"
+              },
+              "id": "generated:3"
+            },
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "updated prompt"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:5"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 0,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 1,
+              "time": 1000,
+              "data": {
+                "turn": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 2,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "turn": 1,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 3,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "system/message",
+              "seq": 4,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "prompt one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:2"
+                }
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 5,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/header",
+              "seq": 6,
+              "time": 1000,
+              "data": {
+                "header": {
+                  "config": {
+                    "provider": "script",
+                    "model": "model"
+                  }
+                },
+                "reason": "initial"
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/context",
+              "seq": 7,
+              "time": 1000,
+              "data": {
+                "provider": "script",
+                "model": "model",
+                "systemPromptUpdate": "in-history"
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 8,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:3"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 9,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 10,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 11,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 12,
+              "time": 1000,
+              "data": {
+                "turn": 2
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 13,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:4"
+            },
+            "turn": 2,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 14,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "system/message",
+              "seq": 15,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "updated prompt"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:5"
+                }
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 16,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:4"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:2",
+              "revision": 5,
+              "turn": 2,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 6,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 7,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 17,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:6"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:2",
+              "revision": 8,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 17
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 18,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 19,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-current-local-child",
+    "kind": "machine-current",
+    "subagents": true,
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize"
+      },
+      {
+        "method": "serviceChild",
+        "provider": "spawn",
+        "request": {
+          "id": "child",
+          "prompt": [
+            {
+              "type": "text",
+              "text": "task"
+            }
+          ],
+          "agentOptions": {
+            "provider": "script",
+            "model": "model"
+          }
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "generated:1",
+            "result": {
+              "output": [
+                {
+                  "type": "text",
+                  "text": "SDK answer"
+                }
+              ],
+              "stopReason": "completed"
+            },
+            "header": {
+              "version": 3,
+              "id": "generated:1",
+              "createdAt": 1000,
+              "parentSession": "machine",
+              "isSeeded": false,
+              "origin": "subagent",
+              "delegationDepth": 1
+            },
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "task"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "subagent/descriptor",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "version": 3,
+                  "mode": "one-shot",
+                  "provider": "spawn"
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:4"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "task"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:2"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:5"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 11,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "subagent/catalog",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "version": 0,
+              "childId": "generated:1",
+              "childCreatedAt": 1000,
+              "mode": "one-shot"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:4"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            }
+          ],
+          "sessionId": "generated:1",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "subagent.started",
+          "payload": {
+            "parentSessionId": "machine",
+            "childSessionId": "generated:1"
+          }
+        },
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 0,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "task"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:2"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            },
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "generated:1",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "turn/start",
+              "seq": 1,
+              "time": 1000,
+              "data": {
+                "turn": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 2,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            },
+            "turn": 1,
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "machine",
+            "event": {
+              "type": "subagent/catalog",
+              "seq": 0,
+              "time": 1000,
+              "data": {
+                "version": 0,
+                "childId": "generated:1",
+                "childCreatedAt": 1000,
+                "mode": "one-shot"
+              }
+            }
+          }
+        },
+        {
+          "name": "subagent/start",
+          "payload": {
+            "runId": "generated:3",
+            "provider": "spawn",
+            "id": "generated:1",
+            "local": true
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "subagent/descriptor",
+              "seq": 3,
+              "time": 1000,
+              "data": {
+                "version": 3,
+                "mode": "one-shot",
+                "provider": "spawn"
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "step/start",
+              "seq": 4,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "system/message",
+              "seq": 5,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "prompt one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:4"
+                }
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "user/message",
+              "seq": 6,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "task"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:2"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "request/header",
+              "seq": 7,
+              "time": 1000,
+              "data": {
+                "header": {
+                  "config": {
+                    "provider": "script",
+                    "model": "model"
+                  }
+                },
+                "reason": "initial"
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "request/context",
+              "seq": 8,
+              "time": 1000,
+              "data": {
+                "provider": "script",
+                "model": "model"
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "generated:1:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "generated:1:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "generated:1:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "assistant/message",
+              "seq": 9,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:5"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "generated:1:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 9
+              }
+            },
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "step/end",
+              "seq": 10,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "generated:1",
+            "event": {
+              "type": "turn/end",
+              "seq": 11,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "generated:1",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "subagent/end",
+          "payload": {
+            "runId": "generated:3",
+            "provider": "spawn",
+            "id": "generated:1",
+            "local": true,
+            "stopReason": "completed",
+            "lastAssistantMessage": [
+              {
+                "type": "text",
+                "text": "SDK answer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "subagent.finished",
+          "payload": {
+            "provider": "spawn",
+            "agentId": "generated:1",
+            "parentSessionId": "machine",
+            "childSessionId": "generated:1",
+            "status": "ok",
+            "stopReason": "completed",
+            "lastAssistantMessage": [
+              {
+                "type": "text",
+                "text": "SDK answer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "generated:1"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-current-external-child",
+    "kind": "machine-current",
+    "subagents": true,
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize"
+      },
+      {
+        "method": "externalConfig"
+      },
+      {
+        "method": "externalRun",
+        "prompt": [
+          {
+            "type": "text",
+            "text": "task"
+          }
+        ]
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "cwd": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "generated:2",
+            "result": {
+              "output": [
+                {
+                  "type": "text",
+                  "text": "child answer"
+                }
+              ],
+              "stopReason": "completed"
+            },
+            "localAgent": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "subagent/start",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false
+          }
+        },
+        {
+          "name": "subagent/end",
+          "payload": {
+            "runId": "generated:1",
+            "provider": "acp",
+            "id": "generated:2",
+            "local": false,
+            "stopReason": "completed",
+            "lastAssistantMessage": [
+              {
+                "type": "text",
+                "text": "child answer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": 1.0
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": 0
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": -1
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": 1.5
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-4",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": true
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-5",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": null
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-maxTokens-6",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "maxTokens": 9007199254740992
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize maxTokens must be a positive safe integer"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-reasoningEffort-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "reasoningEffort": ""
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize reasoningEffort must be a non-empty string"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-reasoningEffort-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "reasoningEffort": null
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize reasoningEffort must be a non-empty string"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-initialize-reasoningEffort-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize",
+        "params": {
+          "reasoningEffort": 3
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "initialize reasoningEffort must be a non-empty string"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-uninitialized",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "sdk",
+          "contentBlocks": []
+        }
+      },
+      {
+        "method": "sdkShutdown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "SDK server is not initialized"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "sdk-current-concurrent-prompts",
+    "kind": "machine-current",
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ],
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "SDK answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "actions": [
+      {
+        "method": "sdkConfig"
+      },
+      {
+        "method": "sdkInitialize"
+      },
+      {
+        "method": "sdkBatch",
+        "params": [
+          {
+            "sessionId": "sdk",
+            "contentBlocks": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "sessionId": "sdk",
+            "contentBlocks": [
+              {
+                "type": "text",
+                "text": "two"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "method": "sdkIdle",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkView",
+        "id": "sdk"
+      },
+      {
+        "method": "sdkShutdown"
+      },
+      {
+        "method": "sdkPrompt",
+        "params": {
+          "sessionId": "other",
+          "contentBlocks": []
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "serverInfo": {
+              "name": "deepseek-harness-sdk-runtime",
+              "version": "0.0.1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "messageId": "generated:1"
+            },
+            {
+              "messageId": "generated:2"
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "status": "idle",
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "one"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:1"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "two"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user"
+                      },
+                      "role": "user",
+                      "id": "generated:2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:3"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:1"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:4"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 11,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 12,
+                "time": 1000,
+                "data": {
+                  "turn": 2
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 13,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 14,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "user/message",
+                "seq": 15,
+                "time": 1000,
+                "data": {
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "two"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  },
+                  "role": "user",
+                  "id": "generated:2"
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "assistant/message",
+                "seq": 16,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "SDK answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:5"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "SDK answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 17,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 18,
+                "time": 1000,
+                "data": {
+                  "turn": 2,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              }
+            ],
+            "messages": [
+              {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:3"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:4"
+              },
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:2"
+              },
+              {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "SDK answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:5"
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {}
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "SDK server is shutting down"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:3"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        },
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:3"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            {
+              "role": "assistant",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "SDK answer"
+                }
+              ],
+              "source": {
+                "kind": "model",
+                "provider": "script",
+                "model": "model"
+              },
+              "id": "generated:4"
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            }
+          ],
+          "sessionId": "sdk",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 0,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "running"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 1,
+              "time": 1000,
+              "data": {
+                "turn": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 2,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "one"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:1"
+            },
+            "turn": 1,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 3,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "inserted": [
+                  {
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "two"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    },
+                    "role": "user",
+                    "id": "generated:2"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 4,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "system/message",
+              "seq": 5,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "system",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "prompt one"
+                    }
+                  ],
+                  "source": {
+                    "kind": "plugin",
+                    "plugin": "@deepseek-ai/dsh-system-prompt"
+                  },
+                  "id": "generated:3"
+                }
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 6,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "one"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:1"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/header",
+              "seq": 7,
+              "time": 1000,
+              "data": {
+                "header": {
+                  "config": {
+                    "provider": "script",
+                    "model": "model"
+                  }
+                },
+                "reason": "initial"
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "request/context",
+              "seq": 8,
+              "time": 1000,
+              "data": {
+                "provider": "script",
+                "model": "model"
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 9,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:4"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 9
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 10,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 11,
+              "time": 1000,
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/start",
+              "seq": 12,
+              "time": 1000,
+              "data": {
+                "turn": 2
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "agent/inbox/spliced",
+              "seq": 13,
+              "time": 1000,
+              "data": {
+                "target": "next-turn",
+                "start": 0,
+                "removedCount": 1,
+                "inserted": []
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "two"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              },
+              "role": "user",
+              "id": "generated:2"
+            },
+            "turn": 2,
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/start",
+              "seq": 14,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "user/message",
+              "seq": 15,
+              "time": 1000,
+              "data": {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "two"
+                  }
+                ],
+                "source": {
+                  "kind": "user"
+                },
+                "role": "user",
+                "id": "generated:2"
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "sdk:2",
+              "revision": 5,
+              "turn": 2,
+              "step": 1
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 6,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "SDK answer"
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "sdk:2",
+              "revision": 7,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "assistant/message",
+              "seq": 16,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1,
+                "message": {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "SDK answer"
+                    }
+                  ],
+                  "source": {
+                    "kind": "model",
+                    "provider": "script",
+                    "model": "model"
+                  },
+                  "id": "generated:5"
+                },
+                "stream": [
+                  {
+                    "type": "text-chunks",
+                    "time0": 1000,
+                    "index": 0,
+                    "dt": [],
+                    "texts": [
+                      "SDK answer"
+                    ]
+                  },
+                  {
+                    "type": "chunk",
+                    "time": 1000,
+                    "chunk": {
+                      "type": "finish",
+                      "reason": {
+                        "kind": "stop"
+                      }
+                    }
+                  }
+                ]
+              },
+              "surfaceOp": "append"
+            }
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "sdk:2",
+              "revision": 8,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 16
+              }
+            },
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "step/end",
+              "seq": 17,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "step": 1
+              }
+            }
+          }
+        },
+        {
+          "name": "session.event",
+          "payload": {
+            "sessionId": "sdk",
+            "event": {
+              "type": "turn/end",
+              "seq": 18,
+              "time": 1000,
+              "data": {
+                "turn": 2,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "session.status",
+          "payload": {
+            "sessionId": "sdk",
+            "status": "idle"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "sdk"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  }
+]

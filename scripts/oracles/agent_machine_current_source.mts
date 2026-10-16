@@ -17,7 +17,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const {default:Backend}=await load('packages/session/session-persistence-jsonl/src/index.ts')
  const {MockAdapter}=await load('packages/core/agent-loop/tests/mock-adapter.ts')
  const ctx=new Context(),root=await mkdtemp(join(tmpdir(),'dsh-machine-pair-')),ids=new Map<string,string>()
- let handle:any,agent:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
+ let handle:any,agent:any,sdk:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
  const requests:any[]=[],notifications:any[]=[],results:any[]=[],errors:any[]=[]
  const normalize=(v:any,key=''):any=>{
   if(v===undefined)return null
@@ -75,11 +75,23 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    })
   }
   ctx.on('agent/error',({error}:any)=>errors.push(normalize(error)))
-  handle=await ctx.agents.create({sessionId:'machine',agentOptions:test.options??{provider:'script',model:'model'},meta:{createdAt:1000}});agent=handle.agent
+  handle=await ctx.agents.create({sessionId:'machine',agentOptions:test.options??{provider:'script',model:'model'},meta:{createdAt:1000,...test.cwd?{cwd:process.cwd()}:{}}});agent=handle.agent
   for(const action of test.actions){
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='sdkConfig'){
+     const {HarnessSdkJsonRpcServer}=await load('packages/sdk/server/src/server.ts')
+     sdk=new HarnessSdkJsonRpcServer(ctx,{notify:(name:any,params:any)=>notifications.push(normalize({name,payload:params}))},action.options)
+    }
+    else if(action.method==='sdkInitialize')value=await sdk.initialize({cwd:process.cwd(),provider:'script',model:'model',...action.params})
+    else if(action.method==='sdkPrompt')value=await sdk.prompt(action.params)
+    else if(action.method==='sdkBatch')value=await Promise.all(action.params.map((params:any)=>sdk.prompt(params)))
+    else if(action.method==='sdkIdle')await ctx.agents.get(action.id).whenIdle()
+    else if(action.method==='sdkView'){
+     const subject=ctx.agents.get(action.id);value=subject?{status:subject.status,events:subject.session.snapshotEvents(),messages:subject.session.deriveMessages()}:null
+    }
+    else if(action.method==='sdkShutdown')value=await sdk.shutdown()
     else if(action.method==='goal'){
      const operation=action.operation
      if(operation==='create')value=ctx.goals.create(agent,action.request)
@@ -197,5 +209,5 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
   const final=view()
   if(handle){await handle.dispose();handle=undefined}
   return {results,final,requests,notifications,errors}
- }finally{if(handle)await handle.dispose();await ctx.fiber.dispose();Date.now=oldNow;await rm(root,{recursive:true,force:true})}
+ }finally{if(sdk)await sdk.shutdown();if(handle)await handle.dispose();await ctx.fiber.dispose();Date.now=oldNow;await rm(root,{recursive:true,force:true})}
 }

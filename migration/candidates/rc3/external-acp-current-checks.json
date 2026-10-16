@@ -6,26 +6,26 @@
   "paired": {
     "matched": 24,
     "report": {
-      "path": ".goose/out/rc3-r03-external-parent-frozen-20261017/report.json",
-      "sha256": "8b4b9d1a97219b643e6f5587fc0e989b2004a1e268ec4910672df6e4ba566ef0"
+      "path": ".goose/out/rc3-r03-external-cwd-frozen-20261017/report.json",
+      "sha256": "7a25ccc2a0b1e58ee5e7ff8806348dc3d82f52a8301da1ae4c174da542119d14"
     },
     "corpus": {
       "path": "scripts/oracles/external_current_cases.json",
-      "sha256": "766eeb6798c4f9790e4c4026fd95d3e54abed557e1b718329b6cab99d327dc1e"
+      "sha256": "aed69440403de38c7d00251cf6a7bbc2d29265ff88e110e1d712436781ade990"
     },
     "scope": "Published positive/nonpositive PID rejected direct results, bounded wait escalation and error identity/aggregates, real stdio ACP peers, permission decisions, and current parent Agent/current Subagent provider calls."
   },
   "native": {
-    "passed": 113,
+    "passed": 95,
     "command": {
-      "path": ".goose/out/rc3-r03-external-native-20261017/command.json",
-      "sha256": "fb4a117e8fd0e21c36ce1185901e674e9eda07d31760d779c1377648a2f0ebc9"
+      "path": ".goose/out/rc3-r03-sdk-native-20261017/command.json",
+      "sha256": "8ca9bbc2d3cfc5309019cc1e280b91587c854eb2a9ad76cc1fc2fef7acfa2b71"
     },
     "xml": {
-      "path": ".goose/out/rc3-r03-external-native-20261017/pytest.xml",
-      "sha256": "6bb7ebcb04b7e528e136d2c223d3ab9e297a69113b55bc698c13dc137a4d526c"
+      "path": ".goose/out/rc3-r03-sdk-native-20261017/pytest.xml",
+      "sha256": "41f48c2bd367064fad1a4b706f033549b1749fafc71b5ecd484fc2534f60b096"
     },
-    "scope": "Frozen real/native range observations; actual cancelled disposal waiter and unpublished startup rollback; old ACP/provider/signal consumers; current Subagent and Agent regressions."
+    "scope": "Actual current SDK/ACP frozen journeys, SDK server/transport/wait/profile consumers and current Agent machine regressions."
   },
   "source": {
     "passed": 72,
@@ -51,12 +51,26 @@
     }
   ],
   "diagnostics": [
-    ".goose/out/rc3-r03-external-actual-20261017"
+    ".goose/out/rc3-r03-external-actual-20261017",
+    ".goose/out/rc3-r03-external-parent-frozen-20261017"
   ],
   "limits": [
     "Active production remains rc.1; current provider waits for coordinated activation.",
     "The first actual-peer observer counted removeEventListener calls arithmetically; it now tracks listener identity as a Set. Repeated removal cannot manufacture a leak. Full observations remain preserved.",
     "Broader managed-range subprocess provider changes belong to R09; these ACP tests use current public handle contracts and existing real Windows process owner.",
-    "Claude Code and Codex external providers are absent from the Python host and remain an implementation gap; neither is certified by ACP coverage. SDK/Remote, command attachments, overall R03 and full qualification remain open."
-  ]
+    "Claude Code and Codex external providers are absent from the Python host and remain an implementation gap; neither is certified by ACP coverage. SDK/Remote, command attachments, overall R03 and full qualification remain open.",
+    "SDK follow-up found the initial two parent fixtures omitted cwd and therefore compared configuration rejection. Corrected explicit cwd plus mandatory successful output assertions now pass in both actual current factories. Old receipt observations are retained and do not prove successful parent delegation."
+  ],
+  "previous_native": {
+    "passed": 113,
+    "command": {
+      "path": ".goose/out/rc3-r03-external-native-20261017/command.json",
+      "sha256": "fb4a117e8fd0e21c36ce1185901e674e9eda07d31760d779c1377648a2f0ebc9"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-external-native-20261017/pytest.xml",
+      "sha256": "6bb7ebcb04b7e528e136d2c223d3ab9e297a69113b55bc698c13dc137a4d526c"
+    },
+    "scope": "Frozen real/native range observations; actual cancelled disposal waiter and unpublished startup rollback; old ACP/provider/signal consumers; current Subagent and Agent regressions. The two parent fixtures lacked cwd and only compared configuration rejection; their earlier success interpretation is withdrawn."
+  }
 }
