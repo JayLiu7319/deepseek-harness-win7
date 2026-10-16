@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "kind": "assessment-checks",
+  "scope": "Documentation, target Git objects, candidate manifest coverage and unchanged active migration records; not business/runtime parity.",
+  "commands": [
+    {
+      "command": ".venv/Scripts/python.exe scripts/migration.py check",
+      "exit_code": 0,
+      "stdout": "Migration records and pinned inventory are valid (not a parity certification).\n",
+      "elapsed_seconds": null
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/migration.py ready",
+      "exit_code": 0,
+      "stdout": "",
+      "elapsed_seconds": null
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/upstream_delta.py --base a66e4702047846cdaa10c66c9d3df3951f5ea70d --target a4c74a91e06b00fe0b0937bde982170c526cc842 --output .goose/out/rc3-assessment-20261016-f4f9d2ab/upstream-delta.json",
+      "exit_code": 0
+    },
+    {
+      "command": "git -C reference -c diff.renameLimit=10000 diff --name-status -z --find-renames a66e470 a4c74a9 --",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "candidate_checks": {
+    "status": "passed",
+    "manifest_count": 297,
+    "manifest_hashes_verified": 297,
+    "reviewed_source_hashes_verified": 24,
+    "statuses_sum": 6531,
+    "local_links_verified": 7,
+    "unchanged_reference": true,
+    "unchanged_active_target": true,
+    "accepted_upstream": null,
+    "whitespace_and_final_newline": "passed",
+    "elapsed_seconds": 0.375
+  },
+  "candidate_assessment_sha256": "ba832d2eb811fbcdd5ee82fa0ae942b118d67258503b8bf236a57d837fc3c819",
+  "not_run": [
+    "pytest",
+    "candidate Source build",
+    "runtime paired observations",
+    "browser journeys",
+    "Portable build",
+    "release gate",
+    "desktop installers"
+  ],
+  "timing_note": "Migration check/ready executed once earlier in this assessment; their individual wall times were not captured. No expensive repeat for timing.",
+  "raw_observations": {
+    "upstream-delta.json": {
+      "bytes": 1985842,
+      "sha256": "b97660cda63557872a163efeb2cc24eefad43b46a826b84d8ca091093c4b042c"
+    },
+    "git-name-status-full-renames.z": {
+      "bytes": 513196,
+      "sha256": "105728250892b309fb9ff47f2c45f9af96488f21c58f5fa197432e8112301323"
+    },
+    "manifest-observation.json": {
+      "bytes": 1340990,
+      "sha256": "7888d6bfc14f6347ec394205815c166cdffee819d949d4e4e4f57054fefde46a"
+    },
+    "summary.json": {
+      "bytes": 12178,
+      "sha256": "425d89cbd4d3feb1bb19c36ee43b05d9d93de950699e28cf355cb69d013c80dc"
+    }
+  }
+}
