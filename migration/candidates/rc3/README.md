@@ -54,3 +54,5 @@ R03-D: [parent catalog and continuation units](subagent-units-checks.json): 53 a
 R03-E: [continuable residency evidence](subagent-runtime-checks.json): 19 actual current pairs, 29+29 direct consumer rechecks, 169 selected native and 270 original Source tests passed. Remaining consumers and production switch stay open.
 
 R03-F: [Session-owned delegation tools](subagent-tools-checks.json): 21 complete tool journeys, 117 selected native and 217 original Source tests passed. Explicit Session inheritance and actual listing-cache hits are covered; remaining consumers and baseline activation stay open.
+
+R03-G: [current compaction](compaction-current-checks.json): 18 explicit-meter transaction pairs, 154 selected native and 146 original Source tests passed. The system head and v3 replacement contract are covered; current token-meter and remaining consumers are open.

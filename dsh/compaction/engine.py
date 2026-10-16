@@ -104,6 +104,16 @@ class CompactionEngine(Service):
         if ctx is not None and self.auto:
             self.register_automatic_compaction()
 
+    def select_range(self, session, measurement, retain_tokens):
+        return select_compactable_range(session, measurement, retain_tokens)
+
+    def summarization_input(self, session, selected):
+        from dsh.compaction.transaction import summarization_input
+        return summarization_input(session, selected)
+
+    def replacement_surface(self, start, end):
+        return dict(op='replace', start=start, end=end)
+
     def register_automatic_compaction(self):
         ctx = self.ctx
         logger = logging.getLogger("compaction-basic")
@@ -242,7 +252,7 @@ class CompactionEngine(Service):
             try:
                 check_cancel(control.signal)
                 measurement = self.ctx.get("tokenMeter").measure(session)
-                rng = select_compactable_range(session, measurement, retain_tokens=0)
+                rng = self.select_range(session, measurement, retain_tokens=0)
                 if not rng:
                     return None
                 return await self.compact_region(start=rng["start"], end=rng["end"], session=session,
@@ -292,7 +302,7 @@ class CompactionEngine(Service):
             if pruner is not None:
                 pruner.prune_session(target_session)
                 measurement = meter.measure(target_session)
-            rng = select_compactable_range(target_session, measurement, retain_tokens=0)
+            rng = self.select_range(target_session, measurement, retain_tokens=0)
             return (await self.compact_region(start=rng["start"], end=rng["end"], session=target_session,
                                              agent=agent, signal=signal)) if rng else None
 
@@ -314,7 +324,7 @@ class CompactionEngine(Service):
             return None
         result = None
         for _ in range(int(spec["compactionRetries"]) + 1):
-            rng = select_compactable_range(target_session, measurement, retain_tokens=spec["retainTokens"])
+            rng = self.select_range(target_session, measurement, retain_tokens=spec["retainTokens"])
             if rng is None:
                 if result is None:
                     return None

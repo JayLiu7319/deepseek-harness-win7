@@ -120,6 +120,9 @@ class ToolResultPruner(Service):
             raise RuntimeError('tool-result prune: replacement must be smaller and within threshold')
         return pruned
 
+    def replacement_surface(self, seq):
+        return dict(op='replace', start=seq, end=seq)
+
     def prune_session(self, session):
         candidates = []
         for seq in list(session.surface.nodes):
@@ -139,7 +142,7 @@ class ToolResultPruner(Service):
                 shadowedRange=dict(start=seq, end=seq), shadowedSeqs=[seq],
                 shadowedTokenCount=self.ctx.get('tokenMeter').estimate_message(original)))
             replacement = session.append('tool/result', dict(event['data'], message=message),
-                surface_op=dict(op='replace', start=seq, end=seq), source_event_seqs=[seq])
+                surface_op=self.replacement_surface(seq), source_event_seqs=[seq])
             pruned.append(dict(originalSeq=seq, replacementSeq=replacement['seq'],
                 callId=original['source']['callId'], charsBefore=before, charsAfter=after))
             chars_removed += before - after

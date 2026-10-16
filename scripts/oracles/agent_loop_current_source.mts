@@ -51,6 +51,10 @@ export async function loopCurrentCase(source:string,test:any,decode:(v:any)=>any
   await ctx.plugin(Sessions);await ctx.plugin(Projections)
   const session=ctx.sessions.create('loop-pair',decode(test.options??{}))
   for(const event of test.initial??[])session.append(event.type,event.data,event.intent)
+  if(test.operation==='compaction'){
+   const {run}=await import('./compaction_current_source.mts')
+   return await run(source,session,test,normalize)
+  }
   let target:any
   const state=()=>({nextTurn:inbox.nextTurn,nextStep:inbox.nextStep,hasPending:inbox.hasPending})
   let inbox:any

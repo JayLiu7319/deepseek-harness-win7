@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-G-system-head-compaction",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 18,
+    "report": {
+      "path": ".goose/out/rc3-r03-compaction-frozen-20261017/report.json",
+      "sha256": "4053edccbacb7d2ce753eb4e40e818fc5d4c166dce7b6cdc9fbaa08f1da7a503"
+    },
+    "corpus": {
+      "path": "scripts/oracles/compaction_current_cases.json",
+      "sha256": "75ae202866975aec10f4142f203f14836be29aad4aef5cabc843253366492460"
+    },
+    "scope": "Original region selection and complete successful manual transactions; no system head, empty system head, ordinary head, balanced tool calls and retained tails.",
+    "normalization": [
+      "Fixed clock and generated UUID identity normalization.",
+      "Explicit deterministic meter prices every current surface node at 10000 tokens, checkpoint at 1. Summarizer returns fixed content, records its complete input. This isolates transaction and selection from token-meter migration."
+    ]
+  },
+  "native": {
+    "passed": 154,
+    "command": {
+      "path": ".goose/out/rc3-r03-compaction-native-final-20261017/command.json",
+      "sha256": "1a7220ab69e4b107d7744df55614fc33ecc68c8152c3814b0505b3096608bb0f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-compaction-native-final-20261017/pytest.xml",
+      "sha256": "426127dae34d49fe3c90b246de098c9808817cdc99f323e3cf51a4bc3894e666"
+    },
+    "scope": "Current frozen transactions, real mounted LLM auxiliary request and actual JSONL flush, current tool-result pruning, existing policy/transaction/loop/pruner consumers."
+  },
+  "source": {
+    "passed": 146,
+    "suites": 6,
+    "command": {
+      "path": ".goose/out/rc3-r03-compaction-source-20261017/command.json",
+      "sha256": "9ca934aacdd4d740c7007f35980e60b58771d09324081f25c1ff1ecf21195d0f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-compaction-source-20261017/source.xml",
+      "sha256": "86f18ff6809f31bfdd391271409ed647213507198a7ea402348a771710117e57"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/compaction/current.py",
+      "sha256": "63b7085e70123a87b9474d4c14b81238b1f3d3343a143a16c3ad3ec8b5f12527"
+    },
+    {
+      "path": "dsh/compaction/engine.py",
+      "sha256": "8511eb97a4277dc12c36086b926f94151b10bbc00276f8c76849ad6266540eb5"
+    },
+    {
+      "path": "dsh/compaction/transaction.py",
+      "sha256": "d6b310d61d43d299800472f2146005ebbfdd6066ae4f460248f770ced8e5eea6"
+    },
+    {
+      "path": "dsh/compaction/native_summary.py",
+      "sha256": "9d48220cc39ae610259b97b87ceac15f75cada22dd9b75aabd050dce2f7a26c6"
+    },
+    {
+      "path": "dsh/compaction/pruner.py",
+      "sha256": "112c34e911ee3937fe7f4e8e5b0de44daa431c29cb12fdd19639a31b39921c78"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-compaction-pair-20261017",
+    ".goose/out/rc3-r03-compaction-native-20261017",
+    ".goose/out/rc3-r03-compaction-native-fixed-20261017"
+  ],
+  "limits": [
+    "Current token-meter projections and full priced integration remain open; no R03 or production baseline acceptance.",
+    "First fixtures omitted user surface intent, duplicated an adapter registration, or lacked durable system-message identity; corrected fixtures and raw diagnostics retained.",
+    "Selected successful paired transaction paths do not certify every error diagnostic or invariant companion."
+  ]
+}

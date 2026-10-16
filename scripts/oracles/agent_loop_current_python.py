@@ -65,6 +65,9 @@ async def run(test, decode):
             await ctx.plugin(CurrentSessionPlugin);await ctx.plugin(SessionProjectionsPlugin)
             session=ctx.get('sessions').create('loop-pair',decode(test.get('options',{})))
             for event in test.get('initial',[]):session.append(event['type'],event['data'],opts=event.get('intent'))
+            if test['operation']=='compaction':
+                from scripts.oracles.compaction_current_python import run as compact
+                return await compact(ctx,session,test,normalize)
             def state():return dict(nextTurn=inbox.nextTurn,nextStep=inbox.nextStep,hasPending=inbox.hasPending)
             if test['operation']=='inbox':
                 inbox=ReactLoopInbox(ctx.get('sessionProjections'),session,SimpleNamespace(emit=lambda name,payload:notifications.append(normalize(dict(name=name,payload=payload,state=state())))))

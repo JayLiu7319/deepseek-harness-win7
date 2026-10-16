@@ -70,7 +70,7 @@ async def summarize(engine, input, agent, signal):
                                          "source": {"kind": "plugin", "plugin": "dsh-compaction-basic"}}))
     request = dict(provider=target["provider"], model=target["model"], messages=messages,
                    maxTokens=cfg["maxTokens"], sessionId=session.id, purpose="compaction", signal=signal)
-    for key in ("system", "tools"):
+    for key in getattr(engine, 'summarization_fields', ("system", "tools")):
         if key in input:
             request[key] = input[key]
     assembler = BlockAssembler()

@@ -92,7 +92,7 @@ async def compact(engine, session, start, end, agent=None, signal=None,
             raise SurfaceChangedError("compaction: stale token measurement")
         priced = [node for node in measured if node["seq"] in selected]
         shadow_tokens = sum(node["heuristicTokens"] for node in priced)
-        summary = await engine.summarize(summarization_input(session, selected), agent, signal)
+        summary = await engine.summarize(engine.summarization_input(session, selected), agent, signal)
         checkpoint = frame_summary(summary["summary"])
         checkpoint_message = create_user_message(dict(content=checkpoint, source=dict(identity, kind="plugin", plugin="compact")))
         if meter.estimate_message(checkpoint_message) >= sum(n["tokens"] for n in priced):
@@ -117,7 +117,7 @@ async def compact(engine, session, start, end, agent=None, signal=None,
         if summary.get("llmStreamCall") is True:
             body["llmStreamCall"] = True
         record = session.append("compaction/summary", body)
-        session.append("user/message", checkpoint_message, surface_op={"op": "replace", "start": start, "end": end},
+        session.append("user/message", checkpoint_message, surface_op=engine.replacement_surface(start, end),
                        source_event_seqs=[opening["seq"], record["seq"]] + selected)
         closing = True
         end_event = session.append("compaction/end", lifecycle)
