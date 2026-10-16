@@ -120,6 +120,14 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
      await ctx.plugin(Settings,action.config)
     }
     else if(action.method==='policySession')ctx.sessions.create(action.id).append('subagent/model-selection-policy',{allowedModels:action.routes})
+    else if(action.method==='externalConfig'){
+     const {default:Subprocess}=await load('packages/subprocess/subprocess-local/src/index.ts'),acp=await load('packages/subagent/subagent-acp/src/index.ts')
+     await ctx.plugin(Subprocess);await ctx.plugin(acp,{command:join(process.cwd(),'.venv/Scripts/python.exe'),args:[join(process.cwd(),'scripts/oracles/subagent_acp_peer.py')],env:action.env??{},disposeEofGraceMs:150,disposeGraceMs:100})
+    }
+    else if(action.method==='externalRun'){
+     const run=await ctx.subagents.start('acp',{parent:agent,prompt:action.prompt,signal:new AbortController().signal})
+     try{value={id:run.id,result:await run.result,localAgent:run.localAgent!==undefined}}finally{await run.dispose()}
+    }
     else if(action.method==='toolConfig'){
      const {apply,inject}=await load('packages/subagent/tool-subagent/src/index.ts')
      const target=action.target?ctx.sessions.prepare(action.target.id,action.target):action.direct===false?undefined:agent.session

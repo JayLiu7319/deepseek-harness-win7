@@ -23,6 +23,10 @@ export async function loopCurrentCase(source:string,test:any,decode:(v:any)=>any
  }
  const oldNow=Date.now;Date.now=()=>1000
  try{
+  if(test.operation==='external-units'){
+   const {run}=await import('./external_units_current_source.mts')
+   return await run(source,test)
+  }
   if(test.operation==='goal-units'){
    const {run}=await import('./goal_units_current_source.mts')
    return await run(source,test)

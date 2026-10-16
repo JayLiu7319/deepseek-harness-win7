@@ -1,0 +1,903 @@
+[
+  {
+    "case": "acp-range-123-eof",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": 123,
+    "waits": [
+      true
+    ],
+    "reject": false,
+    "expected": {
+      "result": {
+        "outcome": "value"
+      },
+      "trace": [
+        "eof",
+        "bounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range-123-escalate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": 123,
+    "waits": [
+      false,
+      true
+    ],
+    "reject": false,
+    "expected": {
+      "result": {
+        "outcome": "value"
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range-123-first-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": 123,
+    "waits": [
+      "first wait failed",
+      true
+    ],
+    "reject": false,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "Error",
+          "message": "first wait failed"
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range-123-last-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": 123,
+    "waits": [
+      false,
+      "last wait failed"
+    ],
+    "reject": false,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "Error",
+          "message": "last wait failed"
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range-123-aggregate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": 123,
+    "waits": [
+      "first wait failed",
+      "last wait failed"
+    ],
+    "reject": false,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "ACP subprocess teardown failed",
+          "errors": [
+            {
+              "name": "Error",
+              "message": "first wait failed"
+            },
+            {
+              "name": "Error",
+              "message": "last wait failed"
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range--1-eof",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": -1,
+    "waits": [
+      true
+    ],
+    "reject": true,
+    "expected": {
+      "result": {
+        "outcome": "value"
+      },
+      "trace": [
+        "eof",
+        "bounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range--1-escalate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": -1,
+    "waits": [
+      false,
+      true
+    ],
+    "reject": true,
+    "expected": {
+      "result": {
+        "outcome": "value"
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range--1-first-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": -1,
+    "waits": [
+      "first wait failed",
+      true
+    ],
+    "reject": true,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "Error",
+          "message": "first wait failed"
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range--1-last-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": -1,
+    "waits": [
+      false,
+      "last wait failed"
+    ],
+    "reject": true,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "Error",
+          "message": "last wait failed"
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-range--1-aggregate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "dispose",
+    "pid": -1,
+    "waits": [
+      "first wait failed",
+      "last wait failed"
+    ],
+    "reject": true,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "ACP subprocess teardown failed",
+          "errors": [
+            {
+              "name": "Error",
+              "message": "first wait failed"
+            },
+            {
+              "name": "Error",
+              "message": "last wait failed"
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-start-published-rejection",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": -1,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AcpRunFailure",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+          "cause": {
+            "name": "Error",
+            "message": "direct result rejected"
+          }
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-start-positive-pid-rejection",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": 123,
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AcpRunFailure",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+          "cause": {
+            "name": "Error",
+            "message": "direct result rejected"
+          }
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-start--1-cleanup-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": -1,
+    "waits": [
+      false,
+      "range still owned"
+    ],
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport); subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+          "errors": [
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+              "cause": {
+                "name": "Error",
+                "message": "direct result rejected"
+              }
+            },
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+              "cause": {
+                "name": "Error",
+                "message": "range still owned"
+              }
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        },
+        {
+          "name": "Error",
+          "message": "range still owned"
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-start--1-cleanup-aggregate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": -1,
+    "waits": [
+      "first range wait failed",
+      "range still owned"
+    ],
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport); subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+          "errors": [
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+              "cause": {
+                "name": "Error",
+                "message": "direct result rejected"
+              }
+            },
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+              "cause": {
+                "name": "AggregateError",
+                "message": "ACP subprocess teardown failed",
+                "errors": [
+                  {
+                    "name": "Error",
+                    "message": "first range wait failed"
+                  },
+                  {
+                    "name": "Error",
+                    "message": "range still owned"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        },
+        {
+          "name": "AggregateError",
+          "message": "ACP subprocess teardown failed",
+          "errors": [
+            {
+              "name": "Error",
+              "message": "first range wait failed"
+            },
+            {
+              "name": "Error",
+              "message": "range still owned"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-start-123-cleanup-error",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": 123,
+    "waits": [
+      false,
+      "range still owned"
+    ],
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport); subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+          "errors": [
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+              "cause": {
+                "name": "Error",
+                "message": "direct result rejected"
+              }
+            },
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+              "cause": {
+                "name": "Error",
+                "message": "range still owned"
+              }
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        },
+        {
+          "name": "Error",
+          "message": "range still owned"
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-start-123-cleanup-aggregate",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "start",
+    "reject": true,
+    "pid": 123,
+    "waits": [
+      "first range wait failed",
+      "range still owned"
+    ],
+    "expected": {
+      "result": {
+        "outcome": "error",
+        "error": {
+          "name": "AggregateError",
+          "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport); subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+          "errors": [
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: transport)",
+              "cause": {
+                "name": "Error",
+                "message": "direct result rejected"
+              }
+            },
+            {
+              "name": "AcpRunFailure",
+              "message": "subagent-acp: Subagent failure (provider: ACP; stage: teardown; category: unknown)",
+              "cause": {
+                "name": "AggregateError",
+                "message": "ACP subprocess teardown failed",
+                "errors": [
+                  {
+                    "name": "Error",
+                    "message": "first range wait failed"
+                  },
+                  {
+                    "name": "Error",
+                    "message": "range still owned"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "trace": [
+        "eof",
+        "bounded",
+        "terminate",
+        "unbounded"
+      ],
+      "errors": [
+        {
+          "name": "Error",
+          "message": "direct result rejected"
+        },
+        {
+          "name": "AggregateError",
+          "message": "ACP subprocess teardown failed",
+          "errors": [
+            {
+              "name": "Error",
+              "message": "first range wait failed"
+            },
+            {
+              "name": "Error",
+              "message": "range still owned"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "acp-actual-end_turn",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "env": {
+      "PROBE_STOP": "end_turn"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "stopReason": "completed"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-actual-max_tokens",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "env": {
+      "PROBE_STOP": "max_tokens"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "stopReason": "max-tokens"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-actual-refusal",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "env": {
+      "PROBE_STOP": "refusal"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "stopReason": "refusal"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-actual-max_turn_requests",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "env": {
+      "PROBE_STOP": "max_turn_requests"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "diagnostic": "Subagent failure (provider: ACP; stage: prompt; category: remote-limit; stop reason: max_turn_requests)",
+        "stopReason": "error"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-actual-permission-allow",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "permission": "allow",
+    "env": {
+      "PROBE_PERMISSION": "1",
+      "PROBE_IGNORE_PERMISSION": "1",
+      "PROBE_STOP": "refusal",
+      "PROBE_TOOL_KIND": "execute"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "diagnostic": "ACP unattended decision (policy: allow; request: execute; decision: allowed)",
+        "stopReason": "refusal"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-actual-permission-reject",
+    "kind": "loop-current",
+    "operation": "external-units",
+    "mode": "peer",
+    "permission": "reject",
+    "env": {
+      "PROBE_PERMISSION": "1",
+      "PROBE_IGNORE_PERMISSION": "1",
+      "PROBE_STOP": "refusal",
+      "PROBE_TOOL_KIND": "execute"
+    },
+    "expected": {
+      "result": {
+        "output": [
+          {
+            "type": "text",
+            "text": "child answer"
+          }
+        ],
+        "diagnostic": "ACP unattended decision (policy: reject; request: execute; decision: denied)",
+        "stopReason": "refusal"
+      },
+      "errors": [],
+      "reaped": true,
+      "exitCode": 0,
+      "detached": true
+    }
+  },
+  {
+    "case": "acp-current-parent-end_turn",
+    "kind": "machine-current",
+    "subagents": true,
+    "actions": [
+      {
+        "method": "externalConfig",
+        "env": {
+          "PROBE_STOP": "end_turn"
+        }
+      },
+      {
+        "method": "externalRun",
+        "prompt": [
+          {
+            "type": "text",
+            "text": "explicit child task"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AcpRunFailure",
+            "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: configuration)",
+            "cause": {
+              "name": "Error",
+              "message": "subagent-acp: no working directory for the child — configure `cwd` or delegate from a parent session that has one"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "acp-current-parent-refusal",
+    "kind": "machine-current",
+    "subagents": true,
+    "actions": [
+      {
+        "method": "externalConfig",
+        "env": {
+          "PROBE_STOP": "refusal"
+        }
+      },
+      {
+        "method": "externalRun",
+        "prompt": [
+          {
+            "type": "text",
+            "text": "explicit child task"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "AcpRunFailure",
+            "message": "subagent-acp: Subagent failure (provider: ACP; stage: initialize; category: configuration)",
+            "cause": {
+              "name": "Error",
+              "message": "subagent-acp: no working directory for the child — configure `cwd` or delegate from a parent session that has one"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  }
+]

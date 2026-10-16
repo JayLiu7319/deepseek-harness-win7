@@ -179,6 +179,18 @@ async def run(test,decode):
                     elif method=='policySession':
                         session=ctx.get('sessions').create(action['id'])
                         session.append('subagent/model-selection-policy',dict(allowedModels=action['routes']))
+                    elif method=='externalConfig':
+                        import sys
+                        from pathlib import Path
+                        from dsh.subprocess.local import LocalSubprocessRuntime
+                        from dsh.subagent.acp_current import CurrentSubagentAcp
+                        await ctx.plugin(LocalSubprocessRuntime)
+                        await ctx.plugin(CurrentSubagentAcp,dict(command=sys.executable,args=[str(Path(__file__).with_name('subagent_acp_peer.py'))],env=action.get('env',{}),disposeEofGraceMs=150,disposeGraceMs=100))
+                    elif method=='externalRun':
+                        from dsh.core.abort import AbortController
+                        run=await ctx.get('subagents').start('acp',dict(parent=agent,prompt=action['prompt'],signal=AbortController().signal))
+                        try:value=dict(id=run.id,result=await run.result,localAgent=run.localAgent is not None)
+                        finally:await run.dispose()
                     elif method=='toolConfig':
                         from dsh.subagent.canonical_tools_current import apply_tool_subagent,CurrentToolSubagent
                         target=agent.session if action.get('direct',True) else None

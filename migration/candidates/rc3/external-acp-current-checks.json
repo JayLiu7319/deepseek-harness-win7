@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-J-current-ACP-published-range",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 24,
+    "report": {
+      "path": ".goose/out/rc3-r03-external-parent-frozen-20261017/report.json",
+      "sha256": "8b4b9d1a97219b643e6f5587fc0e989b2004a1e268ec4910672df6e4ba566ef0"
+    },
+    "corpus": {
+      "path": "scripts/oracles/external_current_cases.json",
+      "sha256": "766eeb6798c4f9790e4c4026fd95d3e54abed557e1b718329b6cab99d327dc1e"
+    },
+    "scope": "Published positive/nonpositive PID rejected direct results, bounded wait escalation and error identity/aggregates, real stdio ACP peers, permission decisions, and current parent Agent/current Subagent provider calls."
+  },
+  "native": {
+    "passed": 113,
+    "command": {
+      "path": ".goose/out/rc3-r03-external-native-20261017/command.json",
+      "sha256": "fb4a117e8fd0e21c36ce1185901e674e9eda07d31760d779c1377648a2f0ebc9"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-external-native-20261017/pytest.xml",
+      "sha256": "6bb7ebcb04b7e528e136d2c223d3ab9e297a69113b55bc698c13dc137a4d526c"
+    },
+    "scope": "Frozen real/native range observations; actual cancelled disposal waiter and unpublished startup rollback; old ACP/provider/signal consumers; current Subagent and Agent regressions."
+  },
+  "source": {
+    "passed": 72,
+    "skipped": 1,
+    "suites": 1,
+    "command": {
+      "path": ".goose/out/rc3-r03-external-source-20261017/command.json",
+      "sha256": "d2b4217fc391e3b3a54872a8238993fdcfc25e8d77958e046105ec121f40deef"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-external-source-20261017/source.xml",
+      "sha256": "8acafa5a9788edb8672853ea1299cb9bd4c559ef3166d7ae15195095efd6cd37"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/subagent/acp_current.py",
+      "sha256": "98baed1e06076ff921e4bd8a5f109b8ad995540f1922f528918796cdf360a33d"
+    },
+    {
+      "path": "dsh/subagent/acp.py",
+      "sha256": "a70762bf4e276a07b27595036d3a558968eaa45cace8614bef846f7d693eb82f"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-external-actual-20261017"
+  ],
+  "limits": [
+    "Active production remains rc.1; current provider waits for coordinated activation.",
+    "The first actual-peer observer counted removeEventListener calls arithmetically; it now tracks listener identity as a Set. Repeated removal cannot manufacture a leak. Full observations remain preserved.",
+    "Broader managed-range subprocess provider changes belong to R09; these ACP tests use current public handle contracts and existing real Windows process owner.",
+    "Claude Code and Codex external providers are absent from the Python host and remain an implementation gap; neither is certified by ACP coverage. SDK/Remote, command attachments, overall R03 and full qualification remain open."
+  ]
+}

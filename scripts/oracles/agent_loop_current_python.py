@@ -32,6 +32,9 @@ async def run(test, decode):
         return value
     with patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1):
         try:
+            if test['operation']=='external-units':
+                from scripts.oracles.external_units_current_python import run as units
+                return await units(test)
             if test['operation']=='goal-units':
                 from scripts.oracles.goal_units_current_python import run as units
                 return units(test)

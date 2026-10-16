@@ -98,6 +98,12 @@ class AcpRun:
         except Exception:
             pass
 
+    def startup_report_error(self, error):
+        return getattr(error, 'cause', error)
+
+    def prompt_report_error(self, error):
+        return error
+
     async def write(self, content):
         loop = asyncio.get_running_loop()
         def write_bytes():
@@ -217,7 +223,7 @@ class AcpRun:
             failure = error if isinstance(error, AcpRunFailure) else AcpRunFailure(stage,
                 'transport' if outcome is None else 'process-exit', error, outcome)
             if not cancelled:
-                self.report(getattr(error, 'cause', error))
+                self.report(self.startup_report_error(error))
             try:
                 await self.dispose_process()
             except Exception as cleanup_error:
@@ -261,7 +267,7 @@ class AcpRun:
             permission = self.permission_diagnostic()
             if permission is not None:
                 diagnostic += '\n' + permission
-            self.report(error)
+            self.report(self.prompt_report_error(error))
             stop_reason = 'error'
         finally:
             self.detach()
@@ -316,6 +322,11 @@ class AcpRun:
 class AcpProvider:
     capabilities = {'agentOptions': False, 'outputSchema': False, 'depthLimit': False, 'toolFilter': False, 'persona': False}
     inheritsParentContext = False
+    run_class = AcpRun
+
+    async def prepare_child(self, child):
+        if child.pid <= 0:
+            await child.done
 
     def __init__(self, ctx, config):
         self.ctx, self.config, self.name = ctx, config, config['providerName']
@@ -343,21 +354,21 @@ class AcpProvider:
             SubprocessStdio('pipe', 'pipe', 'inherit'), self.config['disposeGraceMs'], env=self.config['env'])
         try:
             child = self.ctx.get('subprocess').spawn(spec)
-            if child.pid <= 0:
-                await child.done
+            await self.prepare_child(child)
         except Exception as error:
             try:
                 self.report(error, 'error')
             except Exception:
                 pass
             raise AcpRunFailure('process', 'process-start', error)
-        return await AcpRun(child, request, self.config, self.report).initialize(cwd)
+        return await self.run_class(child, request, self.config, self.report).initialize(cwd)
 
 
 class SubagentAcp(Plugin):
     id = 'subagent-acp'
     inject = ['subagents', 'subprocess']
     Config = CONFIG
+    provider_class = AcpProvider
 
     def apply(self, ctx):
         config = dict(self.config)
@@ -369,4 +380,4 @@ class SubagentAcp(Plugin):
             raise RuntimeError('subagent-acp: config cwd must not be empty — omit the key to inherit the parent session cwd')
         if 'cwd' in config:
             config['cwd'] = assert_usable_cwd('config cwd', os.path.abspath(config['cwd']))
-        ctx.get('subagents').registerProvider(AcpProvider(ctx, config))
+        ctx.get('subagents').registerProvider(self.provider_class(ctx, config))
