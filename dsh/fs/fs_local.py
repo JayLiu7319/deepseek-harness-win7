@@ -2,9 +2,9 @@ import asyncio
 import codecs
 import errno
 import inspect
+import logging
 import os
 import pathlib
-import shutil
 import stat as stat_module
 import sys
 import uuid
@@ -45,6 +45,49 @@ class Win32FsError(OSError):
 
     def __str__(self) -> str:
         return self.message
+
+
+class _StagingCleanupRefused(OSError):
+    """The observed path is no longer a known temporary object."""
+
+
+def _atomic_error_detail(error: BaseException) -> Dict[str, Any]:
+    detail = dict(type=type(error).__name__, message=str(error))
+    for key in ("code", "errno", "winerror", "win32Code", "syscall", "path", "filename"):
+        value = getattr(error, key, None)
+        if value is not None:
+            detail[key] = value
+    return detail
+
+
+def _record_atomic_failure(error: BaseException, primary: BaseException, stage: str,
+                           target: str, staging: str, temp: str, cleanup: str,
+                           cleanup_error: Optional[BaseException] = None) -> Dict[str, Any]:
+    # Add diagnostics without changing exception identity, contract code or cause.
+    detail = dict(stage=stage, targetPath=target, stagingPath=staging, tempPath=temp,
+                  cleanup=cleanup, failure=_atomic_error_detail(primary))
+    if cleanup_error is not None:
+        detail["cleanupFailure"] = _atomic_error_detail(cleanup_error)
+    error.atomicWrite = detail
+    os_error = primary if isinstance(primary, OSError) else getattr(primary, "cause", None)
+    permission = (isinstance(os_error, OSError) and not isinstance(os_error, _StagingCleanupRefused)
+                  and _is_permission(os_error)) or (
+        isinstance(cleanup_error, OSError) and not isinstance(cleanup_error, _StagingCleanupRefused)
+        and _is_permission(cleanup_error))
+    # Keep ordinary guard/cancellation messages identical to Source.
+    guarded = getattr(primary, "code", None) in ("FS_NOT_OBSERVED", "FS_STALE_VERSION", "FS_ABORTED")
+    if (isinstance(os_error, OSError) and not guarded) or cleanup_error is not None or cleanup == "preserved-for-recovery":
+        message = '%s\nAtomic write stage=%s; target="%s"; staging="%s"; cleanup=%s.' % (
+            str(error), stage, target, staging, cleanup)
+        if permission:
+            message += (" Access was denied; check effective file/directory ACLs, inheritance and read-only attributes."
+                        " Do not retry with unchanged permissions or reset ACLs automatically.")
+        elif isinstance(os_error, OSError) and getattr(os_error, "winerror", None) == 32:
+            message += " A file handle may prevent replacement; check which application holds the file."
+        if cleanup == "preserved-for-recovery":
+            message += " Publication may be partially complete; inspect target and staging before recovery or retry."
+        error.message = message
+    return detail
 
 
 class FsTarget:
@@ -571,16 +614,34 @@ class FsService:
             code = ctypes.get_last_error()
             raise Win32FsError('ReplaceFileW', code, destination)
 
-    async def _remove_staging(self, staging: str) -> None:
+    @staticmethod
+    def _check_staging_object(path: str, identity: Optional[os.stat_result], directory: bool) -> None:
+        current = os.lstat(_native_path(path))
+        expected_type = stat_module.S_ISDIR if directory else stat_module.S_ISREG
+        if (identity is None or not identity.st_ino or current.st_dev != identity.st_dev
+                or current.st_ino != identity.st_ino or not expected_type(current.st_mode)
+                or getattr(current, "st_file_attributes", 0) & 0x400):
+            raise _StagingCleanupRefused(errno.EPERM, "temporary cleanup refused: object identity or type changed", path)
+
+    async def _remove_staging(self, staging: str, identity: Optional[os.stat_result],
+                              temp: str, temp_identity: Optional[os.stat_result]) -> None:
         if self.internals.removeStagingDir is not None:
             await _maybe_await(self.internals.removeStagingDir(staging))
         else:
-            shutil.rmtree(_native_path(staging), ignore_errors=False)
+            # Never recursively delete a tree: only the objects created by this write.
+            # These checks are conservative path checks, not a kernel isolation boundary.
+            self._check_staging_object(staging, identity, True)
+            entries = os.listdir(_native_path(staging))
+            if entries:
+                if entries != [os.path.basename(temp)]:
+                    raise _StagingCleanupRefused(errno.EPERM, "temporary cleanup refused: unexpected directory entries", staging)
+                self._check_staging_object(temp, temp_identity, False)
+                os.unlink(_native_path(temp))
+            os.rmdir(_native_path(staging))
 
     async def _atomic_write(self, target: FsTarget, content: str, mode: Optional[int], signal: Optional[Any], guarded_create: bool) -> None:
         _throw_if_aborted(signal, "write")
         directory = os.path.dirname(target.targetKey)
-        os.makedirs(_native_path(directory), exist_ok=True)
         default_staging_name = ".%s.%s.%s.tmpdir" % (os.path.basename(target.targetKey), os.getpid(), uuid.uuid4().hex)
         staging_name = self.internals.tempDirName(target.targetKey) if self.internals.tempDirName else default_staging_name
         temp_name = self.internals.tempName(target.targetKey) if self.internals.tempName else os.path.basename(target.targetKey) + ".tmp"
@@ -588,18 +649,28 @@ class FsService:
         temp = os.path.join(staging, temp_name)
         created = False
         committed = False
+        staging_identity = None
+        temp_identity = None
+        stage = "create-parent"
         try:
+            os.makedirs(_native_path(directory), exist_ok=True)
+            stage = "create-staging"
             os.mkdir(_native_path(staging), 0o700)
             created = True
+            staging_identity = os.lstat(_native_path(staging))
             if os.name != "nt":
                 os.chmod(_native_path(staging), 0o700)
             binary_flag = getattr(os, "O_BINARY", 0)
+            stage = "create-temp"
             descriptor = os.open(_native_path(temp), os.O_WRONLY | os.O_CREAT | os.O_EXCL | binary_flag, 0o600)
             try:
+                temp_identity = os.fstat(descriptor)
                 platform = self.internals.platform or ("win32" if os.name == "nt" else os.name)
                 if platform == "win32" and mode is not None:
+                    stage = "copy-target-acl"
                     copy_dacl = self.internals.copyFileDacl or self._copy_windows_dacl
                     await _maybe_await(copy_dacl(target.targetKey, temp))
+                stage = "write-temp"
                 raw = content.encode("utf-8")
                 offset = 0
                 while offset < len(raw):
@@ -607,15 +678,28 @@ class FsService:
                     end = min(offset + READ_CHUNK_BYTES, len(raw))
                     offset += os.write(descriptor, raw[offset:end])
                     await asyncio.sleep(0)
+                stage = "sync-temp"
                 os.fsync(descriptor)
                 if self.internals.inspectTemp is not None:
+                    stage = "inspect-temp"
                     await _maybe_await(self.internals.inspectTemp({"stagingDir": staging, "tempPath": temp}))
                 if mode is not None and os.name != "nt":
+                    stage = "preserve-mode"
                     os.fchmod(descriptor, mode)
-            finally:
+            except BaseException as write_error:
+                try:
+                    os.close(descriptor)
+                except BaseException as close_error:
+                    raise FsError("write failed (%s) and temp close failed (%s)" % (
+                        write_error, close_error), "FS_NOT_FOUND", write_error)
+                raise
+            else:
+                stage = "close-temp"
                 os.close(descriptor)
+            stage = "check-cancel"
             _throw_if_aborted(signal, "write")
             if guarded_create:
+                stage = "publish-link"
                 try:
                     if self.internals.linkFile is not None:
                         await _maybe_await(self.internals.linkFile(temp, target.targetKey))
@@ -639,28 +723,50 @@ class FsService:
                         raise FsError('cannot overwrite existing "%s" without reading it first' % target.displayPath, "FS_NOT_OBSERVED", error)
                     raise FsError('cannot write "%s": %s' % (target.displayPath, error), "FS_IO_ERROR", error)
             elif platform == "win32" and mode is not None:
+                stage = "replace-target"
                 replace_file = self.internals.replaceFile or self._replace_windows
                 try:
                     await _maybe_await(replace_file(target.targetKey, temp))
                 except OSError as error:
                     if not _is_missing(error):
                         raise
+                    stage = "publish-rename"
                     os.replace(_native_path(temp), _native_path(target.targetKey))
             else:
+                stage = "publish-rename"
                 os.replace(_native_path(temp), _native_path(target.targetKey))
             committed = True
         except BaseException as original:
+            # These ReplaceFileW results can leave publication partially complete.
+            # Deleting the replacement could destroy the only recoverable content.
+            if stage == "replace-target" and getattr(original, "winerror", None) in (1176, 1177):
+                _record_atomic_failure(original, original, stage, target.targetKey, staging, temp,
+                                       "preserved-for-recovery")
+                raise
             if created:
                 try:
-                    await self._remove_staging(staging)
+                    await self._remove_staging(staging, staging_identity, temp, temp_identity)
                 except BaseException as cleanup_error:
-                    raise FsError("write failed (%s) and temp cleanup failed (%s)" % (original, cleanup_error), "FS_NOT_FOUND", original)
+                    failure = FsError("write failed (%s) and temp cleanup failed (%s)" % (
+                        original, cleanup_error), "FS_NOT_FOUND", original)
+                    _record_atomic_failure(failure, original, stage, target.targetKey, staging, temp,
+                                           "failed", cleanup_error)
+                    raise failure
+            _record_atomic_failure(original, original, stage, target.targetKey, staging, temp,
+                                   "removed" if created else "not-created")
             raise
         if committed and created:
             try:
-                await self._remove_staging(staging)
-            except BaseException:
-                pass
+                await self._remove_staging(staging, staging_identity, temp, temp_identity)
+            except BaseException as cleanup_error:
+                try:
+                    detail = _record_atomic_failure(cleanup_error, cleanup_error, "cleanup-after-commit",
+                                                    target.targetKey, staging, temp, "failed", cleanup_error)
+                    logging.getLogger(__name__).warning("Atomic write committed; staging cleanup failed: %s",
+                                                       cleanup_error.message, extra={"atomic_write": detail})
+                except Exception:
+                    # Even a failing log handler must not undo the Source success contract.
+                    pass
 
     async def _locked(self, key: str, operation: Any) -> Any:
         lock = self._locks.get(key)

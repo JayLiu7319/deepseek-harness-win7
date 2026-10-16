@@ -458,7 +458,7 @@ async def test_two_concurrent_guarded_writes_have_one_winner(tmp_path, fs):
         fs.writeText(target, "two", {"kind": "replaceIfVersion", "version": version}),
         return_exceptions=True,
     )
-    assert len([value for value in results if not isinstance(value, Exception)]) == 1
+    assert len([value for value in results if not isinstance(value, Exception)]) == 1, [str(value) for value in results]
     failures = [value for value in results if isinstance(value, Exception)]
     assert len(failures) == 1
     assert isinstance(failures[0], FsError) and failures[0].code == "FS_STALE_VERSION"
@@ -583,11 +583,12 @@ def test_windows_replacement_errors_preserve_source_metadata_without_retry(tmp_p
 @pytest.mark.skipif(os.name != "nt", reason="Win32 extended-length ordinary I/O")
 @pytest.mark.asyncio
 async def test_atomic_write_passes_namespaced_paths_to_ordinary_windows_io(tmp_path, fs, monkeypatch):
-    observed = {"makedirs": [], "open": [], "replace": [], "rmtree": []}
+    observed = {"makedirs": [], "open": [], "replace": [], "unlink": [], "rmdir": []}
     real_makedirs = os.makedirs
     real_open = os.open
     real_replace = os.replace
-    real_rmtree = fs_local_module.shutil.rmtree
+    real_unlink = os.unlink
+    real_rmdir = os.rmdir
 
     def observed_makedirs(path, *args, **kwargs):
         observed["makedirs"].append(path)
@@ -601,15 +602,21 @@ async def test_atomic_write_passes_namespaced_paths_to_ordinary_windows_io(tmp_p
         observed["replace"].extend([source, destination])
         return real_replace(source, destination, *args, **kwargs)
 
-    def observed_rmtree(path, *args, **kwargs):
-        observed["rmtree"].append(path)
-        return real_rmtree(path, *args, **kwargs)
+    def observed_unlink(path, *args, **kwargs):
+        observed["unlink"].append(path)
+        return real_unlink(path, *args, **kwargs)
+
+    def observed_rmdir(path, *args, **kwargs):
+        observed["rmdir"].append(path)
+        return real_rmdir(path, *args, **kwargs)
 
     monkeypatch.setattr(fs_local_module.os, "makedirs", observed_makedirs)
     monkeypatch.setattr(fs_local_module.os, "open", observed_os_open)
     monkeypatch.setattr(fs_local_module.os, "replace", observed_replace)
-    monkeypatch.setattr(fs_local_module.shutil, "rmtree", observed_rmtree)
+    monkeypatch.setattr(fs_local_module.os, "unlink", observed_unlink)
+    monkeypatch.setattr(fs_local_module.os, "rmdir", observed_rmdir)
     await fs.writeText(await fs.resolve("long-path.txt"), "content")
+    await fs.writeText(await fs.resolve("guarded.txt"), "content", {"kind": "createIfAbsent"})
     for operation in observed.values():
         assert operation
         assert all(path.startswith("\\\\?\\") for path in operation)
