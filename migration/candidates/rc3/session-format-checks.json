@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-pure-format-library",
+  "status": "targeted-passed",
+  "scope": "Synthetic format planner/catalog contracts only, not released codecs or persistence acceptance",
+  "paired": {
+    "cases": 104,
+    "status": "matched",
+    "inputs": {
+      "scripts/oracles/session_format_cases.json": "a825da6ace3871715022b74a0a7b8fb02a9e70e926bb88d058d514fa1d1df1c5",
+      "scripts/oracles/session_format_python.py": "261e5c48c9b54a383d492c68ff89dca90478e6476b2f329fb0b231f9a358c077",
+      "scripts/oracles/session_format_source.mts": "ee09c6d028af1a004d681297b7d89dfc147f85cc196baa314e885fad19b595f1"
+    },
+    "commands": [
+      {
+        "command": [
+          "node",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\node_modules\\tsx\\dist\\cli.mjs",
+          "--tsconfig",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\tsconfig.json",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_source.mts",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_cases.json",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-format-paired-20261017\\source.json"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.40599999998812564
+      },
+      {
+        "command": [
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_python.py",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_cases.json",
+          "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-format-paired-20261017\\native.json"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.4220000000204891
+      }
+    ]
+  },
+  "native": {
+    "command": [
+      "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_session_format.py",
+      "tests/test_session_number_consumers.py",
+      "--junitxml=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-format-native-node-pinned-20261017\\pytest.xml",
+      "-q"
+    ],
+    "node": "C:\\Users\\czh86\\AppData\\Local\\Volta\\tools\\image\\node\\22.22.2\\node.exe",
+    "exit_code": 0,
+    "elapsed_seconds": 7.453000000008615
+  },
+  "native_tests": 187,
+  "official_source": {
+    "command": [
+      "node",
+      "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\node_modules\\vitest\\vitest.mjs",
+      "run",
+      "packages/session/session-format/tests",
+      "--maxWorkers=2",
+      "--reporter=default",
+      "--reporter=junit",
+      "--outputFile=C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r01-20261017\\source-format.xml"
+    ],
+    "cwd": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016",
+    "exit_code": 0,
+    "elapsed_seconds": 5.5
+  },
+  "official_source_tests": 31,
+  "files": {
+    "dsh/session/format/__init__.py": "b533c5b35ebd45b634551129f78f50ceed24c967ed3bf0cb4885d02b5ae53859",
+    "dsh/session/format/catalog.py": "d5bf95464320d1f66fc05379753c3bcdc24df5b8a8b9cee9b24e74a3918bf758",
+    "dsh/session/format/chain.py": "691cca1759d3575ed049697178eb2df9bd2f423f62e13569af5d100b56d9900e",
+    "dsh/session/format/error.py": "ff265971dbed6ff9a7034fb3aa49d97f09d1e8f13c0e0ee9c1928b9207f1c3c5",
+    "dsh/session/format/filename.py": "c78faf555830f4bd8ee0aceb988be62807811b8b951f22f4e1750db5547c57be",
+    "dsh/session/format/json.py": "401192b4739e765c8a6498c92e44da84a195331dafc59a03c362a8d074ace674"
+  },
+  "observations": {
+    ".goose/out/rc3-r02-format-paired-20261017/report.json": "ad70db40ba48be01cb400651b303d6cf51d47d58a65e54b86066ce7ec784c936",
+    ".goose/out/rc3-r02-format-native-node-pinned-20261017/pytest.xml": "fa67fe7f6dc37650087f0ac7ec091cbb556c5b7e12980264ca4f7e1e5bf74dde",
+    ".goose/out/rc3-r02-format-native-node-pinned-20261017/history-retention.json": "c21fadbe381bb41a1a410eaa63ec87445310b01e33b3a7e9ef728e27e8043936"
+  },
+  "limitations": [
+    "104 scenarios use synthetic migration stages/codecs, not released v0/v1/v2/v3 codec equivalence.",
+    "Initial consumer run used Node22.20.0 and failed 73 Source identity setups; preserved separately; rerun with required Node22.22.2 passed all187.",
+    "No active writer/version change; historical codecs, v3 Session and persistence migration remain open.",
+    "No full regression, Portable/browser or Win7 release acceptance."
+  ]
+}

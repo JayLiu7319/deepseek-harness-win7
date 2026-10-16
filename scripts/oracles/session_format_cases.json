@@ -1,0 +1,1149 @@
+[
+  {
+    "case": "count-zero",
+    "kind": "count",
+    "value": 0,
+    "expected": {
+      "outcome": "value",
+      "value": 0
+    }
+  },
+  {
+    "case": "count-whole",
+    "kind": "count",
+    "value": 2,
+    "expected": {
+      "outcome": "value",
+      "value": 2
+    }
+  },
+  {
+    "case": "count-max",
+    "kind": "count",
+    "value": 9007199254740991,
+    "expected": {
+      "outcome": "value",
+      "value": 9007199254740991
+    }
+  },
+  {
+    "case": "count-negative",
+    "kind": "count",
+    "value": -1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-fraction",
+    "kind": "count",
+    "value": 1.5,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-boolean",
+    "kind": "count",
+    "value": true,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-string",
+    "kind": "count",
+    "value": "1",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-null",
+    "kind": "count",
+    "value": null,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-overflow",
+    "kind": "count",
+    "value": 9007199254740992,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-minuszero",
+    "kind": "count",
+    "value": {
+      "$scalar": "-0"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-nan",
+    "kind": "count",
+    "value": {
+      "$scalar": "NaN"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-infinity",
+    "kind": "count",
+    "value": {
+      "$scalar": "Infinity"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "count-missing",
+    "kind": "count",
+    "value": {
+      "$scalar": "undefined"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-zero",
+    "kind": "safe",
+    "value": 0,
+    "expected": {
+      "outcome": "value",
+      "value": 0
+    }
+  },
+  {
+    "case": "safe-whole",
+    "kind": "safe",
+    "value": 2,
+    "expected": {
+      "outcome": "value",
+      "value": 2
+    }
+  },
+  {
+    "case": "safe-max",
+    "kind": "safe",
+    "value": 9007199254740991,
+    "expected": {
+      "outcome": "value",
+      "value": 9007199254740991
+    }
+  },
+  {
+    "case": "safe-negative",
+    "kind": "safe",
+    "value": -1,
+    "expected": {
+      "outcome": "value",
+      "value": -1
+    }
+  },
+  {
+    "case": "safe-fraction",
+    "kind": "safe",
+    "value": 1.5,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-boolean",
+    "kind": "safe",
+    "value": true,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-string",
+    "kind": "safe",
+    "value": "1",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-null",
+    "kind": "safe",
+    "value": null,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-overflow",
+    "kind": "safe",
+    "value": 9007199254740992,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-minuszero",
+    "kind": "safe",
+    "value": {
+      "$scalar": "-0"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-nan",
+    "kind": "safe",
+    "value": {
+      "$scalar": "NaN"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-infinity",
+    "kind": "safe",
+    "value": {
+      "$scalar": "Infinity"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "safe-missing",
+    "kind": "safe",
+    "value": {
+      "$scalar": "undefined"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "parse-26",
+    "kind": "filename",
+    "value": "session.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": 0
+    }
+  },
+  {
+    "case": "parse-27",
+    "kind": "filename",
+    "value": "session.v1.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": 1
+    }
+  },
+  {
+    "case": "parse-28",
+    "kind": "filename",
+    "value": "session.v3.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": 3
+    }
+  },
+  {
+    "case": "parse-29",
+    "kind": "filename",
+    "value": "session.v9007199254740991.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": 9007199254740991
+    }
+  },
+  {
+    "case": "parse-30",
+    "kind": "filename",
+    "value": "session.v0.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-31",
+    "kind": "filename",
+    "value": "session.v01.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-32",
+    "kind": "filename",
+    "value": "session.v-1.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-33",
+    "kind": "filename",
+    "value": "session.v9007199254740992.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-34",
+    "kind": "filename",
+    "value": "session.v999999999999999999999.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-35",
+    "kind": "filename",
+    "value": "session.v1.jsonl\n",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-36",
+    "kind": "filename",
+    "value": "session.jsonl.gz",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-37",
+    "kind": "filename",
+    "value": "directory/session.v3.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "parse-38",
+    "kind": "filename",
+    "value": "session.V3.jsonl",
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "filename-write-39",
+    "kind": "filename-write",
+    "value": 0,
+    "expected": {
+      "outcome": "value",
+      "value": "session.jsonl"
+    }
+  },
+  {
+    "case": "filename-write-40",
+    "kind": "filename-write",
+    "value": 3,
+    "expected": {
+      "outcome": "value",
+      "value": "session.v3.jsonl"
+    }
+  },
+  {
+    "case": "filename-write-41",
+    "kind": "filename-write",
+    "value": 9007199254740991,
+    "expected": {
+      "outcome": "value",
+      "value": "session.v9007199254740991.jsonl"
+    }
+  },
+  {
+    "case": "filename-write-42",
+    "kind": "filename-write",
+    "value": -1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "filename-write-43",
+    "kind": "filename-write",
+    "value": true,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "filename-write-44",
+    "kind": "filename-write",
+    "value": {
+      "$scalar": "-0"
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "snapshot-deep",
+    "kind": "snapshot",
+    "value": {
+      "meta": {
+        "items": [
+          1,
+          2
+        ]
+      }
+    },
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "snapshot-proto-key",
+    "kind": "snapshot",
+    "value": {
+      "__proto__": {
+        "polluted": true
+      }
+    },
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "snapshot-cycle",
+    "kind": "snapshot",
+    "value": {},
+    "cycle": true,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-createdAt",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": 0,
+      "id": "paired-session",
+      "createdAt": true,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-version",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": -1,
+      "id": "paired-session",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-isSeeded",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": 0,
+      "id": "paired-session",
+      "createdAt": 1,
+      "isSeeded": 0,
+      "delegationDepth": 0
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-id",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": 0,
+      "id": 4,
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-delegationDepth",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": 0,
+      "id": "paired-session",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 1.5
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "header-valid",
+    "kind": "snapshot",
+    "header": true,
+    "value": {
+      "version": 0,
+      "id": "paired-session",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-current-bypass",
+    "kind": "chain",
+    "stored": 2,
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-two-adjacent",
+    "kind": "chain",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-unknown-cut",
+    "kind": "chain",
+    "unknownCut": true,
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-tail-flush-order",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "tail": true
+      },
+      {
+        "first": 1,
+        "tail": true
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-missing-edge",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-duplicate-edge",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0
+      },
+      {
+        "first": 0
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-duplicate-name",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "name": "same"
+      },
+      {
+        "first": 1,
+        "name": "same"
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-name-empty",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "name": ""
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-nonadjacent",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "last": 2
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-future-edge",
+    "kind": "chain",
+    "current": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-future-input",
+    "kind": "chain",
+    "stored": 3,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-cut-changed",
+    "kind": "chain",
+    "cut": 2,
+    "edges": [
+      {
+        "first": 0,
+        "finishCut": 1
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-invalid-cut",
+    "kind": "chain",
+    "cut": -1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-refusal-header",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "header"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-refusal-validate",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "validate"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-refusal-create",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "create"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-refusal-event",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "event"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-refusal-run",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "run"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-refusal-finish",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "finish"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "chain-wrong-header",
+    "kind": "chain",
+    "edges": [
+      {
+        "first": 0,
+        "headerVersion": 0
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "chain-header-only",
+    "kind": "chain",
+    "headerOnly": true,
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "chain-restorer-version",
+    "kind": "chain",
+    "headerOnly": true,
+    "restoredHeaderVersion": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-read-0",
+    "kind": "catalog",
+    "operation": "read",
+    "stored": 0,
+    "expected": {
+      "outcome": "value",
+      "status": "migration-required"
+    }
+  },
+  {
+    "case": "catalog-read-1",
+    "kind": "catalog",
+    "operation": "read",
+    "stored": 1,
+    "expected": {
+      "outcome": "value",
+      "status": "migration-required"
+    }
+  },
+  {
+    "case": "catalog-read-2",
+    "kind": "catalog",
+    "operation": "read",
+    "stored": 2,
+    "expected": {
+      "outcome": "value",
+      "status": "current"
+    }
+  },
+  {
+    "case": "catalog-read-3",
+    "kind": "catalog",
+    "operation": "read",
+    "stored": 3,
+    "expected": {
+      "outcome": "value",
+      "status": "unsupported"
+    }
+  },
+  {
+    "case": "catalog-read-malformed",
+    "kind": "catalog",
+    "operation": "read",
+    "header": {
+      "version": "bad"
+    },
+    "expected": {
+      "outcome": "value",
+      "status": "malformed"
+    }
+  },
+  {
+    "case": "catalog-read-future-body-bypass",
+    "kind": "catalog",
+    "operation": "read",
+    "header": {
+      "version": 3
+    },
+    "expected": {
+      "outcome": "value",
+      "status": "unsupported"
+    }
+  },
+  {
+    "case": "catalog-read-refused",
+    "kind": "catalog",
+    "operation": "read",
+    "edges": [
+      {
+        "first": 0,
+        "fail": "validate"
+      },
+      {
+        "first": 1
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "status": "unsupported"
+    }
+  },
+  {
+    "case": "catalog-read-corrupt-current",
+    "kind": "catalog",
+    "operation": "read",
+    "header": {
+      "version": 2
+    },
+    "expected": {
+      "outcome": "value",
+      "status": "malformed"
+    }
+  },
+  {
+    "case": "catalog-restore-0-current",
+    "kind": "catalog",
+    "stored": 0,
+    "validation": "current",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-restore-0-transformed",
+    "kind": "catalog",
+    "stored": 0,
+    "validation": "transformed",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-restore-2-current",
+    "kind": "catalog",
+    "stored": 2,
+    "validation": "current",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-restore-2-transformed",
+    "kind": "catalog",
+    "stored": 2,
+    "validation": "transformed",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-decoder-create",
+    "kind": "catalog",
+    "fail": "decoder-create",
+    "expected": {
+      "outcome": "error",
+      "name": "Error"
+    }
+  },
+  {
+    "case": "catalog-decoder-row",
+    "kind": "catalog",
+    "fail": "decoder-row",
+    "expected": {
+      "outcome": "error",
+      "name": "Error"
+    }
+  },
+  {
+    "case": "catalog-decoder-finish",
+    "kind": "catalog",
+    "fail": "decoder-finish",
+    "expected": {
+      "outcome": "error",
+      "name": "Error"
+    }
+  },
+  {
+    "case": "catalog-decoder-cut",
+    "kind": "catalog",
+    "decoderFinishCut": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-missing-codec",
+    "kind": "catalog",
+    "codecs": [
+      0,
+      2
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-duplicate-codec",
+    "kind": "catalog",
+    "codecs": [
+      0,
+      1,
+      1,
+      2
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-future-codec",
+    "kind": "catalog",
+    "codecs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-current-restorer-version",
+    "kind": "catalog",
+    "stored": 2,
+    "validation": "current",
+    "restoredVersion": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-migrated-restorer-version",
+    "kind": "catalog",
+    "restoredVersion": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-encode-old",
+    "kind": "catalog",
+    "operation": "encode",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-encode-wrong-output",
+    "kind": "catalog",
+    "stored": 2,
+    "operation": "encode",
+    "encodedVersion": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "catalog-encode-current",
+    "kind": "catalog",
+    "stored": 2,
+    "operation": "encode",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-transformed-refusal",
+    "kind": "catalog",
+    "fail": "restore",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  },
+  {
+    "case": "catalog-current-validation-refusal",
+    "kind": "catalog",
+    "fail": "restore",
+    "validation": "current",
+    "expected": {
+      "outcome": "error",
+      "name": "Error"
+    }
+  },
+  {
+    "case": "catalog-current-physical-bypass",
+    "kind": "catalog",
+    "stored": 2,
+    "fail": "restore",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "catalog-explicit-refusal",
+    "kind": "catalog",
+    "fail": "explicit",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatUnsupportedMigrationError"
+    }
+  }
+]

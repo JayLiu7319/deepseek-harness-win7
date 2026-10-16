@@ -18,8 +18,20 @@
 
 同时修正候选lane审计的`**`匹配零级目录和注释片段误识别，并重新生成静态审查摘要；新增回归用例与既有候选工具用例定向通过。21组Source配置、82配对驱动仍需随业务合同逐项审查，R01尚不能宣称全部关闭。
 
+## R02-A：独立格式迁移库
+
+新增 `dsh/session/format`：lossless JSON快照与安全整数、canonical代际文件名、完整且唯一的相邻迁移链、流式event/run及finish顺序、预声明继承边界一致性、codec/catalog分派和header-only状态、current/transformed验证及拒绝cause语义。库本身不挂载服务、不读写日志，活动Session仍写v0。
+
+新增显式rc.3 Source配对入口 `scripts/session_format_oracle.py` 和104个共用输入场景。两端完整输出（含错误名、消息、cause）全部一致，包含双相邻stage、compact run、finish尾事件、来源decoded/transformed、未来版本拒绝、损坏当前header、codec/迁移缺口与重复、decoder和restorer失败分层。合成stage/codec仅验证库合同，不能代替真实历史格式迁移。
+
+验证范围：上游自身4文件31测试；Python新库、失效runner控制及既有Session数字/冻结header消费者，共 **187 passed**（6.99秒）。复用已有JSON/冻结实现，因此覆盖其公开Session消费者。首次消费者执行因PATH选到Node22.20.0而触发73个Source身份setup错误，保留原日志；将该次子进程PATH指向已安装且合同要求的Node22.22.2后全选范围通过，没有修改旧身份门禁。凭据见 [session-format-checks.json](../../migration/candidates/rc3/session-format-checks.json)，完整原始输出在 `.goose/out/rc3-r02-format-*20261017/`。
+
+R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不可变代际/锁/发布、query/projection和持久化直接消费者一起关闭；本子阶段不切换默认writer，也不提升migration任务状态。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。
 
 本批定向测试继续使用conftest提供的新短工作区和自动合成回执清理。日志/XML/真实Source观察保留；后续大批复制、构建或统一门禁前重新核对空间，已完成的可重建夹具按既有规则回收。禁止按目录年龄或通配符整体清空历史。
+
+2026-10-17完成R02-A后再次执行既有retention，未发现额外符合回收条件的历史产物；空间约182GB。保留Node身份失败现场与实际成功配对，不把清理无匹配报告成已释放空间。
