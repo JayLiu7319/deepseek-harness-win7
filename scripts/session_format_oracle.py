@@ -12,33 +12,49 @@ TARGET = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 CORPUS = ROOT / 'scripts/oracles/session_format_cases.json'
 
 
+def json_equal(left, right):
+    """JSON numbers share one domain; booleans must never compare equal to 0/1."""
+    if type(left) in (int, float) and type(right) in (int, float):
+        return left == right
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        return left.keys() == right.keys() and all(json_equal(left[key], right[key]) for key in left)
+    if isinstance(left, list):
+        return len(left) == len(right) and all(json_equal(a, b) for a, b in zip(left, right))
+    return left == right
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--corpus', type=Path, default=CORPUS)
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     source = args.source.resolve()
+    corpus = args.corpus.resolve()
     output = args.output_dir.resolve()
     output.relative_to(ROOT / '.goose/out')
     output.mkdir(parents=True, exist_ok=False)
     report = dict(status='runner-error', target_upstream=TARGET,
-        scope='Synthetic format planner/catalog contracts only, not released codecs or persistence acceptance',
+        scope='Explicit corpus of format library/physical codec contracts, not full logical migration or persistence acceptance',
         commands=[], cases=[])
     def git(*args):
         return subprocess.check_output(['git', '-C', str(source)] + list(args), encoding='utf-8', timeout=20).strip()
     try:
         if git('rev-parse', 'HEAD') != TARGET or git('status', '--porcelain'):
             raise ValueError('Unchanged rc.3 Source required')
-        cases = json.loads(CORPUS.read_text(encoding='utf-8'))
+        cases = json.loads(corpus.read_text(encoding='utf-8'))
         names = [case['case'] for case in cases]
         if not names or len(names) != len(set(names)):
             raise ValueError('Empty or duplicate corpus cases')
         report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in [CORPUS, ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']}
+            for path in [corpus, ROOT/'scripts/session_format_oracle.py',
+                ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']}
         commands = [
             ['node', str(source/'node_modules/tsx/dist/cli.mjs'), '--tsconfig', str(source/'tsconfig.json'),
-             str(ROOT/'scripts/oracles/session_format_source.mts'), str(source), str(CORPUS), str(output/'source.json')],
-            [sys.executable, str(ROOT/'scripts/oracles/session_format_python.py'), str(CORPUS), str(output/'native.json')],
+             str(ROOT/'scripts/oracles/session_format_source.mts'), str(source), str(corpus), str(output/'source.json')],
+            [sys.executable, str(ROOT/'scripts/oracles/session_format_python.py'), str(corpus), str(output/'native.json')],
         ]
         observations = []
         for index, command in enumerate(commands):
@@ -53,7 +69,7 @@ def main():
                 raise ValueError('Missing, duplicated or unexpected observations')
             observations.append(rows)
         for source_row, native_row in zip(*observations):
-            report['cases'].append(dict(case=source_row['case'], status='matched' if source_row == native_row else 'different',
+            report['cases'].append(dict(case=source_row['case'], status='matched' if json_equal(source_row, native_row) else 'different',
                 source=source_row, native=native_row))
         report['status'] = 'matched' if all(row['status'] == 'matched' for row in report['cases']) else 'different'
         if git('rev-parse', 'HEAD') != TARGET or git('status', '--porcelain'):

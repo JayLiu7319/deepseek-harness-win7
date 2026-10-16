@@ -64,3 +64,24 @@ def test_paired_runner_refuses_wrong_source_and_preserves_failed_receipt(tmp_pat
     with pytest.raises(FileExistsError):
         session_format_oracle.main()
     assert receipt.read_bytes() == previous
+
+
+def test_paired_runner_rejects_duplicate_explicit_corpus_before_launch(tmp_path, monkeypatch):
+    monkeypatch.setattr(session_format_oracle, 'ROOT', tmp_path)
+    corpus = tmp_path/'duplicates.json'
+    corpus.write_text('[{"case":"same"},{"case":"same"}]', encoding='utf-8')
+    monkeypatch.setattr('sys.argv', ['oracle', '--source', str(tmp_path/'source'), '--corpus', str(corpus),
+        '--output-dir', str(tmp_path/'.goose/out/duplicates')])
+    monkeypatch.setattr(session_format_oracle.subprocess, 'check_output',
+        lambda args, **kwargs: session_format_oracle.TARGET if args[-1] == 'HEAD' else '')
+    assert session_format_oracle.main() == 2
+    result = json.loads((tmp_path/'.goose/out/duplicates/report.json').read_text(encoding='utf-8'))
+    assert result['commands'] == []
+    assert result['error'] == 'Empty or duplicate corpus cases'
+
+
+def test_paired_comparison_keeps_boolean_and_number_distinct():
+    assert not session_format_oracle.json_equal({'cut': False}, {'cut': 0})
+    assert not session_format_oracle.json_equal([1], [True])
+    assert not session_format_oracle.json_equal({'cut': 0}, {'cut': 0, 'other': None})
+    assert session_format_oracle.json_equal({'cut': 0.0}, {'cut': 0})

@@ -1,6 +1,6 @@
 """Build-static dispatch over released codecs and adjacent streaming migrations."""
 from dsh.core.session.json import UNDEFINED, FrozenDict
-from dsh.cordis.utils import js_to_string
+from dsh.cordis.utils import js_to_string, _js_strict_equal
 from .chain import call, member, createSessionFormatChain, SessionFormatEventCollector
 from .error import SessionFormatError, SessionFormatUnsupportedMigrationError
 from .json import inspectSessionFormatVersion, snapshotSessionFormatHeader, sessionFormatVersion
@@ -85,14 +85,14 @@ class SessionFormatCatalog:
 
 def finishDecoder(decoder, context, sourceCut):
     cut = call(decoder, 'finish', context)
-    if sourceCut is not UNDEFINED and cut != sourceCut:
+    if sourceCut is not UNDEFINED and not _js_strict_equal(cut, sourceCut):
         raise SessionFormatError('streaming decoder changed its predeclared inherited cut')
     return cut
 
 
 def restoreCurrentVersion(artifact, currentVersion):
-    version = artifact['header']['version']
-    if version != currentVersion:
+    version = member(artifact['header'], 'version')
+    if not _js_strict_equal(version, currentVersion):
         raise SessionFormatError('current Session restorer returned v%s; expected v%s' % (
             js_to_string(version), js_to_string(currentVersion)))
     return artifact

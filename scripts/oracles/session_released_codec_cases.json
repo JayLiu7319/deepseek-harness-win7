@@ -1,0 +1,6849 @@
+[
+  {
+    "case": "v0-minimal",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-full-header",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": "/work",
+      "parentSession": "p",
+      "origin": "subagent",
+      "agentPreset": "default",
+      "seedLength": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-header-null",
+    "kind": "released-codec",
+    "version": 0,
+    "header": null,
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-array",
+    "kind": "released-codec",
+    "version": 0,
+    "header": [],
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-scalar",
+    "kind": "released-codec",
+    "version": 0,
+    "header": "session",
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-extra",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "extra": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-wrongtag",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "other",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-wrongversion",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 8,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-booleanversion",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": true,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-id",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": 1,
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-creation",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": -1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-depth",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": {
+        "$scalar": "-0"
+      }
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-cwd",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-relativecwd",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": "relative"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-parent",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "parentSession": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-preset",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "agentPreset": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-header-origin",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "origin": "user"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-missing-type",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-missing-version",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-missing-id",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-missing-createdAt",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-missing-delegationDepth",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-strict-null-row",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      null
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-strict-gap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-boolean-seq",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": false,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-recover-prefix",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-recover-invalid-then-end",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-recover-gap-then-end",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-recover-terminal-gap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "turn/end",
+        "seq": 5,
+        "time": 6,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-range",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-provenance-unordered-scalars",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-provenance-two",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-provenance-overlap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-arity",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-reversed",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            3,
+            2
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-length",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            8
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-not-array",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": "bad"
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-negative",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          -1
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-boolean",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          true
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-provenance-future-scalar",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          6
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-provenance-duplicate-scalar",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          0,
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-seed-zero",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 0
+    },
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-seed-cut",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 1
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-seed-short",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-seed-negative",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": -1
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-run",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-text-chunks-extra",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-gap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-time",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-dt",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-payload",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-text-chunks-overflow",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-run",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-extra",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-gap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-time",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-dt",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-payload",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-reasoning-chunks-overflow",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-run",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-extra",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-gap",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-time",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-dt",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-payload",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v0-tool-call-chunks-overflow",
+    "kind": "released-codec",
+    "version": 0,
+    "header": {
+      "type": "session",
+      "version": 0,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-minimal",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-full-header",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": "/work",
+      "parentSession": "p",
+      "origin": "subagent",
+      "agentPreset": "default",
+      "seedLength": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-header-null",
+    "kind": "released-codec",
+    "version": 1,
+    "header": null,
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-array",
+    "kind": "released-codec",
+    "version": 1,
+    "header": [],
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-scalar",
+    "kind": "released-codec",
+    "version": 1,
+    "header": "session",
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-extra",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "extra": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-wrongtag",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "other",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-wrongversion",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 8,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-booleanversion",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": true,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-id",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": 1,
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-creation",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": -1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-depth",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": {
+        "$scalar": "-0"
+      }
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-cwd",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-relativecwd",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "cwd": "relative"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-parent",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "parentSession": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-preset",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "agentPreset": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-header-origin",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "origin": "user"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-missing-type",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-missing-version",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-missing-id",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-missing-createdAt",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-missing-delegationDepth",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-strict-null-row",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      null
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-strict-gap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-boolean-seq",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": false,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-recover-prefix",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-recover-invalid-then-end",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-recover-gap-then-end",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-recover-terminal-gap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "turn/end",
+        "seq": 5,
+        "time": 6,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-range",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-provenance-unordered-scalars",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-provenance-two",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-provenance-overlap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-arity",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-reversed",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            3,
+            2
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-length",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            8
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-not-array",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": "bad"
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-negative",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          -1
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-boolean",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          true
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-provenance-future-scalar",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          6
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-provenance-duplicate-scalar",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          0,
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-seed-zero",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 0
+    },
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-seed-cut",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 1
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-seed-short",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-seed-negative",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "seedLength": -1
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-run",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-text-chunks-extra",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-gap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-time",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-dt",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-payload",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-text-chunks-overflow",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "text-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-run",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-extra",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-gap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-time",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-dt",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-payload",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-reasoning-chunks-overflow",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "reasoning-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "texts": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-run",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-extra",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-gap",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 1,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-time",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-dt",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-payload",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 4,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": []
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v1-tool-call-chunks-overflow",
+    "kind": "released-codec",
+    "version": 1,
+    "header": {
+      "type": "session",
+      "version": 1,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "rows": [
+      {
+        "type": "tool-call-chunks",
+        "seq0": 0,
+        "time0": 9007199254740991,
+        "data": {
+          "turn": 1,
+          "step": 2,
+          "index": 3,
+          "dt": [
+            2,
+            -1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "{",
+            "\"a\":1",
+            "}"
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-minimal",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-full-header",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "cwd": "/work",
+      "parentSession": "p",
+      "origin": "subagent",
+      "agentPreset": "default"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-header-null",
+    "kind": "released-codec",
+    "version": 2,
+    "header": null,
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-array",
+    "kind": "released-codec",
+    "version": 2,
+    "header": [],
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-scalar",
+    "kind": "released-codec",
+    "version": 2,
+    "header": "session",
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-extra",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "extra": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-wrongtag",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "other",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-wrongversion",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 8,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-booleanversion",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": true,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-id",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": 1,
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-creation",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": -1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-depth",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": {
+        "$scalar": "-0"
+      },
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-cwd",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "cwd": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-relativecwd",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "cwd": "relative"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-parent",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "parentSession": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-preset",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "agentPreset": 1
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-header-origin",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false,
+      "origin": "user"
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-type",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-version",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-id",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-createdAt",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-delegationDepth",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "isSeeded": false
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-missing-isSeeded",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0
+    },
+    "operation": "header",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-strict-null-row",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      null
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-strict-gap",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-boolean-seq",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": false,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-recover-prefix",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-recover-invalid-then-end",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      null,
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-recover-gap-then-end",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "turn/end",
+        "seq": 1,
+        "time": 2,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-recover-terminal-gap",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "turn/end",
+        "seq": 5,
+        "time": 6,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-range",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-provenance-unordered-scalars",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-provenance-two",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-provenance-overlap",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-arity",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-reversed",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            3,
+            2
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-length",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          [
+            0,
+            8
+          ]
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-not-array",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": "bad"
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-negative",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          -1
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-boolean",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          true
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-future-scalar",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          6
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-provenance-duplicate-scalar",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 2,
+        "time": 3,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 3,
+        "time": 4,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 4,
+        "time": 5,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "external/opaque",
+        "seq": 5,
+        "time": 6,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "user/message",
+        "seq": 6,
+        "time": 7,
+        "data": {},
+        "surfaceOp": "append",
+        "sourceEventSeqs": [
+          0,
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-seeded-marker",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": true
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      },
+      {
+        "type": "session/end-seed",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "inherited": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-seeded-marker-zero",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": true
+    },
+    "rows": [
+      {
+        "type": "session/end-seed",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "inherited": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-seeded-missing-marker",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": true
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-unseeded-marker",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "session/end-seed",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "inherited": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-end-seed-malformed-data",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "recovery": "recoverable",
+    "rows": [
+      {
+        "type": "session/end-seed",
+        "seq": 0,
+        "time": 1,
+        "data": null
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-envelope-missing",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "opaque",
+        "seq": 0,
+        "time": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-envelope-unknown",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        },
+        "extra": 1
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-envelope-type",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": 1,
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-envelope-time",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": {
+          "$scalar": "-0"
+        },
+        "data": {
+          "retained": true
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-envelope-ignorable",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "type": "session",
+      "version": 2,
+      "id": "released-session",
+      "createdAt": 1,
+      "delegationDepth": 0,
+      "isSeeded": false
+    },
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "retained": true
+        },
+        "ignorable": false
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-encode-empty",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": []
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-one",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": [
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-pair",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": [
+          0,
+          1
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-long",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": [
+          0,
+          1,
+          2,
+          5,
+          6,
+          7,
+          10
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-unordered",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": [
+          4,
+          5,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-repeat",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "rows": [
+      {
+        "type": "external/opaque",
+        "seq": 11,
+        "time": 12,
+        "data": {
+          "retained": true
+        },
+        "sourceEventSeqs": [
+          0,
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-inherited-unseeded",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "cut": 1,
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  },
+  {
+    "case": "v2-encode-seeded",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": true,
+      "delegationDepth": 0
+    },
+    "operation": "encode",
+    "cut": 1,
+    "expected": {
+      "outcome": "value"
+    }
+  },
+  {
+    "case": "v2-encode-bad-logical-header",
+    "kind": "released-codec",
+    "version": 2,
+    "header": {
+      "version": 2,
+      "id": "encode",
+      "createdAt": 1,
+      "isSeeded": false,
+      "delegationDepth": 0,
+      "extra": 1
+    },
+    "operation": "encode",
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError"
+    }
+  }
+]

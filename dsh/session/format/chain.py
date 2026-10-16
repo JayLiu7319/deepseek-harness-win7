@@ -2,7 +2,7 @@
 import json
 
 from dsh.core.session.json import UNDEFINED, FrozenDict
-from dsh.cordis.utils import js_to_string
+from dsh.cordis.utils import js_to_string, _js_strict_equal
 from .error import SessionFormatError, SessionFormatUnsupportedMigrationError
 from .json import snapshotSessionFormatHeader, sessionFormatCount, sessionFormatVersion
 
@@ -144,7 +144,7 @@ class ChainedMigrationContext:
         except Exception as error:
             refusal(self.migration, error)
         declared = member(self.stage, 'headerInheritedEventCount')
-        if declared is not UNDEFINED and declared != cut:
+        if declared is not UNDEFINED and not _js_strict_equal(declared, cut):
             raise SessionFormatError(self.migration['name'] + ' changed its predeclared inherited cut')
         return cut
 

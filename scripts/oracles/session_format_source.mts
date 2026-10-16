@@ -5,6 +5,8 @@ import { pathToFileURL } from 'node:url'
 const [sourceArg, corpusArg, outputArg] = process.argv.slice(2)
 if (!sourceArg || !corpusArg || !outputArg) throw new Error('Explicit Source, corpus and fresh output required')
 const api = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format/src/index.ts')).href)
+const old = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/codec.ts')).href)
+const v2 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/codec.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -85,6 +87,19 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if (kind === 'released-codec') {
+    const codec = [old.releasedV0SessionFormatCodec, old.releasedV1SessionFormatCodec, v2.releasedV2SessionFormatCodec][test.version]
+    const source = decode(test.header)
+    if (test.operation === 'header') return codec.decodeHeader(source)
+    if (test.operation === 'encode') return { header: codec.encodeHeader(source, test.cut ?? 0), rows: (test.rows ?? []).map((event: any) => codec.encodeEvent(decode(event))) }
+    const decoder = codec.createDecoder(source, test.recovery ?? 'strict'), items: any[] = [], collector = new api.SessionFormatEventCollector()
+    const context = {
+      emitEvent(event: any) { items.push({ event }); collector.emitEvent(event) },
+      emitRun(run: any) { items.push({ run: Object.fromEntries(Object.entries(run).filter(([key]) => key !== 'expand')) }); collector.emitRun(run) },
+    }
+    for (const row of test.rows ?? []) decoder.decodeRow(decode(row), context)
+    return { header: decoder.header, earlyCut: decoder.headerInheritedEventCount ?? null, cut: decoder.finish(context), items, events: collector.values }
+  }
   if (kind === 'count' || kind === 'safe') return (kind === 'count' ? api.sessionFormatCount : api.sessionFormatSafeInteger)(decode(test.value), 'coordinate')
   if (kind === 'filename') return api.parseSessionFormatLogFilename(test.value) ?? null
   if (kind === 'filename-write') return api.sessionFormatLogFilename(decode(test.value))

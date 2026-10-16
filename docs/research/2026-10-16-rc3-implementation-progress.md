@@ -28,6 +28,16 @@
 
 R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不可变代际/锁/发布、query/projection和持久化直接消费者一起关闭；本子阶段不切换默认writer，也不提升migration任务状态。
 
+## R02-B：历史v0/v1/v2物理codec
+
+新增独立 `format_v0_to_v1` 与 `format_v1_to_v2` 库，保持rc.3已发布格式的物理语义：完整物理header字段与精确成员拒绝、`seedLength`存在即seeded（含零）、v0/v1压缩text/reasoning/tool-call run的惰性展开、稠密seq、provenance范围及v2压缩编码、row-atomic recoverable前缀和closed-turn拒绝、v2从已接纳end-seed发现继承边界。物理codec继续保留opaque payload，不把它冒充逻辑恢复校验。
+
+新增193个历史codec场景，逐项完整Source/native结果匹配；扩展配对CLI允许显式corpus，重复输入与错误Source仍fail closed，JSON比较显式区分boolean和number。收尾复核新增3个stage/decoder继承边界与restorer版本boolean控制，修复Python布尔与数字相等造成的错误放行或错误拒绝时机；修改前3处差分原样保留。最终 **107个planner场景匹配**，Python格式库和codec共 **310 passed**；上游两份codec规格共 **69 passed**。当前Windows执行，Python3.8.10与固定Node22.22.2。选择范围覆盖新增物理提供端、header/provenance/recovery直接消费者及配对入口；未重跑全量门禁。
+
+凭据见 [released-codec-checks.json](../../migration/candidates/rc3/released-codec-checks.json)，最终原始行与错误位于 `.goose/out/rc3-r02-codec-strict-final-20261017/{codec,planner}/`。同步修正静态发现摘要指向修复glob后的原始观察和SHA；旧观察继续保留。活动台账`check`/`ready`均exit0（141.70/72.50秒），不推进任何未验收的业务状态。首个60秒预算超时已保留；其读取范围为17,161个历史输入/证据路径约12.41GiB，另有86个LFS历史ZIP约6.44GiB，不能据静默输出诊断为挂起。R02-A的104场景与字节凭据保留为早期阶段记录，本条记录后续修正与107场景结果。
+
+下一闭包为历史逻辑校验/相邻迁移、v3结构准入与Session恢复，再接代际持久化与query/projection消费者。当前v0 writer、活动pin及既有发行资格未切换，R02尚未整体关闭。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

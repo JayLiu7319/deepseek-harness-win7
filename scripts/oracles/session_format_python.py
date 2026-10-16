@@ -125,6 +125,30 @@ def catalog(case, observations):
 
 def execute(case):
     kind = case['kind']
+    if kind == 'released-codec':
+        from dsh.session.format_v0_to_v1 import releasedV0SessionFormatCodec, releasedV1SessionFormatCodec
+        from dsh.session.format_v1_to_v2 import releasedV2SessionFormatCodec
+        codec = [releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, releasedV2SessionFormatCodec][case['version']]
+        source = decode(case['header'])
+        if case.get('operation') == 'header':
+            return codec['decodeHeader'](source)
+        if case.get('operation') == 'encode':
+            return dict(header=codec['encodeHeader'](source, case.get('cut', 0)),
+                rows=[codec['encodeEvent'](decode(event)) for event in case.get('rows', [])])
+        decoder = codec['createDecoder'](source, case.get('recovery', 'strict'))
+        items, collector = [], SessionFormatEventCollector()
+        class Context:
+            def emitEvent(self, event):
+                items.append(dict(event=event))
+                collector.emitEvent(event)
+            def emitRun(self, run):
+                items.append(dict(run={key: value for key, value in run.items() if key != 'expand'}))
+                collector.emitRun(run)
+        context = Context()
+        for row in case.get('rows', []):
+            decoder.decodeRow(decode(row), context)
+        return dict(header=decoder.header, earlyCut=getattr(decoder, 'headerInheritedEventCount', None),
+            cut=decoder.finish(context), items=items, events=collector.values)
     if kind in ('count', 'safe'):
         return (sessionFormatCount if kind == 'count' else sessionFormatSafeInteger)(decode(case['value']), 'coordinate')
     if kind == 'filename':

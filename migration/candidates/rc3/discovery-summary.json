@@ -3195,8 +3195,8 @@
     ]
   },
   "source_observation": {
-    "path": ".goose/out/rc3-r01-20261016/discovery.json",
-    "sha256": "e6666287347d52b4f6a38d48b108b8cb2f0291bd7cdb1081b386814a58993ea2"
+    "path": ".goose/out/rc3-r01-20261017/discovery.json",
+    "sha256": "02bc62569114b1ef7cae76a4df6c60c407985ae0a580ef236af0876e2b258d2a"
   },
   "source_test_files": 1251,
   "declaration_files": 27,

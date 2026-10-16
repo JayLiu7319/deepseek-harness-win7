@@ -1145,5 +1145,28 @@
       "outcome": "error",
       "name": "SessionFormatUnsupportedMigrationError"
     }
+  },
+  {
+    "case": "chain-boolean-declared-cut",
+    "kind": "chain",
+    "edges": [{"first": 0, "cut": false, "finishCut": 0}, {"first": 1}],
+    "expected": {"outcome": "error", "name": "SessionFormatError"}
+  },
+  {
+    "case": "catalog-boolean-decoder-cut",
+    "kind": "catalog",
+    "stored": 2,
+    "decoderFinishCut": false,
+    "expected": {"outcome": "error", "name": "SessionFormatError"}
+  },
+  {
+    "case": "catalog-boolean-restored-version",
+    "kind": "catalog",
+    "current": 1,
+    "edges": [{"first": 0}],
+    "stored": 1,
+    "validation": "current",
+    "restoredVersion": true,
+    "expected": {"outcome": "error", "name": "SessionFormatError"}
   }
 ]
