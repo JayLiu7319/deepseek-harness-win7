@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-history-current':
+        if case['kind'] == 'native-path-current':
+            from scripts.oracles.native_path_current_python import execute as native_path_execute
+            value = native_path_execute(case)
+        elif case['kind'] == 'session-history-current':
             from scripts.oracles.session_history_current_python import execute as history_execute
             value = history_execute(case)
         elif case['kind'] == 'session-list-current':

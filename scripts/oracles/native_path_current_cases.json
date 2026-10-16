@@ -1,0 +1,1725 @@
+[
+  {
+    "case": "facts-win32",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "explorer"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "open-win32",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:/project/a, b''s #?.txt'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "text-win32",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:/project/a, b''s #?.txt'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "reveal-win32",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "facts-darwin",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "darwin"
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "finder"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "open-darwin",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "darwin"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "open",
+          "args": [
+            "C:/project/a, b's #?.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "text-darwin",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "darwin"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "open",
+          "args": [
+            "-t",
+            "C:/project/a, b's #?.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "reveal-darwin",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "darwin"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "open",
+          "args": [
+            "-R",
+            "C:/project/a, b's #?.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "facts-linux",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux"
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "open-linux",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "C:/project/a, b's #?.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "text-linux",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "C:/project/a, b's #?.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "reveal-linux",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "C:/project"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "facts-freebsd",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "freebsd"
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": null
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "open-freebsd",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "freebsd"
+    },
+    "expected": {
+      "error": "native path opener is unsupported on freebsd",
+      "calls": []
+    }
+  },
+  {
+    "case": "text-freebsd",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "freebsd"
+    },
+    "expected": {
+      "error": "native path opener is unsupported on freebsd",
+      "calls": []
+    }
+  },
+  {
+    "case": "reveal-freebsd",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "freebsd"
+    },
+    "expected": {
+      "error": "native file manager is unsupported on freebsd",
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-DISPLAY",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "DISPLAY": "yes"
+      }
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-empty-DISPLAY",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "DISPLAY": ""
+      }
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-WAYLAND_DISPLAY",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WAYLAND_DISPLAY": "yes"
+      }
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-empty-WAYLAND_DISPLAY",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WAYLAND_DISPLAY": ""
+      }
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-WSL_DISTRO_NAME",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_DISTRO_NAME": "yes"
+      }
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "explorer"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-empty-WSL_DISTRO_NAME",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_DISTRO_NAME": ""
+      }
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-WSL_INTEROP",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "yes"
+      }
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "explorer"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-empty-WSL_INTEROP",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": ""
+      }
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-kernel-5.15.0-Microsoft-standard",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "osRelease": "5.15.0-Microsoft-standard"
+    },
+    "expected": {
+      "result": {
+        "available": true,
+        "manager": "explorer"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "facts-kernel-generic",
+    "kind": "native-path-current",
+    "operation": "facts",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "linux",
+      "osRelease": "generic"
+    },
+    "expected": {
+      "result": {
+        "available": false,
+        "manager": "directory"
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "browser-linux-html",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser --literal"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "browser --literal",
+          "args": [
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "editor-linux-html",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-linux-HTM",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.HTM",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser --literal"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "browser --literal",
+          "args": [
+            "/tmp/view.HTM"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "editor-linux-HTM",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/view.HTM",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.HTM"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-linux-xhtml",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.xhtml",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser --literal"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "browser --literal",
+          "args": [
+            "/tmp/view.xhtml"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "editor-linux-xhtml",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/view.xhtml",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.xhtml"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-linux-svg",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.svg",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser --literal"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "browser --literal",
+          "args": [
+            "/tmp/view.svg"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "editor-linux-svg",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/view.svg",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.svg"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-linux-txt",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser --literal"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "editor-linux-txt",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/view.txt",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "xdg-open",
+          "args": [
+            "/tmp/view.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-bundle",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "stdout": "{ LSHandlerRoleAll = \"org.browser\"; LSHandlerURLScheme = https; }"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "-b",
+            "org.browser",
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-nested",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "stdout": "{ LSHandlerPreferredVersions = { LSHandlerRoleAll = 0; }; LSHandlerURLScheme = \"https\"; LSHandlerRoleAll = org.real; }"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "-b",
+            "org.real",
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-http-only",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "stdout": "{ LSHandlerRoleAll = org.other; LSHandlerURLScheme = http; }"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-empty",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.html",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "stdout": ""
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "/tmp/view.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-defaults-failed",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.svg",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "error": "no preference"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "/tmp/view.svg"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-mac-launch-failed",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.svg",
+    "facts": {
+      "platform": "darwin"
+    },
+    "replies": {
+      "defaults": {
+        "stdout": "{ LSHandlerRoleAll = org.browser; LSHandlerURLScheme = https; }"
+      },
+      "open": {
+        "error": "launch rejected"
+      }
+    },
+    "expected": {
+      "error": "launch rejected",
+      "calls": [
+        {
+          "command": "defaults",
+          "args": [
+            "read",
+            "com.apple.LaunchServices/com.apple.launchservices.secure"
+          ],
+          "signal": true
+        },
+        {
+          "command": "open",
+          "args": [
+            "-b",
+            "org.browser",
+            "/tmp/view.svg"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "browser-linux-failed",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/view.svg",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "BROWSER": "browser"
+      }
+    },
+    "replies": {
+      "browser": {
+        "error": "launch rejected"
+      }
+    },
+    "expected": {
+      "error": "launch rejected",
+      "calls": [
+        {
+          "command": "browser",
+          "args": [
+            "/tmp/view.svg"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-open-translated",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\用户\\a,b's.html\r\n"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        },
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:\\用户\\a,b''s.html'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-open-empty",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "\r\n"
+      }
+    },
+    "expected": {
+      "error": "wslpath returned no Windows path",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-open-failed",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "error": "translation rejected"
+      }
+    },
+    "expected": {
+      "error": "translation rejected",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-open-aborted",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\ok",
+        "abort": true
+      }
+    },
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-text-translated",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\用户\\a,b's.html\r\n"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        },
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:\\用户\\a,b''s.html'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-text-empty",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "\r\n"
+      }
+    },
+    "expected": {
+      "error": "wslpath returned no Windows path",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-text-failed",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "error": "translation rejected"
+      }
+    },
+    "expected": {
+      "error": "translation rejected",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-text-aborted",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\ok",
+        "abort": true
+      }
+    },
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-reveal-translated",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\用户\\a,b's.html\r\n"
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        },
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/%E7%94%A8%E6%88%B7/a%2Cb's.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-reveal-empty",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "\r\n"
+      }
+    },
+    "expected": {
+      "error": "wslpath returned no Windows path",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-reveal-failed",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "error": "translation rejected"
+      }
+    },
+    "expected": {
+      "error": "translation rejected",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "wsl-reveal-aborted",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "/tmp/a.html",
+    "facts": {
+      "platform": "linux",
+      "env": {
+        "WSL_INTEROP": "wsl",
+        "BROWSER": "ignored"
+      }
+    },
+    "replies": {
+      "wslpath": {
+        "stdout": "C:\\ok",
+        "abort": true
+      }
+    },
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "wslpath",
+          "args": [
+            "-w",
+            "/tmp/a.html"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-uri-drive",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:\\目录\\a, b#?%.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/%E7%9B%AE%E5%BD%95/a%2C%20b%23%3F%25.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-uri-unc",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "\\\\server\\share\\a, b.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file://server/share/a%2C%20b.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-uri-unicode-server",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "\\\\服务器\\share\\文档.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file://xn--zfru1ggxt/share/%E6%96%87%E6%A1%A3.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-uri-dots",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:\\a\\..\\b.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/b.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-exit-1",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "replies": {
+      "explorer.exe": {
+        "error": "handoff",
+        "code": 1
+      }
+    },
+    "expected": {
+      "result": {
+        "opened": true
+      },
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-exit-'1'",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "replies": {
+      "explorer.exe": {
+        "error": "handoff",
+        "code": "1"
+      }
+    },
+    "expected": {
+      "error": "handoff",
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-exit-2",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "replies": {
+      "explorer.exe": {
+        "error": "handoff",
+        "code": 2
+      }
+    },
+    "expected": {
+      "error": "handoff",
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-exit-0",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "replies": {
+      "explorer.exe": {
+        "error": "handoff",
+        "code": 0
+      }
+    },
+    "expected": {
+      "error": "handoff",
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "explorer-aborted-handoff",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "replies": {
+      "explorer.exe": {
+        "error": "handoff",
+        "code": 1,
+        "abort": true
+      }
+    },
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "explorer.exe",
+          "args": [
+            "/select,",
+            "file:///C:/project/a%2C%20b's%20%23%3F.txt"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "pre-aborted-open",
+    "kind": "native-path-current",
+    "operation": "open",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "aborted": true,
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:/project/a, b''s #?.txt'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "pre-aborted-text",
+    "kind": "native-path-current",
+    "operation": "text",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "aborted": true,
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": [
+        {
+          "command": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command",
+            "Invoke-Item -LiteralPath 'C:/project/a, b''s #?.txt'"
+          ],
+          "signal": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "pre-aborted-reveal",
+    "kind": "native-path-current",
+    "operation": "reveal",
+    "path": "C:/project/a, b's #?.txt",
+    "facts": {
+      "platform": "win32"
+    },
+    "aborted": true,
+    "expected": {
+      "error": "cancelled by caller",
+      "calls": []
+    }
+  }
+]

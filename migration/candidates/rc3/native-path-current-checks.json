@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R09-A-native-desktop-intents",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 67,
+    "report": {
+      "path": ".goose/out/rc3-r09-native-path-frozen-20261017/report.json",
+      "sha256": "0e12d132136cb8b5d8dbc2f17fac640493719525b716005435f671fd98beb3e9"
+    },
+    "corpus": {
+      "path": "scripts/oracles/native_path_current_cases.json",
+      "sha256": "433f846cf0ee39a9346174b19e4f6c3239ebf9c0c6b4cd269a5c4861e3b4c296"
+    }
+  },
+  "native": {
+    "passed": 111,
+    "command": {
+      "path": ".goose/out/rc3-r09-native-path-native-20261017/command.json",
+      "sha256": "160019241db4c0926c05eb59c7fd443de48cb6d633c33c6b221324681b5213ab"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-native-path-native-20261017/pytest.xml",
+      "sha256": "3648f39be6847474d9cdd834e304e2f2d1c581876a30acd691003ab035177cc0"
+    }
+  },
+  "source": {
+    "passed": 44,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r09-native-path-source-20261017/command.json",
+      "sha256": "9fd95d132d2242e7e64bf807fbca5fe5843855ce04001da14d310dc59151e8ed"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-native-path-source-20261017/source.xml",
+      "sha256": "12cafe8836901d8841b0a866e36e8a75406b5d0de9446fbc70652d0d1e1c1735"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/native_command_current.py",
+      "sha256": "a9f275bdada01fe850d2bd2f8209a396ff7c3c3c0166310c60eb1b3e498ed449"
+    }
+  ],
+  "scope": [
+    "Controlled actual Source/native argv intents for Windows/WSL/macOS/Linux; default browser versus editor, literal PowerShell quoting, Explorer URI/IDNA and numeric exit-1 handoff.",
+    "Actual Python child verifies UTF-8 output, literal argv, failed exit status, cancellation and reaping. Runtime exception/cause objects remain Python adaptations."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r09-native-path-initial-20261017",
+      "reason": "Eight URI differences: apostrophe escaping and Unicode UNC authority. Corrected and final paired observations match."
+    }
+  ],
+  "remaining": [
+    "Native packaged desktop acceptance and production activation; shell/sandbox/MCP managed ranges."
+  ],
+  "retention": {
+    "free_bytes": 192350248960,
+    "result": "No Portable produced. Successful short fixtures auto-pruned; raw failures preserved."
+  }
+}
