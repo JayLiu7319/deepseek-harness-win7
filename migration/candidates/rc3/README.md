@@ -58,3 +58,5 @@ R03-F: [Session-owned delegation tools](subagent-tools-checks.json): 21 complete
 R03-G: [current compaction](compaction-current-checks.json): 18 explicit-meter transaction pairs, 154 selected native and 146 original Source tests passed. The system head and v3 replacement contract are covered; current token-meter and remaining consumers are open.
 
 R03-H: [current token measurement](token-meter-current-checks.json): 7 actual Agent journeys, 132 pure contracts, 240 selected native and 119 original Source tests passed. Actual metered compaction/cold resume are covered; mounted file admission and outline/UI consumers remain open.
+
+R03-I: [current goal ownership](goal-current-checks.json): 78 actual contracts and 280 selected native tests pass. Original seven suites report 125 passed / two retained failures (corrupt-append assertion and Loader timeout); no full original-suite pass is claimed. Actual pause/resume races and cold activation are covered; remaining consumers and baseline activation stay open.

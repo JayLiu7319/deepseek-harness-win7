@@ -39,6 +39,21 @@ class GoalRoundDriver(Plugin):
     id = "goal-round-driver"
     inject = ["agents", "goals", "sessions"]
 
+    def queued(self, agent):
+        return agent.inbox.next_turn
+
+    def pending(self, agent):
+        return agent.inbox.next_step + agent.inbox.next_turn
+
+    def cancelled(self, payload):
+        return payload['agent'].is_cancelled()
+
+    def wait_idle(self, agent):
+        return agent.when_idle()
+
+    def dropped_attempt_matches(self, attempt, goal):
+        return True
+
     def apply(self, ctx):
         self.ctx, self.states = ctx, {}
         def lifecycle():
@@ -155,7 +170,8 @@ class GoalRoundDriver(Plugin):
         state["competing"] = False
         attempt, goal = state["attempt"], self.current(state)
         if (attempt and (attempt["phase"] in ("queued", "claimed") or attempt["cancelled"])
-                and goal and goal["phase"] == "active" and goal["activation"] == "armed"):
+                and goal and goal["phase"] == "active" and goal["activation"] == "armed"
+                and self.dropped_attempt_matches(attempt, goal)):
             state["attempt"] = None
             try:
                 self.ctx.get("goals").pause(state["agent"], goal_ref(goal))
@@ -170,7 +186,7 @@ class GoalRoundDriver(Plugin):
 
     def inserted(self, payload):
         agent, message = payload["agent"], payload["message"]
-        if not any(row["id"] == message["id"] for row in agent.inbox.next_turn):
+        if not any(row["id"] == message["id"] for row in self.queued(agent)):
             return
         state = self.state(agent)
         attempt = state["attempt"]
@@ -216,7 +232,7 @@ class GoalRoundDriver(Plugin):
             source = message.get("source", {})
             if message["id"] == message_id or source.get("kind") == "goal" and source.get("round") == 0:
                 continue
-            if not any(row["id"] == message["id"] for row in agent.inbox.next_step + agent.inbox.next_turn):
+            if not any(row["id"] == message["id"] for row in self.pending(agent)):
                 agent.inbox.prepend("next-step", message)
 
     async def pre_step(self, payload, next_fn):
@@ -242,11 +258,11 @@ class GoalRoundDriver(Plugin):
         try:
             decision = await next_fn()
         except Exception:
-            if not agent.is_cancelled():
+            if not self.cancelled(payload):
                 state["attempt"] = None
                 self.request(state)
             raise
-        if agent.is_cancelled():
+        if self.cancelled(payload):
             if decision.get("kind") != "reject":
                 self.restore(agent, decision["messages"], submitted["id"])
             return decision
@@ -272,7 +288,7 @@ class GoalRoundDriver(Plugin):
                 state["attempt"]["stale"] = True
                 if state["agent"].status == "running":
                     state["agent"].cancel({"kind": "parent"})
-                    waits.append(state["agent"].when_idle())
+                    waits.append(self.wait_idle(state["agent"]))
             if state["run"] is not None:
                 waits.append(state["run"])
         await asyncio.gather(*waits, return_exceptions=True)

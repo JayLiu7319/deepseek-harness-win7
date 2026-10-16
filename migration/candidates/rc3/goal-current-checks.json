@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-I-current-goal",
+  "status": "targeted-passed-with-source-gaps",
+  "paired": {
+    "matched": 78,
+    "report": {
+      "path": ".goose/out/rc3-r03-goal-frozen-20261017/report.json",
+      "sha256": "8e694043e6b8efc01d0b169fe62c9d760bffccd374ec31ef7455d09334b0bd9c"
+    },
+    "corpus": {
+      "path": "scripts/oracles/goal_current_cases.json",
+      "sha256": "54062e7520a90612581600f9ae2b88d77fdf946dd680d7d8e974fafb5d21a7c3"
+    },
+    "scope": "Strict decoder/fold failures, sticky host projection v6, checkpoint acceptance/parsed values, actual Agent goal/tool mutations, cold resume, activation edges and host/model pause races."
+  },
+  "native": {
+    "passed": 280,
+    "command": {
+      "path": ".goose/out/rc3-r03-goal-native-20261017/command.json",
+      "sha256": "92177cb731b9b7b0c546bd7487d7ce810d584f0c2aa709b2fc63584ff57058ab"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-goal-native-20261017/pytest.xml",
+      "sha256": "a15e883f24db546753c664200266063b0db1e8ea6934f84440bb5eb6cfb5ea8f"
+    },
+    "scope": "Frozen current goal units/complete Agent journeys, checkpoint detach, old goal/driver/tools and direct current Agent/token-meter consumers."
+  },
+  "source": {
+    "passed": 125,
+    "failed": 2,
+    "suites": 7,
+    "command": {
+      "path": ".goose/out/rc3-r03-goal-source-fixed-20261017/command.json",
+      "sha256": "a2627df648879f49e9be6945bc0a8c541b17ac5665338de4e9dcffcdb7c6ad31"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-goal-source-fixed-20261017/source.xml",
+      "sha256": "45d5765a49439e3ff4901fbaecbcebbb987b8939f0f977b520e494b8862c9b26"
+    },
+    "gaps": [
+      "Unchanged goal.spec.ts corrupt append assertion expects a throw without mounting the invariant companion; actual Source accepts append and records projection failure. Candidate follows actual Source behavior.",
+      "Unchanged goal.e2e.ts source-mode production Loader fixture times out at its original 30-second process deadline without stdout/stderr. Built-mode diagnosis is recorded separately."
+    ]
+  },
+  "implementation": [
+    {
+      "path": "dsh/goal/current.py",
+      "sha256": "773761bf222f5ebea832d92909245b2f8001d37a1a70bcab48ff7ac6cff9024e"
+    },
+    {
+      "path": "dsh/goal/fold_current.py",
+      "sha256": "bb060d7b41628e22356936635e0e918e645902c2ede517d0711476d8749d191a"
+    },
+    {
+      "path": "dsh/goal/service.py",
+      "sha256": "1481176389dcf85fd77d1a18c90d911d4bf18f4eac6038c2083783a676fc7b36"
+    },
+    {
+      "path": "dsh/goal/driver.py",
+      "sha256": "6a1e19f105a7eb07a91dd7b65820267fd43a4055c19a8b46b58a669d4f2cdd79"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-goal-pair-20261017",
+    ".goose/out/rc3-r03-goal-tools-20261017",
+    ".goose/out/rc3-r03-goal-source-20261017"
+  ],
+  "limits": [
+    "Candidate-only stage; active production baseline remains rc.1. R03 is not signed off.",
+    "Initial finish fixture used a string instead of the typed reason object; errors containing random goal UUIDs now apply the same identity normalization already used for ordinary observations. No business error text is omitted.",
+    "Checkpoint comparison covers acceptance and full parsed values, not Zod diagnostic prose.",
+    "Command attachment admission, full invariant activation, external provider managed ranges, SDK/Remote consumers, coordinated preset switch and release/desktop qualification remain open."
+  ],
+  "source_built_loader": {
+    "passed": 1,
+    "command": {
+      "path": ".goose/out/rc3-r03-goal-source-lib-20261017/command.json",
+      "sha256": "83b3fc4e37840f477b8cbc99b07187b9673f515275368e88ab7b953b2d13f317"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-goal-source-lib-20261017/source.xml",
+      "sha256": "981e3cfb8df701a218b1fe0063f9a87e305190c36281ebc448623bc64f6618ec"
+    },
+    "scope": "Same unchanged production Loader smoke in DSH_EXAMPLE_MODE=lib; source-mode timeout remains failed."
+  }
+}

@@ -23,7 +23,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
   if(v===undefined)return null
   if(key==='signal')return '<signal>'
   if(key==='agent')return normalize(v.id)
-  if(v instanceof Error)return {name:v.name,message:v.message,...((v as any).code===undefined?{}:{code:(v as any).code}),...((v as any).cause===undefined?{}:{cause:normalize((v as any).cause)})}
+  if(v instanceof Error)return {name:v.name,message:normalize(v.message),...((v as any).code===undefined?{}:{code:(v as any).code}),...((v as any).cause===undefined?{}:{cause:normalize((v as any).cause)})}
   if(typeof v==='string')return v.replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ig,id=>{if(!ids.has(id))ids.set(id,`generated:${ids.size+1}`);return ids.get(id)!})
   if(Array.isArray(v))return v.map(x=>normalize(x))
   if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).filter(([,x])=>x!==undefined).map(([k,x])=>[k,normalize(x,k)]))
@@ -44,6 +44,12 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    for(const name of ['subagent/start','subagent/end'])ctx.on(name,(payload:any)=>notifications.push(normalize({name,payload})))
   }
   await ctx.plugin(Loop,{agents:[]})
+  if(test.goals){
+   const {default:Goals}=await load('packages/goal/goal/src/index.ts');await ctx.plugin(Goals,test.goalConfig)
+   if(test.goalDriver){const driver=await load('packages/goal/goal-round-driver/src/index.ts');await ctx.plugin(driver)}
+   if(test.goalTools){const tools=await load('packages/goal/tool-goal/src/index.ts');await ctx.plugin(tools,test.goalToolConfig)}
+   for(const name of ['goal/changed','goal/activation-changed'])ctx.on(name,(payload:any)=>notifications.push(normalize({name,payload})))
+  }
   const adapter=new MockAdapter(test.script??[] ,test.reasoning,test.defaultMaxTokens)
   adapter.systemPromptUpdate=test.systemPromptUpdate
   ctx.llm.registerAdapter(['script'],adapter)
@@ -61,6 +67,9 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    if(test.throwNotification===name)ctx.on(name,()=>{throw new Error('observer failure')})
    ctx.on(name,(payload:any)=>{
     notifications.push(normalize({name,payload}))
+    if(name==='agent/assistant-stream'&&payload.frame.type==='chunk'&&payload.frame.chunk.type==='text-delta'&&test.modelPause){
+     const current=ctx.goals.get(payload.agent);if(current.phase==='active')ctx.goals.pause(payload.agent,{id:current.id,revision:current.revision})
+    }
     if(name==='agent/assistant-stream'&&payload.frame.type==='chunk'&&test.cancelAfter&&++chunks===test.cancelAfter)payload.agent.cancel({kind:'user'})
     if(name==='agent/session-start'&&test.startMessage)payload.agent.followup(test.startMessage)
    })
@@ -71,6 +80,35 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='goal'){
+     const operation=action.operation
+     if(operation==='create')value=ctx.goals.create(agent,action.request)
+     else if(['get','disarm'].includes(operation))value=ctx.goals[operation](agent)
+     else{
+      const current=ctx.goals.get(agent),ref=action.ref??(current?{id:current.id,revision:current.revision}:{id:'missing',revision:1})
+      const args=[agent,ref];if(operation==='edit')args.push(action.request??{});if(operation==='block')args.push(action.reason)
+      value=ctx.goals[operation](...args)
+     }
+    }
+    else if(action.method==='goalProjection')value=ctx.sessionProjections.stateOf(agent.session,'goal')
+    else if(action.method==='goalTool'){
+     const current=ctx.goals.get(agent),args=action.name==='update_goal'?{goal_id:current.id,revision:current.revision,...action.args}:action.args??{},deferred:any[]=[]
+     const call=()=>ctx.tools.get(action.name,agent).execute(args,{agent,signal:new AbortController().signal,deferContext:(message:any)=>deferred.push(message)})
+     const result=await(action.initiated===false?call():ctx.agents.withInitiator(agent,call))
+     value={result,deferred}
+    }
+    else if(action.method==='entered'){
+     const deadline=performance.now()+3000
+     while(!notifications.some(n=>n.name==='agent/assistant-stream'&&n.payload.frame.type==='chunk'&&n.payload.frame.chunk.type==='text-delta')){
+      if(performance.now()>deadline)throw new Error('Stream entry deadline');await new Promise(resolve=>setTimeout(resolve,1))
+     }
+    }
+    else if(action.method==='appendEvent')value=agent.session.append(action.type,action.data)
+    else if(action.method==='goalSettled'){
+     const deadline=performance.now()+3000
+     while(ctx.goals.get(agent).phase!==action.phase){if(performance.now()>deadline)throw new Error('Goal settlement deadline');await new Promise(resolve=>setTimeout(resolve,1))}
+     await agent.whenIdle()
+    }
     else if(action.method==='measure')value=ctx.tokenMeter.measure(agent.session,action.header)
     else if(action.method==='meterProjections')value=ctx.sessionProjections.snapshot(agent.session,['tokenUsage','contextPressure','contextBreakdown'])
     else if(action.method==='compact'){

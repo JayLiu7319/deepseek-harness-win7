@@ -50,7 +50,7 @@ async def run(test,decode):
         if key=='signal':return '<signal>'
         if key=='agent':return normalize(value.id)
         if isinstance(value,BaseException):
-            result=dict(name=getattr(value,'name','TypeError' if isinstance(value,TypeError) else 'Error'),message=getattr(value,'message',str(value)))
+            result=dict(name=getattr(value,'name','TypeError' if isinstance(value,TypeError) else 'Error'),message=normalize(getattr(value,'message',str(value))))
             if hasattr(value,'code'):result['code']=value.code
             if getattr(value,'cause',None) is not None:result['cause']=normalize(value.cause)
             return result
@@ -64,7 +64,7 @@ async def run(test,decode):
         if isinstance(value,dict):return {name:normalize(item,name) for name,item in value.items() if item is not UNDEFINED}
         return value
     def view():return normalize(dict(status=agent.status,events=agent.session.snapshotEvents(),messages=agent.session.deriveMessages(),inbox=ctx.get('sessionProjections').snapshot(agent.session)['values']['inbox']))
-    with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1):
+    with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1),patch('dsh.goal.service.time.time',return_value=1):
         try:
             for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin,test.get('promptConfig') if plugin is CurrentSystemPrompt else None)
             if test.get('meter'):
@@ -79,6 +79,15 @@ async def run(test,decode):
                 for plugin in (CurrentSubagentPlugin,CurrentSpawnInProcess,CurrentForkInProcess):await ctx.plugin(plugin)
                 for name in ('subagent/start','subagent/end'):ctx.on(name,lambda payload,key=name:notifications.append(normalize(dict(name=key,payload=payload))))
             await ctx.plugin(CurrentAgentLoopPlugin,dict(agents=[]))
+            if test.get('goals'):
+                from dsh.goal.current import CurrentGoalService,CurrentGoalRoundDriver
+                await ctx.plugin(CurrentGoalService,test.get('goalConfig'))
+                if test.get('goalDriver'):await ctx.plugin(CurrentGoalRoundDriver)
+                if test.get('goalTools'):
+                    from dsh.goal.current import CurrentToolGoal
+                    await ctx.plugin(CurrentToolGoal,test.get('goalToolConfig'))
+                for name in ('goal/changed','goal/activation-changed'):
+                    ctx.on(name,lambda payload,key=name:notifications.append(normalize(dict(name=key,payload=payload))))
             ctx.get('llm').registerAdapter(['script'],ScriptAdapter(test))
             async def assemble(assembly,context,next):
                 result=dict(await next());result['sections']=[dict(name='test',text=prompt)];result['contexts']=[dict(name='policy',text=test['context'])] if test.get('context') else []
@@ -104,6 +113,10 @@ async def run(test,decode):
             def notify(name,payload):
                 nonlocal chunks
                 notifications.append(normalize(dict(name=name,payload=payload)))
+                if (name=='agent/assistant-stream' and payload['frame']['type']=='chunk'
+                        and payload['frame']['chunk']['type']=='text-delta' and test.get('modelPause')):
+                    current=ctx.get('goals').get(payload['agent'])
+                    if current['phase']=='active':ctx.get('goals').pause(payload['agent'],dict(id=current['id'],revision=current['revision']))
                 if name=='agent/assistant-stream' and payload['frame']['type']=='chunk' and test.get('cancelAfter'):
                     chunks+=1
                     if chunks==test['cancelAfter']:payload['agent'].cancel(dict(kind='user'))
@@ -119,6 +132,40 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='goal':
+                        goals=ctx.get('goals');operation=action['operation']
+                        if operation=='create':value=goals.create(agent,action['request'])
+                        elif operation in ('get','disarm'):value=getattr(goals,operation)(agent)
+                        else:
+                            current=goals.get(agent)
+                            ref=action.get('ref',dict(id=current['id'],revision=current['revision']) if current else dict(id='missing',revision=1))
+                            args=[agent,ref]
+                            if operation=='edit':args.append(action.get('request',{}))
+                            if operation=='block':args.append(action.get('reason'))
+                            value=getattr(goals,operation)(*args)
+                    elif method=='goalProjection':value=ctx.get('sessionProjections').stateOf(agent.session,'goal')
+                    elif method=='goalTool':
+                        from dsh.core.abort import AbortController
+                        current=ctx.get('goals').get(agent)
+                        args=dict(action.get('args',{}));deferred=[]
+                        if action['name']=='update_goal':args=dict(dict(goal_id=current['id'],revision=current['revision']),**args)
+                        execute=ctx.get('tools').get(action['name'],agent).execute
+                        run=SimpleNamespace(agent=agent,signal=AbortController().signal,deferContext=deferred.append)
+                        call=execute(args,run)
+                        result=await ctx.get('agents').with_initiator_async(agent,call) if action.get('initiated',True) else await call
+                        value=dict(result=result,deferred=deferred)
+                    elif method=='entered':
+                        deadline=asyncio.get_running_loop().time()+3
+                        while not any(n['name']=='agent/assistant-stream' and n['payload']['frame']['type']=='chunk' and n['payload']['frame']['chunk']['type']=='text-delta' for n in notifications):
+                            if asyncio.get_running_loop().time()>deadline:raise RuntimeError('Stream entry deadline')
+                            await asyncio.sleep(.001)
+                    elif method=='appendEvent':value=agent.session.append(action['type'],action['data'])
+                    elif method=='goalSettled':
+                        deadline=asyncio.get_running_loop().time()+3
+                        while ctx.get('goals').get(agent)['phase']!=action['phase']:
+                            if asyncio.get_running_loop().time()>deadline:raise RuntimeError('Goal settlement deadline')
+                            await asyncio.sleep(.001)
+                        await agent.whenIdle()
                     elif method=='measure':value=ctx.get('tokenMeter').measure(agent.session,action.get('header'))
                     elif method=='meterProjections':value=ctx.get('sessionProjections').snapshot(agent.session,['tokenUsage','contextPressure','contextBreakdown'])
                     elif method=='compact':
