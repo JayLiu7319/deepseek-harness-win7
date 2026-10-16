@@ -7,6 +7,9 @@ if (!sourceArg || !corpusArg || !outputArg) throw new Error('Explicit Source, co
 const api = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format/src/index.ts')).href)
 const old = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/codec.ts')).href)
 const v2 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/codec.ts')).href)
+const released = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/index.ts')).href)
+const releasedValidation = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/validation.ts')).href)
+const releasedRestore = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/testing/restore.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -87,6 +90,20 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if (kind === 'released-logical') {
+    switch (test.operation) {
+      case 'semantics': released.assertReleasedPayloadSemantics(decode(test.event), test.version); break
+      case 'payload': released.assertReleasedEventPayload(decode(test.event), test.version); break
+      case 'relationships': released.assertReleasedArtifactRelationships(decode(test.artifact), test.extensions); break
+      case 'surface-metadata': released.assertReleasedSurfaceMetadata(decode(test.event), test.event.seq, test.event.type, test.assistantSources ?? 'allow-empty-assistant'); break
+      case 'header': releasedValidation.assertReleasedSessionFormatHeader(decode(test.header), test.version); break
+      case 'coordinates': releasedValidation.assertReleasedArtifactCoordinates(decode(test.artifact), test.allowLegacy ?? false, test.known ? new Set(test.known) : undefined, test.neutral ?? false, test.frozen ?? false); break
+      case 'restore-v0': return releasedRestore.restoreV0ToV1(decode(test.header), decode(test.rows), test.recovery ?? 'strict')
+      case 'restore-v1': return releasedRestore.restoreV1(decode(test.header), decode(test.rows), test.recovery ?? 'strict')
+      default: throw new Error('Unknown released logical operation: ' + test.operation)
+    }
+    return null
+  }
   if (kind === 'released-codec') {
     const codec = [old.releasedV0SessionFormatCodec, old.releasedV1SessionFormatCodec, v2.releasedV2SessionFormatCodec][test.version]
     const source = decode(test.header)

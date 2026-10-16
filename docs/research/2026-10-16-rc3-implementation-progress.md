@@ -38,6 +38,16 @@ R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不�
 
 下一闭包为历史逻辑校验/相邻迁移、v3结构准入与Session恢复，再接代际持久化与query/projection消费者。当前v0 writer、活动pin及既有发行资格未切换，R02尚未整体关闭。
 
+## R02-C：历史v0/v1逻辑恢复
+
+补齐冻结的事件payload库存、精确字段和嵌套语义、独立词汇/坐标准入及跨事件关联。v0→v1流式stage恢复pre-identity消息、工具结果替换身份、steering、旧turn reason、retry链与compact归属；无法安全解释的历史词汇明确拒绝。保留当前v1的已安装词汇恢复政策，纯库不替代生产Session。压缩chunk run穿过identity edge时继续保持惰性。
+
+新增726个Source派生payload/删除/嵌套损坏场景，并在自有Source ignored cache复制四份上游测试，仅修改import路径和恢复调用观察包装；79个原断言通过，捕获并去重137次真实restore调用。两组完整输出（消息、身份、顺序、错误名/消息/cause）均与干净rc.3 Source匹配。PTC参数结构相等保留JSON boolean/number区分，历史goal/title文本使用既有ECMAScript JSON序列化。
+
+定向范围选择格式planner、物理codec及其新增逻辑恢复消费者，Python3.8.10 **1,177 passed**（1.21秒）；Source/native配对使用固定Node22.22.2。首轮pytest的12个差异来自测试把native冻结容器类型当作JSON类型，另一个夹具误用`text`代替`texts`；修正测试后全选通过，没有放宽业务校验，原日志保留。最初捕获目录缺少`.cache`父目录的启动失败也保留。凭据见 [released-logical-checks.json](../../migration/candidates/rc3/released-logical-checks.json)。
+
+本阶段不切换活动pin或writer，不提升任务状态；下一阶段继续v1→v2的attempt折叠/引用映射、v2→v3系统消息及生产恢复/持久化闭包。尚未运行rc.3全量发行资格。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

@@ -12,6 +12,7 @@
 - [checks.json](checks.json)：本次实际检查及证明边界。
 - [session-format-checks.json](session-format-checks.json)：R02-A纯迁移库104场景配对、Source31测试、Python187测试及尚未关闭的持久化范围。
 - [released-codec-checks.json](released-codec-checks.json)：R02-B历史物理codec193场景与planner107场景配对、Source69测试、Python310测试；不表示逻辑迁移或v3 writer验收。
+- [released-logical-checks.json](released-logical-checks.json)：R02-C历史v0/v1逻辑准入、关联校验与真实v0→v1迁移；726个payload及137个恢复场景匹配，Python1,177测试通过，生产恢复与后续格式仍待闭合。
 
 矩阵每行的 `parity` 均为 `not-evaluated-for-rc3`。`current_loader_provider` 仅表示当前注册表字符串匹配，既不证明行为也不执行插件。`review_action` 是建议审查入口，提供端与消费者可跨行动合并；声明依赖不是条件激活或动态服务图。
 

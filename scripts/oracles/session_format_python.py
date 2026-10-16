@@ -124,6 +124,47 @@ def catalog(case, observations):
 
 
 def execute(case):
+    if case['kind'] == 'released-logical':
+        from dsh.session.format_v0_to_v1.payload import assertReleasedPayloadSemantics
+        from dsh.session.format_v0_to_v1 import (assertReleasedEventPayload, assertReleasedArtifactRelationships,
+            assertReleasedSurfaceMetadata, releasedV0SessionFormatCodec, releasedV1SessionFormatCodec,
+            sessionFormatV0ToV1, assertReleasedV1Header)
+        from dsh.session.format_v0_to_v1.validation import assertReleasedArtifactCoordinates, RELEASED_V0_EVENT_TYPES
+        from dsh.session.format_v0_to_v1.codec import assertReleasedSessionFormatHeader
+        operation = case['operation']
+        if operation in ('semantics', 'payload'):
+            validate = assertReleasedPayloadSemantics if operation == 'semantics' else assertReleasedEventPayload
+            validate(decode(case['event']), case['version'])
+        elif operation == 'relationships':
+            assertReleasedArtifactRelationships(decode(case['artifact']), case.get('extensions'))
+        elif operation == 'surface-metadata':
+            assertReleasedSurfaceMetadata(decode(case['event']), case['event']['seq'], case['event']['type'], case.get('assistantSources', 'allow-empty-assistant'))
+        elif operation == 'header':
+            assertReleasedSessionFormatHeader(decode(case['header']), case['version'])
+        elif operation == 'coordinates':
+            assertReleasedArtifactCoordinates(decode(case['artifact']), case.get('allowLegacy', False),
+                set(case['known']) if 'known' in case else None, case.get('neutral', False), case.get('frozen', False))
+        elif operation in ('restore-v0', 'restore-v1'):
+            def restore(artifact, legacy=False):
+                assertReleasedV1Header(artifact['header'])
+                assertReleasedArtifactCoordinates(artifact, False, RELEASED_V0_EVENT_TYPES, False, True)
+                for event in artifact['events']:
+                    if event['type'] in RELEASED_V0_EVENT_TYPES:
+                        assertReleasedEventPayload(event, 1)
+                assertReleasedArtifactRelationships(artifact, dict(legacyInterruptedTurnRestart=True) if legacy else {})
+                return artifact
+            config = dict(currentVersion=1, codecs=[releasedV0SessionFormatCodec, releasedV1SessionFormatCodec],
+                currentEncoder=dict(encodeHeader=lambda value: value, encodeEvent=lambda value: value), migrations=[sessionFormatV0ToV1],
+                restoreCurrent=restore, restoreTransformedCurrent=lambda value: restore(value, True),
+                restoreCurrentHeader=lambda value: (assertReleasedV1Header(value), value)[1])
+            current = createSessionFormatCatalog(config).createRestore(decode(case['header']),
+                dict(recovery=case.get('recovery', 'strict'), validation='transformed' if operation == 'restore-v0' else 'current'))
+            for row in case['rows']:
+                current.decodeRow(decode(row))
+            return current.finish()
+        else:
+            raise ValueError('Unknown released logical operation: ' + operation)
+        return None
     kind = case['kind']
     if kind == 'released-codec':
         from dsh.session.format_v0_to_v1 import releasedV0SessionFormatCodec, releasedV1SessionFormatCodec

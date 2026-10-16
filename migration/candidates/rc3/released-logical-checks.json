@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-C-released-v0-v1-logical",
+  "status": "targeted-passed",
+  "paired": {
+    "payload": {
+      "cases": 726,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_released_payload_cases.json": "2fed56950b00784c61eb01a44c260a7c8937f1c23633f458cfc347b91ebd3ed3",
+        "scripts/session_format_oracle.py": "4504e7003ed62e8990db28d608529210e026b531e9553f70b808b3d64e640b1e",
+        "scripts/oracles/session_format_python.py": "9669aa4239091d543812b3c20ccdce9c6538d52e62721cc8f6f012eaa90b69d2",
+        "scripts/oracles/session_format_source.mts": "3fce107cdd0d295bc942a9370eef9a964eea7b2ccc67becc1c29129c9a5b4e87"
+      },
+      "commands": [
+        {
+          "command": [
+            "node",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\node_modules\\tsx\\dist\\cli.mjs",
+            "--tsconfig",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\tsconfig.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_source.mts",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_released_payload_cases.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-logical-final-20261017-payload\\source.json"
+          ],
+          "exit_code": 0,
+          "elapsed_seconds": 0.48399999999674037
+        },
+        {
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_python.py",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_released_payload_cases.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-logical-final-20261017-payload\\native.json"
+          ],
+          "exit_code": 0,
+          "elapsed_seconds": 0.45300000000861473
+        }
+      ],
+      "report": {
+        "path": ".goose/out/rc3-r02-logical-final-20261017-payload/report.json",
+        "sha256": "ee5c0b1c822c31c14ef590a7f156bef9f550b9ed35a6673eb7191e4d79650311"
+      }
+    },
+    "restore": {
+      "cases": 137,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_released_restore_cases.json": "4c68bc03f8d0f49f4be7fc007e149618f75ac01b5e5626a6b6f2d9356c7f7301",
+        "scripts/session_format_oracle.py": "4504e7003ed62e8990db28d608529210e026b531e9553f70b808b3d64e640b1e",
+        "scripts/oracles/session_format_python.py": "9669aa4239091d543812b3c20ccdce9c6538d52e62721cc8f6f012eaa90b69d2",
+        "scripts/oracles/session_format_source.mts": "3fce107cdd0d295bc942a9370eef9a964eea7b2ccc67becc1c29129c9a5b4e87"
+      },
+      "commands": [
+        {
+          "command": [
+            "node",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\node_modules\\tsx\\dist\\cli.mjs",
+            "--tsconfig",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016\\tsconfig.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_source.mts",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-source-20261016",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_released_restore_cases.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-logical-final-20261017-restore\\source.json"
+          ],
+          "exit_code": 0,
+          "elapsed_seconds": 0.48399999999674037
+        },
+        {
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_format_python.py",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_released_restore_cases.json",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-r02-logical-final-20261017-restore\\native.json"
+          ],
+          "exit_code": 0,
+          "elapsed_seconds": 0.45300000000861473
+        }
+      ],
+      "report": {
+        "path": ".goose/out/rc3-r02-logical-final-20261017-restore/report.json",
+        "sha256": "118d8f6021e865bf80e07fee64493c5190be151558136570bf7e32551c25287f"
+      }
+    }
+  },
+  "native_inputs": {
+    "dsh/session/format_v0_to_v1/codec.py": "5a87485baf700698fd146d25939d8e0d62fbe9643f88c322e0a708fb78290fbf",
+    "dsh/session/format_v0_to_v1/dispositions.json": "2f6bb7b830c91d468e16367e05aa050fedca2225a38e226896adad8ab5972eb3",
+    "dsh/session/format_v0_to_v1/migration.py": "4f8e0c82439c74225e06c6c9e448346cc14124564b1bcc00ecdf18aebc926aaf",
+    "dsh/session/format_v0_to_v1/payload.py": "382efa9e24fd4a43a5343ee3f6ca664ca3eb44be9f19262aa54341f48a044b47",
+    "dsh/session/format_v0_to_v1/relationships.py": "3182436accb0b6fefe9535825eead979375228fa5bb97c397dfa5b33bb783221",
+    "dsh/session/format_v0_to_v1/validation.py": "8283c4572a5e069015303c7f0ab4337b247556e016033f56e839de846ca2eb8b",
+    "dsh/session/format_v0_to_v1/__init__.py": "a1bd7383a8ebeb8019ff393581248af34a4e8db0f5272f977202daf0f44fc047",
+    "tests/test_session_released_logical.py": "f24e903318d2e9549954cadb21bb5984935a89d5e8c96680d34982823cddd149",
+    "scripts/oracles/capture_session_released_cases.mts": "cbdfb67444fd755944fae4057533572d5270401c2f3e3ea2414609eddab34fd7",
+    "scripts/oracles/generate_session_payload_cases.mts": "c7be4414822e454c24496c9b490d3719eacf5ff35652e2675a87c08c9bc9768f"
+  },
+  "native_tests": {
+    "passed": 1177,
+    "seconds": 1.21,
+    "command": {
+      "path": ".goose/out/rc3-r02-logical-targeted-fixed-20261017/command.json",
+      "sha256": "c2ecefb3cc1163d1df4817c65a0f877b5240d8d7bba6d54e672ce93ee5a79b43"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-logical-targeted-fixed-20261017/pytest.xml",
+      "sha256": "3322b314504356eea93e5a38515f76a411ac936c820735c2bd3173c76b27a858"
+    },
+    "log": {
+      "path": ".goose/out/rc3-r02-logical-targeted-fixed-20261017/pytest.log",
+      "sha256": "37c3923f7bea46e6be1df00c2c918cae667f63b9e88637d09066d4622a1d3324"
+    }
+  },
+  "source_tests": {
+    "passed": 79,
+    "files": 4,
+    "method": "Upstream assertions copied into an owned ignored Source cache; only import paths and restore call observation wrappers changed. Production Source remains clean.",
+    "command": {
+      "path": ".goose/out/rc3-r02-logical-source-tests-v2-20261017/source.json",
+      "sha256": "5ce08b2082177c2f131c6154b36de9950118fc34117a88a48436695b2290a27e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-logical-source-tests-v2-20261017/source.xml",
+      "sha256": "366f1b78bd756643f0b34132f826655a0b7a42d574184086f0a999242c5e19bf"
+    },
+    "log": {
+      "path": ".goose/out/rc3-r02-logical-source-tests-v2-20261017/source.log",
+      "sha256": "b85c0b67b4bb35acea931eddf05334c433194a98b0bb81f33baee7120e460326"
+    }
+  },
+  "source_fixtures": {
+    "packages/session/session-format-v0-to-v1/tests/validation.spec.ts": "cb414553d35f0ccf867358c2014f91910a8213e9669bd81eccf2ba25b26dbe52",
+    "packages/session/session-format-v0-to-v1/tests/relationships.spec.ts": "208d261c0d58bea890e3e8df9fedade5378e0e56db7fad292e567893c5d46a04",
+    "packages/session/session-format-v0-to-v1/tests/migration.spec.ts": "b483a04a3e7a8ecf1d53e2d10796ad04a85d14ec5528b781157cd573885a2172",
+    "packages/session/session-format-v0-to-v1/tests/legacy.spec.ts": "8b1f7250bf687216224875eebcb134b5668db0434f21b3e03eec4a4ddd8f375c"
+  },
+  "preserved_diagnostics": [
+    ".goose/out/rc3-r02-logical-source-tests-20261017/source.log",
+    ".goose/out/rc3-r02-logical-targeted-20261017/pytest.log"
+  ],
+  "boundaries": [
+    "No default writer, active baseline or migration state changed.",
+    "v1-to-v2 and v2-to-v3 logical edges, production Session restore, generation persistence and direct consumers remain outstanding.",
+    "Targeted library evidence does not qualify Portable, Web, Desktop or Windows 7 release acceptance."
+  ]
+}
