@@ -5,6 +5,10 @@ from dsh.cordis.utils import _js_call_callback
 
 
 class CurrentAgentRegistry(AgentRegistry):
+    def _host_context_adapter(self):
+        return dict(wire='agentId', wireTypeSymbol='@deepseek-ai/dsh-session/types#SessionId',
+                    resolve=lambda sid: self.get(sid).ctx if self.get(sid) is not None else None)
+
     def _factory_request_options(self, request):
         return dict(parent_agent=request.get('parentAgent', request.get('parent_agent')))
 

@@ -1,0 +1,1328 @@
+[
+  {
+    "case": "remote-current-agent-context",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "remoteContext"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "exact": true,
+            "identityPresent": false,
+            "reversePresent": false
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-goal",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "remote",
+        "namespace": "goals",
+        "name": "get",
+        "args": {
+          "agentId": "machine"
+        }
+      },
+      {
+        "method": "remote",
+        "namespace": "goals",
+        "name": "create",
+        "args": {
+          "agentId": "machine",
+          "request": {
+            "objective": "finish"
+          }
+        }
+      },
+      {
+        "method": "remote",
+        "namespace": "goals",
+        "name": "get",
+        "args": {
+          "agentId": "machine"
+        }
+      },
+      {
+        "method": "remote",
+        "namespace": "goals",
+        "name": "get",
+        "args": {
+          "agentId": "missing"
+        }
+      }
+    ],
+    "goals": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ref": {
+              "id": "goal-generated:1",
+              "revision": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "goal-generated:1",
+            "revision": 1,
+            "objective": "finish",
+            "phase": "active",
+            "maxGoalRounds": 256,
+            "roundsStarted": 0,
+            "createdAt": 1000,
+            "updatedAt": 1000,
+            "activation": "armed"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypertGatewayError",
+            "message": "typert gateway: goals/get: lookup provider \"agent\" did not resolve the requested identity",
+            "code": "gateway/lookup-not-found"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "goal/change",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "kind": "goal/change",
+              "version": 1,
+              "operation": "create",
+              "goal": {
+                "id": "goal-generated:1",
+                "revision": 1,
+                "objective": "finish",
+                "phase": "active",
+                "maxGoalRounds": 256
+              },
+              "roundsStarted": 0,
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "goal/activation-changed",
+          "payload": {
+            "sessionId": "machine",
+            "goal": {
+              "id": "goal-generated:1",
+              "revision": 1,
+              "activation": "armed"
+            }
+          }
+        },
+        {
+          "name": "goal/changed",
+          "payload": {
+            "change": {
+              "operation": "create",
+              "ref": {
+                "id": "goal-generated:1",
+                "revision": 1
+              },
+              "goal": {
+                "id": "goal-generated:1",
+                "revision": 1,
+                "objective": "finish",
+                "phase": "active",
+                "maxGoalRounds": 256,
+                "roundsStarted": 0,
+                "createdAt": 1000,
+                "updatedAt": 1000,
+                "activation": "armed"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-waterfall-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "request": {
+          "callId": "call",
+          "message": "approve?"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "eventsResult",
+        "outcome": {
+          "kind": "next"
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "approval/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "callId": "call",
+              "message": "approve?"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "fallback": true
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-waterfall-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "request": {
+          "callId": "call",
+          "message": "approve?"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "eventsResult",
+        "outcome": {
+          "kind": "result"
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "approval/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "callId": "call",
+              "message": "approve?"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-waterfall-4",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "request": {
+          "callId": "call",
+          "message": "approve?"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "eventsResult",
+        "outcome": {
+          "kind": "result",
+          "value": {
+            "approved": true
+          }
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "approval/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "callId": "call",
+              "message": "approve?"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "approved": true
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-activation-forward",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "goal",
+        "operation": "create",
+        "request": {
+          "objective": "finish"
+        }
+      },
+      {
+        "method": "eventsNext"
+      }
+    ],
+    "goals": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "goal-generated:2",
+            "revision": 1,
+            "objective": "finish",
+            "phase": "active",
+            "maxGoalRounds": 256,
+            "roundsStarted": 0,
+            "createdAt": 1000,
+            "updatedAt": 1000,
+            "activation": "armed"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "emit",
+            "event": "goal/activation-changed",
+            "args": [
+              {
+                "sessionId": "machine",
+                "goal": {
+                  "id": "goal-generated:2",
+                  "revision": 1,
+                  "activation": "armed"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "goal/change",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "kind": "goal/change",
+              "version": 1,
+              "operation": "create",
+              "goal": {
+                "id": "goal-generated:2",
+                "revision": 1,
+                "objective": "finish",
+                "phase": "active",
+                "maxGoalRounds": 256
+              },
+              "roundsStarted": 0,
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "goal/activation-changed",
+          "payload": {
+            "sessionId": "machine",
+            "goal": {
+              "id": "goal-generated:2",
+              "revision": 1,
+              "activation": "armed"
+            }
+          }
+        },
+        {
+          "name": "goal/changed",
+          "payload": {
+            "change": {
+              "operation": "create",
+              "ref": {
+                "id": "goal-generated:2",
+                "revision": 1
+              },
+              "goal": {
+                "id": "goal-generated:2",
+                "revision": 1,
+                "objective": "finish",
+                "phase": "active",
+                "maxGoalRounds": 256,
+                "roundsStarted": 0,
+                "createdAt": 1000,
+                "updatedAt": 1000,
+                "activation": "armed"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-wrong-agent",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "wrongAgent": true
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "forwarded scoped event \"approval/request\" must carry its Agent directly"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-null-signal",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "request": {
+          "signal": null
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "api gateway: Remote event request signal must be an AbortSignal"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-negative-zero",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "request": {
+          "number": -0.0
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "api gateway: Remote event request is not lossless JSON data"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-rejection-approval",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "event": "approval/request",
+        "request": {
+          "message": "question"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "eventsResult",
+        "outcome": {
+          "kind": "rejected",
+          "error": {
+            "name": "UserRejected",
+            "message": "declined",
+            "code": "denied",
+            "details": {
+              "retry": false
+            }
+          }
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "approval/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "message": "question"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "UserRejected",
+            "message": "declined",
+            "code": "denied"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-rejection-user-questions",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "event": "user-questions/request",
+        "request": {
+          "message": "question"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "eventsResult",
+        "outcome": {
+          "kind": "rejected",
+          "error": {
+            "name": "UserRejected",
+            "message": "declined",
+            "code": "denied",
+            "details": {
+              "retry": false
+            }
+          }
+        }
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "user-questions/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "message": "question"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "UserRejected",
+            "message": "declined",
+            "code": "denied"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "remote-current-cancel",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "eventsOpen"
+      },
+      {
+        "method": "forward",
+        "withSignal": true,
+        "request": {
+          "message": "approve"
+        }
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "forwardAbort",
+        "reason": "cancelled by owner"
+      },
+      {
+        "method": "eventsNext"
+      },
+      {
+        "method": "forwardResult"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "ready",
+            "clientId": "generated:1",
+            "host": {
+              "home": "C:\\Users\\czh86"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "waterfall",
+            "event": "approval/request",
+            "eventId": "generated:2",
+            "agentId": "machine",
+            "request": {
+              "message": "approve"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "cancel",
+            "eventId": "generated:2"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "typert gateway: Remote event was cancelled",
+            "cause": "cancelled by owner"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  }
+]

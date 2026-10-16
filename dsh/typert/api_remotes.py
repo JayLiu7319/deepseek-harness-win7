@@ -19,10 +19,11 @@ WATERFALL_EVENTS = ('approval/request', 'user-questions/request')
 
 
 class ForwardedEventSource:
+    emit_events = EMIT_EVENTS
     def __init__(self, ctx, signal):
         self.queue, self.closed, self.signal = asyncio.Queue(), False, signal
         self.disposers, self.pending = [], set()
-        for event in EMIT_EVENTS:
+        for event in self.emit_events:
             def emit(*args, _event=event):
                 for index, value in enumerate(args):
                     try:
@@ -36,9 +37,7 @@ class ForwardedEventSource:
                 subject = carrier_key_of(caller_ctx)
                 if subject is None:
                     return next_fn()
-                child = getattr(subject, 'ctx', None)
-                if child is None:
-                    raise TypeError('forwarded scoped event has no live Context')
+                context = self.event_context(_event, request, subject)
                 future = asyncio.get_running_loop().create_future()
                 self.pending.add(future)
                 async def delegate():
@@ -61,7 +60,7 @@ class ForwardedEventSource:
                 def reject(error):
                     if not future.done():
                         future.set_exception(error if isinstance(error, BaseException) else RuntimeError(str(error)))
-                dispatch = dict(event=_event, request=request, context=dict(value=child, subject=subject), resolve=resolve, reject=reject)
+                dispatch = dict(event=_event, request=request, context=context, resolve=resolve, reject=reject)
                 if not self.push(dispatch):
                     asyncio.create_task(delegate())
                 async def wait():
@@ -72,6 +71,12 @@ class ForwardedEventSource:
                 return wait()
             self.disposers.append(ctx.on(event, waterfall))
         self.release_abort = signal.add_listener('abort', lambda *_: self.end())
+
+    def event_context(self, event, request, subject):
+        child = getattr(subject, 'ctx', None)
+        if child is None:
+            raise TypeError('forwarded scoped event has no live Context')
+        return dict(value=child, subject=subject)
 
     def push(self, frame):
         if self.closed:
@@ -112,9 +117,10 @@ class ForwardedEventSource:
 class ApiRemotesPlugin(Plugin):
     id = 'api-remotes'
     inject = ['typertGateway']
+    source_class = ForwardedEventSource
 
     def apply(self, ctx):
         def source(signal):
-            return ForwardedEventSource(ctx, signal).iterate()
+            return self.source_class(ctx, signal).iterate()
         ctx.effect(lambda: ctx.get('typertGateway').registerRemoteEvents(source, {'home': os.path.expanduser('~')}),
                    'api-remotes: forwarded Cordis event source')

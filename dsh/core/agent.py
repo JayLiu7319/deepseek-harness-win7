@@ -333,11 +333,13 @@ class AgentRegistry(Service):
                 registry.lookups.register('agent', dict(parameter='agent', wire='agentId',
                     hostTypeSymbol='@deepseek-ai/dsh-agent#Agent',
                     wireTypeSymbol='@deepseek-ai/dsh-session/types#SessionId', resolve=self.get))
-                registry.contexts.registerHost('agent', dict(wire='agentId',
-                    wireTypeSymbol='@deepseek-ai/dsh-session/types#SessionId',
-                    identity=lambda candidate: getattr(getattr(candidate, 'agent', None), 'id', None),
-                    resolve=lambda sid: self.get(sid).ctx if self.get(sid) is not None else None))
+                registry.contexts.registerHost('agent', self._host_context_adapter())
             ctx.inject(['typert'], contribute)
+
+    def _host_context_adapter(self):
+        return dict(wire='agentId', wireTypeSymbol='@deepseek-ai/dsh-session/types#SessionId',
+                    identity=lambda candidate: getattr(getattr(candidate, 'agent', None), 'id', None),
+                    resolve=lambda sid: self.get(sid).ctx if self.get(sid) is not None else None)
 
     def apply(self, ctx: Any = None) -> None:
         target_ctx = ctx or self.ctx

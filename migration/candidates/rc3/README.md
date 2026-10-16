@@ -64,3 +64,5 @@ R03-I: [current goal ownership](goal-current-checks.json): 78 actual contracts a
 R03-J: [current ACP ownership](external-acp-current-checks.json): 24 complete pairs, 113 selected native tests and 72 original Source tests pass (one original skip). Actual current parent delegation and published-result rejection are covered; absent Claude Code/Codex providers and broader managed ranges remain open.
 
 R03-K: [current SDK consumers](sdk-current-checks.json): 16 complete SDK pairs, 95 selected native tests and 131 original Source tests pass. Also corrects R03-J's two missing-cwd parent fixtures: earlier observations only showed configuration rejection; new 24-pair receipt plus successful-output assertions now cover actual parent delegation. Old observations are retained. Remote/file admission and baseline activation remain open.
+
+R04-A: [explicit Agent Remote](remote-current-checks.json): 12 actual pairs, 162 selected native and 313 original Source tests pass. Candidate registry has no reverse Context identity; goal Remote, activation emit, waterfall rejection/cancellation are covered. Connection/RPCFetch and production baseline remain open.

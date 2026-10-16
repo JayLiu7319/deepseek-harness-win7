@@ -17,7 +17,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const {default:Backend}=await load('packages/session/session-persistence-jsonl/src/index.ts')
  const {MockAdapter}=await load('packages/core/agent-loop/tests/mock-adapter.ts')
  const ctx=new Context(),root=await mkdtemp(join(tmpdir(),'dsh-machine-pair-')),ids=new Map<string,string>()
- let handle:any,agent:any,sdk:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
+ let handle:any,agent:any,sdk:any,eventStream:any,eventController:any,eventReady:any,eventFrame:any,forward:any,forwardController:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
  const requests:any[]=[],notifications:any[]=[],results:any[]=[],errors:any[]=[]
  const normalize=(v:any,key=''):any=>{
   if(v===undefined)return null
@@ -80,6 +80,28 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='remoteConfig'){
+     const {default:Registry}=await load('packages/typert/registry/src/index.ts'),{default:Gateway}=await load('packages/api/gateway/src/index.ts'),remotes=await load('packages/api/remotes/src/index.ts')
+     for(const plugin of [Registry,Gateway,remotes])await ctx.plugin(plugin)
+    }
+    else if(action.method==='remote')value=await ctx.typertGateway.invoke({namespace:action.namespace,method:action.name,args:action.args,signal:new AbortController().signal})
+    else if(action.method==='remoteContext'){
+     const adapter=ctx.typert.contexts.getHost('agent'),target=await adapter.resolve('machine')
+     value={exact:target===agent.ctx,identityPresent:'identity' in adapter,reversePresent:'identifyHost' in ctx.typert.contexts}
+    }
+    else if(action.method==='eventsOpen'){
+     eventController=new AbortController();eventStream=(await ctx.typertGateway.wireStream.open('$events',{args:{}},eventController.signal))[Symbol.asyncIterator]()
+     eventReady=(await eventStream.next()).value;value=eventReady
+    }
+    else if(action.method==='eventsNext'){eventFrame=(await eventStream.next()).value;value=eventFrame}
+    else if(action.method==='forward'){
+     const {agentCarrier}=await load('packages/core/agent/src/index.ts')
+     if(action.withSignal)forwardController=new AbortController()
+     forward=Promise.resolve().then(()=>ctx.waterfall(agentCarrier(agent),action.event??'approval/request',{...action.request,agent:action.wrongAgent?undefined:agent,...action.withSignal?{signal:forwardController.signal}:{}},()=>({fallback:true})));void forward.catch(()=>{})
+    }
+    else if(action.method==='forwardAbort')forwardController.abort(action.reason)
+    else if(action.method==='eventsResult')value=await ctx.typertGateway.dispatchRpc('$events/result',{args:{clientId:eventReady.clientId,eventId:eventFrame.eventId,outcome:action.outcome}},new AbortController().signal)
+    else if(action.method==='forwardResult')value=await forward
     else if(action.method==='sdkConfig'){
      const {HarnessSdkJsonRpcServer}=await load('packages/sdk/server/src/server.ts')
      sdk=new HarnessSdkJsonRpcServer(ctx,{notify:(name:any,params:any)=>notifications.push(normalize({name,payload:params}))},action.options)
@@ -209,5 +231,5 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
   const final=view()
   if(handle){await handle.dispose();handle=undefined}
   return {results,final,requests,notifications,errors}
- }finally{if(sdk)await sdk.shutdown();if(handle)await handle.dispose();await ctx.fiber.dispose();Date.now=oldNow;await rm(root,{recursive:true,force:true})}
+ }finally{eventController?.abort();if(eventStream)await eventStream.return();if(sdk)await sdk.shutdown();if(handle)await handle.dispose();await ctx.fiber.dispose();Date.now=oldNow;await rm(root,{recursive:true,force:true})}
 }

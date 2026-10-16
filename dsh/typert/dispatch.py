@@ -211,7 +211,7 @@ class RemoteDispatcher:
             row["cancellation"] = {"parameter": "signal"}
         return row
 
-    async def _resolve(self, provider, codec, value, wire, endpoint, kind):
+    async def _resolve(self, provider, codec, value, wire, endpoint, kind, key=None):
         if provider is None:
             raise TypertGatewayError(kind + "-unavailable", endpoint, kind + " provider unavailable", wire)
         if field(provider, "wire") != wire or codec["mode"] == "strict" and field(provider, "wireTypeSymbol") != codec["typeSymbol"]:
@@ -242,7 +242,7 @@ class RemoteDispatcher:
             if field(provider, "wire") != invocation["wire"] or invocation["codec"]["mode"] == "strict" and field(provider, "wireTypeSymbol") != invocation["codec"]["typeSymbol"]:
                 raise TypertGatewayError("provider-mismatch", endpoint, "Context provider does not match its definition", invocation["wire"])
             value = decode(invocation["codec"], args[invocation["wire"]], endpoint, invocation["wire"])
-            context = await self._resolve(provider, invocation["codec"], value, invocation["wire"], endpoint, "context")
+            context = await self._resolve(provider, invocation["codec"], value, invocation["wire"], endpoint, "context", invocation["context"])
         receiver = context.get(row["service"])
         if receiver is None:
             raise TypertGatewayError("service-unavailable", endpoint, "active Service is unavailable")
@@ -254,7 +254,7 @@ class RemoteDispatcher:
             value = decode(item["codec"], args[wire], endpoint, wire)
             if item["source"] == "json":
                 return value
-            return await self._resolve(registry.lookups.get(item["lookup"]), item["codec"], value, wire, endpoint, "lookup")
+            return await self._resolve(registry.lookups.get(item["lookup"]), item["codec"], value, wire, endpoint, "lookup", item["lookup"])
         positional = list(await asyncio.gather(*(parameter(item) for item in row["parameters"])))
         if "cancellation" in row:
             positional.append(request.get("signal") or NEVER_ABORTED)

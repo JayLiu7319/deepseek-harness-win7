@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-A-explicit-Agent-Remote",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 12,
+    "report": {
+      "path": ".goose/out/rc3-r04-remote-frozen-20261017/report.json",
+      "sha256": "b5bc13bc3452c784269540b0bedbca7a0c778e13fce56f6d173bf15600a47b87"
+    },
+    "corpus": {
+      "path": "scripts/oracles/remote_current_cases.json",
+      "sha256": "c5cb07ed3236276f15738351d1529f50f928fecdfbb59b2c2856a92fa9f35bca"
+    }
+  },
+  "native": {
+    "passed": 162,
+    "command": {
+      "path": ".goose/out/rc3-r04-remote-native-20261017/command.json",
+      "sha256": "ac5fc65c12c3e851c6f1be5998a4efc7bee1dde8b538ffa15c27879e84ff83c1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-remote-native-20261017/pytest.xml",
+      "sha256": "fce1734617a33e2b3e8be2537aa8190bec12d637ae27c43229a40101bf82ba4c"
+    }
+  },
+  "source": {
+    "passed": 313,
+    "suites": 10,
+    "command": {
+      "path": ".goose/out/rc3-r04-remote-source-20261017/command.json",
+      "sha256": "a161201ea1a1122b07962dcc290d69cb2074ef59c66dbb6ba6cd3db8e8dd0ed1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-remote-source-20261017/source.xml",
+      "sha256": "0f3ab359283b66849ef8157fc8a3deea9d0cb5c36aaab0b47bae3dee423cab53"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/agent.py",
+      "sha256": "8eebbba062e8d913f1077dd79baa6869d9bb54bd9d6b891b090923df99122dc7"
+    },
+    {
+      "path": "dsh/core/agent_current.py",
+      "sha256": "06ed888c87ec8772332b089fb82621f02a7e4440b89945245d1d3f8e59434c10"
+    },
+    {
+      "path": "dsh/typert/api_remotes.py",
+      "sha256": "af0fda0f91e97d29d07f58afc43f04ecd111df867dc97e57dcbefa3738b54341"
+    },
+    {
+      "path": "dsh/typert/remote_events.py",
+      "sha256": "1e5f71fadebcfbd3e222d693d9f7483feb76810ab3f25ce5d4d2612356f67b36"
+    },
+    {
+      "path": "dsh/typert/gateway.py",
+      "sha256": "72468378dbb9e09eef6e23451ba88f841101f8a52d81f4a434bab2dac12c2148"
+    },
+    {
+      "path": "dsh/typert/dispatch.py",
+      "sha256": "429eadde18965334bc53ad329a527ca9d70fb10de64fd85344351768d5a36181"
+    },
+    {
+      "path": "dsh/typert/current.py",
+      "sha256": "5b60f0b9414b20717366fb1dd10d3d57c892fd233308d8947bde94e1f943543d"
+    }
+  ],
+  "limits": [
+    "Current-only registry removes reverse identity lookup; production profile/pin remains unchanged.",
+    "Actual current goal Remote, waterfall request/result/rejection/cancellation and activation notifications are qualified; this is not qualification of every Gateway error/descriptor/stream path.",
+    "Connection carrier-neutral activation, RPCFetch body modes, auth/trust/feedback, subagent Remote and full release acceptance remain open."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r04-remote-routed-20261017",
+    ".goose/out/rc3-r04-remote-undefined-20261017",
+    ".goose/out/rc3-r04-remote-errors-20261017",
+    ".goose/out/rc3-r04-remote-cancel-20261017"
+  ]
+}

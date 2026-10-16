@@ -159,20 +159,13 @@ class RemoteEvents:
     def start(self, source):
         try:
             self.valid_name(source)
-            context = self.ctx.get("typert").contexts.identifyHost(source["context"]["value"])
+            context = self.event_identity(source)
             if context is None:
                 source["resolve"]({"kind": "next"})
                 return
             if context["kind"] != "agent" or not isinstance(context["identity"], str) or not context["identity"]:
                 raise ValueError("scoped Remote events require a nonempty Agent identity")
-            request = source["request"]
-            if type(request) is not dict or request.get("agent") is not source["context"]["subject"]:
-                raise ValueError("Remote request must carry its scoped Agent directly")
-            signal = request.get("signal")
-            if signal is not None and not isinstance(signal, AbortSignal):
-                raise ValueError("Remote event signal must be an AbortSignal")
-            projected = {key: value for key, value in request.items() if key not in ("agent", "signal")}
-            lossless(projected)
+            projected, signal = self.project_request(source)
             event_id = str(uuid.uuid4())
             while event_id in self.pending:
                 event_id = str(uuid.uuid4())
@@ -181,18 +174,38 @@ class RemoteEvents:
                                  "agentId": context["identity"], "request": projected}}
             try:
                 pending["release_context"] = source["context"]["value"].effect(
-                    lambda: lambda: self.cancel(pending, RuntimeError("Remote event Context was released")), "Remote event context")
+                    lambda: lambda: self.cancel(pending, self.context_released_error()), "Remote event context")
             except Exception:
                 source["resolve"]({"kind": "next"})
                 return
             self.pending[event_id] = pending
             if signal is not None:
-                pending["release_signal"] = signal.add_listener("abort", lambda *_: self.cancel(pending, signal.reason if isinstance(signal.reason, Exception) else RuntimeError("Remote event cancelled")))
+                pending["release_signal"] = signal.add_listener("abort", lambda *_: self.cancel(pending, self.cancelled_error(signal.reason)))
             if signal is None or not signal.aborted:
                 for client in self.clients.values():
                     self.deliver(pending, client)
         except Exception as error:
             source["reject"](error)
+
+    def event_identity(self, source):
+        return self.ctx.get("typert").contexts.identifyHost(source["context"]["value"])
+
+    def context_released_error(self):
+        return RuntimeError('Remote event Context was released')
+
+    def cancelled_error(self, reason):
+        return reason if isinstance(reason, Exception) else RuntimeError('Remote event cancelled')
+
+    def project_request(self, source):
+        request = source['request']
+        if type(request) is not dict or request.get('agent') is not source['context']['subject']:
+            raise ValueError('Remote request must carry its scoped Agent directly')
+        signal = request.get('signal')
+        if signal is not None and not isinstance(signal, AbortSignal):
+            raise ValueError('Remote event signal must be an AbortSignal')
+        projected = {key: value for key, value in request.items() if key not in ('agent', 'signal')}
+        lossless(projected)
+        return projected, signal
 
     def deliver(self, pending, client):
         pending["deliveries"][client["id"]] = client

@@ -10,6 +10,7 @@ from unittest.mock import patch
 from dsh.cordis.context import Context
 from dsh.core.session.current_session import CurrentSession, CurrentSessionPlugin
 from dsh.core.session.json import UNDEFINED
+from dsh.typert.artifact import UNDEFINED as WIRE_UNDEFINED
 from dsh.session.projections import SessionProjectionsPlugin
 from dsh.core.system_prompt.current import CurrentSystemPrompt
 from dsh.core.tools import ToolsPlugin
@@ -44,10 +45,10 @@ class ScriptAdapter:
 
 
 async def run(test,decode):
-    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[]
-    handle=None;agent=None;sdk=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
+    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[];forward_controller=None
+    handle=None;agent=None;sdk=None;event_stream=None;event_controller=None;event_ready=None;event_frame=None;forward=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
     def normalize(value,key=''):
-        if value is UNDEFINED:return None
+        if value is UNDEFINED or value is WIRE_UNDEFINED:return None
         if key=='signal':return '<signal>'
         if key=='agent':return normalize(value.id)
         if isinstance(value,BaseException):
@@ -62,7 +63,7 @@ async def run(test,decode):
                 return ids[name]
             return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',identity,value,flags=re.I)
         if isinstance(value,(tuple,list)):return [normalize(item) for item in value]
-        if isinstance(value,dict):return {name:normalize(item,name) for name,item in value.items() if item is not UNDEFINED}
+        if isinstance(value,dict):return {name:normalize(item,name) for name,item in value.items() if item is not UNDEFINED and item is not WIRE_UNDEFINED}
         return value
     def view():return normalize(dict(status=agent.status,events=agent.session.snapshotEvents(),messages=agent.session.deriveMessages(),inbox=ctx.get('sessionProjections').snapshot(agent.session)['values']['inbox']))
     with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1),patch('dsh.goal.service.time.time',return_value=1):
@@ -135,6 +136,36 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='remoteConfig':
+                        from dsh.typert.current import CurrentTypertRegistry,CurrentTypertGateway,CurrentApiRemotes
+                        for plugin in (CurrentTypertRegistry,CurrentTypertGateway,CurrentApiRemotes):await ctx.plugin(plugin)
+                    elif method=='remote':
+                        from dsh.core.abort import AbortController
+                        value=await ctx.get('typertGateway').invoke(dict(namespace=action['namespace'],method=action['name'],args=action['args'],signal=AbortController().signal))
+                    elif method=='remoteContext':
+                        adapter=ctx.get('typert').contexts.getHost('agent')
+                        from dsh.cordis.awaiting import await_callback_result
+                        target=await await_callback_result(adapter['resolve']('machine') if isinstance(adapter,dict) else adapter.resolve('machine'))
+                        value=dict(exact=target is agent.ctx,identityPresent=('identity' in adapter if isinstance(adapter,dict) else hasattr(adapter,'identity')),reversePresent=hasattr(ctx.get('typert').contexts,'identifyHost'))
+                    elif method=='eventsOpen':
+                        from dsh.core.abort import AbortController
+                        event_controller=AbortController()
+                        event_stream=await ctx.get('typertGateway').wireStream.open('$events',dict(args={}),event_controller.signal)
+                        event_ready=await event_stream.__anext__();value=event_ready
+                    elif method=='eventsNext':event_frame=await asyncio.wait_for(event_stream.__anext__(),3);value=event_frame
+                    elif method=='forward':
+                        from dsh.core.agent_dispatch_current import agent_carrier
+                        request=dict(action.get('request',{}),agent=agent)
+                        if action.get('withSignal'):
+                            from dsh.core.abort import AbortController
+                            forward_controller=AbortController();request['signal']=forward_controller.signal
+                        if action.get('wrongAgent'):request['agent']=None
+                        forward=asyncio.ensure_future(ctx.waterfall(agent_carrier(agent),action.get('event','approval/request'),request,lambda *_:dict(fallback=True)))
+                    elif method=='forwardAbort':forward_controller.abort(action['reason'])
+                    elif method=='eventsResult':
+                        from dsh.core.abort import NEVER_ABORTED
+                        value=await ctx.get('typertGateway').dispatch_rpc('$events/result',dict(args=dict(clientId=event_ready['clientId'],eventId=event_frame['eventId'],outcome=action['outcome'])),NEVER_ABORTED)
+                    elif method=='forwardResult':value=await asyncio.wait_for(forward,3)
                     elif method=='sdkConfig':
                         from dsh.sdk.server import HarnessSdkJsonRpcServer
                         sdk=HarnessSdkJsonRpcServer(ctx,SimpleNamespace(notify=lambda name,params:notifications.append(normalize(dict(name=name,payload=params)))),action.get('options'))
@@ -280,6 +311,8 @@ async def run(test,decode):
             if handle is not None:await handle.dispose();handle=None
             return dict(results=results,final=final,requests=requests,notifications=notifications,errors=errors)
         finally:
+            if event_controller is not None:event_controller.abort()
+            if event_stream is not None:await event_stream.aclose()
             if sdk is not None:await sdk.shutdown()
             if handle is not None:await handle.dispose()
             await ctx.fiber.dispose()

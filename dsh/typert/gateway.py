@@ -10,13 +10,15 @@ from dsh.typert.stream_mux import RemoteStreamMux, reject_upgrade
 
 class TypertGatewayService(Service):
     inject = ["typert"]
+    events_class = RemoteEvents
+    dispatcher_class = RemoteDispatcher
 
     def __init__(self, ctx, config=None):
         interval = (config or {}).get("websocketHeartbeatIntervalMs", 30000)
         if type(interval) is not int or not 1 <= interval <= 2147483647:
             raise ValueError("websocketHeartbeatIntervalMs must be an integer in timer range")
         super().__init__(ctx, "typertGateway")
-        self.dispatcher, self.events = RemoteDispatcher(ctx), RemoteEvents(ctx)
+        self.dispatcher, self.events = self.dispatcher_class(ctx), self.events_class(ctx)
         self.wireStream = SimpleNamespace(open=self.open_wire_stream, failure=lambda error: rpc_failure(error)["error"])
         ctx.effect(lambda: self.events.close, "Gateway event lifecycle")
         def rpc(child):
