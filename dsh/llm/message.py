@@ -33,6 +33,14 @@ def create_user_message(input_data: Dict[str, Any]) -> Dict[str, Any]:
 createUserMessage = create_user_message
 
 
+def create_system_message(text: str, plugin: str) -> Dict[str, Any]:
+    return create_message(dict(role='system', source=dict(kind='plugin', plugin=plugin),
+                               content=[dict(type='text', text=text)] if text else []))
+
+
+createSystemMessage = create_system_message
+
+
 def create_assistant_message(input_data: Dict[str, Any]) -> Dict[str, Any]:
     source = {'kind': 'model'}
     if isinstance(input_data.get('source'), dict):

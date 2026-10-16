@@ -36,10 +36,14 @@ class SystemPrompt(Service):
     """
 
     name = "systemPrompt"
+    _section_orders = FIRST_PARTY_SECTION_ORDER
+
+    def _persona_sections(self, config):
+        return [dict(name=PERSONA_SECTION, order=PERSONA_ORDER, text=config.get('persona') or '')]
 
     def get_section_order(self, name: str) -> int:
         """Resolve a centrally allocated prompt section placement."""
-        return FIRST_PARTY_SECTION_ORDER[name]
+        return self._section_orders[name]
 
     getSectionOrder = get_section_order
 
@@ -61,7 +65,6 @@ class SystemPrompt(Service):
         cfg = config or {}
         include_identity = cfg.get("includeHarnessIdentity", cfg.get("include_harness_identity", True))
         include_runtime_context = cfg.get("includeRuntimeContext", cfg.get("include_runtime_context", True))
-        persona = cfg.get("persona", "")
         tool_order = cfg.get("toolOrder", cfg.get("tool_order", None))
 
         self.tool_order = validate_tool_order(tool_order)
@@ -73,15 +76,12 @@ class SystemPrompt(Service):
         if include_identity:
             self.section({
                 "name": "harness:identity",
-                "order": FIRST_PARTY_SECTION_ORDER["HARNESS_IDENTITY"],
+                "order": self._section_orders["HARNESS_IDENTITY"],
                 "text": "You are an AI agent powered by DeepSeek Harness.",
             })
 
-        self.section({
-            "name": PERSONA_SECTION,
-            "order": PERSONA_ORDER,
-            "text": persona or "",
-        })
+        for section in self._persona_sections(cfg):
+            self.section(section)
 
         if not include_runtime_context:
             self.suppress_runtime_context()

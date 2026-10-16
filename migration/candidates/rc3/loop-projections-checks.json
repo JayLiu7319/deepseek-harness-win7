@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-A-loop-owned-projections",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 77,
+    "report": {
+      "path": ".goose/out/rc3-r03-loop-frozen-20261017/report.json",
+      "sha256": "491b0285a8ecd483d9164c47aa5c5a7693bef34e19deee7ec91d04827f0d8002"
+    },
+    "corpus": {
+      "path": "scripts/oracles/agent_loop_current_cases.json",
+      "sha256": "1e9df8443c5419135b04bc9339c99ad85c2dafe8d48032e835bae2036e903248"
+    },
+    "normalization": [
+      "Fresh generated message UUIDs renamed by first observation, preserving identity relationships.",
+      "Clock fixed at 1000 in both actors; JSON undefined results represented as null, optional undefined object fields omitted.",
+      "All durable events, splice state, notification payload/order, frame revisions and request prompt content compared."
+    ]
+  },
+  "native": {
+    "passed": 342,
+    "command": {
+      "path": ".goose/out/rc3-r03-loop-native-20261017/command.json",
+      "sha256": "2ace22b5ac9a847210016e8ae049049b5067a31828134f5ddb7d7af08a20d976"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-loop-native-20261017/pytest.xml",
+      "sha256": "72b0e58646926f1a0413acffa5c8ec192893b777d106aca213bf275f4070f369"
+    }
+  },
+  "source": {
+    "passed": 102,
+    "command": {
+      "path": ".goose/out/rc3-r03-loop-source-20261017/command.json",
+      "sha256": "55426ed1d81445d730b7f4a36fd94b6e410c347a3d65d5a7b7345610f6446110"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-loop-source-20261017/source.xml",
+      "sha256": "769df310ebd88982213f5d7242366420ba80408bb842ba20a7be120e253c725b"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/inbox_current.py",
+      "sha256": "9c6b64a49aaa0c34647729e3cab9e236d8a4aed45c37feb003b7b798dd8aa023"
+    },
+    {
+      "path": "dsh/core/runtime_context_current.py",
+      "sha256": "406f3f67ed8496a115b5140accccf55cc11c704212b9312dd44dcae7cc59c3b9"
+    },
+    {
+      "path": "dsh/core/assistant_stream_current.py",
+      "sha256": "4bd2849b8d3c6ab3156ade0db65328ca5bd021078bcc74949b8e010373562af8"
+    },
+    {
+      "path": "dsh/core/system_prompt/current.py",
+      "sha256": "d6b082285c604083925c3a88acf70daf5a72b41f2526cc8a673a64d4bb2bfc79"
+    },
+    {
+      "path": "dsh/core/system_prompt/service.py",
+      "sha256": "34bb3520347f22d194d2f9ebedf2dbe5371f990b69e0595cd5bd0d9f6d8e8f4b"
+    },
+    {
+      "path": "dsh/llm/message.py",
+      "sha256": "2f38f506d4cc3c79d821dc698695a0b21d6ae2e351600aa4dbcacaa3726ba0ea"
+    },
+    {
+      "path": "tests/test_agent_loop_current_projections.py",
+      "sha256": "7bd9b6105e4c3b42694b7b1881d8258247bb9b4ede674d9d90ae902afce6da28"
+    },
+    {
+      "path": "scripts/oracles/agent_loop_current_source.mts",
+      "sha256": "f286e5ba9d71a86a50543a20104c42d67cf73dca19c46c9f9c3ef72be25553cc"
+    },
+    {
+      "path": "scripts/oracles/agent_loop_current_python.py",
+      "sha256": "5a2277c48fd426a77fe20759e9ec798de1e35479cf5ffe392352ee4565c06a57"
+    },
+    {
+      "path": "scripts/oracles/generate_agent_loop_current_cases.py",
+      "sha256": "2a313ab6947236a3f2bfbaeb2efd7816427e511ddaec1c4443346ef960691081"
+    }
+  ],
+  "scope": [
+    "Durable Inbox projection includes inherited events and validates reconstruction; live mutation notifies only after commit; claim removes both queues before claimed events.",
+    "System prompt reserves head, appends capable continuing history and normalizes head/tails for new series, incapable route or clear.",
+    "Runtime context tracks only the exact Session and authoritative replacement surface.",
+    "Attempt framing uses compact stream snapshots; durable settlement precedes terminal frame; failed append abandons with original error.",
+    "Persona prefix/suffix and moved harness source/web section orders are explicit candidate service."
+  ],
+  "limits": [
+    "Initial actor passed surface options as a raw operation in Python; fixed to opts keyword. Initial stream finish fixture omitted reason; corrected. Initial service actor attempted non-exported order constant; uses public getters. These runs retained and excluded.",
+    "Projection and framing contracts only. Candidate Agent driver not yet connected; original Source Agent request/stream tests not claimed.",
+    "Current persona config validation and Agent preset consumers await coordinated runtime migration.",
+    "Production profile and rc.1 pin unchanged; not R02/R03 or release acceptance."
+  ]
+}

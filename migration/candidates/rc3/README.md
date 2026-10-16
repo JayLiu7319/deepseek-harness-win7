@@ -26,6 +26,8 @@ R02-O：新增 [agent-ownership-checks.json](agent-ownership-checks.json)，候�
 
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
+R03-A：新增 [loop-projections-checks.json](loop-projections-checks.json)，持久化 Inbox、提示词历史投影、运行时上下文和流式 attempt 结算合同的 77 个实际配对场景匹配；Python 342 项、Source 原套件 102 项通过。persona prefix/suffix 顺序作为候选服务提供。请求驱动与 preset 消费者尚待连接，非整体 R03 签收。
+
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。
 
 - [实施路径评估](../../../docs/research/2026-10-16-rc3-baseline-implementation-assessment.md)：关键路径、合同闭包、预设差异、验证和Desktop交接。

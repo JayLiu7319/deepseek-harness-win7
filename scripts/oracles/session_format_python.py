@@ -391,6 +391,9 @@ def observe(case):
         elif case['kind'] == 'query-current':
             from scripts.oracles.session_query_current_python import execute as query_execute
             value = query_execute(case, decode)
+        elif case['kind'] == 'loop-current':
+            from scripts.oracles.agent_loop_current_python import execute as loop_execute
+            value = loop_execute(case, decode)
         elif case['kind'] == 'storage-backend':
             from scripts.oracles.session_backend_current_python import execute as backend_execute
             value = backend_execute(case, decode)
