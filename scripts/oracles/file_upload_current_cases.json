@@ -1,0 +1,1054 @@
+[
+  {
+    "case": "upload-scoped",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "resolve",
+        "agent": "two"
+      },
+      {
+        "op": "upload",
+        "agent": "child"
+      },
+      {
+        "op": "upload",
+        "data": "YQ"
+      },
+      {
+        "op": "resolve",
+        "receipt": "unknown"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent conversations do not accept file uploads",
+            "code": "subagent/attachment-invalid",
+            "details": {
+              "reason": "SUBAGENT_FILE_UNSUPPORTED"
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "File upload is not canonical base64.",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "INVALID_FILE_BASE64"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-binding-rollback",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0
+        ],
+        "requestId": "first",
+        "commit": true
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0
+        ],
+        "requestId": "second"
+      },
+      {
+        "op": "rollback"
+      },
+      {
+        "op": "retire",
+        "requestId": "second"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "retire",
+        "requestId": "first"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-binding-atomic",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0
+        ],
+        "requestId": "first",
+        "commit": true
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0,
+          "unknown"
+        ],
+        "requestId": "second"
+      },
+      {
+        "op": "retire",
+        "requestId": "first"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "File was not uploaded for this session.",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "FILE_NOT_STAGED"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-history-retire",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0
+        ],
+        "requestId": "accepted",
+        "commit": true
+      },
+      {
+        "op": "observe",
+        "requestId": "other"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "observe",
+        "requestId": "accepted",
+        "kind": "plugin"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "observe",
+        "requestId": "accepted"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-disposed",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "drop"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-http",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=one&name=large%20%26%20final.bin",
+        "chunks": [
+          "000102",
+          "fafbfc"
+        ]
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=one&name=empty.bin",
+        "chunks": []
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary",
+        "verb": "GET"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=one",
+        "contentType": "application/json"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId="
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=missing"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=child"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": true,
+              "value": {
+                "receiptId": "opaque:1",
+                "file": {
+                  "attachmentId": "sha256:205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a",
+                  "name": "large & final.bin",
+                  "bytes": 6
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:205db5973a01b0f9b106586fdeaa43a7d46b8164ba195634220a5d7dbea5990a",
+            "name": "large & final.bin",
+            "bytes": 6
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": true,
+              "value": {
+                "receiptId": "opaque:2",
+                "file": {
+                  "attachmentId": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "name": "empty.bin",
+                  "bytes": 0
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 404,
+            "body": "not found"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 415,
+            "body": "content type must be application/octet-stream"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 400,
+            "body": "sessionId is required"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 400,
+            "body": "sessionId is required"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": false,
+              "error": {
+                "code": "session/not-found",
+                "message": "session \"missing\" is not attached",
+                "details": {
+                  "sessionId": "missing"
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": false,
+              "error": {
+                "code": "subagent/attachment-invalid",
+                "message": "subagent conversations do not accept file uploads",
+                "details": {
+                  "reason": "SUBAGENT_FILE_UNSUPPORTED"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-cold-resolver",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=cold",
+        "chunks": [
+          "0102"
+        ]
+      },
+      {
+        "op": "resolver",
+        "target": "two"
+      },
+      {
+        "op": "http",
+        "path": "/api/session/uploadFileBinary?sessionId=cold",
+        "chunks": [
+          "0102"
+        ]
+      },
+      {
+        "op": "resolve",
+        "agent": "two"
+      },
+      {
+        "op": "resolver"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": false,
+              "error": {
+                "code": "session/not-found",
+                "message": "session \"cold\" is not attached",
+                "details": {
+                  "sessionId": "cold"
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 200,
+            "body": {
+              "ok": true,
+              "value": {
+                "receiptId": "opaque:1",
+                "file": {
+                  "attachmentId": "sha256:a12871fee210fb8619291eaea194581cbd2531e4b23759d225f6806923f63222",
+                  "name": "file",
+                  "bytes": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:a12871fee210fb8619291eaea194581cbd2531e4b23759d225f6806923f63222",
+            "name": "file",
+            "bytes": 2
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "file-upload: Agent resolver is already registered"
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-command-files",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "register",
+        "input": {
+          "hint": "input",
+          "attachments": true
+        }
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          0,
+          0
+        ]
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "execute",
+        "agent": "two",
+        "attachments": [
+          0
+        ]
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          "unknown"
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "name": "files",
+              "description": "file command",
+              "input": {
+                "hint": "input",
+                "attachments": true
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:2",
+            "result": {
+              "kind": "success",
+              "text": "command accepted"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:3",
+            "result": {
+              "kind": "error",
+              "text": "File upload receipt is unknown for this session."
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:4",
+            "result": {
+              "kind": "error",
+              "text": "File upload receipt is unknown for this session."
+            }
+          }
+        }
+      ],
+      "invocations": [
+        {
+          "rawInput": " note",
+          "attachments": [
+            {
+              "type": "file",
+              "attachment": {
+                "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "name": "a.txt",
+                "bytes": 1
+              }
+            },
+            {
+              "type": "file",
+              "attachment": {
+                "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "name": "a.txt",
+                "bytes": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "upload-command-denied",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "register"
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "name": "files",
+              "description": "file command"
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:2",
+            "result": {
+              "kind": "error",
+              "text": "/files does not accept attachments"
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-old-flag",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "register",
+        "input": {
+          "hint": "input",
+          "images": true
+        }
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          0
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "name": "files",
+              "description": "file command",
+              "input": {
+                "hint": "input"
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:2",
+            "result": {
+              "kind": "error",
+              "text": "/files does not accept attachments"
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-bad-flag",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "register",
+        "input": {
+          "hint": "input",
+          "attachments": "yes"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "TypeError",
+            "message": "command \"files\" input attachments flag must be a boolean"
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-missing-file-before-image",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "register",
+        "input": {
+          "hint": "input",
+          "attachments": true
+        }
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          {
+            "type": "image",
+            "data": "invalid",
+            "mediaType": "image/png"
+          },
+          "unknown"
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "name": "files",
+              "description": "file command",
+              "input": {
+                "hint": "input",
+                "attachments": true
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:1",
+            "result": {
+              "kind": "error",
+              "text": "File upload receipt is unknown for this session."
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "upload-command-mixed-order",
+    "kind": "file-upload-current",
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "register",
+        "input": {
+          "hint": "mixed",
+          "attachments": true
+        }
+      },
+      {
+        "op": "execute",
+        "attachments": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          },
+          0,
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "name": "files",
+              "description": "file command",
+              "input": {
+                "hint": "mixed",
+                "attachments": true
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "opaque:2",
+            "result": {
+              "kind": "success",
+              "text": "command accepted"
+            }
+          }
+        }
+      ],
+      "invocations": [
+        {
+          "rawInput": " note",
+          "attachments": [
+            {
+              "type": "image",
+              "attachment": {
+                "attachmentId": "sha256:d3f3bd943ba093cef3385cbdf89dd7090da7de7a6db820b1462165e33e7f05be",
+                "mediaType": "image/png",
+                "width": 2,
+                "height": 2,
+                "bytes": 79,
+                "name": "tiny.png"
+              }
+            },
+            {
+              "type": "file",
+              "attachment": {
+                "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "name": "a.txt",
+                "bytes": 1
+              }
+            },
+            {
+              "type": "image",
+              "attachment": {
+                "attachmentId": "sha256:d3f3bd943ba093cef3385cbdf89dd7090da7de7a6db820b1462165e33e7f05be",
+                "mediaType": "image/png",
+                "width": 2,
+                "height": 2,
+                "bytes": 79,
+                "name": "tiny.png"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

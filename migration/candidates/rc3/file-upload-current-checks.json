@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-C-file-upload-receipts-and-command-admission",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 13,
+    "report": {
+      "path": ".goose/out/rc3-r05-upload-frozen-20261017/report.json",
+      "sha256": "2a814a2fd04ff58d15c965ab5e4aa731a6c6986e569c67f554c5d6f48dc616bf"
+    },
+    "corpus": {
+      "path": "scripts/oracles/file_upload_current_cases.json",
+      "sha256": "6e5631461d4b0833910707f0d4dee7d534a94cbf16401ec6a2827271ea2e7330"
+    }
+  },
+  "native": {
+    "passed": 132,
+    "command": {
+      "path": ".goose/out/rc3-r05-upload-native-url-fixed-20261017/command.json",
+      "sha256": "5be5c5f1a55dd677e12f52ef531346e03da7d8eddc9e850ee82c2f02871a3ad0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-upload-native-url-fixed-20261017/pytest.xml",
+      "sha256": "e8aabfafc5b5ecffe04d82afebafac1b096bb103793e5caeb8334d46c40e253c"
+    }
+  },
+  "source": {
+    "passed": 80,
+    "suites": 3,
+    "command": {
+      "path": ".goose/out/rc3-r05-upload-commands-source-20261017/command.json",
+      "sha256": "5f0f6bb284b98782fe3146f5fbf6fd336c508558ed9bf6bd9f4fb2d447de963f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-upload-commands-source-20261017/source.xml",
+      "sha256": "4ee2e523dbcf822073236a3927c47058a5570ed2943e7ec6c173743947c77449"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/file_upload_current.py",
+      "sha256": "fc7d9ef6d86b4054e0ebe130fe28f5932d13eef110f624a05eea0f5f8e977633"
+    },
+    {
+      "path": "dsh/interaction/commands_current.py",
+      "sha256": "130c6ee82970c1e71a81478172f1d0b260e83f575cf5f061ad1060531e53c769"
+    },
+    {
+      "path": "dsh/interaction/commands.py",
+      "sha256": "973c566f5c3811a3f56cadfe75647e431c09c47613a168bafe7c9510ba743040"
+    },
+    {
+      "path": "dsh/host/connection/http_current.py",
+      "sha256": "af429b4c66d71594f2c6efdfdc907ff49bd77903a6c57e6407fe3fcc5159afed"
+    }
+  ],
+  "scope": [
+    "Actual current file-upload service and Connection Fetch route; Session-scoped receipts, rollback/commit binding guards, user-history retirement, disposal and cold Agent resolver.",
+    "Current commands advertise input.attachments, resolve all file receipts before image admission, preserve mixed and repeated attachment order; current file/image refs reach actual handlers.",
+    "Real TCP 2MiB chunked upload with an8-byte buffered limit, actual immutable readback, provider unload withdrawing route and resolver, and disposed-Agent completion race."
+  ],
+  "retained_failure": {
+    "path": ".goose/out/rc3-r05-upload-native-20261017",
+    "result": "98 passed,1 failed",
+    "reason": "Actual TCP revealed missing absolute Fetch URL in current Python bridge. URL is now constructed using original internal base and raw query; new fresh expanded scope132 passed. Failure preserved."
+  },
+  "remaining": [
+    "SessionController prompt/queue delivery must own these binding guards and retire removed queue occurrences.",
+    "Current image compression concurrency/publication and production activation remain open.",
+    "No frontend/Portable/unified release acceptance claimed."
+  ],
+  "retention": {
+    "free_bytes": 192381505536,
+    "policy": "Actors unlock only owned temporary file names; successful short pytest workspaces automatically pruned; failed TCP observations preserved."
+  }
+}

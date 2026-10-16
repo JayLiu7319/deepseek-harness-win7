@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'llm-files-current':
+        if case['kind'] == 'file-upload-current':
+            from scripts.oracles.file_upload_current_python import execute as upload_execute
+            value = upload_execute(case)
+        elif case['kind'] == 'llm-files-current':
             from scripts.oracles.llm_files_current_python import execute as llm_files_execute
             value = llm_files_execute(case)
         elif case['kind'] == 'attachment-files-current':

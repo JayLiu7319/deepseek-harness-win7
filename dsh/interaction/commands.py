@@ -448,7 +448,7 @@ def _consume_settlement(settled: "asyncio.Future[Any]") -> None:
     settled.exception()
 
 
-def normalize_definition(definition: Any) -> RegisteredCommand:
+def normalize_definition(definition: Any, attachment_field: str = 'images') -> RegisteredCommand:
     """
     Reject invalid command metadata before it can reach a UI protocol.
 
@@ -486,12 +486,12 @@ def normalize_definition(definition: Any) -> RegisteredCommand:
             raise TypeError(f'command "{name}" input hint must be a string')
         if len(hint.strip()) == 0:
             raise TypeError(f'command "{name}" input hint must not be empty')
-        images = _field(raw_input, "images")
-        if _has_field(raw_input, "images") and not isinstance(images, bool):
-            raise TypeError(f'command "{name}" input images flag must be a boolean')
+        images = _field(raw_input, attachment_field)
+        if _has_field(raw_input, attachment_field) and not isinstance(images, bool):
+            raise TypeError(f'command "{name}" input {attachment_field} flag must be a boolean')
         input_view: Dict[str, Any] = {"hint": hint}
         if images is True:
-            input_view["images"] = True
+            input_view[attachment_field] = True
         normalized_input = deep_freeze(input_view)
     elif has_input:
         # An explicit null (`input: null`) is not "no input" in the reference.
@@ -567,6 +567,21 @@ class CommandRuntime(TypertRemoteService):
 
     id = NAME
     name = "@deepseek-ai/dsh-commands"
+    _attachment_field = 'images'
+
+    def _normalize_definition(self, definition):
+        return normalize_definition(definition, self._attachment_field)
+
+    def _attachment_rejection(self, name, missing_store=False):
+        if missing_store:
+            return f'/{name}: image attachments are unavailable because no attachment store is composed'
+        return f'/{name} does not accept image attachments'
+
+    async def _admit_attachments(self, agent, store, submitted):
+        refs = admit_encoded_images(store, submitted)
+        if inspect.isawaitable(refs):
+            refs = await refs
+        return FrozenList([deep_freeze({'type': 'image', 'attachment': ref}) for ref in refs])
 
     def __init__(self, ctx: Any = None, config: Any = None) -> None:
         super().__init__(ctx, NAME)
@@ -591,7 +606,7 @@ class CommandRuntime(TypertRemoteService):
         @param definition: the discovery metadata and direct handler.
         @returns: the exact effect disposer that unregisters this definition.
         """
-        registered = normalize_definition(definition)
+        registered = self._normalize_definition(definition)
         return self._layers.effect(
             self.ctx,
             lambda layer: layer.commands.insert(registered.definition.name, registered),
@@ -687,24 +702,19 @@ class CommandRuntime(TypertRemoteService):
 
         attachments: Any = _NO_ATTACHMENTS
         if len(images) > 0:
-            if definition.input is None or definition.input.get("images") is not True:
+            if definition.input is None or definition.input.get(self._attachment_field) is not True:
                 return settle(
-                    _error_result(f"/{parsed['name']} does not accept image attachments")
+                    _error_result(self._attachment_rejection(parsed['name']))
                 )
             store = self.ctx.get("attachments") if self.ctx is not None else None
             if store is None:
                 return settle(
                     _error_result(
-                        f"/{parsed['name']}: image attachments are unavailable because no attachment store is composed"
+                        self._attachment_rejection(parsed['name'], True)
                     )
                 )
             try:
-                refs = admit_encoded_images(store, images)
-                if inspect.isawaitable(refs):
-                    refs = await refs
-                attachments = FrozenList(
-                    [deep_freeze({"type": "image", "attachment": ref}) for ref in refs]
-                )
+                attachments = await self._admit_attachments(agent, store, images)
             except AttachmentError as error:
                 return settle(_error_result(_message_of(error)))
             except Exception as error:

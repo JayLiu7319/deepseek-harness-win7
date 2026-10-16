@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='llm-files-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='file-upload-current'
+    ? await (await import('./file_upload_current_source.mts')).fileUploadCase(resolve(sourceArg),test)
+    : test.kind==='llm-files-current'
     ? await (await import('./llm_files_current_source.mts')).llmFilesCase(resolve(sourceArg),test)
     : test.kind==='attachment-files-current'
     ? await (await import('./attachment_files_current_source.mts')).attachmentFilesCase(resolve(sourceArg),test)

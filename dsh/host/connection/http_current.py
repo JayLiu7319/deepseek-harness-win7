@@ -1,6 +1,7 @@
 """Pull-driven HTTP body transport for rc.3 buffered and streaming Fetch routes."""
 import asyncio
 import inspect
+from urllib.parse import urljoin
 
 from dsh.core.abort import AbortController
 from dsh.host.connection.http_bridge import read_body, write_response, BodyTooLarge, DEFAULT_MAX_REQUEST_BODY_BYTES
@@ -99,7 +100,10 @@ def current_bridge_handler(connection, api, limit=DEFAULT_MAX_REQUEST_BODY_BYTES
             controller.abort('HTTP client disconnected')
         monitor = asyncio.create_task(disconnected())
         try:
-            result = api.fetch(dict(request, body=body, signal=controller.signal))
+            # Node's Fetch carrier constructs this against the same internal
+            # base. Preserve the raw query for route-owned upload receipts.
+            url = request.get('url') or urljoin('http://dsh.internal', request.get('raw_url', request['path']))
+            result = api.fetch(dict(request, url=url, body=body, signal=controller.signal))
             if inspect.isawaitable(result):
                 result = await result
             if streaming and not body.ended:
