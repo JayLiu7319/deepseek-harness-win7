@@ -13,6 +13,9 @@ const releasedRestore = await import(pathToFileURL(join(resolve(sourceArg), 'pac
 const releasedV2 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/index.ts')).href)
 const v2Writer = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/testing/validation.ts')).href)
 const assistantStream = await import(pathToFileURL(join(resolve(sourceArg), 'packages/llm/llm/src/assistant-stream.ts')).href)
+const releasedV3 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/index.ts')).href)
+const v3Payload = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/payload.ts')).href)
+const v3References = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/references.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -93,6 +96,34 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if (kind === 'released-v3-logical') {
+    const operation=test.operation
+    if(['assertEvent','assertV3Event','assertV3StructuralRow','canonicalizeTransformedEvent','isRepairIdentity'].includes(operation))return v3Payload[operation](...decode(test.args))??null
+    if(operation==='remapEvent')return v3References.remapEvent(...decode(test.args))
+    if(operation==='header') {releasedV3.assertReleasedV3Header(decode(test.header));return null}
+    if(operation==='migrateHeader')return releasedV3.sessionFormatV2ToV3.migrateHeader(decode(test.header))
+    if(operation==='restore')return releasedV3.restoreReleasedV3Artifact(decode(test.artifact),new Set(test.known))
+    const codec=releasedV3.releasedV3SessionFormatCodec
+    if(operation==='decodeHeader')return codec.decodeHeader(decode(test.header))
+    if(operation==='encodeHeader')return codec.encodeHeader(decode(test.header),decode(test.cut))
+    if(operation==='encodeEvent')return codec.encodeEvent(decode(test.event))
+    const collector=new api.SessionFormatEventCollector()
+    if(operation==='decoder') {
+      const decoder=codec.createDecoder(decode(test.header),test.recovery)
+      for(const row of test.rows)decoder.decodeRow(decode(row),collector)
+      return {header:decoder.header,events:collector.values,...(test.finish?{cut:decoder.finish(collector)}:{})}
+    }
+    if(operation==='stage') {
+      const stage=releasedV3.sessionFormatV2ToV3.createStage(decode(test.input)),result:any={events:collector.values}
+      for(const action of test.actions) {
+        if(action.method==='finish')result.cut=stage.finish(collector)
+        else if(action.method==='transformEvent')stage.transformEvent(decode(action.event),collector)
+        else stage.transformRun({*expand(){yield*decode(action.expanded)}},collector)
+      }
+      return result
+    }
+    throw new Error('Unknown v3 operation: '+operation)
+  }
   if (kind === 'assistant-stream') {
     if(test.operation==='push'||test.operation==='snapshot') {
       const accumulator=new assistantStream.AssistantStreamAccumulator()

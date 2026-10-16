@@ -2,6 +2,8 @@
 
 日期：2026-10-16。目标 `dsh-v0.1.5-rc.3` / `a4c74a91e06b00fe0b0937bde982170c526cc842`；差分起点为当前活动rc.1 / `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。
 
+R02-E：新增 [v3-logical-checks.json](v3-logical-checks.json)，v2→v3系统消息、canonical envelope、PTC迁移及恢复已完成纯库验证。Source 519项原断言通过，新增1,607个观测场景匹配，含既有回归共3,118项Python定向测试通过；生产恢复/持久化仍待接通。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

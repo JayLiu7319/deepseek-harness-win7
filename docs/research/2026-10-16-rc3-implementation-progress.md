@@ -58,6 +58,14 @@ R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不�
 
 首次v2对照发现invalid stream的TypeError cause文本不同并修复；随后定向回归发现探针局部`catalog`遮蔽旧helper，修正后所有六组重新对照通过。原失败诊断保留。当前字节与原始观察见 [v2-logical-checks.json](../../migration/candidates/rc3/v2-logical-checks.json)。继续v2→v3系统消息、规范envelope和生产恢复/持久化；尚未切换活动pin/writer或提升任务状态。
 
+## R02-E：v2→v3系统历史与规范事件
+
+完成流式系统提示提升、确定性消息身份及碰撞拒绝、受保护首个system head、继承cut和本文件引用重映射；旧PTC事件与精确插件归属槽迁至新词汇，工具JSON和捕获代际保持原义。v3恢复用私有视图复用冻结关系校验，返回原始身份与事件；物理codec在recoverable截尾之前拒绝退役header.system、损坏system结构和必需旧PTC标签，规范envelope校验仍支持可恢复尾部。
+
+复制8份Source测试到独立ignored cache，仅包装公开API记录观测，原519项断言全部通过。捕获1,607个不同API操作/流式前缀，完整Source/native输出一致；与前序6组共3,100场景匹配。Python3.8.10定向范围为格式planner、所有已移植历史codec/逻辑和Assistant stream的提供端与消费者，共 **3,118 passed**。凭据见 [v3-logical-checks.json](../../migration/candidates/rc3/v3-logical-checks.json)，原始输出保存在 `.goose/out/rc3-r02-v3-final-20261017/`。
+
+初版capture包装错误返回decoder观测对象，修正为原始数值cut后重跑Source全选；6个native边界差异修复后全部匹配。批处理曾列错restore corpus文件名，该runner-error和先前失败均保留，不覆盖诊断。继续接通当前Session、generation持久化与query/projection，尚未切换writer/pin或运行发行资格。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

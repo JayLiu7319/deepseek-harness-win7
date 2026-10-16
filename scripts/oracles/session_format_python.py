@@ -124,6 +124,47 @@ def catalog(case, observations):
 
 
 def execute(case):
+    if case['kind'] == 'released-v3-logical':
+        from dsh.session import format_v2_to_v3 as v3
+        from dsh.session.format_v2_to_v3 import payload, references
+        operation = case['operation']
+        if operation in ('assertEvent', 'assertV3Event', 'assertV3StructuralRow', 'canonicalizeTransformedEvent', 'isRepairIdentity'):
+            return getattr(payload, operation)(*decode(case['args']))
+        if operation == 'remapEvent':
+            return references.remapEvent(*decode(case['args']))
+        if operation == 'header':
+            return v3.assertReleasedV3Header(decode(case['header']))
+        if operation == 'migrateHeader':
+            return v3.sessionFormatV2ToV3['migrateHeader'](decode(case['header']))
+        if operation == 'restore':
+            return v3.restoreReleasedV3Artifact(decode(case['artifact']), set(case['known']))
+        codec = v3.releasedV3SessionFormatCodec
+        if operation in ('decodeHeader', 'encodeHeader', 'encodeEvent'):
+            args = [decode(case['event'] if operation == 'encodeEvent' else case['header'])]
+            if operation == 'encodeHeader':
+                args.append(decode(case['cut']))
+            return codec[operation](*args)
+        collector = SessionFormatEventCollector()
+        if operation == 'decoder':
+            decoder = codec['createDecoder'](decode(case['header']), case['recovery'])
+            for row in case['rows']:
+                decoder.decodeRow(decode(row), collector)
+            result = dict(header=decoder.header, events=collector.values)
+            if case.get('finish'):
+                result['cut'] = decoder.finish(collector)
+            return result
+        if operation == 'stage':
+            stage = v3.sessionFormatV2ToV3['createStage'](decode(case['input']))
+            result = dict(events=collector.values)
+            for action in case['actions']:
+                if action['method'] == 'finish':
+                    result['cut'] = stage.finish(collector)
+                elif action['method'] == 'transformEvent':
+                    stage.transformEvent(decode(action['event']), collector)
+                else:
+                    stage.transformRun(dict(expand=lambda action=action: iter(decode(action['expanded']))), collector)
+            return result
+        raise ValueError('Unknown v3 operation: ' + operation)
     if case['kind'] == 'assistant-stream':
         from dsh.llm import assistant_stream as stream
         operation = case['operation']

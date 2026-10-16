@@ -1,5 +1,6 @@
 """Released cross-event relationships; open recovery tails are intentionally admitted."""
 from dsh.core.session.json import UNDEFINED
+from dsh.cordis.utils import js_to_string
 from dsh.session.format import SessionFormatError
 from .codec import record
 from .payload import compact, equal_json
@@ -184,7 +185,7 @@ def assertReleasedArtifactRelationships(artifact, extensions=None):
                 error = {} if 'error' not in data else record(data['error'], 'tool/result %s error' % seq)
                 lifecycle = tools.get(call_id)
                 if lifecycle is None:
-                    raise SessionFormatError('tool/result ' + call_id + ' has no advertised tool lifecycle')
+                    raise SessionFormatError('tool/result ' + js_to_string(call_id) + ' has no advertised tool lifecycle')
                 if lifecycle['state'] == 'advertised' and not exact_repair(event, message['content'], error):
                     raise SessionFormatError('tool/result ' + call_id + ' is not the exact TOOL_NOT_STARTED repair')
                 del tools[call_id]
