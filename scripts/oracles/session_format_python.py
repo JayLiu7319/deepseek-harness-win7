@@ -124,6 +124,72 @@ def catalog(case, observations):
 
 
 def execute(case):
+    if case['kind'] == 'assistant-stream':
+        from dsh.llm import assistant_stream as stream
+        operation = case['operation']
+        if operation in ('push', 'snapshot'):
+            accumulator = stream.AssistantStreamAccumulator()
+            result = None
+            for timed in decode(case['timed']):
+                result = accumulator.push(timed)
+            return accumulator.snapshot() if operation == 'snapshot' else result
+        if operation == 'assemble':
+            assembler = stream.assembleAssistantStream(decode(case['stream']))
+            result = dict(blocks=assembler.blocks(), interrupted=assembler.interruptedBlocks(), finish=assembler.finish)
+            if assembler.usage is not UNDEFINED:
+                result['usage'] = assembler.usage
+            if assembler.replayState is not UNDEFINED:
+                result['replayState'] = assembler.replayState
+            return result
+        result = getattr(stream, operation)(*decode(case['args']))
+        return None if result is UNDEFINED else result
+    if case['kind'] == 'released-v2-logical':
+        from dsh.session.format_v0_to_v1 import releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1
+        from dsh.session.format_v1_to_v2 import releasedV2SessionFormatCodec, sessionFormatV1ToV2, assertReleasedV2Header, restoreReleasedV2Artifact
+        from dsh.session.format_v1_to_v2.validation import assertReleasedV2WriterArtifact
+        if case['operation'] == 'stage':
+            stage = sessionFormatV1ToV2['createStage'](decode(case['input']))
+            collector = SessionFormatEventCollector()
+            result = dict(events=collector.values)
+            for action in case['actions']:
+                method = action['method']
+                if method == 'finish':
+                    result['cut'] = stage.finish(collector)
+                elif method == 'transformEvent':
+                    stage.transformEvent(decode(action['event']), collector)
+                elif method == 'transformRun':
+                    run = decode(action['run'])
+                    run['expand'] = lambda action=action: iter(decode(action['expanded']))
+                    stage.transformRun(run, collector)
+                else:
+                    raise ValueError('Unknown stage method: ' + method)
+            return result
+        artifact = decode(case['artifact'])
+        if case['operation'] == 'writer':
+            assertReleasedV2WriterArtifact(artifact)
+            return None
+        if case['operation'] == 'restore':
+            return restoreReleasedV2Artifact(artifact, set(case['known']), case.get('relationshipVersion'))
+        if case['operation'] != 'migrate':
+            raise ValueError('Unknown v2 logical operation: ' + case['operation'])
+        def restore(value):
+            assertReleasedV2WriterArtifact(value)
+            return value
+        compiled = createSessionFormatCatalog(dict(currentVersion=2,
+            codecs=[releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, releasedV2SessionFormatCodec],
+            currentEncoder=releasedV2SessionFormatCodec, migrations=[sessionFormatV0ToV1, sessionFormatV1ToV2],
+            restoreCurrent=restore, restoreTransformedCurrent=restore,
+            restoreCurrentHeader=lambda value: (assertReleasedV2Header(value), value)[1]))
+        source = artifact['header']
+        physical = dict(type='session', version=1, id=source['id'], createdAt=source['createdAt'],
+            delegationDepth=source['delegationDepth'])
+        physical.update({key:source[key] for key in ('cwd', 'parentSession', 'origin', 'agentPreset') if key in source})
+        if source['isSeeded']:
+            physical['seedLength'] = artifact['inheritedEventCount']
+        current = compiled.createRestore(physical, dict(recovery='strict', validation='current'))
+        for row in artifact['events']:
+            current.decodeRow(row)
+        return current.finish()
     if case['kind'] == 'released-logical':
         from dsh.session.format_v0_to_v1.payload import assertReleasedPayloadSemantics
         from dsh.session.format_v0_to_v1 import (assertReleasedEventPayload, assertReleasedArtifactRelationships,
@@ -239,7 +305,7 @@ def observe(case):
     try:
         return dict(case=case['case'], outcome='value', value=execute(case))
     except Exception as error:
-        result = dict(case=case['case'], outcome='error', name=getattr(error, 'name', 'Error'), message=str(error))
+        result = dict(case=case['case'], outcome='error', name=getattr(error, 'name', 'TypeError' if isinstance(error, TypeError) else 'Error'), message=str(error))
         if hasattr(error, 'cause'):
             result['cause'] = str(error.cause)
         return result

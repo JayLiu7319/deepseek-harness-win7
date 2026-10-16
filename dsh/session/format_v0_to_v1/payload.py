@@ -4,13 +4,13 @@ Ported from rc.3 session-format-v0-to-v1/payload-validation.ts. Unknown nested
 owner discriminants remain opaque; known variants have exact member rules.
 """
 import datetime
-import json
 import math
 import re
 
 from dsh.core.session.json import UNDEFINED
 from dsh.cordis.utils import _js_strict_equal, js_to_string
 from dsh.cordis.json_text import stringify_json
+from dsh.cordis.text import trim_js
 from dsh.session.format import SessionFormatError, sessionFormatCount, sessionFormatSafeInteger
 from .codec import record, exact_keys
 
@@ -433,7 +433,7 @@ def goal_change(data, label):
 
 def schedule_id(value, label):
     nonempty(value, label)
-    if value.strip() != value:
+    if trim_js(value) != value:
         raise SessionFormatError(label + ' must not have surrounding whitespace')
 
 

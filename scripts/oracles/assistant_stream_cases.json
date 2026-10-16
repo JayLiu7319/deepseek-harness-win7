@@ -1,0 +1,7579 @@
+[
+  {
+    "case": "push/fbe6aea95316c95a52c7",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/d740bcd3d8780c384903",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/43b31e89f7910bb99b55",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "{"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "{"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/c7d57b4327bda830d34f",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 1011,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1011,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/e641554b787438a9e7a7",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 1011,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 1020,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1020,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "snapshot/e641554b787438a9e7a7",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hel"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "lo"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 1011,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "call-1",
+          "name": "run_code",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 1020,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "text-chunks",
+          "time0": 1000,
+          "index": 0,
+          "dt": [
+            6
+          ],
+          "texts": [
+            "hel",
+            "lo"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1008,
+          "index": 1,
+          "dt": [
+            3
+          ],
+          "id": "call-1",
+          "name": "run_code",
+          "args": [
+            "{",
+            "}"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1020,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/5dcdd23879c4fe982b9f",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1000,
+          "index": 0,
+          "dt": [
+            6
+          ],
+          "texts": [
+            "hel",
+            "lo"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1008,
+          "index": 1,
+          "dt": [
+            3
+          ],
+          "id": "call-1",
+          "name": "run_code",
+          "args": [
+            "{",
+            "}"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1020,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 1000,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hel"
+          }
+        },
+        {
+          "time": 1006,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "lo"
+          }
+        },
+        {
+          "time": 1008,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 1,
+            "id": "call-1",
+            "name": "run_code",
+            "argumentsDelta": "{"
+          }
+        },
+        {
+          "time": 1011,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 1,
+            "id": "call-1",
+            "name": "run_code",
+            "argumentsDelta": "}"
+          }
+        },
+        {
+          "time": 1020,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "push/bee09f6d863877f2273a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/9b9391ff7643b7919024",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "snapshot/9b9391ff7643b7919024",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "text-chunks",
+          "time0": 10,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "push/5dd82b5c34f5f3e2815a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "time": 12,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "b"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 12,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "b"
+        }
+      }
+    }
+  },
+  {
+    "case": "snapshot/5dd82b5c34f5f3e2815a",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "time": 12,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "b"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "text-chunks",
+          "time0": 10,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 12,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "b"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/cb8f16bbe1cba1ed5ce3",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 10,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "a"
+          }
+        },
+        {
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/8d40708f261fc7f06039",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 10,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 12,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "b"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "a"
+          }
+        },
+        {
+          "time": 11,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "time": 12,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "b"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/67f04821fca495eb245d",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 10,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 10,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "push/96563f49fea5a48f71e0",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/f962b22987ae769ce17a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/96ca11859bd17b620c0c",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/e6a80ffa89611ded7ab6",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/74f75191c5535a0c2961",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/10cd70f6e400ff612a9a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/fd99c978abb34c279ad8",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      }
+    }
+  },
+  {
+    "case": "push/f7533fdbeb97a15cdd15",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 8,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "two",
+          "name": "read",
+          "argumentsDelta": "x"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 8,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "two",
+          "name": "read",
+          "argumentsDelta": "x"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/709dc2fae23f252fe199",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 8,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "two",
+          "name": "read",
+          "argumentsDelta": "x"
+        }
+      },
+      {
+        "time": 9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "far"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "far"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/50c885bdac5f7cedd3da",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 8,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "two",
+          "name": "read",
+          "argumentsDelta": "x"
+        }
+      },
+      {
+        "time": 9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "far"
+        }
+      },
+      {
+        "time": -9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "apart"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": -9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "apart"
+        }
+      }
+    }
+  },
+  {
+    "case": "snapshot/50c885bdac5f7cedd3da",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r1"
+        }
+      },
+      {
+        "time": 2,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "r2"
+        }
+      },
+      {
+        "time": 3,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "a"
+        }
+      },
+      {
+        "time": 4,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "b"
+        }
+      },
+      {
+        "time": 5,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "{"
+        }
+      },
+      {
+        "time": 6,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "argumentsDelta": "}"
+        }
+      },
+      {
+        "time": 7,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "one",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 8,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 1,
+          "id": "two",
+          "name": "read",
+          "argumentsDelta": "x"
+        }
+      },
+      {
+        "time": 9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "far"
+        }
+      },
+      {
+        "time": -9007199254740991,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "apart"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "reasoning-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "r1",
+            "r2"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 3,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 4,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "b"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 5,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "one",
+          "args": [
+            "{",
+            "}"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 7,
+          "index": 0,
+          "dt": [],
+          "id": "one",
+          "name": "read",
+          "args": [
+            ""
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 8,
+          "index": 1,
+          "dt": [],
+          "id": "two",
+          "name": "read",
+          "args": [
+            "x"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 9007199254740991,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "far"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": -9007199254740991,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "apart"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/88ad24385d1f5d8b6ee5",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "reasoning-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "r1",
+            "r2"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 3,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 4,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "b"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 5,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "one",
+          "args": [
+            "{",
+            "}"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 7,
+          "index": 0,
+          "dt": [],
+          "id": "one",
+          "name": "read",
+          "args": [
+            ""
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 8,
+          "index": 1,
+          "dt": [],
+          "id": "two",
+          "name": "read",
+          "args": [
+            "x"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": 9007199254740991,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "far"
+          ]
+        },
+        {
+          "type": "text-chunks",
+          "time0": -9007199254740991,
+          "index": 1,
+          "dt": [],
+          "texts": [
+            "apart"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 1,
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "r1"
+          }
+        },
+        {
+          "time": 2,
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "r2"
+          }
+        },
+        {
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "a"
+          }
+        },
+        {
+          "time": 4,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "b"
+          }
+        },
+        {
+          "time": 5,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "one",
+            "argumentsDelta": "{"
+          }
+        },
+        {
+          "time": 6,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "one",
+            "argumentsDelta": "}"
+          }
+        },
+        {
+          "time": 7,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "one",
+            "name": "read",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "time": 8,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 1,
+            "id": "two",
+            "name": "read",
+            "argumentsDelta": "x"
+          }
+        },
+        {
+          "time": 9007199254740991,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "far"
+          }
+        },
+        {
+          "time": -9007199254740991,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "apart"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "push/a19d8a2ff3a5c6180fa6",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 0.5,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream time must be a safe integer, got 0.5"
+    }
+  },
+  {
+    "case": "push/33012aa08ff5ee9db11a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "text-delta",
+          "index": -1,
+          "text": "bad"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-delta index must be a non-negative safe integer"
+    }
+  },
+  {
+    "case": "push/e59006e6e81c5000c66d",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": 1
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-delta text must be a string"
+    }
+  },
+  {
+    "case": "push/f3dc4821aa4ddd6112a4",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/fcd9dfae3a2d74fcf7b5",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/9f137e1d623b9121f87a",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": 1,
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-delta id must be a string"
+    }
+  },
+  {
+    "case": "push/93b6fcf263ad5381f368",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": 1,
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-delta name must be a string"
+    }
+  },
+  {
+    "case": "push/5146484f6abe645e2b3d",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "argumentsDelta": 1
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-delta argumentsDelta must be a string"
+    }
+  },
+  {
+    "case": "push/ba843f6749ea26fb8ef6",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "future"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "Error",
+      "message": "unreachable variant in AssistantStreamAccumulator.push: {\"type\":\"future\"}"
+    }
+  },
+  {
+    "case": "snapshot/fcd9dfae3a2d74fcf7b5",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": "{}"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/4e30a9105bc06c06ce3d",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": "{}"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": "{}"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/2934a6a598034bf64e9d",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        null
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream record must be an object"
+    }
+  },
+  {
+    "case": "expandAssistantStream/130a2f27d9d15c217870",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        []
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream record must be an object"
+    }
+  },
+  {
+    "case": "expandAssistantStream/b375bb6f8ecac2af6cc3",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "future"
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Unsupported Assistant stream record \"future\""
+    }
+  },
+  {
+    "case": "expandAssistantStream/e46119b28853430a8129",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [],
+          "texts": []
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks texts must be non-empty"
+    }
+  },
+  {
+    "case": "expandAssistantStream/4d5489adbdd647a86a52",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "reasoning-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            1
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "reasoning-chunks texts must be a string array"
+    }
+  },
+  {
+    "case": "expandAssistantStream/80749d6673bb51ff3140",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 0.5,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream time must be a safe integer, got 0.5"
+    }
+  },
+  {
+    "case": "expandAssistantStream/879f3b331bff4b0f15d8",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": {
+            "$scalar": "-0"
+          },
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks index must be a non-negative safe integer"
+    }
+  },
+  {
+    "case": "expandAssistantStream/0f215a878ee84bee0f23",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": -1,
+          "dt": [],
+          "texts": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks index must be a non-negative safe integer"
+    }
+  },
+  {
+    "case": "expandAssistantStream/43d0cb594e619c0e9e8c",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [
+            0.5
+          ],
+          "texts": [
+            "a",
+            "b"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks dt must contain safe integers"
+    }
+  },
+  {
+    "case": "expandAssistantStream/1c30b9757cbdc148913d",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks dt length must be one less than its members"
+    }
+  },
+  {
+    "case": "expandAssistantStream/85ec09cb6138869fdb93",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 9007199254740991,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "a",
+            "b"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks member times must stay safe integers"
+    }
+  },
+  {
+    "case": "expandAssistantStream/cfa61eaceab60fd05aac",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "tool-call-chunks",
+          "time0": 1,
+          "index": 0,
+          "id": "",
+          "dt": [],
+          "args": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-chunks id must be a non-empty string"
+    }
+  },
+  {
+    "case": "expandAssistantStream/effa11d561120ca72998",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "tool-call-chunks",
+          "time0": 1,
+          "index": 0,
+          "id": "id",
+          "name": "",
+          "dt": [],
+          "args": [
+            "a"
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-chunks name must be a non-empty string"
+    }
+  },
+  {
+    "case": "expandAssistantStream/3a4cf504978d1d5ea086",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "tool-call-chunks",
+          "time0": 1,
+          "index": 0,
+          "id": "id",
+          "dt": [],
+          "args": []
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-chunks args must be non-empty"
+    }
+  },
+  {
+    "case": "expandAssistantStream/147b30aed19f64ccaded",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "tool-call-chunks",
+          "time0": 1,
+          "index": 0,
+          "id": "id",
+          "dt": [],
+          "args": [
+            1
+          ]
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "tool-call-chunks args must be a string array"
+    }
+  },
+  {
+    "case": "expandAssistantStream/d012310a86bd790f82c7",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 0.5,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream time must be a safe integer, got 0.5"
+    }
+  },
+  {
+    "case": "expandAssistantStream/bfce8ab797f9ca5216c6",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": null
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream raw chunk must be a lossless JSON object"
+    }
+  },
+  {
+    "case": "expandAssistantStream/0b467452de2b0731bebc",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": []
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream raw chunk must be a lossless JSON object"
+    }
+  },
+  {
+    "case": "expandAssistantStream/3cf45c862a7e44cd8d4f",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "future",
+            "bad": {
+              "$scalar": "undefined"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "Assistant stream raw chunk must be a lossless JSON object",
+      "cause": "Assistant stream chunk must be losslessly JSON-serializable"
+    }
+  },
+  {
+    "case": "expandAssistantStream/7ab09a72c92a7bf0aebb",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "text-chunks",
+          "time0": 1,
+          "index": 0,
+          "dt": [],
+          "texts": [
+            "a"
+          ],
+          "extra": true
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "text-chunks Assistant stream record must contain exactly type, time0, index, dt, texts"
+    }
+  },
+  {
+    "case": "expandAssistantStream/97036d5c83f315ac4ecb",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          },
+          "extra": true
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "error",
+      "name": "TypeError",
+      "message": "chunk Assistant stream record must contain exactly type, time, chunk"
+    }
+  },
+  {
+    "case": "isTokenDelta/bd0d6ffea71fecbe6d57",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": " "
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isTokenDelta/2af62ead15729a7bcfab",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": ""
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/8d49e66f474bb444762b",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "reasoning-delta",
+        "index": 0,
+        "text": "r"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isTokenDelta/48eeb9c6ea5d1c4ef716",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "reasoning-delta",
+        "index": 0,
+        "text": ""
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/2e2165cbb0a72254557f",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "tool-call-delta",
+        "index": 0,
+        "id": "c",
+        "argumentsDelta": "{"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isTokenDelta/5361ff5bf6b5a707f0ac",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "tool-call-delta",
+        "index": 0,
+        "id": "c",
+        "argumentsDelta": ""
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/85320de1772f1025245e",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "tool-call-delta",
+        "index": 0,
+        "id": "c",
+        "name": "read",
+        "argumentsDelta": ""
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isTokenDelta/231e3b0408c57a092e36",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "tool-call-delta",
+        "index": 0,
+        "id": "c",
+        "name": "",
+        "argumentsDelta": ""
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isTokenDelta/50992603388c58dd7b45",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "text"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/19d46e514bf68b8aa406",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "text",
+          "text": "x"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/f1a1b26f7729b91aa4ad",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "usage",
+        "usage": {
+          "inputTokens": 1,
+          "outputTokens": 1
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isTokenDelta/c0c6252dceb2bb3b3590",
+    "kind": "assistant-stream",
+    "operation": "isTokenDelta",
+    "args": [
+      {
+        "type": "finish",
+        "reason": {
+          "kind": "stop"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/4687727b7b027d62ceb5",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": " \t\n"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/0bb11a0ca63a91a7b358",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": " x"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isVisibleChunk/c27087d558c3309b93f7",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "reasoning-delta",
+        "index": 0,
+        "text": "\u00a0"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/8d49e66f474bb444762b",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "reasoning-delta",
+        "index": 0,
+        "text": "r"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isVisibleChunk/50992603388c58dd7b45",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "text"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/a2fba882cf758cbdd2af",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "reasoning"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/08b6a47d32dce0074ad0",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "tool-call"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/873d4abdf382d19d6a29",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "image"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isVisibleChunk/067c7fbe003768226a5e",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "text",
+          "text": "  "
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/d41d7bc91211434a00c9",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "reasoning",
+          "text": "why"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isVisibleChunk/be41dd87672100348060",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "tool-call",
+          "id": "c",
+          "name": "read",
+          "arguments": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/9cc74b62adeac05623d8",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "image",
+          "attachment": {}
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "isVisibleChunk/a842f96ea134e2d36df7",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "tool-call-delta",
+        "index": 0,
+        "id": "c",
+        "name": "read",
+        "argumentsDelta": "{}"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/f1a1b26f7729b91aa4ad",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "usage",
+        "usage": {
+          "inputTokens": 1,
+          "outputTokens": 1
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "isVisibleChunk/c0c6252dceb2bb3b3590",
+    "kind": "assistant-stream",
+    "operation": "isVisibleChunk",
+    "args": [
+      {
+        "type": "finish",
+        "reason": {
+          "kind": "stop"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/3c661d2cb1faa3304b32",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": "a"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/ab051a6f3026e6458f72",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "text-delta",
+        "index": 0,
+        "text": "\r\n"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/92032d4ada33ff70ac7a",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "reasoning-delta",
+        "index": 0,
+        "text": "a"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/8436a3b32fc545bf0b8d",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "text",
+          "text": " a "
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/ec14b1ebd8fb0ef7b9ed",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/cdd632435c00b8cb310e",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "block-end",
+        "index": 0,
+        "block": {
+          "type": "reasoning",
+          "text": "a"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/50992603388c58dd7b45",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "block-start",
+        "index": 0,
+        "blockType": "text"
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "chunkHasVisibleText/c0c6252dceb2bb3b3590",
+    "kind": "assistant-stream",
+    "operation": "chunkHasVisibleText",
+    "args": [
+      {
+        "type": "finish",
+        "reason": {
+          "kind": "stop"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "runFirstTokenTime/42dcde85ae41801b78d4",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "text-chunks",
+        "time0": 1000,
+        "index": 0,
+        "dt": [
+          5,
+          -3,
+          10
+        ],
+        "texts": [
+          "",
+          "",
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 1002
+    }
+  },
+  {
+    "case": "runFirstTokenTime/59a16f14060e3f0ba639",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "text-chunks",
+        "time0": 1000,
+        "index": 0,
+        "dt": [
+          5
+        ],
+        "texts": [
+          "a",
+          "b"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 1000
+    }
+  },
+  {
+    "case": "runFirstTokenTime/f971497ea9e48357bc9c",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "reasoning-chunks",
+        "time0": 7,
+        "index": 0,
+        "dt": [
+          1,
+          1
+        ],
+        "texts": [
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "runFirstTokenTime/299366ae79979b7f76ce",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "tool-call-chunks",
+        "time0": 50,
+        "index": 0,
+        "dt": [
+          2,
+          2
+        ],
+        "id": "call",
+        "args": [
+          "",
+          "",
+          "{"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 54
+    }
+  },
+  {
+    "case": "runFirstTokenTime/fb01a55de7f8de7e9823",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "tool-call-chunks",
+        "time0": 50,
+        "index": 0,
+        "dt": [
+          2
+        ],
+        "id": "call",
+        "args": [
+          "",
+          ""
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "runFirstTokenTime/e9b22400854355abde9b",
+    "kind": "assistant-stream",
+    "operation": "runFirstTokenTime",
+    "args": [
+      {
+        "type": "tool-call-chunks",
+        "time0": 50,
+        "index": 0,
+        "dt": [
+          2
+        ],
+        "id": "call",
+        "name": "read",
+        "args": [
+          "",
+          ""
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 50
+    }
+  },
+  {
+    "case": "runFirstVisibleTime/cca8953fa1e0a51211d9",
+    "kind": "assistant-stream",
+    "operation": "runFirstVisibleTime",
+    "args": [
+      {
+        "type": "text-chunks",
+        "time0": 1000,
+        "index": 0,
+        "dt": [
+          5,
+          1,
+          1
+        ],
+        "texts": [
+          "",
+          "   ",
+          "\t",
+          "answer"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 1007
+    }
+  },
+  {
+    "case": "runFirstVisibleTime/d130ec8417e4874991bc",
+    "kind": "assistant-stream",
+    "operation": "runFirstVisibleTime",
+    "args": [
+      {
+        "type": "reasoning-chunks",
+        "time0": 20,
+        "index": 0,
+        "dt": [
+          3
+        ],
+        "texts": [
+          " ",
+          "think"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 23
+    }
+  },
+  {
+    "case": "runFirstVisibleTime/b441d9f5ab9df4c76af8",
+    "kind": "assistant-stream",
+    "operation": "runFirstVisibleTime",
+    "args": [
+      {
+        "type": "text-chunks",
+        "time0": 20,
+        "index": 0,
+        "dt": [
+          3
+        ],
+        "texts": [
+          " ",
+          "\n"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "runFirstVisibleTime/2c65600a9df8e5dcc589",
+    "kind": "assistant-stream",
+    "operation": "runFirstVisibleTime",
+    "args": [
+      {
+        "type": "tool-call-chunks",
+        "time0": 20,
+        "index": 0,
+        "dt": [
+          3
+        ],
+        "id": "call",
+        "name": "read",
+        "args": [
+          "{\"x\":",
+          "1}"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "assistantStreamFirstTokenTime/5817d92bc671b9e3c660",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamFirstTokenTime",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 103
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleContent/5817d92bc671b9e3c660",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleContent",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleText/5817d92bc671b9e3c660",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "lastAssistantStreamChunk/32dd7513ae66e1052c05",
+    "kind": "assistant-stream",
+    "operation": "lastAssistantStreamChunk",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ],
+      "usage"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "type": "usage",
+        "usage": {
+          "inputTokens": 10,
+          "outputTokens": 9
+        }
+      }
+    }
+  },
+  {
+    "case": "lastAssistantStreamChunk/6768e16c4f069af4c194",
+    "kind": "assistant-stream",
+    "operation": "lastAssistantStreamChunk",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ],
+      "finish"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "type": "finish",
+        "reason": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "lastAssistantStreamChunk/019f9f48dc46cb462991",
+    "kind": "assistant-stream",
+    "operation": "lastAssistantStreamChunk",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ],
+      "block-start"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "type": "block-start",
+        "index": 1,
+        "blockType": "text"
+      }
+    }
+  },
+  {
+    "case": "assistantStreamChunks/e124a2726357da9a2429",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamChunks",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ],
+      "block-end"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": " think"
+          }
+        },
+        {
+          "type": "block-end",
+          "index": 1,
+          "block": {
+            "type": "text",
+            "text": "\nanswer"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "assistantStreamChunks/32dd7513ae66e1052c05",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamChunks",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ],
+      "usage"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 10,
+            "outputTokens": 4
+          }
+        },
+        {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 10,
+            "outputTokens": 9
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "joinAssistantStreamText/5817d92bc671b9e3c660",
+    "kind": "assistant-stream",
+    "operation": "joinAssistantStreamText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 100,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 101,
+          "index": 0,
+          "dt": [
+            2,
+            2
+          ],
+          "texts": [
+            "",
+            " ",
+            "think"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 106,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": " think"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 107,
+          "chunk": {
+            "type": "block-start",
+            "index": 1,
+            "blockType": "text"
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 108,
+          "index": 1,
+          "dt": [
+            1,
+            1
+          ],
+          "texts": [
+            "\n",
+            "ans",
+            "wer"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 111,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": "\nanswer"
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 112,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 4
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 113,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 10,
+              "outputTokens": 9
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 114,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": "\nanswer"
+    }
+  },
+  {
+    "case": "assistantStreamFirstTokenTime/4fa4553a763ccc3331ec",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamFirstTokenTime",
+    "args": [
+      []
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "assistantStreamFirstTokenTime/1c0e576aa530cb4fecb8",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamFirstTokenTime",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 2
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleContent/4fa4553a763ccc3331ec",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleContent",
+    "args": [
+      []
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleContent/1c0e576aa530cb4fecb8",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleContent",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleText/4fa4553a763ccc3331ec",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleText",
+    "args": [
+      []
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleText/1c0e576aa530cb4fecb8",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "lastAssistantStreamChunk/1fb34bf5de4a940171b1",
+    "kind": "assistant-stream",
+    "operation": "lastAssistantStreamChunk",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ],
+      "usage"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "lastAssistantStreamChunk/60aad73b31cc00cdb166",
+    "kind": "assistant-stream",
+    "operation": "lastAssistantStreamChunk",
+    "args": [
+      [],
+      "finish"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "assistantStreamChunks/1fb34bf5de4a940171b1",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamChunks",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ],
+      "usage"
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": []
+    }
+  },
+  {
+    "case": "joinAssistantStreamText/1c0e576aa530cb4fecb8",
+    "kind": "assistant-stream",
+    "operation": "joinAssistantStreamText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "tool-call"
+          }
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 2,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "id": "call",
+          "name": "read",
+          "args": [
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "tool-call",
+              "id": "call",
+              "name": "read",
+              "arguments": ""
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 5,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            " ",
+            "\t"
+          ]
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 7,
+          "index": 2,
+          "dt": [],
+          "texts": [
+            "  "
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 8,
+          "chunk": {
+            "type": "block-end",
+            "index": 1,
+            "block": {
+              "type": "text",
+              "text": " \t"
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": " \t"
+    }
+  },
+  {
+    "case": "joinAssistantStreamText/4fa4553a763ccc3331ec",
+    "kind": "assistant-stream",
+    "operation": "joinAssistantStreamText",
+    "args": [
+      []
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": ""
+    }
+  },
+  {
+    "case": "assistantStreamFirstTokenTime/1746dbfe7fb4027cb256",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamFirstTokenTime",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "raw"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": 2
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleContent/1746dbfe7fb4027cb256",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleContent",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "raw"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleContent/e48efc42d3d4eb042720",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleContent",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleText/1746dbfe7fb4027cb256",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "raw"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": true
+    }
+  },
+  {
+    "case": "assistantStreamHasVisibleText/e48efc42d3d4eb042720",
+    "kind": "assistant-stream",
+    "operation": "assistantStreamHasVisibleText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": false
+    }
+  },
+  {
+    "case": "joinAssistantStreamText/1746dbfe7fb4027cb256",
+    "kind": "assistant-stream",
+    "operation": "joinAssistantStreamText",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 2,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 0,
+            "id": "call",
+            "name": "",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 3,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": " "
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 4,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "raw"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": " raw"
+    }
+  },
+  {
+    "case": "push/b6f1c75313f56098e1a8",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/33384d1884c3c1ca2a9e",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/7a225cbc806ad2d3943b",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/b87215d65644c82499c4",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "push/7448651820dea9fac649",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/f495ef57f2d03fd18b99",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/5ada25f131f7dba43865",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      }
+    }
+  },
+  {
+    "case": "push/0e37ff3d398af55e9319",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/32d562c9f59b7fd15b49",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/6bbbab35efaaa1d1a5fa",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      },
+      {
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    }
+  },
+  {
+    "case": "push/807920f179834b3b543e",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      },
+      {
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1010,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1010,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "push/4d40533cee6f7516d45e",
+    "kind": "assistant-stream",
+    "operation": "push",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      },
+      {
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1010,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "time": 1011,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "tool-calls"
+          },
+          "replayState": {
+            "response": {
+              "id": "r"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "time": 1011,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "tool-calls"
+          },
+          "replayState": {
+            "response": {
+              "id": "r"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "snapshot/4d40533cee6f7516d45e",
+    "kind": "assistant-stream",
+    "operation": "snapshot",
+    "timed": [
+      {
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "time": 1001,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "th"
+        }
+      },
+      {
+        "time": 1002,
+        "chunk": {
+          "type": "reasoning-delta",
+          "index": 0,
+          "text": "ink"
+        }
+      },
+      {
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "time": 1004,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "an"
+        }
+      },
+      {
+        "time": 1005,
+        "chunk": {
+          "type": "text-delta",
+          "index": 1,
+          "text": "swer"
+        }
+      },
+      {
+        "time": 1006,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "name": "read",
+          "argumentsDelta": ""
+        }
+      },
+      {
+        "time": 1007,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "{\"path\":"
+        }
+      },
+      {
+        "time": 1008,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 2,
+          "id": "call-1",
+          "argumentsDelta": "\"a\"}"
+        }
+      },
+      {
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "time": 1010,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "time": 1011,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "tool-calls"
+          },
+          "replayState": {
+            "response": {
+              "id": "r"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "type": "chunk",
+          "time": 1000,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 1001,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "th",
+            "ink"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1003,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": "think"
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 1004,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "an",
+            "swer"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1006,
+          "index": 2,
+          "dt": [],
+          "id": "call-1",
+          "name": "read",
+          "args": [
+            ""
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1007,
+          "index": 2,
+          "dt": [
+            1
+          ],
+          "id": "call-1",
+          "args": [
+            "{\"path\":",
+            "\"a\"}"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1009,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 3,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1010,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1011,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "tool-calls"
+            },
+            "replayState": {
+              "response": {
+                "id": "r"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "expandAssistantStream/943fc193db0086783dc5",
+    "kind": "assistant-stream",
+    "operation": "expandAssistantStream",
+    "args": [
+      [
+        {
+          "type": "chunk",
+          "time": 1000,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "type": "reasoning-chunks",
+          "time0": 1001,
+          "index": 0,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "th",
+            "ink"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1003,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": "think"
+            }
+          }
+        },
+        {
+          "type": "text-chunks",
+          "time0": 1004,
+          "index": 1,
+          "dt": [
+            1
+          ],
+          "texts": [
+            "an",
+            "swer"
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1006,
+          "index": 2,
+          "dt": [],
+          "id": "call-1",
+          "name": "read",
+          "args": [
+            ""
+          ]
+        },
+        {
+          "type": "tool-call-chunks",
+          "time0": 1007,
+          "index": 2,
+          "dt": [
+            1
+          ],
+          "id": "call-1",
+          "args": [
+            "{\"path\":",
+            "\"a\"}"
+          ]
+        },
+        {
+          "type": "chunk",
+          "time": 1009,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 3,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1010,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "type": "chunk",
+          "time": 1011,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "tool-calls"
+            },
+            "replayState": {
+              "response": {
+                "id": "r"
+              }
+            }
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": [
+        {
+          "time": 1000,
+          "chunk": {
+            "type": "block-start",
+            "index": 0,
+            "blockType": "reasoning"
+          }
+        },
+        {
+          "time": 1001,
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "th"
+          }
+        },
+        {
+          "time": 1002,
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "ink"
+          }
+        },
+        {
+          "time": 1003,
+          "chunk": {
+            "type": "block-end",
+            "index": 0,
+            "block": {
+              "type": "reasoning",
+              "text": "think"
+            }
+          }
+        },
+        {
+          "time": 1004,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "an"
+          }
+        },
+        {
+          "time": 1005,
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "swer"
+          }
+        },
+        {
+          "time": 1006,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 2,
+            "id": "call-1",
+            "name": "read",
+            "argumentsDelta": ""
+          }
+        },
+        {
+          "time": 1007,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 2,
+            "id": "call-1",
+            "argumentsDelta": "{\"path\":"
+          }
+        },
+        {
+          "time": 1008,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 2,
+            "id": "call-1",
+            "argumentsDelta": "\"a\"}"
+          }
+        },
+        {
+          "time": 1009,
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 3,
+            "id": "",
+            "argumentsDelta": "{}"
+          }
+        },
+        {
+          "time": 1010,
+          "chunk": {
+            "type": "usage",
+            "usage": {
+              "inputTokens": 3,
+              "outputTokens": 2
+            }
+          }
+        },
+        {
+          "time": 1011,
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "tool-calls"
+            },
+            "replayState": {
+              "response": {
+                "id": "r"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "assemble/ea5c78661a41ea86635b",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1000,
+        "index": 0,
+        "dt": [
+          6
+        ],
+        "texts": [
+          "hel",
+          "lo"
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 1008,
+        "index": 1,
+        "dt": [
+          3
+        ],
+        "id": "call-1",
+        "name": "run_code",
+        "args": [
+          "{",
+          "}"
+        ]
+      },
+      {
+        "type": "chunk",
+        "time": 1020,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "hello"
+          },
+          {
+            "type": "tool-call",
+            "id": "call-1",
+            "name": "run_code",
+            "arguments": "{}"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/f1d9c3ebe7032ef588d9",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 10,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "a"
+        ]
+      },
+      {
+        "type": "chunk",
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "a"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "a"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        },
+        "usage": {
+          "inputTokens": 3,
+          "outputTokens": 2
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/fb39293953c39cbb6a22",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 10,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "a"
+        ]
+      },
+      {
+        "type": "chunk",
+        "time": 11,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "type": "text-chunks",
+        "time0": 12,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "b"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "ab"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "ab"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        },
+        "usage": {
+          "inputTokens": 3,
+          "outputTokens": 2
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/e9b8950062a8bef829fc",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "chunk",
+        "time": 10,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [],
+        "interrupted": [],
+        "finish": {
+          "kind": "stop"
+        },
+        "usage": {
+          "inputTokens": 3,
+          "outputTokens": 2
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/8716c11c45aa298e7ef8",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "reasoning-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [
+          1
+        ],
+        "texts": [
+          "r1",
+          "r2"
+        ]
+      },
+      {
+        "type": "text-chunks",
+        "time0": 3,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "a"
+        ]
+      },
+      {
+        "type": "text-chunks",
+        "time0": 4,
+        "index": 1,
+        "dt": [],
+        "texts": [
+          "b"
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 5,
+        "index": 0,
+        "dt": [
+          1
+        ],
+        "id": "one",
+        "args": [
+          "{",
+          "}"
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 7,
+        "index": 0,
+        "dt": [],
+        "id": "one",
+        "name": "read",
+        "args": [
+          ""
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 8,
+        "index": 1,
+        "dt": [],
+        "id": "two",
+        "name": "read",
+        "args": [
+          "x"
+        ]
+      },
+      {
+        "type": "text-chunks",
+        "time0": 9007199254740991,
+        "index": 1,
+        "dt": [],
+        "texts": [
+          "far"
+        ]
+      },
+      {
+        "type": "text-chunks",
+        "time0": -9007199254740991,
+        "index": 1,
+        "dt": [],
+        "texts": [
+          "apart"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "reasoning",
+            "text": "r1r2a"
+          },
+          {
+            "type": "text",
+            "text": "bfarapart"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "reasoning",
+            "text": "r1r2a"
+          },
+          {
+            "type": "text",
+            "text": "bfarapart"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/a7cdac81df97750fcba4",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "chunk",
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "type": "chunk",
+        "time": 1,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 0,
+          "id": "call",
+          "name": "",
+          "argumentsDelta": "{}"
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "tool-call",
+            "id": "call",
+            "name": "",
+            "arguments": "{}{}"
+          }
+        ],
+        "interrupted": [],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/5c00c1766c14fdee6989",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "chunk",
+        "time": 1000,
+        "chunk": {
+          "type": "block-start",
+          "index": 0,
+          "blockType": "reasoning"
+        }
+      },
+      {
+        "type": "reasoning-chunks",
+        "time0": 1001,
+        "index": 0,
+        "dt": [
+          1
+        ],
+        "texts": [
+          "th",
+          "ink"
+        ]
+      },
+      {
+        "type": "chunk",
+        "time": 1003,
+        "chunk": {
+          "type": "block-end",
+          "index": 0,
+          "block": {
+            "type": "reasoning",
+            "text": "think"
+          }
+        }
+      },
+      {
+        "type": "text-chunks",
+        "time0": 1004,
+        "index": 1,
+        "dt": [
+          1
+        ],
+        "texts": [
+          "an",
+          "swer"
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 1006,
+        "index": 2,
+        "dt": [],
+        "id": "call-1",
+        "name": "read",
+        "args": [
+          ""
+        ]
+      },
+      {
+        "type": "tool-call-chunks",
+        "time0": 1007,
+        "index": 2,
+        "dt": [
+          1
+        ],
+        "id": "call-1",
+        "args": [
+          "{\"path\":",
+          "\"a\"}"
+        ]
+      },
+      {
+        "type": "chunk",
+        "time": 1009,
+        "chunk": {
+          "type": "tool-call-delta",
+          "index": 3,
+          "id": "",
+          "argumentsDelta": "{}"
+        }
+      },
+      {
+        "type": "chunk",
+        "time": 1010,
+        "chunk": {
+          "type": "usage",
+          "usage": {
+            "inputTokens": 3,
+            "outputTokens": 2
+          }
+        }
+      },
+      {
+        "type": "chunk",
+        "time": 1011,
+        "chunk": {
+          "type": "finish",
+          "reason": {
+            "kind": "tool-calls"
+          },
+          "replayState": {
+            "response": {
+              "id": "r"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "reasoning",
+            "text": "think"
+          },
+          {
+            "type": "text",
+            "text": "answer"
+          },
+          {
+            "type": "tool-call",
+            "id": "call-1",
+            "name": "read",
+            "arguments": "{\"path\":\"a\"}"
+          },
+          {
+            "type": "tool-call",
+            "id": "",
+            "name": "",
+            "arguments": "{}"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "reasoning",
+            "text": "think"
+          },
+          {
+            "type": "text",
+            "text": "answer"
+          }
+        ],
+        "finish": {
+          "kind": "tool-calls"
+        },
+        "usage": {
+          "inputTokens": 3,
+          "outputTokens": 2
+        },
+        "replayState": {
+          "response": {
+            "id": "r"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-0",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "\ufeff"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "\ufeff"
+          }
+        ],
+        "interrupted": [],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-1",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "\u0085"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "\u0085"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "\u0085"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-2",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "\u001c"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "\u001c"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "\u001c"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-3",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "\u00a0"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "\u00a0"
+          }
+        ],
+        "interrupted": [],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-4",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "\u2003"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "\u2003"
+          }
+        ],
+        "interrupted": [],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  },
+  {
+    "case": "assemble/whitespace-5",
+    "kind": "assistant-stream",
+    "operation": "assemble",
+    "stream": [
+      {
+        "type": "text-chunks",
+        "time0": 1,
+        "index": 0,
+        "dt": [],
+        "texts": [
+          "x"
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": "value",
+      "value": {
+        "blocks": [
+          {
+            "type": "text",
+            "text": "x"
+          }
+        ],
+        "interrupted": [
+          {
+            "type": "text",
+            "text": "x"
+          }
+        ],
+        "finish": {
+          "kind": "stop"
+        }
+      }
+    }
+  }
+]

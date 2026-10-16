@@ -20910,5 +20910,87 @@
       "outcome": "value",
       "value": null
     }
+  },
+  {
+    "case": "schedule-id/whitespace-0",
+    "kind": "released-logical",
+    "operation": "payload",
+    "version": 1,
+    "event": {
+      "type": "schedule/change",
+      "seq": 3,
+      "time": 4,
+      "data": {
+        "version": 1,
+        "operation": "delete",
+        "id": "\ufeffschedule"
+      }
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError",
+      "message": "schedule/change 3 id must not have surrounding whitespace"
+    }
+  },
+  {
+    "case": "schedule-id/whitespace-1",
+    "kind": "released-logical",
+    "operation": "payload",
+    "version": 1,
+    "event": {
+      "type": "schedule/change",
+      "seq": 3,
+      "time": 4,
+      "data": {
+        "version": 1,
+        "operation": "delete",
+        "id": "\u0085schedule"
+      }
+    },
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "schedule-id/whitespace-2",
+    "kind": "released-logical",
+    "operation": "payload",
+    "version": 1,
+    "event": {
+      "type": "schedule/change",
+      "seq": 3,
+      "time": 4,
+      "data": {
+        "version": 1,
+        "operation": "delete",
+        "id": "\u001cschedule"
+      }
+    },
+    "expected": {
+      "outcome": "value",
+      "value": null
+    }
+  },
+  {
+    "case": "schedule-id/whitespace-3",
+    "kind": "released-logical",
+    "operation": "payload",
+    "version": 1,
+    "event": {
+      "type": "schedule/change",
+      "seq": 3,
+      "time": 4,
+      "data": {
+        "version": 1,
+        "operation": "delete",
+        "id": "\u00a0schedule"
+      }
+    },
+    "expected": {
+      "outcome": "error",
+      "name": "SessionFormatError",
+      "message": "schedule/change 3 id must not have surrounding whitespace"
+    }
   }
 ]

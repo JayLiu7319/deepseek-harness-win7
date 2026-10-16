@@ -10,6 +10,9 @@ const v2 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session
 const released = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/index.ts')).href)
 const releasedValidation = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/validation.ts')).href)
 const releasedRestore = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v0-to-v1/src/testing/restore.ts')).href)
+const releasedV2 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/index.ts')).href)
+const v2Writer = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v1-to-v2/src/testing/validation.ts')).href)
+const assistantStream = await import(pathToFileURL(join(resolve(sourceArg), 'packages/llm/llm/src/assistant-stream.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -90,6 +93,51 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if (kind === 'assistant-stream') {
+    if(test.operation==='push'||test.operation==='snapshot') {
+      const accumulator=new assistantStream.AssistantStreamAccumulator()
+      let result=null
+      for(const timed of decode(test.timed)) result=accumulator.push(timed)
+      return test.operation==='snapshot'?accumulator.snapshot():result
+    }
+    if(test.operation==='assemble') {
+      const assembler=assistantStream.assembleAssistantStream(decode(test.stream))
+      return {blocks:assembler.blocks(),interrupted:assembler.interruptedBlocks(),finish:assembler.finish,
+        ...(assembler.usage===undefined?{}:{usage:assembler.usage}),...(assembler.replayState===undefined?{}:{replayState:assembler.replayState})}
+    }
+    return assistantStream[test.operation](...decode(test.args))??null
+  }
+  if (kind === 'released-v2-logical') {
+    if(test.operation==='stage') {
+      const stage=releasedV2.sessionFormatV1ToV2.createStage(decode(test.input)), collector=new api.SessionFormatEventCollector()
+      const result: any={events:collector.values}
+      for(const action of test.actions) {
+        if(action.method==='finish') result.cut=stage.finish(collector)
+        else if(action.method==='transformEvent') stage.transformEvent(decode(action.event),collector)
+        else if(action.method==='transformRun') stage.transformRun({...decode(action.run),*expand(){yield*decode(action.expanded)}},collector)
+        else throw new Error('Unknown stage method: '+action.method)
+      }
+      result.events=collector.values
+      return result
+    }
+    const artifact = decode(test.artifact)
+    if (test.operation === 'writer') { v2Writer.assertReleasedV2Artifact(artifact); return null }
+    if (test.operation === 'restore') return releasedV2.restoreReleasedV2Artifact(artifact, new Set(test.known), test.relationshipVersion)
+    if (test.operation !== 'migrate') throw new Error('Unknown v2 logical operation: ' + test.operation)
+    const restore = (value: any) => { v2Writer.assertReleasedV2Artifact(value); return value }
+    const catalog = api.createSessionFormatCatalog({currentVersion:2,
+      codecs:[old.releasedV0SessionFormatCodec,old.releasedV1SessionFormatCodec,v2.releasedV2SessionFormatCodec],
+      currentEncoder:v2.releasedV2SessionFormatCodec,migrations:[released.sessionFormatV0ToV1,releasedV2.sessionFormatV1ToV2],
+      restoreCurrent:restore,restoreTransformedCurrent:restore,
+      restoreCurrentHeader:(value: any)=>{releasedV2.assertReleasedV2Header(value);return value}})
+    const source = artifact.header
+    const physical = {type:'session',version:1,id:source.id,createdAt:source.createdAt,delegationDepth:source.delegationDepth,
+      ...Object.fromEntries(['cwd','parentSession','origin','agentPreset'].filter(key=>source[key]!==undefined).map(key=>[key,source[key]])),
+      ...(source.isSeeded?{seedLength:artifact.inheritedEventCount}:{})}
+    const current = catalog.createRestore(physical,{recovery:'strict',validation:'current'})
+    for(const row of artifact.events) current.decodeRow(row)
+    return current.finish()
+  }
   if (kind === 'released-logical') {
     switch (test.operation) {
       case 'semantics': released.assertReleasedPayloadSemantics(decode(test.event), test.version); break

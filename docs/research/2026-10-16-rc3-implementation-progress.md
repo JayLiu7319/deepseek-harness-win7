@@ -48,6 +48,16 @@ R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不�
 
 本阶段不切换活动pin或writer，不提升任务状态；下一阶段继续v1→v2的attempt折叠/引用映射、v2→v3系统消息及生产恢复/持久化闭包。尚未运行rc.3全量发行资格。
 
+## R02-D：v1→v2与内嵌attempt
+
+新增相邻v1→v2 streaming stage：紧凑/普通chunk折叠为完整message或独立attempt，保持时间与delta边界，合并可兼容run，保留buffer时序；继承cut穿过attempt明确拒绝，补齐inherited end-seed、旧中断turn结束和goal/change拆分。只重映射审计过的本文件引用；消耗掉的chunk不能再充当来源，交付watermark与跨代际捕获值保持原义。
+
+新增v2 physical/current词汇恢复及独立冻结writer-image校验，延用跨事件关系并验证内嵌stream与消息content/usage/replay一致。LLM新增纯typed assembler和AssistantStreamAccumulator/紧凑流读者；生产Agent旧宽容适配器暂未切换，后续Agent迁移时闭合调用端。Source的Unicode空白与Python `strip()`不同，提取共享ECMAScript文本规则，并增加BOM/U+0085/U+001C等控制，修正历史schedule id trim与中断文本判断。
+
+通过复制并包装两份Source原断言（108测试）捕获169个完整迁移、writer/恢复、独立stage操作前缀；LLM原断言37测试产生144个JSON场景，另加13个assembly/空白控制。函数/Proxy等不能无损表达为JSON的调用保留Source执行和skip观察，另用Python读者提前结束、冻结与输入脱离测试覆盖，不伪称这些调用已经配对。所有新旧六组合同共 **1,493场景完整匹配**（107 planner、193 codec、730 payload、137 v0/v1恢复、169 v2逻辑、157 stream）。Python提供端及直接消费者 **1,511 passed**（1.69秒），固定Node22.22.2；未运行全量发行门禁。
+
+首次v2对照发现invalid stream的TypeError cause文本不同并修复；随后定向回归发现探针局部`catalog`遮蔽旧helper，修正后所有六组重新对照通过。原失败诊断保留。当前字节与原始观察见 [v2-logical-checks.json](../../migration/candidates/rc3/v2-logical-checks.json)。继续v2→v3系统消息、规范envelope和生产恢复/持久化；尚未切换活动pin/writer或提升任务状态。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

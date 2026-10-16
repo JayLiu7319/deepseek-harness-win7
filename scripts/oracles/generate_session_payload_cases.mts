@@ -99,6 +99,9 @@ for (const [index, block] of blocks.entries()) {
     add(`content-${index}/mutate/${mutation.path.join('.')}`, user(altered.content, { kind: 'user' }))
   }
 }
+for(const [index,id] of ['\ufeffschedule','\u0085schedule','\u001cschedule','\u00a0schedule'].entries()) {
+  add(`schedule-id/whitespace-${index}`,{type:'schedule/change',seq:3,time:4,data:{version:1,operation:'delete',id}})
+}
 writeFileSync(join(output, 'dispositions.json'), JSON.stringify(api.RELEASED_V0_EVENT_DISPOSITIONS, null, 2) + '\n', { encoding: 'utf8', flag: 'wx' })
 writeFileSync(join(output, 'payload-cases.json'), JSON.stringify(cases, null, 2) + '\n', { encoding: 'utf8', flag: 'wx' })
 writeFileSync(join(output, 'generation.json'), JSON.stringify({ source_fixture: base + 'tests/validation.spec.ts', source_fixture_sha256: createHash('sha256').update(text).digest('hex'), cases: cases.length }, null, 2) + '\n', { encoding: 'utf8', flag: 'wx' })

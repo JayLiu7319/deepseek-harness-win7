@@ -37,7 +37,7 @@ def main():
     output.relative_to(ROOT / '.goose/out')
     output.mkdir(parents=True, exist_ok=False)
     report = dict(status='runner-error', target_upstream=TARGET,
-        scope='Explicit corpus of format library/physical codec contracts, not full logical migration or persistence acceptance',
+        scope='Explicit corpus of format, physical codec, released logical migration and Assistant stream contracts; not production persistence or release acceptance',
         commands=[], cases=[])
     def git(*args):
         return subprocess.check_output(['git', '-C', str(source)] + list(args), encoding='utf-8', timeout=20).strip()
