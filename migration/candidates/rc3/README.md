@@ -70,3 +70,5 @@ R04-A: [explicit Agent Remote](remote-current-checks.json): 12 actual pairs, 162
 R04-B: [carrier-neutral Connection](connection-current-checks.json): 30 actual pairs (seven TCP upload journeys), 74 selected native and 52 original Source tests pass. Headless registry, optional Web carrier/recovery bootstrap, buffered/streaming body selection and required RPC payload are covered. Auth/trust/feedback deltas and production switch remain open.
 
 R04-C: [canonical feedback](feedback-current-checks.json): 33 actual pairs, 63 final selected native and 51 original Source tests pass. Session feedback Remote/categories and actual command acknowledgement, Session-log message feedback, cold write ownership, immutable CAS/no-op results and cancellation/disposal are covered. Production sidecar replacement awaits the unified switch.
+
+R04-D: [subagent Remote and wire zones](subagent-remote-current-checks.json): 12 actual control journeys plus 610 zone inputs match (13 paired cases); final native622 and original Source271 tests pass. Actual Queue/Steer, running-parent authorization, idle no-op and canonical zone provenance are covered. Mounted attachment admission awaits R05.

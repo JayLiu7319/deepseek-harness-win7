@@ -138,6 +138,9 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='canonicalZone':
+                        from dsh.util_time import canonical_client_time_zone
+                        value=canonical_client_time_zone(action['value'])
                     elif method=='feedbackCommandConfig':
                         from dsh.interaction.commands import CommandsPlugin
                         from dsh.feedback.session_current import CurrentCommandFeedback

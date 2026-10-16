@@ -82,6 +82,9 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='canonicalZone'){
+     const {canonicalClientTimeZone}=await load('packages/util/time/src/index.ts');value=canonicalClientTimeZone(action.value)
+    }
     else if(action.method==='feedbackCommandConfig'){
      const {default:Commands}=await load('packages/interaction/commands/src/index.ts'),feedback=await load('packages/feedback/command-feedback/src/index.ts')
      await ctx.plugin(Commands);await ctx.plugin(feedback)

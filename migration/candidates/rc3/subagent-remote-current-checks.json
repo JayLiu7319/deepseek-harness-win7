@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-D-subagent-Remote-and-wire-zones",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 13,
+    "journeys": 12,
+    "zone_inputs": 610,
+    "report": {
+      "path": ".goose/out/rc3-r04-subagent-remote-running-frozen-20261017/report.json",
+      "sha256": "0854305292f345a3f936a41b6d3cbf55c612205c010e947f3f9df8a8d5eaeae5"
+    },
+    "corpus": {
+      "path": "scripts/oracles/subagent_remote_current_cases.json",
+      "sha256": "d204bf6f4b3617d527306084c4a1115ca19b09d7c6d1c87fd7a394471eeddced"
+    }
+  },
+  "native": {
+    "passed": 622,
+    "command": {
+      "path": ".goose/out/rc3-r04-subagent-remote-native-final-20261017/command.json",
+      "sha256": "421f06850e7b5083d364a9c311a0bb2d305780b0b24daab6265b5ed11e80c116"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-subagent-remote-native-final-20261017/pytest.xml",
+      "sha256": "bc753d109bc512b6d6ad310b08d37d5374fdd15bf53043098c5e6111f86ac534"
+    }
+  },
+  "source": {
+    "passed": 271,
+    "suites": 5,
+    "command": {
+      "path": ".goose/out/rc3-r04-subagent-remote-source-20261017/command.json",
+      "sha256": "2cd36cdd24557e48f5a07b6d920665fe2b96876b0124f6c5ec1e2a8c7a83eea4"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-subagent-remote-source-20261017/source.xml",
+      "sha256": "276c6d97306ba6a64000e359f75ed9f9cf87a860594c009e7c10f866ae0ff3ff"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/subagent/runtime_current.py",
+      "sha256": "1dbd279fe03e71b41a4252581cdc244f2368b32369725b1c8518147222b8634a"
+    },
+    {
+      "path": "dsh/subagent/remote_current.py",
+      "sha256": "58cbfbb6c85752684cfc781143ea7f9fef95a7ee08dc7d9a1bbf4d258f71ed49"
+    },
+    {
+      "path": "dsh/util_time.py",
+      "sha256": "749c1ab925378f6aff72aca279350a0477c41008aeefd3aff96d2957db923f52"
+    },
+    {
+      "path": "dsh/resources/time_zones_current.json",
+      "sha256": "f7d9ac26f589593dd05b5ba72f19542ed85f8e542c78c81b3a96030ea8c8a73e"
+    }
+  ],
+  "vocabulary": {
+    "node": "22.22.2",
+    "icu": "78.2",
+    "accepted_names": 597,
+    "input": {
+      "path": ".goose/out/rc3-time-zones-input-20261017.json",
+      "sha256": "8daecb9134389347c2afb46312607bee1698c7bb3c6676e46ddcb44c00409525"
+    },
+    "adaptation": "Pinned Intl canonical names replace Python ZoneInfo alias retention, without requiring Node/ICU at runtime. Key case follows original Intl lookup; the original strict UTC or Area/Location admission applies before lookup."
+  },
+  "diagnostics": [
+    ".goose/out/rc3-r04-subagent-remote-native-20261017",
+    ".goose/out/rc3-r04-subagent-remote-native-fixed-20261017"
+  ],
+  "limits": [
+    "Initial broader native run: 742 passed, two new success assertions failed (snapshot exposes events, not messages). Corrected assertions then exposed the mistaken assumption that idle foreign-parent interrupts reject; original accepts idle/absent no-ops. Running unauthorized interruption is now a separate actual paired journey.",
+    "Final 622 includes current controls and 610 zone inputs; earlier broader consumer results are retained, not combined into a new single full pass.",
+    "Actual text-only Queue/Steer and missing-image-store errors are qualified; mounted attachment admission awaits R05.",
+    "Vocabulary is tied to the observed pinned Node/ICU and enumerated zone database, not a claim that every future platform ICU has the same names.",
+    "Production baseline/profile, session-controller consumers and full release acceptance remain open."
+  ]
+}

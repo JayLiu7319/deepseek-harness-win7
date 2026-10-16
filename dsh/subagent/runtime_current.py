@@ -1,6 +1,6 @@
 """rc.3 provider seam, parent catalog commit and continuable ownership."""
 from dsh.cordis.plugin import Plugin
-from dsh.typert.remote import TypertRemoteService
+from dsh.typert.remote import TypertRemoteService, Remote
 from dsh.core.tools import _assert_supported_schema
 from dsh.subagent.catalog_current import CATALOG,establish_catalog_child
 from dsh.subagent.continuation_current import CurrentContinuationManager
@@ -88,6 +88,21 @@ class CurrentSubagentRuntime(TypertRemoteService):
     async def listDescendants(self,sid,signal=None):
         from dsh.subagent.listing import list_children
         return await list_children(self.ctx,sid,signal,descendants=True)
+
+    @Remote('list')
+    async def remoteExportList(self, parentSessionId, signal):
+        from dsh.subagent.remote_current import catalog
+        return await catalog(self, parentSessionId, signal)
+
+    @Remote('prompt')
+    async def prompt(self, request, signal):
+        from dsh.subagent.remote_current import prompt
+        return await prompt(self, request, signal)
+
+    @Remote('interruptByParent')
+    def interruptByParent(self, childSessionId, parentSessionId, mode):
+        from dsh.subagent.remote_current import interrupt
+        return interrupt(self, childSessionId, parentSessionId, mode)
 
 
 class CurrentSubagentPlugin(Plugin):

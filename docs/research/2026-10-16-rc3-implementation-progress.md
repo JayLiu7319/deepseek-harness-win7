@@ -217,3 +217,7 @@ The upstream SDK business source has no functional rc.1-to-rc.3 delta. Its exist
 ### R04-C — Session 日志反馈与 Remote（2026-10-17）
 
 候选 sessionFeedback.record 支持空反馈和7类分类，/feedback 命令确认不再附带分享策略句。消息评价改为 feedback/message-put/delete 事实；live 修改验证 flush 参与、持久化身份和最后事件，cold 操作持有 read/write handle 并提交 feedback/committed，永不发布 Session/Agent。实际 Source/native33组匹配，最终 Python63通过，原版4套件51通过；包含真实命令/Gateway消费者、并发CAS、版本冲突/幂等、损坏payload与冷写入取消/排空。初次测试路径选择与两处新夹具缺少 source.kind 的错误记录保留，修正后的两个竞态已单独及最终集合通过。原认证/Host trust源码无功能差分，R04-B已执行其原版套件；后续仍须统一Web集成认证。旧sidecar生产provider等待切换，不将候选通过标作正式基线验收。
+
+### R04-D — 子代理 Remote 与时区规范名（2026-10-17）
+
+CurrentSubagent 接入 list/prompt/interruptByParent Remote，浏览器 prompt 显式 delivery=queue/steer，保留 requestId/canonicalClientTimeZone 与稳定错误/原因。12个实际旅程和610时区输入匹配；最终Python622通过、原版5套件271通过。首次扩大回归742通过/2处新断言失败：快照只有events而非messages；修正后又确认原版空闲/不存在目标的interrupt是不校验身份的接受空操作，运行中才拒绝错误父身份。相应原始失败保留，新加入运行中授权配对并完成最终复验。Python ZoneInfo不回规范别名，因此使用固定Node22.22.2/ICU78.2派生的597名称映射，原严格输入规则先于查表；这是明确Win7运行时适配，无Node依赖。磁盘约179GiB空闲，成功短测试工作区继续自动收尾，原始凭据保留。接下来优先R05附件/文件提供端，再回接session-controller，生产基线未切。
