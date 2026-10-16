@@ -16,6 +16,8 @@ R02-J：新增 [session-runtime-checks.json](session-runtime-checks.json)，显�
 
 R02-K：新增 [storage-handles-checks.json](storage-handles-checks.json)，当前存储准入与单写handle/tracker147场景、generation125场景匹配；Python1,494项和Source18项通过。真实backend resolver/冷读尚待接通。
 
+R02-L：新增 [jsonl-backend-checks.json](jsonl-backend-checks.json)，实际文件/跨实例lease/历史只读和写打开发布50场景匹配，Source JSONL原175断言与Python2,108项通过。显式candidate backend/plugin已可用，Agent/query等生产消费者仍待连接。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

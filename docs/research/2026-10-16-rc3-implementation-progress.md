@@ -106,6 +106,12 @@ Source六个原测试文件390断言通过；捕获并回放957个独立前缀�
 
 实际Source helper/handle通过可观察storage adapter的147场景匹配；generation125场景复核匹配。Python直接提供端、generation/current消费者及旧存储回归1,494项通过，Source未修改storage-contract18断言通过。另验证观察者取消仍提交、取消close仍排空、关闭期间迟到事件、后台失败后显式重试、两种abort时点和实际fiber卸载。原失败夹具调用与首轮差异均保留；旧SQLite清理测试产生7项既有未await告警，不声称零告警。新handle尚未连接真实backend/Agent，非整体R02签收。凭据见[storage-handles-checks.json](../../migration/candidates/rc3/storage-handles-checks.json)。按既有retention扫描无新增可删项，剩余约180GiB。
 
+## R02-L：真实JSONL backend与冷恢复
+
+新增显式v3 JSONL服务/plugin：create/open返回handle，stat/list只读header和opaque revision；按规范文件名选择最高代际，拒绝未来代际、相反编码、旧flat layout和错位id/cwd；read-only历史准备不落盘，write open先取实际内核lease再独立验证/排他发布v3。实现两项cold LRU、同revision共享迁移与最后waiter离开后的owner abort、shared-frozen事件所有权、raw/Zstandard尾部修复及重试。共享旧JsonlStore只复用持久文件原语，不调用旧logical codec或写入路径。
+
+实际两端文件系统50场景匹配，包括v0/v1/v2两种编码的只读和发布、跨实例竞争、pending可见性、冷读、新代际、未知事件与身份拒绝；物理文件字节数/SHA严格一致。revision按不透明token的相等关系比较，原token写入actor日志；仅自有临时root替换，文件清单按确定性字典序输出。Source未修改JSONL spec的175断言通过；最终Python backend/handle/generation/current/catalog/scanner直接范围2,108项通过。另实测共享准备的部分/全部取消、publication期间取消仍持锁至提交、未领取handle回收、fsync失败回滚、Zstandard未完成frame内完整事件重写和实际Cordis卸载。凭据见[jsonl-backend-checks.json](../../migration/candidates/rc3/jsonl-backend-checks.json)。活动writer/Session及Agent/query消费者仍未切换，R02尚未整体签收。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

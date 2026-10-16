@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-L-current-jsonl-backend",
+  "status": "targeted-passed",
+  "native": {
+    "tests": 2108,
+    "commands": {
+      "path": ".goose/out/rc3-r02-backend-final-20261017/commands.json",
+      "sha256": "2cb02776fee3aec3fa208be3c2f0a86ecd516608dda15845e5aef1867b5aa034"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-backend-final-20261017/pytest.xml",
+      "sha256": "848475f8188107eb87fccedc170233987b6b4e8ed30b053a0eff23df3e86218e"
+    }
+  },
+  "source": {
+    "passed": 175,
+    "command": {
+      "path": ".goose/out/rc3-r02-backend-20261017/source-command.json",
+      "sha256": "f34f6ae0664a40cd26441906e1bcc97fae782ffa15f368d02842c073f952ddf2"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-backend-20261017/source.xml",
+      "sha256": "4f03d2163a837ff3cf9cec0e2b3f8f75736667c5ed2c9d7fdcf2223aae3314f0"
+    }
+  },
+  "paired": {
+    "cases": 50,
+    "report": {
+      "path": ".goose/out/rc3-r02-backend-final-20261017/session_backend_cases/report.json",
+      "sha256": "9a5e659012a83b2db1b37a28bd0c5093345aff8169b64ec1b1542152548c4717"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/jsonl_backend_current.py",
+      "sha256": "99d09e94ee4f57683724bd991a5c4e63e9a01b0485450f431433a999d3f846d3"
+    },
+    {
+      "path": "scripts/oracles/session_backend_current_python.py",
+      "sha256": "dd1b16e3cc420a418af5323e31f1c27945126862b1a729d8617d59d6d13ac204"
+    },
+    {
+      "path": "scripts/oracles/session_backend_current_source.mts",
+      "sha256": "5c1d2df40f152fa1c36b1c57e0b904f16e0cad0e4626db1d82a8835aa6846ab0"
+    },
+    {
+      "path": "scripts/oracles/session_backend_cases.json",
+      "sha256": "ecb1a6109d5a3939cf4d7bbb6643a282fe82b17b96502125f4ae5b7408a36274"
+    },
+    {
+      "path": "scripts/oracles/generate_session_backend_cases.py",
+      "sha256": "8952927e6baa2b1d17e6264f4f11f03ff54ca6cf9ae01d6bdcd7e0d719f4f859"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "8b34c225dbaed321dda1b1358df4151798d25b917f74bd7b8712baf48555fcfa"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "1f76887982f06bdfdab84180ab22652ea5fc903fd5c5d75094c535c9de733b83"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "769cdf29ff6641c43603d91ddd616a146f5488534b9373a1b1bf7eced653c55e"
+    },
+    {
+      "path": "tests/test_session_backend_current.py",
+      "sha256": "a42a8af19d40b73b375b8d69b960b3c81b49675ff4bed0565371d23c02dd54cb"
+    }
+  ],
+  "comparison_policy": {
+    "paths": "Only the owned per-actor temporary root is replaced by <root>.",
+    "revision": "Backend revisions are opaque tokens: compare first-observed token identity/equality, with raw tokens in actor logs.",
+    "inventory": "Owned artifact inventory uses lexical path order; exact byte lengths and SHA256 match."
+  },
+  "limits": [
+    "Explicit candidate backend/plugin; active production provider remains unchanged.",
+    "Current query/projection, Agent publication and other consumers are not yet connected.",
+    "POSIX file mechanisms are implemented but not executed on POSIX.",
+    "Not complete R02 or rc.3/release acceptance."
+  ]
+}
