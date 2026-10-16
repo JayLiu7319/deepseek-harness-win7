@@ -470,7 +470,7 @@ def _js_string(value: Any) -> str:
     return js_to_string(value)
 
 
-def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
+def validate_session_header(session_id: str, input_data: Any, expected_version: int = SESSION_FORMAT_VERSION) -> SessionHeader:
     """
     Validate one detached session header, 1:1 with reference
     `validateSessionHeader` (index.ts:96-136):
@@ -495,9 +495,9 @@ def validate_session_header(session_id: str, input_data: Any) -> SessionHeader:
         raise ValueError('session header has invalid field "seedLength"')
 
     raw_version = input_data.get("version", UNDEFINED)
-    if type(raw_version) not in (int, float) or raw_version != SESSION_FORMAT_VERSION:
+    if type(raw_version) not in (int, float) or raw_version != expected_version:
         raise ValueError(
-            f"session header version must be {SESSION_FORMAT_VERSION}, got {_js_string(raw_version)}"
+            f"session header version must be {expected_version}, got {_js_string(raw_version)}"
         )
 
     raw_id = input_data.get("id", UNDEFINED)

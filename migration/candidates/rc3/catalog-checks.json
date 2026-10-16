@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-F-static-catalog-and-current-admission",
+  "status": "targeted-passed",
+  "paired": {
+    "assistant_stream_cases": {
+      "cases": 157,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/assistant_stream_cases.json": "225718b0f0cc01620b0f365afe541c0587fe85949a9dd9f2b7d3891c9d7a5c5a",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/assistant_stream_cases/report.json",
+        "sha256": "809c80668f2d3f6d45d24d276c3c30095eaff23eb48115b98d6388a17f31730b"
+      }
+    },
+    "session_catalog_cases": {
+      "cases": 170,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_catalog_cases.json": "7e70fb7c54e00a8c5ecdac27d1c4c65974f953fc16f5a2fda2cfc387d9ed23c1",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_catalog_cases/report.json",
+        "sha256": "bff31a21ae20367889144c1285bf738f55b4590fb075df73c88511b5a934c6eb"
+      }
+    },
+    "session_current_cases": {
+      "cases": 426,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_current_cases.json": "53ab62ec4178f94579eecae26e27cbccdc1b8ae570edd40e260a5c476bc5008b",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_current_cases/report.json",
+        "sha256": "44705cfc86fe095e1575f0fb3fac1fd4681ebf063f0d8b5facc7d2f5d6782597"
+      }
+    },
+    "session_format_cases": {
+      "cases": 107,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_format_cases.json": "b65e1104680c7d806c60cbc911059074976b511982c581366ea9f1d4f7b0f551",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_format_cases/report.json",
+        "sha256": "7e4feb3d717b63965a6778f4a0ddf760aad3b179936292288ae837cfd1158689"
+      }
+    },
+    "session_released_codec_cases": {
+      "cases": 193,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_released_codec_cases.json": "3da59270d207028d291ef7fb9ea256a14aa32c698ac0dcfe5ecb1d49fab0d1d1",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_released_codec_cases/report.json",
+        "sha256": "dc10c1b068740bf39e4dd74939dd06e3dc2cae363706347f13ba3388b380acfc"
+      }
+    },
+    "session_released_payload_cases": {
+      "cases": 730,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_released_payload_cases.json": "bb8f37ee8996b1934cabca18beceda4f5724915fe91773c9485a0ec1154328c6",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_released_payload_cases/report.json",
+        "sha256": "b280251dfac61ae045022263a6a923ecab15830d4fdebfd1b06647d9efa80113"
+      }
+    },
+    "session_released_restore_cases": {
+      "cases": 137,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_released_restore_cases.json": "4c68bc03f8d0f49f4be7fc007e149618f75ac01b5e5626a6b6f2d9356c7f7301",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_released_restore_cases/report.json",
+        "sha256": "34050b412e5d9d337c59d45f0cc5d01d392a059c1116237875b5a173bb0c6b10"
+      }
+    },
+    "session_v2_logical_cases": {
+      "cases": 169,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_v2_logical_cases.json": "3a7e096468c96b98ee28534a18f21fe40de5534378f1d9356d8a896025d6ca69",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_v2_logical_cases/report.json",
+        "sha256": "a288c2e7c27408265df082042786a057911b730b73ec1826e3f4a160f2084cfc"
+      }
+    },
+    "session_v3_logical_cases": {
+      "cases": 1607,
+      "status": "matched",
+      "inputs": {
+        "scripts/oracles/session_v3_logical_cases.json": "bd1e4d951d78030824762401ad0e796c921a910f5e1f8dac9fdf66a0cb20046c",
+        "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+        "scripts/oracles/session_format_python.py": "a8aa27699d70e837a30c6008a50cf2340edaafefffcff6571339c64c46103f7b",
+        "scripts/oracles/session_format_source.mts": "dbfc874d3afb49e986d73446f14c2ac3ba1b55d3948baca2ed5b0aad1a581f65"
+      },
+      "report": {
+        "path": ".goose/out/rc3-r02-catalog-final-20261017/session_v3_logical_cases/report.json",
+        "sha256": "0c9a321d5e26a6e5675468778abb8afe0b17cf2b94f6a49f7c2fedd4822416a8"
+      }
+    }
+  },
+  "source": {
+    "tests": 26,
+    "command": {
+      "path": ".goose/out/rc3-r02-catalog-final-20261017/source-command.json",
+      "sha256": "db366e01dfd0d93d4f012178117410b3213be71de4f784106071d353b2762199"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-catalog-final-20261017/source.xml",
+      "sha256": "82eeb908a991258cb66a3bc6432e18089ccafb7d509733393e96905a753cae60"
+    }
+  },
+  "native": {
+    "tests": 3756,
+    "command": {
+      "path": ".goose/out/rc3-r02-catalog-final-20261017/commands.json",
+      "sha256": "088a6730b36319873a10002ecc3ef0fc14018b512bb392a45f9abafc13bf8505"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-catalog-final-20261017/pytest.xml",
+      "sha256": "3b9b31cc5db38f4e70dc442751b47597b62f4af50b1de2c68f8303040ffa3279"
+    },
+    "log": {
+      "path": ".goose/out/rc3-r02-catalog-final-20261017/pytest.log",
+      "sha256": "4e8ef79a8e6216be380dd968830ffdbf3be135a9a8629d8b92f5197e9f260587"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/session/types.py",
+      "sha256": "1dfd267c94a362526ceabe0a2d61312298bb67ed14aadfa82b035ba6d64c83f8"
+    },
+    {
+      "path": "dsh/core/session/current.py",
+      "sha256": "0a242d76ac26345673dea2bdff731ca578251aef54f1d67db94af95119c9fdb5"
+    },
+    {
+      "path": "dsh/core/session/current_surface.py",
+      "sha256": "bf89804b782b041ca1f52dfc30315e686190fb22b73967b124c146005f43cc09"
+    },
+    {
+      "path": "dsh/core/session/current_vocabulary.py",
+      "sha256": "2d9bc018463465553f42a2cd1e094ab77dc93af7d82d199bdda3db8cbe055b22"
+    },
+    {
+      "path": "dsh/session/format_catalog/current.py",
+      "sha256": "4900d479cffaf3cf737edff21c01691ac64c05d16d643c11438f69326457ad55"
+    },
+    {
+      "path": "dsh/session/format_catalog/__init__.py",
+      "sha256": "737394e163c23c37560dd7cf64f8f25f783fb1c49abf61a1a66abd466d713cbb"
+    },
+    {
+      "path": "scripts/oracles/capture_session_catalog_cases.mts",
+      "sha256": "05c909d20e5d35782e4225a91711cc99a4505cdb1f3a33d8e0ec6da9b0e491bf"
+    },
+    {
+      "path": "scripts/oracles/generate_session_current_cases.py",
+      "sha256": "7a1d72a66e8340170983f42d827f322acacfc598fa56cd8dca32e17627961fe2"
+    },
+    {
+      "path": "tests/test_session_format_catalog.py",
+      "sha256": "7768edbab95e60e5956a699e1531953a81f04e88ae424a615f2a6360e83f14cf"
+    }
+  ],
+  "limitations": [
+    "Current v3 admission/surface and static catalog are explicit library entrypoints; active Session writer still v0.",
+    "No generation publication, live Session integration, query/projection, Agent or rc.3 release acceptance."
+  ]
+}

@@ -66,6 +66,12 @@ R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不�
 
 初版capture包装错误返回decoder观测对象，修正为原始数值cut后重跑Source全选；6个native边界差异修复后全部匹配。批处理曾列错restore corpus文件名，该runner-error和先前失败均保留，不覆盖诊断。继续接通当前Session、generation持久化与query/projection，尚未切换writer/pin或运行发行资格。
 
+## R02-F：完整静态catalog与当前格式边界
+
+新增构建静态catalog，直接组合四个codec及三条相邻edge，历史读取不依赖mount哪些插件。current路径先做已安装词汇/关系恢复，再执行当前Session的header、message、request与settlement字段和surface准入；transformed保持Source的独立验证政策。新增canonical v3 surface库，包含startSeq/endSeq、assistant内嵌来源禁止、未知ignorable元数据不参与surface，以及原子计划中的受保护system首节点。所有新入口仍为显式库，生产Session集成待后续闭合。
+
+Source三份catalog测试共26项原断言通过，记录170个完整静态catalog操作/前缀。另从真实v3恢复输入及当前message/header损坏构造426个当前边界场景，完整Source/native结果匹配；与前序合计九组 **3,696场景匹配**。定向选择全部已移植格式库、当前准入与默认header校验直接消费者（既有Session和surface规格），Python3.8.10 **3,756 passed**（4.70秒）。原始命令/日志/XML和各组结果在 `.goose/out/rc3-r02-catalog-final-20261017/`，字节凭据见 [catalog-checks.json](../../migration/candidates/rc3/catalog-checks.json)。当前writer仍为v0，未提升台账或宣称发行资格。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

@@ -16,6 +16,8 @@ const assistantStream = await import(pathToFileURL(join(resolve(sourceArg), 'pac
 const releasedV3 = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/index.ts')).href)
 const v3Payload = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/payload.ts')).href)
 const v3References = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/references.ts')).href)
+const currentCatalog = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/index.ts')).href)
+const installedCurrent = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/current.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -96,6 +98,17 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if(kind==='session-catalog') {
+    const catalog=currentCatalog.sessionFormatCatalog,operation=test.operation
+    if(operation==='currentHeader'){installedCurrent.validateInstalledCurrentSessionHeader(decode(test.header));return null}
+    if(operation==='currentArtifact'){installedCurrent.validateInstalledCurrentSessionArtifact(decode(test.artifact));return null}
+    if(operation==='readHeader')return catalog.readHeader(decode(test.header))
+    if(operation==='encodeCurrentHeader')return catalog.encodeCurrentHeader(decode(test.header),decode(test.cut))
+    if(operation==='encodeCurrentEvent')return catalog.encodeCurrentEvent(decode(test.event))
+    const reader=catalog.createRestore(decode(test.header),decode(test.options))
+    for(const row of test.rows??[])reader.decodeRow(decode(row))
+    return test.finish?reader.finish():{header:reader.header}
+  }
   if (kind === 'released-v3-logical') {
     const operation=test.operation
     if(['assertEvent','assertV3Event','assertV3StructuralRow','canonicalizeTransformedEvent','isRepairIdentity'].includes(operation))return v3Payload[operation](...decode(test.args))??null

@@ -124,6 +124,24 @@ def catalog(case, observations):
 
 
 def execute(case):
+    if case['kind'] == 'session-catalog':
+        from dsh.session.format_catalog import sessionFormatCatalog
+        from dsh.session.format_catalog.current import validateInstalledCurrentSessionHeader, validateInstalledCurrentSessionArtifact
+        operation = case['operation']
+        if operation == 'currentHeader':
+            return validateInstalledCurrentSessionHeader(decode(case['header']))
+        if operation == 'currentArtifact':
+            return validateInstalledCurrentSessionArtifact(decode(case['artifact']))
+        if operation == 'readHeader':
+            return sessionFormatCatalog.readHeader(decode(case['header']))
+        if operation == 'encodeCurrentHeader':
+            return sessionFormatCatalog.encodeCurrentHeader(decode(case['header']), decode(case['cut']))
+        if operation == 'encodeCurrentEvent':
+            return sessionFormatCatalog.encodeCurrentEvent(decode(case['event']))
+        reader = sessionFormatCatalog.createRestore(decode(case['header']), decode(case['options']))
+        for row in case.get('rows', []):
+            reader.decodeRow(decode(row))
+        return reader.finish() if case.get('finish') else dict(header=reader.header)
     if case['kind'] == 'released-v3-logical':
         from dsh.session import format_v2_to_v3 as v3
         from dsh.session.format_v2_to_v3 import payload, references
