@@ -62,6 +62,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/session_query_current_python.py',ROOT/'scripts/oracles/session_query_current_source.mts'])
         if any(case.get('kind') == 'loop-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/agent_loop_current_python.py',ROOT/'scripts/oracles/agent_loop_current_source.mts'])
+        if any(case.get('kind') == 'machine-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/agent_machine_current_python.py',ROOT/'scripts/oracles/agent_machine_current_source.mts'])
         report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}
         commands = [
             ['node', str(source/'node_modules/tsx/dist/cli.mjs'), '--tsconfig', str(source/'tsconfig.json'),
@@ -78,7 +80,7 @@ def main():
                 raise RuntimeError('Runner %s failed with %s' % (index, run.returncode))
             rows = json.loads((output/('source.json' if index == 0 else 'native.json')).read_text(encoding='utf-8'))
             for case,row in zip(cases,rows):
-                if case.get('kind') in ('query-current','loop-current') and row.get('outcome')!='value':
+                if case.get('kind') in ('query-current','loop-current','machine-current') and row.get('outcome')!='value':
                     raise RuntimeError('Journey failed before actions: '+case['case']+': '+str(row))
             if [row['case'] for row in rows] != names:
                 raise ValueError('Missing, duplicated or unexpected observations')

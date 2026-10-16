@@ -1,0 +1,36 @@
+"""rc.3 concrete Agent factory over current Session handles and request machine."""
+from dsh.core.agent import AgentHandle
+from dsh.core.agent_lifecycle_current import CurrentAgentLifecycleService, CurrentAgentLifecyclePlugin
+from dsh.core.agent_dispatch_current import emit_agent_event
+from dsh.core.react_loop_current import ReactLoopAgent
+
+
+class CurrentAgentLoopService(CurrentAgentLifecycleService):
+    async def _publish_preparation(self, tx, preparation, options, setup, source):
+        session = preparation.session
+        tx.assert_live()
+        tx.agent = ReactLoopAgent(self.ctx, session, options)
+        tx.scope = tx.agent.scope
+        if setup is not None:
+            result = await tx.race(lambda: self._invoke_setup(setup, tx.agent))
+            commit = getattr(result, 'commit', None)
+            if callable(commit):
+                await tx.race(commit)
+        tx.assert_live()
+        await self._before_publish(tx, session)
+        tx.assert_live()
+        sessions, agents = tx.agent.ctx.get('sessions'), self.ctx.get('agents')
+        tx.detach_session = sessions.enter(session)
+        tx.detach_agent = agents.enter(tx.agent, owner=tx.parent_agent)
+        sessions.announce(session)
+        tx.assert_live()
+        agents.announce(tx.agent)
+        tx.assert_live()
+        # send() already starts this machine, including from this notification.
+        emit_agent_event(self.ctx, tx.agent, 'agent/session-start', dict(source=source))
+        tx.assert_live()
+        return AgentHandle(tx.agent, tx.dispose)
+
+
+class CurrentAgentLoopPlugin(CurrentAgentLifecyclePlugin):
+    _service_class = CurrentAgentLoopService

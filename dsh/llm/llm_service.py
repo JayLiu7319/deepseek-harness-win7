@@ -79,6 +79,14 @@ class LLMService:
     layered configuration resolution, and streaming waterfall hook.
     """
 
+    @staticmethod
+    def _normalize_model_info(provider, identifier, model, error_type):
+        from dsh.llm.model_info import normalize_model_info
+        return normalize_model_info(provider, identifier, model, error_type)
+
+    def _call_capabilities(self, model_info):
+        return {}
+
     def __init__(
         self,
         ctx=None,
@@ -599,7 +607,7 @@ class LLMService:
                 result = fn(provider_id, model_id, signal) if len(signature.parameters) >= 3 or 'signal' in signature.parameters else fn(provider_id, model_id)
                 if inspect.isawaitable(result):
                     result = await result
-                return normalize_model_info(provider_id, model_id, result, LlmError)
+                return self._normalize_model_info(provider_id, model_id, result, LlmError)
         return {"provider": provider_id, "id": model_id, "name": model_id}
 
     def retry_policy(self, provider):
@@ -658,7 +666,7 @@ class LLMService:
             return None
         prepared = await method(provider, model, signal)
         from dsh.llm.model_info import normalize_model_info
-        info = normalize_model_info(provider, model, prepared['model'], LlmError)
+        info = self._normalize_model_info(provider, model, prepared['model'], LlmError)
         prepared = dict(prepared, model=info)
         if 'inputModalities' in info and "image" not in info['inputModalities']:
             from dsh.llm.image_content import project_text_only
@@ -774,7 +782,7 @@ class LLMService:
                 from dsh.llm.adapter_dispatch import invoke_adapter_stream
                 return invoke_adapter_stream(adapter.chat_completion_stream, options)
             adapter_call = dict(model=info, stream=dispatch)
-        model_info = normalize_model_info(provider, config['model'], adapter_call['model'], LlmError)
+        model_info = self._normalize_model_info(provider, config['model'], adapter_call['model'], LlmError)
         resolved = copy.deepcopy(self._resolve_call_with_info(config, model_info))
         defaults = {field: True for field in ('maxTokens', 'reasoningEffort') if field not in config and field in resolved}
         frozen_config = deep_freeze(resolved)
@@ -857,6 +865,7 @@ class LLMService:
             result['context'] = deep_freeze(copy.deepcopy(model_info['context']))
         if 'inputModalities' in model_info:
             result['inputModalities'] = deep_freeze(copy.deepcopy(model_info['inputModalities']))
+        result.update(self._call_capabilities(model_info))
         return deep_freeze(result)
 
     def _resolve_call_with_info(self, config, info):
@@ -1058,11 +1067,12 @@ class LlmRuntime:
     """
     id = "llm"
     name = "@deepseek-ai/dsh-llm"
+    _service_class = LLMService
 
     def __init__(self, config=None):
         self.config = config or {}
 
     def apply(self, ctx: Any) -> None:
-        svc = LLMService(ctx=ctx)
+        svc = self._service_class(ctx=ctx)
         ctx.set_service("llm", svc)
 

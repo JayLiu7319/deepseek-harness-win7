@@ -496,9 +496,14 @@ class AgentRegistry(Service):
         if not entry.announced:
             return
         if self.ctx:
-            from dsh.core.scope import scope_target, scope_of
-            self.ctx.emit("agent/disposed", {"agent": entry.agent},
-                          caller_ctx=scope_target(self.ctx, scope_of(entry.agent.ctx)))
+            self._emit_subject('agent/disposed', entry.agent)
+
+    def _emit_subject(self, name, agent):
+        from dsh.core.scope import scope_target, scope_of
+        self.ctx.emit(name, {'agent': agent}, caller_ctx=scope_target(self.ctx, scope_of(agent.ctx)))
+
+    def _factory_request_options(self, request):
+        return {}
 
     def announce(self, agent: Agent) -> None:
         entry = self._store.get(agent.id)
@@ -511,9 +516,7 @@ class AgentRegistry(Service):
         entry.announced = True
         try:
             if self.ctx:
-                from dsh.core.scope import scope_target, scope_of
-                self.ctx.emit("agent/created", {"agent": entry.agent},
-                              caller_ctx=scope_target(self.ctx, scope_of(entry.agent.ctx)))
+                self._emit_subject('agent/created', entry.agent)
         finally:
             entry.announcing = False
             if entry.detach_requested:
@@ -568,7 +571,8 @@ class AgentRegistry(Service):
             s = req.get("setup")
             return await self.create(session_id=sid, options=opts, meta=m, setup=s,
                                      seed=req.get('seed'), signal=req.get('signal'),
-                                     inheritedEventCount=req.get('inheritedEventCount', UNDEFINED))
+                                     inheritedEventCount=req.get('inheritedEventCount', UNDEFINED),
+                                     **self._factory_request_options(req))
 
         sid = session_id if session_id is not None else kwargs.get("sessionId")
         opts_raw = options or kwargs.get("agentOptions") or kwargs.get("agent_options")
@@ -596,6 +600,7 @@ class AgentRegistry(Service):
             inherited_event_count=kwargs.get('inheritedEventCount', UNDEFINED),
             signal=kwargs.get('signal'),
             owner_ctx=self.ctx,
+            **self._factory_request_options(kwargs),
         )
         if inspect.isawaitable(res):
             return await res
@@ -613,7 +618,8 @@ class AgentRegistry(Service):
             rsid = req.get("resumeSessionId", req.get("resume_session_id"))
             opts = req.get("options") or req.get("agentOptions") or req.get("agent_options")
             s = req.get("setup")
-            return await self.resume(resume_session_id=rsid, options=opts, setup=s, signal=req.get('signal'))
+            return await self.resume(resume_session_id=rsid, options=opts, setup=s, signal=req.get('signal'),
+                                     **self._factory_request_options(req))
 
         rsid = resume_session_id if resume_session_id is not None else kwargs.get("resumeSessionId")
         opts_raw = options or kwargs.get("agentOptions") or kwargs.get("agent_options")
@@ -637,6 +643,7 @@ class AgentRegistry(Service):
             setup=s,
             signal=kwargs.get('signal'),
             owner_ctx=self.ctx,
+            **self._factory_request_options(kwargs),
         )
 
 

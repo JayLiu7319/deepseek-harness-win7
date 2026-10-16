@@ -268,6 +268,8 @@ for (const test of corpus) {
     ? await (await import('./session_query_current_source.mts')).queryCurrentCase(resolve(sourceArg),test,decode)
     : test.kind==='loop-current'
     ? await (await import('./agent_loop_current_source.mts')).loopCurrentCase(resolve(sourceArg),test,decode)
+    : test.kind==='machine-current'
+    ? await (await import('./agent_machine_current_source.mts')).machineCurrentCase(resolve(sourceArg),test,decode)
     : test.kind==='storage-backend'
     ? await (await import('./session_backend_current_source.mts')).backendCase(resolve(sourceArg),test,decode)
     : test.kind==='storage-contract'||test.kind==='storage-handle'

@@ -28,9 +28,10 @@ class CurrentFactoryTransaction(FactoryTransaction):
         self.listeners.clear()
         try:
             try:
-                if self.agent is not None:self.agent.cancel(dict(kind='disposed'))
-                if self.driver is not None:
+                if self.agent is not None:
+                    self.agent.cancel(dict(kind='disposed'))
                     await self.agent.when_idle()
+                if self.driver is not None:
                     self.driver.cancel()
                     await asyncio.gather(self.driver,return_exceptions=True)
                     if self.driver in self.factory._active_tasks:self.factory._active_tasks.remove(self.driver)
@@ -106,9 +107,10 @@ class CurrentAgentLifecycleService(AgentLoopService):
         except BaseException:pass
 
     async def create_agent(self,session_id=None,options=None,meta=None,setup=None,seed=None,signal=None,
-                           owner_ctx=None,inherited_event_count=UNDEFINED):
+                           owner_ctx=None,inherited_event_count=UNDEFINED,parent_agent=None):
         sid=session_id if session_id is not None else 'session-'+uuid.uuid4().hex[:8]
         tx=CurrentFactoryTransaction(self,owner_ctx or self.ctx,sid,signal)
+        tx.parent_agent=parent_agent
         wrapper=asyncio.get_running_loop().create_future();self._wrappers.add(wrapper)
         preparation=None
         try:
@@ -127,12 +129,13 @@ class CurrentAgentLifecycleService(AgentLoopService):
             if not wrapper.done():wrapper.set_result(None)
     create=create_agent
 
-    async def resume(self,resume_session_id,options=None,setup=None,signal=None,owner_ctx=None,persistence=None):
+    async def resume(self,resume_session_id,options=None,setup=None,signal=None,owner_ctx=None,persistence=None,parent_agent=None):
         sid=resume_session_id
         persistence=persistence if persistence is not None else self.ctx.get('sessionPersistence')
         if persistence is None:
             raise RuntimeError('cannot resume: session persistence is not configured (load a dsh-session-persistence backend)')
         tx=CurrentFactoryTransaction(self,owner_ctx or self.ctx,sid,signal)
+        tx.parent_agent=parent_agent
         wrapper=asyncio.get_running_loop().create_future();self._wrappers.add(wrapper)
         preparation=None
         try:

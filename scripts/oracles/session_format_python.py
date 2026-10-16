@@ -394,6 +394,9 @@ def observe(case):
         elif case['kind'] == 'loop-current':
             from scripts.oracles.agent_loop_current_python import execute as loop_execute
             value = loop_execute(case, decode)
+        elif case['kind'] == 'machine-current':
+            from scripts.oracles.agent_machine_current_python import execute as machine_execute
+            value = machine_execute(case, decode)
         elif case['kind'] == 'storage-backend':
             from scripts.oracles.session_backend_current_python import execute as backend_execute
             value = backend_execute(case, decode)

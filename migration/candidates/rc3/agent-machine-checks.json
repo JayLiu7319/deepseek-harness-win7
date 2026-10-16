@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-B-agent-request-machine",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 29,
+    "report": {
+      "path": ".goose/out/rc3-r03-machine-frozen-20261017/report.json",
+      "sha256": "dd0a686cd9158aa6016d9917724e4fd4b85f2f3515dcd92ee7c35d91382f96f5"
+    },
+    "corpus": {
+      "path": "scripts/oracles/agent_machine_current_cases.json",
+      "sha256": "0da28c6cc0152650ea6b4442cbab510178ae1a0225870c6acda094dd05c60eec"
+    },
+    "normalization": [
+      "Generated message UUIDs renamed by first observation, preserving equality relationships.",
+      "Date/stream clock fixed at 1000; transient AbortSignal represented by marker, Agent payload references by exact id; optional undefined omitted.",
+      "Native tests separately require exact signal/Agent identity, initiator attribution, scoped delivery, immutable containers and actual teardown ordering."
+    ]
+  },
+  "native": {
+    "passed": 256,
+    "command": {
+      "path": ".goose/out/rc3-r03-machine-native-fixed-20261017/command.json",
+      "sha256": "3ee51f1b6ac53285db3795ac65703c74c37eecff19b4550b9914ff9d001575d4"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-machine-native-fixed-20261017/pytest.xml",
+      "sha256": "883b28d4d9b5c33dab6f200b509e7f33cb08fb0ac0f21b412a6eb779305a9348"
+    },
+    "final_machine_assertions": {
+      "passed": 41,
+      "command": {
+        "path": ".goose/out/rc3-r03-machine-final-20261017/command.json",
+        "sha256": "a0d5882f4b53cb5c558c8fb523f8b8a644c6d3a2e469e26e89ad117e7bba8f02"
+      },
+      "xml": {
+        "path": ".goose/out/rc3-r03-machine-final-20261017/pytest.xml",
+        "sha256": "470ebb636105e4ae8109f2bf0b789eb07ea562518e1f0a5d45afbb5c1b93a119"
+      }
+    }
+  },
+  "source": {
+    "passed": 325,
+    "skipped": 1,
+    "skip_reason": "Unmodified Windows guard for POSIX unlink persistence test.",
+    "command": {
+      "path": ".goose/out/rc3-r03-machine-source-20261017/command.json",
+      "sha256": "2cabbfbc47a9384c669f5e7f7c0836372bfeaa62e19ac2ca75de8d84c59e2d0d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-machine-source-20261017/source.xml",
+      "sha256": "cb77ed14ac31034574e75632401e7563c8d4627c33885109142c217ad04595f1"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/agent_current.py",
+      "sha256": "535741b20c3f5c08c30881f63c9494283515b0e0934745a9837fc2a2b5d257b9"
+    },
+    {
+      "path": "dsh/core/agent_dispatch_current.py",
+      "sha256": "c793fdcdb92ed2afd6b74ecafe92723b238434f8441b9f1c956b5f02e1343852"
+    },
+    {
+      "path": "dsh/core/agent_loop_current.py",
+      "sha256": "96d44a702dfc203949bc4a1e9ffcccb0a4e9a7632cef712fa536326fc5b2c1bd"
+    },
+    {
+      "path": "dsh/core/react_loop_current.py",
+      "sha256": "f066137ef0b802724880c34d45e71391241800b54a8acc25ba3717f9e45170c3"
+    },
+    {
+      "path": "dsh/core/agent.py",
+      "sha256": "5ec04a1e14d59f599e3276a9bfcce05a0d1bcac052eff56eb4adc4b6eaee476d"
+    },
+    {
+      "path": "dsh/core/agent_lifecycle_current.py",
+      "sha256": "ba99146fc420bd88eb1d45147fc22537da40dc90b12a86810073c7a13421717e"
+    },
+    {
+      "path": "dsh/llm/runtime_current.py",
+      "sha256": "f5d617e12240d56e598b126bb07099f5ac1eb3dd73dd65a403670b8fe0ae7c50"
+    },
+    {
+      "path": "dsh/llm/model_info.py",
+      "sha256": "921f361f8c7281823cff35b3c15aa43c2a1f817678b357998aa13aa55337f146"
+    },
+    {
+      "path": "dsh/llm/llm_service.py",
+      "sha256": "26260b7647ea4a1cf8bec61e30f645ccb6e0036be75ec11ecf23c4a05f786072"
+    },
+    {
+      "path": "tests/test_agent_machine_current.py",
+      "sha256": "f3b6a923a80edc7cac5e7da74b3977fb646f49f2483e735f09587e4c27abd99f"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_source.mts",
+      "sha256": "41955763bf37b808227e171d1fd630af24c07ea2b902c0e3d7fec029e47c9a6e"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_python.py",
+      "sha256": "acb2cd0b4f479cc36566c76e1b74cb5db2485b16bd4e20cacbe2219c0c42ab70"
+    },
+    {
+      "path": "scripts/oracles/generate_agent_machine_current_cases.py",
+      "sha256": "4c27208c65fdd58a4527c4d081d95f7806fd4d79184ec8e1d53a578e97848e63"
+    }
+  ],
+  "scope": [
+    "Agent identity is its scope key; explicit parentAgent ownership; creation synchronous veto, async rejection containment, ordinary notifications non-vetoing.",
+    "Driver starts on waking send including session-start callback, persists claim/turn/step/surface/request boundaries, and handles maintenance/cancel/idle convergence.",
+    "Every request derives from current v3 messages with frozen header/tools/messages and same explicit signal; defaults/proposals re-resolve and epochs record changes/series.",
+    "Prepared model metadata validates and forwards in-history capability; attempt/message settlement, interrupted visible prefix, retries and tool-result continuation are current format.",
+    "Real raw/zstd persistence close/resume retains queued input; handle drain precedes registry detach."
+  ],
+  "diagnostics": [
+    "Initial corpus incorrectly expected agent/created synchronous failure to be contained; Source veto exposed this and candidate registry was corrected.",
+    "Native notification caller helper padded an unintended second argument; restricted maximum arity to one.",
+    "Initial expanded rc.1 LLM regression selected Node22.20 instead of required22.22.2 and failed Source identity guards; exact scope rerun with required Node passed256. Original outputs retained."
+  ],
+  "limits": [
+    "29 paired journeys plus native failure/identity checks are not exhaustive parity for all original Source Agent assertions. Source325 executed separately.",
+    "Persona/preset/subagent consumers, application Remote contexts and full runtime composition remain open.",
+    "Old lifecycle candidate retained for historical R02 tests; production registry/profile still rc.1. No overall R03 or release acceptance."
+  ]
+}

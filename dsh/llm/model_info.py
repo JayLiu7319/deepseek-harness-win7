@@ -31,7 +31,7 @@ def normalize_catalog(provider, models, error_type):
     return result
 
 
-def normalize_model_info(provider, identifier, model, error_type):
+def normalize_model_info(provider, identifier, model, error_type, system_prompt_update=False):
     route = 'for provider "{}" model "{}"'.format(provider, identifier)
     if (not isinstance(model, dict) or not isinstance(model.get('provider'), str) or model['provider'] != provider
             or not isinstance(model.get('id'), str) or model['id'] != identifier
@@ -49,6 +49,10 @@ def normalize_model_info(provider, identifier, model, error_type):
         result['inputModalities'] = list(model['inputModalities'])
     if 'context' in model:
         result['context'] = dict(contextWindow=model['context']['contextWindow'])
+    if system_prompt_update and 'systemPromptUpdate' in model:
+        if model['systemPromptUpdate'] != 'in-history':
+            raise error_type('adapter returned invalid system prompt update mode ' + route, 'INVALID_MODEL_INFO')
+        result['systemPromptUpdate'] = model['systemPromptUpdate']
     if 'defaultMaxTokens' in model:
         maximum = model['defaultMaxTokens']
         if not _integer(maximum) or maximum <= 0 or maximum > 9007199254740991:
