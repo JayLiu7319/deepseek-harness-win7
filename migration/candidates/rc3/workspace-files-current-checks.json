@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-B-workspace-files",
+  "status": "native-targeted-passed-source-permission-failures-open",
+  "paired": {
+    "matched": 95,
+    "report": {
+      "path": ".goose/out/rc3-r06-workspace-files-frozen-20261017/report.json",
+      "sha256": "f72662c209e4d48289429276c2a8d49bf4eb705a0dff9f8c876f617a7b5e5a30"
+    },
+    "corpus": {
+      "path": "scripts/oracles/workspace_files_current_cases.json",
+      "sha256": "dddb7cef3e0a86d8875b73012e684f52556d1923209d6a774526fc96e1d0f489"
+    }
+  },
+  "native": {
+    "passed": 190,
+    "command": {
+      "path": ".goose/out/rc3-r06-workspace-files-native-final-20261017/command.json",
+      "sha256": "6a84d0642113c4ef1ed602d85a804e0873bf369c4fbc55601caa3cac0d0cb45b"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-workspace-files-native-final-20261017/pytest.xml",
+      "sha256": "1659ca8325443475988c6951ba88a9b008f5f552030102daec7725616dd3244f"
+    }
+  },
+  "source": {
+    "passed": 93,
+    "failed": 6,
+    "suites": 7,
+    "command": {
+      "path": ".goose/out/rc3-r06-workspace-files-source-20261017/command.json",
+      "sha256": "f31825a8c9f07c921b4eec9af40f8798cf4994bb9c88fd5d8129ddbb9304c091"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-workspace-files-source-20261017/source.xml",
+      "sha256": "0df48717c98ee4848a7ef639c46b81bf10b88394c3002a545ab7fe9db5f4bf88"
+    },
+    "failure": "Windows EPERM prevents six symlink fixture setups; no full Source success claim."
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/workspace_files_current.py",
+      "sha256": "b74f52ff8d7c9db2ac8767a0e20ec5161d57fcb066a5e932c2bc20d5bea412ff"
+    }
+  ],
+  "scope": [
+    "Opaque composed-FS previews: line pages, raw byte windows, whole files, related resources, regular-file stat and workspace-contained directory lists. Reads outside workspace retain original composed-FS access.",
+    "Header-only live/cold lookup including child Session cwd and no-cwd policy fallback, without event replay or Agent activation.",
+    "Instrumented observation generations acknowledge ready after root resolution and retain queued observations in FIFO, filter by containment and close/drop on abort/unload. Iterator return immediately removes abort subscription.",
+    "Actual Agent/persistence/sandbox FS consumers verify parent/child/cold scopes, read-only mutation rejection, related outside-workspace CSS and growth cap. Safe integers, UTF-8 byte caps and original Unicode scheme regex are paired."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-initial-20261017",
+      "reason": "Input generator reused envelope kind for filesystem kind; rejected before actors."
+    },
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-entry-kind-20261017",
+      "reason": "Native Cordis overwrites service config after construction; caps moved to dedicated field. Source actor called nonexistent lookups.has; changed observation to get."
+    },
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-native-20261017",
+      "reason": "180 passed/2 new fixture failures: Windows text newline translation and reserved NUL filename."
+    },
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-native-integration-20261017",
+      "reason": "New sandbox-policy double omitted resolve; replaced with actual policy service."
+    },
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-native-policy-20261017",
+      "reason": "Cold fixture had no durable event yet; appended valid title before disposing child."
+    },
+    {
+      "path": ".goose/out/rc3-r06-workspace-files-source-20261017",
+      "reason": "Six EPERM symlink setup failures retained."
+    }
+  ],
+  "remaining": [
+    "Current generated Typert descriptors and canonical production activation.",
+    "Browser Sidebar/resources consumers and present/tool deltas.",
+    "Source symlink environment acceptance and previous Win321175 attribution."
+  ],
+  "retention": {
+    "free_bytes": 192317140992,
+    "result": "No Portable built. Large byte-range fixture finalizer and successful short fixture cleanup bound output; unresolved failures and raw observations preserved."
+  }
+}

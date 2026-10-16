@@ -1,0 +1,5196 @@
+[
+  {
+    "case": "lookup-cold",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "lookup"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one",
+            "workspaceRoot": "/project"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "persisted-stat",
+          "sessionId": "one"
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "lookup-live",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "lookup"
+      }
+    ],
+    "liveHeader": {
+      "cwd": "/live"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one",
+            "workspaceRoot": "/live"
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "lookup-fallback",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "lookup"
+      }
+    ],
+    "header": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one",
+            "workspaceRoot": "/fallback"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "persisted-stat",
+          "sessionId": "one"
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "lookup-missing",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "lookup"
+      }
+    ],
+    "noHeader": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "calls": [
+        {
+          "op": "persisted-stat",
+          "sessionId": "one"
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-regular",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-unknown-size",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "unknownSize": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-missing",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "missing": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "no entry at \"file.txt\"",
+            "code": "workspace-file/not-found",
+            "details": {
+              "path": "file.txt"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-directory",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "entryKind": "directory",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" is a directory",
+            "code": "workspace-file/not-regular-file",
+            "details": {
+              "path": "file.txt",
+              "kind": "directory"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-symlink",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "entryKind": "symlink",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" is a symlink",
+            "code": "workspace-file/not-regular-file",
+            "details": {
+              "path": "file.txt",
+              "kind": "symlink"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-vanished",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "vanished": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "no entry at \"file.txt\"",
+            "code": "workspace-file/not-found",
+            "details": {
+              "path": "file.txt"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-race-kind",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "statKind": "directory",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" is a directory",
+            "code": "workspace-file/not-regular-file",
+            "details": {
+              "path": "file.txt",
+              "kind": "directory"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-resolve",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat"
+      }
+    ],
+    "resolveError": "FS_SANDBOX_DENIED",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "resolve refused",
+            "code": "FS_SANDBOX_DENIED"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "stat-empty",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "stat",
+        "path": ""
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "path is required",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-empty",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-terminated",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "a\n"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "a",
+            "lines": 1,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "a\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "a\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "a\n"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-blank-lines",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "\n\n"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "\n",
+            "lines": 2,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "",
+            "lines": 1,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "\n\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "\n\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "\n\n"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-chunks",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "ab",
+      "c\n",
+      "d\n",
+      "ef"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "abc\nd\nef",
+            "lines": 3,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "d",
+            "lines": 1,
+            "eof": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "ab"
+        },
+        {
+          "op": "chunk",
+          "text": "c\n"
+        },
+        {
+          "op": "chunk",
+          "text": "d\n"
+        },
+        {
+          "op": "chunk",
+          "text": "ef"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "ab"
+        },
+        {
+          "op": "chunk",
+          "text": "c\n"
+        },
+        {
+          "op": "chunk",
+          "text": "d\n"
+        },
+        {
+          "op": "chunk",
+          "text": "ef"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "ab"
+        },
+        {
+          "op": "chunk",
+          "text": "c\n"
+        },
+        {
+          "op": "chunk",
+          "text": "d\n"
+        },
+        {
+          "op": "chunk",
+          "text": "ef"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-crlf",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "one\r\ntwo\r\n"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "one\r\ntwo\r",
+            "lines": 2,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "two\r",
+            "lines": 1,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\r\ntwo\r\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\r\ntwo\r\n"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\r\ntwo\r\n"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-nul",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "one\u0000\ntwo"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" contains NUL bytes",
+            "code": "workspace-file/not-text",
+            "details": {
+              "path": "file.txt"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "two",
+            "lines": 1,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\u0000\ntwo"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\u0000\ntwo"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\u0000\ntwo"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-unicode",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      },
+      {
+        "op": "read",
+        "range": {
+          "offset": 40,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "汉字\n😀\nend"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "汉字\n😀\nend",
+            "lines": 3,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "😀",
+            "lines": 1,
+            "eof": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 40,
+            "text": "",
+            "lines": 0,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "汉字\n😀\nend"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "汉字\n😀\nend"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "汉字\n😀\nend"
+        }
+      ],
+      "closed": 3
+    }
+  },
+  {
+    "case": "read-stops-before-next-chunk",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "a\nb",
+      "never-read"
+    ],
+    "textError": "FS_NOT_TEXT",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "a",
+            "lines": 1,
+            "eof": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "a\nb"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "read-backend-refusal",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      }
+    ],
+    "chunks": [],
+    "textError": "FS_NOT_TEXT",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" is not UTF-8 text",
+            "code": "workspace-file/not-text",
+            "details": {
+              "path": "file.txt"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "read-other-backend-error",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      }
+    ],
+    "chunks": [],
+    "textError": "FS_PERMISSION_DENIED",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "backend rejected text",
+            "code": "FS_PERMISSION_DENIED"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "read-page-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      }
+    ],
+    "chunks": [
+      "一",
+      "二",
+      "三"
+    ],
+    "config": {
+      "maxBytes": 8
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "lines 1-5000 of \"file.txt\" exceed the 8 byte cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 8
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "一"
+        },
+        {
+          "op": "chunk",
+          "text": "二"
+        },
+        {
+          "op": "chunk",
+          "text": "三"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "read-separator-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read"
+      }
+    ],
+    "chunks": [
+      "a\nb\n"
+    ],
+    "config": {
+      "maxBytes": 2
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "lines 1-5000 of \"file.txt\" exceed the 2 byte cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 2
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "a\nb\n"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "read-skip-large-prefix",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 2,
+          "limit": 1
+        }
+      }
+    ],
+    "chunks": [
+      "not retained\nok\nlast"
+    ],
+    "config": {
+      "maxBytes": 2
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "ok",
+            "lines": 1,
+            "eof": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "not retained\nok\nlast"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "range-validation-read-offset-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-5",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-6",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 9007199254740992
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-offset-7",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 2.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "text": "two\nthree",
+            "lines": 2,
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\ntwo\nthree"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "range-validation-read-limit-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-5",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-6",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 9007199254740992
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-read-limit-7",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 2.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "one\ntwo",
+            "lines": 2,
+            "eof": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\ntwo\nthree"
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 2097152
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-5",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-6",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 9007199254740992
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 0",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-offset-7",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 2.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "data": "dGVz",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 2,
+            "length": 2097152
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-5",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-6",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 9007199254740992
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "length must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "range-validation-readBytes-length-7",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 2.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynk=",
+            "eof": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 2
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-line-limit",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "limit": 6
+        }
+      }
+    ],
+    "config": {
+      "maxLines": 5
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "limit must be at most 5",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "bytes-safe-sum",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 9007199254740991,
+          "length": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset plus length must stay a safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "bytes-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 6
+        }
+      }
+    ],
+    "config": {
+      "maxBytes": 5
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "6 bytes of \"file.txt\" exceed the 5 byte cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 5
+            }
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "bytes-windows",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes"
+      },
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 2,
+          "length": 2
+        }
+      },
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 5,
+          "length": 1
+        }
+      },
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": 90,
+          "length": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 2,
+            "data": "dGU=",
+            "eof": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 5,
+            "data": "",
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 90,
+            "data": "",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 2097152
+          },
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 2,
+            "length": 2
+          },
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 5,
+            "length": 1
+          },
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 90,
+            "length": 1
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "bytes-unknown-size",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 5
+        }
+      },
+      {
+        "op": "readBytes",
+        "range": {
+          "length": 6
+        }
+      }
+    ],
+    "unknownSize": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 5
+          },
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 6
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-all",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readAll"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-all-stat-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readAll"
+      }
+    ],
+    "config": {
+      "maxFileBytes": 4
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" exceeds the 4 byte full-file cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 4
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-all-growth-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readAll"
+      }
+    ],
+    "config": {
+      "maxFileBytes": 4
+    },
+    "size": 3,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" exceeds the 4 byte full-file cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 4
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 5
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-all-unknown-cap",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readAll"
+      }
+    ],
+    "config": {
+      "maxFileBytes": 4
+    },
+    "unknownSize": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file.txt\" exceeds the 4 byte full-file cap",
+            "code": "workspace-file/too-large",
+            "details": {
+              "path": "file.txt",
+              "limit": 4
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 5
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "read-outside-workspace",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "path": "../outside/file.txt"
+      },
+      {
+        "op": "readAll",
+        "path": "/elsewhere/file"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/outside/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 1,
+            "text": "one\ntwo\nthree",
+            "lines": 3,
+            "eof": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/elsewhere/file",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "../outside/file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "../outside/file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/outside/file.txt",
+          "signal": true
+        },
+        {
+          "op": "stream",
+          "target": "/outside/file.txt",
+          "signal": true
+        },
+        {
+          "op": "chunk",
+          "text": "one\ntwo\nthree"
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/elsewhere/file",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/elsewhere/file",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/elsewhere/file",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/elsewhere/file",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 1
+    }
+  },
+  {
+    "case": "related-posix-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": ""
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "/etc/passwd"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "\\outside"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "https://host"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "C:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-5",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "file:///root"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-6",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "a\u0000b"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-7",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "../outside.css"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/outside.css",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "index.html",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "index.html",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/index.html",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/outside.css",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/outside.css",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/outside.css",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/outside.css",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-posix-8",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "index.html",
+        "relative": "sub\\image.png"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/sub/image.png",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "index.html",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "index.html",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/index.html",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/project/sub/image.png",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project/sub/image.png",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/sub/image.png",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/sub/image.png",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-windows",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "path": "docs\\index.html",
+        "relative": "..\\image.png"
+      }
+    ],
+    "root": "C:\\project",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "C:\\project\\image.png",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "docs\\index.html",
+          "cwd": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "docs\\index.html",
+          "cwd": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "C:\\project\\docs\\index.html",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "C:\\project\\image.png",
+          "cwd": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "C:\\project\\image.png",
+          "cwd": "C:\\project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "C:\\project\\image.png",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "C:\\project\\image.png",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "list-root",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "list",
+        "path": "."
+      }
+    ],
+    "entryKind": "directory",
+    "entries": [
+      {
+        "name": "a",
+        "type": "file",
+        "size": 2
+      },
+      {
+        "name": "directory",
+        "type": "directory"
+      },
+      {
+        "name": "z",
+        "type": "symlink"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "path": "",
+            "entries": [
+              {
+                "name": "a",
+                "type": "file",
+                "size": 2
+              },
+              {
+                "name": "directory",
+                "type": "directory"
+              },
+              {
+                "name": "z",
+                "type": "symlink"
+              }
+            ],
+            "truncated": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": ".",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": ".",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "list",
+          "target": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "list-child",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "list",
+        "path": "sub dir/汉字"
+      }
+    ],
+    "entryKind": "directory",
+    "entries": [
+      {
+        "name": "a",
+        "type": "file",
+        "size": 2
+      },
+      {
+        "name": "directory",
+        "type": "directory"
+      },
+      {
+        "name": "z",
+        "type": "symlink"
+      }
+    ],
+    "config": {
+      "maxEntries": 2
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "path": "sub dir/汉字",
+            "entries": [
+              {
+                "name": "a",
+                "type": "file",
+                "size": 2
+              },
+              {
+                "name": "directory",
+                "type": "directory"
+              }
+            ],
+            "truncated": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "sub dir/汉字",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "sub dir/汉字",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "list",
+          "target": "/project/sub dir/汉字",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "list-outside",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "list",
+        "path": "../outside"
+      }
+    ],
+    "entryKind": "directory",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"../outside\" is outside the workspace",
+            "code": "workspace-file/outside-workspace",
+            "details": {
+              "path": "../outside"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "../outside",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "../outside",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "list-not-directory",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "list",
+        "path": "file"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"file\" is a file",
+            "code": "workspace-file/not-directory",
+            "details": {
+              "path": "file",
+              "kind": "file"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "list-symlink",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "list",
+        "path": "link"
+      }
+    ],
+    "entryKind": "symlink",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "\"link\" is a symlink",
+            "code": "workspace-file/not-directory",
+            "details": {
+              "path": "link",
+              "kind": "symlink"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "link",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "changes-queued-live-close",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "change"
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "observed",
+        "path": "../outside",
+        "observation": {
+          "kind": "present",
+          "version": "outside"
+        }
+      },
+      {
+        "op": "observed",
+        "path": "inside",
+        "observation": {
+          "kind": "absent"
+        }
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "close"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "openingObservations": [
+      {
+        "path": "during-resolve",
+        "observation": {
+          "kind": "present",
+          "version": "v2"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "ready"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "change",
+              "change": {
+                "absolutePath": "/project/during-resolve",
+                "version": "v2"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "change",
+              "change": {
+                "absolutePath": "/project/inside",
+                "absent": true
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lookup": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "changes-abort-drops-queued",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "change"
+      },
+      {
+        "op": "observed",
+        "path": "inside",
+        "observation": {
+          "kind": "present",
+          "version": "v2"
+        }
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "ready"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "changes-reconnect-independent",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "change",
+        "name": "old"
+      },
+      {
+        "op": "observed",
+        "path": "first",
+        "observation": {
+          "kind": "present",
+          "version": "first"
+        }
+      },
+      {
+        "op": "change",
+        "name": "new"
+      },
+      {
+        "op": "observed",
+        "path": "second",
+        "observation": {
+          "kind": "present",
+          "version": "second"
+        }
+      },
+      {
+        "op": "next",
+        "name": "old"
+      },
+      {
+        "op": "next",
+        "name": "new"
+      },
+      {
+        "op": "close"
+      },
+      {
+        "op": "next",
+        "name": "old"
+      },
+      {
+        "op": "next",
+        "name": "new"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "ready"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "ready"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "change",
+              "change": {
+                "absolutePath": "/project/first",
+                "version": "first"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "kind": "change",
+              "change": {
+                "absolutePath": "/project/second",
+                "version": "second"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lookup": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "changes-resolve-failure",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "change"
+      }
+    ],
+    "resolveError": "FS_PERMISSION_DENIED",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "resolve refused",
+            "code": "FS_PERMISSION_DENIED"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "changes-preabort",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "abort"
+      },
+      {
+        "op": "change"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "message": "caller cancelled"
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "integer-overflow",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "read",
+        "range": {
+          "offset": 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "offset must be a safe integer of at least 1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "bytes-negative-zero",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readBytes",
+        "range": {
+          "offset": -0.0,
+          "length": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/file.txt",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Yg==",
+            "eof": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/file.txt",
+          "range": {
+            "offset": 0,
+            "length": 1
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-unicode-scheme-0",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "relative": "İ:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/İ:relative",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/project/İ:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project/İ:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/İ:relative",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/İ:relative",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-unicode-scheme-1",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "relative": "ı:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/ı:relative",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/project/ı:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project/ı:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/ı:relative",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/ı:relative",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-unicode-scheme-2",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "relative": "a١:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "absolutePath": "/project/a١:relative",
+            "version": "v1",
+            "bytes": 5,
+            "offset": 0,
+            "data": "Ynl0ZXM=",
+            "eof": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "file.txt",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/file.txt",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/project/a١:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/project/a١:relative",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "target": "/project/a١:relative",
+          "signal": true
+        },
+        {
+          "op": "bytes",
+          "target": "/project/a١:relative",
+          "range": {
+            "offset": 0,
+            "length": 33554433
+          },
+          "signal": true
+        }
+      ],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-unicode-scheme-3",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "relative": "ſ:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  },
+  {
+    "case": "related-unicode-scheme-4",
+    "kind": "workspace-files-current",
+    "actions": [
+      {
+        "op": "readRelated",
+        "relative": "K:relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "relativePath must be a relative filesystem path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "closed": 0
+    }
+  }
+]
