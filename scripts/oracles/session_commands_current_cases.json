@@ -1,0 +1,2314 @@
+[
+  {
+    "case": "session-command-file-queue",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          },
+          {
+            "type": "file",
+            "receipt": 0
+          },
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "view"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "remove"
+        }
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  },
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  },
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:2"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        },
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        },
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        },
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        },
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": [],
+                  "outcome": "canceled"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-file-steer",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "status",
+        "value": "running"
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "steer"
+        }
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "view"
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "remove"
+        }
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [
+              {
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:2"
+              }
+            ],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": [],
+                  "outcome": "canceled"
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-step",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-retry-pending",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "route",
+        "value": false
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": "unknown"
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:2"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-retry-recorded",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "observe",
+        "requestId": "req-1"
+      },
+      {
+        "op": "route",
+        "value": false
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": "unknown"
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "user/message",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "id": "observed-0",
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "accepted"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user",
+                    "rpcId": "req-1"
+                  }
+                },
+                "surfaceOp": "append"
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-rollback-binding",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "bind",
+        "receipts": [
+          0
+        ],
+        "requestId": "old",
+        "commit": true
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "retire",
+        "requestId": "req-1"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "retire",
+        "requestId": "old"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "rejectPrompt": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "prompt rejected",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "Error: delivery refused"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-unknown-file",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": "unknown"
+          },
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "File was not uploaded for this session.",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "FILE_NOT_STAGED"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": []
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-mixed-order",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          },
+          {
+            "type": "text",
+            "text": "hello"
+          },
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          },
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:d3f3bd943ba093cef3385cbdf89dd7090da7de7a6db820b1462165e33e7f05be",
+                      "mediaType": "image/png",
+                      "width": 2,
+                      "height": 2,
+                      "bytes": 79,
+                      "name": "tiny.png"
+                    }
+                  },
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                      "name": "a.txt",
+                      "bytes": 1
+                    }
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:2"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:d3f3bd943ba093cef3385cbdf89dd7090da7de7a6db820b1462165e33e7f05be",
+                            "mediaType": "image/png",
+                            "width": 2,
+                            "height": 2,
+                            "bytes": 79,
+                            "name": "tiny.png"
+                          }
+                        },
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-text-model-image",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          },
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          }
+        ]
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "textOnly": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "Model \"model\" does not support image input.",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "MODEL_DOES_NOT_SUPPORT_IMAGES"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": []
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-empty",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "\ufeff \n\u00a0"
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "prompt content must include non-whitespace text or an attachment",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": []
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-missing-model",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "route",
+        "value": false
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "no adapter serves provider \"fixture\"; select a model for this session",
+            "code": "session/model-unavailable",
+            "details": {
+              "provider": "fixture",
+              "model": "model"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [],
+            "nextStep": [],
+            "events": []
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-time-zone",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ],
+        "clientTimeZone": "Asia/Calcutta"
+      },
+      {
+        "op": "view"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ],
+        "requestId": "second",
+        "clientTimeZone": " UTC "
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1",
+                  "clientTimeZone": "Asia/Calcutta"
+                },
+                "role": "user",
+                "id": "opaque:1"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1",
+                        "clientTimeZone": "Asia/Calcutta"
+                      },
+                      "role": "user",
+                      "id": "opaque:1"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "clientTimeZone must be UTC or a valid IANA Area/Location name",
+            "code": "session/invalid-time-zone",
+            "details": {
+              "value": " UTC "
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-edit",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "upload"
+      },
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "file",
+            "receipt": 0
+          }
+        ]
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello"
+            }
+          ]
+        }
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "view"
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "remove"
+        }
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "receiptId": "opaque:1",
+            "file": {
+              "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "name": "a.txt",
+              "bytes": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+            "name": "a.txt",
+            "bytes": 1
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:2"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "file",
+                          "attachment": {
+                            "attachmentId": "sha256:ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                            "name": "a.txt",
+                            "bytes": 1
+                          }
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:2"
+                    }
+                  ],
+                  "outcome": "canceled"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-edit-empty",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "\t"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "queue edit content must include non-whitespace text",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:1"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:1"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-edit-attachment",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "image",
+              "data": "invalid",
+              "mediaType": "image/png"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "queue edits accept text content only",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "QUEUE_EDIT_NON_TEXT"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:1"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:1"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-idle-steer",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "queue",
+        "action": {
+          "kind": "steer"
+        }
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "current turn no longer accepts steering",
+            "code": "session/steer-unavailable",
+            "details": {
+              "itemId": "opaque:1"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:1"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:1"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-cancel-retains",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "cancel"
+      },
+      {
+        "op": "view"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "req-1"
+                },
+                "role": "user",
+                "id": "opaque:1"
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "req-1"
+                      },
+                      "role": "user",
+                      "id": "opaque:1"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-image-authorized",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "image",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg==",
+            "mediaType": "image/png",
+            "name": "tiny.png"
+          }
+        ]
+      },
+      {
+        "op": "attachment"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "attachment": {
+              "attachmentId": "sha256:d3f3bd943ba093cef3385cbdf89dd7090da7de7a6db820b1462165e33e7f05be",
+              "mediaType": "image/png",
+              "width": 2,
+              "height": 2,
+              "bytes": 79,
+              "name": "tiny.png"
+            },
+            "data": "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGMUkdNgYGBgYmBgYGBgAAAETgBeUipNeAAAAABJRU5ErkJggg=="
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-image-denied",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ]
+      },
+      {
+        "op": "attachment",
+        "attachmentId": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "Image is not referenced by this session.",
+            "code": "session/attachment-invalid",
+            "details": {
+              "reason": "ATTACHMENT_NOT_REFERENCED"
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-child-prompt",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "prompt",
+        "content": [
+          {
+            "type": "text",
+            "text": "hello"
+          }
+        ],
+        "agent": "child"
+      },
+      {
+        "op": "cancel",
+        "agent": "child"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"child\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"child\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-child-queue-owned",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "appendQueued",
+        "agent": "child"
+      },
+      {
+        "op": "queue",
+        "agent": "child",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view",
+        "agent": "child"
+      }
+    ],
+    "identity": {
+      "mode": "continuable",
+      "seq": 0
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "accepted": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "id": "seeded-message",
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "hello"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "seeded-request"
+                }
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "seeded-message",
+                      "role": "user",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "seeded"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "seeded-request"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": [
+                    {
+                      "id": "seeded-message",
+                      "role": "user",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "hello"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "seeded-request"
+                      }
+                    }
+                  ],
+                  "outcome": "canceled"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-child-queue-inherited",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "appendQueued",
+        "agent": "child"
+      },
+      {
+        "op": "queue",
+        "agent": "child",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view",
+        "agent": "child"
+      }
+    ],
+    "identity": {
+      "mode": "continuable",
+      "seq": 100
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"child\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "id": "seeded-message",
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "seeded"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "seeded-request"
+                }
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "seeded-message",
+                      "role": "user",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "seeded"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "seeded-request"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-child-queue-ephemeral",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "appendQueued",
+        "agent": "child"
+      },
+      {
+        "op": "queue",
+        "agent": "child",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view",
+        "agent": "child"
+      }
+    ],
+    "identity": {
+      "mode": "ephemeral",
+      "seq": 0
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"child\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "id": "seeded-message",
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "seeded"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "seeded-request"
+                }
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "seeded-message",
+                      "role": "user",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "seeded"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "seeded-request"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  },
+  {
+    "case": "session-command-child-queue-missing",
+    "kind": "file-upload-current",
+    "sessionCommands": true,
+    "actions": [
+      {
+        "op": "appendQueued",
+        "agent": "child"
+      },
+      {
+        "op": "queue",
+        "agent": "child",
+        "action": {
+          "kind": "edit",
+          "content": [
+            {
+              "type": "text",
+              "text": "hello"
+            }
+          ]
+        }
+      },
+      {
+        "op": "view",
+        "agent": "child"
+      }
+    ],
+    "identity": null,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"child\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "nextTurn": [
+              {
+                "id": "seeded-message",
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "seeded"
+                  }
+                ],
+                "source": {
+                  "kind": "user",
+                  "rpcId": "seeded-request"
+                }
+              }
+            ],
+            "nextStep": [],
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "seeded-message",
+                      "role": "user",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "seeded"
+                        }
+                      ],
+                      "source": {
+                        "kind": "user",
+                        "rpcId": "seeded-request"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "invocations": []
+    }
+  }
+]

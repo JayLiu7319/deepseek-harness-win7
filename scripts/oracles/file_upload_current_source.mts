@@ -32,11 +32,44 @@ export async function fileUploadCase(source:string,test:any){
    const agent:any={id:sid,session:ctx.sessions.create(sid,{meta:{createdAt:1000,...(sid==='child'?{origin:'subagent'}:{})}})}
    agent.ctx=createScope(ctx,agent).ctx;live.set(sid,agent);agents.set(sid,agent)
   }
+  let controller:any,route=true
+  if(test.sessionCommands){
+   const {SessionCommandController}=await load('packages/api/session-controller/src/commands.ts')
+   const {apiSessionSubagentOwnershipError}=await load('packages/api/session-controller/src/agent.ts')
+   const {ReactLoopInbox}=await load('packages/core/agent-loop/src/inbox.ts')
+   const {default:Projections}=await load('packages/session/session-projection/src/index.ts')
+   await ctx.plugin(Projections);ctx.agents.isOwnedBy=()=>false
+   ctx.sessionProjections.register({key:'subagent',stateVersion:1,stateSchema:{parse:(value:any)=>value},init:()=>test.identity??null,apply:(state:any)=>state,wire:{viewSchema:{parse:(value:any)=>value},view:(value:any)=>value}})
+   ctx.provide('llm',{listProviders:()=>route?[{id:'fixture'}]:[],resolveModelInfo:async()=>({inputModalities:test.textOnly?['text']:['text','image']})})
+   for(const agent of agents.values()){
+    agent.status='idle';agent.inbox=new ReactLoopInbox(ctx.sessionProjections,agent.session,{emit:()=>{}})
+    const send=(message:any,target:string)=>{if(test.rejectPrompt)throw new Error('delivery refused');agent.inbox.append(target,message)}
+    agent.followup=(message:any)=>send(message,'next-turn');agent.steer=(message:any)=>send(message,'next-step');agent.cancel=()=>{}
+   }
+   const chains=new WeakMap()
+   controller=new SessionCommandController(ctx,{
+    resolveAgent:async(sid:string)=>{const agent=agents.get(sid);return agent.session.header.origin==='subagent'?{error:apiSessionSubagentOwnershipError(sid)}:{agent}},
+    selectionFor:()=>({current:{provider:'fixture',model:'model'}}),
+    serializeImageAdmission:(agent:any,operation:any)=>{const result=(chains.get(agent)??Promise.resolve()).then(operation);chains.set(agent,result.catch(()=>{}));return result}
+   },process.cwd())
+  }
   const receipt=(index:any)=>typeof index==='number'?receipts[index].receiptId:index
   for(const action of test.actions){
    try{
     const agent=agents.get(action.agent??'one');let value:any
-    if(action.op==='upload'){
+    if(action.op==='prompt'){
+     const content=action.content.map((part:any)=>part.type==='file'?{type:'file',receiptId:receipt(part.receipt)}:part)
+     value=await controller.prompt({sessionId:agent.id,requestId:action.requestId??'req-1',mode:action.mode??'queue',content,...action.clientTimeZone===undefined?{}:{clientTimeZone:action.clientTimeZone}})
+    }else if(action.op==='queue'){
+     const pending=[...agent.inbox.nextTurn,...agent.inbox.nextStep],itemId=pending[action.index??0]?.id??'missing'
+     value=controller.updateQueue({sessionId:agent.id,itemId,action:action.action})
+    }else if(action.op==='appendQueued'){agent.inbox.append('next-turn',{id:'seeded-message',role:'user',content:[{type:'text',text:'seeded'}],source:{kind:'user',rpcId:'seeded-request'}});value=true}
+    else if(action.op==='status'){agent.status=action.value;value=true}
+    else if(action.op==='route'){route=action.value;value=true}
+    else if(action.op==='cancel')value=controller.cancel({sessionId:agent.id})
+    else if(action.op==='attachment')value=await controller.attachment({sessionId:agent.id,attachmentId:action.attachmentId??agent.inbox.nextTurn[0].content[0].attachment.attachmentId})
+    else if(action.op==='view')value={nextTurn:agent.inbox.nextTurn,nextStep:agent.inbox.nextStep,events:agent.session.snapshotEvents()}
+    else if(action.op==='upload'){
      value=await uploads.upload(agent,{data:action.data??'YQ==',name:action.name??'a.txt'},new AbortController().signal);receipts.push(value)
     }else if(action.op==='resolve')value=uploads.resolve(agent,receipt(action.receipt??0))
     else if(action.op==='bind'){

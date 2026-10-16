@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-F-session-prompt-queue-receipts",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 23,
+    "report": {
+      "path": ".goose/out/rc3-r05-session-commands-frozen-20261017/report.json",
+      "sha256": "31592b3db8a11b7de65241854555c8dc1d099587b2f5dfb0e63a9d78ec5a4322"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_commands_current_cases.json",
+      "sha256": "7061e3aa4c450ad22ee9239c53d865626a7473f11257874727f1edf98753b8e8"
+    }
+  },
+  "upload_regression": {
+    "matched": 13,
+    "report": {
+      "path": ".goose/out/rc3-r05-session-commands-upload-regression-20261017/report.json",
+      "sha256": "692a764c6ea33ff3d3fde5b48f13019b0ec83212680af7a7a450f84213e0d2a9"
+    }
+  },
+  "native": {
+    "passed": 103,
+    "command": {
+      "path": ".goose/out/rc3-r05-session-commands-native-disposal-observation-20261017/command.json",
+      "sha256": "41e967812527fbda0103991cc472143a5f8b0ab7c0f8f45c9e6c6c13d88518da"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-session-commands-native-disposal-observation-20261017/pytest.xml",
+      "sha256": "022eb3fdf4d5d7760851ace116f9d8fc49da62113c54dfff4a4ad90501d2d0f3"
+    }
+  },
+  "source": {
+    "passed": 29,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r05-session-commands-source-20261017/command.json",
+      "sha256": "6db01e5b63bdc8729a6683aa106e921f6281cd1766430c7b54696c2d5d54a1fb"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-session-commands-source-20261017/source.xml",
+      "sha256": "ec4b4f95c176393b0db99c3a9b3a2791229a37e3adb8c55548bd7cfd1b0ab304"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_commands_current.py",
+      "sha256": "90ede837b803fc8f5dc57572952200108152f1fd79d1874219175ff5a5dbf300"
+    }
+  ],
+  "scope": [
+    "Current prompt resolves file receipts before image publication, preserves mixed/repeated occurrences, validates model/zone, deduplicates pending and logged requestIds before route/receipt checks.",
+    "Exact Agent identity rechecked after admission; binding commits only after delivery and rolls back on failure. Queue remove retires receipts; steer retains them. Durable frozen text edits and continuable child own-seq gate.",
+    "Current compact Assistant image authorization. Actual native Agent commits file delivery, retires receipt, idempotently retries without another model request; disposal during admission cannot bind/deliver.",
+    "Pairs use real Session/Inbox/files/uploads with controlled Agent dispatch. This does not certify full SessionController assembly."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r05-session-commands-initial-20261017",
+      "reason": "Corpus preparation selected absent case name; runner error retained."
+    },
+    {
+      "path": ".goose/out/rc3-r05-session-commands-fixtures-20261017",
+      "reason": "Initial fixture used invalid-image negative sample; observation/eager default issues corrected. Successful mixed/image paths now asserted."
+    },
+    {
+      "path": ".goose/out/rc3-r05-session-commands-native-20261017",
+      "result": "102 passed,1 failed",
+      "reason": "Test read disposed Inbox after its projection was correctly removed. Final check observes durable log and absent binding."
+    }
+  ],
+  "remaining": [
+    "Session activation/model selection/create/fork/list/history/control and full Remote assembly.",
+    "Production activation, frontend/browser, desktop and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192361328640,
+    "audit": {
+      "path": ".goose/out/rc3-r05-session-commands-retention-20261017/command.json",
+      "sha256": "b5a1856b7ed55ccc8cf3239413e89721fd14dff5d5cff3f3528cafa6da466747"
+    },
+    "result": "No eligible completed copies found. Successful short fixtures auto-pruned; failures and formal receipts preserved."
+  }
+}
