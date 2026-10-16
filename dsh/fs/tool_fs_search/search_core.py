@@ -120,7 +120,7 @@ def _run_failure(tool_name: str, exit_code: int, stderr: Any) -> SearchError:
 
 async def run_ripgrep(ctx: Any, exec_context: Any, tool_name: str,
                       argv: List[str], raw_output_max_bytes: int,
-                      grace_ms: int, stderr_max_bytes: int) -> Dict[str, Any]:
+                      grace_ms: int, stderr_max_bytes: int, current: bool = False) -> Dict[str, Any]:
     throw_if_aborted(exec_context.signal, tool_name)
     workdir = workdir_from_exec(exec_context)
     try:
@@ -150,8 +150,9 @@ async def run_ripgrep(ctx: Any, exec_context: Any, tool_name: str,
     try:
         outcome = await handle.done
     except Exception as error:
-        raise SearchError("%s could not start its search command (ripgrep launch failed)" % tool_name,
-                          "SEARCH_FAILED") from error
+        message = ("%s subprocess failed before reporting an outcome (ripgrep provider failure)" if current else
+                   "%s could not start its search command (ripgrep launch failed)")
+        raise SearchError(message % tool_name, "SEARCH_FAILED") from error
 
     stdout = _read_output(getattr(handle.collected, "stdout", None))
     stderr = _read_output(getattr(handle.collected, "stderr", None))

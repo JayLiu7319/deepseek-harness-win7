@@ -2,13 +2,15 @@ from dsh.fs.fs_local import FsError
 from dsh.fs.tool_diff import compute_hunk_diffs, diffs_from_meta
 
 
-def remediate_fs_error(error):
+def remediate_fs_error(error, display_path=None):
+    if isinstance(error, FsError) and error.code == 'FS_NOT_OBSERVED' and display_path is not None:
+        return FsError('cannot modify "%s": file has not been read — read the file, then retry' % display_path, error.code, error)
     remedies = dict(FS_STALE_VERSION='re-read the file, then retry', FS_NOT_OBSERVED='read the file, then retry')
     remedy = remedies.get(error.code) if isinstance(error, FsError) else None
     return FsError('%s — %s' % (error, remedy), error.code, error) if remedy else error
 
 
-def apply_mutation_tool(ctx, sandbox, kind):
+def apply_mutation_tool(ctx, sandbox, kind, current=False):
     editing = kind == 'edit'
     if editing:
         description = 'Edit an existing UTF-8 text file by replacing literal text.'
@@ -28,7 +30,15 @@ def apply_mutation_tool(ctx, sandbox, kind):
     parameters = dict(file_path=dict(type='string', description='Path to %s, resolved by the filesystem backend.' % kind), **properties)
     if sandbox.escalation_modes:
         parameters.update(sandbox.schema_fields())
-    ctx.get('systemPrompt').section(dict(name='tool:' + kind, order=1300 if editing else 1200, text=guidance))
+    def scoped_guidance(context):
+        tools, scope = ctx.get('tools'), context.get('scope')
+        if tools.get(kind, scope) is None:
+            return ''
+        if editing:
+            return guidance
+        return ('Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)'
+                + (' and prefer edit for targeted changes' if tools.get('edit', scope) is not None else '') + '.')
+    ctx.get('systemPrompt').section(dict(name='tool:' + kind, order=1300 if editing else 1200, text=scoped_guidance if current else guidance))
 
     async def execute(arguments, execution):
         from dsh.fs.tool_fs import _fire_waterfall, _observation_target
@@ -53,7 +63,7 @@ def apply_mutation_tool(ctx, sandbox, kind):
             else:
                 outcome = await filesystem.writeText(target, arguments['content'], intent, execution.signal, **options)
         except Exception as error:
-            raise remediate_fs_error(sandbox.map_error(error, policy))
+            raise remediate_fs_error(sandbox.map_error(error, policy), target.displayPath if current else None)
         ctx.emit('fs/observed', target, dict(kind='present', version=outcome.version), execution)
         result = dict(path=target.displayPath, before=outcome.before, after=outcome.after)
         if not editing:

@@ -307,3 +307,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R06-C — 显式文件交付
 
 新增候选 `CurrentToolPresent`，通过 Session cwd 与组合 FS 验证既有常规文件；不读文件内容、不复制附件。使用实际 execution 弱身份，只在最终成功工具结果后写入所属 Session 的 `deliverables/presented`；后置拦截、作用域覆盖、重复挂载与取消不产生误报。33 组实际原版配对、186 项定向原生测试通过，包含真实二进制文件、独立父子 Agent 和冷持久化读取。原版10项测试中8通过、2因Windows符号链接EPERM失败，原始诊断保留。初轮作用域/schema及真实FS测试夹具错误均已修正；见候选回执 `migration/candidates/rc3/present-current-checks.json`。原版文件打开接口、客户端组装、生产pin及完整门禁仍待完成。
+
+### R06-D — 文件工具增量
+
+新增候选 `CurrentToolFs` / `CurrentToolFsSearch`，复用既有实现并选择rc.3增量。read/write/edit/glob/grep提示随scope工具可见性变化；write和grep不推荐不可见的edit/read；未读修改错误统一携带实际displayPath并保留cause/code；read_image仅提供path展示元数据；搜索区分launch与provider完成失败，spill标记kind=tool/label=result。实际46组配对涵盖32个可见工具子集、执行失败/成功spill与图片内容替换；129项原生、273项原版通过，各有1项既有跳过。真实Agent/FS观察守卫、读取/创建及限制释放已验证。详情见 `migration/candidates/rc3/file-tools-current-checks.json`；单独保留的Win32 1175问题不由本轮通过关闭。后续接入交付文件原生打开、Sidebar、生产组装与浏览器验收。

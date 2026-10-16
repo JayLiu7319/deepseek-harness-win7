@@ -75,7 +75,7 @@ class FsSearchService:
         parsed = parse_glob_args(args)
         run = await run_ripgrep(
             ctx, exec_context, "glob", build_glob_command(parsed),
-            self.raw_output_max_bytes, self.grace_ms, self.stderr_max_bytes,
+            self.raw_output_max_bytes, self.grace_ms, self.stderr_max_bytes, current=getattr(self, 'current_contract', False),
         )
         root_display = "." if parsed.get("path") is None else to_workdir_relative(
             parsed["path"], run["workdir"])
@@ -89,7 +89,7 @@ class FsSearchService:
         parsed = parse_grep_args(args)
         run = await run_ripgrep(
             ctx, exec_context, "grep", build_grep_command(parsed),
-            self.raw_output_max_bytes, self.grace_ms, self.stderr_max_bytes,
+            self.raw_output_max_bytes, self.grace_ms, self.stderr_max_bytes, current=getattr(self, 'current_contract', False),
         )
         if run["noMatches"]:
             return {"matches": []}
@@ -109,6 +109,8 @@ class ToolFsSearchPlugin(Plugin):
 
     def apply(self, ctx: Any) -> None:
         service = self.service
+        current = getattr(self, 'current_contract', False)
+        service.current_contract = current
 
         def setup() -> Any:
             # Cordis inject properties are caller-bound traceable proxies.  Using
@@ -117,17 +119,30 @@ class ToolFsSearchPlugin(Plugin):
             tools = ctx.tools
             prompt = ctx.systemPrompt
             disposers = []
+            def section(definition):
+                if current:
+                    guidance, name = definition['text'], definition['name'][5:]
+                    def text(context):
+                        scope = context.get('scope')
+                        if tools.get(name, scope) is None:
+                            return ''
+                        if name != 'grep':
+                            return guidance
+                        return ('Use the grep tool — not shell grep or rg — to search file contents.'
+                                + (' Use read on a matched file when you need surrounding context.' if tools.get('read', scope) is not None else ''))
+                    definition['text'] = text
+                return prompt.section(definition)
             over_cap_guidance = (
                 "while a larger one is sampled across top-level entries, so it spans the tree instead of one subtree."
                 if service.sample_over_cap_glob else
                 "while a larger one keeps the modification-time-ordered head."
             )
-            disposers.append(prompt.section({
+            disposers.append(section({
                 "name": "tool:glob", "order": 1400,
                 "text": ('Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no "/" matches basenames at any depth, so "*" matches every file in the tree rather than its top level. '
                          'Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, %s' % over_cap_guidance),
             }))
-            disposers.append(prompt.section({
+            disposers.append(section({
                 "name": "tool:grep", "order": 1500,
                 "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context.",
             }))
@@ -212,7 +227,7 @@ class ToolFsSearchPlugin(Plugin):
                 value = result.value
                 if len(value["paths"]) <= service.glob_max_results:
                     return decision
-                spill_ref = await _try_save(ctx, exec_context, "glob-results.txt", "\n".join(value["paths"]))
+                spill_ref = await _try_save(ctx, exec_context, "glob-results.txt", "\n".join(value["paths"]), current=current)
                 replacement = {"kind": "accept", "content": [{"type": "text", "text": render_glob_paths(
                     value["paths"], service.glob_max_results, service.sample_over_cap_glob,
                     value["root"], spill_ref)}]}
@@ -231,7 +246,7 @@ class ToolFsSearchPlugin(Plugin):
                 previewed = retain_grep_matches(value["matches"], len(value["matches"]),
                                                 service.grep_max_line_bytes)["items"]
                 complete = "Found %d matches\n\n%s" % (len(previewed), format_grep_matches(previewed))
-                spill_ref = await _try_save(ctx, exec_context, "grep-results.txt", complete)
+                spill_ref = await _try_save(ctx, exec_context, "grep-results.txt", complete, current=current)
                 replacement = {"kind": "accept", "content": [{"type": "text", "text": render_retained_grep(
                     retain_grep_matches(value["matches"], service.grep_max_matches,
                                         service.grep_max_line_bytes), spill_ref)}]}
@@ -279,7 +294,7 @@ def _direct_value_is_accepted(ctx: Any, tool: Any, decision: Any,
 
 
 async def _try_save(ctx: Any, exec_context: Any, suggested_name: str,
-                    content: str) -> Any:
+                    content: str, current: bool = False) -> Any:
     agent = getattr(exec_context, "agent", None)
     header = getattr(getattr(agent, "session", None), "header", None)
     session_id = header.get("id") if isinstance(header, dict) else getattr(header, "id", None)
@@ -296,7 +311,8 @@ async def _try_save(ctx: Any, exec_context: Any, suggested_name: str,
         return None
     try:
         value = saver({"owner": {"sessionId": session_id},
-                       "source": {"toolName": exec_context.name, "callId": exec_context.call_id},
+                       "source": {"toolName": exec_context.name, "callId": exec_context.call_id,
+                                  **(dict(kind="tool", label="result") if current else {})},
                        "suggestedName": suggested_name, "content": content})
         return await _maybe_await(value)
     except Exception:

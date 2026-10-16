@@ -121,7 +121,8 @@ class ToolFsPlugin(Plugin):
             if not _integer(value, 1):
                 raise ValueError('tool-fs: %s must be a positive integer' % name)
         from dsh.fs.tool_read_image import apply_read_image_tool
-        ctx.inject(['attachments'], apply_read_image_tool)
+        current = getattr(self, 'current_contract', False)
+        ctx.inject(['attachments'], lambda inner: apply_read_image_tool(inner, current=current))
         tools = ctx.get("tools")
         if not tools:
             return
@@ -129,10 +130,10 @@ class ToolFsPlugin(Plugin):
         from dsh.fs.tool_read import apply_read_tool
         from dsh.fs.tool_fs_mutation import apply_mutation_tool
         apply_read_tool(ctx, dict(limit=self.read_limit, maxLineLength=self.read_max_line_length,
-            maxBytes=self.read_max_bytes, streamMinSize=self.read_stream_min_size))
+            maxBytes=self.read_max_bytes, streamMinSize=self.read_stream_min_size), current=current)
         sandbox = FsSandboxController(ctx)
-        apply_mutation_tool(ctx, sandbox, 'write')
-        apply_mutation_tool(ctx, sandbox, 'edit')
+        apply_mutation_tool(ctx, sandbox, 'write', current=current)
+        apply_mutation_tool(ctx, sandbox, 'edit', current=current)
 
 
 __all__ = ["ToolFsPlugin", "format_read_output", "format_write_output", "format_edit_output"]

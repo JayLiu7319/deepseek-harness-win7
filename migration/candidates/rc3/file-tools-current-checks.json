@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-D-current-file-tools",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 46,
+    "report": {
+      "path": ".goose/out/rc3-r06-file-tools-qualified-20261017/report.json",
+      "sha256": "41e67df47eede03d92aac5124f149addaaec05e5d34d49a138ca537cc9736e6d"
+    },
+    "corpus": {
+      "path": "scripts/oracles/file_tools_current_cases.json",
+      "sha256": "bbfd23766b3eb1bc4ce7b72d27f1f8b7cd9167eb4fc1d17ea2163787ce60990c"
+    }
+  },
+  "native": {
+    "passed": 129,
+    "skipped": 1,
+    "command": {
+      "path": ".goose/out/rc3-r06-file-tools-native-20261017/command.json",
+      "sha256": "ac9e883500fde18577f867fffa6fdc43260eb575cefd8736902930da3ddc5c93"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-file-tools-native-20261017/pytest.xml",
+      "sha256": "4a3fc52396af71bdfc59178fbd05386bb3dfe22c33da31730ece6d089c855f64"
+    }
+  },
+  "source": {
+    "passed": 273,
+    "skipped": 1,
+    "suites": 6,
+    "command": {
+      "path": ".goose/out/rc3-r06-file-tools-source-20261017/command.json",
+      "sha256": "ab68bce50f98df506b3922569d0cf2756a70c8482acf0999b9cf4051fe43ad1d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-file-tools-source-20261017/source.xml",
+      "sha256": "7de5281eca076a75d71d6000fc9dfe36d609553ee02ae0c5832bbc84f9da5ad5"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/fs/tools_current.py",
+      "sha256": "ac94beb0529d55e30b37daa8e4fd465729748d5a98d876013e9841df633b4ff2"
+    },
+    {
+      "path": "dsh/fs/tool_fs.py",
+      "sha256": "cb272d9322339684fc37ca3386be6661c917e97ad8d73ea75f3374506da0d836"
+    },
+    {
+      "path": "dsh/fs/tool_fs_mutation.py",
+      "sha256": "a47ce6a6ada459a096b54655540db05105e2161be786f40c968c2985223a6016"
+    },
+    {
+      "path": "dsh/fs/tool_read.py",
+      "sha256": "15c0791f332b48204a934bddd34d08762809887d1a5caa5bc62194cdd43e0a09"
+    },
+    {
+      "path": "dsh/fs/tool_read_image.py",
+      "sha256": "0c3776f0fddbf1dc884f7149b0e86363513fe10d06c4c3291b218717411e04c5"
+    },
+    {
+      "path": "dsh/fs/tool_fs_search/__init__.py",
+      "sha256": "1e4b7f927997a04d3b42561921c80c06162da444b332ce082daf6a67564fed3d"
+    },
+    {
+      "path": "dsh/fs/tool_fs_search/search_core.py",
+      "sha256": "19bc7ec516f885b07e53c0eadfde3630879093b0270141e4dd601a226dffbd67"
+    }
+  ],
+  "scope": [
+    "Actual scoped prompt assembly across all 32 subsets of read/write/edit/glob/grep; hidden tools contribute empty guidance, and write/grep do not recommend inaccessible edit/read.",
+    "Current path-aware guarded mutation remediation preserves original cause/code and other error identity; actual Agent, observation guard, read and creation plus restriction disposal are covered.",
+    "read_image presentation metadata contains only path, preserving the actual attachment solely in content/value; post-execute content replacement does not duplicate stale image references into metadata.",
+    "Search distinguishes provider completion failure from launch failure; formatted spill source includes kind tool and label result. Actual glob/grep execution and retained result renderings are paired.",
+    "Current subclasses select the increment; existing rc1 profile providers retain their previous behavior until coordinated baseline promotion."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r06-file-tools-initial-20261017",
+      "reason": "Source observer parse error from a missing closing object brace."
+    },
+    {
+      "path": ".goose/out/rc3-r06-file-tools-actor-fixed-20261017",
+      "reason": "Fake FS emitted sandbox-specific errors with no sandbox policy, exercising provider misuse instead of the intended other-error passthrough; replaced with FS_PERMISSION_DENIED."
+    }
+  ],
+  "remaining": [
+    "Production registry/profile activation, workspace Sidebar, authenticated presented-file opens and unchanged browser acceptance.",
+    "The separately retained Win32 ReplaceFileW 1175 failure from R06-A is not closed by these targeted results."
+  ]
+}

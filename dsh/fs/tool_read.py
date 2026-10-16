@@ -17,9 +17,10 @@ def parse_read_args(arguments, maximum):
     return dict(filePath=arguments['file_path'], offset=offset, limit=limit)
 
 
-def apply_read_tool(ctx, caps):
+def apply_read_tool(ctx, caps, current=False):
+    guidance='Use the read tool — not shell commands like cat — to inspect text files. Results include line numbers. Use offset and limit to continue reading large files.'
     ctx.get('systemPrompt').section(dict(name='tool:read', order=1100,
-        text='Use the read tool — not shell commands like cat — to inspect text files. Results include line numbers. Use offset and limit to continue reading large files.'))
+        text=(lambda context: guidance if ctx.get('tools').get('read', context.get('scope')) is not None else '') if current else guidance))
 
     async def execute(arguments, execution):
         from dsh.fs.tool_fs import _observation_target

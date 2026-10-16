@@ -1,0 +1,1382 @@
+[
+  {
+    "case": "prompt-none",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-edit",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "edit"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-edit",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "edit"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-edit",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "edit"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-edit-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "edit",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-edit-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "edit",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-edit",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "edit"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-edit-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "edit",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-edit-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "edit",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-edit-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "edit",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-edit-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "edit",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-edit-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "edit",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-edit-glob",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "glob"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": ""
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-edit-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": ""
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it)."
+        },
+        {
+          "name": "tool:edit",
+          "text": ""
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-edit-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "edit",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": ""
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-write-edit-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "write",
+      "edit",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": ""
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents."
+        }
+      ]
+    }
+  },
+  {
+    "case": "prompt-read-write-edit-glob-grep",
+    "kind": "file-tools-current",
+    "operation": "prompt",
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "glob",
+      "grep"
+    ],
+    "expected": {
+      "sections": [
+        {
+          "name": "tool:read",
+          "text": "Use the read tool \u2014 not shell commands like cat \u2014 to inspect text files. Results include line numbers. Use offset and limit to continue reading large files."
+        },
+        {
+          "name": "tool:write",
+          "text": "Use the write tool to create files or completely replace file contents. Existing files are overwritten, so read an existing file first (the default fs-observation-policy requires it) and prefer edit for targeted changes."
+        },
+        {
+          "name": "tool:edit",
+          "text": "Use the edit tool for targeted changes to existing UTF-8 text files. It replaces literal old_string with new_string; by default old_string must appear exactly once. If old_string appears multiple times, provide a more specific old_string or set replace_all to true. Read the file first (the default fs-observation-policy requires it), unless you just created or edited it in this session."
+        },
+        {
+          "name": "tool:glob",
+          "text": "Use the glob tool \u2014 not shell find \u2014 to discover files by path pattern. A pattern with no \"/\" matches basenames at any depth, so \"*\" matches every file in the tree rather than its top level. Results are files only, never directories, and include hidden and ignored files: a result that fits comes back in modification-time order, while a larger one keeps the modification-time-ordered head."
+        },
+        {
+          "name": "tool:grep",
+          "text": "Use the grep tool \u2014 not shell grep or rg \u2014 to search file contents. Use read on a matched file when you need surrounding context."
+        }
+      ]
+    }
+  },
+  {
+    "case": "write-FS_NOT_OBSERVED",
+    "kind": "file-tools-current",
+    "operation": "write",
+    "code": "FS_NOT_OBSERVED",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: cannot modify \"/project/output\": file has not been read \u2014 read the file, then retry"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "write-FS_STALE_VERSION",
+    "kind": "file-tools-current",
+    "operation": "write",
+    "code": "FS_STALE_VERSION",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: edit-specific provider reason \u2014 re-read the file, then retry"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "write-FS_PERMISSION_DENIED",
+    "kind": "file-tools-current",
+    "operation": "write",
+    "code": "FS_PERMISSION_DENIED",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: edit-specific provider reason"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "edit-FS_NOT_OBSERVED",
+    "kind": "file-tools-current",
+    "operation": "edit",
+    "code": "FS_NOT_OBSERVED",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: cannot modify \"/project/output\": file has not been read \u2014 read the file, then retry"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "edit-FS_STALE_VERSION",
+    "kind": "file-tools-current",
+    "operation": "edit",
+    "code": "FS_STALE_VERSION",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: edit-specific provider reason \u2014 re-read the file, then retry"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "edit-FS_PERMISSION_DENIED",
+    "kind": "file-tools-current",
+    "operation": "edit",
+    "code": "FS_PERMISSION_DENIED",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: edit-specific provider reason"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "glob-launch",
+    "kind": "file-tools-current",
+    "operation": "glob",
+    "failure": "launch",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: glob could not start its search command (ripgrep launch failed)"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "glob-provider",
+    "kind": "file-tools-current",
+    "operation": "glob",
+    "failure": "provider",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: glob subprocess failed before reporting an outcome (ripgrep provider failure)"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "glob-spill",
+    "kind": "file-tools-current",
+    "operation": "glob",
+    "failure": null,
+    "expected": {
+      "isError": false,
+      "content": [
+        {
+          "type": "text",
+          "text": "a.txt\n\n(Showing 1 of 2 paths. Full sorted result stored at: /spill/result. read spill)"
+        }
+      ],
+      "value": {
+        "root": ".",
+        "paths": [
+          "a.txt",
+          "b.txt"
+        ]
+      },
+      "saved": [
+        {
+          "owner": {
+            "sessionId": "one"
+          },
+          "source": {
+            "kind": "tool",
+            "toolName": "glob",
+            "callId": "call",
+            "label": "result"
+          },
+          "suggestedName": "glob-results.txt",
+          "content": "a.txt\nb.txt"
+        }
+      ]
+    }
+  },
+  {
+    "case": "grep-launch",
+    "kind": "file-tools-current",
+    "operation": "grep",
+    "failure": "launch",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: grep could not start its search command (ripgrep launch failed)"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "grep-provider",
+    "kind": "file-tools-current",
+    "operation": "grep",
+    "failure": "provider",
+    "expected": {
+      "isError": true,
+      "content": [
+        {
+          "type": "text",
+          "text": "Error: grep subprocess failed before reporting an outcome (ripgrep provider failure)"
+        }
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "grep-spill",
+    "kind": "file-tools-current",
+    "operation": "grep",
+    "failure": null,
+    "expected": {
+      "isError": false,
+      "content": [
+        {
+          "type": "text",
+          "text": "Found 1 of 2 matches\n\na.txt\nLine 1: line\n\n(Full grep result stored at: /spill/result. read spill)"
+        }
+      ],
+      "value": {
+        "matches": [
+          {
+            "path": "a.txt",
+            "lineNumber": 1,
+            "line": "line"
+          },
+          {
+            "path": "a.txt",
+            "lineNumber": 2,
+            "line": "line"
+          }
+        ]
+      },
+      "saved": [
+        {
+          "owner": {
+            "sessionId": "one"
+          },
+          "source": {
+            "kind": "tool",
+            "toolName": "grep",
+            "callId": "call",
+            "label": "result"
+          },
+          "suggestedName": "grep-results.txt",
+          "content": "Found 2 matches\n\na.txt\nLine 1: line\nLine 2: line"
+        }
+      ]
+    }
+  },
+  {
+    "case": "image-False",
+    "kind": "file-tools-current",
+    "operation": "read_image",
+    "replaceImage": false,
+    "expected": {
+      "isError": false,
+      "content": [
+        {
+          "type": "text",
+          "text": "<path>/project/image.png</path>\n<type>image</type>\n<content>\nimage/png image, 1x1 px, 4 bytes\n</content>"
+        },
+        {
+          "type": "image",
+          "attachment": {
+            "attachmentId": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mediaType": "image/png",
+            "bytes": 4,
+            "width": 1,
+            "height": 1
+          }
+        }
+      ],
+      "value": {
+        "path": "/project/image.png",
+        "image": {
+          "attachmentId": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mediaType": "image/png",
+          "bytes": 4,
+          "width": 1,
+          "height": 1
+        }
+      },
+      "saved": [],
+      "meta": {
+        "path": "/project/image.png"
+      }
+    }
+  },
+  {
+    "case": "image-True",
+    "kind": "file-tools-current",
+    "operation": "read_image",
+    "replaceImage": true,
+    "expected": {
+      "isError": false,
+      "content": [
+        {
+          "type": "text",
+          "text": "replacement"
+        }
+      ],
+      "value": {
+        "path": "/project/image.png",
+        "image": {
+          "attachmentId": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mediaType": "image/png",
+          "bytes": 4,
+          "width": 1,
+          "height": 1
+        }
+      },
+      "saved": [],
+      "meta": {
+        "path": "/project/image.png"
+      }
+    }
+  }
+]

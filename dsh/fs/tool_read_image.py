@@ -75,7 +75,7 @@ def image_read_content(value: Dict[str, Any]) -> List[Dict[str, Any]]:
         dict(type='image', attachment=image_ref_from_value(value['image']))]
 
 
-def apply_read_image_tool(ctx: Any) -> None:
+def apply_read_image_tool(ctx: Any, current: bool = False) -> None:
     async def execute(arguments: Dict[str, Any], execution: Any) -> Dict[str, Any]:
         requested_path = arguments['file_path']
         if not requested_path.strip():
@@ -143,6 +143,7 @@ def apply_read_image_tool(ctx: Any) -> None:
         description='Read a PNG/JPEG/WebP/GIF file and return the image itself. A path without a file extension is accepted; the format is detected from the file content, so normalized attachment paths can be passed directly without copying or renaming. Harness validates and downscales large supported images before the next model request, so use this tool directly instead of installing image libraries or creating thumbnails merely to inspect an image. Independent files may be read concurrently in small batches. Requires the current model to accept image input.',
         parameters=dict(type='object', properties=dict(file_path=dict(type='string', description='Path to the image file, resolved by the filesystem backend.')), required=['file_path']),
         output=dict(schema=dict(type='object', additionalProperties=False, properties=dict(path=dict(type='string'), image=image_schema), required=['path', 'image']),
-            render=lambda arguments, value: image_read_content(value)),
+            render=lambda arguments, value: image_read_content(value),
+            **(dict(presentationMeta=lambda arguments, value: dict(path=value['path'])) if current else {})),
         isConcurrencySafe=lambda execution: True, execute=execute,
         presentCall=lambda arguments: dict(card='generic', title='Read image ' + arguments['file_path'], kind='read', locations=[dict(path=arguments['file_path'])])))
