@@ -156,10 +156,14 @@ def same_snapshots(first, second):
 
 
 class SqliteSessionQueryEngine(SessionQueryService):
+    _resolve_config = staticmethod(resolve_config)
+    _assert_headers_compatible = staticmethod(assert_headers_compatible)
+    _same_snapshots = staticmethod(same_snapshots)
+    _observe = staticmethod(observe)
+
     def __init__(self, ctx, config):
-        resolved = resolve_config(config)
-        super().__init__(ctx, open_at='never', persisted_inspect_concurrency=resolved['persistedInspectConcurrency'],
-                         read_window_max=resolved['readWindowMax'])
+        resolved = self._resolve_config(config)
+        self._initialize_query(ctx,resolved)
         self.config = resolved
         self.open_at = resolved['openAt']
         self._instance = str(uuid.uuid4())
@@ -184,6 +188,19 @@ class SqliteSessionQueryEngine(SessionQueryService):
         self._optional = ctx.inject(['sessionPersistence'], bind)
         ctx.effect(lambda: self._optional.dispose)
         ctx.effect(lambda: self.close)
+
+    def _initialize_query(self, ctx, resolved):
+        SessionQueryService.__init__(self,ctx,open_at='never',
+            persisted_inspect_concurrency=resolved['persistedInspectConcurrency'],read_window_max=resolved['readWindowMax'])
+
+    async def _read_snapshots(self, persistence, signal):
+        return await persistence.listSnapshots(signal)
+
+    async def _read_stored(self, persistence, session_id, signal):
+        return inspection_source(await persistence.inspect(session_id,signal))
+
+    def _row_header(self, row):
+        return row_header(row)
 
     async def initialize(self):
         if self.config['openAt'] == 'startup':
@@ -262,7 +279,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
             offset = decode_cursor(owned['cursor'], self._instance, 'events' if events else 'sessions',
                                    fingerprint, generation) if 'cursor' in owned else 0
             rows = self._query(owned, offset, binding, events)
-            items = [self._event_hit(row) if events else dict(header=row_header(row), live=row['live'] == 1,
+            items = [self._event_hit(row) if events else dict(header=self._row_header(row), live=row['live'] == 1,
                      persisted=row['persisted'] == 1, bestMatch=self._event_hit(row)) for row in rows[:owned['limit']]]
             result = dict(items=items)
             if len(rows) > owned['limit']:
@@ -289,7 +306,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
             if persistence is not None:
                 try:
                     reusable = self._last_identity is None or self._last_identity is binding['identity']
-                    before = await persistence.listSnapshots(signal)
+                    before = await self._read_snapshots(persistence,signal)
                     check_abort(signal)
                     persisted = snapshots(before)
                     for session_id, entry in persisted.items():
@@ -298,14 +315,14 @@ class SqliteSessionQueryEngine(SessionQueryService):
                         if session_id in initially_live or sessions.get(session_id) is not None:
                             continue
                         check_abort(signal)
-                        loaded = inspection_source(await persistence.inspect(session_id, signal))
+                        loaded = await self._read_stored(persistence,session_id,signal)
                         check_abort(signal)
-                        assert_headers_compatible(entry['header'], loaded['header'])
-                        entry['loaded'] = observe(loaded['header'], loaded['events'], loaded['inheritedEventCount'])
+                        self._assert_headers_compatible(entry['header'], loaded['header'])
+                        entry['loaded'] = self._observe(loaded['header'], loaded['events'], loaded['inheritedEventCount'])
                     check_abort(signal)
-                    after = snapshots(await persistence.listSnapshots(signal))
+                    after = snapshots(await self._read_snapshots(persistence,signal))
                     check_abort(signal)
-                    if not same_snapshots(persisted, after) or self._binding is not binding:
+                    if not self._same_snapshots(persisted, after) or self._binding is not binding:
                         continue
                 except Exception as error:
                     if (signal is not None and signal.aborted) or (
@@ -320,9 +337,9 @@ class SqliteSessionQueryEngine(SessionQueryService):
                                             'SESSION_QUERY_PERSISTENCE_FAILED', failure) from error
             live = {}
             for session in sessions.list():
-                entry = observe(session.header, session.events, session.inheritedEventCount)
+                entry = self._observe(session.header, session.events, session.inheritedEventCount)
                 if session.id in persisted:
-                    assert_headers_compatible(entry['header'], persisted[session.id]['header'])
+                    self._assert_headers_compatible(entry['header'], persisted[session.id]['header'])
                 live[session.id] = entry
             if initially_live != live.keys():
                 continue
@@ -437,7 +454,7 @@ class SqliteSessionQueryEngine(SessionQueryService):
             row = database.prepare('SELECT id AS session_id,version,created_at,cwd,parent_session,seed_length,delegation_depth,agent_preset,generation FROM ' + prefix + '_sessions WHERE id=?').get(session_id)
             if row is not None:
                 generation = 'live:' + str(row['generation']) if prefix == 'temp.live' else 'persisted:{}:{}'.format(self._persistence_epoch, row['generation'])
-                return dict(header=row_header(row), generation=generation)
+                return dict(header=self._row_header(row), generation=generation)
         raise SessionQueryError('session "' + session_id + '" not found', 'SESSION_QUERY_SESSION_NOT_FOUND')
 
     def _event_hit(self, row):

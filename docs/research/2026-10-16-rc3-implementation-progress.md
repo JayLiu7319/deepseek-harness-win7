@@ -125,3 +125,9 @@ Source六个原测试文件390断言通过；捕获并回放957个独立前缀�
 
 定向范围选择观察、真实 JSONL backend，覆盖无持久化写回、缓存更新/替换、取消、错误分类与资源释放：最终 Python 99 项通过，Source 原 observation 27 项通过。首轮夹具 API 和中间异步清理问题的诊断保留；最终无 pending task 告警。两端分别执行，不声明新增配对合同。凭据见 `migration/candidates/rc3/observation-checks.json`。生产 query/Agent 与活动 rc.1 pin 未切换，R02 和 rc.3 均未签收。
 
+## R02-N: v3 query consumers
+
+Candidate corpus and SQLite query services now consume list snapshots and read-only handles, retain one observation reader per service, classify the v3 system-message surface, and return current-format index headers. Exact surface/window reads include inheritedEventCount. Source compatibility checks compare logical identity without requiring equal historical format versions. Existing active services retain their provider hooks until the coordinated runtime switch.
+
+The frozen 31 actual Source/native journeys match, including real JSONL/SQLite, historical v0/v1/v2 reads, live precedence, revision replacement, retained old observations, system-head replacement, search refresh, errors and continuation fields. Random engine UUIDs and opaque revision identities have explicit comparison rules; other values are compared. Native targeted 141 tests and original Source query/SQLite 141 tests pass separately. Initial invalid system-message fixtures are retained and excluded from evidence; the runner now refuses setup failure as a matching journey. Details and hashes: migration/candidates/rc3/query-consumers-checks.json. Agent ownership, listing/Remote consumers and the production switch remain open; this is not R02 or rc.3 acceptance.
+

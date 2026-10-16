@@ -20,6 +20,8 @@ R02-L：新增 [jsonl-backend-checks.json](jsonl-backend-checks.json)，实际�
 
 R02-M：新增 [observation-checks.json](observation-checks.json)，只读handle冷观察、内存中断补齐、revision/实例缓存、LRU与独立租约、延迟live快照已连接。Source原27项与Python99项分别通过；生产query/Agent尚未切换，不表示整体验收。
 
+R02-N：新增 [query-consumers-checks.json](query-consumers-checks.json)，显式v3语料/Query/SQLite通过当前list/open handle读取，观察缓存随服务复用，surface和索引使用v3分类。真实Source/native31组旅程匹配，两端各141项定向测试通过；活动profile和Agent仍待切换。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

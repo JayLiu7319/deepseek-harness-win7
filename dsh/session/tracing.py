@@ -4,27 +4,29 @@ from functools import cmp_to_key
 from dsh.session.icu_collation import locale_compare
 
 
-def analyze_event_log(session_id, events):
+def analyze_event_log(session_id, events, fold=None):
     from dsh.core.surface import fold_surface
+    from dsh.session.storage_contract import field
     from dsh.session.session_query import SessionQueryError
     try:
-        folded = fold_surface(events)
+        folded = (fold or fold_surface)(events)
     except Exception as error:
         raise SessionQueryError('invalid session surface: ' + str(error),
                                 'SESSION_QUERY_INVALID_SURFACE', error) from error
-    current = set(folded.nodes)
+    nodes = field(folded,'nodes')
+    current = set(nodes)
     replaced_by = {}
     replaced_event_seqs = {}
-    for replacement in folded.replacements:
-        removed = list(replacement.shadowedSeqs)
-        replaced_event_seqs[replacement.seq] = removed
+    for replacement in field(folded,'replacements'):
+        removed = list(field(replacement,'shadowedSeqs'))
+        replaced_event_seqs[field(replacement,'seq')] = removed
         for removed_seq in removed:
-            replaced_by[removed_seq] = replacement.seq
+            replaced_by[removed_seq] = field(replacement,'seq')
     records = [dict(sessionId=session_id, seq=event['seq'], type=event['type'], time=event['time'],
                     surface='current' if event['seq'] in current else
                     'shadowed' if event['seq'] in replaced_by else 'log-only') for event in events]
     return dict(records=records, replacedBy=replaced_by, replacedEventSeqs=replaced_event_seqs,
-                currentSeqs=list(folded.nodes))
+                currentSeqs=list(nodes))
 
 
 def event_target(session_id, events, seq):
@@ -41,15 +43,15 @@ def event_records(session_id, events):
     return analyze_event_log(session_id, events)['records']
 
 
-def current_surface_events(session_id, events):
+def current_surface_events(session_id, events, analyze=analyze_event_log, snapshot=None):
     from dsh.core.session import snapshot_session_event
-    analysis = analyze_event_log(session_id, events)
-    return [snapshot_session_event(events[seq]) for seq in analysis['currentSeqs']]
+    analysis = analyze(session_id, events)
+    return [(snapshot or snapshot_session_event)(events[int(seq)]) for seq in analysis['currentSeqs']]
 
 
-def trace_event(session_id, events, seq):
+def trace_event(session_id, events, seq, analyze=analyze_event_log):
     target = event_target(session_id, events, seq)
-    analysis = analyze_event_log(session_id, events)
+    analysis = analyze(session_id, events)
     replaced_by = analysis['replacedBy']
     replacement_chain = []
     replacement = replaced_by.get(seq)

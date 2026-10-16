@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-N-query-consumers",
+  "status": "targeted-passed",
+  "native": {
+    "passed": 141,
+    "command": {
+      "path": ".goose/out/rc3-r02-query-native-20261017/command.json",
+      "sha256": "9e60e0932a046836073f30a13a3594570cda44675d87adffd9473248006d540f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-query-native-20261017/pytest.xml",
+      "sha256": "50d676ddcb7e03e3a57346a00b2a09dcfcff15bf343f651ccac196d13875cb64"
+    }
+  },
+  "source": {
+    "passed": 141,
+    "command": {
+      "path": ".goose/out/rc3-r02-query-source-20261017/command.json",
+      "sha256": "32a528af922da4d279a83625e7ca54602bfce50b967fce3dae2f9c1ad25d7006"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-query-source-20261017/source.xml",
+      "sha256": "5d4ab53642894ac2e3359c14d73787a88b8ec1f82538d82e2d79e22fb4c43c06"
+    }
+  },
+  "paired": {
+    "cases": 31,
+    "report": {
+      "path": ".goose/out/rc3-r02-query-frozen-20261017/report.json",
+      "sha256": "6dc8e1258f67a473d4118290ea216f81e57f8eb7084d30e1d50b565ed71bb648"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/query_current.py",
+      "sha256": "3672a8619beedf27509bc21a814f3fdd9729c18b8ba7834d364ef58748916425"
+    },
+    {
+      "path": "dsh/session/corpus.py",
+      "sha256": "1abc0b8bab41ba1ced59330fd5cbfbae0aedd67ee1161de533a8e9ed68780b9d"
+    },
+    {
+      "path": "dsh/session/query_engine.py",
+      "sha256": "937befd870a264bfab427bbd9a6012e630737357f3efcf20f213fcb6339c5be1"
+    },
+    {
+      "path": "dsh/session/tracing.py",
+      "sha256": "e98d3400b234ce7a2823a90c7937a212a99e89a3efc24588389494092a6a0c97"
+    },
+    {
+      "path": "scripts/oracles/session_query_current_source.mts",
+      "sha256": "6a279df442dfa5c3cdcb90b099503ba94338f63fff0163ee52fba63b974cc5cc"
+    },
+    {
+      "path": "scripts/oracles/session_query_current_python.py",
+      "sha256": "4ec60517539dcf8a966a896632d9f44269ffc8d7b6689c957ead06c624062125"
+    },
+    {
+      "path": "scripts/oracles/session_query_current_cases.json",
+      "sha256": "1d748ad464669990de97cf2fcefccc61d54909316007c822e21cee982a4a0355"
+    },
+    {
+      "path": "scripts/oracles/generate_session_query_current_cases.py",
+      "sha256": "6504f0f346920ca052c42920df6d3d267d4a88d5259e7dc09afd09c5bf3e446a"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "3029768bd13972db6711bcaa42f4a3861adb6be10c086e3698315eef1f2fa0ef"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "b1b765bb585b73d07079e7fae756c0661a6f09c69333f3bd40560c85060f4399"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "e8456816e2f40108c9927418cd7c9a28195cf887e221e9e315a0786cc3837c0c"
+    },
+    {
+      "path": "tests/test_session_query_current.py",
+      "sha256": "cb073aae0007af406ff167a0c22f1f3abf47abc9b6289462f0df66b3672fa9e5"
+    }
+  ],
+  "comparison_policy": {
+    "revisions": "Opaque revision identity/equality renamed by first occurrence; raw values retained in actor logs.",
+    "cursor": "Decode actual continuation tokens and replace only per-engine random UUID with <instance>. All other fields compared.",
+    "errors": "Compare actual name/message/code/cause including nested projection failures; no exception-stack comparison."
+  },
+  "initial_observations": [
+    "Initial system-message fixtures omitted required fields. Those runs are not valid query parity evidence. Runner now rejects top-level setup failures before matching.",
+    "Valid query comparison exposed missing inheritedEventCount on surface/window returns; fixed.",
+    "Actor initially serialized Python __str__ with code prefix instead of the actual message property; corrected on actor only."
+  ],
+  "limits": [
+    "Explicit candidate services; active profiles and rc.1 pin remain unchanged.",
+    "Existing query algorithms are shared through narrow provider hooks; active legacy consumers regressions included.",
+    "Not complete R02, rc.3 or release acceptance."
+  ]
+}

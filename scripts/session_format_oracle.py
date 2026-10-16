@@ -58,6 +58,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/session_storage_current_python.py', ROOT/'scripts/oracles/session_storage_source.mts'])
         if any(case.get('kind') == 'storage-backend' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/session_backend_current_python.py', ROOT/'scripts/oracles/session_backend_current_source.mts',ROOT/'scripts/oracles/session_storage_current_python.py'])
+        if any(case.get('kind') == 'query-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/session_query_current_python.py',ROOT/'scripts/oracles/session_query_current_source.mts'])
         report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}
         commands = [
             ['node', str(source/'node_modules/tsx/dist/cli.mjs'), '--tsconfig', str(source/'tsconfig.json'),
@@ -73,6 +75,9 @@ def main():
             if run.returncode:
                 raise RuntimeError('Runner %s failed with %s' % (index, run.returncode))
             rows = json.loads((output/('source.json' if index == 0 else 'native.json')).read_text(encoding='utf-8'))
+            for case,row in zip(cases,rows):
+                if case.get('kind')=='query-current' and row.get('outcome')!='value':
+                    raise RuntimeError('Query journey failed before actions: '+case['case']+': '+str(row))
             if [row['case'] for row in rows] != names:
                 raise ValueError('Missing, duplicated or unexpected observations')
             observations.append(rows)

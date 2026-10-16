@@ -58,6 +58,10 @@ def live_source(session):
 
 
 class SessionCorpus:
+    _list_persisted = staticmethod(list_persisted)
+    _inspect_persisted = staticmethod(inspect_persisted)
+    _assert_headers_compatible = staticmethod(assert_headers_compatible)
+
     def __init__(self, ctx, persisted_inspect_concurrency=4):
         self.ctx = ctx
         self.persisted_inspect_concurrency = persisted_inspect_concurrency
@@ -72,17 +76,17 @@ class SessionCorpus:
         persistence = self.ctx.get('sessionPersistence')
         if persistence is None:
             raise not_found(session_id)
-        listed = next((header for header in await list_persisted(persistence, signal) if header.id == session_id), None)
+        listed = next((header for header in await self._list_persisted(persistence, signal) if header.id == session_id), None)
         throw_aborted(signal)
         if listed is None:
             raise not_found(session_id)
-        loaded = inspection_source(await inspect_persisted(persistence, session_id, signal))
+        loaded = inspection_source(await self._inspect_persisted(persistence, session_id, signal))
         throw_aborted(signal)
         attached = self.ctx.get('sessions').get(session_id)
         if attached is not None:
             result = copy.deepcopy(live_source(attached))
         else:
-            assert_headers_compatible(loaded['header'], listed)
+            self._assert_headers_compatible(loaded['header'], listed)
             result = copy.deepcopy(loaded)
         throw_aborted(signal)
         return result
@@ -115,7 +119,7 @@ class SessionCorpus:
                 resolved[session_id] = {'sessionId': session_id, 'status': 'rejected', 'reason': not_found(session_id)}
             return [resolved[session_id] for session_id in ids]
         try:
-            persisted = await list_persisted(persistence, signal)
+            persisted = await self._list_persisted(persistence, signal)
             throw_aborted(signal)
         except Exception as error:
             throw_aborted(signal)
@@ -132,13 +136,13 @@ class SessionCorpus:
                 return
             try:
                 throw_aborted(signal)
-                loaded = inspection_source(await inspect_persisted(persistence, session_id, signal))
+                loaded = inspection_source(await self._inspect_persisted(persistence, session_id, signal))
                 throw_aborted(signal)
                 attached = self.ctx.get('sessions').get(session_id)
                 if attached is not None:
                     resolved[session_id] = project_source(session_id, live_source(attached))
                     return
-                assert_headers_compatible(loaded['header'], listed)
+                self._assert_headers_compatible(loaded['header'], listed)
                 resolved[session_id] = project_source(session_id, loaded)
             except Exception as error:
                 throw_aborted(signal)
