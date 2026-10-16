@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-H-current-token-meter",
+  "status": "targeted-passed",
+  "paired": [
+    {
+      "matched": 7,
+      "report": {
+        "path": ".goose/out/rc3-r03-meter-machine-frozen-20261017/report.json",
+        "sha256": "063285baf41c02d80698d77a80acd24e907d6ff248517f1881ea8617989dc899"
+      },
+      "corpus": {
+        "path": "scripts/oracles/token_meter_current_cases.json",
+        "sha256": "b66ab71cac76301ead7ef370ae027dffc6644fa1e33c7706321c6f26ccf5d367"
+      },
+      "scope": "Actual Agent requests, usage and estimated baselines, in-history system replacement, route overrides, actual compaction, JSONL cold resume and all three projection views."
+    },
+    {
+      "matched": 132,
+      "report": {
+        "path": ".goose/out/rc3-r03-meter-units-frozen-20261017/report.json",
+        "sha256": "3d9b2f5dbaa5df555272141bd49858799d68bef4422d1bc1cea887d3ce358d83"
+      },
+      "corpus": {
+        "path": "scripts/oracles/token_meter_units_current_cases.json",
+        "sha256": "dd878a6a7ce84b9160e554dbee413c897814bcee0b27b74c8cfa78536456000c"
+      },
+      "scope": "System estimation, nested image/file projected prices and callback traces, atomic invalid surface plans, checkpoint acceptance/parsed whole values, exact turn usage including retries and incomplete boundaries."
+    }
+  ],
+  "native": {
+    "passed": 240,
+    "command": {
+      "path": ".goose/out/rc3-r03-meter-native-final-20261017/command.json",
+      "sha256": "cb55ae9997fac4dcf22d749ab3924f31559b20b8b94f77b7a0b75389163b6210"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-meter-native-final-20261017/pytest.xml",
+      "sha256": "667d097bd862ba39879a2bfdc4db7d007c9c989ca8a5ff9545e769d1a8f5d9f1"
+    },
+    "scope": "Current frozen machine/unit journeys, repeated failed replay atomicity, checkpoint detach, old meter regressions and current compaction/Agent direct consumers."
+  },
+  "source": {
+    "passed": 119,
+    "suites": 5,
+    "command": {
+      "path": ".goose/out/rc3-r03-meter-source-20261017/command.json",
+      "sha256": "b6c1c68b3bdbf460e884de2cf31e64a41a2103aff6e9d1d63da7b4e77eaf928c"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-meter-source-20261017/source.xml",
+      "sha256": "40d00a15a01683dc80e6e71c7098f90966267cbf6d337ac204c023d10fef3522"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/llm/token_meter_current.py",
+      "sha256": "d78a979d1cfc351cfeb572f4c1546916298b3b2e54bfda3078cbed0cd31e3bea"
+    },
+    {
+      "path": "dsh/llm/token_projections_current.py",
+      "sha256": "81820d5742ea5ecb64ccf5b3b3202769735067d430d097214e9860aef7ecba62"
+    },
+    {
+      "path": "dsh/llm/turn_usage_current.py",
+      "sha256": "8c5e4ae0d91556b86cca0171016848a72bb531bae508ce657dd12e2b2e19572a"
+    },
+    {
+      "path": "dsh/llm/token_meter.py",
+      "sha256": "6e13d2592c15ae7c49be68c0d77481324679f9ae4ac8c6e0b3567a37a2d3329d"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-meter-pair-20261017",
+    ".goose/out/rc3-r03-meter-actual-20261017",
+    ".goose/out/rc3-r03-meter-units-20261017"
+  ],
+  "limits": [
+    "Current R03 candidate only; production pin and runtime remain rc.1.",
+    "File request-text pricing is verified at the pure projection boundary; mounted LLM file representation and attachment storage remain R05 work.",
+    "Turn usage is now an available pure consumer; current turn-outline/UI integration remains open.",
+    "Initial original compaction observer used a namespace instead of its default plugin and omitted the required AbortSignal. Those actor failures are retained separately.",
+    "Schema pairing compares acceptance and complete parsed values, not Zod diagnostic prose. Unsafe checkpoint integers were corrected before final pairs."
+  ]
+}

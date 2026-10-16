@@ -64,6 +64,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/agent_loop_current_python.py',ROOT/'scripts/oracles/agent_loop_current_source.mts'])
             if any(case.get('operation') == 'compaction' for case in cases):
                 inputs.extend([ROOT/'scripts/oracles/compaction_current_python.py',ROOT/'scripts/oracles/compaction_current_source.mts'])
+            if any(case.get('operation') == 'meter-units' for case in cases):
+                inputs.extend([ROOT/'scripts/oracles/token_meter_units_current_python.py',ROOT/'scripts/oracles/token_meter_units_current_source.mts'])
             if any(case.get('operation') in ('catalog','continuation-messages','subagent-inbox') for case in cases):
                 inputs.extend([ROOT/'scripts/oracles/subagent_units_current_python.py',ROOT/'scripts/oracles/subagent_units_current_source.mts'])
         if any(case.get('kind') == 'machine-current' for case in cases):

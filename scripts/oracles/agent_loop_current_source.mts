@@ -23,6 +23,10 @@ export async function loopCurrentCase(source:string,test:any,decode:(v:any)=>any
  }
  const oldNow=Date.now;Date.now=()=>1000
  try{
+  if(test.operation==='meter-units'){
+   const {run}=await import('./token_meter_units_current_source.mts')
+   return await run(source,test)
+  }
   if(['catalog','continuation-messages','subagent-inbox'].includes(test.operation)){
    const {subagentUnits}=await import('./subagent_units_current_source.mts')
    return await subagentUnits(source,test,normalize)

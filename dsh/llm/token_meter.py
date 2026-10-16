@@ -60,8 +60,9 @@ class TokenMeter(Service):
         super().__init__(ctx, "tokenMeter")
         if ctx is not None:
             from dsh.llm.token_projections import DEFINITIONS
+            definitions = getattr(self, 'projection_definitions', DEFINITIONS)
             def register(projection_ctx):
-                for definition in DEFINITIONS:
+                for definition in definitions:
                     projection_ctx.get("sessionProjections").register(definition)
             ctx.inject(["sessionProjections"], register)
             ctx.on("session/event", self._observe)

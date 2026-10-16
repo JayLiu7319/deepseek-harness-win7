@@ -33,6 +33,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const oldNow=Date.now;Date.now=()=>1000
  try{
   for(const plugin of [Llm,Sessions,Projections,Prompt,Tools,Agents])await ctx.plugin(plugin,plugin===Prompt?test.promptConfig:undefined)
+  if(test.meter){const {default:Meter}=await load('packages/llm/token-meter/src/index.ts');await ctx.plugin(Meter)}
   if(test.persistence)await ctx.plugin(Backend,{root,compression:test.compression??'none'})
   if(test.subagents){
    const {default:Query}=await load('packages/session-query/session-query-sqlite/src/index.ts')
@@ -70,6 +71,12 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='measure')value=ctx.tokenMeter.measure(agent.session,action.header)
+    else if(action.method==='meterProjections')value=ctx.sessionProjections.snapshot(agent.session,['tokenUsage','contextPressure','contextBreakdown'])
+    else if(action.method==='compact'){
+     const {default:compact}=await load('packages/compaction/compaction-basic/src/index.ts');await ctx.plugin(compact,{auto:false})
+     value=await ctx.compaction.compactNow(agent,new AbortController().signal)
+    }
     else if(action.method==='selectionSettings'){
      const {default:Settings}=await load('packages/subagent/tool-subagent/src/model-selection-settings.ts')
      await ctx.plugin(Settings,action.config)

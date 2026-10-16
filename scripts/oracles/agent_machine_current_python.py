@@ -67,6 +67,9 @@ async def run(test,decode):
     with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1):
         try:
             for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin,test.get('promptConfig') if plugin is CurrentSystemPrompt else None)
+            if test.get('meter'):
+                from dsh.llm.token_meter_current import CurrentTokenMeterPlugin
+                await ctx.plugin(CurrentTokenMeterPlugin)
             if test.get('persistence'):await ctx.plugin(CurrentJsonlSessionPersistencePlugin,dict(root=folder,compression=test.get('compression','none')))
             if test.get('subagents'):
                 from dsh.session.query_current import CurrentSqliteSessionQueryPlugin
@@ -116,6 +119,13 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='measure':value=ctx.get('tokenMeter').measure(agent.session,action.get('header'))
+                    elif method=='meterProjections':value=ctx.get('sessionProjections').snapshot(agent.session,['tokenUsage','contextPressure','contextBreakdown'])
+                    elif method=='compact':
+                        from dsh.core.abort import AbortController
+                        from dsh.compaction.current import CurrentCompactionBasic
+                        await ctx.plugin(CurrentCompactionBasic,dict(auto=False))
+                        value=await ctx.get('compaction').compactNow(agent,AbortController().signal)
                     elif method=='selectionSettings':
                         from dsh.subagent.model_selection import ModelSelectionSettings
                         await ctx.plugin(ModelSelectionSettings,action['config'])
