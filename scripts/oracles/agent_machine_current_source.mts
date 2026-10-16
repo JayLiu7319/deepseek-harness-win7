@@ -34,6 +34,14 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  try{
   for(const plugin of [Llm,Sessions,Projections,Prompt,Tools,Agents])await ctx.plugin(plugin,plugin===Prompt?test.promptConfig:undefined)
   if(test.persistence)await ctx.plugin(Backend,{root,compression:test.compression??'none'})
+  if(test.subagents){
+   const {default:Query}=await load('packages/session-query/session-query-sqlite/src/index.ts')
+   const {default:Subagents}=await load('packages/subagent/subagent/src/index.ts')
+   const spawn=await load('packages/subagent/subagent-spawn-in-process/src/index.ts')
+   const fork=await load('packages/subagent/subagent-fork-in-process/src/index.ts')
+   await ctx.plugin(Query,{path:':memory:',openAt:'never'});await ctx.plugin(Subagents);await ctx.plugin(spawn);await ctx.plugin(fork)
+   for(const name of ['subagent/start','subagent/end'])ctx.on(name,(payload:any)=>notifications.push(normalize({name,payload})))
+  }
   await ctx.plugin(Loop,{agents:[]})
   const adapter=new MockAdapter(test.script??[] ,test.reasoning,test.defaultMaxTokens)
   adapter.systemPromptUpdate=test.systemPromptUpdate
@@ -57,7 +65,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    })
   }
   ctx.on('agent/error',({error}:any)=>errors.push(normalize(error)))
-  handle=await ctx.agents.create({sessionId:'machine',options:test.options??{provider:'script',model:'model'},meta:{createdAt:1000}});agent=handle.agent
+  handle=await ctx.agents.create({sessionId:'machine',agentOptions:test.options??{provider:'script',model:'model'},meta:{createdAt:1000}});agent=handle.agent
   for(const action of test.actions){
    try{
     let value:any
@@ -74,13 +82,43 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
      value=normalize({id:run.id,result,header:run.localAgent.session.header,events:run.localAgent.session.snapshotEvents(),owned:ctx.agents.isOwnedBy(run.id,agent)})
      await run.dispose()
     }
+    else if(action.method==='background')value=await ctx.subagents.startContinuable({...action.spec,signal:new AbortController().signal,request:{...action.spec.request,parent:agent}})
+    else if(action.method==='childIdle'){
+     const deadline=performance.now()+3000
+     while(ctx.agents.get(action.id)!==undefined){if(performance.now()>deadline)throw new Error('Child settlement deadline');await new Promise(resolve=>setTimeout(resolve,1))}
+     await agent.whenIdle()
+    }
+    else if(action.method==='childObserve'){
+     const observed=await ctx.sessionQuery.observeSession(action.id)
+     try{value={header:observed.header,events:observed.events,inheritedEventCount:observed.inheritedEventCount}}finally{observed[Symbol.dispose]()}
+    }
+    else if(action.method==='childEntered'){
+     const deadline=performance.now()+3000
+     while(!notifications.some(n=>n.name==='agent/assistant-stream'&&n.payload.agent===action.id&&n.payload.frame.type==='chunk'&&n.payload.frame.chunk.type==='text-delta')){
+      if(performance.now()>deadline)throw new Error('Child stream deadline');await new Promise(resolve=>setTimeout(resolve,1))
+     }
+    }
+    else if(action.method==='childQuiescent'){
+     const child=ctx.agents.get(action.id);await child.whenIdle()
+     value={status:child.status,events:child.session.snapshotEvents(),inbox:ctx.sessionProjections.snapshot(child.session,['inbox']).values.inbox}
+    }
+    else if(action.method==='interruptChild')ctx.subagents.interrupt(action.id,action.ancestor?{kind:'ancestor',agent}:{kind:'user',parentSessionId:action.parentId??agent.id})
+    else if(action.method==='queueChild'){
+     const {deliverSubagentPrompt}=await load('packages/subagent/subagent/src/internal.ts')
+     value=await ctx.subagents[deliverSubagentPrompt](agent,action.id,action.content,action.source??{kind:'user'},new AbortController().signal,'queue')
+    }
+    else if(action.method==='sendChild')value=await ctx.subagents.sendMessage(agent,action.id,action.content,{signal:new AbortController().signal})
+    else if(action.method==='serviceChild'){
+     const run=await ctx.subagents.start(action.provider,{...action.request,parent:agent,signal:new AbortController().signal})
+     try{value={id:run.id,result:await run.result,header:run.localAgent.session.header,events:run.localAgent.session.snapshotEvents()}}finally{await run.dispose()}
+    }
     else if(action.method==='route')route=action.config
     else if(action.method==='preStep')preStep=action.value
     else if(action.method==='idle')await agent.whenIdle()
     else if(action.method==='view')value=view()
     else if(action.method==='resume'){
      await handle.dispose();handle=undefined
-     handle=await ctx.agents.resume({resumeSessionId:'machine',options:action.options??{provider:'script',model:'model'}});agent=handle.agent
+     handle=await ctx.agents.resume({resumeSessionId:'machine',agentOptions:action.options??{provider:'script',model:'model'}});agent=handle.agent
     }else if(action.method==='dispose'){await handle.dispose();handle=undefined}
     else value=agent[action.method](...decode(action.args??[]))
     results.push({outcome:'value',value:normalize(value)})

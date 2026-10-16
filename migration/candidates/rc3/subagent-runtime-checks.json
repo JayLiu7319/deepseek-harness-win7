@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-E-continuable-residency",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 19,
+    "report": {
+      "path": ".goose/out/rc3-r03-runtime-frozen-final-20261017/report.json",
+      "sha256": "b1544e8fd48e246865c72028df40a1f14f39e9daea01a236a0e6a6b3e63210f4"
+    },
+    "corpus": {
+      "path": "scripts/oracles/subagent_runtime_current_cases.json",
+      "sha256": "71ac72b4adcd9eb5070ceca3e46eb72e0f2322e0b6a3c06f9dbb9018c693e25d"
+    },
+    "normalization": [
+      "Generated UUIDs including attempt ids preserve equality relationships; fixed clock 1000; Agent and signal markers.",
+      "Owned child quiescence and actual extracted JSONL reads are explicit action barriers. No business-field filtering."
+    ]
+  },
+  "direct_consumer_rechecks": [
+    {
+      "matched": 29,
+      "report": {
+        "path": ".goose/out/rc3-r03-runtime-machine-recheck-20261017/report.json",
+        "sha256": "1130bee55d7cc72cc3394a2e8facbfa173874d97e505c69b3f045c252d6f3134"
+      }
+    },
+    {
+      "matched": 29,
+      "report": {
+        "path": ".goose/out/rc3-r03-runtime-consumers-recheck-20261017/report.json",
+        "sha256": "23321923a887149e4ef4ec3da2b55e24830662e7d69e334a8ee018ee5f0a4ae9"
+      }
+    }
+  ],
+  "native": {
+    "passed": 169,
+    "command": {
+      "path": ".goose/out/rc3-r03-runtime-native-final-20261017/command.json",
+      "sha256": "cc6eded7a466b5c04a0f8f9ae790668730309271d1abae01937918e363a05ca0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-runtime-native-final-20261017/pytest.xml",
+      "sha256": "6ff110725030dc6f697694e22cfa9bd687b2737e985bfe87a4c9715449c16563"
+    }
+  },
+  "source": {
+    "passed": 270,
+    "command": {
+      "path": ".goose/out/rc3-r03-runtime-source-20261017/command.json",
+      "sha256": "5e90c76d95ec82b7db289c7ed73468b8f660d8e7ac796f23ce14d4827c2e4126"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-runtime-source-20261017/source.xml",
+      "sha256": "ac2e18a999d4a67baf7f3d5d8ce1a3123b6b8f850bce2180cfebac24a2d00b95"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/subagent/activation_current.py",
+      "sha256": "a6eaf22899c593a3c10cbfea0ad2e90e7b0c58acbed50557e581f4d5aae148eb"
+    },
+    {
+      "path": "dsh/subagent/continuation_current.py",
+      "sha256": "af42c3467f4c26369793731ab0ee70bba192a042314be9cda48948f9d1e1577b"
+    },
+    {
+      "path": "dsh/subagent/lifecycle_current.py",
+      "sha256": "1361e70df0442a6ef8f01c82f258c9a8f9412aada33c09c9a5576c26f8ac847b"
+    },
+    {
+      "path": "dsh/subagent/runtime_current.py",
+      "sha256": "f680459d097fa159aa5c71770e119a568e6517482f75e49fd5ccd00510484b42"
+    },
+    {
+      "path": "dsh/subagent/composition_current.py",
+      "sha256": "c87d1329441b67283584e1d98132b1e41f6cb9ac1768c1adea1ac8b50ac86dcb"
+    },
+    {
+      "path": "dsh/subagent/in_process_current.py",
+      "sha256": "d8b43dda6bb2288d5edd275125ef698258889752d83618134f5587de094f5dbf"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_python.py",
+      "sha256": "871374da884fa84e3198fc77fdc188974bffb14e19cf13ec046637c14bc05c0b"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_source.mts",
+      "sha256": "e4710ea81d103120c1d6c8dde60de7df82d4cec446c7822647d8ccf88ea0d724"
+    },
+    {
+      "path": "scripts/oracles/generate_subagent_runtime_current_cases.py",
+      "sha256": "2477dff614c3c5f5ff649d9029d6ecf6d6e165ad256207508da7348de6786ea6"
+    },
+    {
+      "path": "tests/test_subagent_runtime_current.py",
+      "sha256": "09f5c1cd1af039337ad541f6b24d98a218171308898df4a06914ff497d574dd8"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-runtime-pair-20261017: Source host delivery is symbol-keyed; observer corrected to actual internal adapter.",
+    ".goose/out/rc3-r03-runtime-interrupt-20261017: actor used options instead of canonical agentOptions in Source create/resume. Corrected both actors; old 29+29 corpora independently rerun and native frozen observations pass.",
+    ".goose/out/rc3-r03-runtime-native-first-20261017: nonexistent test helper last_turn corrected to actual log boundary.",
+    ".goose/out/rc3-r03-runtime-native-20261017: interrupted after 21 completed new cases; no final XML; handle-release test now awaits explicit child stream barrier. Not a qualification run."
+  ],
+  "limits": [
+    "Explicit candidate only; listing cache, model-facing tools, Remote/SDK and other consumers remain to qualify.",
+    "No active rc.1 pin/profile switch, full regression or release acceptance.",
+    "Earlier original preset dangling-symlink EPERM remains separately recorded as an environment gap."
+  ]
+}

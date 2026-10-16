@@ -27,7 +27,19 @@ class ScriptAdapter:
         return info
     async def stream(self,request):
         if not self.script:raise RuntimeError('MockAdapter: script exhausted')
-        for chunk in self.script.pop(0):yield chunk
+        entry=self.script.pop(0)
+        hanging=entry=='hang' or isinstance(entry,dict) and 'hangAfter' in entry
+        chunks=([dict(type='block-start',index=0,blockType='text'),dict(type='text-delta',index=0,text='partial')] if entry=='hang'
+                else entry['hangAfter'] if hanging else entry)
+        for chunk in chunks:yield chunk
+        if hanging:
+            future=asyncio.get_running_loop().create_future()
+            def abort(*args):
+                if not future.done():future.set_exception(RuntimeError('aborted'))
+            remove=request['signal'].add_listener('abort',abort)
+            if request['signal'].aborted:abort()
+            try:await future
+            finally:remove()
 
 
 async def run(test,decode):
@@ -56,6 +68,13 @@ async def run(test,decode):
         try:
             for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin,test.get('promptConfig') if plugin is CurrentSystemPrompt else None)
             if test.get('persistence'):await ctx.plugin(CurrentJsonlSessionPersistencePlugin,dict(root=folder,compression=test.get('compression','none')))
+            if test.get('subagents'):
+                from dsh.session.query_current import CurrentSqliteSessionQueryPlugin
+                from dsh.subagent.runtime_current import CurrentSubagentPlugin
+                from dsh.subagent.in_process_current import CurrentSpawnInProcess,CurrentForkInProcess
+                await ctx.plugin(CurrentSqliteSessionQueryPlugin,dict(path=':memory:',openAt='never'))
+                for plugin in (CurrentSubagentPlugin,CurrentSpawnInProcess,CurrentForkInProcess):await ctx.plugin(plugin)
+                for name in ('subagent/start','subagent/end'):ctx.on(name,lambda payload,key=name:notifications.append(normalize(dict(name=key,payload=payload))))
             await ctx.plugin(CurrentAgentLoopPlugin,dict(agents=[]))
             ctx.get('llm').registerAdapter(['script'],ScriptAdapter(test))
             async def assemble(assembly,context,next):
@@ -92,7 +111,7 @@ async def run(test,decode):
                     ctx.on(name,fail)
                 ctx.on(name,lambda payload,key=name:notify(key,payload))
             ctx.on('agent/error',lambda payload:errors.append(normalize(payload['error'])))
-            handle=await ctx.get('agents').create(dict(sessionId='machine',options=test.get('options',dict(provider='script',model='model')),meta=dict(createdAt=1000)));agent=handle.agent
+            handle=await ctx.get('agents').create(dict(sessionId='machine',agentOptions=test.get('options',dict(provider='script',model='model')),meta=dict(createdAt=1000)));agent=handle.agent
             for action in test['actions']:
                 try:
                     value=None;method=action['method']
@@ -109,13 +128,42 @@ async def run(test,decode):
                         result=await run.result
                         value=normalize(dict(id=run.id,result=result,header=run.localAgent.session.header.to_dict(),events=run.localAgent.session.snapshotEvents(),owned=ctx.get('agents').isOwnedBy(run.id,agent)))
                         await run.dispose()
+                    elif method=='background':
+                        from dsh.core.abort import AbortController
+                        spec=dict(action['spec'],signal=AbortController().signal,request=dict(action['spec']['request'],parent=agent))
+                        value=await ctx.get('subagents').startContinuable(spec)
+                    elif method=='childIdle':
+                        async def closed():
+                            while ctx.get('agents').get(action['id']) is not None:await asyncio.sleep(.001)
+                        await asyncio.wait_for(closed(),3);await agent.whenIdle()
+                    elif method=='childObserve':
+                        observed=await ctx.get('sessionQuery').observeSession(action['id'])
+                        try:value=dict(header=observed.header.to_dict(),events=observed.events,inheritedEventCount=observed.inheritedEventCount)
+                        finally:observed.dispose()
+                    elif method=='childEntered':
+                        async def entered():
+                            while not any(n.get('name')=='agent/assistant-stream' and n['payload']['agent']==action['id'] and n['payload']['frame']['type']=='chunk' and n['payload']['frame']['chunk']['type']=='text-delta' for n in notifications):await asyncio.sleep(.001)
+                        await asyncio.wait_for(entered(),3)
+                    elif method=='childQuiescent':
+                        child=ctx.get('agents').get(action['id']);await child.whenIdle()
+                        value=dict(status=child.status,events=child.session.snapshotEvents(),inbox=ctx.get('sessionProjections').snapshot(child.session,['inbox'])['values']['inbox'])
+                    elif method=='interruptChild':ctx.get('subagents').interrupt(action['id'],dict(kind='ancestor',agent=agent) if action.get('ancestor') else dict(kind='user',parentSessionId=action.get('parentId',agent.id)))
+                    elif method in ('queueChild','sendChild'):
+                        from dsh.core.abort import AbortController
+                        if method=='queueChild':value=await ctx.get('subagents')._deliver_prompt(agent,action['id'],action['content'],action.get('source',dict(kind='user')),AbortController().signal,'queue')
+                        else:value=await ctx.get('subagents').sendMessage(agent,action['id'],action['content'],dict(signal=AbortController().signal))
+                    elif method=='serviceChild':
+                        from dsh.core.abort import AbortController
+                        run=await ctx.get('subagents').start(action['provider'],dict(action['request'],parent=agent,signal=AbortController().signal))
+                        try:value=dict(id=run.id,result=await run.result,header=run.localAgent.session.header.to_dict(),events=run.localAgent.session.snapshotEvents())
+                        finally:await run.dispose()
                     elif method=='route':route=action['config']
                     elif method=='preStep':pre_step=action['value']
                     elif method=='idle':await agent.whenIdle()
                     elif method=='view':value=view()
                     elif method=='resume':
                         await handle.dispose();handle=None
-                        handle=await ctx.get('agents').resume(dict(resumeSessionId='machine',options=action.get('options',dict(provider='script',model='model'))));agent=handle.agent
+                        handle=await ctx.get('agents').resume(dict(resumeSessionId='machine',agentOptions=action.get('options',dict(provider='script',model='model'))));agent=handle.agent
                     elif method=='dispose':await handle.dispose();handle=None
                     else:value=getattr(agent,method)(*decode(action.get('args',[])))
                     results.append(dict(outcome='value',value=normalize(value)))

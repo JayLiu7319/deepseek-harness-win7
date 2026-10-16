@@ -50,3 +50,5 @@ R03-B：新增 [agent-machine-checks.json](agent-machine-checks.json)，候选�
 R03-C: [persona / one-shot consumer evidence](agent-consumers-checks.json): 29 actual Source/native journeys matched; 238 selected native tests passed; Source 307 passed with one Windows dangling-symlink EPERM environment gap. Continuable consumers and baseline switch remain open.
 
 R03-D: [parent catalog and continuation units](subagent-units-checks.json): 53 actual pairs, 172 selected native and 30 original Source tests passed. Lifecycle integration remains open.
+
+R03-E: [continuable residency evidence](subagent-runtime-checks.json): 19 actual current pairs, 29+29 direct consumer rechecks, 169 selected native and 270 original Source tests passed. Remaining consumers and production switch stay open.

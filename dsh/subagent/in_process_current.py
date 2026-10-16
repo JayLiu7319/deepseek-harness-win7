@@ -3,41 +3,21 @@ import uuid
 
 from dsh.core.react_loop_current import ReactLoopAgent
 from dsh.subagent.in_process import InProcessRun, InProcessProvider, SpawnInProcess, ForkInProcess
-from dsh.subagent.composition import child_options, child_meta, capture_policy, append_policy, apply_composition, valid_depth, MAX_SAFE
+from dsh.subagent.composition import child_options, child_meta, capture_policy, append_policy
+from dsh.subagent.composition_current import assert_max_depth,resolve_depth,apply_child_composition
+from dsh.core.session.json import UNDEFINED
 from dsh.subagent.descriptor import completed_turn_prefix
 from dsh.subagent.assistant_output_current import final_assistant_output
 from dsh.subagent.structured import attach_structured
 
 
-def apply_child_composition(child_ctx, parent, composition):
-    return apply_composition(child_ctx, parent, composition,
-                             persona_section='deployment:persona-prefix', persona_order='DEPLOYMENT_PERSONA_PREFIX')
-
-
 async def start_run(request, seed=None):
     signal, parent = request['signal'], request['parent']
     # Source validates the supplied budget even when publication is already aborted.
-    if request.get('maxDepth') is not None:
-        try:
-            valid_depth(request['maxDepth'])
-        except ValueError:
-            raise TypeError('subagent maxDepth must be a non-negative safe integer')
+    assert_max_depth(request.get('maxDepth',UNDEFINED))
     if signal.aborted:
         raise RuntimeError('subagent request was aborted before child publication')
-    runtime = getattr(parent.options, 'subagentDepth', 0)
-    try:
-        runtime = valid_depth(runtime)
-    except ValueError:
-        raise TypeError('agent subagentDepth must be a non-negative safe integer')
-    depth = max(parent.session.header.delegationDepth or 0, runtime) + 1
-    if depth > MAX_SAFE:
-        error = ValueError('subagent child depth exceeds the safe-integer range')
-        error.name = 'RangeError'
-        raise error
-    if request.get('maxDepth') is not None and depth > request['maxDepth']:
-        error = ValueError('subagent depth {} exceeds maxDepth {}'.format(depth, request['maxDepth']))
-        error.name, error.attemptedDepth, error.maxDepth = 'SubagentDepthError', depth, request['maxDepth']
-        raise error
+    depth = resolve_depth(parent,request.get('maxDepth'))
     boundary, inherited = len(seed or []), capture_policy(parent)
     structured = None
 
