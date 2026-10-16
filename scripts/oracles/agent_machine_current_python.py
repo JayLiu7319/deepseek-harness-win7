@@ -45,7 +45,7 @@ class ScriptAdapter:
 
 
 async def run(test,decode):
-    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[];forward_controller=None
+    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[];forward_controller=None;connection_routes={}
     handle=None;agent=None;sdk=None;event_stream=None;event_controller=None;event_ready=None;event_frame=None;forward=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
     def normalize(value,key=''):
         if value is UNDEFINED or value is WIRE_UNDEFINED:return None
@@ -136,6 +136,37 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='connectionHttp':
+                        from scripts.oracles.connection_http_current_python import execute as http_execute
+                        value=await http_execute(action)
+                    elif method=='connectionConfig':
+                        from dsh.host.connection.current import CurrentConnectionPlugin
+                        records={}
+                        def modify(key,mutator):
+                            value=mutator(records.get(key))
+                            if value is not None:records[key]=value
+                            return records.get(key)
+                        ctx.set_service('credentials',SimpleNamespace(modify_record=modify))
+                        await ctx.plugin(CurrentConnectionPlugin,action.get('config'))
+                        value=dict(available=ctx.get('connection') is not None,webServer=ctx.get('webServer') is not None)
+                    elif method=='connectionRecovery':
+                        from dsh.host.connection.current import resolve_connection_config
+                        value=resolve_connection_config(decode(action.get('config',{})))
+                    elif method=='connectionRoute':
+                        route=dict(action['route'],fetch=lambda request:dict(status=202,body='exact'))
+                        connection_routes[route['path']]=ctx.get('connection').fetch.register(route)
+                    elif method=='connectionWithdraw':
+                        from dsh.cordis.awaiting import await_callback_result
+                        await await_callback_result(connection_routes[action['path']]())
+                    elif method=='connectionRequest':
+                        from dsh.typert.artifact import UNDEFINED as WireUndefined
+                        connection=ctx.get('connection')
+                        if action.get('intercept'):
+                            connection.rpc.intercept('/api',lambda _:True,lambda *args:dict(ok=True,value=WireUndefined))
+                        shared=connection.createSharedFetchHandler('/api')
+                        request=dict(path=action.get('path','/api/test/run'),method=action.get('verb','POST'),headers={'content-type':action.get('contentType','application/json')},body=json.dumps(action.get('body')).encode('utf-8'))
+                        result=await shared.fetch(request)
+                        value=dict(mode=shared.requestBodyMode(request),status=result['status'],body=result.get('body',''))
                     elif method=='remoteConfig':
                         from dsh.typert.current import CurrentTypertRegistry,CurrentTypertGateway,CurrentApiRemotes
                         for plugin in (CurrentTypertRegistry,CurrentTypertGateway,CurrentApiRemotes):await ctx.plugin(plugin)

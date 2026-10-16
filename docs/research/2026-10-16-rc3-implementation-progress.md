@@ -209,3 +209,7 @@ The upstream SDK business source has no functional rc.1-to-rc.3 delta. Its exist
 ### R04-A — 显式 Agent Remote（2026-10-17）
 
 候选 Typert registry 去除 Context 反向身份查询，Agent host adapter 只提供 wire/resolve。审批/用户问题携带实际 scoped Agent，Gateway 投影时移除 Agent/signal，并透传 goal/activation-changed。补齐不存在 Agent 的 lookup 错误身份和消息；取消保留原始原因。实际 Source/native 12 组匹配，Python 定向162通过，原版10套件313通过。验证覆盖原 registry/dispatcher/event 直接消费者及当前 SDK/goal，未重复完整门禁。当前可用空间约179GiB；本次测试短工作区由现有收尾机制维护，原始失败/观察/XML保留。生产 pin/profile 未切换，后续继续 Connection/RPCFetch、其他 Remote 消费者。见 migration/candidates/rc3/remote-current-checks.json。
+
+### R04-B — Connection 注册表与请求体（2026-10-17）
+
+候选 Connection 仅依赖 credentials，WebServer 后挂载时添加 /api 与 recovery 全局注入，卸载完全回收。精确 Fetch route 在读体之前选择 buffered/streaming，流式读每次最多64KiB且不设聚合上限；实际 TCP 测过 chunked、提前响应和未完成上传。RPC 必需 payload，错误码采用 gateway/bad-request。Source/native30组一致，Python74通过、原版7套件52通过；相关原认证/服务器连接生命周期回归也通过。Python3.8 EOF内部标志用于检测未消费流的断线，防止并发读取；平台适配在代码和回执中披露。成功测试短工作区按既有规则收尾；诊断和原始观察保留。后续继续 Remote 消费者、信任/反馈以及上传文件合同，未切生产基线。

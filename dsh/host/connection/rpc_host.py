@@ -30,7 +30,7 @@ def envelope(rpc_id, result):
     return response(200, stringify_json({"type": "server-response", "rpcId": rpc_id, "result": result}), {"content-type": "application/json"})
 
 
-async def rpc_fetch(channel, handler, request):
+async def rpc_fetch(channel, handler, request, bad_request_code='bad-request', error_text=str, require_payload=False):
     endpoint = endpoint_from_path(channel, request["path"])
     if request.get("method") != "POST" or endpoint is None:
         return response(404, "not found")
@@ -50,22 +50,24 @@ async def rpc_fetch(channel, handler, request):
         elif kind == "string" and not isinstance(value, str):
             received = "undefined" if value is UNDEFINED else "null" if value is None else "boolean" if type(value) is bool else "number" if type(value) in (int, float) else "array" if isinstance(value, list) else "object"
             issues.append({"expected": "string", "code": "invalid_type", "path": [name], "message": "Invalid input: expected string, received " + received})
+    if require_payload and isinstance(body, dict) and 'payload' not in body:
+        issues.append(dict(code='invalid_type', expected='nonoptional', path=['payload'], message='Invalid input: expected nonoptional, received undefined'))
     if not isinstance(body, dict):
         received = "null" if body is None else "array" if isinstance(body, list) else "string" if isinstance(body, str) else "boolean" if type(body) is bool else "number"
         issues = [{"expected": "object", "code": "invalid_type", "path": [], "message": "Invalid input: expected object, received " + received}]
     if issues:
         rpc_id = body.get("rpcId") if isinstance(body, dict) and isinstance(body.get("rpcId"), str) else "invalid-request"
-        return envelope(rpc_id, {"ok": False, "error": {"code": "bad-request", "message": "invalid client-request message", "details": {"issues": issues}}})
+        return envelope(rpc_id, {"ok": False, "error": {"code": bad_request_code, "message": "invalid client-request message", "details": {"issues": issues}}})
     if body["method"] != endpoint:
         message = "method {} does not match endpoint {}".format(json.dumps(body["method"]), json.dumps(endpoint))
-        return envelope(body["rpcId"], {"ok": False, "error": {"code": "bad-request", "message": message, "details": {"issues": []}}})
+        return envelope(body["rpcId"], {"ok": False, "error": {"code": bad_request_code, "message": message, "details": {"issues": []}}})
     try:
         result = handler(endpoint, body.get("payload", UNDEFINED), request.get("signal") or NEVER_ABORTED)
         if inspect.isawaitable(result):
             result = await result
         return envelope(body["rpcId"], result)
     except Exception as error:
-        return response(500, "handler failure: " + str(error))
+        return response(500, "handler failure: " + error_text(error))
 
 
 class HostConnectionService(Service):

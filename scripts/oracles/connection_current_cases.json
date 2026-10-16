@@ -1,0 +1,1921 @@
+[
+  {
+    "case": "connection-current-headless",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {}
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "backoffBaseMs": 500,
+            "backoffFactor": 2,
+            "backoffMaxMs": 10000,
+            "generationReadyWarnMs": 3000,
+            "generationReadyTimeoutMs": 15000
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffFactor": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "backoffBaseMs": 500,
+            "backoffFactor": 1,
+            "backoffMaxMs": 10000,
+            "generationReadyWarnMs": 3000,
+            "generationReadyTimeoutMs": 15000
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffBaseMs": 1.0,
+          "backoffMaxMs": 2147483647,
+          "generationReadyWarnMs": 2,
+          "generationReadyTimeoutMs": 3
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "backoffBaseMs": 1,
+            "backoffFactor": 2,
+            "backoffMaxMs": 2147483647,
+            "generationReadyWarnMs": 2,
+            "generationReadyTimeoutMs": 3
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffBaseMs": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.backoffBaseMs expected number >= 1 but got 0"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-4",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffFactor": 0.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.backoffFactor expected number >= 1 but got 0.5"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-5",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffBaseMs": 2147483648
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.backoffBaseMs expected number <= 2147483647 but got 2147483648"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-6",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "generationReadyTimeoutMs": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.generationReadyTimeoutMs expected number but got true"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-7",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffBaseMs": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.backoffBaseMs expected number multiple of 1 but got 1.5"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-routing",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRoute",
+        "route": {
+          "path": "/api/test/run",
+          "methods": [
+            "GET",
+            "HEAD",
+            "POST"
+          ],
+          "requestBody": "streaming"
+        }
+      },
+      {
+        "method": "connectionRequest",
+        "verb": "GET"
+      },
+      {
+        "method": "connectionRequest",
+        "verb": "HEAD"
+      },
+      {
+        "method": "connectionRequest",
+        "verb": "POST"
+      },
+      {
+        "method": "connectionRequest",
+        "verb": "DELETE"
+      },
+      {
+        "method": "connectionWithdraw",
+        "path": "/api/test/run"
+      },
+      {
+        "method": "connectionRequest",
+        "verb": "GET"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 202,
+            "body": "exact"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 202,
+            "body": "exact"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "streaming",
+            "status": 202,
+            "body": "exact"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 404,
+            "body": "not found"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 404,
+            "body": "not found"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-route-invalid-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRoute",
+        "route": {
+          "path": "/outside",
+          "methods": [
+            "GET",
+            "HEAD",
+            "POST"
+          ],
+          "requestBody": "streaming"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "connection: invalid exact Fetch route \"/outside\""
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-route-invalid-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRoute",
+        "route": {
+          "path": "/api/test/run",
+          "methods": [],
+          "requestBody": "streaming"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "connection: exact Fetch route \"/api/test/run\" declares no methods"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-route-invalid-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRoute",
+        "route": {
+          "path": "/api/test/run",
+          "methods": [
+            "POST",
+            "POST"
+          ],
+          "requestBody": "streaming"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "connection: exact Fetch route \"/api/test/run\" repeats a method"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": {
+          "type": "client-request",
+          "rpcId": "id",
+          "method": "test/run"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"id\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/bad-request\",\"message\":\"invalid client-request message\",\"details\":{\"issues\":[{\"code\":\"invalid_type\",\"expected\":\"nonoptional\",\"path\":[\"payload\"],\"message\":\"Invalid input: expected nonoptional, received undefined\"}]}}}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": {
+          "rpcId": "id"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"id\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/bad-request\",\"message\":\"invalid client-request message\",\"details\":{\"issues\":[{\"code\":\"invalid_value\",\"values\":[\"client-request\"],\"path\":[\"type\"],\"message\":\"Invalid input: expected \\\"client-request\\\"\"},{\"expected\":\"string\",\"code\":\"invalid_type\",\"path\":[\"method\"],\"message\":\"Invalid input: expected string, received undefined\"},{\"code\":\"invalid_type\",\"expected\":\"nonoptional\",\"path\":[\"payload\"],\"message\":\"Invalid input: expected nonoptional, received undefined\"}]}}}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": {
+          "type": "client-request",
+          "rpcId": "id",
+          "method": "wrong"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"id\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/bad-request\",\"message\":\"invalid client-request message\",\"details\":{\"issues\":[{\"code\":\"invalid_type\",\"expected\":\"nonoptional\",\"path\":[\"payload\"],\"message\":\"Invalid input: expected nonoptional, received undefined\"}]}}}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": null
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"invalid-request\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/bad-request\",\"message\":\"invalid client-request message\",\"details\":{\"issues\":[{\"expected\":\"object\",\"code\":\"invalid_type\",\"path\":[],\"message\":\"Invalid input: expected object, received null\"}]}}}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-success",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": {
+          "type": "client-request",
+          "rpcId": "id",
+          "method": "test/run",
+          "payload": {
+            "args": {}
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"id\",\"result\":{\"ok\":true}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-rpc-mismatch",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionConfig"
+      },
+      {
+        "method": "connectionRequest",
+        "intercept": true,
+        "body": {
+          "type": "client-request",
+          "rpcId": "id",
+          "method": "wrong",
+          "payload": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "available": true,
+            "webServer": false
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "mode": "buffered",
+            "status": 200,
+            "body": "{\"type\":\"server-response\",\"rpcId\":\"id\",\"result\":{\"ok\":false,\"error\":{\"code\":\"gateway/bad-request\",\"message\":\"method \\\"wrong\\\" does not match endpoint \\\"test/run\\\"\",\"details\":{\"issues\":[]}}}}"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-buffered",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "buffered",
+        "chunks": [
+          "abc",
+          "de"
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 200,
+            "body": "abcde",
+            "observed": {
+              "received": "abcde",
+              "called": true,
+              "mode": "buffered",
+              "aborted": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-streaming",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "streaming",
+        "chunks": [
+          "123456789",
+          "abcdef"
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 200,
+            "body": "123456789abcdef",
+            "observed": {
+              "received": "123456789abcdef",
+              "called": true,
+              "mode": "streaming",
+              "aborted": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-streaming-chunked",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "streaming",
+        "chunks": [
+          "123456789",
+          "abcdef"
+        ],
+        "chunked": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 200,
+            "body": "123456789abcdef",
+            "observed": {
+              "received": "123456789abcdef",
+              "called": true,
+              "mode": "streaming",
+              "aborted": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-buffered-oversize",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "buffered",
+        "declared": 1000000,
+        "unfinished": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 413,
+            "body": "",
+            "observed": {
+              "received": "",
+              "called": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-buffered-chunked-oversize",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "buffered",
+        "chunks": [
+          "123456789"
+        ],
+        "chunked": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 413,
+            "body": "",
+            "observed": {
+              "received": "",
+              "called": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-early",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "streaming",
+        "declared": 1000000,
+        "early": true,
+        "unfinished": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 202,
+            "body": "early",
+            "observed": {
+              "received": "",
+              "called": true,
+              "mode": "streaming"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-http-pull-first",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionHttp",
+        "mode": "streaming",
+        "chunks": [
+          "abc"
+        ],
+        "chunked": true,
+        "unfinished": true,
+        "takeFirst": true
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "status": 200,
+            "body": "abc",
+            "observed": {
+              "received": "abc",
+              "called": true,
+              "mode": "streaming",
+              "aborted": false
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-extra-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": null
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "backoffBaseMs": 500,
+            "backoffFactor": 2,
+            "backoffMaxMs": 10000,
+            "generationReadyWarnMs": 3000,
+            "generationReadyTimeoutMs": 15000
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-extra-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": "bad"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "expected object but got bad"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-extra-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "unknown": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "backoffBaseMs": 500,
+            "backoffFactor": 2,
+            "backoffMaxMs": 10000,
+            "generationReadyWarnMs": 3000,
+            "generationReadyTimeoutMs": 15000,
+            "unknown": true
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "connection-current-recovery-extra-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "connectionRecovery",
+        "config": {
+          "backoffFactor": {
+            "$number": "Infinity"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ValidationError",
+            "message": "$.backoffFactor expected number but got [object Object]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  }
+]

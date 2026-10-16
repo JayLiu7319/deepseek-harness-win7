@@ -19,6 +19,7 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const ctx=new Context(),root=await mkdtemp(join(tmpdir(),'dsh-machine-pair-')),ids=new Map<string,string>()
  let handle:any,agent:any,sdk:any,eventStream:any,eventController:any,eventReady:any,eventFrame:any,forward:any,forwardController:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
  const requests:any[]=[],notifications:any[]=[],results:any[]=[],errors:any[]=[]
+ const connectionRoutes=new Map<string,()=>Promise<void>>()
  const normalize=(v:any,key=''):any=>{
   if(v===undefined)return null
   if(key==='signal')return '<signal>'
@@ -80,6 +81,29 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='connectionHttp'){
+     const {connectionHttpCurrent}=await import('./connection_http_current_source.mts')
+     value=await connectionHttpCurrent(source,action)
+    }
+    else if(action.method==='connectionConfig'){
+     const {provideBrowserCredentials}=await load('packages/client/connection/tests/browser-credentials.ts')
+     provideBrowserCredentials(ctx)
+     const connection=await load('packages/client/connection/src/index.ts')
+     await ctx.plugin(connection,action.config)
+     value={available:ctx.get('connection')!==undefined,webServer:ctx.get('webServer')!==undefined}
+    }
+    else if(action.method==='connectionRecovery'){
+     const {resolveConnectionConfig}=await load('packages/client/connection/src/recovery-config.ts')
+     value=resolveConnectionConfig(decode(Object.hasOwn(action,'config')?action.config:{}))
+    }
+    else if(action.method==='connectionRoute')connectionRoutes.set(action.route.path,ctx.connection.fetch.register({...action.route,fetch:async()=>new Response('exact',{status:202})}))
+    else if(action.method==='connectionWithdraw')await connectionRoutes.get(action.path)!()
+    else if(action.method==='connectionRequest'){
+     if(action.intercept)ctx.connection.rpc.intercept('/api',()=>true,async()=>({ok:true,value:undefined}))
+     const shared=ctx.connection.createSharedFetchHandler('/api'),method=action.verb??'POST',url=new URL(action.path??'/api/test/run','http://host')
+     const result=await shared.fetch(new Request(url,{method,headers:{'content-type':action.contentType??'application/json'},...method==='GET'||method==='HEAD'?{}:{body:JSON.stringify(action.body)}}))
+     value={mode:shared.requestBodyMode({method,url}),status:result.status,body:await result.text()}
+    }
     else if(action.method==='remoteConfig'){
      const {default:Registry}=await load('packages/typert/registry/src/index.ts'),{default:Gateway}=await load('packages/api/gateway/src/index.ts'),remotes=await load('packages/api/remotes/src/index.ts')
      for(const plugin of [Registry,Gateway,remotes])await ctx.plugin(plugin)

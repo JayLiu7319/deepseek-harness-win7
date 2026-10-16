@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-B-carrier-neutral-Connection",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 30,
+    "report": {
+      "path": ".goose/out/rc3-r04-connection-frozen-20261017/report.json",
+      "sha256": "068c6d9c2c991054b2ead6b7d94e9e81e476f54ff2b060bf0f70f50cc57744ac"
+    },
+    "corpus": {
+      "path": "scripts/oracles/connection_current_cases.json",
+      "sha256": "1f975e7dc27825fcde14e3ff9baaa0e341361eecf817a264792781416a223d39"
+    }
+  },
+  "native": {
+    "passed": 74,
+    "command": {
+      "path": ".goose/out/rc3-r04-connection-native-20261017/command.json",
+      "sha256": "8d273385ff41d4676b129c9e7908089c1e507737841709630daf9e6cce6b2c77"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-connection-native-20261017/pytest.xml",
+      "sha256": "707f9623360a2ec816a9e2eaa4ac02215f35b4f14fb3f426a498a839f19f53eb"
+    }
+  },
+  "source": {
+    "passed": 52,
+    "suites": 7,
+    "command": {
+      "path": ".goose/out/rc3-r04-connection-source-20261017/command.json",
+      "sha256": "1619ea73b83379d5f9633beb52f40d2e699de646bcd325d2a9e8f0bff495e62a"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-connection-source-20261017/source.xml",
+      "sha256": "d66cd7d6f2dd37b2c7f5f34d827bcad855b3e20307e7b9275964c3655da7eee3"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/connection/current.py",
+      "sha256": "5286a224ac1c28257010a3ad07c78e56a1a46a795f7d25b480db5cfb333928d2"
+    },
+    {
+      "path": "dsh/host/connection/http_current.py",
+      "sha256": "a37686e83bbfd37e5bd4e86fa5cc58c0990522d84ff92817f7b4636bbd95dfce"
+    },
+    {
+      "path": "dsh/host/connection/rpc_host.py",
+      "sha256": "6822f263b2fb2c24d1b47adb997955d577010c65d4e572e61995fff517066671"
+    },
+    {
+      "path": "scripts/oracles/connection_http_current_python.py",
+      "sha256": "126b2983e037ebe5163a0b11896fe30090257d17288ef355c8b1a93e4a94e498"
+    },
+    {
+      "path": "scripts/oracles/connection_http_current_source.mts",
+      "sha256": "e4553ff48881acbf67964ff188006316c97be91ecdc3cd2231f0c8b7dca88e7a"
+    }
+  ],
+  "scope": [
+    "Actual headless registry activation, exact GET/HEAD/POST ownership, method fallthrough and withdrawal.",
+    "Recovery schema defaults/validation, required payload envelopes, gateway/bad-request.",
+    "Seven actual TCP upload journeys: bounded buffered, uncapped streaming including chunked framing, oversize rejection before body, early response and partial upload response.",
+    "Native late WebServer activation/recovery globals and reversible removal; consumed/unread streaming disconnect cancellation."
+  ],
+  "limits": [
+    "Native fixed Python 3.8 StreamReader EOF flag is used for cancellation without competing reads; existing server closes each HTTP connection.",
+    "Authentication/trust regression exercised existing implementation; full rc3 trust/feedback deltas and production composition remain open.",
+    "No full release acceptance or production baseline/pin change."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r04-connection-pair-20261017",
+    ".goose/out/rc3-r04-connection-payload-20261017",
+    ".goose/out/rc3-r04-connection-http-20261017"
+  ]
+}
