@@ -39,7 +39,8 @@ def test_smoke_version_flag():
     """Verify dsh --version exits 0."""
     res = _run_dsh("--version")
     assert res.returncode == 0
-    assert res.stdout.strip() != ""
+    from dsh import __version__
+    assert __version__ in res.stdout
 
 
 def test_smoke_dump_config_minimal_profile():

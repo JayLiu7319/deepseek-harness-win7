@@ -142,7 +142,7 @@ git submodule update --init --recursive
 
 ## 便携版构建 (Portable Release)
 
-已发布 [v0.1.1 Portable](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.1)，解压 ZIP 后运行 `dsh.bat` 或 `dsh-web.bat`。发行页提供 SHA-256 和原始完整验收回执；本次完整 Python、固定 Source、配对合同及实际包内现代/Chromium 108 浏览器验收通过，Win7 真机认证仍按既定决定延期。
+[v0.1.2 Portable](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.2) 对齐 `dsh-v0.1.2-rc.1`，包含文件引用及原子写失败诊断、保守清理保护。解压 ZIP 后运行 `dsh.bat` 或 `dsh-web.bat`。用户已确认包含 ACL 加固的新 Portable 在 Win7 下复验可用；这是用户实际测试反馈，完整自动化发行结果及对应 ZIP 的 SHA-256 以发行页和原始验收回执为准。ACL 明确拒绝的目录仍需维护者修正权限，程序不会自动提权或重置 ACL。
 
 项目支持一键打成无环境依赖的 Windows 7 便携版：
 
@@ -150,7 +150,7 @@ git submodule update --init --recursive
 .venv\Scripts\python.exe scripts\build_portable.py
 ```
 
-构建产物将放置在 `dist/dsh-win7-portable/` 并打包为 `dist/dsh-win7-portable-v0.1.1.zip`：
+构建产物将放置在 `dist/dsh-win7-portable/` 并打包为 `dist/dsh-win7-portable-v0.1.2.zip`：
 - 双击 **`dsh-web.bat`**：一键启动 Web GUI 并在浏览器中打开。
 - **`dsh.bat --profile headless "任务"`**：通过正式入口执行单次任务。
 

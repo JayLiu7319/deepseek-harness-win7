@@ -126,6 +126,8 @@ P1 不是“加一条 icacls”即可解决：可研究在创建自有对象时�
 
 ## 参考
 
+2026-10-16 发布前补记：用户对包含加固代码的 `c0d8e663` Portable 再次反馈“确认可以了，进行release吧”。测试包 SHA-256 为 `ed1a7b3a41fc7596e30cabb988c7793d45a8a038f8a774e80cf479ae5102b153`。以上“尚未在 Win7 真机复验”等为此前阶段状态；当前已取得用户实际复验确认，但没有可导出的内网原始错误/测试日志，不扩大为所有 ACL 配置的认证。正式 `v0.1.2` 冻结和完整同包验收另见 [发行记录](2026-10-16-v0.1.2-release-progress.md)。
+
 - [Microsoft：ReplaceFileW](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-replacefilew)：替换及临时文件所需权限、5/32/1175 等应分别诊断；删除/重命名要求文件 DELETE 或父目录 DELETE_CHILD。
 - [Microsoft：File Security and Access Rights](https://learn.microsoft.com/en-us/windows/win32/fileio/file-security-and-access-rights)：对象创建时的安全描述符继承与句柄访问授权。
 - [Microsoft：SetNamedSecurityInfoW](https://learn.microsoft.com/en-us/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow)：ACE 继承传播规则。
