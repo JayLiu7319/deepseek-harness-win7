@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-facade-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='fs-range-current'
+    ? await (await import('./fs_range_current_source.mts')).fsRangeCase(resolve(sourceArg),test)
+    : test.kind==='session-facade-current'
     ? await (await import('./session_facade_current_source.mts')).sessionFacadeCase(resolve(sourceArg),test)
     : test.kind==='native-path-current'
     ? await (await import('./native_path_current_source.mts')).nativePathCase(resolve(sourceArg),test)

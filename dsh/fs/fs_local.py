@@ -544,6 +544,28 @@ class FsService:
         _throw_if_aborted(signal, "read")
         return b"".join(chunks)
 
+    async def readByteRange(self, target: Union[FsTarget, str], range: Dict[str, int], signal: Optional[Any] = None) -> bytes:
+        """Read only the requested raw byte window; never buffer the skipped prefix."""
+        local = self._target(target)
+        self._regular_info(local, signal)
+        remaining = range['length']
+        if remaining == 0:
+            return b''
+        chunks: List[bytes] = []
+        await asyncio.sleep(0)
+        with _open_binary_read(local.targetKey) as handle:
+            handle.seek(range['offset'])
+            while remaining:
+                _throw_if_aborted(signal, 'read')
+                raw = handle.read(min(READ_CHUNK_BYTES, remaining))
+                if not raw:
+                    break
+                chunks.append(raw)
+                remaining -= len(raw)
+                await asyncio.sleep(0)
+        _throw_if_aborted(signal, 'read')
+        return b''.join(chunks)
+
     def write_text(self, path: str, content: str, encoding: str = "utf-8") -> None:
         target = self._resolve_target(path)
         os.makedirs(_native_path(os.path.dirname(target.targetKey)), exist_ok=True)

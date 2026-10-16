@@ -96,3 +96,5 @@ R04-H: [Session history/control](session-history-current-checks.json):38 current
 R09-A: [native desktop intents](native-path-current-checks.json):68 current pairs,111 selected native and44 Source tests pass. Actual child argv/UTF-8/abort/reaping and controlled platform open/reveal/WSL/Explorer contracts are covered. Packaged desktop acceptance remains open.
 
 R04-I: [complete Session facade](session-facade-current-checks.json):31 current pairs,129 selected native and39 Source tests pass. Real full Agent/persistence/uploads, background promotion ownership, projected cold skills, lifecycle and unload are covered. Current generated descriptors/production composition and workspace/sidebar alignment remain open.
+
+R06-A: [bounded FS byte windows](fs-range-current-checks.json):27 current pairs and29 provider tests pass. Expanded consumers136passed/1existing Win321175 failure/4skips; Source82passed/5EPERM symlink failures. Overall FS consumer acceptance remains open.536870928bytes of completed reconstructible range fixtures were audited and removed; failed data retained.

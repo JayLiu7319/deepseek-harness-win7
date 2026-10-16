@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-facade-current':
+        if case['kind'] == 'fs-range-current':
+            from scripts.oracles.fs_range_current_python import execute as fs_range_execute
+            value = fs_range_execute(case)
+        elif case['kind'] == 'session-facade-current':
             from scripts.oracles.session_facade_current_python import execute as facade_execute
             value = facade_execute(case)
         elif case['kind'] == 'native-path-current':

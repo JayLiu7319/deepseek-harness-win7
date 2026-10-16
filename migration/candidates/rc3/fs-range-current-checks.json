@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-A-bounded-fs-byte-window",
+  "status": "provider-targeted-passed-consumer-failure-open",
+  "paired": {
+    "matched": 27,
+    "report": {
+      "path": ".goose/out/rc3-r06-byte-range-frozen-20261017/report.json",
+      "sha256": "c0f62594351d53873891f7703bf989632dbe02583f209446db2885af284d13f9"
+    },
+    "corpus": {
+      "path": "scripts/oracles/fs_range_current_cases.json",
+      "sha256": "5fa2be1e3e6f42fd6615fab7a135f9c56f4addcd041cdb33322b14198214a20e"
+    }
+  },
+  "native": {
+    "passed": 29,
+    "command": {
+      "path": ".goose/out/rc3-r06-byte-range-new-provider-20261017/command.json",
+      "sha256": "02d072837dedcfafbcc0045ed9f7ada604f29998dbcffac7b9b910f3f6be451b"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-byte-range-new-provider-20261017/pytest.xml",
+      "sha256": "759b95aec9ad9c42dfa9905d45be19cc093dda65fc1fa0486dbc584cc60022a5"
+    }
+  },
+  "source": {
+    "passed": 82,
+    "failed": 5,
+    "command": {
+      "path": ".goose/out/rc3-r06-byte-range-source-20261017/command.json",
+      "sha256": "d526f877a95d54dd0bda175316c0ef69dd6958708f21d4a2def8b0c6e393d3fd"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-byte-range-source-20261017/source.xml",
+      "sha256": "5898785b5baf7aabd78a5bda113a7964f786d307e050ce130b3cbca4d15f9e8d"
+    },
+    "failure": "Five symlink fixtures rejected by Windows EPERM; no full Source success claim."
+  },
+  "consumer_regression": {
+    "passed": 136,
+    "failed": 1,
+    "skipped": 4,
+    "command": {
+      "path": ".goose/out/rc3-r06-byte-range-native-final-20261017/command.json",
+      "sha256": "8b8708d03717506ce2415d37cf99f7cf22c6885fa9f238c88c3086f285e8313a"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-byte-range-native-final-20261017/pytest.xml",
+      "sha256": "851c67d0dba92c10dd1917beb67c0aaface7e73a89a3d7a0add4abc4c39a724b"
+    },
+    "failure": "Existing ReplaceFileW1175 on atomic overwrite; prior run failed another overwrite, isolated original failing case then passed. Cause remains unidentified; no retry/ignore/fallback added."
+  },
+  "implementation": [
+    {
+      "path": "dsh/fs/fs_local.py",
+      "sha256": "1ec6237d76405142e626f6d555fa7db4c292b540c36cbe0c269da6d7f3d8ed1a"
+    }
+  ],
+  "retained_failures": [
+    ".goose/out/rc3-r06-byte-range-initial-20261017 (duplicate case IDs, rejected before actors)",
+    ".goose/out/rc3-r06-byte-range-native-20261017 (136 passed/1 ReplaceFileW1175 failure/4 skips)",
+    ".goose/out/rc3-r06-byte-range-source-20261017",
+    ".goose/out/rc3-r06-byte-range-native-final-20261017"
+  ],
+  "retention": {
+    "free_bytes": 192321806336,
+    "reclaimed_bytes": 536870928,
+    "audits": [
+      {
+        "path": ".goose/out/rc3-r06-byte-range-fixture-retention-20261017/audit.json",
+        "sha256": "bbb1894b7ad9950b47461b6ada219ad1814bdeaa635d932e15db8098c732cc9f"
+      },
+      {
+        "path": ".goose/out/rc3-r06-byte-range-fixture-retention-second-20261017/audit.json",
+        "sha256": "9f018a3ddeac587d115f5f98d8c7cbd307a7d0ac667742c0dcc1e326acf9973f"
+      }
+    ],
+    "result": "Only completed reconstructible large range fixtures removed after XML/ownership/hash verification. Failed replacement data and observations preserved. Range test now always removes its owned large file."
+  },
+  "scope": [
+    "Raw regular-file byte windows including zero-length stat gates, EOF, binary input, arbitrary offset and bounded chunking. Sandbox inherits read-only capability. Actual 256MiB-prefix file reads only an eight-byte window; abort closes descriptor."
+  ],
+  "remaining": [
+    "Existing Win321175 attribution and complete consumer acceptance.",
+    "workspaceFiles change feed/preview, tools/present and production composition."
+  ]
+}
