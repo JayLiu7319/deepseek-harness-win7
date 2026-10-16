@@ -420,10 +420,12 @@ class AgentLoopService:
         tx.agent.ctx = tx.scope.ctx.extend({"agent": tx.agent})
         tx.agent.ctx._filter_hook = scope_target(tx.agent.ctx, scope_of(tx.agent.ctx))
         if setup is not None:
-            result = await tx.race(lambda: setup(tx.agent.ctx))
+            result = await tx.race(lambda: self._invoke_setup(setup,tx.agent))
             commit = getattr(result, 'commit', None)
             if callable(commit):
                 await tx.race(commit)
+        tx.assert_live()
+        await self._before_publish(tx,session)
         tx.assert_live()
         sessions = tx.agent.ctx.get('sessions')
         agents = self.ctx.get('agents')
@@ -445,6 +447,13 @@ class AgentLoopService:
         self._active_tasks.append(tx.driver)
         tx.agent._driver_task = tx.driver
         return AgentHandle(agent=tx.agent, disposer=tx.dispose)
+
+    async def _before_publish(self, tx, session):
+        """Provider-specific durable commit before either registry sees the agent."""
+        return None
+
+    def _invoke_setup(self, setup, agent):
+        return setup(agent.ctx)
 
     @staticmethod
     def _validate_options(options):
@@ -1093,12 +1102,13 @@ class AgentLoopPlugin(Plugin):
     name = "@deepseek-ai/dsh-agent-loop"
     Config = AGENT_LOOP_CONFIG_SCHEMA
     inject = ["agents", "sessions", "llm", "tools", "systemPrompt", "sessionProjections"]
+    _service_class = AgentLoopService
 
     def apply(self, ctx: Context) -> None:
         rows = configured_agents(self.config, ctx.get(CONFIGURED_AGENT_IDENTITIES_KEY))
         registry = ctx.agents
 
-        agent_loop = AgentLoopService(ctx, dict(self.config, agents=rows))
+        agent_loop = self._service_class(ctx, dict(self.config, agents=rows))
         ctx.set_service("agent_loop", agent_loop)
         ctx.set_service("agentLoop", agent_loop)
 

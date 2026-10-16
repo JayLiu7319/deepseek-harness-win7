@@ -39,14 +39,19 @@ class FactoryTransaction:
         self.owner.fiber.assert_active()
 
     async def race(self, operation, release=None):
+        def release_value(value):
+            if release is not None:
+                result = release(value)
+                if inspect.isawaitable(result):
+                    task = asyncio.ensure_future(result)
+                    task.add_done_callback(lambda job: None if job.cancelled() else job.exception())
         self.assert_live()
         value = operation()
         if not inspect.isawaitable(value):
             try:
                 self.assert_live()
             except BaseException:
-                if release is not None:
-                    release(value)
+                release_value(value)
                 raise
             return value
         pending = asyncio.ensure_future(value)
@@ -54,8 +59,7 @@ class FactoryTransaction:
         def abandoned(result):
             try:
                 value = result.result()
-                if release is not None:
-                    release(value)
+                release_value(value)
             except (Exception, asyncio.CancelledError):
                 pass
         try:

@@ -22,6 +22,8 @@ R02-M：新增 [observation-checks.json](observation-checks.json)，只读handle
 
 R02-N：新增 [query-consumers-checks.json](query-consumers-checks.json)，显式v3语料/Query/SQLite通过当前list/open handle读取，观察缓存随服务复用，surface和索引使用v3分类。真实Source/native31组旅程匹配，两端各141项定向测试通过；活动profile和Agent仍待切换。
 
+R02-O：新增 [agent-ownership-checks.json](agent-ownership-checks.json)，候选Agent在发布前拥有写handle、存储setup后缀，resume显式持久化崩溃修复，退出排空后释放身份，取消迟到handle与聚合错误已覆盖。Python194通过；Source44通过/1项原有Windows guard跳过。请求机、Inbox与Agent身份scope仍待R03替换，活动profile未切。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

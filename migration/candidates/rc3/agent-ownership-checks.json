@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-O-agent-handle-ownership",
+  "status": "targeted-passed",
+  "native": {
+    "passed": 194,
+    "command": {
+      "path": ".goose/out/rc3-r02-lifecycle-final-20261017/command.json",
+      "sha256": "d5e1d4cf97a16d73cdc3f5f0abf6dd2812ae4e87aa4b0d6a7585858374f1c51f"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-lifecycle-final-20261017/pytest.xml",
+      "sha256": "54f6e9ee7dc152425caba0e1883f0811255c501bd71a079b864fcc7ff1684c23"
+    }
+  },
+  "source": {
+    "passed": 44,
+    "skipped": 1,
+    "skip_reason": "Upstream Windows guard: POSIX forfeit-by-unlink idle inject persistence test.",
+    "command": {
+      "path": ".goose/out/rc3-r02-lifecycle-source-20261017/command.json",
+      "sha256": "3823658df04f91e970c20185e4a474077ca58e2193d4aab8a3ec87e442862010"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-lifecycle-source-20261017/source.xml",
+      "sha256": "a28db7dede639da4a3b02c5db5aaa786bfac440257f0aaaa12d9a81897ea8067"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/agent_lifecycle_current.py",
+      "sha256": "7b30ba6bbd5a61fd918d8ab6e03d2085c80038c9c28979632aa637885fe7a988"
+    },
+    {
+      "path": "dsh/core/agent_factory.py",
+      "sha256": "e5f2fd173b323307cd864faf21327045958086f0f5c8842ae6e50175df3410a4"
+    },
+    {
+      "path": "dsh/core/agent_loop.py",
+      "sha256": "1d066c297a4298a6bddce97d670f0c917e9df526804c56d9959c241396b2e343"
+    },
+    {
+      "path": "tests/test_agent_lifecycle_current.py",
+      "sha256": "1afb29fcb444f9be17e03ced50f1b37638486a1ab48db0748e8be37a57934bf5"
+    }
+  ],
+  "scope": [
+    "Candidate factory owns write handle before registry publication.",
+    "Constructor/setup suffix durable before publication; resume balances crash and writes resume marker through the same handle.",
+    "Fused owner/factory/caller/observer cancellation closes late handles; disposal drains before registry detach, retains aggregate failures, and preserves rollback primary errors.",
+    "Configured startup only creates after typed storage absence."
+  ],
+  "limits": [
+    "Source and native original/regression suites executed separately; no paired Agent transcript yet.",
+    "Candidate request driver, durable inbox and Agent identity scope still require R03.",
+    "Production factory/profile and active rc.1 pin unchanged. Not complete R02, rc.3 or release acceptance."
+  ]
+}
