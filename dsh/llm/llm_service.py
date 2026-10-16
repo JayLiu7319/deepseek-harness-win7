@@ -620,6 +620,16 @@ class LLMService:
 
     imageRequestPricing = image_request_pricing
 
+    def _project_adapter_request(self, options, model_info):
+        from dsh.core.session.json import FrozenDict, deep_freeze
+        if 'inputModalities' in model_info and 'image' not in model_info['inputModalities']:
+            from dsh.llm.image_content import project_text_only
+            projected = project_text_only(options['messages'])
+            if projected is not options['messages']:
+                result = dict(options, messages=projected)
+                return deep_freeze(result) if isinstance(options, FrozenDict) else result
+        return options
+
     async def stream(self, options):
         """Auxiliary plugin calls use the same route and stream hooks as agents."""
         from dsh.llm.stream_bridge import iter_chunks
@@ -668,12 +678,10 @@ class LLMService:
         from dsh.llm.model_info import normalize_model_info
         info = self._normalize_model_info(provider, model, prepared['model'], LlmError)
         prepared = dict(prepared, model=info)
-        if 'inputModalities' in info and "image" not in info['inputModalities']:
-            from dsh.llm.image_content import project_text_only
-            original_stream = prepared["stream"]
-            def stream(request):
-                return original_stream(dict(request, messages=project_text_only(request["messages"])))
-            prepared = dict(prepared, stream=stream)
+        original_stream = prepared['stream']
+        def projected_stream(request):
+            return original_stream(self._project_adapter_request(request, info))
+        prepared = dict(prepared, stream=projected_stream)
         dispatch = prepared['stream']
         async def adapter_stream(request):
             from dsh.llm.stream_bridge import iter_chunks
@@ -797,14 +805,7 @@ class LLMService:
                 try:
                     if not matches(options):
                         raise LlmError('prepared LLM call config changed before adapter dispatch', 'INVALID_PREPARED_CALL')
-                    request = options
-                    if 'inputModalities' in model_info and 'image' not in model_info['inputModalities']:
-                        from dsh.llm.image_content import project_text_only
-                        projected = project_text_only(request['messages'])
-                        if projected is not request['messages']:
-                            request = dict(request, messages=projected)
-                            if isinstance(options, FrozenDict):
-                                request = deep_freeze(request)
+                    request = self._project_adapter_request(options, model_info)
                     messages = []
                     filtered = False
                     for message in request['messages']:

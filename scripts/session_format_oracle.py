@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'llm-files-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/llm_files_current_python.py', ROOT/'scripts/oracles/llm_files_current_source.mts'])
         if any(case.get('kind') == 'attachment-files-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/attachment_files_current_python.py', ROOT/'scripts/oracles/attachment_files_current_source.mts'])
         if any(case.get('kind') == 'generation' for case in cases):

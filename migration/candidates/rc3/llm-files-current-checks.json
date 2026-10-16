@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-B-LLM-file-handles-and-metering",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 20,
+    "report": {
+      "path": ".goose/out/rc3-r05-llm-files-fixed-node-frozen-20261017/report.json",
+      "sha256": "37f7ecaa3ad9e10dd478300cbe5da6ac920e1a7fecd79cd2d5bab12de965dc08"
+    },
+    "corpus": {
+      "path": "scripts/oracles/llm_files_current_cases.json",
+      "sha256": "7c8b2e3df314f64213cc32d4cf899f45134c2ba2d5d4aa8562e2e1c89221b5f1"
+    }
+  },
+  "native": {
+    "passed": 329,
+    "command": {
+      "path": ".goose/out/rc3-r05-llm-files-native-fixed-node-20261017/command.json",
+      "sha256": "0aa866875cfa3b6e401e66ef06b5844245b1c122b20ab57f312f5888418f288e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-llm-files-native-fixed-node-20261017/pytest.xml",
+      "sha256": "536ec9743f5f7a72518cd059403c0513dbf2d617140492307f933586758fc293"
+    }
+  },
+  "source": {
+    "passed": 113,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r05-llm-files-source-20261017/command.json",
+      "sha256": "bec916c304a2cdcc1cf0f9993ab7b4d9a4da47b2df31b538ce725a1559dcf7ea"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-llm-files-source-20261017/source.xml",
+      "sha256": "6cf94f671d84e58490808e45861eed4800f80e693ecebb813e92c1acbb1f5546"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/llm/file_content_current.py",
+      "sha256": "21f97271ec3903e401f477634e4e8cbace4fc1fb8039a8c6c8c6de9ff433e52b"
+    },
+    {
+      "path": "dsh/llm/runtime_current.py",
+      "sha256": "5d4d830eb7458ee350fc1200776ab6c9a9209460e5aa93cfad3266bff0a0aed1"
+    },
+    {
+      "path": "dsh/llm/llm_service.py",
+      "sha256": "ff1411c09404dd04aee3ececdf9ec43e461cef3ce2a0832db11239af4a7ef50d"
+    }
+  ],
+  "scope": [
+    "Recursive file-to-text projection at direct and prepared adapter boundaries; projection occurs after stream middleware and before text-only image projection.",
+    "Exact current file handle text and live filesystem path mapping, malformed-reference fallback, mapping failure outcome, mutable/frozen request identity and no-file fast path.",
+    "Actual current Agent with local verbatim upload, durable file history, middleware file reference, adapter handle text, readable immutable bytes and token-meter repricing after execution-world mapping changes without log writes.",
+    "Legacy prepared-call regression includes 108 actual old-pin Source/native contracts and receipt rejection consumers."
+  ],
+  "retained_failure": {
+    "path": ".goose/out/rc3-r05-llm-files-native-20261017",
+    "result": "188 passed, 141 fixture errors",
+    "reason": "Legacy Source observer correctly rejected default Node 22.20.0 against its fixed 22.22.2 identity. The fresh complete selected scope with fixed PATH passed329; original rejected run retained."
+  },
+  "remaining": [
+    "SessionController streaming upload/download and receipt ownership remain open.",
+    "Current image concurrency/caching/publication and production profile switch remain open.",
+    "No full regression or release acceptance claimed."
+  ],
+  "retention": {
+    "free_bytes": 192387174400,
+    "policy": "Successful owned pytest fixtures auto-pruned; failed identity observation retained."
+  }
+}

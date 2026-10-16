@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'attachment-files-current':
+        if case['kind'] == 'llm-files-current':
+            from scripts.oracles.llm_files_current_python import execute as llm_files_execute
+            value = llm_files_execute(case)
+        elif case['kind'] == 'attachment-files-current':
             from scripts.oracles.attachment_files_current_python import execute as files_execute
             value = files_execute(case)
         elif case['kind'] == 'session-runtime':

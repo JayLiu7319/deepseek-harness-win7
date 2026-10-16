@@ -1,0 +1,4064 @@
+[
+  {
+    "case": "llm-files-plain",
+    "kind": "llm-files-current",
+    "operation": "pure",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "messages": [
+        {
+          "role": "user",
+          "source": {
+            "kind": "user"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "untouched"
+            }
+          ]
+        }
+      ],
+      "same": true,
+      "rows": [
+        {
+          "message": true,
+          "content": true
+        }
+      ]
+    }
+  },
+  {
+    "case": "llm-files-recursive",
+    "kind": "llm-files-current",
+    "operation": "pure",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "path": "/copies/notes.txt",
+    "expected": {
+      "messages": [
+        {
+          "role": "user",
+          "source": {
+            "kind": "user"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "untouched"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "source": {
+            "kind": "user"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/copies/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+            },
+            {
+              "type": "text",
+              "text": "untouched"
+            },
+            {
+              "type": "tool-result",
+              "id": "t1",
+              "name": "tool",
+              "content": [
+                {
+                  "type": "tool-result",
+                  "id": "t2",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/copies/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                        "mediaType": "image/png",
+                        "bytes": 6,
+                        "width": 1,
+                        "height": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "same": false,
+      "rows": [
+        {
+          "message": true,
+          "content": true
+        },
+        {
+          "message": false,
+          "content": false
+        }
+      ]
+    }
+  },
+  {
+    "case": "llm-files-no-path",
+    "kind": "llm-files-current",
+    "operation": "pure",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "messages": [
+        {
+          "role": "user",
+          "source": {
+            "kind": "user"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "untouched"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "source": {
+            "kind": "user"
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+            },
+            {
+              "type": "text",
+              "text": "untouched"
+            },
+            {
+              "type": "tool-result",
+              "id": "t1",
+              "name": "tool",
+              "content": [
+                {
+                  "type": "tool-result",
+                  "id": "t2",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                        "mediaType": "image/png",
+                        "bytes": 6,
+                        "width": 1,
+                        "height": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "same": false,
+      "rows": [
+        {
+          "message": true,
+          "content": true
+        },
+        {
+          "message": false,
+          "content": false
+        }
+      ]
+    }
+  },
+  {
+    "case": "llm-files-mapped",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-no-attachments",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "attachments": false,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-no-fs",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "fs": false,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-undefined-path",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {}
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-invalid-ref",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostError": true
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-map-refused",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab) was uploaded, but the current execution environment cannot access a readable path. Report that limitation if its contents are needed; do not claim to have read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-map-error",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "mapError": true
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "error",
+          "message": "mapping failed"
+        }
+      ],
+      "requests": [],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "finish",
+            "reason": {
+              "kind": "error",
+              "failure": {
+                "message": "mapping failed",
+                "code": "UNKNOWN"
+              }
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-dynamic",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/a",
+        "path": "/world/a"
+      },
+      {
+        "hostPath": "/host/b",
+        "path": "/world/b"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/a\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        },
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/b\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/a\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/a\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        },
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/b\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/b\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [
+        "/host/a",
+        "/host/a",
+        "/host/a",
+        "/host/b",
+        "/host/b",
+        "/host/b"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-frozen",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "frozen": true,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-short",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "shortCircuit": true,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [],
+      "mappings": [
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "short"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-direct-1",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "modalities": [
+      "text"
+    ],
+    "prepared": false,
+    "frozen": true,
+    "preparedAdapter": true,
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "text",
+                          "text": "[image omitted because this model accepts text only; attachment sha256:cdcdcdcd]"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-direct-2",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "modalities": [
+      "text",
+      "image"
+    ],
+    "prepared": false,
+    "frozen": true,
+    "preparedAdapter": true,
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-prepared-1",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "modalities": [
+      "text"
+    ],
+    "prepared": true,
+    "frozen": true,
+    "preparedAdapter": true,
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "text",
+                          "text": "[image omitted because this model accepts text only; attachment sha256:cdcdcdcd]"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-prepared-2",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "modalities": [
+      "text",
+      "image"
+    ],
+    "prepared": true,
+    "frozen": true,
+    "preparedAdapter": true,
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-runtime-plain-False",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "prepared": false,
+    "frozen": true,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            }
+          ],
+          "sameOptions": true,
+          "sameMessages": true,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-runtime-plain-True",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "prepared": true,
+    "frozen": true,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            }
+          ],
+          "sameOptions": true,
+          "sameMessages": true,
+          "frozen": true
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "case": "llm-files-prepared-generic",
+    "kind": "llm-files-current",
+    "operation": "runtime",
+    "messages": [
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "untouched"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "source": {
+          "kind": "user"
+        },
+        "content": [
+          {
+            "type": "file",
+            "attachment": {
+              "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+              "name": "notes \"a\".txt",
+              "bytes": 3
+            }
+          },
+          {
+            "type": "text",
+            "text": "untouched"
+          },
+          {
+            "type": "tool-result",
+            "id": "t1",
+            "name": "tool",
+            "content": [
+              {
+                "type": "tool-result",
+                "id": "t2",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                      "name": "notes \"a\".txt",
+                      "bytes": 3
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                      "mediaType": "image/png",
+                      "bytes": 6,
+                      "width": 1,
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "ref": {
+      "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+      "name": "notes \"a\".txt",
+      "bytes": 3
+    },
+    "steps": [
+      {
+        "hostPath": "/host/notes.txt",
+        "path": "/world/notes.txt"
+      }
+    ],
+    "prepared": true,
+    "expected": {
+      "handles": [
+        {
+          "outcome": "value",
+          "value": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+        }
+      ],
+      "requests": [
+        {
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "untouched"
+                }
+              ]
+            },
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                },
+                {
+                  "type": "text",
+                  "text": "untouched"
+                },
+                {
+                  "type": "tool-result",
+                  "id": "t1",
+                  "name": "tool",
+                  "content": [
+                    {
+                      "type": "tool-result",
+                      "id": "t2",
+                      "name": "tool",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[File \"notes \\\"a\\\".txt\" (3 bytes, sha256:abababab): verbatim read-only copy saved at \"/world/notes.txt\". Read that path with your file tools when its contents are needed; copy it to a writable location before modifying it. When delegating file work, include this saved path in the delegation prompt; only subagents sharing this execution environment can read it.]"
+                        },
+                        {
+                          "type": "image",
+                          "attachment": {
+                            "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                            "mediaType": "image/png",
+                            "bytes": 6,
+                            "width": 1,
+                            "height": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "sameOptions": false,
+          "sameMessages": false,
+          "frozen": false
+        }
+      ],
+      "mappings": [
+        "/host/notes.txt",
+        "/host/notes.txt",
+        "/host/notes.txt"
+      ],
+      "hooks": [
+        [
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "untouched"
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "file",
+                "attachment": {
+                  "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                  "name": "notes \"a\".txt",
+                  "bytes": 3
+                }
+              },
+              {
+                "type": "text",
+                "text": "untouched"
+              },
+              {
+                "type": "tool-result",
+                "id": "t1",
+                "name": "tool",
+                "content": [
+                  {
+                    "type": "tool-result",
+                    "id": "t2",
+                    "name": "tool",
+                    "content": [
+                      {
+                        "type": "file",
+                        "attachment": {
+                          "attachmentId": "sha256:abababababababababababababababababababababababababababababababab",
+                          "name": "notes \"a\".txt",
+                          "bytes": 3
+                        }
+                      },
+                      {
+                        "type": "image",
+                        "attachment": {
+                          "attachmentId": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+                          "mediaType": "image/png",
+                          "bytes": 6,
+                          "width": 1,
+                          "height": 1
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      ],
+      "chunks": [
+        [
+          {
+            "type": "text",
+            "text": "accepted"
+          }
+        ]
+      ]
+    }
+  }
+]
