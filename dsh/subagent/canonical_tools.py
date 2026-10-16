@@ -110,14 +110,18 @@ class CanonicalToolSubagent(Plugin):
     id = 'tool-subagent'
     inject = ['tools', 'subagents', 'systemPrompt']
 
+    def _max_depth(self, config):
+        maximum = config.get('maxDepth', 3)
+        if maximum != 'provider-managed':
+            valid_depth(maximum)
+        return maximum
+
     def apply(self, ctx):
         config = dict(self.config)
         provider_name = config.get('provider')
         if not isinstance(provider_name, str) or not provider_name:
             raise ValueError('tool-subagent requires a provider')
-        maximum = config.get('maxDepth', 3)
-        if maximum != 'provider-managed':
-            valid_depth(maximum)
+        maximum = self._max_depth(config)
         if 'toolFilter' in config:
             restriction = config['toolFilter']
             if not isinstance(restriction, dict) or not set(restriction) & {'allow', 'deny'}:
@@ -244,7 +248,10 @@ class CanonicalToolSubagent(Plugin):
                     text=lambda context: '' if mounted[0] is None or runtime_ctx.get('tools').get(name, context.get('scope')) is None else
                     "Use {} in the background by default. Start independent delegations together in one assistant message and continue useful work while they run. Set `run_in_background: false` only when your next action depends on that subagent's result. When a background run settles, the runtime sends you a notice containing its outcome and any final assistant message.".format(name)))
 
-        if not selection:
+        return self._install_selected(ctx, install)
+
+    def _install_selected(self, ctx, install):
+        if not self.config.get('modelSelectionSettings', False):
             install(ctx, None)
             return
         settings = ctx.get('subagentModelSelection')

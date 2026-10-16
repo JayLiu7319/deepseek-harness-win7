@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-F-session-owned-subagent-tools",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 21,
+    "report": {
+      "path": ".goose/out/rc3-r03-tools-frozen-20261017/report.json",
+      "sha256": "3e5743302a045a681717a013346ea866301a5ce3188e2195d7bdcf5ad214439c"
+    },
+    "corpus": {
+      "path": "scripts/oracles/subagent_tools_current_cases.json",
+      "sha256": "80b57cd3424421d9dec3297905435d8140774a91d1ebd191e64930a5e9134e31"
+    },
+    "normalization": [
+      "Generated UUID identities and fixed clock; complete tool schemas, requests, durable events and lifecycle notifications are compared.",
+      "Original tool apply runs in an injected Context; wait for its Fiber before inspecting registrations."
+    ]
+  },
+  "native": {
+    "passed": 117,
+    "command": {
+      "path": ".goose/out/rc3-r03-tools-regression-20261017/command.json",
+      "sha256": "f0309e2ca15257295e7cd86180502db8780ea1ca6ab3a5fa3295bd91f60053d0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-tools-regression-20261017/pytest.xml",
+      "sha256": "12201999adccc70f45745a5a84bb91d979402da4959958c016b097c9db7dd026"
+    },
+    "scope": "Current actual tools/runtime, old tool/model/catalog consumers, actual cache checkpoint and write-point regressions, session/fork consumers."
+  },
+  "source": {
+    "passed": 217,
+    "suites": 8,
+    "command": {
+      "path": ".goose/out/rc3-r03-tools-source-20261017/command.json",
+      "sha256": "199d254dde44036e51659d9152cdbb9558f72120912f4b22d25144e9d045e212"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-tools-source-20261017/source.xml",
+      "sha256": "4e88492cfd6053e0aa9085cc26aa270af4554143bbced8a58db0dce4ca28ca53"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/subagent/canonical_tools_current.py",
+      "sha256": "ff3456e79bc09d935ddfd703a2239cbc33d18f29cb3e689432d6a23688ad3687"
+    },
+    {
+      "path": "dsh/subagent/model_selection_current.py",
+      "sha256": "cc5e910c0c68200c256d109bae3b8a6f64852be71863a2196318b71608a4a0a1"
+    },
+    {
+      "path": "dsh/subagent/canonical_tools.py",
+      "sha256": "9f890ff6d7a59614de4416d310a2bbdc698d9a8ebb0b08d15cf4703497bb7c9c"
+    },
+    {
+      "path": "dsh/subagent/listing.py",
+      "sha256": "b33fce6e64a17abed407e6d50b7b333792edf9ca9bd2910b4050ff99e2408863"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-tools-pair-20261017",
+    ".goose/out/rc3-r03-tools-actual-20261017",
+    ".goose/out/rc3-r03-tools-injected-20261017",
+    ".goose/out/rc3-r03-tools-ready-20261017",
+    ".goose/out/rc3-r03-tools-native-20261017"
+  ],
+  "limits": [
+    "Targeted qualification only; R03 SDK/other consumers, R04 Remote and production baseline switch remain open.",
+    "Early observations used an uninjected Source Context or inspected its deferred Fiber before activation; these diagnostics are not runtime parity evidence.",
+    "First native integration assertion expected an object instead of the actual list_agents array; corrected test and raw failure retained.",
+    "Current direct-apply omission is capless; complete rc.3 loader schema/default activation remains in R07."
+  ]
+}

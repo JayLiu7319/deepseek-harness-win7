@@ -116,6 +116,30 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='selectionSettings':
+                        from dsh.subagent.model_selection import ModelSelectionSettings
+                        await ctx.plugin(ModelSelectionSettings,action['config'])
+                    elif method=='policySession':
+                        session=ctx.get('sessions').create(action['id'])
+                        session.append('subagent/model-selection-policy',dict(allowedModels=action['routes']))
+                    elif method=='toolConfig':
+                        from dsh.subagent.canonical_tools_current import apply_tool_subagent,CurrentToolSubagent
+                        target=agent.session if action.get('direct',True) else None
+                        if 'target' in action:
+                            options=dict(action['target']);sid=options.pop('id');target=ctx.get('sessions').prepare(sid,options)
+                        failures=[]
+                        def install(runtime_ctx):
+                            try:apply_tool_subagent(runtime_ctx,action['config'],target)
+                            except Exception as error:failures.append(error)
+                        await agent.ctx.inject(CurrentToolSubagent.inject,install)
+                        if failures:raise failures[0]
+                        value=ctx.get('tools').schemas(agent)
+                        if 'target' in action:value=dict(schemas=value,events=target.snapshotEvents())
+                    elif method=='toolCall':
+                        from dsh.core.abort import AbortController
+                        tool=ctx.get('tools').get(action.get('name','subagent'),agent)
+                        value=await tool.execute(action['payload'],SimpleNamespace(agent=agent,signal=AbortController().signal))
+                    elif method=='listChildren':value=await ctx.get('subagents').listChildren(agent.id)
                     elif method=='persona':
                         from dsh.core.persona_current import CurrentPersonaPlugin
                         await agent.ctx.plugin(CurrentPersonaPlugin,action['config'])

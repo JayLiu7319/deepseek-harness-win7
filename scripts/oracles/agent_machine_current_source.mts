@@ -70,6 +70,22 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='selectionSettings'){
+     const {default:Settings}=await load('packages/subagent/tool-subagent/src/model-selection-settings.ts')
+     await ctx.plugin(Settings,action.config)
+    }
+    else if(action.method==='policySession')ctx.sessions.create(action.id).append('subagent/model-selection-policy',{allowedModels:action.routes})
+    else if(action.method==='toolConfig'){
+     const {apply,inject}=await load('packages/subagent/tool-subagent/src/index.ts')
+     const target=action.target?ctx.sessions.prepare(action.target.id,action.target):action.direct===false?undefined:agent.session
+     let failure:any
+     await agent.ctx.inject(inject,(runtimeCtx:any)=>{try{apply(runtimeCtx,action.config,target)}catch(error){failure=error}})
+     if(failure)throw failure
+     value=ctx.tools.schemas(agent)
+     if(action.target)value={schemas:value,events:target.snapshotEvents()}
+    }
+    else if(action.method==='toolCall')value=await ctx.tools.get(action.name??'subagent',agent).execute(action.payload,{agent,signal:new AbortController().signal})
+    else if(action.method==='listChildren')value=await ctx.subagents.listChildren(agent.id)
     else if(action.method==='persona'){
      const persona=await load('packages/preset/persona/src/index.ts')
      await agent.ctx.plugin(persona,action.config)

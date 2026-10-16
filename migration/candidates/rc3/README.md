@@ -52,3 +52,5 @@ R03-C: [persona / one-shot consumer evidence](agent-consumers-checks.json): 29 a
 R03-D: [parent catalog and continuation units](subagent-units-checks.json): 53 actual pairs, 172 selected native and 30 original Source tests passed. Lifecycle integration remains open.
 
 R03-E: [continuable residency evidence](subagent-runtime-checks.json): 19 actual current pairs, 29+29 direct consumer rechecks, 169 selected native and 270 original Source tests passed. Remaining consumers and production switch stay open.
+
+R03-F: [Session-owned delegation tools](subagent-tools-checks.json): 21 complete tool journeys, 117 selected native and 217 original Source tests passed. Explicit Session inheritance and actual listing-cache hits are covered; remaining consumers and baseline activation stay open.

@@ -18,10 +18,15 @@ def child_row(sid, identity, activity, has_children):
 
 async def list_children(ctx, root, signal=None, descendants=False):
     services = {}
-    for name, code in (('sessionProjections', 'PROJECTIONS'), ('sessions', 'SESSION_STORE'), ('sessionQuery', 'QUERY')):
+    for name, code, message in (
+            ('sessionProjections', 'PROJECTIONS', 'listing subagents requires the sessionProjections registry (load @deepseek-ai/dsh-session-projection)'),
+            ('sessions', 'SESSION_STORE', 'listing subagents requires the session store (load @deepseek-ai/dsh-session)'),
+            ('sessionQuery', 'QUERY', 'listing subagents requires the sessionQuery service (load @deepseek-ai/dsh-session-query)')):
+        if name == 'sessionQuery':
+            check(signal)
         services[name] = ctx.get(name)
         if services[name] is None:
-            raise SubagentError('listing requires ' + name, 'SUBAGENT_CONTROL_' + code + '_UNAVAILABLE')
+            raise SubagentError(message, 'SUBAGENT_CONTROL_' + code + '_UNAVAILABLE')
     check(signal)
     query, projections, sessions = services['sessionQuery'], services['sessionProjections'], services['sessions']
     try:
@@ -90,9 +95,9 @@ async def list_children(ctx, root, signal=None, descendants=False):
 
 async def cold_row(ctx, query, header, has_children, signal):
     cache = ctx.get('sessionProjectionCache')
-    if cache is not None:
+    if cache is not None and not header.isSeeded:
         try:
-            cached = cache.cachedSnapshot(header, ['subagent'])
+            cached = cache.cachedSnapshot(header, 0, ['subagent'])
             identity = (cached or {}).get('values', {}).get('subagent')
             if not header.isSeeded and identity is not None:
                 return child_row(header.id, identity, 'inactive', has_children)
