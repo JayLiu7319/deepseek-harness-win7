@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-G-session-list-search-cache",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 35,
+    "report": {
+      "path": ".goose/out/rc3-r04-session-list-frozen-20261017/report.json",
+      "sha256": "cb6c2cb15df4274e21ea39c12ee5ab9ca02ede9b8aa4164c0dee502bcab2192b"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_list_current_cases.json",
+      "sha256": "cc7d357019a1d447cc4d834a5f2ae6fd1944a07180414abdc91dbd775bb93ace"
+    }
+  },
+  "native": {
+    "passed": 141,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-list-native-current-surface-20261017/command.json",
+      "sha256": "a4f7278574f153e109f245df2a3b7636c5db8f0a2031ad4168f4491fc8c2f01d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-list-native-current-surface-20261017/pytest.xml",
+      "sha256": "dc3153d777c530029ebbfb0c66f80cc8ea5a44a234e7347bfd9e1c574a4b8712"
+    }
+  },
+  "source": {
+    "passed": 60,
+    "suites": 4,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-list-source-20261017/command.json",
+      "sha256": "6e76334892c365dc8958e53f9b338fcabb8fdd87e7b66c42a4568cb3b141f0f8"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-list-source-20261017/source.xml",
+      "sha256": "7cff50008c34fe02166890a13fd4774bfddd85e98492c414f8af8509b4540a0c"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_list_current.py",
+      "sha256": "99c2b84618825d50e48564511fb8c41b45d8e7e0d78d76901b918b57a10532d9"
+    },
+    {
+      "path": "dsh/session/projection_cache_current.py",
+      "sha256": "a9e653a87f23fe27473d560f08b0a85684e09728f5ffeafefee6b6a3c0f4c72d"
+    }
+  ],
+  "scope": [
+    "Zero-I/O cold summaries and matching predecessor title-only hints. Cache domain v7 preserves compatible v3-v6 records while strict format identity protects fold hydration; writes record formatVersion.",
+    "Authorized current message search validates UTF-16 query limits, adapts provider limits, resets stale cursor state, deduplicates/filters hits and enforces lookahead and 100-call budget.",
+    "Actual storage-domain reopen, v6-to-v7 hint preservation and strict v3 observation rebuild without publication, actual SQLite current-surface search."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose\\out\\rc3-r04-session-list-native-20261017",
+      "result": "132 passed/1 failed",
+      "reason": "New actual SQLite fixture passed metadata dict as surfaceOp; corrected to append keyword."
+    }
+  ],
+  "fixture_notes": [
+    "Initial work-budget fixture reached limit=1 validation rejection instead of budget. Replaced with 100 alternating cursor/restart pages and asserted exact call count and budget error; initial observations retained."
+  ],
+  "remaining": [
+    "Current assistant reconnect/history/control, full Session Remote assembly and production activation.",
+    "Frontend/desktop/Win7 managed ranges and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192355401728,
+    "result": "Successful short workspaces auto-pruned; failures and raw receipts retained. No Portable created."
+  }
+}

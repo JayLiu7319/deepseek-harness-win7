@@ -1,0 +1,4790 @@
+[
+  {
+    "case": "list-cold-unknown-zero-io",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "list-live-blank-standalone-turn",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "list"
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "session/title",
+            "data": {
+              "title": "standalone",
+              "messageSeqs": [],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "list"
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "turn/start",
+            "data": {
+              "turn": 1
+            }
+          }
+        ]
+      },
+      {
+        "op": "list"
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "live": [
+      "one"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": true,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": null,
+                  "sessionListMetadata": {
+                    "blank": true,
+                    "lastPromptAt": null
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": true,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": 0,
+                "values": {
+                  "title": "standalone",
+                  "sessionListMetadata": {
+                    "blank": true,
+                    "lastPromptAt": null
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": 1,
+                "values": {
+                  "title": "standalone",
+                  "sessionListMetadata": {
+                    "blank": false,
+                    "lastPromptAt": null
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": 1,
+            "values": {
+              "title": "standalone",
+              "sessionListMetadata": {
+                "blank": false,
+                "lastPromptAt": null
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": 1,
+                "values": {
+                  "title": "standalone",
+                  "sessionListMetadata": {
+                    "blank": false,
+                    "lastPromptAt": null
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "list-live-running-cwdless",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "list"
+      }
+    ],
+    "headers": [
+      {
+        "id": "one"
+      }
+    ],
+    "live": [
+      "one"
+    ],
+    "running": [
+      "one"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": true,
+              "blank": true,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": null,
+                  "sessionListMetadata": {
+                    "blank": true,
+                    "lastPromptAt": null
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "list-hide-cold-cwdless",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "list"
+      }
+    ],
+    "headers": [
+      {
+        "id": "one"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": []
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-current-low-watermark",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 3,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": 5,
+            "values": {
+              "title": "cached title",
+              "sessionListMetadata": {
+                "blank": false,
+                "lastPromptAt": 200
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 200,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": 5,
+                "values": {
+                  "title": "cached title",
+                  "sessionListMetadata": {
+                    "blank": false,
+                    "lastPromptAt": 200
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-format-None",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": -1,
+            "values": {
+              "title": "cached title"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": "cached title"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-format-0",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 0,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": -1,
+            "values": {
+              "title": "cached title"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": "cached title"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-format-1",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 1,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": -1,
+            "values": {
+              "title": "cached title"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": "cached title"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-format-2",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": -1,
+            "values": {
+              "title": "cached title"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project",
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "title": "cached title"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-format-4",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 4,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-lifecycle-cwd",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/other",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-lifecycle-createdAt",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 101,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-lifecycle-isSeeded",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": true,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-lifecycle-inheritedEventCount",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 3
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-title-version-mismatch",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 2,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-predecessor-title-invalid",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "predecessor"
+      },
+      {
+        "op": "list"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": 123
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "list-seeded-never-cache-probes",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "list"
+      }
+    ],
+    "headers": [
+      {
+        "id": "one",
+        "cwd": "/project",
+        "isSeeded": true
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 3,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "sessionId": "one",
+              "updatedAt": 100,
+              "running": false,
+              "blank": false,
+              "cwd": "/project"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "cache-cold-ignores-predecessor-folds",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "cold",
+        "events": [
+          {
+            "type": "turn/start",
+            "seq": 0,
+            "time": 10,
+            "data": {
+              "turn": 1
+            }
+          },
+          {
+            "type": "session/title",
+            "seq": 1,
+            "time": 11,
+            "data": {
+              "title": "actual title",
+              "messageSeqs": [],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "cached"
+      },
+      {
+        "op": "predecessor"
+      }
+    ],
+    "records": {
+      "one": {
+        "identity": {
+          "formatVersion": 2,
+          "createdAt": 100,
+          "cwd": "/project",
+          "isSeeded": false,
+          "inheritedEventCount": 0
+        },
+        "rows": {
+          "title": {
+            "ver": 1,
+            "seq": 7,
+            "val": "cached title"
+          },
+          "sessionListMetadata": {
+            "ver": 1,
+            "seq": 5,
+            "val": {
+              "blank": false,
+              "lastPromptAt": 200
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": 1,
+            "values": {
+              "title": "actual title",
+              "sessionListMetadata": {
+                "blank": false,
+                "lastPromptAt": null
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": 1,
+            "values": {
+              "title": "actual title",
+              "sessionListMetadata": {
+                "blank": false,
+                "lastPromptAt": null
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": null
+        }
+      ],
+      "calls": [],
+      "writes": [
+        {
+          "identity": {
+            "formatVersion": 3,
+            "createdAt": 100,
+            "cwd": "/project",
+            "isSeeded": false,
+            "inheritedEventCount": 0
+          },
+          "rows": {
+            "title": {
+              "ver": 1,
+              "seq": 1,
+              "val": "actual title"
+            },
+            "sessionListMetadata": {
+              "ver": 1,
+              "seq": 1,
+              "val": {
+                "blank": false,
+                "lastPromptAt": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "cache-current-write-identity",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "session/title",
+            "data": {
+              "title": "current",
+              "messageSeqs": [],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "write"
+      },
+      {
+        "op": "cached"
+      }
+    ],
+    "live": [
+      "one"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "asOfSeq": 0,
+            "values": {
+              "title": "current",
+              "sessionListMetadata": {
+                "blank": true,
+                "lastPromptAt": null
+              }
+            }
+          }
+        }
+      ],
+      "calls": [],
+      "writes": [
+        {
+          "identity": {
+            "formatVersion": 3,
+            "createdAt": 100,
+            "cwd": "/project",
+            "isSeeded": false,
+            "inheritedEventCount": 0
+          },
+          "rows": {
+            "title": {
+              "ver": 1,
+              "seq": 0,
+              "val": "current"
+            },
+            "sessionListMetadata": {
+              "ver": 1,
+              "seq": 0,
+              "val": {
+                "blank": true,
+                "lastPromptAt": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "search-query-empty",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": " ﻿ "
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search query must not be empty",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-query-nul",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "ab\u0000cd"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search query must not contain NUL",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-query-overlong",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search query must contain at most 500 UTF-16 code units",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-query-trim",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "﻿ keyword "
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "keyword",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-provider-absent",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "text"
+      }
+    ],
+    "noProvider": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search is unavailable: this deployment does not mount @deepseek-ai/dsh-session-query",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-list-failure",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "text"
+      }
+    ],
+    "listError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search failed: Error: list failed",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-empty-visibility",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "text"
+      }
+    ],
+    "headers": [
+      {
+        "id": "one"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-authorized-types-dedup",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": " q "
+      }
+    ],
+    "headers": [
+      {
+        "id": "one",
+        "cwd": "/project"
+      },
+      {
+        "id": "two",
+        "cwd": "/project"
+      },
+      {
+        "id": "hidden"
+      }
+    ],
+    "pages": [
+      {
+        "items": [
+          {
+            "id": "hidden"
+          },
+          {
+            "id": "one",
+            "surface": "superseded"
+          },
+          {
+            "id": "one",
+            "type": "tool/result"
+          },
+          {
+            "id": "one",
+            "matchId": "two"
+          },
+          {
+            "id": "one",
+            "snippet": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "two"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [
+              {
+                "sessionId": "one",
+                "snippet": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+              },
+              {
+                "sessionId": "two",
+                "snippet": "match"
+              }
+            ],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-shrink-limit",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "error": "SESSION_QUERY_INVALID_LIMIT"
+      },
+      {
+        "error": "SESSION_QUERY_INVALID_LIMIT"
+      },
+      {
+        "items": [
+          {
+            "id": "one"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [
+              {
+                "sessionId": "one",
+                "snippet": "match"
+              }
+            ],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 10
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 5
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-stale-restart",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "headers": [
+      {
+        "id": "one",
+        "cwd": "/project"
+      },
+      {
+        "id": "two",
+        "cwd": "/project"
+      }
+    ],
+    "pages": [
+      {
+        "items": [
+          {
+            "id": "one"
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [
+          {
+            "id": "two"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [
+              {
+                "sessionId": "two",
+                "snippet": "match"
+              }
+            ],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "a"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-repeat-cursor",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "items": [],
+        "nextCursor": "same"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search failed: Error: session search provider repeated a continuation cursor",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "same"
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-provider-overflow",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "items": [
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          },
+          {
+            "id": "one"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search failed: Error: session search provider returned 21 items; maximum is 20",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-provider-aborted",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "error": "SESSION_QUERY_ABORTED"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search was aborted",
+            "code": "gateway/cancelled",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-signal-abort-dominates",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "abort": true,
+        "error": "SESSION_QUERY_INVALID_LIMIT"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "cancelled"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-provider-work-budget",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "pages": [
+      {
+        "items": [],
+        "nextCursor": "restart-0"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-2"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-4"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-6"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-8"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-10"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-12"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-14"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-16"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-18"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-20"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-22"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-24"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-26"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-28"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-30"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-32"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-34"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-36"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-38"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-40"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-42"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-44"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-46"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-48"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-50"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-52"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-54"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-56"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-58"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-60"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-62"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-64"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-66"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-68"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-70"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-72"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-74"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-76"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-78"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-80"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-82"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-84"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-86"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-88"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-90"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-92"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-94"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-96"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      },
+      {
+        "items": [],
+        "nextCursor": "restart-98"
+      },
+      {
+        "error": "SESSION_QUERY_STALE_CURSOR"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session search failed: Error: session search provider exceeded the 100-call work budget",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-0"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-2"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-4"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-6"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-8"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-10"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-12"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-14"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-16"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-18"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-20"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-22"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-24"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-26"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-28"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-30"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-32"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-34"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-36"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-38"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-40"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-42"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-44"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-46"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-48"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-50"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-52"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-54"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-56"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-58"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-60"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-62"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-64"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-66"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-68"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-70"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-72"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-74"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-76"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-78"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-80"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-82"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-84"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-86"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-88"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-90"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-92"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-94"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-96"
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "restart-98"
+        }
+      ],
+      "writes": []
+    }
+  },
+  {
+    "case": "search-limit-lookahead",
+    "kind": "session-list-current",
+    "actions": [
+      {
+        "op": "search",
+        "query": "q"
+      }
+    ],
+    "headers": [
+      {
+        "id": "s0",
+        "cwd": "/project"
+      },
+      {
+        "id": "s1",
+        "cwd": "/project"
+      },
+      {
+        "id": "s2",
+        "cwd": "/project"
+      },
+      {
+        "id": "s3",
+        "cwd": "/project"
+      },
+      {
+        "id": "s4",
+        "cwd": "/project"
+      },
+      {
+        "id": "s5",
+        "cwd": "/project"
+      },
+      {
+        "id": "s6",
+        "cwd": "/project"
+      },
+      {
+        "id": "s7",
+        "cwd": "/project"
+      },
+      {
+        "id": "s8",
+        "cwd": "/project"
+      },
+      {
+        "id": "s9",
+        "cwd": "/project"
+      },
+      {
+        "id": "s10",
+        "cwd": "/project"
+      },
+      {
+        "id": "s11",
+        "cwd": "/project"
+      },
+      {
+        "id": "s12",
+        "cwd": "/project"
+      },
+      {
+        "id": "s13",
+        "cwd": "/project"
+      },
+      {
+        "id": "s14",
+        "cwd": "/project"
+      },
+      {
+        "id": "s15",
+        "cwd": "/project"
+      },
+      {
+        "id": "s16",
+        "cwd": "/project"
+      },
+      {
+        "id": "s17",
+        "cwd": "/project"
+      },
+      {
+        "id": "s18",
+        "cwd": "/project"
+      },
+      {
+        "id": "s19",
+        "cwd": "/project"
+      },
+      {
+        "id": "s20",
+        "cwd": "/project"
+      },
+      {
+        "id": "s21",
+        "cwd": "/project"
+      }
+    ],
+    "pages": [
+      {
+        "items": [
+          {
+            "id": "s0"
+          },
+          {
+            "id": "s1"
+          },
+          {
+            "id": "s2"
+          },
+          {
+            "id": "s3"
+          },
+          {
+            "id": "s4"
+          },
+          {
+            "id": "s5"
+          },
+          {
+            "id": "s6"
+          },
+          {
+            "id": "s7"
+          },
+          {
+            "id": "s8"
+          },
+          {
+            "id": "s9"
+          },
+          {
+            "id": "s10"
+          },
+          {
+            "id": "s11"
+          },
+          {
+            "id": "s12"
+          },
+          {
+            "id": "s13"
+          },
+          {
+            "id": "s14"
+          },
+          {
+            "id": "s15"
+          },
+          {
+            "id": "s16"
+          },
+          {
+            "id": "s17"
+          },
+          {
+            "id": "s18"
+          },
+          {
+            "id": "s19"
+          }
+        ],
+        "nextCursor": "next"
+      },
+      {
+        "items": [
+          {
+            "id": "s20"
+          },
+          {
+            "id": "s21"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "items": [
+              {
+                "sessionId": "s0",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s1",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s2",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s3",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s4",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s5",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s6",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s7",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s8",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s9",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s10",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s11",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s12",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s13",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s14",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s15",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s16",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s17",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s18",
+                "snippet": "match"
+              },
+              {
+                "sessionId": "s19",
+                "snippet": "match"
+              }
+            ],
+            "hasMore": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20
+        },
+        {
+          "query": "q",
+          "eventFilters": [
+            {
+              "kind": "type",
+              "values": [
+                "user/message",
+                "assistant/message"
+              ]
+            },
+            {
+              "kind": "surface",
+              "values": [
+                "current"
+              ]
+            }
+          ],
+          "limit": 20,
+          "cursor": "next"
+        }
+      ],
+      "writes": []
+    }
+  }
+]
