@@ -12,6 +12,8 @@ R02-H：新增 [jsonl-current-checks.json](jsonl-current-checks.json)，当前JS
 
 R02-I：新增 [generation-checks.json](generation-checks.json)，generation准备/独立进程验证/排他发布125场景配对，直接消费者590项通过；Source generation 72通过/1项创建symlink因EPERM未到断言。生产Session及handle仍待接入，不提升整体验收。
 
+R02-J：新增 [session-runtime-checks.json](session-runtime-checks.json)，显式v3 Session运行态957场景、catalog170及current426场景匹配，Source原390断言和Python3,348定向通过；活动Session/provider未切换。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

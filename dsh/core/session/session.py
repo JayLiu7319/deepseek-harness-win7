@@ -302,6 +302,15 @@ class Session:
 
     fromRestore = from_restore
 
+    def _validate_append_data(self, event_type, data):
+        assert_supported_request_header(event_type, data, location=f'session event "{event_type}"')
+
+    def _validate_append_candidate(self, event):
+        pass
+
+    def _event_time(self):
+        return int(time.time() * 1000)
+
     def append(
         self,
         event_type: str,
@@ -338,7 +347,7 @@ class Session:
         data_snapshot = walk_json_value(data, detach=True, undefined_sentinel=UNDEFINED)
         if data_snapshot is UNDEFINED:
             raise ValueError(f'session event "{event_type}" carries non-JSON-serializable data')
-        assert_supported_request_header(event_type, data_snapshot, location=f'session event "{event_type}"')
+        self._validate_append_data(event_type, data_snapshot)
 
         surface_metadata_snapshot = walk_json_value(
             surface_metadata, detach=True, undefined_sentinel=UNDEFINED
@@ -363,14 +372,14 @@ class Session:
         candidate: Dict[str, Any] = {
             "type": event_type,
             "seq": len(self._log),
-            "time": int(time.time() * 1000),
+            "time": self._event_time(),
             "data": data_snapshot,
         }
         if surface_metadata_snapshot:
             candidate.update(surface_metadata_snapshot)
 
         event: Dict[str, Any] = deep_freeze(candidate)
-
+        self._validate_append_candidate(event)
         self._surface_manager.validate_next(event)
 
         if entry is not None:
@@ -440,6 +449,7 @@ class Session:
         interrupted: bool = False,
         surface_op: Optional[Union[str, Dict[str, Any]]] = None,
         source_event_seqs: Optional[List[int]] = None,
+        stream: Any = UNDEFINED,
     ) -> Dict[str, Any]:
         msg_copy = dict(message) if isinstance(message, dict) else {"content": message}
         if "id" not in msg_copy:
@@ -470,6 +480,8 @@ class Session:
             data["timing"] = timing
         if interrupted:
             data["interrupted"] = True
+        if stream is not UNDEFINED:
+            data['stream'] = stream
         return self.append(
             "assistant/message",
             data,
@@ -591,7 +603,7 @@ class Session:
 
         for seq in nodes[self._derived_nodes :]:
             if 0 <= seq < len(self._log):
-                msg = self.derive_event_message(self._log[seq])
+                msg = self.derive_event_message(self._log[int(seq)])
                 if msg is not None:
                     self._derived.append(msg)
 

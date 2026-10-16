@@ -19,6 +19,8 @@ const v3References = await import(pathToFileURL(join(resolve(sourceArg), 'packag
 const currentCatalog = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/index.ts')).href)
 const installedCurrent = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/current.ts')).href)
 const jsonlCurrent = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-persistence-jsonl/src/format.ts')).href)
+const sessionRuntime = await import(pathToFileURL(join(resolve(sourceArg), 'packages/core/session/src/index.ts')).href)
+const {sessionRuntimeCase} = await import('./session_runtime_source.mts')
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -260,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='generation'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-runtime'
+    ? sessionRuntimeCase(sessionRuntime,test,decode)
+    : test.kind==='generation'
     ? await (await import('./session_generation_source.mts')).generationCase(resolve(sourceArg), test)
     : execute(test) }) }
   catch (error: any) { result.push({ case: test.case, outcome: 'error', name: error.name, message: error.message,

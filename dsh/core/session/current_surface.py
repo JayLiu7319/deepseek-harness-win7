@@ -17,7 +17,7 @@ def provenance(event, shadowed):
             raise ValueError('sourceEventSeqs must not be empty')
         non_earlier = None
         for value in raw:
-            if not safe(value, True):
+            if not safe(value, True, True):
                 raise ValueError('session event "%s" sourceEventSeqs must densely contain non-negative safe integers' % event['type'])
             sources.add(value)
             if non_earlier is None and value >= seq:
@@ -47,7 +47,7 @@ def validateSurfaceMetadata(event):
         if not isinstance(operation, dict):
             raise ValueError('session event "%s" carries an invalid surfaceOp' % kind)
         if (set(operation) != {'op', 'startSeq', 'endSeq'} or operation['op'] != 'replace'
-                or not safe(operation['startSeq'], True) or not safe(operation['endSeq'], True)):
+                or not safe(operation['startSeq'], True, True) or not safe(operation['endSeq'], True, True)):
             raise ValueError('session event "%s" carries an invalid replace surfaceOp' % kind)
         if operation['startSeq'] >= event['seq'] or operation['endSeq'] >= event['seq']:
             raise ValueError('surface replace at seq %s: startSeq and endSeq must reference earlier events' % event['seq'])
@@ -99,3 +99,56 @@ def deriveEventMessage(event):
     if kind == 'tool/result':
         return data['message']
     return None
+
+
+class CurrentSurfaceManager:
+    """Incremental acceptance, retaining only the next exact candidate plan."""
+    def __init__(self, log, base_seq=0):
+        self.log, self.base_seq = log, base_seq
+        self.fold = CurrentSurface(log, base_seq)
+        self.last = base_seq-1
+        self.pending = None
+
+    def validate_next(self, event):
+        self._sync()
+        expected = self.base_seq+len(self.log)
+        self.pending = (event, expected, self.fold.plan(event, expected))
+
+    validateNext = validate_next
+
+    def _sync(self):
+        for seq in range(self.last+1, self.base_seq+len(self.log)):
+            event = self.log[seq-self.base_seq]
+            pending = self.pending
+            plan = pending[2] if pending is not None and pending[0] is event and pending[1] == seq else self.fold.plan(event, seq)
+            self.fold.apply(event, plan)
+            if pending is not None and pending[1] <= seq:
+                self.pending = None
+            self.last = seq
+
+    @property
+    def nodes(self):
+        self._sync()
+        return self.fold.nodes
+
+    @property
+    def replaceGeneration(self):
+        self._sync()
+        return self.fold.replaceGeneration
+
+    @property
+    def replace_generation(self):
+        return self.replaceGeneration
+
+
+def foldSurface(events):
+    surface = CurrentSurface(events)
+    replacements = []
+    for index, event in enumerate(events):
+        plan = surface.plan(event, index)
+        if plan is not None and plan != 'append':
+            first, last = plan
+            replacements.append(dict(seq=event['seq'], start=event['surfaceOp']['startSeq'],
+                end=event['surfaceOp']['endSeq'], shadowedSeqs=list(surface.nodes[first:last+1])))
+        surface.apply(event, plan)
+    return dict(nodes=list(surface.nodes), replacements=replacements)

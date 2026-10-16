@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-J-current-session-runtime",
+  "status": "targeted-passed",
+  "native": {
+    "tests": 3348,
+    "commands": {
+      "path": ".goose/out/rc3-r02-session-runtime-final-20261017/commands.json",
+      "sha256": "a19ac06fcefb791fe900d9a09b5734c8fdfbc23565957362867cf6ad3f69bdb8"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-session-runtime-final-20261017/pytest.xml",
+      "sha256": "193322e4aed24a1ffe66c8b265915e1041a402e5925e4eaa2eecffd401b6a21b"
+    }
+  },
+  "source": {
+    "passed": 390,
+    "xml": {
+      "path": ".goose/out/rc3-r02-session-runtime-20261017/source.xml",
+      "sha256": "620421a4d7191471e006b1247a8886bda94e71613cd1ddb766c5e62f4c98cca9"
+    }
+  },
+  "paired": [
+    {
+      "corpus": "session_runtime_cases",
+      "cases": 957,
+      "report": {
+        "path": ".goose/out/rc3-r02-session-runtime-final-20261017/session_runtime_cases/report.json",
+        "sha256": "2659314d2b48bfb77166a6dd9986ee031bc62dd411409d5904d2a7782d8648f6"
+      },
+      "input": {
+        "path": "scripts/oracles/session_runtime_cases.json",
+        "sha256": "eddc539bd5829545a0f284611a40d4970888cef8c685277eff7c373a53027c8f"
+      }
+    },
+    {
+      "corpus": "session_catalog_cases",
+      "cases": 170,
+      "report": {
+        "path": ".goose/out/rc3-r02-session-runtime-final-20261017/session_catalog_cases/report.json",
+        "sha256": "424701a2b19f3dd0b5d62fad00e8ac36acea82bf794cf8942ae4a13ab9438c22"
+      },
+      "input": {
+        "path": "scripts/oracles/session_catalog_cases.json",
+        "sha256": "7e70fb7c54e00a8c5ecdac27d1c4c65974f953fc16f5a2fda2cfc387d9ed23c1"
+      }
+    },
+    {
+      "corpus": "session_current_cases",
+      "cases": 426,
+      "report": {
+        "path": ".goose/out/rc3-r02-session-runtime-final-20261017/session_current_cases/report.json",
+        "sha256": "e004ef625cd68ec8cde14a87f79a439c8e8fdc23c34b4ac9b25abbfc31020a92"
+      },
+      "input": {
+        "path": "scripts/oracles/session_current_cases.json",
+        "sha256": "53ab62ec4178f94579eecae26e27cbccdc1b8ae570edd40e260a5c476bc5008b"
+      }
+    }
+  ],
+  "implementation": [
+    {
+      "path": "dsh/core/session/current_session.py",
+      "sha256": "8e4154a29b56bae99ff7d67c0e9fe1317aeeff6db970e0886469221209d1a5ea"
+    },
+    {
+      "path": "dsh/core/session/current_request_header.py",
+      "sha256": "1876a812c6f54aa1e11967eae11f9e1392df0daaf6127dd0badce81e4df68380"
+    },
+    {
+      "path": "dsh/core/session/current.py",
+      "sha256": "6b1b6bea9bf167f11d2457ffc18ac1927b126aa64c6cefc12da609b5b3168ba8"
+    },
+    {
+      "path": "dsh/core/session/current_surface.py",
+      "sha256": "6e83a21b9526c9ab9fce8ae766319f3492018a0e9be726f285336809203e3607"
+    },
+    {
+      "path": "dsh/core/session/session.py",
+      "sha256": "98fdc51d6c412f7a188ab2f254f0fc34f469af7c705593eb0f3bf2cc252e9a08"
+    },
+    {
+      "path": "dsh/core/surface.py",
+      "sha256": "1e0db4df2514cb686e0ab15aa78e1788543bc8c56cd220154de6e2f3acca1786"
+    },
+    {
+      "path": "dsh/session/format_catalog/current.py",
+      "sha256": "4644dbbacaf9bce1822f8eeb9a253b74d8e506c6e1774a8b6805b17dc6945d58"
+    },
+    {
+      "path": "scripts/oracles/capture_session_runtime_cases.mts",
+      "sha256": "c03096e6ad858120fe96e052b96b9db3a7bf3afa8843b8c7f621584d32592fad"
+    },
+    {
+      "path": "scripts/oracles/session_runtime_source.mts",
+      "sha256": "7afc2ea99d69a307376308e7636365e539f06b10e361f03f530b3db8a5070c43"
+    },
+    {
+      "path": "scripts/oracles/session_runtime_python.py",
+      "sha256": "4cde1f452e5a0a32aed67f9d892ec4c078b143ca71df0f16576c0b4a7c63bb3e"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "42ceb3a6e76836d20d1438f47040c11bda99a4694e94190a34f8bfcc652205f3"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "b9a9261412f2d887f0eb5ceff293be8943c5969a3c901cb165fff1afcf94e849"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "4e4a215511f8e036a867a165aafb6236485f8c3329bae5af9da8f470e7301f04"
+    },
+    {
+      "path": "tests/test_session_current_runtime.py",
+      "sha256": "27e318b7d843ccaaa7889f0a0f14022722f7a17ae198267ab5a277fd0b67932b"
+    }
+  ],
+  "limits": [
+    "Detached Session/helper replay only; store-owned publication and persistence service not paired.",
+    "Two Source runtime fault mocks are explicit fault inputs in both actors; original observations retained.",
+    "Candidate CurrentSession is not yet the active production Session.",
+    "Not complete R02 or rc.3/release acceptance."
+  ]
+}

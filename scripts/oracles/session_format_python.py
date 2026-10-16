@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'generation':
+        if case['kind'] == 'session-runtime':
+            from scripts.oracles.session_runtime_python import execute as runtime_execute
+            value = runtime_execute(case, decode)
+        elif case['kind'] == 'generation':
             from scripts.oracles.session_generation_python import execute as generation_execute
             value = generation_execute(case)
         else:

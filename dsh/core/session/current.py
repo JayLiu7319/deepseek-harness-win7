@@ -117,3 +117,25 @@ def assertSessionEventEnvelope(event, index):
 
 def validateCurrentHeader(header):
     return validate_session_header(header.get('id', UNDEFINED), header, expected_version=3)
+
+
+def adoptSessionEvent(event):
+    from .current_surface import validateSurfaceMetadata
+    from .json import deep_freeze, FrozenDict
+    subject = 'session event at seq %s' % event['seq']
+    validateSessionEventData(event, subject)
+    validateSurfaceMetadata(event)
+    assertMessageEventShape(event, subject)
+    kind, data = event['type'], event['data']
+    if isinstance(data,FrozenDict):
+        return event
+    if kind == 'user/message':
+        event['data'] = deep_freeze(data)
+    elif kind in ('system/message', 'assistant/message', 'tool/result'):
+        data['message'] = deep_freeze(data['message'])
+    return event
+
+
+def snapshotSessionEvent(event):
+    import copy
+    return adoptSessionEvent(copy.deepcopy(event))

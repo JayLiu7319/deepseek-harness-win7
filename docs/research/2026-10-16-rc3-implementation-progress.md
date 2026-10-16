@@ -94,6 +94,12 @@ Source三份catalog测试共26项原断言通过，记录170个完整静态catal
 
 Python提供端、当前scanner、format和Assistant stream直接消费者 **590 passed**（14.69秒）。直接执行未修改的Source generation测试 **72 passed / 1 failed**；唯一失败是当前账户创建symlink返回EPERM，尚未到发布断言，原始XML/日志保留，不能称完整Source范围通过。额外原生故障/取消/新解释器隔离测试已通过。凭据见 [generation-checks.json](../../migration/candidates/rc3/generation-checks.json)，原始输出位于 `.goose/out/rc3-r02-generation-final-20261017/` 及前一失败目录。磁盘余量约180GiB，无Portable重建。继续生产Session、handle和query/projection闭包；当前writer/pin未切换，R02未整体签收。
 
+## R02-J：当前v3 Session运行态
+
+新增显式CurrentSession/CurrentSessionStore，覆盖snapshot与restore所有权、继承边界标记、当前surface增量校验、system消息投影与canonical request header。catalog当前恢复实际调用该入口；共享旧Session仅增加可重写校验/时钟接口和显式stream参数，旧活动profile默认保持。修正JSON整数以浮点表示时的数组索引和负零引用判定。
+
+Source六个原测试文件390断言通过；捕获并回放957个独立前缀场景，与实际rc.3匹配。两项原版运行时故障mock以显式故障输入重放，原观察与首次环境差异保留。最终同时复核catalog170与current426场景；Python新运行态、catalog、v3 logical、旧Session/surface及generation直接消费者3,348项通过。只证明显式detached API/helper，不冒充store publication、生产handle或整体R02通过。证据见[session-runtime-checks.json](../../migration/candidates/rc3/session-runtime-checks.json)，原始输出`.goose/out/rc3-r02-session-runtime-final-20261017/`。下一步连接单写handle与冷读；活动pin/writer仍未切换。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

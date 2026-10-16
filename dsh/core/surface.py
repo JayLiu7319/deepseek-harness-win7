@@ -266,7 +266,7 @@ def _assert_tool_result_rewrite(
         raise ValueError("tool/result surface replacement must rewrite exactly one current node")
     for original_seq in shadowed_seqs:
         idx = original_seq - base_seq
-        original = log[idx] if 0 <= idx < len(log) else None
+        original = log[int(idx)] if 0 <= idx < len(log) else None
         if not original or original.get("type") != "tool/result":
             raise ValueError("tool/result surface replacement must target a current tool/result")
         orig_data = dict(original.get("data", {}))
