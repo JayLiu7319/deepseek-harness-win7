@@ -67,7 +67,7 @@ class CurrentHostConnection(HostConnectionService):
             endpoint = endpoint_from_path(channel, request['path'])
             interceptor = self.interceptors.get(channel)
             if endpoint is None or interceptor is None or not interceptor['matches'](endpoint):
-                return response(404, 'not found')
+                return response(404, 'not found', {'content-type': 'text/plain;charset=UTF-8'})
             return await current_rpc_fetch(channel, interceptor['handler'], request)
         return SimpleNamespace(fetch=fetch, requestBodyMode=body_mode)
 

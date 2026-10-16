@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-E-presented-native-actions",
+  "status": "native-targeted-passed-source-permission-failure-open",
+  "paired": {
+    "matched": 52,
+    "report": {
+      "path": ".goose/out/rc3-r06-present-open-qualified-20261017/report.json",
+      "sha256": "cf4efae63e1912de0649f6b86aa941f976bf1d2b3d8b214529577b81cbe5eaf9"
+    },
+    "corpus": {
+      "path": "scripts/oracles/present_open_current_cases.json",
+      "sha256": "2bd10133b2975d65f3b3d6d6bfb3052ac426ed0f2d81feb6561032b25f5d197c"
+    }
+  },
+  "native": {
+    "passed": 269,
+    "command": {
+      "path": ".goose/out/rc3-r06-present-open-native-20261017/command.json",
+      "sha256": "fdfeafaee1b5c38101df22bda65293762307a9b0dc0ed72774ba7c4079328864"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-present-open-native-20261017/pytest.xml",
+      "sha256": "80315daa0189682fa7f7034afdbeb1767caf415f8a44a1c674f377735c22534a"
+    }
+  },
+  "source": {
+    "passed": 29,
+    "failed": 1,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r06-present-open-source-20261017/command.json",
+      "sha256": "907bef18a8082cfd86d0b5537dd2f76eb1ad2b5dc6eac1d8fb434021c72919f1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-present-open-source-20261017/source.xml",
+      "sha256": "a3ab069254a5d2c4c4d0589dd238ba4c494b965d6c02245135d39c353e579bf1"
+    },
+    "failure": "Unchanged Source final-symlink setup fails with Windows EPERM; no full Source success claim."
+  },
+  "implementation": [
+    {
+      "path": "dsh/client/ui_deliverables_current.py",
+      "sha256": "5dacdb1b396d1b900f7a04dd938f7e6e1830ad9fab44083589a513dd65c29f03"
+    },
+    {
+      "path": "dsh/host/connection/current.py",
+      "sha256": "3de12e5b3fa8e3e8b66d8fc77d7167ff5db8e9ef86906d6881cda29e0fe2e7cc"
+    }
+  ],
+  "scope": [
+    "Connection-authenticated GET /api/present.host and POST /api/present.open authorize exact Session event/array coordinates, validate declarations, stat through viewed Session cwd and verify round-trip execution-to-Host path mapping. No browser path is accepted as native-open authority.",
+    "Original model file-reference guidance retained. Native open/reveal acts on current source without copying, downloading or activating an Agent, including inherited declarations in a cold child Session.",
+    "Admitted operations combine caller/lifetime cancellation, disposal withdraws routes and aborts then awaits launches, and settled calls detach subscriptions. Failure responses suppress private Host paths.",
+    "52 actual pairs include validation/headers/missing/backend errors, scope fallback, mapping refusal, pre/mid abort and native actions. Real TCP checks authentication, current child bytes, cold query, route removal and no Agent activation.",
+    "Fixed current Connection fallback 404 text Content-Type found by the new route observer; original Connection/media/workspace/present consumers all pass in the same 269-test run."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r06-present-open-initial-20261017",
+      "reason": "Source actor used a nonexistent protocol package path."
+    },
+    {
+      "path": ".goose/out/rc3-r06-present-open-provider-20261017",
+      "reason": "Actual pair exposed missing default text Content-Type headers in route and current Connection fallback responses."
+    }
+  ],
+  "remaining": [
+    "Sidebar and current frontend/profile composition, descriptor regeneration and production baseline switch.",
+    "Original EPERM fixtures and earlier Win32 1175 remain open qualification limits; no packaged desktop/browser certification here."
+  ]
+}

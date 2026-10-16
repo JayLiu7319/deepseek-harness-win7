@@ -1,0 +1,1501 @@
+[
+  {
+    "case": "open",
+    "kind": "present-open-current",
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "reveal",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=0&action=reveal",
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx",
+            "action": "reveal"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "host",
+    "kind": "present-open-current",
+    "path": "/api/present.host",
+    "method": "GET",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "no-store",
+          "content-type": "application/json"
+        },
+        "body": {
+          "name": "serving host",
+          "available": true,
+          "fileManager": "explorer"
+        }
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "unavailable",
+    "kind": "present-open-current",
+    "unavailable": true,
+    "expected": {
+      "response": {
+        "status": 409,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Host desktop unavailable."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "fallback",
+    "kind": "present-open-current",
+    "header": {},
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/fallback"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "get-open",
+    "kind": "present-open-current",
+    "method": "GET",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "not found"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "post-host",
+    "kind": "present-open-current",
+    "path": "/api/present.host",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "not found"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "download",
+    "kind": "present-open-current",
+    "path": "/api/present.download",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "not found"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-0",
+    "kind": "present-open-current",
+    "query": "",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-1",
+    "kind": "present-open-current",
+    "query": "?seq=7&index=0",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-2",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&index=0",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-3",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-4",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=-1&index=0",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-5",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=0.1",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-6",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=9007199254740992&index=0",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-7",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=9007199254740992",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-8",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=1",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-9",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=007&index=000",
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-10",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=0&action=delete",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid file action."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-11",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=0&action=",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid file action."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-12",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=0&index=1",
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "coordinates-13",
+    "kind": "present-open-current",
+    "query": "?sessionId=child&seq=7&index=%D9%A0",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Invalid Presented file coordinates."
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "wrong-event",
+    "kind": "present-open-current",
+    "eventType": "turn/start",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-0",
+    "kind": "present-open-current",
+    "data": null,
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-1",
+    "kind": "present-open-current",
+    "data": [],
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-2",
+    "kind": "present-open-current",
+    "data": {},
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-3",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 0,
+      "callId": "c",
+      "files": []
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-4",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1.5,
+      "callId": "c",
+      "files": []
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-5",
+    "kind": "present-open-current",
+    "data": {
+      "turn": true,
+      "callId": "c",
+      "files": []
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-6",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1,
+      "callId": "",
+      "files": []
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-7",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1,
+      "callId": "c",
+      "files": [
+        null
+      ]
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-8",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1,
+      "callId": "c",
+      "files": [
+        {
+          "path": ""
+        }
+      ]
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-9",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1,
+      "callId": "c",
+      "files": [
+        {
+          "path": "\ufeff"
+        }
+      ]
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-10",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1,
+      "callId": "c",
+      "files": [
+        {
+          "path": "x",
+          "description": 1
+        }
+      ]
+    },
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file not found in this Session result."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "data-11",
+    "kind": "present-open-current",
+    "data": {
+      "turn": 1.0,
+      "callId": "c",
+      "files": [
+        {
+          "path": "../outside/file",
+          "description": "External"
+        }
+      ]
+    },
+    "expected": {
+      "response": {
+        "status": 204,
+        "headers": {
+          "cache-control": "no-store"
+        },
+        "body": null
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "../outside/file"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "failure-read",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "failure-stat",
+    "kind": "present-open-current",
+    "failureStage": "stat",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "failure-resolve",
+    "kind": "present-open-current",
+    "failureStage": "resolve",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "failure-open",
+    "kind": "present-open-current",
+    "failureStage": "open",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        },
+        {
+          "op": "open",
+          "request": {
+            "path": "/host/current.docx"
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "query-SESSION_QUERY_SESSION_NOT_FOUND",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "code": "SESSION_QUERY_SESSION_NOT_FOUND",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "query-SESSION_QUERY_EVENT_NOT_FOUND",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "code": "SESSION_QUERY_EVENT_NOT_FOUND",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "query-ENOENT",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "code": "ENOENT",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "query-ENOTDIR",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "code": "ENOTDIR",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "query-SESSION_QUERY_CORRUPT_SESSION",
+    "kind": "present-open-current",
+    "failureStage": "read",
+    "code": "SESSION_QUERY_CORRUPT_SESSION",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "remote-session/not-found",
+    "kind": "present-open-current",
+    "failureStage": "stat",
+    "remoteCode": "session/not-found",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "remote-workspace-file/not-found",
+    "kind": "present-open-current",
+    "failureStage": "stat",
+    "remoteCode": "workspace-file/not-found",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "remote-workspace-file/not-regular-file",
+    "kind": "present-open-current",
+    "failureStage": "stat",
+    "remoteCode": "workspace-file/not-regular-file",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "remote-workspace-file/forbidden",
+    "kind": "present-open-current",
+    "failureStage": "stat",
+    "remoteCode": "workspace-file/forbidden",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file unavailable."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "unmapped",
+    "kind": "present-open-current",
+    "unmapped": true,
+    "expected": {
+      "response": {
+        "status": 422,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file has no verified Host path."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "wrong-mapping",
+    "kind": "present-open-current",
+    "wrongMapping": true,
+    "expected": {
+      "response": {
+        "status": 422,
+        "headers": {
+          "content-type": "text/plain;charset=UTF-8"
+        },
+        "body": "Presented file has no verified Host path."
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "pre-abort",
+    "kind": "present-open-current",
+    "aborted": true,
+    "expected": {
+      "response": {
+        "error": "cancelled"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "mid-abort",
+    "kind": "present-open-current",
+    "abortDuring": true,
+    "expected": {
+      "response": {
+        "error": "cancelled"
+      },
+      "calls": [
+        {
+          "op": "read",
+          "request": {
+            "sessionId": "child",
+            "seq": 7,
+            "before": 0,
+            "after": 0
+          }
+        },
+        {
+          "op": "stat",
+          "scope": {
+            "sessionId": "child",
+            "workspaceRoot": "/child"
+          },
+          "path": "\u62a5\u544a.docx"
+        },
+        {
+          "op": "mapping",
+          "path": "/host/current.docx"
+        },
+        {
+          "op": "resolve",
+          "path": "/process/current.docx"
+        }
+      ],
+      "withdrawn": true
+    }
+  }
+]

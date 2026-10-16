@@ -311,3 +311,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R06-D — 文件工具增量
 
 新增候选 `CurrentToolFs` / `CurrentToolFsSearch`，复用既有实现并选择rc.3增量。read/write/edit/glob/grep提示随scope工具可见性变化；write和grep不推荐不可见的edit/read；未读修改错误统一携带实际displayPath并保留cause/code；read_image仅提供path展示元数据；搜索区分launch与provider完成失败，spill标记kind=tool/label=result。实际46组配对涵盖32个可见工具子集、执行失败/成功spill与图片内容替换；129项原生、273项原版通过，各有1项既有跳过。真实Agent/FS观察守卫、读取/创建及限制释放已验证。详情见 `migration/candidates/rc3/file-tools-current-checks.json`；单独保留的Win32 1175问题不由本轮通过关闭。后续接入交付文件原生打开、Sidebar、生产组装与浏览器验收。
+
+### R06-E — 交付文件原生打开
+
+新增候选客户端宿主，提供Connection鉴权内 `/api/present.host` 和 `/api/present.open`。动作只能由Session交付事件坐标授权，按被查看Session的cwd校验当前常规文件，反向映射并重新resolve核验Host路径后才调用open/reveal；不接受请求中的文件路径，不激活Agent、不复制/下载文件。调用绑定请求和插件寿命取消；卸载先移除路由、取消并等待已接纳的原生操作，结束即释放订阅。52组实际原版配对、269项原生测试通过，包含真实TCP鉴权、持久化继承声明在冷子会话目录中打开当前源文件、取消/等待/重试；同时修复配对发现的current Connection默认404文本类型头。原版两套测试29通过、1符号链接EPERM失败。回执 `migration/candidates/rc3/present-open-current-checks.json` 保留诊断；Sidebar、生成描述符、生产组装及浏览器/打包验收仍待完成。

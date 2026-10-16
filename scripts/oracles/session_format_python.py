@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'file-tools-current':
+        if case['kind'] == 'present-open-current':
+            from scripts.oracles.present_open_current_python import execute as present_open_execute
+            value = present_open_execute(case)
+        elif case['kind'] == 'file-tools-current':
             from scripts.oracles.file_tools_current_python import execute as file_tools_execute
             value = file_tools_execute(case)
         elif case['kind'] == 'present-current':
