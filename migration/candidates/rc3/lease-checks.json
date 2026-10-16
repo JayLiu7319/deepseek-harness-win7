@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-G-kernel-write-lease",
+  "status": "targeted-passed",
+  "kernel": {
+    "scenarios": 8,
+    "platform": "win32",
+    "report": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/kernel-pair-fixed/report.json",
+      "sha256": "ca95d5d84dd2471e6e3763b6659cc00739c16bb8b7490ab570b0583f96307a19"
+    },
+    "command": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/kernel-pair-fixed-command.json",
+      "sha256": "b721a6decefda9e0f21e6bf15c7a28fbde9c37f47da3bcf1117d5a7728d431b6"
+    }
+  },
+  "native": {
+    "tests": 27,
+    "command": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/commands.json",
+      "sha256": "9f4ef7aab25d5bbc702eaf2724002142d73cdcbcd5f08cfe191d1aa9f34d1b95"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/pytest.xml",
+      "sha256": "1bb1f1ab0445a0f90b5bfff404e33ff1aa2d50c6ce4c745fe16ed8b424d1205a"
+    },
+    "log": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/pytest.log",
+      "sha256": "122db11d0fda146a9d33716e2ae9cf86c8c5fd329018804d280b34485bc9b7f2"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/persistence.py",
+      "sha256": "52a8ba1554dfdc5254af6e84d6bb78c42be31f46a78fe19b8b1236f746eb4062"
+    },
+    {
+      "path": "dsh/session/lease.py",
+      "sha256": "1949bd64847cbb59f4c2ce0e42ec15c70be82c8e1eb76dfdcb102b0b542ace1a"
+    },
+    {
+      "path": "scripts/session_lease_oracle.py",
+      "sha256": "00460dcca38f6b9cd96d8f1145bab2b15082240e450dded6d93e1f79fa660c28"
+    },
+    {
+      "path": "scripts/oracles/session_lease_worker.py",
+      "sha256": "607e21f7996ed36837fe5e419803ba03f34180054a21a18af2213c30205e154c"
+    },
+    {
+      "path": "scripts/oracles/session_lease_worker.mts",
+      "sha256": "f66ea75bf268539158575bcfaf6d71103ac42e7fb4f306c10afa64d52599cdbe"
+    },
+    {
+      "path": "tests/test_session_write_lease.py",
+      "sha256": "0009b0e77b571ab538af6d06cb758bbe6e73c18dbe29e618dcb3f52c86369b76"
+    }
+  ],
+  "retention": {
+    "report": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/history-retention-fixed.json",
+      "sha256": "c21fadbe381bb41a1a410eaa63ec87445310b01e33b3a7e9ef728e27e8043936"
+    },
+    "command": {
+      "path": ".goose/out/rc3-r02-storage-lease-20261017/history-retention-fixed-command.json",
+      "sha256": "031e6bf00e830fed7efbc3e3da2489d08f8e137ead27f62db5258e2a6cce22f4"
+    },
+    "newly_eligible": 0
+  },
+  "diagnostics": [
+    "Initial Node actor left stdin open after exit; destroyed stdin after releasing leases, all eight scenarios passed in fresh outputs.",
+    "Initial retention invocation misinterpreted --output (it selects a completed workspace, not a JSON destination); corrected no-argument invocation, no eligible outputs."
+  ],
+  "limitations": [
+    "Real Windows native and Source actors tested; POSIX inode verification implemented but not executed on this Windows host.",
+    "Kernel lease is not yet connected to production write handles; existing v0 backend remains active.",
+    "Not a Win7 VM acceptance or rc.3 release receipt."
+  ]
+}

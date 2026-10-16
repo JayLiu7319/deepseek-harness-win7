@@ -72,6 +72,14 @@ R02后续仍需真实v0/v1/v2/v3 codec、历史迁移与v3 Session恢复、不�
 
 Source三份catalog测试共26项原断言通过，记录170个完整静态catalog操作/前缀。另从真实v3恢复输入及当前message/header损坏构造426个当前边界场景，完整Source/native结果匹配；与前序合计九组 **3,696场景匹配**。定向选择全部已移植格式库、当前准入与默认header校验直接消费者（既有Session和surface规格），Python3.8.10 **3,756 passed**（4.70秒）。原始命令/日志/XML和各组结果在 `.goose/out/rc3-r02-catalog-final-20261017/`，字节凭据见 [catalog-checks.json](../../migration/candidates/rc3/catalog-checks.json)。当前writer仍为v0，未提升台账或宣称发行资格。
 
+## R02-G：跨进程内核写锁
+
+新增SessionWriteLease和handle稳定错误身份。Windows用Win7已有的CreateSemaphoreW/WaitForSingleObject/ReleaseSemaphore/CloseHandle，并按与原版相同的绝对路径小写SHA命名；不持有文件或目录句柄，不做超时抢占。POSIX分支用非阻塞flock并验证inode，最多3次重开，不删除锁文件。
+
+固定Node22.22.2的真实rc.3 Source actor与Python3.8.10 actor实际竞争同一内核对象，native/native、Source/Source及两个交叉方向分别验证正常关闭和进程终止，共 **8组通过**，包含独立Session、幂等release、大小写路径、持锁期间读文件与删除/重建目录。Python原有存储合同与双进程测试 **27 passed**。凭据见 [lease-checks.json](../../migration/candidates/rc3/lease-checks.json)，原始观察在 `.goose/out/rc3-r02-storage-lease-20261017/`。初版Node actor关闭后stdin未销毁而超时，修正后全组合通过，失败现场保留。未在此Windows主机执行POSIX分支，也未把当前Windows测试称作Win7虚拟机验收。
+
+本轮retention已实际执行，未发现新增可回收历史产物；首次误把`--output`当结果文件参数的错误保留，随后无参数运行成功。当前空间约180GiB。内核锁继续接入新handle与代际发布，尚未切换生产writer/pin。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

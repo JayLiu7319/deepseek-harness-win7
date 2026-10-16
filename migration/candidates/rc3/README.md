@@ -6,6 +6,8 @@ R02-E：新增 [v3-logical-checks.json](v3-logical-checks.json)，v2→v3系统�
 
 R02-F：新增 [catalog-checks.json](catalog-checks.json)，完整静态catalog、当前v3准入与surface保护的显式库入口已完成验证。九组3,696场景配对，Python定向3,756项通过；未挂载当前v3 writer或generation持久化。
 
+R02-G：新增 [lease-checks.json](lease-checks.json)，Win7 API写锁、原版/原生混合双进程互斥与崩溃释放8组场景通过，存储定向27项通过；锁尚未接入生产handle。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。

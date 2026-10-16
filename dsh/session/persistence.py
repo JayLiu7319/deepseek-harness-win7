@@ -15,6 +15,46 @@ class SessionFormatUnsupportedError(ValueError):
     name = 'SessionFormatUnsupportedError'
 
 
+class SessionAlreadyExistsError(ValueError):
+    name = 'SessionAlreadyExistsError'
+
+    def __init__(self, session_id):
+        super().__init__('session "%s" already exists' % session_id)
+        self.sessionId = session_id
+
+
+class SessionAlreadyOwnedError(ValueError):
+    name = 'SessionAlreadyOwnedError'
+
+    def __init__(self, session_id):
+        super().__init__('session "%s" is already owned by an active write handle' % session_id)
+        self.sessionId = session_id
+
+
+class SessionReadOnlyError(ValueError):
+    name = 'SessionReadOnlyError'
+
+    def __init__(self, session_id, operation):
+        super().__init__('session "%s": %s is not available on a read handle' % (session_id, operation))
+        self.sessionId = session_id
+
+
+class SessionOwnershipLostError(ValueError):
+    name = 'SessionOwnershipLostError'
+
+    def __init__(self, session_id):
+        super().__init__('session "%s": write ownership was lost; close this handle and reopen' % session_id)
+        self.sessionId = session_id
+
+
+class SessionHandleClosedError(ValueError):
+    name = 'SessionHandleClosedError'
+
+    def __init__(self, session_id, operation):
+        super().__init__('session "%s": %s on a closed handle' % (session_id, operation))
+        self.sessionId = session_id
+
+
 class SessionPersistenceCorruptionError(ValueError):
     """Error on reading a corrupt log."""
     name = 'SessionPersistenceCorruptionError'
