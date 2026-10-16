@@ -54,6 +54,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/session_generation_python.py', ROOT/'scripts/oracles/session_generation_source.mts'])
         if any(case.get('kind') == 'session-runtime' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/session_runtime_python.py', ROOT/'scripts/oracles/session_runtime_source.mts'])
+        if any(case.get('kind') in ('storage-contract','storage-handle') for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/session_storage_current_python.py', ROOT/'scripts/oracles/session_storage_source.mts'])
         report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}
         commands = [
             ['node', str(source/'node_modules/tsx/dist/cli.mjs'), '--tsconfig', str(source/'tsconfig.json'),

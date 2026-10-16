@@ -14,6 +14,18 @@ class SessionFormatUnsupportedError(ValueError):
     """Refusal on loading a log written by a newer/unsupported version."""
     name = 'SessionFormatUnsupportedError'
 
+    def __init__(self, message, location=None):
+        super().__init__(message)
+        self.location = location
+
+
+class SessionPersistenceNotFoundError(FileNotFoundError):
+    name = 'SessionPersistenceNotFoundError'
+
+    def __init__(self, session_id):
+        super().__init__('session "%s" not found' % session_id)
+        self.sessionId = session_id
+
 
 class SessionAlreadyExistsError(ValueError):
     name = 'SessionAlreadyExistsError'
@@ -58,6 +70,12 @@ class SessionHandleClosedError(ValueError):
 class SessionPersistenceCorruptionError(ValueError):
     """Error on reading a corrupt log."""
     name = 'SessionPersistenceCorruptionError'
+
+    def __init__(self, message, options=None):
+        super().__init__(message)
+        if options is not None and 'cause' in options:
+            self.cause = options['cause']
+            self.__cause__ = self.cause
 
 
 def session_format_version_refusal(session_id: str, version: int) -> str:

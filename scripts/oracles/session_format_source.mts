@@ -264,6 +264,8 @@ const result = []
 for (const test of corpus) {
   try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-runtime'
     ? sessionRuntimeCase(sessionRuntime,test,decode)
+    : test.kind==='storage-contract'||test.kind==='storage-handle'
+    ? await (await import('./session_storage_source.mts')).storageCase(resolve(sourceArg),test,decode)
     : test.kind==='generation'
     ? await (await import('./session_generation_source.mts')).generationCase(resolve(sourceArg), test)
     : execute(test) }) }

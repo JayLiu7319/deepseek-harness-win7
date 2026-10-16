@@ -100,6 +100,12 @@ Python提供端、当前scanner、format和Assistant stream直接消费者 **590
 
 Source六个原测试文件390断言通过；捕获并回放957个独立前缀场景，与实际rc.3匹配。两项原版运行时故障mock以显式故障输入重放，原观察与首次环境差异保留。最终同时复核catalog170与current426场景；Python新运行态、catalog、v3 logical、旧Session/surface及generation直接消费者3,348项通过。只证明显式detached API/helper，不冒充store publication、生产handle或整体R02通过。证据见[session-runtime-checks.json](../../migration/candidates/rc3/session-runtime-checks.json)，原始输出`.goose/out/rc3-r02-session-runtime-final-20261017/`。下一步连接单写handle与冷读；活动pin/writer仍未切换。
 
+## R02-K：v3存储边界与handle生命周期
+
+实现版本方向拒绝、raw location、先词汇后adopt的存储准入，以及调用时的lossless批次快照；generation独立验证改为调用实际存储准入。新增JSONL handle和tracker：单写claim、mutation queue、primed/冷读单调前缀、首次写才取内核lease、torn修复重试、200ms live batching、失败缓冲保留、关闭排空及聚合故障。Cordis事件路由只发送给已拥有write handle的会话，卸载释放全部handle。
+
+实际Source helper/handle通过可观察storage adapter的147场景匹配；generation125场景复核匹配。Python直接提供端、generation/current消费者及旧存储回归1,494项通过，Source未修改storage-contract18断言通过。另验证观察者取消仍提交、取消close仍排空、关闭期间迟到事件、后台失败后显式重试、两种abort时点和实际fiber卸载。原失败夹具调用与首轮差异均保留；旧SQLite清理测试产生7项既有未await告警，不声称零告警。新handle尚未连接真实backend/Agent，非整体R02签收。凭据见[storage-handles-checks.json](../../migration/candidates/rc3/storage-handles-checks.json)。按既有retention扫描无新增可删项，剩余约180GiB。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

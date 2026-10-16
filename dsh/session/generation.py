@@ -297,10 +297,9 @@ class JsonlGenerationRuntime:
         if decoded['committedBytes'] != scanner.checkpoint()['inputBytes']:
             raise ValueError('current session generation has a torn physical tail')
         # Stored vocabulary/relationships and installed Session admission are separate boundaries.
-        from dsh.session.format_v2_to_v3 import restoreReleasedV3Artifact
-        from dsh.core.session.current_vocabulary import KNOWN_SESSION_EVENT_TYPES
+        from dsh.session.storage_contract import validateStoredEvents
         artifact = dict(header=decoded['meta'], inheritedEventCount=decoded['inheritedEventCount'], events=decoded['events'])
-        restoreReleasedV3Artifact(artifact, KNOWN_SESSION_EVENT_TYPES)
+        validateStoredEvents(decoded['meta'], decoded['events'], dict(kind='jsonl', path=path))
         if decoded['meta']['id'] != expectedId:
             raise ValueError('current session generation contains id "%s", expected "%s"' % (decoded['meta']['id'], expectedId))
         if len(decoded['events']) != expectedEventCount:

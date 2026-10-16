@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-K-storage-contract-handles",
+  "status": "targeted-passed",
+  "native": {
+    "tests": 1494,
+    "commands": {
+      "path": ".goose/out/rc3-r02-storage-final-20261017/commands.json",
+      "sha256": "96b4584fa826e9ddb21ea5858a39e8335386e5aac0493c6f4be88bcdf88e57d1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-storage-final-20261017/pytest.xml",
+      "sha256": "8492fa749295da59dd1a70b0370431eff5a6f538422c3097e630ebdcb60b27a9"
+    }
+  },
+  "source": {
+    "passed": 18,
+    "commands": {
+      "path": ".goose/out/rc3-r02-storage-20261017/commands.json",
+      "sha256": "2119f94169a932f63ff708cd888b36657c411be0b38283772f4685d0b334a55e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-storage-20261017/source.xml",
+      "sha256": "2abb5ae8b1df37ad8903bc5f00362658fe4393ee0f5f7a103e87b510e10bbdce"
+    }
+  },
+  "paired": [
+    {
+      "corpus": "session_storage_cases",
+      "cases": 147,
+      "report": {
+        "path": ".goose/out/rc3-r02-storage-final-20261017/session_storage_cases/report.json",
+        "sha256": "3387d75452e5345692833f5b815da4093482dd5ee5322ad50af86566c63ce166"
+      }
+    },
+    {
+      "corpus": "session_generation_cases",
+      "cases": 125,
+      "report": {
+        "path": ".goose/out/rc3-r02-storage-final-20261017/session_generation_cases/report.json",
+        "sha256": "156ebe96cf5d3b0d4e11d3711301864ddd451abaa274486a5e625d7f840e37dd"
+      }
+    }
+  ],
+  "implementation": [
+    {
+      "path": "dsh/session/storage_contract.py",
+      "sha256": "1f70be5143ec487ce117486a5133e935c6bd4b06715b098afc04d840a0b977fc"
+    },
+    {
+      "path": "dsh/session/jsonl_handle.py",
+      "sha256": "230c14578b54cd54b2236cc95a61cfb128e6fd7428b0ce1cd8bdf5e6ac971dd2"
+    },
+    {
+      "path": "dsh/session/persistence.py",
+      "sha256": "14ad4fd77674427a73329a3b6ad4c9436a7a146615366f0795095ca684fdcbca"
+    },
+    {
+      "path": "dsh/session/generation.py",
+      "sha256": "84372246d987ce7623be899fb886dd1710006c43eda877dda805b2ab55494dc1"
+    },
+    {
+      "path": "scripts/oracles/session_storage_current_python.py",
+      "sha256": "2fd1d5a17d518d4882f6b61fb826673904bd97849281e173673625d180c4a825"
+    },
+    {
+      "path": "scripts/oracles/session_storage_source.mts",
+      "sha256": "f053a2ea3a96f60446a5c744f72f210fa7aa851144d2aa2fc3b14fc0ab3e70dc"
+    },
+    {
+      "path": "scripts/oracles/session_storage_cases.json",
+      "sha256": "e781c019c9f25b9f12f7ecf65acfebb58d91bf4b1e446115209ca904e1f28aa6"
+    },
+    {
+      "path": "scripts/oracles/generate_session_storage_cases.py",
+      "sha256": "53a04846743177f258b8562549b6652aadaa86d34962bcc314b5e9998785c1b7"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "d901adb715b4972ce1879a2649dd64a402593b397e1728a16756c7f3b0a89652"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "40010ad9f0ca74aba21d4d90e6d600ba7af4bc3cf02a67c1a7c564f67fd6ec7c"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "d940e617492ede976977d83c7edd86a833b68d9c3e45f91291316485651eeae8"
+    },
+    {
+      "path": "tests/test_session_storage_handles.py",
+      "sha256": "c9ee912cc72018860f76a1bfc0eab44ffcbddd175d8c3171d70745434cac7134"
+    }
+  ],
+  "retention": {
+    "path": ".goose/out/rc3-r02-storage-20261017/history-retention.json",
+    "sha256": "c21fadbe381bb41a1a410eaa63ec87445310b01e33b3a7e9ef728e27e8043936"
+  },
+  "limits": [
+    "Real Source helper/handle replay uses an observable injected storage adapter; not actual backend filesystem parity.",
+    "Python immutable container substitution retained; internal optional state fields use ordinary JSON omission of undefined.",
+    "Active production provider and writer are unchanged.",
+    "Initial pair differences and failed test harness lifecycle invocations retained; final scope passes.",
+    "Legacy storage tests emit seven existing unawaited SQLite cleanup warnings.",
+    "Not complete R02 or rc.3/release acceptance."
+  ]
+}
