@@ -1,0 +1,3220 @@
+{
+  "schema_version": 1,
+  "state": "candidate-discovery",
+  "base_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "counts": {
+    "manifests": 297,
+    "classifications": {
+      "runtime": 217,
+      "frontend": 56,
+      "platform": 8,
+      "tooling": 9,
+      "fixture": 7
+    },
+    "changes": 6531,
+    "statuses": {
+      "M": 3134,
+      "A": 1793,
+      "R": 1135,
+      "D": 469
+    }
+  },
+  "profiles": {
+    "acp": {
+      "roots": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-acp-app"
+      ],
+      "patchReload": "startup",
+      "potential_dependency_closure": [
+        "@deepseek-ai/cordis",
+        "@deepseek-ai/cordis-plugin-hmr",
+        "@deepseek-ai/cordis-plugin-include",
+        "@deepseek-ai/cordis-plugin-loader",
+        "@deepseek-ai/cordis-plugin-timer",
+        "@deepseek-ai/cosmokit",
+        "@deepseek-ai/dsh-acp",
+        "@deepseek-ai/dsh-acp-app",
+        "@deepseek-ai/dsh-agent",
+        "@deepseek-ai/dsh-agent-default-model",
+        "@deepseek-ai/dsh-agent-instructions",
+        "@deepseek-ai/dsh-agent-loop",
+        "@deepseek-ai/dsh-agent-presets",
+        "@deepseek-ai/dsh-anonymous-user-id",
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-atomic-write",
+        "@deepseek-ai/dsh-attachment",
+        "@deepseek-ai/dsh-attachment-local",
+        "@deepseek-ai/dsh-authorization",
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-bash-local",
+        "@deepseek-ai/dsh-bash-sandbox",
+        "@deepseek-ai/dsh-brand",
+        "@deepseek-ai/dsh-chunked-list",
+        "@deepseek-ai/dsh-cmdline",
+        "@deepseek-ai/dsh-code-runtime",
+        "@deepseek-ai/dsh-command-compact",
+        "@deepseek-ai/dsh-command-feedback",
+        "@deepseek-ai/dsh-command-goal",
+        "@deepseek-ai/dsh-commands",
+        "@deepseek-ai/dsh-compaction",
+        "@deepseek-ai/dsh-compaction-basic",
+        "@deepseek-ai/dsh-compaction-tool-result-pruner",
+        "@deepseek-ai/dsh-credentials",
+        "@deepseek-ai/dsh-credentials-local",
+        "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+        "@deepseek-ai/dsh-deque",
+        "@deepseek-ai/dsh-fs",
+        "@deepseek-ai/dsh-fs-local",
+        "@deepseek-ai/dsh-fs-observation-policy",
+        "@deepseek-ai/dsh-fs-sandbox",
+        "@deepseek-ai/dsh-goal",
+        "@deepseek-ai/dsh-goal-round-driver",
+        "@deepseek-ai/dsh-home-paths",
+        "@deepseek-ai/dsh-http-proxy",
+        "@deepseek-ai/dsh-invariants",
+        "@deepseek-ai/dsh-jobs",
+        "@deepseek-ai/dsh-jobs-local",
+        "@deepseek-ai/dsh-launch-environment",
+        "@deepseek-ai/dsh-llm",
+        "@deepseek-ai/dsh-llm-deepseek",
+        "@deepseek-ai/dsh-llm-pi-ai",
+        "@deepseek-ai/dsh-llm-retry",
+        "@deepseek-ai/dsh-mcp-client",
+        "@deepseek-ai/dsh-message-feedback",
+        "@deepseek-ai/dsh-output-retention",
+        "@deepseek-ai/dsh-permission-presets",
+        "@deepseek-ai/dsh-plan-mode",
+        "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+        "@deepseek-ai/dsh-pwsh-local",
+        "@deepseek-ai/dsh-pwsh-sandbox",
+        "@deepseek-ai/dsh-repeat-tool-reminder",
+        "@deepseek-ai/dsh-sandbox",
+        "@deepseek-ai/dsh-sandbox-local",
+        "@deepseek-ai/dsh-sandbox-policy",
+        "@deepseek-ai/dsh-sandbox-windows-acl",
+        "@deepseek-ai/dsh-scope",
+        "@deepseek-ai/dsh-session",
+        "@deepseek-ai/dsh-session-checkpoint-policy",
+        "@deepseek-ai/dsh-session-format",
+        "@deepseek-ai/dsh-session-format-catalog",
+        "@deepseek-ai/dsh-session-format-v0-to-v1",
+        "@deepseek-ai/dsh-session-format-v1-to-v2",
+        "@deepseek-ai/dsh-session-format-v2-to-v3",
+        "@deepseek-ai/dsh-session-log-deepseek",
+        "@deepseek-ai/dsh-session-persistence",
+        "@deepseek-ai/dsh-session-persistence-jsonl",
+        "@deepseek-ai/dsh-session-projection",
+        "@deepseek-ai/dsh-session-projection-cache",
+        "@deepseek-ai/dsh-session-query",
+        "@deepseek-ai/dsh-session-query-sqlite",
+        "@deepseek-ai/dsh-session-telemetry",
+        "@deepseek-ai/dsh-session-telemetry-otel",
+        "@deepseek-ai/dsh-session-title",
+        "@deepseek-ai/dsh-session-title-first-prompt-llm",
+        "@deepseek-ai/dsh-session-title-llm",
+        "@deepseek-ai/dsh-settings",
+        "@deepseek-ai/dsh-settings-file",
+        "@deepseek-ai/dsh-shell",
+        "@deepseek-ai/dsh-shell-env",
+        "@deepseek-ai/dsh-skill",
+        "@deepseek-ai/dsh-skill-badge",
+        "@deepseek-ai/dsh-skill-filesystem",
+        "@deepseek-ai/dsh-spill",
+        "@deepseek-ai/dsh-spill-local",
+        "@deepseek-ai/dsh-spill-policy",
+        "@deepseek-ai/dsh-storage",
+        "@deepseek-ai/dsh-storage-domain",
+        "@deepseek-ai/dsh-storage-json",
+        "@deepseek-ai/dsh-subagent",
+        "@deepseek-ai/dsh-subagent-fork-in-process",
+        "@deepseek-ai/dsh-subagent-in-process-driver",
+        "@deepseek-ai/dsh-subagent-spawn-in-process",
+        "@deepseek-ai/dsh-subprocess",
+        "@deepseek-ai/dsh-subprocess-local",
+        "@deepseek-ai/dsh-system-prompt",
+        "@deepseek-ai/dsh-timeout",
+        "@deepseek-ai/dsh-token-meter",
+        "@deepseek-ai/dsh-tool-bash",
+        "@deepseek-ai/dsh-tool-call-timeout-policy",
+        "@deepseek-ai/dsh-tool-fs",
+        "@deepseek-ai/dsh-tool-fs-search",
+        "@deepseek-ai/dsh-tool-goal",
+        "@deepseek-ai/dsh-tool-jobs",
+        "@deepseek-ai/dsh-tool-present",
+        "@deepseek-ai/dsh-tool-pwsh",
+        "@deepseek-ai/dsh-tool-ralph",
+        "@deepseek-ai/dsh-tool-skill",
+        "@deepseek-ai/dsh-tool-subagent",
+        "@deepseek-ai/dsh-tool-subagent-control",
+        "@deepseek-ai/dsh-tool-todo",
+        "@deepseek-ai/dsh-tool-web",
+        "@deepseek-ai/dsh-tool-workflow",
+        "@deepseek-ai/dsh-tools",
+        "@deepseek-ai/dsh-typert-loader",
+        "@deepseek-ai/dsh-typert-protocol",
+        "@deepseek-ai/dsh-typert-registry",
+        "@deepseek-ai/dsh-user-approval",
+        "@deepseek-ai/dsh-user-questions",
+        "@deepseek-ai/dsh-util-crypto",
+        "@deepseek-ai/dsh-util-time",
+        "@deepseek-ai/dsh-util-values",
+        "@deepseek-ai/dsh-web",
+        "@deepseek-ai/dsh-web-fetch-http",
+        "@deepseek-ai/dsh-web-search-deepseek",
+        "@deepseek-ai/dsh-win32-process",
+        "@deepseek-ai/dsh-workflow",
+        "@deepseek-ai/dsh-workflow-worker-thread",
+        "@deepseek-ai/node-addon-system",
+        "@deepseek-ai/node-addon-system-darwin-arm64",
+        "@deepseek-ai/node-addon-system-darwin-x64",
+        "@deepseek-ai/node-addon-system-linux-arm64",
+        "@deepseek-ai/node-addon-system-linux-x64",
+        "@deepseek-ai/schemastery"
+      ],
+      "scope": "literal bundle rows plus non-dev workspace dependencies; never observed activation"
+    },
+    "web": {
+      "roots": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app"
+      ],
+      "patchReload": "live",
+      "potential_dependency_closure": [
+        "@deepseek-ai/cordis",
+        "@deepseek-ai/cordis-plugin-group",
+        "@deepseek-ai/cordis-plugin-hmr",
+        "@deepseek-ai/cordis-plugin-include",
+        "@deepseek-ai/cordis-plugin-loader",
+        "@deepseek-ai/cordis-plugin-timer",
+        "@deepseek-ai/cosmokit",
+        "@deepseek-ai/dsh-agent",
+        "@deepseek-ai/dsh-agent-default-model",
+        "@deepseek-ai/dsh-agent-instructions",
+        "@deepseek-ai/dsh-agent-loop",
+        "@deepseek-ai/dsh-agent-presets",
+        "@deepseek-ai/dsh-anonymous-user-id",
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-api-settings-controller",
+        "@deepseek-ai/dsh-api-workspace-controller",
+        "@deepseek-ai/dsh-api-workspace-files",
+        "@deepseek-ai/dsh-app-boot",
+        "@deepseek-ai/dsh-atomic-write",
+        "@deepseek-ai/dsh-attachment",
+        "@deepseek-ai/dsh-attachment-local",
+        "@deepseek-ai/dsh-authorization",
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-bash-local",
+        "@deepseek-ai/dsh-bash-sandbox",
+        "@deepseek-ai/dsh-brand",
+        "@deepseek-ai/dsh-chunked-list",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-file-upload",
+        "@deepseek-ai/dsh-client-hmr",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-modules",
+        "@deepseek-ai/dsh-client-resources",
+        "@deepseek-ai/dsh-client-ui-agent-preset",
+        "@deepseek-ai/dsh-client-ui-approval",
+        "@deepseek-ai/dsh-client-ui-attachment",
+        "@deepseek-ai/dsh-client-ui-brand-official",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-commands",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-cordis",
+        "@deepseek-ai/dsh-client-ui-deliverables",
+        "@deepseek-ai/dsh-client-ui-directory-picker-browse",
+        "@deepseek-ai/dsh-client-ui-directory-picker-native",
+        "@deepseek-ai/dsh-client-ui-goal",
+        "@deepseek-ai/dsh-client-ui-input-trigger",
+        "@deepseek-ai/dsh-client-ui-jobs",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-message-feedback",
+        "@deepseek-ai/dsh-client-ui-model-selection",
+        "@deepseek-ai/dsh-client-ui-open-in-app",
+        "@deepseek-ai/dsh-client-ui-permission-presets",
+        "@deepseek-ai/dsh-client-ui-plan",
+        "@deepseek-ai/dsh-client-ui-reference",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-schedule",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-general",
+        "@deepseek-ai/dsh-client-ui-settings-models",
+        "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+        "@deepseek-ai/dsh-client-ui-settings-plugins",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+        "@deepseek-ai/dsh-client-ui-sidebar-files",
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-ui-skill",
+        "@deepseek-ai/dsh-client-ui-subagent",
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-tool",
+        "@deepseek-ai/dsh-client-ui-trajectory",
+        "@deepseek-ai/dsh-client-ui-user-questions",
+        "@deepseek-ai/dsh-client-ui-workflow-run",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-cmdline",
+        "@deepseek-ai/dsh-code-runtime",
+        "@deepseek-ai/dsh-code-runtime-worker-thread",
+        "@deepseek-ai/dsh-command-compact",
+        "@deepseek-ai/dsh-command-feedback",
+        "@deepseek-ai/dsh-command-goal",
+        "@deepseek-ai/dsh-commands",
+        "@deepseek-ai/dsh-compaction",
+        "@deepseek-ai/dsh-compaction-basic",
+        "@deepseek-ai/dsh-compaction-tool-result-pruner",
+        "@deepseek-ai/dsh-cordis-client-runner",
+        "@deepseek-ai/dsh-cordis-host-runner",
+        "@deepseek-ai/dsh-credentials",
+        "@deepseek-ai/dsh-credentials-local",
+        "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+        "@deepseek-ai/dsh-deque",
+        "@deepseek-ai/dsh-file-reference",
+        "@deepseek-ai/dsh-file-reference-local",
+        "@deepseek-ai/dsh-fs",
+        "@deepseek-ai/dsh-fs-local",
+        "@deepseek-ai/dsh-fs-observation-policy",
+        "@deepseek-ai/dsh-fs-sandbox",
+        "@deepseek-ai/dsh-goal",
+        "@deepseek-ai/dsh-goal-round-driver",
+        "@deepseek-ai/dsh-home-paths",
+        "@deepseek-ai/dsh-host-directory-picker",
+        "@deepseek-ai/dsh-host-directory-picker-auto",
+        "@deepseek-ai/dsh-host-directory-picker-browse",
+        "@deepseek-ai/dsh-host-directory-picker-native",
+        "@deepseek-ai/dsh-host-frontend-static",
+        "@deepseek-ai/dsh-host-open-in-app",
+        "@deepseek-ai/dsh-host-plugin-inventory",
+        "@deepseek-ai/dsh-host-webserver",
+        "@deepseek-ai/dsh-http-proxy",
+        "@deepseek-ai/dsh-invariants",
+        "@deepseek-ai/dsh-jobs",
+        "@deepseek-ai/dsh-jobs-local",
+        "@deepseek-ai/dsh-launch-environment",
+        "@deepseek-ai/dsh-llm",
+        "@deepseek-ai/dsh-llm-deepseek",
+        "@deepseek-ai/dsh-llm-pi-ai",
+        "@deepseek-ai/dsh-llm-retry",
+        "@deepseek-ai/dsh-message-feedback",
+        "@deepseek-ai/dsh-native-command",
+        "@deepseek-ai/dsh-output-retention",
+        "@deepseek-ai/dsh-package-manifest",
+        "@deepseek-ai/dsh-permission-presets",
+        "@deepseek-ai/dsh-plan-mode",
+        "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+        "@deepseek-ai/dsh-pwsh-local",
+        "@deepseek-ai/dsh-pwsh-sandbox",
+        "@deepseek-ai/dsh-repeat-tool-reminder",
+        "@deepseek-ai/dsh-sandbox",
+        "@deepseek-ai/dsh-sandbox-local",
+        "@deepseek-ai/dsh-sandbox-policy",
+        "@deepseek-ai/dsh-sandbox-windows-acl",
+        "@deepseek-ai/dsh-scope",
+        "@deepseek-ai/dsh-session",
+        "@deepseek-ai/dsh-session-checkpoint-policy",
+        "@deepseek-ai/dsh-session-format",
+        "@deepseek-ai/dsh-session-format-catalog",
+        "@deepseek-ai/dsh-session-format-v0-to-v1",
+        "@deepseek-ai/dsh-session-format-v1-to-v2",
+        "@deepseek-ai/dsh-session-format-v2-to-v3",
+        "@deepseek-ai/dsh-session-log-deepseek",
+        "@deepseek-ai/dsh-session-log-export",
+        "@deepseek-ai/dsh-session-persistence",
+        "@deepseek-ai/dsh-session-persistence-jsonl",
+        "@deepseek-ai/dsh-session-projection",
+        "@deepseek-ai/dsh-session-projection-cache",
+        "@deepseek-ai/dsh-session-query",
+        "@deepseek-ai/dsh-session-query-sqlite",
+        "@deepseek-ai/dsh-session-reference",
+        "@deepseek-ai/dsh-session-stats",
+        "@deepseek-ai/dsh-session-telemetry",
+        "@deepseek-ai/dsh-session-telemetry-otel",
+        "@deepseek-ai/dsh-session-title",
+        "@deepseek-ai/dsh-session-title-first-prompt-llm",
+        "@deepseek-ai/dsh-session-title-llm",
+        "@deepseek-ai/dsh-session-turn-outline",
+        "@deepseek-ai/dsh-settings",
+        "@deepseek-ai/dsh-settings-file",
+        "@deepseek-ai/dsh-shell",
+        "@deepseek-ai/dsh-shell-env",
+        "@deepseek-ai/dsh-skill",
+        "@deepseek-ai/dsh-skill-badge",
+        "@deepseek-ai/dsh-skill-filesystem",
+        "@deepseek-ai/dsh-spill",
+        "@deepseek-ai/dsh-spill-local",
+        "@deepseek-ai/dsh-spill-policy",
+        "@deepseek-ai/dsh-storage",
+        "@deepseek-ai/dsh-storage-domain",
+        "@deepseek-ai/dsh-storage-json",
+        "@deepseek-ai/dsh-subagent",
+        "@deepseek-ai/dsh-subagent-fork-in-process",
+        "@deepseek-ai/dsh-subagent-in-process-driver",
+        "@deepseek-ai/dsh-subagent-spawn-in-process",
+        "@deepseek-ai/dsh-subprocess",
+        "@deepseek-ai/dsh-subprocess-local",
+        "@deepseek-ai/dsh-system-prompt",
+        "@deepseek-ai/dsh-timeout",
+        "@deepseek-ai/dsh-token-meter",
+        "@deepseek-ai/dsh-tool-bash",
+        "@deepseek-ai/dsh-tool-call-timeout-policy",
+        "@deepseek-ai/dsh-tool-fs",
+        "@deepseek-ai/dsh-tool-fs-search",
+        "@deepseek-ai/dsh-tool-goal",
+        "@deepseek-ai/dsh-tool-jobs",
+        "@deepseek-ai/dsh-tool-present",
+        "@deepseek-ai/dsh-tool-pwsh",
+        "@deepseek-ai/dsh-tool-ralph",
+        "@deepseek-ai/dsh-tool-skill",
+        "@deepseek-ai/dsh-tool-subagent",
+        "@deepseek-ai/dsh-tool-subagent-control",
+        "@deepseek-ai/dsh-tool-todo",
+        "@deepseek-ai/dsh-tool-web",
+        "@deepseek-ai/dsh-tool-workflow",
+        "@deepseek-ai/dsh-tools",
+        "@deepseek-ai/dsh-typert-loader",
+        "@deepseek-ai/dsh-typert-protocol",
+        "@deepseek-ai/dsh-typert-registry",
+        "@deepseek-ai/dsh-user-approval",
+        "@deepseek-ai/dsh-user-questions",
+        "@deepseek-ai/dsh-util-crypto",
+        "@deepseek-ai/dsh-util-time",
+        "@deepseek-ai/dsh-util-values",
+        "@deepseek-ai/dsh-util-workspace-path",
+        "@deepseek-ai/dsh-web",
+        "@deepseek-ai/dsh-web-app",
+        "@deepseek-ai/dsh-web-fetch-http",
+        "@deepseek-ai/dsh-web-frontend",
+        "@deepseek-ai/dsh-web-search-deepseek",
+        "@deepseek-ai/dsh-win32-process",
+        "@deepseek-ai/dsh-workflow",
+        "@deepseek-ai/dsh-workflow-worker-thread",
+        "@deepseek-ai/dsh-workspace",
+        "@deepseek-ai/node-addon-system",
+        "@deepseek-ai/node-addon-system-darwin-arm64",
+        "@deepseek-ai/node-addon-system-darwin-x64",
+        "@deepseek-ai/node-addon-system-linux-arm64",
+        "@deepseek-ai/node-addon-system-linux-x64",
+        "@deepseek-ai/schemastery"
+      ],
+      "scope": "literal bundle rows plus non-dev workspace dependencies; never observed activation"
+    },
+    "headless": {
+      "roots": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-headless"
+      ],
+      "patchReload": "startup",
+      "potential_dependency_closure": [
+        "@deepseek-ai/cordis",
+        "@deepseek-ai/cordis-plugin-hmr",
+        "@deepseek-ai/cordis-plugin-include",
+        "@deepseek-ai/cordis-plugin-loader",
+        "@deepseek-ai/cordis-plugin-timer",
+        "@deepseek-ai/cosmokit",
+        "@deepseek-ai/dsh-agent",
+        "@deepseek-ai/dsh-agent-default-model",
+        "@deepseek-ai/dsh-agent-instructions",
+        "@deepseek-ai/dsh-agent-loop",
+        "@deepseek-ai/dsh-agent-presets",
+        "@deepseek-ai/dsh-anonymous-user-id",
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-atomic-write",
+        "@deepseek-ai/dsh-attachment",
+        "@deepseek-ai/dsh-attachment-local",
+        "@deepseek-ai/dsh-authorization",
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-bash-local",
+        "@deepseek-ai/dsh-bash-sandbox",
+        "@deepseek-ai/dsh-brand",
+        "@deepseek-ai/dsh-chunked-list",
+        "@deepseek-ai/dsh-cmdline",
+        "@deepseek-ai/dsh-code-runtime",
+        "@deepseek-ai/dsh-code-runtime-worker-thread",
+        "@deepseek-ai/dsh-command-compact",
+        "@deepseek-ai/dsh-command-feedback",
+        "@deepseek-ai/dsh-command-goal",
+        "@deepseek-ai/dsh-commands",
+        "@deepseek-ai/dsh-compaction",
+        "@deepseek-ai/dsh-compaction-basic",
+        "@deepseek-ai/dsh-compaction-tool-result-pruner",
+        "@deepseek-ai/dsh-credentials",
+        "@deepseek-ai/dsh-credentials-local",
+        "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+        "@deepseek-ai/dsh-deque",
+        "@deepseek-ai/dsh-fs",
+        "@deepseek-ai/dsh-fs-local",
+        "@deepseek-ai/dsh-fs-observation-policy",
+        "@deepseek-ai/dsh-fs-sandbox",
+        "@deepseek-ai/dsh-goal",
+        "@deepseek-ai/dsh-goal-round-driver",
+        "@deepseek-ai/dsh-headless",
+        "@deepseek-ai/dsh-home-paths",
+        "@deepseek-ai/dsh-http-proxy",
+        "@deepseek-ai/dsh-invariants",
+        "@deepseek-ai/dsh-jobs",
+        "@deepseek-ai/dsh-jobs-local",
+        "@deepseek-ai/dsh-launch-environment",
+        "@deepseek-ai/dsh-llm",
+        "@deepseek-ai/dsh-llm-deepseek",
+        "@deepseek-ai/dsh-llm-pi-ai",
+        "@deepseek-ai/dsh-llm-retry",
+        "@deepseek-ai/dsh-message-feedback",
+        "@deepseek-ai/dsh-output-retention",
+        "@deepseek-ai/dsh-permission-presets",
+        "@deepseek-ai/dsh-plan-mode",
+        "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+        "@deepseek-ai/dsh-pwsh-local",
+        "@deepseek-ai/dsh-pwsh-sandbox",
+        "@deepseek-ai/dsh-repeat-tool-reminder",
+        "@deepseek-ai/dsh-sandbox",
+        "@deepseek-ai/dsh-sandbox-local",
+        "@deepseek-ai/dsh-sandbox-policy",
+        "@deepseek-ai/dsh-sandbox-windows-acl",
+        "@deepseek-ai/dsh-scope",
+        "@deepseek-ai/dsh-session",
+        "@deepseek-ai/dsh-session-checkpoint-policy",
+        "@deepseek-ai/dsh-session-format",
+        "@deepseek-ai/dsh-session-format-catalog",
+        "@deepseek-ai/dsh-session-format-v0-to-v1",
+        "@deepseek-ai/dsh-session-format-v1-to-v2",
+        "@deepseek-ai/dsh-session-format-v2-to-v3",
+        "@deepseek-ai/dsh-session-log-deepseek",
+        "@deepseek-ai/dsh-session-persistence",
+        "@deepseek-ai/dsh-session-persistence-jsonl",
+        "@deepseek-ai/dsh-session-projection",
+        "@deepseek-ai/dsh-session-projection-cache",
+        "@deepseek-ai/dsh-session-query",
+        "@deepseek-ai/dsh-session-query-sqlite",
+        "@deepseek-ai/dsh-session-telemetry",
+        "@deepseek-ai/dsh-session-telemetry-otel",
+        "@deepseek-ai/dsh-session-title",
+        "@deepseek-ai/dsh-session-title-first-prompt-llm",
+        "@deepseek-ai/dsh-session-title-llm",
+        "@deepseek-ai/dsh-settings",
+        "@deepseek-ai/dsh-settings-file",
+        "@deepseek-ai/dsh-shell",
+        "@deepseek-ai/dsh-shell-env",
+        "@deepseek-ai/dsh-skill",
+        "@deepseek-ai/dsh-skill-badge",
+        "@deepseek-ai/dsh-skill-filesystem",
+        "@deepseek-ai/dsh-spill",
+        "@deepseek-ai/dsh-spill-local",
+        "@deepseek-ai/dsh-spill-policy",
+        "@deepseek-ai/dsh-storage",
+        "@deepseek-ai/dsh-storage-domain",
+        "@deepseek-ai/dsh-storage-json",
+        "@deepseek-ai/dsh-subagent",
+        "@deepseek-ai/dsh-subagent-fork-in-process",
+        "@deepseek-ai/dsh-subagent-in-process-driver",
+        "@deepseek-ai/dsh-subagent-spawn-in-process",
+        "@deepseek-ai/dsh-subprocess",
+        "@deepseek-ai/dsh-subprocess-local",
+        "@deepseek-ai/dsh-system-prompt",
+        "@deepseek-ai/dsh-timeout",
+        "@deepseek-ai/dsh-token-meter",
+        "@deepseek-ai/dsh-tool-bash",
+        "@deepseek-ai/dsh-tool-call-timeout-policy",
+        "@deepseek-ai/dsh-tool-fs",
+        "@deepseek-ai/dsh-tool-fs-search",
+        "@deepseek-ai/dsh-tool-goal",
+        "@deepseek-ai/dsh-tool-jobs",
+        "@deepseek-ai/dsh-tool-present",
+        "@deepseek-ai/dsh-tool-pwsh",
+        "@deepseek-ai/dsh-tool-ralph",
+        "@deepseek-ai/dsh-tool-skill",
+        "@deepseek-ai/dsh-tool-subagent",
+        "@deepseek-ai/dsh-tool-subagent-control",
+        "@deepseek-ai/dsh-tool-todo",
+        "@deepseek-ai/dsh-tool-web",
+        "@deepseek-ai/dsh-tool-workflow",
+        "@deepseek-ai/dsh-tools",
+        "@deepseek-ai/dsh-typert-loader",
+        "@deepseek-ai/dsh-typert-protocol",
+        "@deepseek-ai/dsh-typert-registry",
+        "@deepseek-ai/dsh-user-approval",
+        "@deepseek-ai/dsh-user-questions",
+        "@deepseek-ai/dsh-util-crypto",
+        "@deepseek-ai/dsh-util-time",
+        "@deepseek-ai/dsh-util-values",
+        "@deepseek-ai/dsh-web",
+        "@deepseek-ai/dsh-web-fetch-http",
+        "@deepseek-ai/dsh-web-search-deepseek",
+        "@deepseek-ai/dsh-win32-process",
+        "@deepseek-ai/dsh-workflow",
+        "@deepseek-ai/dsh-workflow-worker-thread",
+        "@deepseek-ai/node-addon-system",
+        "@deepseek-ai/node-addon-system-darwin-arm64",
+        "@deepseek-ai/node-addon-system-darwin-x64",
+        "@deepseek-ai/node-addon-system-linux-arm64",
+        "@deepseek-ai/node-addon-system-linux-x64",
+        "@deepseek-ai/schemastery"
+      ],
+      "scope": "literal bundle rows plus non-dev workspace dependencies; never observed activation"
+    },
+    "sdk": {
+      "roots": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-sdk-app"
+      ],
+      "patchReload": "startup",
+      "potential_dependency_closure": [
+        "@deepseek-ai/cordis",
+        "@deepseek-ai/cordis-plugin-hmr",
+        "@deepseek-ai/cordis-plugin-include",
+        "@deepseek-ai/cordis-plugin-loader",
+        "@deepseek-ai/cordis-plugin-timer",
+        "@deepseek-ai/cosmokit",
+        "@deepseek-ai/dsh-agent",
+        "@deepseek-ai/dsh-agent-default-model",
+        "@deepseek-ai/dsh-agent-instructions",
+        "@deepseek-ai/dsh-agent-loop",
+        "@deepseek-ai/dsh-agent-presets",
+        "@deepseek-ai/dsh-anonymous-user-id",
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-atomic-write",
+        "@deepseek-ai/dsh-attachment",
+        "@deepseek-ai/dsh-attachment-local",
+        "@deepseek-ai/dsh-authorization",
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-bash-local",
+        "@deepseek-ai/dsh-bash-sandbox",
+        "@deepseek-ai/dsh-brand",
+        "@deepseek-ai/dsh-chunked-list",
+        "@deepseek-ai/dsh-cmdline",
+        "@deepseek-ai/dsh-code-runtime",
+        "@deepseek-ai/dsh-command-compact",
+        "@deepseek-ai/dsh-command-feedback",
+        "@deepseek-ai/dsh-command-goal",
+        "@deepseek-ai/dsh-commands",
+        "@deepseek-ai/dsh-compaction",
+        "@deepseek-ai/dsh-compaction-basic",
+        "@deepseek-ai/dsh-compaction-tool-result-pruner",
+        "@deepseek-ai/dsh-credentials",
+        "@deepseek-ai/dsh-credentials-local",
+        "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+        "@deepseek-ai/dsh-deque",
+        "@deepseek-ai/dsh-fs",
+        "@deepseek-ai/dsh-fs-local",
+        "@deepseek-ai/dsh-fs-observation-policy",
+        "@deepseek-ai/dsh-fs-sandbox",
+        "@deepseek-ai/dsh-goal",
+        "@deepseek-ai/dsh-goal-round-driver",
+        "@deepseek-ai/dsh-home-paths",
+        "@deepseek-ai/dsh-http-proxy",
+        "@deepseek-ai/dsh-invariants",
+        "@deepseek-ai/dsh-jobs",
+        "@deepseek-ai/dsh-jobs-local",
+        "@deepseek-ai/dsh-launch-environment",
+        "@deepseek-ai/dsh-llm",
+        "@deepseek-ai/dsh-llm-deepseek",
+        "@deepseek-ai/dsh-llm-pi-ai",
+        "@deepseek-ai/dsh-llm-retry",
+        "@deepseek-ai/dsh-message-feedback",
+        "@deepseek-ai/dsh-output-retention",
+        "@deepseek-ai/dsh-permission-presets",
+        "@deepseek-ai/dsh-plan-mode",
+        "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+        "@deepseek-ai/dsh-pwsh-local",
+        "@deepseek-ai/dsh-pwsh-sandbox",
+        "@deepseek-ai/dsh-repeat-tool-reminder",
+        "@deepseek-ai/dsh-sandbox",
+        "@deepseek-ai/dsh-sandbox-local",
+        "@deepseek-ai/dsh-sandbox-policy",
+        "@deepseek-ai/dsh-sandbox-windows-acl",
+        "@deepseek-ai/dsh-scope",
+        "@deepseek-ai/dsh-sdk-app",
+        "@deepseek-ai/dsh-sdk-jsonrpc-server",
+        "@deepseek-ai/dsh-sdk-protocol",
+        "@deepseek-ai/dsh-session",
+        "@deepseek-ai/dsh-session-checkpoint-policy",
+        "@deepseek-ai/dsh-session-format",
+        "@deepseek-ai/dsh-session-format-catalog",
+        "@deepseek-ai/dsh-session-format-v0-to-v1",
+        "@deepseek-ai/dsh-session-format-v1-to-v2",
+        "@deepseek-ai/dsh-session-format-v2-to-v3",
+        "@deepseek-ai/dsh-session-log-deepseek",
+        "@deepseek-ai/dsh-session-persistence",
+        "@deepseek-ai/dsh-session-persistence-jsonl",
+        "@deepseek-ai/dsh-session-projection",
+        "@deepseek-ai/dsh-session-projection-cache",
+        "@deepseek-ai/dsh-session-query",
+        "@deepseek-ai/dsh-session-query-sqlite",
+        "@deepseek-ai/dsh-session-telemetry",
+        "@deepseek-ai/dsh-session-telemetry-otel",
+        "@deepseek-ai/dsh-session-title",
+        "@deepseek-ai/dsh-session-title-first-prompt-llm",
+        "@deepseek-ai/dsh-session-title-llm",
+        "@deepseek-ai/dsh-settings",
+        "@deepseek-ai/dsh-settings-file",
+        "@deepseek-ai/dsh-shell",
+        "@deepseek-ai/dsh-shell-env",
+        "@deepseek-ai/dsh-skill",
+        "@deepseek-ai/dsh-skill-badge",
+        "@deepseek-ai/dsh-skill-filesystem",
+        "@deepseek-ai/dsh-spill",
+        "@deepseek-ai/dsh-spill-local",
+        "@deepseek-ai/dsh-spill-policy",
+        "@deepseek-ai/dsh-storage",
+        "@deepseek-ai/dsh-storage-domain",
+        "@deepseek-ai/dsh-storage-json",
+        "@deepseek-ai/dsh-subagent",
+        "@deepseek-ai/dsh-subagent-fork-in-process",
+        "@deepseek-ai/dsh-subagent-in-process-driver",
+        "@deepseek-ai/dsh-subagent-spawn-in-process",
+        "@deepseek-ai/dsh-subprocess",
+        "@deepseek-ai/dsh-subprocess-local",
+        "@deepseek-ai/dsh-system-prompt",
+        "@deepseek-ai/dsh-timeout",
+        "@deepseek-ai/dsh-token-meter",
+        "@deepseek-ai/dsh-tool-bash",
+        "@deepseek-ai/dsh-tool-call-timeout-policy",
+        "@deepseek-ai/dsh-tool-fs",
+        "@deepseek-ai/dsh-tool-fs-search",
+        "@deepseek-ai/dsh-tool-goal",
+        "@deepseek-ai/dsh-tool-jobs",
+        "@deepseek-ai/dsh-tool-present",
+        "@deepseek-ai/dsh-tool-pwsh",
+        "@deepseek-ai/dsh-tool-ralph",
+        "@deepseek-ai/dsh-tool-skill",
+        "@deepseek-ai/dsh-tool-subagent",
+        "@deepseek-ai/dsh-tool-subagent-control",
+        "@deepseek-ai/dsh-tool-todo",
+        "@deepseek-ai/dsh-tool-web",
+        "@deepseek-ai/dsh-tool-workflow",
+        "@deepseek-ai/dsh-tools",
+        "@deepseek-ai/dsh-typert-loader",
+        "@deepseek-ai/dsh-typert-protocol",
+        "@deepseek-ai/dsh-typert-registry",
+        "@deepseek-ai/dsh-user-approval",
+        "@deepseek-ai/dsh-user-questions",
+        "@deepseek-ai/dsh-util-crypto",
+        "@deepseek-ai/dsh-util-time",
+        "@deepseek-ai/dsh-util-values",
+        "@deepseek-ai/dsh-web",
+        "@deepseek-ai/dsh-web-fetch-http",
+        "@deepseek-ai/dsh-web-search-deepseek",
+        "@deepseek-ai/dsh-win32-process",
+        "@deepseek-ai/dsh-workflow",
+        "@deepseek-ai/dsh-workflow-worker-thread",
+        "@deepseek-ai/node-addon-system",
+        "@deepseek-ai/node-addon-system-darwin-arm64",
+        "@deepseek-ai/node-addon-system-darwin-x64",
+        "@deepseek-ai/node-addon-system-linux-arm64",
+        "@deepseek-ai/node-addon-system-linux-x64",
+        "@deepseek-ai/schemastery"
+      ],
+      "scope": "literal bundle rows plus non-dev workspace dependencies; never observed activation"
+    },
+    "sdk-minimal": {
+      "roots": [
+        "@deepseek-ai/dsh-sdk-minimal"
+      ],
+      "patchReload": "startup",
+      "potential_dependency_closure": [
+        "@deepseek-ai/cordis",
+        "@deepseek-ai/cordis-plugin-include",
+        "@deepseek-ai/cordis-plugin-loader",
+        "@deepseek-ai/cordis-plugin-timer",
+        "@deepseek-ai/cosmokit",
+        "@deepseek-ai/dsh-agent",
+        "@deepseek-ai/dsh-agent-loop",
+        "@deepseek-ai/dsh-agent-presets",
+        "@deepseek-ai/dsh-anonymous-user-id",
+        "@deepseek-ai/dsh-atomic-write",
+        "@deepseek-ai/dsh-attachment",
+        "@deepseek-ai/dsh-brand",
+        "@deepseek-ai/dsh-chunked-list",
+        "@deepseek-ai/dsh-cmdline",
+        "@deepseek-ai/dsh-code-runtime",
+        "@deepseek-ai/dsh-credentials",
+        "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+        "@deepseek-ai/dsh-fs",
+        "@deepseek-ai/dsh-home-paths",
+        "@deepseek-ai/dsh-http-proxy",
+        "@deepseek-ai/dsh-invariants",
+        "@deepseek-ai/dsh-jobs",
+        "@deepseek-ai/dsh-jobs-local",
+        "@deepseek-ai/dsh-launch-environment",
+        "@deepseek-ai/dsh-llm",
+        "@deepseek-ai/dsh-llm-deepseek",
+        "@deepseek-ai/dsh-llm-retry",
+        "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+        "@deepseek-ai/dsh-pwsh-local",
+        "@deepseek-ai/dsh-sandbox",
+        "@deepseek-ai/dsh-sandbox-local",
+        "@deepseek-ai/dsh-sandbox-policy",
+        "@deepseek-ai/dsh-sandbox-windows-acl",
+        "@deepseek-ai/dsh-scope",
+        "@deepseek-ai/dsh-sdk-app",
+        "@deepseek-ai/dsh-sdk-jsonrpc-server",
+        "@deepseek-ai/dsh-sdk-minimal",
+        "@deepseek-ai/dsh-sdk-protocol",
+        "@deepseek-ai/dsh-session",
+        "@deepseek-ai/dsh-session-format",
+        "@deepseek-ai/dsh-session-format-catalog",
+        "@deepseek-ai/dsh-session-format-v0-to-v1",
+        "@deepseek-ai/dsh-session-format-v1-to-v2",
+        "@deepseek-ai/dsh-session-format-v2-to-v3",
+        "@deepseek-ai/dsh-session-log-deepseek",
+        "@deepseek-ai/dsh-session-persistence",
+        "@deepseek-ai/dsh-session-persistence-jsonl",
+        "@deepseek-ai/dsh-session-projection",
+        "@deepseek-ai/dsh-session-projection-cache",
+        "@deepseek-ai/dsh-session-query",
+        "@deepseek-ai/dsh-session-title",
+        "@deepseek-ai/dsh-settings",
+        "@deepseek-ai/dsh-shell",
+        "@deepseek-ai/dsh-storage",
+        "@deepseek-ai/dsh-storage-domain",
+        "@deepseek-ai/dsh-subagent",
+        "@deepseek-ai/dsh-subprocess",
+        "@deepseek-ai/dsh-subprocess-local",
+        "@deepseek-ai/dsh-system-prompt",
+        "@deepseek-ai/dsh-terminal",
+        "@deepseek-ai/dsh-terminal-bash",
+        "@deepseek-ai/dsh-timeout",
+        "@deepseek-ai/dsh-tool-bash-persistent",
+        "@deepseek-ai/dsh-tool-pwsh-persistent",
+        "@deepseek-ai/dsh-tool-todo",
+        "@deepseek-ai/dsh-tools",
+        "@deepseek-ai/dsh-typert-protocol",
+        "@deepseek-ai/dsh-user-approval",
+        "@deepseek-ai/dsh-util-crypto",
+        "@deepseek-ai/dsh-util-time",
+        "@deepseek-ai/dsh-util-values",
+        "@deepseek-ai/dsh-win32-process",
+        "@deepseek-ai/node-addon-system",
+        "@deepseek-ai/node-addon-system-darwin-arm64",
+        "@deepseek-ai/node-addon-system-darwin-x64",
+        "@deepseek-ai/node-addon-system-linux-arm64",
+        "@deepseek-ai/node-addon-system-linux-x64",
+        "@deepseek-ai/schemastery"
+      ],
+      "scope": "literal bundle rows plus non-dev workspace dependencies; never observed activation"
+    }
+  },
+  "profile_scope": "literal target templates; conditions and runtime activation are not evaluated",
+  "release_lane_audit": {
+    "PAIRED_DRIVERS": [
+      {
+        "name": "agent_factory",
+        "path": "scripts/agent_factory_oracle.py",
+        "sha256": "930c172b84a59d4224d4f6085924c99be7506dbca41e07a74728675bc76f39e5",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "agent_config",
+        "path": "scripts/agent_config_oracle.py",
+        "sha256": "594517efda51714643dd0926a69c4a35d83099a4907b2f3fc7102c695c9d3058",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_recovery",
+        "path": "scripts/session_recovery_oracle.py",
+        "sha256": "878b30d0fdaf9ce49e97e170d60e9527029638b25a84194f4a2a3ade5a688194",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_live",
+        "path": "scripts/session_live_oracle.py",
+        "sha256": "2bac4e758f4787c37d4d164280970945ab414d5bb54f9beeab652f5a7b8774d1",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_prepared",
+        "path": "scripts/session_prepared_oracle.py",
+        "sha256": "bde3ebf3e20b7ba523536d007b6282507edbf8fd14259c7bf8fbb97e68f313d1",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_storage",
+        "path": "scripts/session_storage_oracle.py",
+        "sha256": "5ade35e5edbc38a4f6641a9f45b39cf6c6595ecfc59bb7848ba1e8c245ba6983",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_projection",
+        "path": "scripts/session_projection_oracle.py",
+        "sha256": "6826cd4a81173b5d9151a403d03bd6ed752fdc3e255f4d2da2dc7ee22318d724",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "deepseek",
+        "path": "scripts/deepseek_oracle.py",
+        "sha256": "413fd1e6400ba1dfc46af1ef109009c54293dbebf857a1cf882ae71e7f544425",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm-deepseek/src",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "pi",
+        "path": "scripts/pi_oracle.py",
+        "sha256": "a747838bae36a02fcde7dcf5cdfe9c01d5ad43ffa3ae50731abf1e784ba7c597",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm-pi-ai/src",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "storage_cache",
+        "path": "scripts/storage_cache_oracle.py",
+        "sha256": "c003e494fae60c84761a1a945db3a93158f2b7275f893d4a189f9b004a12e8c5",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "workflow_ralph",
+        "path": "scripts/workflow_ralph_oracle.py",
+        "sha256": "d9684bfa82d414a0c93cdd5f4dff1f64eb85ef496e1a9917cfe96aa197903b38",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "repeat_tool",
+        "path": "scripts/repeat_tool_oracle.py",
+        "sha256": "929c4c6b0e52871c534998746c9a3ec0abc775339574fab8f16e5b696f41b11d",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "token_meter",
+        "path": "scripts/token_meter_oracle.py",
+        "sha256": "c67d132417f4fa176009e5bacc979da8c0c911662513289b0fe37a87ff4efb3b",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "pruner",
+        "path": "scripts/pruner_oracle.py",
+        "sha256": "467ece9b7501e832f34a5c0884a555104c9a71d4adc1094877bb969d69891b4b",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "compaction",
+        "path": "scripts/compaction_oracle.py",
+        "sha256": "0629006a77134a250cf16749f7599702f9f54a2728b5783a323b8199533ba577",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "maintenance",
+        "path": "scripts/maintenance_oracle.py",
+        "sha256": "9120145b7e2e0f1ea99148f3505e71ce4564733f38bdd2c4844847b2f4cf88ec",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "timeout_policy",
+        "path": "scripts/timeout_policy_oracle.py",
+        "sha256": "0723e0ae6c809fe1fe490f62c560dca538bc18422e71d5618c9ab50cd6724d5f",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "abort",
+        "path": "scripts/abort_oracle.py",
+        "sha256": "7928bcada1eb472c4e6bdf4524d11a55ab7f5ef5d25c12bf026ca6ff6e4b0b61",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/inspect-registry.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/guard/timeout-policy/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "approval",
+        "path": "scripts/approval_oracle.py",
+        "sha256": "c1bcf585edc5e06a40104e84bd770e0c27c94dc72818335a3c464ccf22505be0",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/interaction/user-approval/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/user-approval/src/invariant.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/user-approval/tests/approval.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/user-approval/tests/invariant.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "inspect",
+        "path": "scripts/inspect_oracle.py",
+        "sha256": "4d721d1f29d7cb48e8540c327a47026f2d04fba5c1e8fc6f44f3ddce6206e918",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "cordis_guard",
+        "path": "scripts/cordis_guard_oracle.py",
+        "sha256": "28d060f9915aa3888ce987c1232737f072a3843cec4b85b942e92a65d32e6221",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/tools/src/json-schema.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/tools/src/schema.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/guard.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/tests/helpers.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "cordis_runner",
+        "path": "scripts/cordis_runner_oracle.py",
+        "sha256": "f84fe328e646bd812cb77caae314db11bddf1e063c287cb543ef0ce8073a2a26",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/guard.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:28:27",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/registry.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/sandbox.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/tests/helpers.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "cordis_retirement",
+        "path": "scripts/cordis_retirement_oracle.py",
+        "sha256": "8190d8810383602244351ee871bd658ea9ce8372e8399a72f373c434cba3f2e0",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/guard.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/registry.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/src/sandbox.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/extensions/cordis-host-runner/tests/helpers.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "cordis_tools",
+        "path": "scripts/cordis_tools_oracle.py",
+        "sha256": "00f06ea35cb393f270800ba434a9567aae713d5d0ebe2803d6acd5c6b0ca15ea",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp_sessions",
+        "path": "scripts/acp_sessions_oracle.py",
+        "sha256": "79eb59cc4fbe630ccfe14cc14af05b06b6ec6454a5104b48dd0aaa5353e1f1df",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp_model_output",
+        "path": "scripts/acp_model_output_oracle.py",
+        "sha256": "5b421097445ca3a1d73e7df06e0514841bcd0fb42e441eeff8ac2c1c6dcace04",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp_stdio",
+        "path": "scripts/acp_stdio_oracle.py",
+        "sha256": "d6c6e497333f88105dbc2f69472668c6af11e7b58dce925a2cabbdcfeaec7775",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp_permissions",
+        "path": "scripts/acp_permissions_oracle.py",
+        "sha256": "31b241894f990a88119645fdc576e05e0593b2085c31842b604182dc73dedb57",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/acp/acp/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/acp/acp/tests/approval.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/acp/acp/tests/harness.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/user-approval/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "mcp_stdio",
+        "path": "scripts/mcp_stdio_oracle.py",
+        "sha256": "f7f5a643fd43bb4d7e6c01c3c27f9d86b4960f9100527d80f7650ccb40593368",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/mcp/mcp-client/src/tools.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/mcp/mcp-client/src/transport.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "mcp_http",
+        "path": "scripts/mcp_http_oracle.py",
+        "sha256": "31db54c7526b2614024caab3531de63f18849ae6f29a5be9005f6604ece1930e",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/mcp/mcp-client/src/transport.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp_mcp",
+        "path": "scripts/acp_mcp_oracle.py",
+        "sha256": "aa5a4b23a7181f004e5ffaeea91abf7244204ab493d93f030fd86f4e0bede853",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/acp/acp/src/mcp.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/acp/acp/src/session.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/acp/acp/tests/harness.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subagent_acp",
+        "path": "scripts/subagent_acp_oracle.py",
+        "sha256": "cc109a37de9a972629c588c80eadb290d505127c92bb3f26ba893210e73e6c45",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/agent-loop/src/agent.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/subagent-acp/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/subagent-acp/src/run.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/spawn.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subagent_acp_teardown",
+        "path": "scripts/subagent_acp_teardown_oracle.py",
+        "sha256": "b8374b7f6d36a85665774dbe994adb07322aabb48a034b4a05f4effc963c6b8b",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/subagent/subagent-acp/src/run.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/subagent/src/out-of-process.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/spawn.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "mcp_disposal",
+        "path": "scripts/mcp_disposal_oracle.py",
+        "sha256": "20057725f406cb4e0e9a930fd770ddee6e220f23afdc32c8e3d0ceb548a16f18",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/mcp/mcp-client/src/connection.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/mcp/mcp-client/src/tools.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/mcp/mcp-client/src/transport.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subprocess_ownership",
+        "path": "scripts/subprocess_ownership_oracle.py",
+        "sha256": "b9775f2b3f5c841fb193c35aa75b98d6c467c9db27eafc2409039572a7729c7b",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subprocess_tree",
+        "path": "scripts/subprocess_tree_oracle.py",
+        "sha256": "67cd960e4b578469f425349847442cfebab40d144a0a9b60890662e3ec214a1a",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/spawn.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subprocess/subprocess-local/tests/process-exit.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "projection_cache_failure",
+        "path": "scripts/projection_cache_failure_oracle.py",
+        "sha256": "d2c5054a3f99a258643cd7f450fd9a619924a7988a61e1a667a318ec69fe6e6b",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-projection-cache/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-projection-cache/src/spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-projection-cache/tests/cache.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-projection/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_observation_read",
+        "path": "scripts/session_observation_read_oracle.py",
+        "sha256": "7fd29c4030a86561591a918b27b1742dca9ea8256c4c90b9a3a82d895a8f8612",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/observation.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/observation.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence/src/coordinator.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence/src/errors.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_corpus_list",
+        "path": "scripts/session_corpus_list_oracle.py",
+        "sha256": "739153b15c01a5b7a3f2236529b6eefbe76b93df50ea42dab2d0c0c7e69548f2",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/sources.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/search-helpers.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/session-query.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/tracing.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_corpus_read",
+        "path": "scripts/session_corpus_read_oracle.py",
+        "sha256": "75973bc747aa3523d3f507882f98a3626bfc16e6993949532bb45c5d4418206f",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/sources.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/search-helpers.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/session-query.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/test-service.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/tracing.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-title/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_lineage",
+        "path": "scripts/session_lineage_oracle.py",
+        "sha256": "0e4009b0fb93bc78a5554686b73a4a1eb53ca331519a5d4e7d794913cca70259",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/tracing.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/test-service.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_event_trace",
+        "path": "scripts/session_event_trace_oracle.py",
+        "sha256": "b9f0b2e7e35fd57dc1be9da0ccaf84a50fb07de596103d388651a066d9989781",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/tracing.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/test-service.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_filters",
+        "path": "scripts/session_filters_oracle.py",
+        "sha256": "5b044a42cb2bf2062769a22744145751814d2820d6e0d073fe248eae1ebd3585",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/documents.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/extraction.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/filters.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/test-service.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_requests",
+        "path": "scripts/session_requests_oracle.py",
+        "sha256": "a09b0cd2119111ea1a9eb47bb7f643672b6765a41cb398b95d62e34d59a3042e",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/query.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/schema.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/filters.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_snapshots",
+        "path": "scripts/session_snapshots_oracle.py",
+        "sha256": "ddbfc49371d74c78f840f345ec48b637b1ca1a1e283e282e11efb910aeab74a9",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "query_schema",
+        "path": "scripts/query_schema_oracle.py",
+        "sha256": "770100be4ad16e5f3672801b2374d8e5ed07385abbb1f4936abfd0c788cd46da",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/schema.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "query_engine",
+        "path": "scripts/query_engine_oracle.py",
+        "sha256": "272806a64f5ec546044801102e54258a2769023ed1a40cbedcbcee601da7c457",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/query.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/schema.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "query_unicode",
+        "path": "scripts/query_unicode_oracle.py",
+        "sha256": "ea971a5a42d2b9bbf536599967f9ca41b1cc62fea7327838927ff180dc6e3c1b",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/src/query.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_text",
+        "path": "scripts/session_text_oracle.py",
+        "sha256": "8545eb666b8562f1e1134b9d72c2b8e8bf878f653397a0787914e7ce2d38cb26",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/src/corpus.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/extraction.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/filters.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/src/tracing.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/test-service.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_tools",
+        "path": "scripts/session_tools_oracle.py",
+        "sha256": "9732a433ef57be0abdb22ee3d35637df0a1917c4915a5992e5d74fab6a9ee64a",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "sqlite_format",
+        "path": "scripts/sqlite_format_oracle.py",
+        "sha256": "6db0b9f4f1da317253aa8937ca3363a005ae2ed4d2d2f444df3037b4a3c634b5",
+        "literal_pins": [
+          "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/resources/zstd-dictionary.bin",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/src/codec.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/src/compression.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/tests/compression-unprofitable.spec.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence-sqlite/tests/compression.spec.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "jsonl_provider",
+        "path": "scripts/jsonl_provider_oracle.py",
+        "sha256": "efc06c39425d98a6a3980ed3fd8aa41ebfc2a533b322c9421a8c2c1d69ef2a05",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/chunk-rows.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/session/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/src/",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "tool_scheduler",
+        "path": "scripts/tool_scheduler_oracle.py",
+        "sha256": "9597920b9db89f5d4c73c89417c055d2b53475de58d566e0ed91e76cfbc80c0f",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "http_redirect",
+        "path": "scripts/http_redirect_oracle.py",
+        "sha256": "363f0ad45d4fb6974f5044d0849a773e447e38262ed78eabe238be292f306c0b",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "javascript_workflow",
+        "path": "scripts/javascript_workflow_oracle.py",
+        "sha256": "6beea250d0fa0648518e5171c0bd11d6c4eb64baa64b9b49fb7ac99e1c318620",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "runtime_context",
+        "path": "scripts/runtime_context_oracle.py",
+        "sha256": "df9209814f46272f075f956e826035029c227ce176505d8fef477c0d87c7b61a",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/agent-loop/src/agent.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/runtime-context.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/tests/mock-adapter.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/system-prompt/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "javascript_ready",
+        "path": "scripts/javascript_ready_oracle.py",
+        "sha256": "749bba430730228fc5d8bfbb87e8cef4facc1bbe668b1e23c67e6eb3b56d9d07",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "persistence_read",
+        "path": "scripts/persistence_read_oracle.py",
+        "sha256": "622201524841c9752be806b6749646a615d9c425107773d4f73cbddbae0c35c8",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence/src/coordinator.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "javascript_initial",
+        "path": "scripts/javascript_initial_oracle.py",
+        "sha256": "a2e624b936c4ecc2d679ea60810b76d5830a44b64a0c488c531e5727318fb409",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_number",
+        "path": "scripts/session_number_oracle.py",
+        "sha256": "58bd1a29664318c28daabae4ba35ad540fd8ad54f9dc9a400613df78d62fe480",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_diagnostic",
+        "path": "scripts/session_diagnostic_oracle.py",
+        "sha256": "3c778b53f661a14e4fc3a616c9f371f158bc683483e7627ca393d8c2ca083689",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session_restore_sign",
+        "path": "scripts/session_restore_sign_oracle.py",
+        "sha256": "ba836ec6607d23f695190ab88ba0377ab36e1614875d65b7ce08a0fb94160fa7",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "runtime_full_request",
+        "path": "scripts/runtime_full_request_oracle.py",
+        "sha256": "9d104ff6d9fb68257a15de2be8d7e2f9d99a5fbb19da34908f2e4922d7cd896a",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/agent-loop/src/agent.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/runtime-context.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/tests/mock-adapter.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/system-prompt/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/types.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "deepseek_error",
+        "path": "scripts/deepseek_error_oracle.py",
+        "sha256": "1eb49e047d825aa47ad6dc393ba3fc0d5d1f32ef9bb72aad8a79617645be7ac0",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/adapter.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/sse.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/translate.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "deepseek_capture",
+        "path": "scripts/deepseek_capture_oracle.py",
+        "sha256": "fe9d760eb52339850eb335ed03944a9677e803950637724aa3cd2794e6967b1d",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/adapter.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/files-api.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/serialize.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/sse.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/translate.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/retry-policy.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "jsonl_sharing",
+        "path": "scripts/jsonl_sharing_oracle.py",
+        "sha256": "2a22b53359a22d722273f6133f1cbf26dd91f848bc7b5440ef7664f946c31ed6",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/src/format.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence/src/coordinator.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "canonical_llm",
+        "path": "scripts/canonical_llm_oracle.py",
+        "sha256": "70e83b3e60d0a325fbe1552b423a8870d45633694550dd3533c30319f2f3f011",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/compaction/compaction-basic/src/config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/compaction/compaction-basic/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/compaction/compaction-basic/src/region.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/compaction/compaction-basic/src/summarizer.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/compaction/compaction-basic/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/agent.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/constants.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/invariant.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/runtime-context.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/tool-calls.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/adapter.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/file-id.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/file-store.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/files-api.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/image-tokens.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/request-pricing.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/serialize.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/sse.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/translate.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/upload-index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/brand.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/history.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/invariant.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/adapter-failure.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/api-key.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/assembler.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/attribution.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/brand.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/call-config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/content.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/error.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/invariant.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/message.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/retry-policy.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "llm_metadata",
+        "path": "scripts/llm_metadata_oracle.py",
+        "sha256": "5a4cca3f6986d8d0cd87dc793613ac2132c246065ab48d377ca7ccc1c1289aab",
+        "literal_pins": [],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "llm_prepared",
+        "path": "scripts/llm_prepared_oracle.py",
+        "sha256": "73b9448bc1073c9f9196432a72966899b445d0aef08aac6fb3a7e12464dec4bc",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/src/request-header.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/call-config.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/test-support/agent-loop-testkit/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "llm_config",
+        "path": "scripts/llm_config_oracle.py",
+        "sha256": "63eae84a53699df463e759591f501207525b003c7cbc88cd4da38ebbf98ddece",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm/src/call-config.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "win32_stat",
+        "path": "scripts/win32_stat_oracle.py",
+        "sha256": "508ed5ea80f0029bb7975810ac3b368009aec7697160632a5f5dfefb5b3e0503",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "sdk_profile",
+        "path": "scripts/sdk_profile_oracle.py",
+        "sha256": "bc378c80f9434e3e380a88bb5d7777714cbf3afecf3eb1491902fa4b6749d5f5",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/apps/cli/src/bin.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/sdk/server/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "javascript_errors",
+        "path": "scripts/javascript_errors_oracle.py",
+        "sha256": "61a6880944d4bb08be1b86b65b621033ffffc9ccebfec5cfe5fb313d7d3b4ed1",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/LICENSE",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/tools/src/json-schema.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/error.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/protocol.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/realm.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/runtime.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow-worker-thread/src/session.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/workflow/workflow/src/types.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.base.json",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/LICENSE",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/context.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/events.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/fiber.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/logger.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/reflect.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/registry.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/service.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cordis/src/utils.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/LICENSE",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/array.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/misc.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/string.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/time.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vendor/cosmokit/src/types.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "permission_presets",
+        "path": "scripts/permission_presets_oracle.py",
+        "sha256": "38b0ba11c428a15ff1b62f605542db693db3d2ad77eac1386ec704f54a49ec1c",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/interaction/permission-presets/src/index.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "tool_errors",
+        "path": "scripts/tool_errors_oracle.py",
+        "sha256": "eb1fa14674b9f89d826133119a37b2a7bfdb1fda5d8dd98d107518183d7fc8c0",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "tool_durable",
+        "path": "scripts/tool_durable_oracle.py",
+        "sha256": "9cfc5f0138e38310d7b40bf3cc350348ba202d9a179fb993982c98cb60d137b3",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/tool-calls.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/message.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "agent_dependencies",
+        "path": "scripts/agent_dependencies_oracle.py",
+        "sha256": "c58951a61d7166bf7ad62cb76b6fda8108a52ff070de5066b140e00780ac61f3",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "ask_user",
+        "path": "scripts/ask_user_oracle.py",
+        "sha256": "5a583c3fbfb1bf2e406c559fabe6737677b0dba862c504f0cb601067156663af",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/tool-ask-user/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/interaction/user-questions/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subagent_model",
+        "path": "scripts/subagent_model_oracle.py",
+        "sha256": "3108800ad58b9f4a355a3afc5db4994a71a2b7f6d4d784a696237f560c34f1fc",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/subagent/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/tool-subagent/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/tool-subagent/src/list-models.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/tool-subagent/src/model-selection-settings.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subagent/tool-subagent/src/model-selection.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "unicode_carrier",
+        "path": "scripts/unicode_carrier_oracle.py",
+        "sha256": "da3fefd5aef6caa6d03b2403b139088e22c950385a32f4bf7e0f1b7505a02cbf",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/api/gateway/src/stream-server.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/client/connection/src/http-bridge.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/client/connection/src/rpc-host.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/read-render.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm-deepseek/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "fs_values",
+        "path": "scripts/fs_values_oracle.py",
+        "sha256": "deedd8c7c4f0723aa5aeaf5e9913ac6a1489e55eb1e901e45dd771bf2a67fd2c",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/.pnpm/diff@9.0.0/node_modules/diff/",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/tools/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/package.json",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/diff.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/edit.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/read-image.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/read-render.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/read.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/sandbox.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/fs/tool-fs/src/write.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/pnpm-lock.yaml",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "message_values",
+        "path": "scripts/message_values_oracle.py",
+        "sha256": "85a5a3838ebba4411b567582545f9cb0aa133cf792a461e9625a72af303e2408",
+        "literal_pins": [
+          "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+        ],
+        "literal_source_paths": [
+          {
+            "path": "reference/node_modules/tsx/dist/loader.mjs",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/core/agent-loop/src/runtime-context.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/llm/llm/src/message.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/util/values/src/index.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/tsconfig.json",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      }
+    ],
+    "OFFICIAL_CONFIGS": [
+      {
+        "name": "consumers",
+        "path": "scripts/oracles/vitest.consumers.config.mts",
+        "sha256": "bfb7e0339fd2502967458b29a9c617a61bdf4cb456a3309d0d007fee602501cb",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/apps/cli/tests/profile-hmr.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/preset/agent-presets/tests/invariant.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/vitest.shared.ts;",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "agent-lifecycle",
+        "path": "scripts/oracles/vitest.agent-lifecycle.config.mts",
+        "sha256": "4bbabbb6d9f109ee11587f73dde524c4efb2fbb3798d942786cec865d7cfd0f2",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/agent-loop/tests/config-session-id.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/tests/resume.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/tests/scope-lifecycle.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent/tests/agent.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-recovery",
+        "path": "scripts/oracles/vitest.session-recovery.config.mts",
+        "sha256": "7b7145e7ab57cbd9ea1128414b77c996caa740519cb9c0d13739d0edd6d84171",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/tests/repair.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/tests/jsonl.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence/tests/preparations.spec.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/session/session-persistence/tests/write-behind.spec.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-projection",
+        "path": "scripts/oracles/vitest.session-projection.config.mts",
+        "sha256": "717a6fb44aa3222705bad16faf007f3f3e39532110c88f0185fb27271c9614b1",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/session/tests/derived-cache.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/tests/fork.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/session/tests/surface.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-projection/tests/registry.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp",
+        "path": "scripts/oracles/vitest.acp.config.mts",
+        "sha256": "c4a6af340989006fca2f885b06ec2c6ebb8619c0dd3b26a226aaaea16226929f",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/acp/acp/tests/*.spec.ts",
+            "target_matches": 11
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "acp-app",
+        "path": "scripts/oracles/vitest.acp-app.config.mts",
+        "sha256": "1f70137ef9c3ddd3312f431bccda6aeb868f50d9660a170dea6b729683ea061a",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/bundle/acp-app/tests/*.spec.ts",
+            "target_matches": 2
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "mcp",
+        "path": "scripts/oracles/vitest.mcp.config.mts",
+        "sha256": "cf0af34024635ae618950c124c1b5d4a1abba36692567354d4ec0bd53f4a873a",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/mcp/mcp-client/tests/*.spec.ts",
+            "target_matches": 5
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "subagent-acp",
+        "path": "scripts/oracles/vitest.subagent-acp.config.mts",
+        "sha256": "53089f509e2aecbb070ccf3351036df463da221774df00d600cc11aefe017a64",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/subagent/subagent-acp/tests/subagent-acp.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/subprocess/subprocess-local/src/",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "storage-cache",
+        "path": "scripts/oracles/vitest.storage-cache.config.mts",
+        "sha256": "a458e52758a35edc1e8bfd986ba9e37876c3273138a606c07f06d2c5716adb0e",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-projection-cache/tests/cache.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/storage/storage-domain/tests/domain.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/storage/storage-domain/tests/invariant.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-observation",
+        "path": "scripts/oracles/vitest.session-observation.config.mts",
+        "sha256": "7ead054e89339928e69550eb614eab50c002087588a8c67b4e8831d631a6f313",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/tests/observation.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-corpus",
+        "path": "scripts/oracles/vitest.session-corpus.config.mts",
+        "sha256": "ed6ba41b3b4857d4e082c1989e81a94ccb74b928635b33e9cc80421623203d65",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query/tests/search-helpers.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/session-query.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session-query/session-query/tests/tracing.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-sqlite-query",
+        "path": "scripts/oracles/vitest.session-sqlite-query.config.mts",
+        "sha256": "0185c7f2f1a9821616e97e272f5ed80c2de4a77b39f9aa19e35847f1f0356440",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/tests/query.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "query-engine-source",
+        "path": "scripts/oracles/vitest.query-engine-source.config.mts",
+        "sha256": "e83b9597020d467e64331b4b6188e6842f3485ba9d62a437499401ef8609f542",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/session-query-sqlite/tests/sqlite.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "session-tools-source",
+        "path": "scripts/oracles/vitest.session-tools-source.config.mts",
+        "sha256": "d0b6b95d91f4cd976b64781c6226f355887e734d5fb94ce91c3948f77b6ef0b2",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session-query/tool-session-query/tests/*.spec.ts",
+            "target_matches": 2
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "jsonl-provider-source",
+        "path": "scripts/oracles/vitest.jsonl-provider-source.config.mts",
+        "sha256": "c62d8ec113abb9331afde3f1213b71a11fda38c02b3a88b802d9a3919fb812b9",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/tests/zstd.compat.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/session/session-persistence-jsonl/tests/zstd.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "tool-scheduler-source",
+        "path": "scripts/oracles/vitest.tool-scheduler-source.config.mts",
+        "sha256": "5c413f593791185f94420345c0c885fa9053442e6ba48c6a51a36a7686f0a775",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/core/agent-loop/tests/settings.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/core/agent-loop/tests/tool-calls.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "deepseek-source",
+        "path": "scripts/oracles/vitest.deepseek-source.config.mts",
+        "sha256": "0167479a7191df8458c27ff168baa0a37f8a979b07e4b552979135dec291f3ba",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm-deepseek/tests/**/*.spec.ts",
+            "target_matches": 0
+          },
+          {
+            "path": "reference/packages/llm/llm-retry/tests/**/*.spec.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "llm-public-source",
+        "path": "scripts/oracles/vitest.llm-public-source.config.mts",
+        "sha256": "89aeebf9094330a3c90c7d91c8b99dae2ad48a22b51717d458cb3fb9fa889fa0",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/llm/llm/tests/**/*.spec.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "web-search-deepseek-source",
+        "path": "scripts/oracles/vitest.web-search-deepseek-source.config.mts",
+        "sha256": "380db81b0162cfd037ac06e4e17a562a8cfe8f551f32c2fd7780d40929f96362",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/web/web-search-deepseek/tests/deepseek.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/web/web-search-deepseek/tests/redirect.spec.ts",
+            "target_matches": 1
+          },
+          {
+            "path": "reference/packages/web/web-search-deepseek/tests/settings.spec.ts",
+            "target_matches": 1
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "plan-source",
+        "path": "scripts/oracles/vitest.plan-source.config.mts",
+        "sha256": "d077c1de9dce6d05df2be1a48da4ffea3b8e3827d0c9d941864a56756b041bd0",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/plan/plan-mode/tests/**/*.spec.ts",
+            "target_matches": 0
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      },
+      {
+        "name": "rc1-subagent",
+        "path": "scripts/oracles/vitest.rc1-subagent.config.mts",
+        "sha256": "62f4cdf8edf6f01333b96fbfae73378f80c6f10b9f60b53e8b1d6d9be4b4e431",
+        "literal_pins": [],
+        "literal_source_paths": [
+          {
+            "path": "reference/packages/subagent/subagent/tests/*.spec.ts",
+            "target_matches": 12
+          },
+          {
+            "path": "reference/packages/subagent/tool-subagent-control/tests/*.spec.ts",
+            "target_matches": 2
+          }
+        ],
+        "state": "contract-review-required",
+        "limitation": "Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review"
+      }
+    ]
+  },
+  "source_observation": {
+    "path": ".goose/out/rc3-r01-20261016/discovery.json",
+    "sha256": "e6666287347d52b4f6a38d48b108b8cb2f0291bd7cdb1081b386814a58993ea2"
+  },
+  "source_test_files": 1251,
+  "declaration_files": 27,
+  "scope": "Candidate discovery and exact current lane input audit, not target activation or parity acceptance"
+}

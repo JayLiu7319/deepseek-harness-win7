@@ -4,6 +4,8 @@
 
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
+用户已授权逐项实施与分阶段提交。当前R01候选工具定向39项通过；Source安装完成、官方构建推进中，实际激活及业务迁移尚待完成。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，可重建的静态输入见 [discovery-summary.json](discovery-summary.json)。
+
 - [实施路径评估](../../../docs/research/2026-10-16-rc3-baseline-implementation-assessment.md)：关键路径、合同闭包、预设差异、验证和Desktop交接。
 - [指定Desktop分发方案](../../../docs/research/2026-10-16-dsh-v0.1.5-rc3-desktop-distribution-evaluation.md)：Electron22、Standard/AIO及外置prereq方向。
 - [assessment.json](assessment.json)：297个manifest、两端差分统计、目标字节SHA、声明依赖、当前Loader映射与24份重点审查源码身份。
