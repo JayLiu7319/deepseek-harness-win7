@@ -1,0 +1,1392 @@
+[
+  {
+    "case": "one-file",
+    "kind": "present-current",
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented report.docx"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "report.docx"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "report.docx"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "unicode-binary",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "\u62a5\u544a.docx",
+          "description": "Report"
+        },
+        {
+          "path": "/outside/\u56fe.png"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented \u62a5\u544a.docx\nPresented /outside/\u56fe.png"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "\u62a5\u544a.docx",
+                "description": "Report"
+              },
+              {
+                "path": "/outside/\u56fe.png"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "\u62a5\u544a.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "\u62a5\u544a.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:\u62a5\u544a.docx",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "/outside/\u56fe.png",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "/outside/\u56fe.png",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:/outside/\u56fe.png",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "\u62a5\u544a.docx",
+              "description": "Report"
+            },
+            {
+              "path": "/outside/\u56fe.png"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "relative-outside",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "../outside/result.zip"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented ../outside/result.zip"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "../outside/result.zip"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "../outside/result.zip",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "../outside/result.zip",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:../outside/result.zip",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "../outside/result.zip"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "duplicate-paths",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "one"
+        },
+        {
+          "path": "one",
+          "description": "Again"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented one\nPresented one"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "one"
+              },
+              {
+                "path": "one",
+                "description": "Again"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:one",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:one",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "one"
+            },
+            {
+              "path": "one",
+              "description": "Again"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "repeat-calls",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "one"
+        }
+      ],
+      [
+        {
+          "path": "two"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented one"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "one"
+              }
+            ]
+          }
+        },
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented two"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "two"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "one",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:one",
+          "signal": true
+        },
+        {
+          "op": "lstat",
+          "path": "two",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "two",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:two",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "one"
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "callId": "call-1",
+          "files": [
+            {
+              "path": "two"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "nested-owner",
+    "kind": "present-current",
+    "nested": true,
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented report.docx"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "report.docx"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "report.docx"
+            }
+          ]
+        }
+      ],
+      "registered": true
+    }
+  },
+  {
+    "case": "override",
+    "kind": "present-current",
+    "override": true,
+    "calls": [
+      []
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [],
+          "value": {
+            "turn": 3,
+            "files": []
+          }
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": true
+    }
+  },
+  {
+    "case": "post-block",
+    "kind": "present-current",
+    "block": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "blocked"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "detached",
+    "kind": "present-current",
+    "detached": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires an agent Session"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "closed",
+    "kind": "present-current",
+    "closed": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires an open turn"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "no-projection",
+    "kind": "present-current",
+    "noBoundary": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires an open turn"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "no-workspace",
+    "kind": "present-current",
+    "noWorkspace": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires a workspace"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "missing",
+    "kind": "present-current",
+    "missing": true,
+    "lstatMissing": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: Cannot present report.docx: file not found. Check the path, create the file if needed, and retry."
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "lstat-missing-stat-present",
+    "kind": "present-current",
+    "lstatMissing": true,
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented report.docx"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "report.docx"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "report.docx"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "directory",
+    "kind": "present-current",
+    "entryKind": "directory",
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: Cannot present report.docx: not a regular file"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "symlink",
+    "kind": "present-current",
+    "entryKind": "symlink",
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: Cannot present report.docx: not a regular file"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "race-directory",
+    "kind": "present-current",
+    "statKind": "directory",
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: Cannot present report.docx: not a regular file"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "fs-error",
+    "kind": "present-current",
+    "fsError": "FS_SANDBOX_DENIED",
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: filesystem refused"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "abort-during",
+    "kind": "present-current",
+    "abortDuring": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: caller cancelled"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "pre-abort",
+    "kind": "present-current",
+    "aborted": true,
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: tool call aborted before dispatch"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "empty",
+    "kind": "present-current",
+    "calls": [
+      []
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present accepts 1 to 8 files"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "excess",
+    "kind": "present-current",
+    "config": {
+      "maxFiles": 1
+    },
+    "calls": [
+      [
+        {
+          "path": "a"
+        },
+        {
+          "path": "b"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present accepts 1 to 1 files"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "whole-float-limit",
+    "kind": "present-current",
+    "config": {
+      "maxFiles": 2.0
+    },
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented report.docx"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "report.docx"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "report.docx",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:report.docx",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "report.docx"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-0",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": ""
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires a non-empty file path"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-1",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "  "
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires a non-empty file path"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-2",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "\ufeff"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: present requires a non-empty file path"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-3",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "\u0085"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented \u0085"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "\u0085"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "\u0085",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "\u0085",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:\u0085",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "\u0085"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-4",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "\u001c"
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented \u001c"
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "\u001c"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "\u001c",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "\u001c",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:\u001c",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "\u001c"
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "whitespace-5",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "  file  "
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "Presented   file  "
+            }
+          ],
+          "value": {
+            "turn": 3,
+            "files": [
+              {
+                "path": "  file  "
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "lstat",
+          "path": "  file  ",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "resolve",
+          "path": "  file  ",
+          "cwd": "/project",
+          "signal": true
+        },
+        {
+          "op": "stat",
+          "path": "opaque:  file  ",
+          "signal": true
+        }
+      ],
+      "deliveries": [
+        {
+          "turn": 3,
+          "callId": "call-0",
+          "files": [
+            {
+              "path": "  file  "
+            }
+          ]
+        }
+      ],
+      "registered": false
+    }
+  },
+  {
+    "case": "invalid-file-0",
+    "kind": "present-current",
+    "calls": [
+      [
+        {}
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: invalid arguments: missing required property \"files[0].path\""
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "invalid-file-1",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": 3
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: invalid arguments: \"files[0].path\" must be a string"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "invalid-file-2",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "a",
+          "description": 1
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: invalid arguments: \"files[0].description\" must be a string"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  },
+  {
+    "case": "invalid-file-3",
+    "kind": "present-current",
+    "calls": [
+      [
+        {
+          "path": "a",
+          "extra": true
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "isError": true,
+          "content": [
+            {
+              "type": "text",
+              "text": "Error: invalid arguments: \"files[0].extra\" is not a declared property (additionalProperties: false)"
+            }
+          ]
+        }
+      ],
+      "calls": [],
+      "deliveries": [],
+      "registered": false
+    }
+  }
+]

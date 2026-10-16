@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'workspace-files-current':
+        if case['kind'] == 'present-current':
+            from scripts.oracles.present_current_python import execute as present_execute
+            value = present_execute(case)
+        elif case['kind'] == 'workspace-files-current':
             from scripts.oracles.workspace_files_current_python import execute as workspace_files_execute
             value = workspace_files_execute(case)
         elif case['kind'] == 'fs-range-current':

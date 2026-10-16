@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-C-present",
+  "status": "native-targeted-passed-source-permission-failures-open",
+  "paired": {
+    "matched": 33,
+    "report": {
+      "path": ".goose/out/rc3-r06-present-qualified-20261017/report.json",
+      "sha256": "7fcb8bb5d4466325af54791c222baaaf607decde623f67cadcaf2c45f8cad5a8"
+    },
+    "corpus": {
+      "path": "scripts/oracles/present_current_cases.json",
+      "sha256": "49e3e63287ecc1b5290758b10cfb0c1510cedb77a9043aaabbb6360a51b0e887"
+    }
+  },
+  "native": {
+    "passed": 186,
+    "command": {
+      "path": ".goose/out/rc3-r06-present-native-final-20261017/command.json",
+      "sha256": "588c989633dc4b0de4da087b79fd99edda35eb9a7c7a8f5570df7db6543750fd"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-present-native-final-20261017/pytest.xml",
+      "sha256": "d8f6b4cfa404de9446e5c5f414dfa9dd3d6aecd0204740615ae16a4332dff6f6"
+    }
+  },
+  "source": {
+    "passed": 8,
+    "failed": 2,
+    "suites": 1,
+    "command": {
+      "path": ".goose/out/rc3-r06-present-source-20261017/command.json",
+      "sha256": "999b0c90e9fdf35b867503c0d1921ad7335f46096026408dd1b731524296a32e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-present-source-20261017/source.xml",
+      "sha256": "f3eea615ea4528a1ed643295df65f2d0534353cc0bbba7a901e28c4e3e3e17b6"
+    },
+    "failure": "Two unchanged tests fail during Windows EPERM symlink fixture setup; no full Source success claim."
+  },
+  "implementation": [
+    {
+      "path": "dsh/fs/tool_present_current.py",
+      "sha256": "5f25ef899a9904c760284a189b3468dd00a93d466a75d9e52b3873a059febbb1"
+    }
+  ],
+  "scope": [
+    "Existing regular files declared through Session cwd and opaque composed FS; no byte reads, copies, attachment admission or path rewriting. Outside-cwd paths remain accessible through FS policy.",
+    "Weak execution identity commits owning Session deliverables/presented only after final successful tool result; post-execute blocking, scoped overrides and duplicate mounting do not publish spurious deliveries.",
+    "Actual binary files, independent parent/child ownership and cold persisted readback covered, with open-turn projection, safe deployment limit and cancellation checks."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r06-present-initial-20261017",
+      "reason": "Source test actor scoped registration lacked tools injection."
+    },
+    {
+      "path": ".goose/out/rc3-r06-present-scoped-20261017",
+      "reason": "Source replacement-tool fixture lacked explicit schema policy."
+    },
+    {
+      "path": ".goose/out/rc3-r06-present-native-20261017",
+      "reason": "Two real-FS tests incorrectly mounted a service class as a Plugin."
+    },
+    {
+      "path": ".goose/out/rc3-r06-present-native-corrected-20261017",
+      "reason": "Post-policy test fixture returned None instead of forwarding next result on acceptance."
+    }
+  ],
+  "remaining": [
+    "Authenticated declared-file opens, current client guidance/service assembly and browser deliverable rendering.",
+    "Production registry/profile/pins and unified release qualification remain open."
+  ]
+}

@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'present-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/present_current_python.py', ROOT/'scripts/oracles/present_current_source.mts'])
         if any(case.get('kind') == 'workspace-files-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/workspace_files_current_python.py', ROOT/'scripts/oracles/workspace_files_current_source.mts'])
         if any(case.get('kind') == 'fs-range-current' for case in cases):
