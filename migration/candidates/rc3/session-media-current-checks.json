@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-E-execution-world-media-route",
+  "status": "targeted-native-and-paired-passed-source-environment-gap",
+  "paired": {
+    "matched": 34,
+    "report": {
+      "path": ".goose/out/rc3-r05-media-frozen-20261017/report.json",
+      "sha256": "3a4ccf8ac05451a1a81479c940e44a1bea99319bb2e4ac5dee2d167eea675524"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_media_current_cases.json",
+      "sha256": "2f6752e0371e9c8934240d047d34e91180eb4919633def0cf6ce8346512d7324"
+    }
+  },
+  "native": {
+    "passed": 95,
+    "command": {
+      "path": ".goose/out/rc3-r05-media-native-20261017/command.json",
+      "sha256": "be32cd8652602731f17066202d8d55c4f8e7bb536f3e7603fd11cc8ee46377ed"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-media-native-20261017/pytest.xml",
+      "sha256": "dc0252007bb5348815a3c903990e54f3ab7b4e09890a398525b17c978dd81f79"
+    }
+  },
+  "source": {
+    "passed": 20,
+    "failed": 1,
+    "skipped": 1,
+    "command": {
+      "path": ".goose/out/rc3-r05-media-source-20261017/command.json",
+      "sha256": "d7f7c36d9b9e4ecc232be2bd530720831319e94576180283c29e4fdece0fe997"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-media-source-20261017/source.xml",
+      "sha256": "db9038d9499c88b7b800892acface1a1d1d4de66930a63c15cdac1193c3dabcf"
+    },
+    "gap": "Unchanged Source test cannot create file symlink on this Windows host: EPERM. FIFO is an original Windows skip. No full original-suite pass claimed."
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_media_current.py",
+      "sha256": "60e947648deadd039aa4a8075b2b627da7d1c1f95d8c0074f5f9ae81656b72b1"
+    },
+    {
+      "path": "dsh/resources/mime_types_current.json",
+      "sha256": "b5dab984d2e13eac3ed51d50d79997f07ff77afc68ebe6cb040e5efcd74eb525"
+    },
+    {
+      "path": "dsh/host/connection/http_bridge.py",
+      "sha256": "966ffcdea8af4c21b5a395ac3d22d29d0d194485c43a4eab2567eb56fa596937"
+    }
+  ],
+  "scope": [
+    "Exact GET/HEAD /api/file over composed FS with opaque targets, signal and byte cap; MIME uses displayPath and all1239 extension mappings frozen from original mime-types.",
+    "HEAD does not read content; shared HTTP writer preserves a bodyless representation length and avoids duplicate Content-Length. Errors retain original statuses, GET text/HEAD null bodies and CSP/private/no-store/nosniff protections.",
+    "Actual TCP GET/HEAD, range ignored, over-cap refusal, auth before FS, unload; actual FS post-stat growth and abort."
+  ],
+  "retained_failure": {
+    "path": ".goose/out/rc3-r05-media-initial-20261017",
+    "reason": "Observer compared Fetch cloned request signal to original controller signal; now compares exact request.signal. Original observation retained."
+  },
+  "remaining": [
+    "Current SessionController prompt/queue/file receipt ownership and remaining current consumers.",
+    "Production activation, original symlink environment gap, frontend/browser and unified release acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192362045440,
+    "policy": "Successful short pytest workspaces auto-pruned; Source failure XML/log retained, no large copied fixtures introduced."
+  }
+}

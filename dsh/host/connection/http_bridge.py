@@ -49,10 +49,17 @@ async def write_response(writer, response):
     for name, value in response.get("headers", {}).items():
         writer.write_header(name, str(value))
     body = response.get("body", b"")
+    if body is None:
+        # Fetch HEAD responses can carry a representation length without a
+        # body, or deliberately omit that length. Do not synthesize zero.
+        await writer.send_headers()
+        await writer.finish()
+        return
     if isinstance(body, str):
         body = body.encode("utf-8")
     if isinstance(body, bytes):
-        writer.write_header("Content-Length", str(len(body)))
+        if not any(name.lower() == 'content-length' for name in response.get('headers', {})):
+            writer.write_header("Content-Length", str(len(body)))
         writer.write_body(body)
     else:
         async for chunk in body:

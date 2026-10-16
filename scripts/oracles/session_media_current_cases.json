@@ -1,0 +1,956 @@
+[
+  {
+    "case": "media-mime-png",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.png",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/png",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-svg",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.svg",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/svg+xml",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-mp4",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.mp4",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "video/mp4",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-mp3",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.mp3",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "audio/mpeg",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-txt",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.txt",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-html",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.html",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/html",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-bin",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.bin",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "application/octet-stream",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-XYZ",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.XYZ",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "chemical/x-xyz",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-MD",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.MD",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/markdown",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-woff2",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.woff2",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "font/woff2",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-avif",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file.avif",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/avif",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-mime-empty",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "displayPath": "C:/display/file",
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "application/octet-stream",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-GET-empty",
+    "kind": "session-media-current",
+    "method": "GET",
+    "path": "",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "6d697373696e672070617468"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-GET-relative",
+    "kind": "session-media-current",
+    "method": "GET",
+    "path": "relative.png",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "6162736f6c7574652070617468207265717569726564"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-GET-nul",
+    "kind": "session-media-current",
+    "method": "GET",
+    "path": "C:/a\u0000b.png",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "6162736f6c7574652070617468207265717569726564"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-GET-missing",
+    "kind": "session-media-current",
+    "method": "GET",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "6d697373696e672070617468"
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-HEAD-empty",
+    "kind": "session-media-current",
+    "method": "HEAD",
+    "path": "",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-HEAD-relative",
+    "kind": "session-media-current",
+    "method": "HEAD",
+    "path": "relative.png",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-HEAD-nul",
+    "kind": "session-media-current",
+    "method": "HEAD",
+    "path": "C:/a\u0000b.png",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-HEAD-missing",
+    "kind": "session-media-current",
+    "method": "HEAD",
+    "expected": {
+      "response": {
+        "status": 400,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-head-bounded",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "method": "HEAD",
+    "info": {
+      "type": "file",
+      "size": 4
+    },
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/png",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "stat",
+          "sameTarget": true,
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-head-oversize",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "method": "HEAD",
+    "info": {
+      "type": "file",
+      "size": 5
+    },
+    "expected": {
+      "response": {
+        "status": 413,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "stat",
+          "sameTarget": true,
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-head-missing",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "method": "HEAD",
+    "info": null,
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "stat",
+          "sameTarget": true,
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-head-directory",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "method": "HEAD",
+    "info": {
+      "type": "directory"
+    },
+    "expected": {
+      "response": {
+        "status": 403,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "stat",
+          "sameTarget": true,
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-head-no-size",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "method": "HEAD",
+    "info": {
+      "type": "file"
+    },
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/png",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": ""
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "stat",
+          "sameTarget": true,
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_NOT_FOUND",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_NOT_FOUND",
+    "expected": {
+      "response": {
+        "status": 404,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f4e4f545f464f554e44"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_NOT_REGULAR_FILE",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_NOT_REGULAR_FILE",
+    "expected": {
+      "response": {
+        "status": 403,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f4e4f545f524547554c41525f46494c45"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_PERMISSION_DENIED",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_PERMISSION_DENIED",
+    "expected": {
+      "response": {
+        "status": 403,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f5045524d495353494f4e5f44454e494544"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_SANDBOX_DENIED",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_SANDBOX_DENIED",
+    "expected": {
+      "response": {
+        "status": 403,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f53414e44424f585f44454e494544"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_TOO_LARGE",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_TOO_LARGE",
+    "expected": {
+      "response": {
+        "status": 413,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f544f4f5f4c41524745"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_ABORTED",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_ABORTED",
+    "expected": {
+      "response": {
+        "status": 499,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f41424f52544544"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-FS_IO_ERROR",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "FS_IO_ERROR",
+    "expected": {
+      "response": {
+        "status": 500,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "text/plain;charset=UTF-8",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "46535f494f5f4552524f52"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-failure-unexpected",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "error": "unexpected",
+    "expected": {
+      "response": {
+        "error": "unexpected provider failure"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        }
+      ],
+      "withdrawn": true
+    }
+  },
+  {
+    "case": "media-range-complete",
+    "kind": "session-media-current",
+    "path": "C:/remote/input.png",
+    "headers": {
+      "range": "bytes=0-0"
+    },
+    "expected": {
+      "response": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-store",
+          "content-length": "4",
+          "content-security-policy": "sandbox; default-src 'none'",
+          "content-type": "image/png",
+          "x-content-type-options": "nosniff"
+        },
+        "hex": "000102ff"
+      },
+      "calls": [
+        {
+          "method": "resolve",
+          "path": "C:/remote/input.png",
+          "signal": true
+        },
+        {
+          "method": "read",
+          "sameTarget": true,
+          "signal": true,
+          "maxBytes": 4
+        }
+      ],
+      "withdrawn": true
+    }
+  }
+]
