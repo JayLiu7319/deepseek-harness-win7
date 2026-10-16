@@ -108,6 +108,20 @@ def release_lanes(path):
 def lane_audit(product_root, lanes, target_paths):
     """Flag source inputs for contract review, never silently rewrite old pins."""
     import fnmatch
+
+    def matches(path, pattern):
+        if pattern.endswith('/'):
+            return path.startswith(pattern)
+        parts, wanted = path.split('/'), pattern.split('/')
+
+        def descend(i, j):
+            if j == len(wanted):
+                return i == len(parts)
+            if wanted[j] == '**':
+                return descend(i, j + 1) or i < len(parts) and descend(i + 1, j)
+            return i < len(parts) and fnmatch.fnmatchcase(parts[i], wanted[j]) and descend(i + 1, j + 1)
+        return descend(0, 0)
+
     result = {}
     target_paths = set(target_paths)
     for kind, names in lanes.items():
@@ -120,10 +134,10 @@ def lane_audit(product_root, lanes, target_paths):
                 raise ValueError('Declared release lane is missing: ' + path)
             raw = selected.read_bytes()
             text = raw.decode('utf-8')
-            refs = sorted(set(re.findall(r"reference/[^'\"\s)]+", text)))
+            refs = sorted({match.group(2) for match in re.finditer(r"(['\"])(reference/[^'\"\r\n]+)\1", text)})
             result[kind].append(dict(name=name, path=path, sha256=hashlib.sha256(raw).hexdigest(),
                 literal_pins=sorted(set(re.findall(r'\b[0-9a-f]{40}\b', text))),
-                literal_source_paths=[dict(path=p, target_matches=sum(fnmatch.fnmatchcase(t, p[len('reference/'):]) for t in target_paths)) for p in refs],
+                literal_source_paths=[dict(path=p, target_matches=sum(matches(t, p[len('reference/'):]) for t in target_paths)) for p in refs],
                 state='contract-review-required',
                 limitation='Literal driver/config file only; inherited configs, imported helpers, generated paths and behavior require contract review'))
     return result

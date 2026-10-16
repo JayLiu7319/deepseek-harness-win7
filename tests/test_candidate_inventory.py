@@ -110,6 +110,16 @@ def test_lane_audit_uses_actual_config_and_exposes_removed_paths_and_old_pins(tm
     assert audit['OFFICIAL_CONFIGS'][0]['state'] == 'contract-review-required'
 
 
+def test_lane_audit_recursive_globs_include_zero_directories_and_ignore_comment_fragments(tmp_path):
+    path = tmp_path / 'scripts/oracles/vitest.core.config.mts'
+    path.parent.mkdir(parents=True)
+    path.write_text("// reference/not-a-literal;\n['reference/pkg/tests/**/*.spec.ts', 'reference/pkg/src/']\n", encoding='utf-8')
+    audit = candidate.lane_audit(tmp_path, {'OFFICIAL_CONFIGS': ['core']},
+        ['pkg/tests/root.spec.ts', 'pkg/tests/nested/child.spec.ts', 'pkg/src/index.ts', 'pkg/src/sub/other.ts'])
+    refs = audit['OFFICIAL_CONFIGS'][0]['literal_source_paths']
+    assert refs == [dict(path='reference/pkg/src/', target_matches=2), dict(path='reference/pkg/tests/**/*.spec.ts', target_matches=2)]
+
+
 def test_candidate_output_is_exclusive_and_protects_active_records(repository, tmp_path):
     root, _, _ = repository
     for path in (root / 'package.json', tmp_path / '.git/record.json', tmp_path / 'migration/baseline.json'):

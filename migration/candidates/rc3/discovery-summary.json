@@ -1076,14 +1076,6 @@
             "target_matches": 1
           },
           {
-            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:",
-            "target_matches": 0
-          },
-          {
-            "path": "reference/packages/extensions/cordis-host-runner/src/lifecycle.ts:28:27",
-            "target_matches": 0
-          },
-          {
             "path": "reference/packages/extensions/cordis-host-runner/src/registry.ts",
             "target_matches": 1
           },
@@ -1774,7 +1766,7 @@
           },
           {
             "path": "reference/packages/session/session-persistence-jsonl/src/",
-            "target_matches": 0
+            "target_matches": 12
           }
         ],
         "state": "contract-review-required",
@@ -1808,7 +1800,7 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/workflow/workflow-worker-thread/src/",
-            "target_matches": 0
+            "target_matches": 9
           }
         ],
         "state": "contract-review-required",
@@ -1852,7 +1844,7 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/workflow/workflow-worker-thread/src/",
-            "target_matches": 0
+            "target_matches": 9
           }
         ],
         "state": "contract-review-required",
@@ -1894,7 +1886,7 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/workflow/workflow-worker-thread/src/",
-            "target_matches": 0
+            "target_matches": 9
           }
         ],
         "state": "contract-review-required",
@@ -2839,10 +2831,6 @@
           {
             "path": "reference/packages/preset/agent-presets/tests/mount.spec.ts",
             "target_matches": 1
-          },
-          {
-            "path": "reference/vitest.shared.ts;",
-            "target_matches": 0
           }
         ],
         "state": "contract-review-required",
@@ -2977,10 +2965,6 @@
           {
             "path": "reference/packages/subagent/subagent-acp/tests/subagent-acp.spec.ts",
             "target_matches": 1
-          },
-          {
-            "path": "reference/packages/subprocess/subprocess-local/src/",
-            "target_matches": 0
           }
         ],
         "state": "contract-review-required",
@@ -3130,11 +3114,11 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/llm/llm-deepseek/tests/**/*.spec.ts",
-            "target_matches": 0
+            "target_matches": 12
           },
           {
             "path": "reference/packages/llm/llm-retry/tests/**/*.spec.ts",
-            "target_matches": 0
+            "target_matches": 5
           }
         ],
         "state": "contract-review-required",
@@ -3148,7 +3132,7 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/llm/llm/tests/**/*.spec.ts",
-            "target_matches": 0
+            "target_matches": 13
           }
         ],
         "state": "contract-review-required",
@@ -3184,7 +3168,7 @@
         "literal_source_paths": [
           {
             "path": "reference/packages/plan/plan-mode/tests/**/*.spec.ts",
-            "target_matches": 0
+            "target_matches": 4
           }
         ],
         "state": "contract-review-required",
