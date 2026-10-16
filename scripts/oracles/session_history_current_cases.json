@@ -1,0 +1,3397 @@
+[
+  {
+    "case": "assistant-baseline-cache-gap-reset",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 2,
+          "turn": 1,
+          "step": 1
+        }
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 1,
+          "turn": 1,
+          "step": 1
+        },
+        "cursor": 5
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "other",
+          "revision": 2,
+          "index": 0,
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hello"
+          }
+        }
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "b",
+          "revision": 3,
+          "turn": 1,
+          "step": 1
+        },
+        "cursor": 8
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "b",
+          "revision": 4,
+          "index": 0,
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hello"
+          }
+        }
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "end",
+          "attemptId": "b",
+          "revision": 5,
+          "index": 1,
+          "outcome": {
+            "kind": "abandoned"
+          }
+        }
+      },
+      {
+        "op": "snapshot"
+      }
+    ],
+    "mode": "accumulator",
+    "expected": {
+      "results": [
+        {
+          "value": {
+            "revision": 0
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 0
+          },
+          "same": true
+        },
+        {
+          "value": {
+            "revision": 2
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 1,
+            "activeAttempt": {
+              "attemptId": "a",
+              "startedAfterSeq": 5,
+              "turn": 1,
+              "step": 1,
+              "nextIndex": 0,
+              "stream": []
+            }
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 2
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 4,
+            "activeAttempt": {
+              "attemptId": "b",
+              "startedAfterSeq": 8,
+              "turn": 1,
+              "step": 1,
+              "nextIndex": 1,
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 10,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "hello"
+                  ]
+                }
+              ]
+            }
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 4,
+            "activeAttempt": {
+              "attemptId": "b",
+              "startedAfterSeq": 8,
+              "turn": 1,
+              "step": 1,
+              "nextIndex": 1,
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 10,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "hello"
+                  ]
+                }
+              ]
+            }
+          },
+          "same": true
+        },
+        {
+          "value": {
+            "revision": 5
+          },
+          "same": false
+        }
+      ]
+    }
+  },
+  {
+    "case": "assistant-dense-compact-index-gap",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 1,
+          "turn": 1,
+          "step": 1
+        }
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "a",
+          "revision": 2,
+          "index": 0,
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hello"
+          }
+        }
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "a",
+          "revision": 3,
+          "index": 1,
+          "time": 11,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": " world"
+          }
+        }
+      },
+      {
+        "op": "snapshot"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "a",
+          "revision": 4,
+          "index": 3,
+          "time": 13,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hello"
+          }
+        }
+      },
+      {
+        "op": "snapshot"
+      }
+    ],
+    "mode": "accumulator",
+    "expected": {
+      "results": [
+        {
+          "value": {
+            "revision": 3,
+            "activeAttempt": {
+              "attemptId": "a",
+              "startedAfterSeq": -1,
+              "turn": 1,
+              "step": 1,
+              "nextIndex": 2,
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 10,
+                  "index": 0,
+                  "dt": [
+                    1
+                  ],
+                  "texts": [
+                    "hello",
+                    " world"
+                  ]
+                }
+              ]
+            }
+          },
+          "same": false
+        },
+        {
+          "value": {
+            "revision": 4
+          },
+          "same": false
+        }
+      ]
+    }
+  },
+  {
+    "case": "page-raw-contiguous-message-bound",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 4,
+          "maxMessages": 1
+        }
+      },
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 4,
+          "beforeSeq": 3,
+          "maxMessages": 1
+        }
+      },
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "first"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "session/title",
+        "data": {
+          "title": "title",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "second"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "records": [
+              {
+                "type": "event",
+                "event": {
+                  "type": "user/message",
+                  "seq": 3,
+                  "time": 1000,
+                  "data": {
+                    "id": "m2",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "second"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    }
+                  },
+                  "surfaceOp": "append"
+                }
+              },
+              {
+                "type": "event",
+                "event": {
+                  "type": "turn/end",
+                  "seq": 4,
+                  "time": 1000,
+                  "data": {
+                    "turn": 1,
+                    "reason": {
+                      "kind": "completed"
+                    }
+                  }
+                }
+              }
+            ],
+            "hasMore": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "records": [
+              {
+                "type": "event",
+                "event": {
+                  "type": "user/message",
+                  "seq": 1,
+                  "time": 1000,
+                  "data": {
+                    "id": "m1",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "first"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    }
+                  },
+                  "surfaceOp": "append"
+                }
+              },
+              {
+                "type": "event",
+                "event": {
+                  "type": "session/title",
+                  "seq": 2,
+                  "time": 1000,
+                  "data": {
+                    "title": "title",
+                    "messageSeqs": [],
+                    "source": {
+                      "kind": "user"
+                    }
+                  }
+                }
+              }
+            ],
+            "hasMore": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "records": [],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        },
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        },
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 3,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-cursor-frozen-during-later-append",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 2,
+          "maxMessages": 10
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "first"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "session/title",
+        "data": {
+          "title": "title",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "second"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "records": [
+              {
+                "type": "event",
+                "event": {
+                  "type": "turn/start",
+                  "seq": 0,
+                  "time": 1000,
+                  "data": {
+                    "turn": 1
+                  }
+                }
+              },
+              {
+                "type": "event",
+                "event": {
+                  "type": "user/message",
+                  "seq": 1,
+                  "time": 1000,
+                  "data": {
+                    "id": "m1",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "first"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user"
+                    }
+                  },
+                  "surfaceOp": "append"
+                }
+              },
+              {
+                "type": "event",
+                "event": {
+                  "type": "session/title",
+                  "seq": 2,
+                  "time": 1000,
+                  "data": {
+                    "title": "title",
+                    "messageSeqs": [],
+                    "source": {
+                      "kind": "user"
+                    }
+                  }
+                }
+              }
+            ],
+            "hasMore": false
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-0",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": null
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-1",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-2",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -0.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-3",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-4",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-throughSeq-5",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 9007199254740992
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "throughSeq must be an integer greater than or equal to -1",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-beforeSeq-0",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "beforeSeq": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "beforeSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-beforeSeq-1",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "beforeSeq": -0.0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "beforeSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-beforeSeq-2",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "beforeSeq": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "beforeSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-beforeSeq-3",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "beforeSeq": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "beforeSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-maxMessages-0",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "maxMessages": 0
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "maxMessages must be a positive safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-maxMessages-1",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "maxMessages": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "maxMessages must be a positive safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-maxMessages-2",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "maxMessages": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "maxMessages must be a positive safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-invalid-maxMessages-3",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1,
+          "maxMessages": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "maxMessages must be a positive safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "page-past-cursor",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": 10
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m1",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "first"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "session/title",
+        "data": {
+          "title": "title",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "user/message",
+        "surfaceOp": "append",
+        "data": {
+          "id": "m2",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "second"
+            }
+          ],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session page through seq 10 is past cursor 4",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-missing",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "page",
+        "request": {
+          "throughSeq": -1
+        }
+      },
+      {
+        "op": "follow"
+      }
+    ],
+    "missing": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "none",
+          "signal": true
+        },
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-cwdless",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      }
+    ],
+    "meta": {
+      "cwd": null
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-ordinary-rejects-child",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent Sessions require their durable parent address",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-wrong-parent",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "other"
+    },
+    "projections": {},
+    "cut": 0,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent does not belong to the supplied parent",
+            "code": "subagent/unauthorized",
+            "details": {
+              "childSessionId": "one"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-unsupported",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "projections": {},
+    "cut": 0,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent descriptor is unavailable",
+            "code": "subagent/catalog-diagnostic",
+            "details": {
+              "parentSessionId": "parent",
+              "childSessionId": "one",
+              "reason": "unsupported"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-corrupt",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "projections": {
+      "subagent": null
+    },
+    "cut": 0,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent descriptor is corrupt",
+            "code": "subagent/catalog-diagnostic",
+            "details": {
+              "parentSessionId": "parent",
+              "childSessionId": "one",
+              "reason": "corrupt"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-inherited-identity",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "projections": {
+      "subagent": {
+        "seq": 0,
+        "mode": "continuable"
+      }
+    },
+    "cut": 1,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent descriptor is unavailable",
+            "code": "subagent/catalog-diagnostic",
+            "details": {
+              "parentSessionId": "parent",
+              "childSessionId": "one",
+              "reason": "unsupported"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-wrong-mode",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "projections": {
+      "subagent": {
+        "seq": 0,
+        "mode": "oneshot"
+      }
+    },
+    "cut": 0,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "subagent mode does not match the supplied address",
+            "code": "subagent/unauthorized",
+            "details": {
+              "childSessionId": "one"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "history-child-valid",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "meta": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "projections": {
+      "subagent": {
+        "seq": 0,
+        "mode": "continuable"
+      }
+    },
+    "cut": 0,
+    "address": {
+      "kind": "subagent",
+      "parentSessionId": "parent",
+      "childSessionId": "one",
+      "mode": "continuable"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "parentSession": "parent",
+                "isSeeded": false,
+                "origin": "subagent"
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {
+                  "subagent": {
+                    "seq": 0,
+                    "mode": "continuable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-live-durable-no-chunks",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow",
+        "request": {
+          "assistantStream": true
+        }
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 1,
+          "turn": 1,
+          "step": 1
+        }
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "chunk",
+          "attemptId": "a",
+          "revision": 2,
+          "index": 0,
+          "time": 10,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hello"
+          }
+        }
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "user/message",
+            "surfaceOp": "append",
+            "data": {
+              "id": "m1",
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "live"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              },
+              "assistantStream": {
+                "revision": 0
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "assistant-stream",
+              "frame": {
+                "type": "start",
+                "attemptId": "a",
+                "revision": 1,
+                "turn": 1,
+                "step": 1,
+                "startedAfterSeq": -1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "assistant-stream",
+              "frame": {
+                "type": "chunk",
+                "attemptId": "a",
+                "revision": 2,
+                "index": 0,
+                "time": 10,
+                "chunk": {
+                  "type": "text-delta",
+                  "index": 0,
+                  "text": "hello"
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "event",
+              "event": {
+                "type": "user/message",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "id": "m1",
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "live"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  }
+                },
+                "surfaceOp": "append"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-opt-in-absent",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 1,
+          "turn": 1,
+          "step": 1
+        }
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "user/message",
+            "surfaceOp": "append",
+            "data": {
+              "id": "m1",
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "live"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "event",
+              "event": {
+                "type": "user/message",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "id": "m1",
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "live"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  }
+                },
+                "surfaceOp": "append"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-opening-baseline-suppresses-buffered-frames",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow",
+        "request": {
+          "assistantStream": true
+        }
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "user/message",
+            "surfaceOp": "append",
+            "data": {
+              "id": "m1",
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "later"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "openingFrames": [
+      {
+        "type": "start",
+        "attemptId": "a",
+        "revision": 1,
+        "turn": 1,
+        "step": 1
+      },
+      {
+        "type": "chunk",
+        "attemptId": "a",
+        "revision": 2,
+        "index": 0,
+        "time": 10,
+        "chunk": {
+          "type": "text-delta",
+          "index": 0,
+          "text": "hello"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              },
+              "assistantStream": {
+                "revision": 2,
+                "activeAttempt": {
+                  "attemptId": "a",
+                  "startedAfterSeq": -1,
+                  "turn": 1,
+                  "step": 1,
+                  "nextIndex": 1,
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 10,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "hello"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "event",
+              "event": {
+                "type": "user/message",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "id": "m1",
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "later"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  }
+                },
+                "surfaceOp": "append"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-disposed-agent-removes-reconnect-baseline",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "frame",
+        "frame": {
+          "type": "start",
+          "attemptId": "a",
+          "revision": 1,
+          "turn": 1,
+          "step": 1
+        }
+      },
+      {
+        "op": "disposed"
+      },
+      {
+        "op": "follow",
+        "request": {
+          "assistantStream": true
+        }
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              },
+              "assistantStream": {
+                "revision": 0
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-close-wakes-pending",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "close"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 1,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "follow-prepared-promotes-after-snapshot",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "append",
+        "events": [
+          {
+            "type": "user/message",
+            "surfaceOp": "append",
+            "data": {
+              "id": "m1",
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "new"
+                }
+              ],
+              "source": {
+                "kind": "user"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "op": "next"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "source": "prepared",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "event",
+              "event": {
+                "type": "user/message",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "id": "m1",
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "new"
+                    }
+                  ],
+                  "source": {
+                    "kind": "user"
+                  }
+                },
+                "surfaceOp": "append"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 2,
+        "retained": 1,
+        "promoted": 1
+      }
+    }
+  },
+  {
+    "case": "follow-promotion-failure-releases-retain",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "follow"
+      },
+      {
+        "op": "next"
+      }
+    ],
+    "source": "prepared",
+    "promotionError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "snapshot",
+              "header": {
+                "version": 3,
+                "id": "one",
+                "createdAt": 100,
+                "cwd": "/workspace",
+                "isSeeded": false
+              },
+              "cursor": -1,
+              "records": [],
+              "hasMore": false,
+              "projections": {
+                "asOfSeq": -1,
+                "values": {}
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "promotion rejected"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "sessionId": "one",
+          "projectionMode": "all",
+          "signal": true
+        }
+      ],
+      "counts": {
+        "disposed": 3,
+        "retained": 1,
+        "promoted": 1
+      }
+    }
+  },
+  {
+    "case": "control-durable-inbox-projection-order",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "control"
+      },
+      {
+        "op": "inbox",
+        "message": {
+          "id": "q",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "q"
+            }
+          ],
+          "source": {
+            "kind": "user",
+            "rpcId": "rpc-q"
+          }
+        }
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "inbox",
+        "target": "next-step",
+        "message": {
+          "id": "s",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "s"
+            }
+          ],
+          "source": {
+            "kind": "user",
+            "rpcId": "rpc-s"
+          }
+        }
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "inbox",
+        "target": "next-step",
+        "message": {
+          "id": "ctx",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "ctx"
+            }
+          ],
+          "source": {
+            "kind": "plugin",
+            "plugin": "fixture"
+          }
+        }
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "remove",
+        "id": "q"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "abort"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "baseline",
+              "value": {
+                "queues": {
+                  "one": []
+                },
+                "jobs": {
+                  "one": []
+                },
+                "projections": {
+                  "one": {
+                    "asOfSeq": -1,
+                    "values": {
+                      "inbox": {
+                        "next-turn": [],
+                        "next-step": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "projection",
+              "sessionId": "one",
+              "key": "inbox",
+              "value": {
+                "next-turn": [
+                  {
+                    "id": "q",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-q"
+                    }
+                  }
+                ],
+                "next-step": []
+              },
+              "seq": 0
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "queue",
+              "sessionId": "one",
+              "items": [
+                {
+                  "id": "q",
+                  "placement": "queued",
+                  "rpcId": "rpc-q",
+                  "message": {
+                    "id": "q",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "projection",
+              "sessionId": "one",
+              "key": "inbox",
+              "value": {
+                "next-turn": [
+                  {
+                    "id": "q",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-q"
+                    }
+                  }
+                ],
+                "next-step": [
+                  {
+                    "id": "s",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-s"
+                    }
+                  }
+                ]
+              },
+              "seq": 1
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "queue",
+              "sessionId": "one",
+              "items": [
+                {
+                  "id": "q",
+                  "placement": "queued",
+                  "rpcId": "rpc-q",
+                  "message": {
+                    "id": "q",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "s",
+                  "placement": "steering",
+                  "rpcId": "rpc-s",
+                  "message": {
+                    "id": "s",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "projection",
+              "sessionId": "one",
+              "key": "inbox",
+              "value": {
+                "next-turn": [
+                  {
+                    "id": "q",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-q"
+                    }
+                  }
+                ],
+                "next-step": [
+                  {
+                    "id": "s",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-s"
+                    }
+                  },
+                  {
+                    "id": "ctx",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ctx"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "fixture"
+                    }
+                  }
+                ]
+              },
+              "seq": 2
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "queue",
+              "sessionId": "one",
+              "items": [
+                {
+                  "id": "q",
+                  "placement": "queued",
+                  "rpcId": "rpc-q",
+                  "message": {
+                    "id": "q",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "s",
+                  "placement": "steering",
+                  "rpcId": "rpc-s",
+                  "message": {
+                    "id": "s",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "ctx",
+                  "placement": "context",
+                  "message": {
+                    "id": "ctx",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ctx"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "projection",
+              "sessionId": "one",
+              "key": "inbox",
+              "value": {
+                "next-turn": [],
+                "next-step": [
+                  {
+                    "id": "s",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-s"
+                    }
+                  },
+                  {
+                    "id": "ctx",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ctx"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "fixture"
+                    }
+                  }
+                ]
+              },
+              "seq": 3
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "queue",
+              "sessionId": "one",
+              "items": [
+                {
+                  "id": "s",
+                  "placement": "steering",
+                  "rpcId": "rpc-s",
+                  "message": {
+                    "id": "s",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "s"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "ctx",
+                  "placement": "context",
+                  "message": {
+                    "id": "ctx",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "ctx"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "control-jobs-replacement",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "control"
+      },
+      {
+        "op": "jobs",
+        "jobs": [
+          {
+            "id": "j",
+            "kind": "fixture",
+            "label": "job",
+            "status": "running",
+            "startedAt": 1,
+            "private": "omitted"
+          }
+        ]
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "jobs",
+        "all": true,
+        "jobs": []
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "close"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "baseline",
+              "value": {
+                "queues": {
+                  "one": []
+                },
+                "jobs": {
+                  "one": []
+                },
+                "projections": {
+                  "one": {
+                    "asOfSeq": -1,
+                    "values": {
+                      "inbox": {
+                        "next-turn": [],
+                        "next-step": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "jobs",
+              "sessionId": "one",
+              "jobs": [
+                {
+                  "id": "j",
+                  "kind": "fixture",
+                  "label": "job",
+                  "status": "running",
+                  "startedAt": 1
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "jobs",
+              "sessionId": "one",
+              "jobs": []
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  },
+  {
+    "case": "control-close-drains-accepted",
+    "kind": "session-history-current",
+    "actions": [
+      {
+        "op": "control"
+      },
+      {
+        "op": "inbox",
+        "message": {
+          "id": "q",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "q"
+            }
+          ],
+          "source": {
+            "kind": "user",
+            "rpcId": "rpc-q"
+          }
+        }
+      },
+      {
+        "op": "close"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      },
+      {
+        "op": "next",
+        "stream": "control"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "baseline",
+              "value": {
+                "queues": {
+                  "one": []
+                },
+                "jobs": {
+                  "one": []
+                },
+                "projections": {
+                  "one": {
+                    "asOfSeq": -1,
+                    "values": {
+                      "inbox": {
+                        "next-turn": [],
+                        "next-step": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "projection",
+              "sessionId": "one",
+              "key": "inbox",
+              "value": {
+                "next-turn": [
+                  {
+                    "id": "q",
+                    "role": "user",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ],
+                    "source": {
+                      "kind": "user",
+                      "rpcId": "rpc-q"
+                    }
+                  }
+                ],
+                "next-step": []
+              },
+              "seq": 0
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": false,
+            "value": {
+              "type": "queue",
+              "sessionId": "one",
+              "items": [
+                {
+                  "id": "q",
+                  "placement": "queued",
+                  "rpcId": "rpc-q",
+                  "message": {
+                    "id": "q",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "q"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "done": true
+          }
+        }
+      ],
+      "calls": [],
+      "counts": {
+        "disposed": 0,
+        "retained": 0,
+        "promoted": 0
+      }
+    }
+  }
+]

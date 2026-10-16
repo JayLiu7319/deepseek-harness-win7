@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-list-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-history-current'
+    ? await (await import('./session_history_current_source.mts')).sessionHistoryCase(resolve(sourceArg),test)
+    : test.kind==='session-list-current'
     ? await (await import('./session_list_current_source.mts')).sessionListCase(resolve(sourceArg),test)
     : test.kind==='session-agents-current'
     ? await (await import('./session_agents_current_source.mts')).sessionAgentsCase(resolve(sourceArg),test)

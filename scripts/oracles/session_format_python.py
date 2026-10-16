@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-list-current':
+        if case['kind'] == 'session-history-current':
+            from scripts.oracles.session_history_current_python import execute as history_execute
+            value = history_execute(case)
+        elif case['kind'] == 'session-list-current':
             from scripts.oracles.session_list_current_python import execute as list_execute
             value = list_execute(case)
         elif case['kind'] == 'session-agents-current':

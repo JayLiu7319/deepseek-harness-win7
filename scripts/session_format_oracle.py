@@ -54,6 +54,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/session_agents_current_python.py', ROOT/'scripts/oracles/session_agents_current_source.mts'])
         if any(case.get('kind') == 'session-list-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/session_list_current_python.py', ROOT/'scripts/oracles/session_list_current_source.mts'])
+        if any(case.get('kind') == 'session-history-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/session_history_current_python.py', ROOT/'scripts/oracles/session_history_current_source.mts'])
         if any(case.get('kind') == 'file-upload-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/file_upload_current_python.py', ROOT/'scripts/oracles/file_upload_current_source.mts'])
         if any(case.get('kind') == 'llm-files-current' for case in cases):

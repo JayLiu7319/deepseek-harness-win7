@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-H-session-history-control",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 38,
+    "report": {
+      "path": ".goose/out/rc3-r04-session-history-frozen-20261017/report.json",
+      "sha256": "fb886cd5b2ef4a40c29fe4c8565deda376ecdb74cbfc63856161ee2d26909a1e"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_history_current_cases.json",
+      "sha256": "80c094262ae4bfa2fded0a354e8fdc11988b23cd2f96ad1b5fcf151b20a40ba5"
+    }
+  },
+  "native": {
+    "passed": 171,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-history-native-json-observations-20261017/command.json",
+      "sha256": "fe25a49b79e2106ed2335f8c34d5de72a916d4e5087b713e0aac083da47b0d19"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-history-native-json-observations-20261017/pytest.xml",
+      "sha256": "2a34511f72556885f25254993a66d46007013c6a333be92d91265adf2cc4fdc5"
+    }
+  },
+  "source": {
+    "passed": 37,
+    "suites": 4,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-history-source-20261017/command.json",
+      "sha256": "adb7cf8269525fc4b32c79b74a6f1ee981567a5e43de18cf82c7da71bea406be"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-history-source-20261017/source.xml",
+      "sha256": "750d3a60610324cd7703722ebcb1d9ac846f163ab8b35f08b83dc14100c7db32"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_assistant_stream_current.py",
+      "sha256": "fc173c7f4e3138e785457caf33f346bfdcf052d89a33d76feed099e215c97765"
+    },
+    {
+      "path": "dsh/api/session_history_current.py",
+      "sha256": "042ab8105e2181cb3395f87acb6b5ce7218490dd3e2287e49ac4dca7d987fc24"
+    },
+    {
+      "path": "dsh/api/session_control_current.py",
+      "sha256": "02c3925e200ffce20b4e79dff301bbb96ca63a68321b37e0949c8da3e5866ae4"
+    }
+  ],
+  "scope": [
+    "v3 logical event-only pages, exact pagination/address failures and full v3 headers. Assistant reconnect accumulator rejects revision/index gaps and resets new lifecycles; opted-in live frames retain FIFO order and baseline watermark.",
+    "Durable Inbox projection broadcasts projection before complete queue replacement. Jobs are redacted replacement snapshots. Followers close on unload; control drains accepted frames.",
+    "Actual current Agent stream and durable query consumers exercise live reconnect, compact final stream, gap-free journal, cold follow promotion/end-seed suffix, and unload without disposing Agent."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose\\out\\rc3-r04-session-history-initial-20261017",
+      "reason": "Cwd-less actor passed explicit null/duplicate keyword; corrected to omit metadata field."
+    },
+    {
+      "path": ".goose\\out\\rc3-r04-session-history-native-20261017",
+      "result": "161 passed/10 failed",
+      "reason": "Direct actor assertions compared internal FrozenDict/FrozenList classes against decoded JSON using strict type comparator. Actor now returns wire JSON as Source does; real Agent integration already passed."
+    }
+  ],
+  "remaining": [
+    "Full Session Remote provider assembly and production activation.",
+    "Frontend/desktop/Win7 managed ranges and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192354226176,
+    "result": "Successful short workspaces auto-pruned; failures and raw receipts retained; no Portable built."
+  }
+}

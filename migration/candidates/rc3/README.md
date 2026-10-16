@@ -90,3 +90,5 @@ R04-E: [Session Agent activation](session-agents-current-checks.json):26 current
 R04-F: [Session identity commands](session-identity-commands-current-checks.json):32 current pairs plus49 activation/prompt regressions,102 selected native and21 Source tests pass. Actual model routing and persisted fork prefix/title are covered. Full controller and production activation stay open.
 
 R04-G: [Session list/search/cache](session-list-current-checks.json):35 current pairs,141 selected native and60 original Source tests pass. Lists perform no cold handle opens; cache format identity and predecessor title-only hints are covered with actual storage and SQLite consumers. History/control and production activation remain open.
+
+R04-H: [Session history/control](session-history-current-checks.json):38 current pairs,171 selected native and37 original Source tests pass. Actual Agent/query verifies live Assistant reconnect and gap-free cold promotion; control uses durable Inbox replacement snapshots. Full Remote assembly and production activation remain open.
