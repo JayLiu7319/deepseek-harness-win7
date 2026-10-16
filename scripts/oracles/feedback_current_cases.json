@@ -1,0 +1,6065 @@
+[
+  {
+    "case": "feedback-current-session-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "sessionFeedback",
+        "entry": {}
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "recorded": true
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/record",
+            "seq": 0,
+            "time": 1000,
+            "data": {}
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-session-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "sessionFeedback",
+        "entry": {
+          "text": "   "
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "recorded": true
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/record",
+            "seq": 0,
+            "time": 1000,
+            "data": {}
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-session-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "sessionFeedback",
+        "entry": {
+          "text": " good ",
+          "category": "task-result"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "recorded": true
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/record",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "text": "good",
+              "category": "task-result"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-session-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "sessionFeedback",
+        "entry": {
+          "category": "security-privacy-permission"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "recorded": true
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/record",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "category": "security-privacy-permission"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-session-missing",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "sessionFeedback",
+        "sessionId": "missing"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "session-not-found",
+              "sessionId": "missing"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-message-blank",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "positive",
+          "note": " \t"
+        }
+      }
+    ],
+    "persistence": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "note-blank"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-message-too-large",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "positive",
+          "note": "\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b\u6d4b"
+        }
+      }
+    ],
+    "persistence": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "note-too-large",
+              "maxBytes": 32,
+              "actualBytes": 33
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-message-missing",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "positive"
+        }
+      }
+    ],
+    "persistence": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "target-not-found",
+              "sessionId": "machine",
+              "messageId": "missing"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-missing-session",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list",
+        "sessionId": "missing"
+      }
+    ],
+    "persistence": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "session-not-found",
+              "sessionId": "missing"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-live",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "followup",
+        "args": [
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "method": "idle"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "positive",
+          "note": " good ",
+          "category": "task-result"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "currentVersion": true,
+        "request": {
+          "rating": "positive",
+          "note": " good ",
+          "category": "task-result"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "negative"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "currentVersion": true,
+        "request": {
+          "rating": "negative"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "request": {
+          "ifVersion": "stale"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "currentVersion": true
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "request": {
+          "ifVersion": "stale"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "persistence": true,
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "positive",
+              "note": " good ",
+              "category": "task-result",
+              "version": "generated:3",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "positive",
+              "note": " good ",
+              "category": "task-result",
+              "version": "generated:3",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "version-conflict",
+              "current": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "note": " good ",
+                "category": "task-result",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "negative",
+              "version": "generated:4",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "generated:2",
+                  "rating": "negative",
+                  "version": "generated:4",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "version-conflict",
+              "current": {
+                "messageId": "generated:2",
+                "rating": "negative",
+                "version": "generated:4",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "absent": true
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "absent": true
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": []
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "inserted": [
+                {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "turn/start",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "turn": 1
+            }
+          },
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "removedCount": 1,
+              "inserted": []
+            }
+          },
+          {
+            "type": "step/start",
+            "seq": 3,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "system/message",
+            "seq": 4,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:1"
+              }
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "user/message",
+            "seq": 5,
+            "time": 1000,
+            "data": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "request/header",
+            "seq": 6,
+            "time": 1000,
+            "data": {
+              "header": {
+                "config": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              "reason": "initial"
+            }
+          },
+          {
+            "type": "request/context",
+            "seq": 7,
+            "time": 1000,
+            "data": {
+              "provider": "script",
+              "model": "model"
+            }
+          },
+          {
+            "type": "assistant/message",
+            "seq": 8,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:2"
+              },
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 1000,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "answer"
+                  ]
+                },
+                {
+                  "type": "chunk",
+                  "time": 1000,
+                  "chunk": {
+                    "type": "finish",
+                    "reason": {
+                      "kind": "stop"
+                    }
+                  }
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "step/end",
+            "seq": 9,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "turn/end",
+            "seq": 10,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "reason": {
+                "kind": "completed"
+              }
+            }
+          },
+          {
+            "type": "feedback/message-put",
+            "seq": 11,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "note": " good ",
+                "category": "task-result",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          },
+          {
+            "type": "feedback/message-put",
+            "seq": 12,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "generated:2",
+                "rating": "negative",
+                "version": "generated:4",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          },
+          {
+            "type": "feedback/message-delete",
+            "seq": 13,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "messageId": "generated:2"
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": "prompt one"
+              }
+            ],
+            "source": {
+              "kind": "plugin",
+              "plugin": "@deepseek-ai/dsh-system-prompt"
+            },
+            "id": "generated:1"
+          },
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ],
+            "source": {
+              "kind": "model",
+              "provider": "script",
+              "model": "model"
+            },
+            "id": "generated:2"
+          }
+        ],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:1"
+            },
+            {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            }
+          ],
+          "sessionId": "machine",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "turn": 1,
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "machine:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "answer"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "machine:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-cold",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "followup",
+        "args": [
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "method": "idle"
+      },
+      {
+        "method": "dispose"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "positive",
+          "note": " good ",
+          "category": "task-result"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "currentVersion": true,
+        "request": {
+          "rating": "positive",
+          "note": " good ",
+          "category": "task-result"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "request": {
+          "rating": "negative"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "put",
+        "currentVersion": true,
+        "request": {
+          "rating": "negative"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "request": {
+          "ifVersion": "stale"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "currentVersion": true
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "delete",
+        "request": {
+          "ifVersion": "stale"
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "persistence": true,
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "positive",
+              "note": " good ",
+              "category": "task-result",
+              "version": "generated:3",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "positive",
+              "note": " good ",
+              "category": "task-result",
+              "version": "generated:3",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "version-conflict",
+              "current": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "note": " good ",
+                "category": "task-result",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "messageId": "generated:2",
+              "rating": "negative",
+              "version": "generated:4",
+              "createdAt": 1000,
+              "updatedAt": 1000
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "generated:2",
+                  "rating": "negative",
+                  "version": "generated:4",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              ]
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": false,
+            "error": {
+              "code": "version-conflict",
+              "current": {
+                "messageId": "generated:2",
+                "rating": "negative",
+                "version": "generated:4",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "absent": true
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "absent": true
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": []
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "inserted": [
+                {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "turn/start",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "turn": 1
+            }
+          },
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "removedCount": 1,
+              "inserted": []
+            }
+          },
+          {
+            "type": "step/start",
+            "seq": 3,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "system/message",
+            "seq": 4,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:1"
+              }
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "user/message",
+            "seq": 5,
+            "time": 1000,
+            "data": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "request/header",
+            "seq": 6,
+            "time": 1000,
+            "data": {
+              "header": {
+                "config": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              "reason": "initial"
+            }
+          },
+          {
+            "type": "request/context",
+            "seq": 7,
+            "time": 1000,
+            "data": {
+              "provider": "script",
+              "model": "model"
+            }
+          },
+          {
+            "type": "assistant/message",
+            "seq": 8,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:2"
+              },
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 1000,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "answer"
+                  ]
+                },
+                {
+                  "type": "chunk",
+                  "time": 1000,
+                  "chunk": {
+                    "type": "finish",
+                    "reason": {
+                      "kind": "stop"
+                    }
+                  }
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "step/end",
+            "seq": 9,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "turn/end",
+            "seq": 10,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "reason": {
+                "kind": "completed"
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": "prompt one"
+              }
+            ],
+            "source": {
+              "kind": "plugin",
+              "plugin": "@deepseek-ai/dsh-system-prompt"
+            },
+            "id": "generated:1"
+          },
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ],
+            "source": {
+              "kind": "model",
+              "provider": "script",
+              "model": "model"
+            },
+            "id": "generated:2"
+          }
+        ]
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:1"
+            },
+            {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            }
+          ],
+          "sessionId": "machine",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "turn": 1,
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "machine:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "answer"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "machine:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "feedback/committed",
+          "payload": {
+            "meta": {
+              "version": 3,
+              "id": "machine",
+              "createdAt": 1000,
+              "isSeeded": false,
+              "delegationDepth": 0
+            },
+            "inheritedEventCount": 0,
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "human",
+                      "role": "user",
+                      "source": {
+                        "kind": "user"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "question"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:1"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:2"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "positive",
+                    "note": " good ",
+                    "category": "task-result",
+                    "version": "generated:3",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 11,
+                "time": 1000
+              }
+            ]
+          }
+        },
+        {
+          "name": "feedback/committed",
+          "payload": {
+            "meta": {
+              "version": 3,
+              "id": "machine",
+              "createdAt": 1000,
+              "isSeeded": false,
+              "delegationDepth": 0
+            },
+            "inheritedEventCount": 0,
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "human",
+                      "role": "user",
+                      "source": {
+                        "kind": "user"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "question"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:1"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:2"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "positive",
+                    "note": " good ",
+                    "category": "task-result",
+                    "version": "generated:3",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 11,
+                "time": 1000
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "negative",
+                    "version": "generated:4",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 12,
+                "time": 1000
+              }
+            ]
+          }
+        },
+        {
+          "name": "feedback/committed",
+          "payload": {
+            "meta": {
+              "version": 3,
+              "id": "machine",
+              "createdAt": 1000,
+              "isSeeded": false,
+              "delegationDepth": 0
+            },
+            "inheritedEventCount": 0,
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "human",
+                      "role": "user",
+                      "source": {
+                        "kind": "user"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "question"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:1"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:2"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "positive",
+                    "note": " good ",
+                    "category": "task-result",
+                    "version": "generated:3",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 11,
+                "time": 1000
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "negative",
+                    "version": "generated:4",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 12,
+                "time": 1000
+              },
+              {
+                "type": "feedback/message-delete",
+                "data": {
+                  "sessionId": "machine",
+                  "messageId": "generated:2"
+                },
+                "seq": 13,
+                "time": 1000
+              }
+            ]
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-0",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": null
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": null
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received null\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": null
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-1",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {}
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {}
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"messageId\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"positive\",\n      \"negative\"\n    ],\n    \"path\": [\n      \"item\",\n      \"rating\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"positive\\\"|\\\"negative\\\"\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"version\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"createdAt\"\n    ],\n    \"message\": \"Invalid input: expected number, received undefined\"\n  },\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"updatedAt\"\n    ],\n    \"message\": \"Invalid input: expected number, received undefined\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {}
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-2",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_small\",\n    \"minimum\": 1,\n    \"inclusive\": true,\n    \"path\": [\n      \"item\",\n      \"messageId\"\n    ],\n    \"message\": \"Too small: expected string to have >=1 characters\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-3",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "neutral",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "neutral",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"positive\",\n      \"negative\"\n    ],\n    \"path\": [\n      \"item\",\n      \"rating\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"positive\\\"|\\\"negative\\\"\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "neutral",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-4",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "bad-token",
+            "createdAt": 1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "bad-token",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"uuid\",\n    \"pattern\": \"/^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|generated:1|generated:2)$/\",\n    \"path\": [\n      \"item\",\n      \"version\"\n    ],\n    \"message\": \"Invalid UUID\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "bad-token",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-5",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1,
+            "note": " \t"
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "note": " \t"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"code\": \"custom\",\n    \"path\": [\n      \"item\",\n      \"note\"\n    ],\n    \"message\": \"Invalid input\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "note": " \t"
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-6",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1,
+            "note": null
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "note": null
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"note\"\n    ],\n    \"message\": \"Invalid input: expected string, received null\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "note": null
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-7",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": -1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": -1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"inclusive\": true,\n    \"path\": [\n      \"item\",\n      \"createdAt\"\n    ],\n    \"message\": \"Too small: expected number to be >=0\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": -1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-8",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 0
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 0
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"code\": \"custom\",\n    \"path\": [\n      \"item\"\n    ],\n    \"message\": \"Invalid input\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 0
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-9",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1.5
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1.5
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"expected\": \"int\",\n    \"format\": \"safeint\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"updatedAt\"\n    ],\n    \"message\": \"Invalid input: expected int, received number\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1.5
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-invalid-10",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": 1,
+            "category": "bad"
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "category": "bad"
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"task-result\",\n      \"instruction-following\",\n      \"product-interaction\",\n      \"service-stability\",\n      \"resource-cost\",\n      \"security-privacy-permission\",\n      \"other\"\n    ],\n    \"path\": [\n      \"item\",\n      \"category\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"task-result\\\"|\\\"instruction-following\\\"|\\\"product-interaction\\\"|\\\"service-stability\\\"|\\\"resource-cost\\\"|\\\"security-privacy-permission\\\"|\\\"other\\\"\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1,
+                "category": "bad"
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-schema-boundary-0",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 10000000000000000,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 10000000000000000,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"code\": \"too_big\",\n    \"maximum\": 9007199254740991,\n    \"note\": \"Integers must be within the safe integer range.\",\n    \"origin\": \"int\",\n    \"inclusive\": true,\n    \"path\": [\n      \"item\",\n      \"createdAt\"\n    ],\n    \"message\": \"Too big: expected int to be <=9007199254740991\"\n  },\n  {\n    \"origin\": \"number\",\n    \"code\": \"too_big\",\n    \"maximum\": 9007199254740991,\n    \"inclusive\": true,\n    \"path\": [\n      \"item\",\n      \"createdAt\"\n    ],\n    \"message\": \"Too big: expected number to be <=9007199254740991\"\n  },\n  {\n    \"code\": \"custom\",\n    \"path\": [\n      \"item\"\n    ],\n    \"message\": \"Invalid input\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 10000000000000000,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-schema-boundary-1",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "10000000-0000-4000-8000-000000000001",
+            "createdAt": 1,
+            "updatedAt": true
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": true
+              }
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "ZodError",
+            "message": "[\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"item\",\n      \"updatedAt\"\n    ],\n    \"message\": \"Invalid input: expected number, received boolean\"\n  }\n]"
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": true
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-schema-boundary-2",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "00000000-0000-0000-0000-000000000000",
+            "createdAt": 1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "message",
+                  "rating": "positive",
+                  "version": "generated:1",
+                  "createdAt": 1,
+                  "updatedAt": 1
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-schema-boundary-3",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "appendEvent",
+        "type": "feedback/message-put",
+        "data": {
+          "sessionId": "machine",
+          "item": {
+            "messageId": "message",
+            "rating": "positive",
+            "version": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+            "createdAt": 1,
+            "updatedAt": 1
+          }
+        }
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "message",
+                  "rating": "positive",
+                  "version": "generated:1",
+                  "createdAt": 1,
+                  "updatedAt": 1
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/message-put",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "message",
+                "rating": "positive",
+                "version": "generated:1",
+                "createdAt": 1,
+                "updatedAt": 1
+              }
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-concurrent-False",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "followup",
+        "args": [
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "method": "idle"
+      },
+      {
+        "method": "messageFeedbackBatch",
+        "requests": [
+          {
+            "rating": "positive"
+          },
+          {
+            "rating": "negative"
+          }
+        ]
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "ok": true,
+              "value": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            },
+            {
+              "ok": false,
+              "error": {
+                "code": "version-conflict",
+                "current": {
+                  "messageId": "generated:2",
+                  "rating": "positive",
+                  "version": "generated:3",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "generated:2",
+                  "rating": "positive",
+                  "version": "generated:3",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "inserted": [
+                {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "turn/start",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "turn": 1
+            }
+          },
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "removedCount": 1,
+              "inserted": []
+            }
+          },
+          {
+            "type": "step/start",
+            "seq": 3,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "system/message",
+            "seq": 4,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:1"
+              }
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "user/message",
+            "seq": 5,
+            "time": 1000,
+            "data": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "request/header",
+            "seq": 6,
+            "time": 1000,
+            "data": {
+              "header": {
+                "config": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              "reason": "initial"
+            }
+          },
+          {
+            "type": "request/context",
+            "seq": 7,
+            "time": 1000,
+            "data": {
+              "provider": "script",
+              "model": "model"
+            }
+          },
+          {
+            "type": "assistant/message",
+            "seq": 8,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:2"
+              },
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 1000,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "answer"
+                  ]
+                },
+                {
+                  "type": "chunk",
+                  "time": 1000,
+                  "chunk": {
+                    "type": "finish",
+                    "reason": {
+                      "kind": "stop"
+                    }
+                  }
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "step/end",
+            "seq": 9,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "turn/end",
+            "seq": 10,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "reason": {
+                "kind": "completed"
+              }
+            }
+          },
+          {
+            "type": "feedback/message-put",
+            "seq": 11,
+            "time": 1000,
+            "data": {
+              "sessionId": "machine",
+              "item": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": "prompt one"
+              }
+            ],
+            "source": {
+              "kind": "plugin",
+              "plugin": "@deepseek-ai/dsh-system-prompt"
+            },
+            "id": "generated:1"
+          },
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ],
+            "source": {
+              "kind": "model",
+              "provider": "script",
+              "model": "model"
+            },
+            "id": "generated:2"
+          }
+        ],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:1"
+            },
+            {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            }
+          ],
+          "sessionId": "machine",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "turn": 1,
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "machine:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "answer"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "machine:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-concurrent-True",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "followup",
+        "args": [
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "method": "idle"
+      },
+      {
+        "method": "dispose"
+      },
+      {
+        "method": "messageFeedbackBatch",
+        "requests": [
+          {
+            "rating": "positive"
+          },
+          {
+            "rating": "negative"
+          }
+        ]
+      },
+      {
+        "method": "messageFeedback",
+        "operation": "list"
+      }
+    ],
+    "script": [
+      [
+        {
+          "type": "text-delta",
+          "index": 0,
+          "text": "answer"
+        },
+        {
+          "type": "finish",
+          "reason": {
+            "kind": "stop"
+          }
+        }
+      ]
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "ok": true,
+              "value": {
+                "messageId": "generated:2",
+                "rating": "positive",
+                "version": "generated:3",
+                "createdAt": 1000,
+                "updatedAt": 1000
+              }
+            },
+            {
+              "ok": false,
+              "error": {
+                "code": "version-conflict",
+                "current": {
+                  "messageId": "generated:2",
+                  "rating": "positive",
+                  "version": "generated:3",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              }
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": [
+                {
+                  "messageId": "generated:2",
+                  "rating": "positive",
+                  "version": "generated:3",
+                  "createdAt": 1000,
+                  "updatedAt": 1000
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "inserted": [
+                {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "turn/start",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "turn": 1
+            }
+          },
+          {
+            "type": "agent/inbox/spliced",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "target": "next-turn",
+              "start": 0,
+              "removedCount": 1,
+              "inserted": []
+            }
+          },
+          {
+            "type": "step/start",
+            "seq": 3,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "system/message",
+            "seq": 4,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "system",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "prompt one"
+                  }
+                ],
+                "source": {
+                  "kind": "plugin",
+                  "plugin": "@deepseek-ai/dsh-system-prompt"
+                },
+                "id": "generated:1"
+              }
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "user/message",
+            "seq": 5,
+            "time": 1000,
+            "data": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "request/header",
+            "seq": 6,
+            "time": 1000,
+            "data": {
+              "header": {
+                "config": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              "reason": "initial"
+            }
+          },
+          {
+            "type": "request/context",
+            "seq": 7,
+            "time": 1000,
+            "data": {
+              "provider": "script",
+              "model": "model"
+            }
+          },
+          {
+            "type": "assistant/message",
+            "seq": 8,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1,
+              "message": {
+                "role": "assistant",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "answer"
+                  }
+                ],
+                "source": {
+                  "kind": "model",
+                  "provider": "script",
+                  "model": "model"
+                },
+                "id": "generated:2"
+              },
+              "stream": [
+                {
+                  "type": "text-chunks",
+                  "time0": 1000,
+                  "index": 0,
+                  "dt": [],
+                  "texts": [
+                    "answer"
+                  ]
+                },
+                {
+                  "type": "chunk",
+                  "time": 1000,
+                  "chunk": {
+                    "type": "finish",
+                    "reason": {
+                      "kind": "stop"
+                    }
+                  }
+                }
+              ]
+            },
+            "surfaceOp": "append"
+          },
+          {
+            "type": "step/end",
+            "seq": 9,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "step": 1
+            }
+          },
+          {
+            "type": "turn/end",
+            "seq": 10,
+            "time": 1000,
+            "data": {
+              "turn": 1,
+              "reason": {
+                "kind": "completed"
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": "prompt one"
+              }
+            ],
+            "source": {
+              "kind": "plugin",
+              "plugin": "@deepseek-ai/dsh-system-prompt"
+            },
+            "id": "generated:1"
+          },
+          {
+            "id": "human",
+            "role": "user",
+            "source": {
+              "kind": "user"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "question"
+              }
+            ]
+          },
+          {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ],
+            "source": {
+              "kind": "model",
+              "provider": "script",
+              "model": "model"
+            },
+            "id": "generated:2"
+          }
+        ]
+      },
+      "requests": [
+        {
+          "provider": "script",
+          "model": "model",
+          "messages": [
+            {
+              "role": "system",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "prompt one"
+                }
+              ],
+              "source": {
+                "kind": "plugin",
+                "plugin": "@deepseek-ai/dsh-system-prompt"
+              },
+              "id": "generated:1"
+            },
+            {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            }
+          ],
+          "sessionId": "machine",
+          "signal": "<signal>"
+        }
+      ],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/inserted",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "running",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/inbox/claimed",
+          "payload": {
+            "message": {
+              "id": "human",
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "question"
+                }
+              ]
+            },
+            "turn": 1,
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "start",
+              "attemptId": "machine:1",
+              "revision": 1,
+              "turn": 1,
+              "step": 1
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 2,
+              "index": 0,
+              "time": 1000,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "answer"
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "chunk",
+              "attemptId": "machine:1",
+              "revision": 3,
+              "index": 1,
+              "time": 1000,
+              "chunk": {
+                "type": "finish",
+                "reason": {
+                  "kind": "stop"
+                }
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/assistant-stream",
+          "payload": {
+            "frame": {
+              "type": "end",
+              "attemptId": "machine:1",
+              "revision": 4,
+              "index": 2,
+              "outcome": {
+                "kind": "committed",
+                "eventType": "assistant/message",
+                "seq": 8
+              }
+            },
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/status",
+          "payload": {
+            "status": "idle",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "feedback/committed",
+          "payload": {
+            "meta": {
+              "version": 3,
+              "id": "machine",
+              "createdAt": 1000,
+              "isSeeded": false,
+              "delegationDepth": 0
+            },
+            "inheritedEventCount": 0,
+            "events": [
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "inserted": [
+                    {
+                      "id": "human",
+                      "role": "user",
+                      "source": {
+                        "kind": "user"
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "question"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "turn/start",
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "agent/inbox/spliced",
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "target": "next-turn",
+                  "start": 0,
+                  "removedCount": 1,
+                  "inserted": []
+                }
+              },
+              {
+                "type": "step/start",
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "system/message",
+                "seq": 4,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "system",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "prompt one"
+                      }
+                    ],
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "@deepseek-ai/dsh-system-prompt"
+                    },
+                    "id": "generated:1"
+                  }
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "user/message",
+                "seq": 5,
+                "time": 1000,
+                "data": {
+                  "id": "human",
+                  "role": "user",
+                  "source": {
+                    "kind": "user"
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "question"
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "request/header",
+                "seq": 6,
+                "time": 1000,
+                "data": {
+                  "header": {
+                    "config": {
+                      "provider": "script",
+                      "model": "model"
+                    }
+                  },
+                  "reason": "initial"
+                }
+              },
+              {
+                "type": "request/context",
+                "seq": 7,
+                "time": 1000,
+                "data": {
+                  "provider": "script",
+                  "model": "model"
+                }
+              },
+              {
+                "type": "assistant/message",
+                "seq": 8,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "role": "assistant",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "answer"
+                      }
+                    ],
+                    "source": {
+                      "kind": "model",
+                      "provider": "script",
+                      "model": "model"
+                    },
+                    "id": "generated:2"
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1000,
+                      "index": 0,
+                      "dt": [],
+                      "texts": [
+                        "answer"
+                      ]
+                    },
+                    {
+                      "type": "chunk",
+                      "time": 1000,
+                      "chunk": {
+                        "type": "finish",
+                        "reason": {
+                          "kind": "stop"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "surfaceOp": "append"
+              },
+              {
+                "type": "step/end",
+                "seq": 9,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1
+                }
+              },
+              {
+                "type": "turn/end",
+                "seq": 10,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                }
+              },
+              {
+                "type": "feedback/message-put",
+                "data": {
+                  "sessionId": "machine",
+                  "item": {
+                    "messageId": "generated:2",
+                    "rating": "positive",
+                    "version": "generated:3",
+                    "createdAt": 1000,
+                    "updatedAt": 1000
+                  }
+                },
+                "seq": 11,
+                "time": 1000
+              }
+            ]
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-remote",
+    "kind": "machine-current",
+    "persistence": true,
+    "actions": [
+      {
+        "method": "feedbackConfig"
+      },
+      {
+        "method": "remoteConfig"
+      },
+      {
+        "method": "remote",
+        "namespace": "sessionFeedback",
+        "name": "record",
+        "args": {
+          "request": {
+            "sessionId": "machine",
+            "category": "other"
+          }
+        }
+      },
+      {
+        "method": "remote",
+        "namespace": "messageFeedback",
+        "name": "list",
+        "args": {
+          "request": {
+            "sessionId": "machine"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "recorded": true
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "ok": true,
+            "value": {
+              "items": []
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "feedback/record",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "category": "other"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-command-0",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackCommandConfig"
+      },
+      {
+        "method": "feedbackCommand",
+        "suffix": ""
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "generated:1",
+            "result": {
+              "kind": "error",
+              "text": "Feedback text is required. Usage: /feedback <text>"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "command/run",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "name": "feedback",
+              "source": {
+                "kind": "user"
+              }
+            }
+          },
+          {
+            "type": "command/done",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "kind": "error",
+              "text": "Feedback text is required. Usage: /feedback <text>"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-command-1",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackCommandConfig"
+      },
+      {
+        "method": "feedbackCommand",
+        "suffix": "   "
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "generated:1",
+            "result": {
+              "kind": "error",
+              "text": "Feedback text is required. Usage: /feedback <text>"
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "command/run",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "name": "feedback",
+              "source": {
+                "kind": "user"
+              }
+            }
+          },
+          {
+            "type": "command/done",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "kind": "error",
+              "text": "Feedback text is required. Usage: /feedback <text>"
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-command-2",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackCommandConfig"
+      },
+      {
+        "method": "feedbackCommand",
+        "suffix": " good "
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "generated:1",
+            "result": {
+              "kind": "success",
+              "text": "Feedback recorded for session machine\nAnonymous user: generated:2."
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "command/run",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "name": "feedback",
+              "source": {
+                "kind": "user"
+              }
+            }
+          },
+          {
+            "type": "feedback/record",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "text": "good"
+            }
+          },
+          {
+            "type": "command/done",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "kind": "success",
+              "text": "Feedback recorded for session machine\nAnonymous user: generated:2."
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  {
+    "case": "feedback-current-command-3",
+    "kind": "machine-current",
+    "actions": [
+      {
+        "method": "feedbackCommandConfig"
+      },
+      {
+        "method": "feedbackCommand",
+        "suffix": " /plan felt slow"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": null
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "commandId": "generated:1",
+            "result": {
+              "kind": "success",
+              "text": "Feedback recorded for session machine\nAnonymous user: generated:2."
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "idle",
+        "events": [
+          {
+            "type": "command/run",
+            "seq": 0,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "name": "feedback",
+              "source": {
+                "kind": "user"
+              }
+            }
+          },
+          {
+            "type": "feedback/record",
+            "seq": 1,
+            "time": 1000,
+            "data": {
+              "text": "/plan felt slow"
+            }
+          },
+          {
+            "type": "command/done",
+            "seq": 2,
+            "time": 1000,
+            "data": {
+              "commandId": "generated:1",
+              "kind": "success",
+              "text": "Feedback recorded for session machine\nAnonymous user: generated:2."
+            }
+          }
+        ],
+        "messages": [],
+        "inbox": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "requests": [],
+      "notifications": [
+        {
+          "name": "agent/created",
+          "payload": {
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/session-start",
+          "payload": {
+            "source": "startup",
+            "agent": "machine"
+          }
+        },
+        {
+          "name": "agent/disposed",
+          "payload": {
+            "agent": "machine"
+          }
+        }
+      ],
+      "errors": []
+    }
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-C-canonical-feedback",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 33,
+    "report": {
+      "path": ".goose/out/rc3-r04-feedback-command-frozen-20261017/report.json",
+      "sha256": "c050b3f8ad78ab0ec53817fb63a1bfd9e297e6fe6005954e9e48714e63a29772"
+    },
+    "corpus": {
+      "path": "scripts/oracles/feedback_current_cases.json",
+      "sha256": "e67d42b787d45b43a182fa6e76f506e3075f0c893c46406b1850a5ac98c11688"
+    }
+  },
+  "native": {
+    "passed": 63,
+    "command": {
+      "path": ".goose/out/rc3-r04-feedback-native-final-20261017/command.json",
+      "sha256": "821be011d2e3693c0bb3fb4826a1f94fc228cd8730b9fb9284520dc729b850d3"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-feedback-native-final-20261017/pytest.xml",
+      "sha256": "942a58cdd59c7cce9d5ef629121fc6655458c6bf83df27693b8aa417f7e579a2"
+    }
+  },
+  "source": {
+    "passed": 51,
+    "suites": 4,
+    "command": {
+      "path": ".goose/out/rc3-r04-feedback-source-20261017/command.json",
+      "sha256": "448df1b014338b426f25c2d9d2ba7812df37820e9a6e9db427cb7b59330b501e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-feedback-source-20261017/source.xml",
+      "sha256": "1488456018fb42f38d46bcc80578334c0dbfd470d6dfe3d8bb73b5d42304b27f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/feedback/session_current.py",
+      "sha256": "6e2f79fdeda815b09cc5ccc7313d8b00bc07296007f871cc64f46e620124c553"
+    },
+    {
+      "path": "dsh/feedback/message_current.py",
+      "sha256": "2aa10fe4ab87bcb19bd6b3239b608e621cb094679e5686c703161990c0ea2e4f"
+    },
+    {
+      "path": "dsh/feedback/schema_current.py",
+      "sha256": "22839e298b3b9e8cad94ae09573055252fc61c008daa3b3d998f6cbd0a9a40f9"
+    }
+  ],
+  "scope": [
+    "SessionFeedback Remote and seven-category vocabulary; blank feedback records and two-line command acknowledgement without telemetry disclosure.",
+    "Canonical feedback/message-put and delete events, compare-and-set/no-op/delete retries, immutable snapshots, live durability identity/checkpoint confirmation.",
+    "Actual cold JSONL write handles, feedback/committed observation, no live owner creation and concurrent create conflict.",
+    "Malformed persisted payload and timestamp/version/category/UTF-8 note validation; actual Gateway and command registry consumers.",
+    "Cancelled native observer does not abandon an admitted cold mutation; disposal drains it and flush failure releases handle."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r04-feedback-pair-20261017",
+    ".goose/out/rc3-r04-feedback-command-20261017",
+    ".goose/out/rc3-r04-feedback-native-20261017",
+    ".goose/out/rc3-r04-feedback-native-fixed-20261017",
+    ".goose/out/rc3-r04-feedback-native-races-20261017"
+  ],
+  "limits": [
+    "Initial native selection used two nonexistent paths and collected zero; fixed selection retained 97 passes/two fixture failures. Missing model source.kind in the two new cold fixtures was corrected; both then passed and are included in final 63-pass run.",
+    "Original Source files are unchanged; command random ids and UUIDs are normalized consistently, including references in diagnostics.",
+    "Old sidecar provider remains production-mounted until the unified registry/profile switch; these current providers do not read sidecar state.",
+    "Current session-controller consumers, uploads/files, remaining Remote and full release acceptance remain open."
+  ]
+}

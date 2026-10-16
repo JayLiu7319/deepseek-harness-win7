@@ -68,3 +68,5 @@ R03-K: [current SDK consumers](sdk-current-checks.json): 16 complete SDK pairs, 
 R04-A: [explicit Agent Remote](remote-current-checks.json): 12 actual pairs, 162 selected native and 313 original Source tests pass. Candidate registry has no reverse Context identity; goal Remote, activation emit, waterfall rejection/cancellation are covered. Connection/RPCFetch and production baseline remain open.
 
 R04-B: [carrier-neutral Connection](connection-current-checks.json): 30 actual pairs (seven TCP upload journeys), 74 selected native and 52 original Source tests pass. Headless registry, optional Web carrier/recovery bootstrap, buffered/streaming body selection and required RPC payload are covered. Auth/trust/feedback deltas and production switch remain open.
+
+R04-C: [canonical feedback](feedback-current-checks.json): 33 actual pairs, 63 final selected native and 51 original Source tests pass. Session feedback Remote/categories and actual command acknowledgement, Session-log message feedback, cold write ownership, immutable CAS/no-op results and cancellation/disposal are covered. Production sidecar replacement awaits the unified switch.

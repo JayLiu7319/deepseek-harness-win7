@@ -20,12 +20,13 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  let handle:any,agent:any,sdk:any,eventStream:any,eventController:any,eventReady:any,eventFrame:any,forward:any,forwardController:any,prompt=test.prompt??'prompt one',route=test.options??{provider:'script',model:'model'},preStep=test.preStep??{},retry=0,stopped=0,chunks=0
  const requests:any[]=[],notifications:any[]=[],results:any[]=[],errors:any[]=[]
  const connectionRoutes=new Map<string,()=>Promise<void>>()
+ let feedbackVersion:any=null
  const normalize=(v:any,key=''):any=>{
   if(v===undefined)return null
   if(key==='signal')return '<signal>'
   if(key==='agent')return normalize(v.id)
   if(v instanceof Error)return {name:v.name,message:normalize(v.message),...((v as any).code===undefined?{}:{code:(v as any).code}),...((v as any).cause===undefined?{}:{cause:normalize((v as any).cause)})}
-  if(typeof v==='string')return v.replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ig,id=>{if(!ids.has(id))ids.set(id,`generated:${ids.size+1}`);return ids.get(id)!})
+  if(typeof v==='string')return v.replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|cmd-[0-9a-f]{8}-[1-9][0-9]*/ig,id=>{if(!ids.has(id))ids.set(id,`generated:${ids.size+1}`);return ids.get(id)!})
   if(Array.isArray(v))return v.map(x=>normalize(x))
   if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).filter(([,x])=>x!==undefined).map(([k,x])=>[k,normalize(x,k)]))
   return v
@@ -81,6 +82,33 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='feedbackCommandConfig'){
+     const {default:Commands}=await load('packages/interaction/commands/src/index.ts'),feedback=await load('packages/feedback/command-feedback/src/index.ts')
+     await ctx.plugin(Commands);await ctx.plugin(feedback)
+    }
+    else if(action.method==='feedbackCommand'){
+     const home=process.env.DSH_HOME;process.env.DSH_HOME=root
+     try{value=await ctx.commands.execute(agent,'/feedback'+(action.suffix??''),[],new AbortController().signal)}finally{if(home===undefined)delete process.env.DSH_HOME;else process.env.DSH_HOME=home}
+    }
+    else if(action.method==='feedbackConfig'){
+     const {SessionFeedbackService}=await load('packages/feedback/command-feedback/src/index.ts'),{default:Feedback}=await load('packages/feedback/message-feedback/src/index.ts')
+     await ctx.plugin(SessionFeedbackService);await ctx.plugin(Feedback,{maxNoteBytes:action.maxNoteBytes??32})
+     ctx.on('feedback/committed',(inspection:any)=>notifications.push(normalize({name:'feedback/committed',payload:inspection})))
+    }
+    else if(action.method==='sessionFeedback')value=await ctx.sessionFeedback.record({sessionId:action.sessionId??'machine',...action.entry})
+    else if(action.method==='messageFeedback'){
+     const request={sessionId:action.sessionId??'machine',...action.request}
+     if(action.operation!=='list'){
+      request.messageId??=agent.session.deriveMessages().find((m:any)=>m.role==='assistant')?.id??'missing'
+      if(!Object.hasOwn(request,'ifVersion'))request.ifVersion=action.currentVersion?feedbackVersion:null
+     }
+     value=await ctx.messageFeedback[action.operation](request)
+     if(value.ok&&value.value?.version)feedbackVersion=value.value.version
+    }
+    else if(action.method==='messageFeedbackBatch'){
+     const messageId=agent.session.deriveMessages().find((m:any)=>m.role==='assistant').id
+     value=await Promise.all(action.requests.map((request:any)=>ctx.messageFeedback.put({sessionId:'machine',messageId,ifVersion:null,...request})))
+    }
     else if(action.method==='connectionHttp'){
      const {connectionHttpCurrent}=await import('./connection_http_current_source.mts')
      value=await connectionHttpCurrent(source,action)

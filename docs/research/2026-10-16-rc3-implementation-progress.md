@@ -213,3 +213,7 @@ The upstream SDK business source has no functional rc.1-to-rc.3 delta. Its exist
 ### R04-B — Connection 注册表与请求体（2026-10-17）
 
 候选 Connection 仅依赖 credentials，WebServer 后挂载时添加 /api 与 recovery 全局注入，卸载完全回收。精确 Fetch route 在读体之前选择 buffered/streaming，流式读每次最多64KiB且不设聚合上限；实际 TCP 测过 chunked、提前响应和未完成上传。RPC 必需 payload，错误码采用 gateway/bad-request。Source/native30组一致，Python74通过、原版7套件52通过；相关原认证/服务器连接生命周期回归也通过。Python3.8 EOF内部标志用于检测未消费流的断线，防止并发读取；平台适配在代码和回执中披露。成功测试短工作区按既有规则收尾；诊断和原始观察保留。后续继续 Remote 消费者、信任/反馈以及上传文件合同，未切生产基线。
+
+### R04-C — Session 日志反馈与 Remote（2026-10-17）
+
+候选 sessionFeedback.record 支持空反馈和7类分类，/feedback 命令确认不再附带分享策略句。消息评价改为 feedback/message-put/delete 事实；live 修改验证 flush 参与、持久化身份和最后事件，cold 操作持有 read/write handle 并提交 feedback/committed，永不发布 Session/Agent。实际 Source/native33组匹配，最终 Python63通过，原版4套件51通过；包含真实命令/Gateway消费者、并发CAS、版本冲突/幂等、损坏payload与冷写入取消/排空。初次测试路径选择与两处新夹具缺少 source.kind 的错误记录保留，修正后的两个竞态已单独及最终集合通过。原认证/Host trust源码无功能差分，R04-B已执行其原版套件；后续仍须统一Web集成认证。旧sidecar生产provider等待切换，不将候选通过标作正式基线验收。

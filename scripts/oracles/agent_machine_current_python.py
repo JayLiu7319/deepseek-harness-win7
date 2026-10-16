@@ -45,7 +45,7 @@ class ScriptAdapter:
 
 
 async def run(test,decode):
-    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[];forward_controller=None;connection_routes={}
+    ctx=Context();ids={};requests=[];notifications=[];results=[];errors=[];forward_controller=None;connection_routes={};feedback_version=None
     handle=None;agent=None;sdk=None;event_stream=None;event_controller=None;event_ready=None;event_frame=None;forward=None;prompt=test.get('prompt','prompt one');route=test.get('options',dict(provider='script',model='model'));pre_step=test.get('preStep',{});retry=stopped=chunks=0
     def normalize(value,key=''):
         if value is UNDEFINED or value is WIRE_UNDEFINED:return None
@@ -61,12 +61,14 @@ async def run(test,decode):
                 name=match.group()
                 if name not in ids:ids[name]='generated:'+str(len(ids)+1)
                 return ids[name]
-            return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',identity,value,flags=re.I)
+            return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|cmd-[0-9a-f]{8}-[1-9][0-9]*',identity,value,flags=re.I)
         if isinstance(value,(tuple,list)):return [normalize(item) for item in value]
         if isinstance(value,dict):return {name:normalize(item,name) for name,item in value.items() if item is not UNDEFINED and item is not WIRE_UNDEFINED}
         return value
-    def view():return normalize(dict(status=agent.status,events=agent.session.snapshotEvents(),messages=agent.session.deriveMessages(),inbox=ctx.get('sessionProjections').snapshot(agent.session)['values']['inbox']))
-    with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1),patch('dsh.goal.service.time.time',return_value=1):
+    def view():
+        values=ctx.get('sessionProjections').snapshot(agent.session)['values']
+        return normalize(dict(status=agent.status,events=agent.session.snapshotEvents(),messages=agent.session.deriveMessages(),**(dict(inbox=values['inbox']) if 'inbox' in values else {})))
+    with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1),patch('dsh.goal.service.time.time',return_value=1),patch('dsh.feedback.message_current.time.time',return_value=1):
         try:
             for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin,test.get('promptConfig') if plugin is CurrentSystemPrompt else None)
             if test.get('meter'):
@@ -136,6 +138,32 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='feedbackCommandConfig':
+                        from dsh.interaction.commands import CommandsPlugin
+                        from dsh.feedback.session_current import CurrentCommandFeedback
+                        await ctx.plugin(CommandsPlugin);await ctx.plugin(CurrentCommandFeedback)
+                    elif method=='feedbackCommand':
+                        from dsh.core.abort import AbortController
+                        with patch.dict(os.environ,dict(DSH_HOME=folder)):
+                            value=await ctx.get('commands').execute(agent,'/feedback'+action.get('suffix',''),[],AbortController().signal)
+                        if value is not None:value=dict(commandId=value.commandId,result=value.result)
+                    elif method=='feedbackConfig':
+                        from dsh.feedback.session_current import CurrentSessionFeedback
+                        from dsh.feedback.message_current import CurrentMessageFeedback
+                        await ctx.plugin(CurrentSessionFeedback)
+                        await ctx.plugin(CurrentMessageFeedback,dict(maxNoteBytes=action.get('maxNoteBytes',32)))
+                        ctx.on('feedback/committed',lambda inspection:notifications.append(normalize(dict(name='feedback/committed',payload=inspection))))
+                    elif method=='sessionFeedback':value=await ctx.get('sessionFeedback').record(dict(sessionId=action.get('sessionId','machine'),**action.get('entry',{})))
+                    elif method=='messageFeedback':
+                        request=dict(sessionId=action.get('sessionId','machine'),**action.get('request',{}))
+                        if action['operation']!='list':
+                            request.setdefault('messageId',next((m['id'] for m in agent.session.deriveMessages() if m['role']=='assistant'),'missing'))
+                            request.setdefault('ifVersion',feedback_version if action.get('currentVersion') else None)
+                        value=await getattr(ctx.get('messageFeedback'),action['operation'])(request)
+                        if value.get('ok') and isinstance(value.get('value'),dict) and 'version' in value['value']:feedback_version=value['value']['version']
+                    elif method=='messageFeedbackBatch':
+                        message_id=next(m['id'] for m in agent.session.deriveMessages() if m['role']=='assistant')
+                        value=await asyncio.gather(*(ctx.get('messageFeedback').put(dict(sessionId='machine',messageId=message_id,ifVersion=None,**request)) for request in action['requests']))
                     elif method=='connectionHttp':
                         from scripts.oracles.connection_http_current_python import execute as http_execute
                         value=await http_execute(action)
