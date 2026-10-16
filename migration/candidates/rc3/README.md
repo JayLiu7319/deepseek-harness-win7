@@ -86,3 +86,5 @@ R05-E: [execution-world media reads](session-media-current-checks.json): 34 actu
 R05-F: [Session prompt and queue ownership](session-commands-current-checks.json): 23 actual pairs plus13upload regression pairs,103 selected native tests and29 unchanged Source tests pass. Binding rollback/retirement, idempotency, durable queue edits/steer, compact-stream authorization and actual Agent consumption/disposal are covered. Full SessionController assembly/activation remain open.
 
 R04-E: [Session Agent activation](session-agents-current-checks.json):26 current pairs,97 selected native tests and16 original Source tests pass. Real persistence restores pending model selection; factory dedup and ownership races are covered. Full SessionController and production activation remain open.
+
+R04-F: [Session identity commands](session-identity-commands-current-checks.json):32 current pairs plus49 activation/prompt regressions,102 selected native and21 Source tests pass. Actual model routing and persisted fork prefix/title are covered. Full controller and production activation stay open.

@@ -11,6 +11,10 @@ from dsh.llm.agent_request import is_agent_loop_request
 from dsh.session.title import collect_session_title_messages, fold_session_title, fallback_session_title, normalize_session_title
 
 
+class SessionTitleInvalidError(ValueError):
+    name = 'SessionTitleInvalidError'
+
+
 def title_schema(value):
     if value is not None and (not isinstance(value, str) or not value):
         raise ValueError("title projection must be null or non-empty string")
@@ -73,7 +77,7 @@ class SessionTitleService(Service):
         self._live(session)
         value = normalize_session_title(title, self.config["maxTitleBytes"])
         if not value:
-            raise ValueError("session title must contain visible characters")
+            raise SessionTitleInvalidError("session title must contain visible characters")
         self._supersede(self._state(session), "user rename")
         session.append("session/title", {"title": value, "messageSeqs": [], "source": {"kind": "user"}})
         return self.get(session)

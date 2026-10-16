@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-F-session-identity-commands",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 32,
+    "report": {
+      "path": ".goose/out/rc3-r04-identity-commands-number-final-20261017/report.json",
+      "sha256": "84a3a317a14c43743fccc3b806df04ab60ec842a5f6c25a2f987b92157a4b04a"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_identity_commands_current_cases.json",
+      "sha256": "41a1fdc64b103e1ec059afd30f52759d88339d07fb25ad92ba134a4ad18be34d"
+    }
+  },
+  "regression_pairs": [
+    {
+      "matched": 26,
+      "report": {
+        "path": ".goose/out/rc3-r04-identity-commands-agent-regression-20261017/report.json",
+        "sha256": "02cd0b883ff367ebff983a75147ddf555eb7568c342551e671ad867d0ecb3838"
+      }
+    },
+    {
+      "matched": 23,
+      "report": {
+        "path": ".goose/out/rc3-r04-identity-commands-prompt-regression-20261017/report.json",
+        "sha256": "04b140aaf3fbe3943c3683042b3d7a68429082d43d0e29c2eff312360bf336cc"
+      }
+    }
+  ],
+  "native": {
+    "passed": 102,
+    "command": {
+      "path": ".goose/out/rc3-r04-identity-commands-native-final-20261017/command.json",
+      "sha256": "4bb4bd55a7a884318d8a73bf47415d6908b5e8f714dc069f4105161f224dfcc1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-identity-commands-native-final-20261017/pytest.xml",
+      "sha256": "32ce47b0c040cf9a6d30d3a2e895044cb16fb5e20ae5887b02377f2adfdc96b9"
+    }
+  },
+  "source": {
+    "passed": 21,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r04-identity-commands-source-20261017/command.json",
+      "sha256": "ca6f527758cd722287cb04fdeafbe86a389da21b39ddba54969841058b28842d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-identity-commands-source-20261017/source.xml",
+      "sha256": "e1dadd87b796d4cea9a3bbe2a9ad4a3ca017867fef2cf25c72d7304073c2643f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_commands_current.py",
+      "sha256": "f7a7be7d8c0565665de1d876fc7b71e19b7dae76dc7caf3722af29a3ced0138b"
+    },
+    {
+      "path": "dsh/session/canonical_title.py",
+      "sha256": "07c9feeaa2df38016c98fdaa092c28e963b59c8046948df00e1ebaae0c450012"
+    }
+  ],
+  "scope": [
+    "Create/adopt and workspace attachment with exact conflict errors; serialized normalized model choices with non-fatal default saving and structural RemoteError preservation; typed invalid title; completed-turn fork preserving post-turn metadata before next turn.",
+    "Actual Agent model dispatch, fork inheritance/title/model restoration, independent child ownership, and persisted v3 prefix via read handle. Cold attachment wraps unexpected Remote errors as original."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose\\out\\rc3-r04-identity-commands-native-20261017",
+      "reason": "100 passed/1 failed: new test used retired inspect method, then object access on raw header. Corrected to current readColdSessionLog handle and JSON header."
+    },
+    {
+      "path": ".goose\\out\\rc3-r04-identity-commands-native-handles-20261017",
+      "reason": "100 passed/1 failed: new test used retired inspect method, then object access on raw header. Corrected to current readColdSessionLog handle and JSON header."
+    }
+  ],
+  "remaining": [
+    "Current list/search/history/control, full Session Remote assembly and production activation.",
+    "Frontend/desktop/Win7 managed ranges and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192354328576,
+    "result": "Successful short fixtures auto-pruned; raw observations/failures and receipts retained; no Portable built."
+  }
+}

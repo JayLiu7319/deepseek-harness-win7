@@ -1,0 +1,2056 @@
+[
+  {
+    "case": "command-create-default",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {}
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "meta": {
+            "cwd": "<cwd>"
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-explicit-idempotent",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one"
+        }
+      },
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "one",
+          "meta": {
+            "cwd": "<cwd>"
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-invalid-location",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "workspaceId": "workspace",
+          "cwd": "bad"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session.create accepts workspaceId or cwd, not both",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-workspace-missing",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "workspaceId": "missing"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "workspace \"missing\" not found",
+            "code": "workspace/not-found",
+            "details": {
+              "workspaceId": "missing"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-workspace",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one",
+          "workspaceId": "workspace"
+        }
+      }
+    ],
+    "workspace": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "one"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "one",
+          "meta": {
+            "cwd": "<cwd>"
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [
+        "one"
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-attach-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one",
+          "workspaceId": "workspace"
+        }
+      }
+    ],
+    "workspace": true,
+    "attachError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" was created but could not attach to workspace \"workspace\": Error: workspace write failed",
+            "code": "session/workspace-attach-failed",
+            "details": {
+              "sessionId": "one",
+              "workspaceId": "workspace"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "one",
+          "meta": {
+            "cwd": "<cwd>"
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [
+        "one"
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-directory-conflict",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one"
+        }
+      }
+    ],
+    "live": {
+      "cwd": "/other"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" belongs to \"/other\", not \"<cwd>\"",
+            "code": "session/conflict",
+            "details": {
+              "sessionId": "one",
+              "requestedCwd": "<cwd>",
+              "existingCwd": "/other"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-preset-conflict",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one",
+          "agentPreset": "wanted"
+        }
+      }
+    ],
+    "live": {
+      "agentPreset": "minimal"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" runs agent preset \"minimal\", not \"wanted\"",
+            "code": "agent-preset/conflict",
+            "details": {
+              "sessionId": "one",
+              "requestedPreset": "wanted",
+              "existingPreset": "minimal"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-child",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one"
+        }
+      }
+    ],
+    "live": {
+      "origin": "subagent"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-create-factory-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "create",
+        "request": {
+          "sessionId": "one"
+        }
+      }
+    ],
+    "factoryError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "failed to create session \"one\": Error: factory failed",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-select-normalized",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "selectModel",
+        "request": {
+          "provider": "picked",
+          "model": " next ",
+          "reasoningEffort": "high"
+        }
+      },
+      {
+        "op": "selection"
+      },
+      {
+        "op": "projection"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "selected": {
+              "provider": "picked",
+              "model": "next",
+              "reasoningEffort": "high"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "picked",
+            "model": "next",
+            "reasoningEffort": "high"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lastUsed": null,
+            "pending": {
+              "provider": "picked",
+              "model": "next",
+              "reasoningEffort": "high"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": [
+        {
+          "provider": "picked",
+          "model": "next",
+          "reasoningEffort": "high"
+        }
+      ]
+    }
+  },
+  {
+    "case": "command-select-default-write-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "selectModel",
+        "request": {
+          "provider": "picked",
+          "model": "next"
+        }
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "live": {},
+    "saveError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "selected": {
+              "provider": "picked",
+              "model": "next"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "picked",
+            "model": "next"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": [
+        {
+          "provider": "picked",
+          "model": "next"
+        }
+      ]
+    }
+  },
+  {
+    "case": "command-select-error-normal",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "selectModel",
+        "request": {
+          "provider": "picked",
+          "model": "next"
+        }
+      }
+    ],
+    "live": {},
+    "modelError": "normal",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "model refused",
+            "code": "session/model-unavailable",
+            "details": {
+              "provider": "picked",
+              "model": "next"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-select-error-remote",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "selectModel",
+        "request": {
+          "provider": "picked",
+          "model": "next"
+        }
+      }
+    ],
+    "live": {},
+    "modelError": "remote",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "bad route",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-rename-normalized",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "rename",
+        "request": {
+          "title": "  Hello\n World  "
+        }
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "title": "Hello World",
+            "seq": 0
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-rename-empty",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "rename",
+        "request": {
+          "title": " \u001b[31m\n "
+        }
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session title must contain visible characters",
+            "code": "session/title-invalid",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-rename-unavailable",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "rename",
+        "request": {
+          "title": "title"
+        }
+      }
+    ],
+    "live": {},
+    "noTitle": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "renaming is unavailable: this deployment mounts no session-title service",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-last",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-anchor",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": 0
+        }
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-beyond",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": 99
+        }
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-unfinished",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": 3
+        }
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" has not completed the turn containing event 3",
+            "code": "session/fork-unavailable",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-no-completed",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" has no completed turn to fork from",
+            "code": "session/fork-unavailable",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-missing",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-invalid--1",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": -1
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "atSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-invalid-1.5",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": 1.5
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "atSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-invalid-True",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": true
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "atSeq must be a non-negative safe integer",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-direct-workspace",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "workspace": true,
+    "workspaceSessions": [
+      "one"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [
+        "opaque:1"
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-child-lineage",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {
+      "origin": "subagent",
+      "parentSession": "parent"
+    },
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "workspace": true,
+    "workspaceSessions": [
+      "parent"
+    ],
+    "ancestors": [
+      "parent"
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "sessionId": "opaque:1"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [
+        "opaque:1"
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-lineage-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {
+      "origin": "subagent"
+    },
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "traceError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "failed to resolve fork workspace for session \"one\": Error: lineage unavailable",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-factory-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "factoryError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "failed to fork session \"one\": Error: factory failed",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-attach-failure",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {}
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "workspace": true,
+    "workspaceSessions": [
+      "one"
+    ],
+    "attachError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"opaque:1\" was forked but could not attach to workspace \"workspace\": Error: workspace write failed",
+            "code": "session/workspace-attach-failed",
+            "details": {
+              "sessionId": "opaque:1",
+              "workspaceId": "workspace"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      },
+      "created": [
+        {
+          "sessionId": "opaque:1",
+          "seed": [
+            {
+              "seq": 0,
+              "time": 1,
+              "type": "turn/start",
+              "data": {
+                "turn": 1
+              }
+            },
+            {
+              "seq": 1,
+              "time": 2,
+              "type": "turn/end",
+              "data": {
+                "turn": 1,
+                "reason": {
+                  "kind": "completed"
+                }
+              }
+            },
+            {
+              "seq": 2,
+              "time": 3,
+              "type": "session/title",
+              "data": {
+                "title": "retained",
+                "messageSeqs": [],
+                "source": {
+                  "kind": "user"
+                }
+              }
+            }
+          ],
+          "inheritedEventCount": 3,
+          "meta": {
+            "cwd": "<cwd>",
+            "parentSession": "one",
+            "isSeeded": true
+          },
+          "agentOptions": {
+            "provider": "fixture",
+            "model": "model"
+          }
+        }
+      ],
+      "attached": [
+        "opaque:1"
+      ],
+      "saved": []
+    }
+  },
+  {
+    "case": "command-fork-whole-number-json-float",
+    "kind": "session-agents-current",
+    "commands": true,
+    "actions": [
+      {
+        "op": "command",
+        "name": "fork",
+        "request": {
+          "atSeq": 3.0
+        }
+      }
+    ],
+    "cold": {},
+    "events": [
+      {
+        "seq": 0,
+        "time": 1,
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "seq": 1,
+        "time": 2,
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "seq": 2,
+        "time": 3,
+        "type": "session/title",
+        "data": {
+          "title": "retained",
+          "messageSeqs": [],
+          "source": {
+            "kind": "user"
+          }
+        }
+      },
+      {
+        "seq": 3,
+        "time": 4,
+        "type": "turn/start",
+        "data": {
+          "turn": 2
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" has not completed the turn containing event 3",
+            "code": "session/fork-unavailable",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      },
+      "created": [],
+      "attached": [],
+      "saved": []
+    }
+  }
+]
