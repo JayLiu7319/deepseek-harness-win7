@@ -80,6 +80,12 @@ Source三份catalog测试共26项原断言通过，记录170个完整静态catal
 
 本轮retention已实际执行，未发现新增可回收历史产物；首次误把`--output`当结果文件参数的错误保留，随后无参数运行成功。当前空间约180GiB。内核锁继续接入新handle与代际发布，尚未切换生产writer/pin。
 
+## R02-H：当前JSONL代际framing与扫描器
+
+新增canonical generation文件名/路径、当前header/event编码、当前header严格形状与future/历史格式分类、增量原始UTF-8行扫描和checkpoint。scanner只读取当前v3，历史升级走catalog；未换行尾部被忽略，已提交区损坏后若出现turn/end仍拒绝，结构准入在recoverable抑制之前执行。缓冲区跨多次write复制未完成片段，复用decoder buffer不污染历史观察。
+
+选定Source format helpers、scanLog unit、nested v3 streams及native v3 admission，65项原断言通过，128项其他provider测试未选择。捕获153个helper/扫描前缀完整观测，修正包装器对可变Buffer的持有和浮点序号错误信息后全部匹配。原始失败与修复结果均保留。Python新scanner、v3逻辑和catalog直接消费者 **2,357 passed**，凭据见 [jsonl-current-checks.json](../../migration/candidates/rc3/jsonl-current-checks.json)。部分Source断言实际经过其provider，但此处仅配对显式捕获的helper API，不冒充原生provider已通过。继续generation准备/独立验证/排他发布，活动JsonlStore与writer仍待切换。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

@@ -124,6 +124,29 @@ def catalog(case, observations):
 
 
 def execute(case):
+    if case['kind'] == 'jsonl-current':
+        from dsh.session import jsonl_current as framing
+        def bytes_values(value):
+            if isinstance(value, dict):
+                if set(value) == {'$bytes'}:
+                    return bytes.fromhex(value['$bytes'])
+                return {key:bytes_values(child) for key,child in value.items()}
+            return [bytes_values(child) for child in value] if isinstance(value, list) else value
+        if case['operation'] == 'function':
+            name = {'encodeSegment':'encode_segment', 'projectKey':'project_key'}.get(case['name'],case['name'])
+            return getattr(framing,name)(*bytes_values(decode(case['args'])))
+        scanner = framing.SessionLogScanner(bytes_values(case['header']),case['recovery'])
+        result = dict(checkpoint=scanner.checkpoint())
+        for action in case['actions']:
+            if action['method'] == 'write':
+                scanner.write(bytes_values(action['chunk']))
+                result = dict(checkpoint=scanner.checkpoint())
+            elif action['method'] == 'checkpoint':
+                result = dict(checkpoint=scanner.checkpoint())
+            elif action['method'] == 'finish':
+                finished = scanner.finish()
+                result = dict(checkpoint=scanner.checkpoint(), result=finished)
+        return result
     if case['kind'] == 'session-catalog':
         from dsh.session.format_catalog import sessionFormatCatalog
         from dsh.session.format_catalog.current import validateInstalledCurrentSessionHeader, validateInstalledCurrentSessionArtifact

@@ -4,7 +4,7 @@ from dsh.cordis.utils import _js_strict_equal
 from dsh.session.format import SessionFormatError, SessionFormatUnsupportedMigrationError
 from dsh.session.format_v0_to_v1.payload import compact
 from dsh.session.format_v1_to_v2 import assertReleasedV2Header, restoreReleasedV2Artifact
-from .payload import assertV3Event, isRepairIdentity, record, SURFACE_TYPES
+from .payload import assertV3Event, isRepairIdentity, record, SURFACE_TYPES, display
 
 
 def assertReleasedV3Header(header):
@@ -15,7 +15,7 @@ def assertReleasedV3Header(header):
 
 def assertV3EventAdmission(event):
     if event.get('type') in ('tool/code-dispatch-start', 'tool/code-dispatch') and event.get('ignorable') is not True:
-        raise SessionFormatUnsupportedMigrationError('format v3 contains unknown event type ' + compact(event['type']) + ' at seq ' + str(event.get('seq', 'undefined')))
+        raise SessionFormatUnsupportedMigrationError('format v3 contains unknown event type ' + compact(event['type']) + ' at seq ' + display(event.get('seq', UNDEFINED)))
 
 
 def relationship_event(event):

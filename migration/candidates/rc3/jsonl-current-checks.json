@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-H-current-jsonl-scanner",
+  "status": "targeted-passed",
+  "paired": {
+    "cases": 153,
+    "inputs": {
+      "scripts/oracles/jsonl_current_cases.json": "5f839bb5044274a1acab5cfa561a08a095760653e3ba00f8856bbf8a1ff18108",
+      "scripts/session_format_oracle.py": "2f09b082dc2194426b8d1e13df63d6f01fd6c3daa8ed057d71b272bca837b428",
+      "scripts/oracles/session_format_python.py": "52a45948c4fda1f4ce7fa9fba0a072be71e11378a99de06adbdecc3670a67059",
+      "scripts/oracles/session_format_source.mts": "891c9ffca7c4c3f94b111278b92d1533b2305ed13ef235aeb5cef6a4e1af7901"
+    },
+    "report": {
+      "path": ".goose/out/rc3-r02-jsonl-current-20261017/pair/report.json",
+      "sha256": "86359162c05cb707f6fd8b94385db5a6a6eaaf4ec54000aa9c46f4ad7c866cc2"
+    }
+  },
+  "native": {
+    "tests": 2357,
+    "command": {
+      "path": ".goose/out/rc3-r02-jsonl-current-20261017/commands.json",
+      "sha256": "d015115f25927af0a1c227c6e9401c2b1ad88015e738c504c4175c238af17e4b"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-jsonl-current-20261017/pytest.xml",
+      "sha256": "5220723c651fe65a5a4e1fda4b65185e40bf3edcf82cca0c1a3527030ce87645"
+    }
+  },
+  "source": {
+    "tests": 65,
+    "skipped": 128,
+    "scope": "format helpers, scanLog unit, nested v3 streams, native v3 event admission",
+    "command": {
+      "path": ".goose/out/rc3-r02-jsonl-current-20261017/source-fixed-command.json",
+      "sha256": "aa534c99c589329a9ec12c1419ea8d34632e022554650b9e2572584e48c74439"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-jsonl-current-20261017/source-fixed.xml",
+      "sha256": "9ad8bd4dc45d2a185a0bb1499ae488dc949bbbf8620bb4a6b6b371177dff789f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/jsonl_current.py",
+      "sha256": "2fdbd826beff973627bbca89f24bc899076abc65fa0428a6ac666f91f58441ab"
+    },
+    {
+      "path": "dsh/session/format_v2_to_v3/validation.py",
+      "sha256": "b044d587e5954ecfb22f79556e1804071cc20bce11e85ef5f0a0af8346e69da6"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "52a45948c4fda1f4ce7fa9fba0a072be71e11378a99de06adbdecc3670a67059"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "891c9ffca7c4c3f94b111278b92d1533b2305ed13ef235aeb5cef6a4e1af7901"
+    },
+    {
+      "path": "scripts/oracles/capture_jsonl_current_cases.mts",
+      "sha256": "960a6f7390a50a4ec039ee104040b35c75c2447341e40603f81708454584d915"
+    },
+    {
+      "path": "scripts/oracles/jsonl_current_cases.json",
+      "sha256": "5f839bb5044274a1acab5cfa561a08a095760653e3ba00f8856bbf8a1ff18108"
+    },
+    {
+      "path": "tests/test_jsonl_current.py",
+      "sha256": "720168fe33faeae63305f01e73c5a7875a0f1de071146d42bce40fea8e36ebed"
+    }
+  ],
+  "diagnostics": [
+    "Initial capture retained a mutable Buffer in action history; snapshot on receipt fixed two observation cases.",
+    "Six framing error messages used Python float rendering; switched admission diagnostics to ECMAScript display."
+  ],
+  "limitations": [
+    "Canonical scanner is an explicit provider helper, not yet replacing active v0 JsonlStore.",
+    "Provider/generation Source assertions are not claimed as native provider acceptance.",
+    "No current-generation publication or release acceptance yet."
+  ]
+}

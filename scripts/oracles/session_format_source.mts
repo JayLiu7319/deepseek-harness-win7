@@ -18,6 +18,7 @@ const v3Payload = await import(pathToFileURL(join(resolve(sourceArg), 'packages/
 const v3References = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-v2-to-v3/src/references.ts')).href)
 const currentCatalog = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/index.ts')).href)
 const installedCurrent = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-format-catalog/src/current.ts')).href)
+const jsonlCurrent = await import(pathToFileURL(join(resolve(sourceArg), 'packages/session/session-persistence-jsonl/src/format.ts')).href)
 const header = (version: number) => ({ version, id: 'paired-session', createdAt: 1, isSeeded: false, delegationDepth: 0 })
 const fail = (message: string): never => { throw new Error(message) }
 function decode(value: any): any {
@@ -98,6 +99,18 @@ function catalog(test: any, observations: any[]) {
 }
 function execute(test: any): any {
   const kind = test.kind
+  if(kind==='jsonl-current') {
+    const bytesValues=(v:any):any=>v&&typeof v==='object'?Array.isArray(v)?v.map(bytesValues):Object.keys(v).length===1&&'$bytes'in v?Buffer.from(v.$bytes,'hex'):Object.fromEntries(Object.entries(v).map(([k,c])=>[k,bytesValues(c)])):v
+    if(test.operation==='function')return jsonlCurrent[test.name](...bytesValues(decode(test.args)))??null
+    const scanner=new jsonlCurrent.SessionLogScanner(bytesValues(test.header),test.recovery)
+    let result:any={checkpoint:scanner.checkpoint()}
+    for(const action of test.actions) {
+      if(action.method==='write'){scanner.write(bytesValues(action.chunk));result={checkpoint:scanner.checkpoint()}}
+      else if(action.method==='checkpoint')result={checkpoint:scanner.checkpoint()}
+      else if(action.method==='finish'){const finished=scanner.finish();result={checkpoint:scanner.checkpoint(),result:finished}}
+    }
+    return result
+  }
   if(kind==='session-catalog') {
     const catalog=currentCatalog.sessionFormatCatalog,operation=test.operation
     if(operation==='currentHeader'){installedCurrent.validateInstalledCurrentSessionHeader(decode(test.header));return null}

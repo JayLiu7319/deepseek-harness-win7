@@ -8,6 +8,8 @@ R02-F：新增 [catalog-checks.json](catalog-checks.json)，完整静态catalog�
 
 R02-G：新增 [lease-checks.json](lease-checks.json)，Win7 API写锁、原版/原生混合双进程互斥与崩溃释放8组场景通过，存储定向27项通过；锁尚未接入生产handle。
 
+R02-H：新增 [jsonl-current-checks.json](jsonl-current-checks.json)，当前JSONL扫描器153场景配对与2,357项直接消费者定向测试通过，尚未替换活动JsonlStore。
+
 本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
 
 用户已授权逐项实施与分阶段提交。当前R01候选工具及回归已分阶段提交；Source安装、官方完整构建、实际web profile与三种Agent preset激活已观察成功，业务合同审查和迁移继续推进。持续状态见 [分阶段实施记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)，静态输入见 [discovery-summary.json](discovery-summary.json)，官方构建与实际激活凭据见 [source-inputs.json](source-inputs.json)。
