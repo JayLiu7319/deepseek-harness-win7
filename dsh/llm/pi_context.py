@@ -1,7 +1,6 @@
 """Harness history to pi-ai context, retaining durable image and replay ownership."""
 import asyncio
 import base64
-import functools
 
 from dsh.llm.image_content import handle, images, offload
 from dsh.llm.llm_service import LlmError
@@ -93,9 +92,8 @@ async def to_pi_context_with_images(options, attachments, resolve_image_access,
 
     history = project(history, lambda ref: min(ref['bytes'], policy['maxBytes']))
     refs = {block['attachment']['attachmentId']: block['attachment'] for message in history for block in images(message['content'])}
-    loop = asyncio.get_running_loop()
-    versions = await asyncio.gather(*(loop.run_in_executor(None,
-        functools.partial(attachments.read_image_request, ref, policy, options.get('signal'))) for ref in refs.values()))
+    from dsh.attachment.images_current import request_image
+    versions = await asyncio.gather(*(request_image(attachments, ref, policy, options.get('signal')) for ref in refs.values()))
     versions = dict(zip(refs, versions))
     history = project(history, lambda ref: versions[ref['attachmentId']]['bytes'])
     return _convert(options, history, versions, resolve_image_access, on_degrade)

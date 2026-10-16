@@ -54,6 +54,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/file_upload_current_python.py', ROOT/'scripts/oracles/file_upload_current_source.mts'])
         if any(case.get('kind') == 'llm-files-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/llm_files_current_python.py', ROOT/'scripts/oracles/llm_files_current_source.mts'])
+        if any(case.get('kind') == 'attachment-images-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/attachment_images_current_python.py', ROOT/'scripts/oracles/attachment_images_current_source.mts'])
         if any(case.get('kind') == 'attachment-files-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/attachment_files_current_python.py', ROOT/'scripts/oracles/attachment_files_current_source.mts'])
         if any(case.get('kind') == 'generation' for case in cases):

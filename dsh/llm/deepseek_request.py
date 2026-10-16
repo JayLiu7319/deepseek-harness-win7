@@ -1,7 +1,6 @@
 """Native request transaction: images, file recovery, and extension acceptance."""
 import asyncio
 import concurrent.futures
-import functools
 import re
 import time
 
@@ -59,8 +58,8 @@ async def request_stream(adapter, transport, request, options):
             policy = {"maxPixels": model["imagePixelBudget"], "maxBytes": model["imageMaxBytes"]}
             for key, ref in refs.items():
                 signal.throw_if_aborted()
-                versions[key] = await asyncio.get_running_loop().run_in_executor(None,
-                    functools.partial(attachments.read_image_request, ref, policy, signal))
+                from dsh.attachment.images_current import request_image
+                versions[key] = await request_image(attachments, ref, policy, signal)
                 state["since"] = time.monotonic()
             if adapter.files is None:
                 adapter.files = DeepSeekFileStore()

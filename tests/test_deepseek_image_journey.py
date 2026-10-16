@@ -93,6 +93,31 @@ async def setup(tmp_path, url):
 
 
 @pytest.mark.asyncio
+async def test_current_async_attachment_provider_reaches_actual_deepseek_upload(tmp_path, endpoint):
+    from dsh.attachment.store_current import CurrentLocalAttachmentStore
+    ctx, adapter, ref = await setup(tmp_path, endpoint[0])
+    store = CurrentLocalAttachmentStore(ctx, dict(dshHome=str(tmp_path)))
+    original = store.readImageRequest
+    calls = []
+    async def read(ref, policy, signal):
+        calls.append((ref, policy, signal))
+        return await original(ref, policy, signal)
+    store.readImageRequest = read
+    def rejected(*_args):
+        pytest.fail('DeepSeek must use the current asynchronous attachment capability')
+    store.read_image_request = rejected
+    try:
+        chunks = [chunk async for chunk in adapter.stream(dict(model='vision', messages=[
+            dict(role='user', content=[dict(type='image', attachment=ref)])]))]
+        assert chunks[-1]['type'] == 'finish' and len(calls) == 1
+        assert calls[0][0] is ref and calls[0][2] is not None
+        assert endpoint[1]['uploads'] == [store.read_image(ref)['data']]
+    finally:
+        await adapter.close()
+        await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
 @pytest.mark.parametrize("extensions", [False, True])
 async def test_native_request_identity_headers_are_stable_and_purpose_scoped(tmp_path, endpoint, extensions):
     from dsh.llm.stream_bridge import iter_chunks

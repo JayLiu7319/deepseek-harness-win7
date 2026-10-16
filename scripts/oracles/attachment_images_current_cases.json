@@ -1,0 +1,236 @@
+[
+  {
+    "case": "images-pass-through",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "expected": {
+      "result": {
+        "attachment": {
+          "attachmentId": "sha256:1b5d325dbd81cabf8407dfeddc3eea1b546006274a8b8ba128a3cdff8907c4ab",
+          "mediaType": "image/png",
+          "width": 10,
+          "height": 10,
+          "bytes": 77
+        },
+        "mediaType": "image/png",
+        "bytes": 77,
+        "width": 10,
+        "height": 10,
+        "depth": "uchar",
+        "space": "srgb",
+        "hasAlpha": false
+      },
+      "digest": "1b5d325dbd81cabf8407dfeddc3eea1b546006274a8b8ba128a3cdff8907c4ab",
+      "repeatEqual": true
+    }
+  },
+  {
+    "case": "images-invalid-pixel-policy",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "policy": {
+      "maxPixels": 0,
+      "maxBytes": 1000
+    },
+    "expected": {
+      "error": {
+        "message": "Image request maxPixels must be a positive integer.",
+        "code": "INVALID_ATTACHMENT_REF"
+      }
+    }
+  },
+  {
+    "case": "images-invalid-byte-policy",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "policy": {
+      "maxPixels": 100,
+      "maxBytes": 1.5
+    },
+    "expected": {
+      "error": {
+        "message": "Image request maxBytes must be a positive integer.",
+        "code": "INVALID_ATTACHMENT_REF"
+      }
+    }
+  },
+  {
+    "case": "images-shared-cancel-one",
+    "kind": "attachment-images-current",
+    "operation": "shared",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "expected": {
+      "started": 1,
+      "first": {
+        "error": {
+          "message": "stop one"
+        }
+      },
+      "second": {
+        "value": {
+          "bytes": 77,
+          "width": 10,
+          "height": 10
+        }
+      },
+      "masterAborted": false
+    }
+  },
+  {
+    "case": "images-shared-non-error",
+    "kind": "attachment-images-current",
+    "operation": "shared",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "nonError": true,
+    "expected": {
+      "started": 1,
+      "first": {
+        "error": {
+          "message": "Attachment request cancelled with a non-Error reason.",
+          "cause": "stop one"
+        }
+      },
+      "second": {
+        "value": {
+          "bytes": 77,
+          "width": 10,
+          "height": 10
+        }
+      },
+      "masterAborted": false
+    }
+  },
+  {
+    "case": "images-shared-new-generation",
+    "kind": "attachment-images-current",
+    "operation": "replace",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "expected": {
+      "first": {
+        "error": {
+          "message": "stop one"
+        }
+      },
+      "second": {
+        "error": {
+          "message": "stop two"
+        }
+      },
+      "replacement": {
+        "value": {
+          "bytes": 77,
+          "width": 10,
+          "height": 10
+        }
+      },
+      "third": {
+        "value": {
+          "bytes": 77,
+          "width": 10,
+          "height": 10
+        }
+      },
+      "started": 2,
+      "oldAborted": true
+    }
+  },
+  {
+    "case": "images-compression-fifo",
+    "kind": "attachment-images-current",
+    "operation": "limiter",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "expected": {
+      "before": [
+        0,
+        1
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "peak": 2,
+      "values": [
+        {
+          "value": 0
+        },
+        {
+          "error": {
+            "message": "Image compression task rejected with a non-Error value.",
+            "cause": "binding failed"
+          }
+        },
+        {
+          "value": 2
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 4
+        }
+      ]
+    }
+  },
+  {
+    "case": "images-config-0",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "config": {
+      "imageCompressionConcurrency": 0
+    },
+    "expected": {
+      "error": {
+        "message": "attachment-local: imageCompressionConcurrency must be an integer from 1 through 8"
+      }
+    }
+  },
+  {
+    "case": "images-config-9",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "config": {
+      "imageCompressionConcurrency": 9
+    },
+    "expected": {
+      "error": {
+        "message": "attachment-local: imageCompressionConcurrency must be an integer from 1 through 8"
+      }
+    }
+  },
+  {
+    "case": "images-config-1.5",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "config": {
+      "imageCompressionConcurrency": 1.5
+    },
+    "expected": {
+      "error": {
+        "message": "attachment-local: imageCompressionConcurrency must be an integer from 1 through 8"
+      }
+    }
+  },
+  {
+    "case": "images-config-True",
+    "kind": "attachment-images-current",
+    "operation": "read",
+    "data": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFElEQVR4nGPkEpFjwA2Y8MiNYGkAVW4AUEf+WgkAAAAASUVORK5CYII=",
+    "config": {
+      "imageCompressionConcurrency": true
+    },
+    "expected": {
+      "error": {
+        "message": "attachment-local: imageCompressionConcurrency must be an integer from 1 through 8"
+      }
+    }
+  }
+]

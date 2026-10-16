@@ -1,6 +1,7 @@
 """Explicit rc.3 attachment capability, pending the coordinated profile switch."""
 import base64
 import binascii
+import asyncio
 
 from dsh.attachment.error import AttachmentError, IMAGE_ADMISSION_ERROR_CODES
 from dsh.attachment.store import AttachmentStore
@@ -72,6 +73,16 @@ class CurrentAttachmentAPI:
     def imageHostPath(self, ref):
         return None
 
+    async def readImage(self, ref, signal=None):
+        check_abort(signal)
+        value = await disk(self.read_image, ref, signal)
+        check_abort(signal)
+        return value
+
+    async def readImageRequest(self, ref, policy, signal=None):
+        check_abort(signal)
+        raise AttachmentError('The mounted attachment provider cannot derive model-request images.', 'ATTACHMENT_PROJECTION_UNSUPPORTED')
+
     async def saveFile(self, input_data):
         raise AttachmentError('The mounted attachment provider cannot store verbatim files.', 'ATTACHMENT_FILES_UNSUPPORTED')
 
@@ -89,6 +100,67 @@ class CurrentAttachmentStore(CurrentAttachmentAPI, AttachmentStore):
 
 
 class CurrentLocalAttachmentStore(CurrentAttachmentAPI, LocalAttachmentStore):
+    def __init__(self, ctx=None, config=None):
+        from dsh.attachment.compression_current import CompressionLimiter
+        from dsh.core.session.json import deep_freeze
+        super().__init__(ctx, config)
+        value = (config or {}).get('imageCompressionConcurrency', 2)
+        if type(value) not in (int, float) or not 1 <= value <= 8 or int(value) != value:
+            raise ValueError('attachment-local: imageCompressionConcurrency must be an integer from 1 through 8')
+        self.imageCompressionConcurrency = int(value)
+        self.compression = CompressionLimiter(int(value))
+        self._request_inflight = {}
+        self._image_limits = deep_freeze(self._image_limits)
+        self.normalization_policy = deep_freeze(self.normalization_policy)
+
+    @property
+    def normalizationPolicy(self):
+        return self.normalization_policy
+
+    async def _prepare_image(self, input_data):
+        from dsh.attachment.local import prepare_image_file
+        return await self.compression.run(lambda: disk(prepare_image_file, input_data, self.image_limits, self.normalization_policy))
+
+    async def validateImage(self, input_data):
+        await self._prepare_image(input_data)
+
+    async def saveImages(self, inputs):
+        from dsh.attachment.images_current import commit_prepared_image
+        self.validate_image_batch(inputs)
+        prepared = await asyncio.gather(*(self._prepare_image(input_data) for input_data in inputs))
+        refs = []
+        for image in prepared:
+            refs.append(await commit_prepared_image(self.root, image))
+        return refs
+
+    async def saveImage(self, input_data):
+        from dsh.attachment.images_current import commit_prepared_image
+        return await commit_prepared_image(self.root, await self._prepare_image(input_data))
+
+    async def readImageRequest(self, ref, policy, signal=None):
+        from dsh.attachment.compression_current import SharedRequest
+        from dsh.attachment.images_current import read_request_image
+        from dsh.attachment.local import request_image_variant_id
+        check_abort(signal)
+        key = str(request_image_variant_id(ref, policy))
+        operation = self._request_inflight.get(key)
+        if operation is not None and operation.controller.signal.aborted:
+            self._request_inflight.pop(key, None)
+            operation = None
+        if operation is None:
+            async def compute(shared_signal):
+                async def transform():
+                    stored = await self.readImage(ref, shared_signal)
+                    return await read_request_image(self.root, stored, policy, shared_signal)
+                return await self.compression.run(transform)
+            operation = SharedRequest(compute)
+            self._request_inflight[key] = operation
+            def settled(_done):
+                if self._request_inflight.get(key) is operation:
+                    self._request_inflight.pop(key, None)
+            operation.task.add_done_callback(settled)
+        return await operation.wait(signal)
+
     async def saveFile(self, input_data):
         return await save_file_verbatim(self.root, input_data)
 

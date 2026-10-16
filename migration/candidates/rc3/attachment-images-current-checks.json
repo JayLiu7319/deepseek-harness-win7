@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R05-D-current-async-image-lifecycle",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 11,
+    "report": {
+      "path": ".goose/out/rc3-r05-images-frozen-20261017/report.json",
+      "sha256": "0a524d0b3eeeab6321f35ed2f9ccbd804d443f2563ba48b9f200de06f63ddc7f"
+    },
+    "corpus": {
+      "path": "scripts/oracles/attachment_images_current_cases.json",
+      "sha256": "21443023612df2e326f85f5e1e811673d01d6a308b38c21829a9c9d86d8c2c37"
+    }
+  },
+  "native": {
+    "passed": 88,
+    "command": {
+      "path": ".goose/out/rc3-r05-images-native-lazy-loop-20261017/command.json",
+      "sha256": "76735ff811db32e414ca9c3bbd2db46710a4aab7231392dbb21a81482f89d1a6"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-images-native-lazy-loop-20261017/pytest.xml",
+      "sha256": "8eaf5a5cd5162bfdb31abf491ac265e5bd5d1d0a1c1675ed74ee2ccc2d17d06a"
+    }
+  },
+  "direct_deepseek_consumer": {
+    "passed": 1,
+    "command": {
+      "path": ".goose/out/rc3-r05-images-deepseek-current-20261017/command.json",
+      "sha256": "4b8b64e293624538a8b9fefd36d09d4224f15f2ca74ff5635bc5c9c27f202bd5"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-images-deepseek-current-20261017/pytest.xml",
+      "sha256": "414b5028d92c053069d1e9214d91faf80bb55af0f835c08e086ad651c29862cd"
+    }
+  },
+  "source": {
+    "passed": 35,
+    "suites": 4,
+    "command": {
+      "path": ".goose/out/rc3-r05-images-source-20261017/command.json",
+      "sha256": "b17a956e7027d89f255e9c6ed21e71c4f3adbabd965a1ba9525035d1bd49db36"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r05-images-source-20261017/source.xml",
+      "sha256": "9f2103ef53364fae0a527f560b0ae9fa7393a0a70ff0c9f50aa5ea3beb64946d"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/attachment/compression_current.py",
+      "sha256": "fc7e172dad35c8aa6779e37d5864c59063c66f2777bbafe67e3b64c43ed0ecae"
+    },
+    {
+      "path": "dsh/attachment/images_current.py",
+      "sha256": "8eafef2f03b705cd7e55179f5b86207c9bc8dacf9a6ca5c1d3f60bd7abf55ba1"
+    },
+    {
+      "path": "dsh/attachment/store_current.py",
+      "sha256": "8114f8a8c6776910a5ab0bc5fe46014a94fbe6c0954f1a1cef52f911b0846597"
+    },
+    {
+      "path": "dsh/llm/deepseek_request.py",
+      "sha256": "b6ac5e971ccaeac6e6747c2a59cf3d89f222e47e69281e1f35d23e1dea1e69d0"
+    },
+    {
+      "path": "dsh/llm/pi_context.py",
+      "sha256": "0fd4c690c1843967d032100833612abf04aab3c4bf232e178a0ca86a3a472936"
+    }
+  ],
+  "scope": [
+    "Instance-owned FIFO concurrency shared by normalization and request derivation; per-waiter abort and replacement generations; non-Error binding failures normalized with cause.",
+    "Current saveImages prepares the entire batch before immutable ordered publication; read-only digest-verified objects, cache verification and repair, real Pi and DeepSeek async consumers."
+  ],
+  "adaptation": "Win7 Pillow10.4 retains request-image-pillow-10.4-v1 identity. Paired pass-through observations retain exact byte digest and metadata, but explicitly omit derived variantId. Re-encoded Sharp/Pillow bytes and variant IDs are not asserted equal. Native decoded-pixel dimensions, alpha, sRGB and cache repair are checked.",
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r05-images-initial-20261017",
+      "reason": "Source actor teardown used nonexistent ctx.dispose; fixed to actual fiber.dispose, diagnostics retained."
+    },
+    {
+      "path": ".goose/out/rc3-r05-images-native-20261017",
+      "result": "84 passed,4 errors",
+      "reason": "Python3.8 eagerly bound Semaphore required an event loop during synchronous construction. Limiter now creates semaphore on first async run; fresh selected run passed."
+    }
+  ],
+  "remaining": [
+    "SessionController current receipt delivery and media references.",
+    "Coordinated production activation, frontend/browser and unified release acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192366923776,
+    "policy": "Owned temporary actors remove their own fixtures only; successful short pytest fixtures auto-prune; failures and raw XML/log observations preserved."
+  }
+}
