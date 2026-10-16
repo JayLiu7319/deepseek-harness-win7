@@ -92,3 +92,7 @@ R04-F: [Session identity commands](session-identity-commands-current-checks.json
 R04-G: [Session list/search/cache](session-list-current-checks.json):35 current pairs,141 selected native and60 original Source tests pass. Lists perform no cold handle opens; cache format identity and predecessor title-only hints are covered with actual storage and SQLite consumers. History/control and production activation remain open.
 
 R04-H: [Session history/control](session-history-current-checks.json):38 current pairs,171 selected native and37 original Source tests pass. Actual Agent/query verifies live Assistant reconnect and gap-free cold promotion; control uses durable Inbox replacement snapshots. Full Remote assembly and production activation remain open.
+
+R09-A: [native desktop intents](native-path-current-checks.json):68 current pairs,111 selected native and44 Source tests pass. Actual child argv/UTF-8/abort/reaping and controlled platform open/reveal/WSL/Explorer contracts are covered. Packaged desktop acceptance remains open.
+
+R04-I: [complete Session facade](session-facade-current-checks.json):31 current pairs,129 selected native and39 Source tests pass. Real full Agent/persistence/uploads, background promotion ownership, projected cold skills, lifecycle and unload are covered. Current generated descriptors/production composition and workspace/sidebar alignment remain open.

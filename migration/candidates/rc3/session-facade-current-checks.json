@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-I-complete-session-controller",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 31,
+    "report": {
+      "path": ".goose/out/rc3-r04-facade-frozen-20261017/report.json",
+      "sha256": "5b0b8b42c94ba6d7e1216bdf1ee397f53a58b65a6c7a8e8f036988438903a325"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_facade_current_cases.json",
+      "sha256": "9cda113f1b90abb4a4be03bccee9f2af33f3fce39c4346b6abb6231b6c90810d"
+    }
+  },
+  "native": {
+    "passed": 129,
+    "command": {
+      "path": ".goose/out/rc3-r04-facade-native-qualification-20261017/command.json",
+      "sha256": "0fea91e2c255a06b759580b0167b870d9ae69c2aa9020f989d1fe0331612f61a"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-facade-native-qualification-20261017/pytest.xml",
+      "sha256": "6d32bc42317639192597879611215018ac1a47e935bb5db8b0bd9402e3d46155"
+    }
+  },
+  "source": {
+    "passed": 39,
+    "suites": 5,
+    "command": {
+      "path": ".goose/out/rc3-r04-facade-source-20261017/command.json",
+      "sha256": "e2a8b2aa97556bfe879a6d862129ae066bb9f73ef8f466e451e2a91745830e34"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-facade-source-20261017/source.xml",
+      "sha256": "a8f8725a119dc4653e6b8ad0816b2f5b4eefbe5c53fbe5a8f29e671750531c86"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_current.py",
+      "sha256": "e03134612b467d8e8986619749eecdb96aa2b28157c98b654025387fdb77cd5a"
+    },
+    {
+      "path": "dsh/api/session_catalogs_current.py",
+      "sha256": "bc0604d168741b7e6d270f2d53141516b03870350cb9b864fa3fc8ae733fd57b"
+    }
+  ],
+  "scope": [
+    "Complete Session facade delegates to tested v3 providers; reversible upload Agent resolver, lifecycle/status/error/activity projections and background prepared activation. Followers close before admitted promotions drain.",
+    "Cold projected skill catalog never activates an Agent; live preset scope is the Agent identity. Model catalog isolates provider/model-resolution failures. Native path facade preserves cancellation and wire errors.",
+    "Actual full mounted Agent/persistence/uploads verifies selection consumption, file retirement, history/control and unload ownership: caller-fiber Agents release with controller; external Agents survive."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose/out/rc3-r04-facade-initial-20261017",
+      "reason": "Actor child-plugin startup not awaited and Source Inbox used incorrect constructor arguments."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-initial-20261017",
+      "reason": "New native fixture omitted required title config (123 passed/6 failed)."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-integration-20261017",
+      "reason": "New upload request used legacy field base64 rather than data (5 passed/1 failed)."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-final-20261017",
+      "reason": "New admitted prompt fixture omitted required mode (128 passed/1 failed)."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-final-schema-20261017",
+      "reason": "New assertion read control frame outside its value envelope (128 passed/1 failed)."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-wire-final-20261017",
+      "reason": "Follow-up assertion used incorrect baseline key; corrected to value (128 passed/1 failed)."
+    },
+    {
+      "path": ".goose/out/rc3-r04-facade-native-complete-20261017",
+      "reason": "New test incorrectly expected controller-created Agent to outlive caller fiber. Corrected to original registry owner semantics and added independent external Agent (128 passed/1 failed)."
+    }
+  ],
+  "remaining": [
+    "Generated current Typert descriptors and canonical profile activation with complete rc3 provider inventory.",
+    "Workspace/file/sidebar controllers, unported adapters, desktop/Win7/browser/Portable and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192334991360,
+    "result": "Successful short workspaces auto-pruned. Raw observations and failures preserved; no Portable built."
+  }
+}

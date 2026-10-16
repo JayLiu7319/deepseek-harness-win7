@@ -1,0 +1,1306 @@
+[
+  {
+    "case": "catalog-empty",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "catalog"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "default": {
+              "provider": "fixture",
+              "model": "model"
+            },
+            "routableProviders": [],
+            "groups": [],
+            "failures": []
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "catalog-failure-isolation",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "catalog"
+      }
+    ],
+    "providers": [
+      {
+        "id": "empty",
+        "name": "Empty",
+        "models": []
+      },
+      {
+        "id": "bad",
+        "name": "Bad",
+        "error": "not available"
+      },
+      {
+        "id": "ok",
+        "name": "Healthy",
+        "models": [
+          {
+            "id": "model",
+            "name": "Model",
+            "description": "listed",
+            "hidden": "omit",
+            "reasoning": {
+              "efforts": [
+                {
+                  "id": "high",
+                  "name": "High",
+                  "description": "think",
+                  "hidden": "omit"
+                }
+              ],
+              "defaultEffort": "high",
+              "internal": "omit"
+            }
+          }
+        ]
+      },
+      {
+        "id": "opaque",
+        "name": "Opaque",
+        "error": {
+          "throw": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "default": {
+              "provider": "fixture",
+              "model": "model"
+            },
+            "routableProviders": [
+              "empty",
+              "bad",
+              "ok",
+              "opaque"
+            ],
+            "groups": [
+              {
+                "id": "ok",
+                "name": "Healthy",
+                "models": [
+                  {
+                    "id": "model",
+                    "name": "Model",
+                    "description": "listed",
+                    "reasoning": {
+                      "efforts": [
+                        {
+                          "id": "high",
+                          "name": "High",
+                          "description": "think"
+                        }
+                      ],
+                      "defaultEffort": "high"
+                    }
+                  }
+                ]
+              }
+            ],
+            "failures": [
+              {
+                "id": "bad",
+                "name": "Bad",
+                "message": "not available"
+              },
+              {
+                "id": "opaque",
+                "name": "Opaque",
+                "message": "false"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "catalog-one-resolve-failure-drops-provider",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "catalog"
+      }
+    ],
+    "providers": [
+      {
+        "id": "one",
+        "name": "One",
+        "models": [
+          {
+            "id": "fine",
+            "name": "Fine"
+          },
+          {
+            "id": "bad",
+            "name": "Bad",
+            "resolveError": "model missing"
+          }
+        ]
+      },
+      {
+        "id": "two",
+        "name": "Two",
+        "models": [
+          {
+            "id": "fine",
+            "name": "Fine"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "default": {
+              "provider": "fixture",
+              "model": "model"
+            },
+            "routableProviders": [
+              "one",
+              "two"
+            ],
+            "groups": [
+              {
+                "id": "two",
+                "name": "Two",
+                "models": [
+                  {
+                    "id": "fine",
+                    "name": "Fine"
+                  }
+                ]
+              }
+            ],
+            "failures": [
+              {
+                "id": "one",
+                "name": "One",
+                "message": "model missing"
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "skills-cold",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": null,
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-live",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "live": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": "agent",
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-standing",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "presets": true,
+    "preset": "minimal",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "standing",
+          "preset": "minimal"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": "standing",
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-fallback",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "presets": true,
+    "standingError": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "standing",
+          "preset": null
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": null,
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-scoped-live",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "presets": true,
+    "live": true,
+    "scopedSkills": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "serviceFor",
+          "agent": true,
+          "service": "skills"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": "agent",
+          "scoped": true
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-global-live",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "presets": true,
+    "live": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "serviceFor",
+          "agent": true,
+          "service": "skills"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": "agent",
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-missing",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "queryError": "missing",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "skills-query-error",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "queryError": "disk failed",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" could not be inspected: Error: disk failed",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "skills-unprojected",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "unprojected": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" could not be inspected: Error: skill catalog requires a projected Session observation",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-no-cwd",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "header": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" has no project cwd",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-no-registry",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "noSkills": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "skill registry is absent: neither this session's agent preset nor the host composition mounts @deepseek-ai/dsh-skill",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-registry-error",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skillError": "scan failed",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "skill listing failed: Error: scan failed",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": null,
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-registry-nonerror",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "skillError": {
+      "throw": {
+        "problem": true
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "skill listing failed: [object Object]",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": null,
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "skills-admitted-preabort",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "skills"
+      }
+    ],
+    "aborted": true,
+    "skills": [
+      {
+        "name": "review",
+        "description": "Review",
+        "whenToUse": "Before commit",
+        "invocation": {
+          "modelInvocable": false,
+          "userInvocable": true
+        }
+      },
+      {
+        "name": "model-only",
+        "description": "Hidden",
+        "invocation": {
+          "modelInvocable": true,
+          "userInvocable": false
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "skills": [
+              {
+                "name": "review",
+                "description": "Review",
+                "whenToUse": "Before commit",
+                "modelInvocable": false
+              }
+            ]
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        },
+        {
+          "op": "skills",
+          "cwd": "/workspace",
+          "scope": null,
+          "scoped": false
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "inspect-cold",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "inspect"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "meta": {
+              "version": 3,
+              "id": "one",
+              "createdAt": 1,
+              "isSeeded": false,
+              "cwd": "/workspace"
+            },
+            "inheritedEventCount": 0,
+            "events": []
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one",
+          "projectionMode": "none"
+        }
+      ],
+      "disposed": [
+        "one"
+      ]
+    }
+  },
+  {
+    "case": "inspect-attached",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "inspect"
+      }
+    ],
+    "live": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "meta": {
+              "version": 3,
+              "id": "one",
+              "createdAt": 1,
+              "cwd": "/workspace",
+              "isSeeded": false
+            },
+            "inheritedEventCount": 0,
+            "events": []
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "inspect-notfound",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "inspect"
+      }
+    ],
+    "queryError": "missing",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" not found"
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one",
+          "projectionMode": "none"
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "upload-resolver-live",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "resolver"
+      }
+    ],
+    "live": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one",
+            "exact": true
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "upload-resolver-notfound",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "resolver"
+      }
+    ],
+    "queryError": "missing",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "observe",
+          "sessionId": "one"
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-default-available",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "available"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-disabled-probe",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "available"
+      }
+    ],
+    "config": {
+      "nativeOpen": false
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": false
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-open-reveal",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": "C:\\project\\a'b.txt"
+        }
+      },
+      {
+        "op": "open",
+        "request": {
+          "path": "C:\\project",
+          "action": "reveal"
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "opened": true
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "opened": true
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "open",
+          "path": "C:\\project\\a'b.txt",
+          "signal": true
+        },
+        {
+          "op": "reveal",
+          "path": "C:\\project",
+          "signal": true
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-empty",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": ""
+        }
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "session.openWorkspacePath requires a non-empty path",
+            "code": "gateway/bad-request",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-error",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": "file"
+        }
+      }
+    ],
+    "nativeError": "denied",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "path open failed: denied",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "open",
+          "path": "file",
+          "signal": true
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-nonerror",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": "file"
+        }
+      }
+    ],
+    "nativeError": {
+      "throw": {
+        "no": true
+      }
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "path open failed: [object Object]",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "open",
+          "path": "file",
+          "signal": true
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-abort-during",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": "file"
+        }
+      }
+    ],
+    "nativeError": "stopped",
+    "nativeAbort": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "path open was aborted",
+            "code": "gateway/cancelled",
+            "details": {}
+          }
+        }
+      ],
+      "calls": [
+        {
+          "op": "open",
+          "path": "file",
+          "signal": true
+        }
+      ],
+      "disposed": []
+    }
+  },
+  {
+    "case": "native-preabort",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "open",
+        "request": {
+          "path": "file"
+        }
+      }
+    ],
+    "aborted": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "caller cancelled"
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  },
+  {
+    "case": "prompt-preabort",
+    "kind": "session-facade-current",
+    "actions": [
+      {
+        "op": "prompt"
+      }
+    ],
+    "aborted": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "message": "caller cancelled"
+          }
+        }
+      ],
+      "calls": [],
+      "disposed": []
+    }
+  }
+]
