@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-M-cold-observation",
+  "status": "targeted-passed",
+  "native": {
+    "passed": 99,
+    "command": {
+      "path": ".goose/out/rc3-r02-observation-final-20261017/command.json",
+      "sha256": "e01837b1f936eda3e71b48dae1e62d89650876b9a386d2c6e0139d7dca3994c2"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-observation-final-20261017/pytest.xml",
+      "sha256": "f27c131240fda9b8f8a1ac5215924af01a4f71c707fb5453eac5ace00c11cbb0"
+    }
+  },
+  "source": {
+    "passed": 27,
+    "command": {
+      "path": ".goose/out/rc3-r02-observation-source-20261017/command.json",
+      "sha256": "cf8c14db3ec20de94862d599508df4f34528da697c589585b4079ff40bda5a31"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-observation-source-20261017/source.xml",
+      "sha256": "64534c540fa8784e1ef6e7c9e14bf0d34a185405a0d9faaad7a33809b6e6dd26"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/session/current_session.py",
+      "sha256": "c3951897181bcffd7bde61291ce00188455c52b0d315b43e2f3b3941349c9e9d"
+    },
+    {
+      "path": "dsh/session/jsonl_handle.py",
+      "sha256": "9665bcdebf19c48329c0177d82cd05a4b38db5a3814f687526fc2a07f478bc6d"
+    },
+    {
+      "path": "dsh/session/cold_read.py",
+      "sha256": "04005a71b2390530e2fd2a244f7abca5e4f0a0e45fc9c6e91968a7b37115253a"
+    },
+    {
+      "path": "dsh/session/observation_current.py",
+      "sha256": "efdbc23f0494b51d094c3b69fe1cf12ea6f3c447b11b579e61db3056ec3a6b4f"
+    },
+    {
+      "path": "tests/test_session_observation_current.py",
+      "sha256": "69b5346457038b09b0c3373cef93abdc25d27bf0d38435efeb7f87f3279c1e12"
+    }
+  ],
+  "limits": [
+    "Candidate service only; production query and Agent consumers not yet switched.",
+    "Source original assertions and native regressions are separate executions, not a paired transcript claim.",
+    "Not complete R02, rc.3 or release qualification."
+  ],
+  "initial_failures": [
+    "Fixture used an incomplete Context stub and a nonexistent backend disposal method; corrected with retained diagnostics.",
+    "Intermediate test teardown used synchronous root disposal without awaiting fiber settlement; corrected and final run has no pending task warnings."
+  ]
+}

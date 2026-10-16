@@ -119,3 +119,9 @@ Source六个原测试文件390断言通过；捕获并回放957个独立前缀�
 本批定向测试继续使用conftest提供的新短工作区和自动合成回执清理。日志/XML/真实Source观察保留；后续大批复制、构建或统一门禁前重新核对空间，已完成的可重建夹具按既有规则回收。禁止按目录年龄或通配符整体清空历史。
 
 2026-10-17完成R02-A后再次执行既有retention，未发现额外符合回收条件的历史产物；空间约182GB。保留Node身份失败现场与实际成功配对，不把清理无匹配报告成已释放空间。
+# R02-M：只读 handle 与会话观察
+
+新增显式 `CurrentSessionObservationReader`，以 `stat` 的实例身份/revision 复用未发布的恢复会话；缓存只驱逐未固定项，旧 revision 的既有租约保持原切分。冷读经 handle 关闭后仅在内存补齐中断轮次；live 观察延迟生成固定前缀，并在读取或准备期间出现实时 owner 时优先实时会话。补齐 handle 的 inherited cut getter，并提供候选 Session plugin。
+
+定向范围选择观察、真实 JSONL backend，覆盖无持久化写回、缓存更新/替换、取消、错误分类与资源释放：最终 Python 99 项通过，Source 原 observation 27 项通过。首轮夹具 API 和中间异步清理问题的诊断保留；最终无 pending task 告警。两端分别执行，不声明新增配对合同。凭据见 `migration/candidates/rc3/observation-checks.json`。生产 query/Agent 与活动 rc.1 pin 未切换，R02 和 rc.3 均未签收。
+

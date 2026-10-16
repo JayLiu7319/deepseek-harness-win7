@@ -52,6 +52,10 @@ class JsonlSessionHandle:
         self.batchTimer, self.draining = None, None
         self.drainPaused = False
 
+    @property
+    def inheritedEventCount(self):
+        return self.state['inheritedEventCount']
+
     def _assert_open(self, operation):
         if self._closing is not None:
             raise SessionHandleClosedError(self.id, operation)

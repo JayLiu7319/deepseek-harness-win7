@@ -164,3 +164,14 @@ class CurrentSessionStore(SessionStore):
             raise SessionForkError('fork boundary %s in session "%s" ends inside open turn %s' %
                 (display(boundary),session.id,display(last['data']['turn'])),'OPEN_TURN')
         return prefix
+
+
+from dsh.cordis.plugin import Plugin
+
+
+class CurrentSessionPlugin(Plugin):
+    id = 'session'
+    name = '@deepseek-ai/dsh-session'
+
+    def apply(self, ctx):
+        ctx.set_service('sessions',CurrentSessionStore(ctx))
