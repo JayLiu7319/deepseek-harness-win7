@@ -23,6 +23,10 @@ export async function loopCurrentCase(source:string,test:any,decode:(v:any)=>any
  }
  const oldNow=Date.now;Date.now=()=>1000
  try{
+  if(['catalog','continuation-messages','subagent-inbox'].includes(test.operation)){
+   const {subagentUnits}=await import('./subagent_units_current_source.mts')
+   return await subagentUnits(source,test,normalize)
+  }
   if(test.operation==='prompt-service'){
    await ctx.plugin(prompt.default,test.config??{})
    for(const section of test.sections??[])ctx.systemPrompt.section({...section,order:typeof section.order==='string'?ctx.systemPrompt.getSectionOrder(section.order):section.order})

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-D-parent-catalog-and-continuation-units",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 53,
+    "report": {
+      "path": ".goose/out/rc3-r03-units-frozen-20261017/report.json",
+      "sha256": "be98e3313084446623568d675eb2cab365a9d1e3bc1815bc67f19a91a30e95f3"
+    },
+    "corpus": {
+      "path": "scripts/oracles/subagent_units_current_cases.json",
+      "sha256": "a9ca5bdeb05529b6b8f35b894e3a2eb3b29fa776495d45bb222608b67bae73dc"
+    },
+    "normalization": [
+      "Fixed message UUID observation labels, fixed clock 1000.",
+      "Catalog validation compares accept/reject and complete successful values; Zod/native exception prose is not compared."
+    ]
+  },
+  "native": {
+    "passed": 172,
+    "command": {
+      "path": ".goose/out/rc3-r03-units-native-fixed-20261017/command.json",
+      "sha256": "00547772bd21d41dff6d736f4324c4ebaa61e1dc47a7daf70a3b5ac0c9366adc"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-units-native-fixed-20261017/pytest.xml",
+      "sha256": "a3ce0cc4557bb8beb43c9d5a749c80b7b8b794f91729022d85710c878930ecd8"
+    }
+  },
+  "source": {
+    "passed": 30,
+    "command": {
+      "path": ".goose/out/rc3-r03-units-source-20261017/command.json",
+      "sha256": "0d122dce672953c754a058c8bc0540e009fd128e36c142090bd58bbee9da7acf"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-units-source-20261017/source.xml",
+      "sha256": "6446a452248a99e951c40e034703e745518113686f533fc52e0254fac8db73f2"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/subagent/catalog_current.py",
+      "sha256": "5850ee80b5c52b14fd095623308b1d6387feae4e79f8ddb712dbedefa04b5c77"
+    },
+    {
+      "path": "dsh/subagent/continuation_messages_current.py",
+      "sha256": "1844b4d330ac4fc9a589482f0d2d87799353572f8819f0e6ca6f3ef097aef473"
+    },
+    {
+      "path": "dsh/subagent/inbox_current.py",
+      "sha256": "bbb1bfcef53854e49a548c0d11be04bd75f580759eb082ddeb92ed7423706508"
+    },
+    {
+      "path": "scripts/oracles/subagent_units_current_python.py",
+      "sha256": "0db21bf811e9f907a4ad9baa924cc418167d34dbf5bc9cf4506f7c2c540e1408"
+    },
+    {
+      "path": "scripts/oracles/subagent_units_current_source.mts",
+      "sha256": "07fbb7031d203d09ef79511942acbe9f436262138794b2a703a25f0ee492f85d"
+    },
+    {
+      "path": "scripts/oracles/agent_loop_current_python.py",
+      "sha256": "c5fa09640351d71868b3e104a1e7fd8cfb98503ad1292c0430e7c51d36470947"
+    },
+    {
+      "path": "scripts/oracles/agent_loop_current_source.mts",
+      "sha256": "4080e252c89165150aab56ab94280647e9e22f9298f130953bc54428bd1f7604"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "1fff1ad7940c371f967a6c95fd59f76d33bc7ff12d270b0ed622e01126a5a4de"
+    },
+    {
+      "path": "tests/test_subagent_units_current.py",
+      "sha256": "99f66a536e1ed65fbffa647640e6c0deaaee53b7adfdd018f82f964391595942"
+    }
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-units-native-20261017: initial test omitted required explicit inherited cut; fixture fixed, implementation unchanged."
+  ],
+  "limits": [
+    "Foundational units only; continuable lifecycle integration remains open.",
+    "No active baseline switch, full regression or release qualification."
+  ]
+}

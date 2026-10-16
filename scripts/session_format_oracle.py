@@ -62,6 +62,8 @@ def main():
             inputs.extend([ROOT/'scripts/oracles/session_query_current_python.py',ROOT/'scripts/oracles/session_query_current_source.mts'])
         if any(case.get('kind') == 'loop-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/agent_loop_current_python.py',ROOT/'scripts/oracles/agent_loop_current_source.mts'])
+            if any(case.get('operation') in ('catalog','continuation-messages','subagent-inbox') for case in cases):
+                inputs.extend([ROOT/'scripts/oracles/subagent_units_current_python.py',ROOT/'scripts/oracles/subagent_units_current_source.mts'])
         if any(case.get('kind') == 'machine-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/agent_machine_current_python.py',ROOT/'scripts/oracles/agent_machine_current_source.mts'])
         report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}

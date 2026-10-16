@@ -32,6 +32,9 @@ async def run(test, decode):
         return value
     with patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1):
         try:
+            if test['operation'] in ('catalog','continuation-messages','subagent-inbox'):
+                from scripts.oracles.subagent_units_current_python import run as units
+                return await units(test,normalize)
             if test['operation']=='prompt-service':
                 await ctx.plugin(CurrentSystemPrompt,test.get('config',{}))
                 service=ctx.get('systemPrompt')
