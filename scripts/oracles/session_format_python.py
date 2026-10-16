@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-media-current':
+        if case['kind'] == 'session-agents-current':
+            from scripts.oracles.session_agents_current_python import execute as agents_execute
+            value = agents_execute(case)
+        elif case['kind'] == 'session-media-current':
             from scripts.oracles.session_media_current_python import execute as media_execute
             value = media_execute(case)
         elif case['kind'] == 'attachment-images-current':

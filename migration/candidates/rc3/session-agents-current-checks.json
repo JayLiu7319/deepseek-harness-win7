@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-E-session-agent-activation",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 26,
+    "report": {
+      "path": ".goose/out/rc3-r04-session-agents-frozen-20261017/report.json",
+      "sha256": "78c935d24a669bebcb36f9ffd5287fa433ce65fe5fe718b60ea56b10b30c3fc0"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_agents_current_cases.json",
+      "sha256": "0b2bd7d15541c820950e5b115d550970da1cccb538301f978be72add8b3ec0f8"
+    }
+  },
+  "native": {
+    "passed": 97,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-agents-native-scope-20261017/command.json",
+      "sha256": "8775b8ec035ddc16e2f78e40aeac93f921fa3116cfa5ea445f0c9736ea249b7e"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-agents-native-scope-20261017/pytest.xml",
+      "sha256": "f077d16456410a466ed8ec30f5fec85d3233f56f1adea3e4dfbaf2762d3736ff"
+    }
+  },
+  "source": {
+    "passed": 16,
+    "suites": 1,
+    "command": {
+      "path": ".goose/out/rc3-r04-session-agents-source-20261017/command.json",
+      "sha256": "01d21c39acd94bf9569db945bf84d119f05d3f8ecb2388b755d4c55ab45dc1c0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-session-agents-source-20261017/source.xml",
+      "sha256": "019f60775e99ac66e29364959282ccbe5798e5e523a261683153abea1dbaf453"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/api/session_agents_current.py",
+      "sha256": "4383d256b00824b3e4ac055401e6337e60913f49282e2aab52655ba4f35afc34"
+    }
+  ],
+  "scope": [
+    "Actual unchanged API Agent policy paired with real Sessions/projections and controlled create/resume factories. In-flight dedup, raced ordinary adoption, child ownership, cwd/preset checks and observation disposal.",
+    "Native actual Agent factory/persistence/query cold restoration, pending model routing, explicit setup identity, cancellation of a single shared-creation waiter."
+  ],
+  "retained_failures": [
+    {
+      "path": ".goose\\out\\rc3-r04-session-agents-initial-20261017",
+      "reason": "Actor import path and duplicate fixture cwd corrected; no matched rejected path counted as success."
+    },
+    {
+      "path": ".goose\\out\\rc3-r04-session-agents-native-20261017",
+      "reason": "Selected nonexistent test file; no tests ran. Corrected scope executed fresh."
+    }
+  ],
+  "remaining": [
+    "Full SessionController commands/list/history/control assembly and production activation.",
+    "Frontend/desktop/Win7 managed ranges and unified acceptance."
+  ],
+  "retention": {
+    "free_bytes": 192358948864,
+    "result": "Successful short fixtures auto-pruned; no Portable copies built. Raw failed observations and formal receipts retained."
+  }
+}

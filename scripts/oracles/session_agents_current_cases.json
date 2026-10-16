@@ -1,0 +1,1115 @@
+[
+  {
+    "case": "create-concurrent-once",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "count": 5
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "fixture",
+            "model": "model",
+            "reasoningEffort": "default"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "create-explicit-missing",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "persisted": true,
+        "count": 3
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 0,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "live-reused",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "count": 3
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            }
+          ]
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "live-child-rejected",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure"
+      },
+      {
+        "op": "resolve"
+      }
+    ],
+    "live": {
+      "origin": "subagent"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" is a subagent session; use subagent delivery"
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "live-directory-conflict",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure"
+      }
+    ],
+    "live": {
+      "cwd": "/other"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" belongs to \"/other\", not \"<cwd>\""
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "live-preset-conflict",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "preset": "wanted"
+      }
+    ],
+    "live": {
+      "agentPreset": "minimal"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" runs agent preset \"minimal\", not \"wanted\""
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "create-race-ordinary",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "count": 3
+      }
+    ],
+    "race": "ordinary",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": null
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "create-race-child",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "count": 3
+      }
+    ],
+    "race": "child",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" is a subagent session; use subagent delivery"
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "create-returned-directory-conflict",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure"
+      }
+    ],
+    "returnedCwd": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" belongs to \"/other\", not \"<cwd>\""
+          }
+        }
+      ],
+      "counts": {
+        "create": 1,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "cold-resume",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "cold": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "fixture",
+            "model": "model",
+            "reasoningEffort": "default"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 1,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "cold-observed-borrowed",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "observed"
+      }
+    ],
+    "cold": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 1,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "cold-missing",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "inspect"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" not found"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 2,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-cwdless",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      },
+      {
+        "op": "inspect"
+      }
+    ],
+    "cold": {
+      "cwd": null
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" not found",
+            "code": "session/not-found",
+            "details": {
+              "sessionId": "one"
+            }
+          }
+        },
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" not found"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 2,
+        "disposed": 2,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-child",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      }
+    ],
+    "cold": {
+      "origin": "subagent"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-unprojected",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      }
+    ],
+    "cold": {},
+    "unprojected": true,
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "resume failed for session \"one\": Error: api-session: Agent activation requires a projected Session observation",
+            "code": "gateway/internal",
+            "details": {}
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-inspect",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "inspect"
+      }
+    ],
+    "cold": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one",
+            "events": [],
+            "inheritedEventCount": 0
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-explicit-identity",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "persisted": true,
+        "count": 3
+      }
+    ],
+    "cold": {
+      "agentPreset": "minimal"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": [
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": "minimal"
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": "minimal"
+            },
+            {
+              "id": "one",
+              "cwd": "<cwd>",
+              "preset": "minimal"
+            }
+          ]
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 1,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 1
+      }
+    }
+  },
+  {
+    "case": "cold-preset-conflict",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "persisted": true,
+        "preset": "wanted"
+      }
+    ],
+    "cold": {
+      "agentPreset": "minimal"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" runs agent preset \"minimal\", not \"wanted\""
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "cold-cwd-conflict",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "ensure",
+        "persisted": true
+      }
+    ],
+    "cold": {
+      "cwd": "/other"
+    },
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "Error",
+            "message": "session \"one\" belongs to \"/other\", not \"<cwd>\""
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "resume-race-ordinary",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      }
+    ],
+    "cold": {},
+    "race": "ordinary",
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "id": "one"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 1,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "resume-race-child",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "resolve"
+      }
+    ],
+    "cold": {},
+    "race": "child",
+    "expected": {
+      "results": [
+        {
+          "outcome": "error",
+          "error": {
+            "name": "RemoteError",
+            "message": "session \"one\" is owned by subagent routing",
+            "code": "session/agent-busy",
+            "details": {
+              "reason": "use subagent delivery for this child session"
+            }
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 1,
+        "observe": 1,
+        "disposed": 1,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "selection-exact-consumption",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "selection"
+      },
+      {
+        "op": "select",
+        "value": {
+          "provider": "picked",
+          "model": "other",
+          "reasoningEffort": "high"
+        }
+      },
+      {
+        "op": "projection"
+      },
+      {
+        "op": "consume",
+        "value": {
+          "provider": "picked",
+          "model": "other",
+          "reasoningEffort": "low"
+        }
+      },
+      {
+        "op": "selection"
+      },
+      {
+        "op": "consume",
+        "value": {
+          "provider": "picked",
+          "model": "other",
+          "reasoningEffort": "high"
+        }
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "fixture",
+            "model": "model",
+            "reasoningEffort": "default"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lastUsed": null,
+            "pending": {
+              "provider": "picked",
+              "model": "other",
+              "reasoningEffort": "high"
+            }
+          }
+        },
+        {
+          "outcome": "value",
+          "value": false
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "picked",
+            "model": "other",
+            "reasoningEffort": "high"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "fixture",
+            "model": "model",
+            "reasoningEffort": "default"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "selection-logged-default-effort",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "header",
+        "value": {
+          "config": {
+            "provider": "logged",
+            "model": "lm",
+            "reasoningEffort": "high"
+          },
+          "adapterDefaults": {
+            "reasoningEffort": true
+          }
+        }
+      },
+      {
+        "op": "selection"
+      },
+      {
+        "op": "projection"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "logged",
+            "model": "lm"
+          }
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lastUsed": {
+              "provider": "logged",
+              "model": "lm",
+              "reasoningEffort": "high"
+            },
+            "pending": null
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "selection-logged-explicit-effort",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "header",
+        "value": {
+          "config": {
+            "provider": "logged",
+            "model": "lm",
+            "reasoningEffort": "high"
+          }
+        }
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "logged",
+            "model": "lm",
+            "reasoningEffort": "high"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "selection-pending-matching-header",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "select",
+        "value": {
+          "provider": "picked",
+          "model": "other",
+          "reasoningEffort": "high"
+        }
+      },
+      {
+        "op": "header",
+        "value": {
+          "config": {
+            "provider": "picked",
+            "model": "other",
+            "reasoningEffort": "high"
+          }
+        }
+      },
+      {
+        "op": "projection"
+      },
+      {
+        "op": "consume",
+        "value": {
+          "provider": "picked",
+          "model": "other",
+          "reasoningEffort": "high"
+        }
+      },
+      {
+        "op": "selection"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "lastUsed": {
+              "provider": "picked",
+              "model": "other",
+              "reasoningEffort": "high"
+            },
+            "pending": null
+          }
+        },
+        {
+          "outcome": "value",
+          "value": true
+        },
+        {
+          "outcome": "value",
+          "value": {
+            "provider": "picked",
+            "model": "other",
+            "reasoningEffort": "high"
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  },
+  {
+    "case": "image-admission-failure-does-not-poison",
+    "kind": "session-agents-current",
+    "actions": [
+      {
+        "op": "serial"
+      }
+    ],
+    "live": {},
+    "expected": {
+      "results": [
+        {
+          "outcome": "value",
+          "value": {
+            "order": [
+              "enter0",
+              "exit0",
+              "enter1",
+              "exit1",
+              "enter2",
+              "exit2"
+            ],
+            "settled": [
+              "first failed",
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "counts": {
+        "create": 0,
+        "resume": 0,
+        "observe": 0,
+        "disposed": 0,
+        "setup": 0
+      }
+    }
+  }
+]
