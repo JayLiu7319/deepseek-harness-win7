@@ -1,0 +1,100 @@
+{
+  "id": "RUN-RELEASE-V012-LOCAL-20261016-0AAD4B4D",
+  "kind": "release",
+  "result": "passed",
+  "validity": "current",
+  "exit_code": 0,
+  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "product_commit": "0aad4b4d4d828a7eb327d867788af038059594e4",
+  "recorded_at": "2026-10-16T14:05:01.099004+00:00",
+  "commands": [
+    ".venv/Scripts/python.exe scripts/verify_release.py --prepare --browser \"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe\" --browser108 .goose/tools/chromium-1058931/chrome-win/chrome.exe --output-dir .goose/out/release-v012-0aad4b4d-local-20261016",
+    ".venv/Scripts/python.exe scripts/package_release_diagnostics.py --source .goose/out/release-v012-0aad4b4d-local-20261016 --archive .goose/out/release-v012-20261016/release-diagnostics.zip",
+    ".venv/Scripts/python.exe .goose/out/release-v012-20261016/publish_local_release.py",
+    ".venv/Scripts/python.exe .goose/out/release-v012-20261016/verify_published_download.py",
+    ".venv/Scripts/python.exe .goose/out/release-v012-20261016/seal_publication.py"
+  ],
+  "environment": {
+    "python": "3.8.10 (default, May  6 2021, 17:27:56) [MSC v.1928 64 bit (AMD64)]",
+    "os": "sys.getwindowsversion(major=10, minor=0, build=26200, platform=2, service_pack='')",
+    "node": "v22.22.2",
+    "browser": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "chromium108": {
+      "binary": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\tools\\chromium-1058931\\chrome-win\\chrome.exe",
+      "binary_sha256": "dd13b0fec1bbe8cfbdadc3be6588d021aa796b9a3834ff69a4094072f55e6c60",
+      "input_sha256": "43b9db4ea3fe4eb2de2e1d92617a0e3bad50f8deb7b4ecc32faea365b47db724",
+      "adapter_sha256": "7c3b13967fc1c47a45739145fc85d672d5431428ec6b3f2e5d9e76789a428ca7"
+    }
+  },
+  "contract_revisions": {},
+  "publication_attempts": [
+    {"phase": "draft lookup by tag", "exit_code": 1, "result": "HTTP 404 before any upload; resolved the existing draft by its observed release ID"},
+    {"phase": "upload and publish", "exit_code": 1, "result": "All three assets uploaded and release published; subsequent public download failed during system proxy discovery"},
+    {"phase": "public download verification", "exit_code": 0, "result": "Unauthenticated HTTPS with certificate validation and trust_env=False; ZIP and both metadata assets match their original bytes"}
+  ],
+  "artifacts": [
+    {
+      "path": "migration/evidence/artifacts/RELEASE-V0.1.2-QUALIFICATION-20261016-0AAD4B4D.zip",
+      "sha256": "bfea9e7a0525351b7cd8ce7b688fca5219e3117013fe842ef416ff4dac73920e"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-V0.1.2-CI-FAILURE-20261016-0AAD4B4D.zip",
+      "sha256": "e4b52fd4f5a978d501be83f6bb98a64c2550839ba48fdf3d3f460103a17ecdf1"
+    },
+    {
+      "path": "migration/evidence/artifacts/RELEASE-V0.1.2-PUBLICATION-20261016-0AAD4B4D.zip",
+      "sha256": "9408ec45a03e458d6dfb1913227b1c3e5857716d7a5b5ddfe1e15983c0df3039"
+    }
+  ],
+  "qualification": {
+    "product_commit": "0aad4b4d4d828a7eb327d867788af038059594e4",
+    "result": "passed",
+    "publishable": true,
+    "counts": {
+      "collected": 10775,
+      "passed": 10769,
+      "skipped": 6
+    },
+    "inputCount": 16807,
+    "inputManifestSha256": "a8f258b8cf505648ce4fd0249481dfdbdc1477f8fe9763a6d187d98fe18cef17",
+    "summarySha256": "8379fd3b2aec70c820534528df2caa0fe9aa39426a612b1fa95873fc0cbf3bdc",
+    "archiveSha256": "b0c445babefdf13bf5bbdc0aae0f027eb7a9b79a3e978feab24e3aa1d9d6cfcd"
+  },
+  "publication": {
+    "candidate": "0aad4b4d4d828a7eb327d867788af038059594e4",
+    "upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+    "counts": {
+      "collected": 10775,
+      "passed": 10769,
+      "skipped": 6
+    },
+    "archive": "dsh-win7-portable-v0.1.2.zip",
+    "bytes": 81111124,
+    "sha256": "b0c445babefdf13bf5bbdc0aae0f027eb7a9b79a3e978feab24e3aa1d9d6cfcd",
+    "publicDownloadVerified": true,
+    "metadataDownloadsVerified": true,
+    "summarySha256": "8379fd3b2aec70c820534528df2caa0fe9aa39426a612b1fa95873fc0cbf3bdc",
+    "fsModuleSha256": "1c2778c9ba12aeff49d5e5fb6c66918dd7eb0b213ea48a345d5514f3eecbafac",
+    "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.2",
+    "qualification": "One clean local complete verify_release.py run; hosted CI failed before tests.",
+    "downloadTransport": "Unauthenticated HTTPS with certificate validation; trust_env=False for this download session after system proxy discovery failed. No system settings changed."
+  },
+  "hostedCi": {
+    "run": 38893404017,
+    "result": "failure",
+    "publishJob": "skipped",
+    "lastReportedStep": "Run actions/checkout@v4",
+    "observation": "Hosted runner lost communication with the server; specific underlying cause unknown.",
+    "logRetrieval": "gh run view --log returned exit 1: log not found; APIs also returned 404.",
+    "cancelAttempt": "Cancellation was requested after the server had already marked the run failed; gh returned exit 1: Cannot cancel a workflow run that is completed.",
+    "scope": "No test/qualification receipt was obtained. Server last reported checkout active and test steps pending. Not reclassified as passed or as a product regression."
+  },
+  "win7Feedback": {
+    "previewCommit": "c0d8e663f45dabca588730725530cf5b2ee5e42f",
+    "previewSha256": "ed1a7b3a41fc7596e30cabb988c7793d45a8a038f8a774e80cf479ae5102b153",
+    "userConfirmed": true,
+    "reportedAt": "2026-10-16",
+    "scope": "User confirmed the preview containing the same atomic-write implementation works on Win7. Intranet raw logs unavailable; not a claim for every ACL configuration."
+  },
+  "scope": "One clean complete local gate and its exact published/downloaded ZIP. Hosted CI failure remains separate. Existing migration task receipts and optional-provider limitations are unchanged."
+}

@@ -132,4 +132,4 @@ P1 不是“加一条 icacls”即可解决：可研究在创建自有对象时�
 - [Microsoft：File Security and Access Rights](https://learn.microsoft.com/en-us/windows/win32/fileio/file-security-and-access-rights)：对象创建时的安全描述符继承与句柄访问授权。
 - [Microsoft：SetNamedSecurityInfoW](https://learn.microsoft.com/en-us/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow)：ACE 继承传播规则。
 
-调查阶段验证包括真实操作对照及基线差异；实现阶段验证单独记录于上节。用户报告旧 Portable“基本功能正常”不自动提升 Win7 全面认证状态，也不覆盖本次工作区改动。
+调查阶段验证包括真实操作对照及基线差异；实现阶段验证单独记录于上节。用户随后对含新实现的预览包完成 Win7 复验确认，正式 `v0.1.2` 又在干净候选上通过完整本机发行门禁并完成公开下载散列核验，见 [发行记录](2026-10-16-v0.1.2-release-progress.md)。这些结果不扩大为所有 Win7/ACL 配置的全面认证，原阶段失败及其证据缺口仍保留。
