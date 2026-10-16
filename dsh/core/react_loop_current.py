@@ -379,7 +379,9 @@ class ReactLoopAgent:
         if prepared is not None:
             header['adapterDefaults'] = prepared['adapterDefaults']
         if tools:
-            header['tools'] = tools
+            # PromptAssembly offers attribute-access wrappers for native providers.
+            # The durable wire boundary accepts only plain lossless JSON containers.
+            header['tools'] = [dict(tool) for tool in tools]
         header = canonicalHeader(header)
         baseline = self.session.requestHeader()
         starts_series = starts_request_series or self.request_surface_generation != generation

@@ -36,22 +36,25 @@ async def run(test,decode):
     def normalize(value,key=''):
         if value is UNDEFINED:return None
         if key=='signal':return '<signal>'
-        if key=='agent':return value.id
+        if key=='agent':return normalize(value.id)
         if isinstance(value,BaseException):
             result=dict(name=getattr(value,'name','TypeError' if isinstance(value,TypeError) else 'Error'),message=getattr(value,'message',str(value)))
             if hasattr(value,'code'):result['code']=value.code
             if getattr(value,'cause',None) is not None:result['cause']=normalize(value.cause)
             return result
-        if isinstance(value,str) and re.fullmatch(r'[0-9a-f]{8}-[0-9a-f-]{27}',value,re.I):
-            if value not in ids:ids[value]='generated:'+str(len(ids)+1)
-            return ids[value]
+        if isinstance(value,str):
+            def identity(match):
+                name=match.group()
+                if name not in ids:ids[name]='generated:'+str(len(ids)+1)
+                return ids[name]
+            return re.sub(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',identity,value,flags=re.I)
         if isinstance(value,(tuple,list)):return [normalize(item) for item in value]
         if isinstance(value,dict):return {name:normalize(item,name) for name,item in value.items() if item is not UNDEFINED}
         return value
     def view():return normalize(dict(status=agent.status,events=agent.session.snapshotEvents(),messages=agent.session.deriveMessages(),inbox=ctx.get('sessionProjections').snapshot(agent.session)['values']['inbox']))
     with tempfile.TemporaryDirectory(prefix='dsh-machine-pair-') as folder,patch.object(CurrentSession,'_event_time',return_value=1000),patch('dsh.core.assistant_stream_current.time.time',return_value=1):
         try:
-            for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin)
+            for plugin in (CurrentLlmRuntime,CurrentSessionPlugin,SessionProjectionsPlugin,CurrentSystemPrompt,ToolsPlugin,CurrentAgentPlugin):await ctx.plugin(plugin,test.get('promptConfig') if plugin is CurrentSystemPrompt else None)
             if test.get('persistence'):await ctx.plugin(CurrentJsonlSessionPersistencePlugin,dict(root=folder,compression=test.get('compression','none')))
             await ctx.plugin(CurrentAgentLoopPlugin,dict(agents=[]))
             ctx.get('llm').registerAdapter(['script'],ScriptAdapter(test))
@@ -74,7 +77,8 @@ async def run(test,decode):
                 value=stopped;stopped+=1
                 if value<len(test.get('stopping',[])):payload['agent'].inject(test['stopping'][value])
             def stream(request,next):requests.append(normalize(request));return next()
-            ctx.on('system-prompt/assemble',assemble);ctx.on('agent/request',propose);ctx.on('agent/pre-step',before_step);ctx.on('agent/request-error',request_error);ctx.on('agent/turn-stopping',stopping);ctx.on('llm/stream',stream)
+            if not test.get('realPrompt'):ctx.on('system-prompt/assemble',assemble)
+            ctx.on('agent/request',propose);ctx.on('agent/pre-step',before_step);ctx.on('agent/request-error',request_error);ctx.on('agent/turn-stopping',stopping);ctx.on('llm/stream',stream)
             def notify(name,payload):
                 nonlocal chunks
                 notifications.append(normalize(dict(name=name,payload=payload)))
@@ -93,6 +97,18 @@ async def run(test,decode):
                 try:
                     value=None;method=action['method']
                     if method=='prompt':prompt=action['text']
+                    elif method=='persona':
+                        from dsh.core.persona_current import CurrentPersonaPlugin
+                        await agent.ctx.plugin(CurrentPersonaPlugin,action['config'])
+                    elif method=='child':
+                        from dsh.core.abort import AbortController
+                        from dsh.subagent.in_process_current import start_run
+                        from dsh.subagent.descriptor import completed_turn_prefix
+                        seed=completed_turn_prefix(agent) if action.get('fork') else None
+                        run=await start_run(dict(action['request'],parent=agent,signal=AbortController().signal),seed if seed else None)
+                        result=await run.result
+                        value=normalize(dict(id=run.id,result=result,header=run.localAgent.session.header.to_dict(),events=run.localAgent.session.snapshotEvents(),owned=ctx.get('agents').isOwnedBy(run.id,agent)))
+                        await run.dispose()
                     elif method=='route':route=action['config']
                     elif method=='preStep':pre_step=action['value']
                     elif method=='idle':await agent.whenIdle()

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-C-persona-and-one-shot-consumers",
+  "status": "targeted-native-and-pair-passed-source-environment-gap",
+  "paired": {
+    "matched": 29,
+    "report": {
+      "path": ".goose/out/rc3-r03-consumers-frozen-20261017/report.json",
+      "sha256": "9afa1de35264bba533827e195806fe5dba55dffe77becfd3b2a2a0c4429ea124"
+    },
+    "corpus": {
+      "path": "scripts/oracles/agent_consumers_current_cases.json",
+      "sha256": "2e936a1d9444687382b3ae572058efa05b011a96f50af74ea21112d3540919fb"
+    },
+    "normalization": [
+      "Generated UUIDs including embedded attempt ids renamed by first observation; exact relationships preserved.",
+      "Clock 1000; optional undefined omitted; Agent/signal markers; direct native identity and scope assertions."
+    ]
+  },
+  "native": {
+    "passed": 238,
+    "command": {
+      "path": ".goose/out/rc3-r03-consumers-native-20261017/command.json",
+      "sha256": "2fb9b43598a86bce928ef3838d1dd2c3d00665acc84c06e867cdd971e4414ce1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-consumers-native-20261017/pytest.xml",
+      "sha256": "a7e1dd90430053b0108adfb8a32a87cec6d3767ce0e10ba26f1b24d99688c9a0"
+    }
+  },
+  "source": {
+    "passed": 307,
+    "failed": 1,
+    "command": {
+      "path": ".goose/out/rc3-r03-consumers-source-20261017/command.json",
+      "sha256": "bcab574749c35c1c02c3097a941e67246432814f193bd3e6e2f08f8fcd5fc515"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-consumers-source-20261017/source.xml",
+      "sha256": "394b6e91abe12683940231bf7a49a04c90fca560540e6561ab671cf341f9302f"
+    },
+    "gap": "Unmodified agent-presets discovery dangling symlink fixture rejected by Windows EPERM; not counted as passed."
+  },
+  "implementation": [
+    {
+      "path": "dsh/core/persona_current.py",
+      "sha256": "7e0a9e19d97a7556c17b34388320df1b7079aad76869e8dd95ae8525ed055683"
+    },
+    {
+      "path": "dsh/subagent/in_process_current.py",
+      "sha256": "25ab0a3e25101dfe3d7340e8180fa1058908b7ba47ac3527f4a9dc51ab7b27c2"
+    },
+    {
+      "path": "dsh/subagent/assistant_output_current.py",
+      "sha256": "c8ce1f75334569b4c0602433adea70344377860df0328956c94c6d846d73981c"
+    },
+    {
+      "path": "dsh/core/react_loop_current.py",
+      "sha256": "4def1dac63f98e0a2b44b7d5d823aab1a17b423b8aa50836ac43820dfdb1fe41"
+    },
+    {
+      "path": "dsh/subagent/composition.py",
+      "sha256": "2311690522483d1f7f945a75b1fcb6e18fdb56e2fa6e7c03ad5ca525261ca764"
+    },
+    {
+      "path": "dsh/subagent/descriptor.py",
+      "sha256": "622d3475b704e5bdd02f20e0eb523b784b9b24cfaf1b3b9b736abc2e99715311"
+    },
+    {
+      "path": "dsh/subagent/in_process.py",
+      "sha256": "e62dcdaa3c8ceb0917ee8e4e6a721a818be8f54a83b45cd76e8b1f04c344a53a"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_python.py",
+      "sha256": "0a1be6b65c20982eabf19f77f6028a03a232fdf828538a4d1ea49ee4ebea24f9"
+    },
+    {
+      "path": "scripts/oracles/agent_machine_current_source.mts",
+      "sha256": "141438720a3c7bc1ec7b914d955770b1786390bf86a8c7871cecb7b600a9f4d2"
+    },
+    {
+      "path": "scripts/oracles/generate_agent_consumers_current_cases.py",
+      "sha256": "eb12e8fc510cf1d52c998e21eb9d896165f3591a0dac568c30df6aa83c998283"
+    },
+    {
+      "path": "tests/test_agent_consumers_current.py",
+      "sha256": "5a011128167b07d0f03379a660395f60cf2394b82024839a18ff97acd73ba141"
+    }
+  ],
+  "limits": [
+    "Explicit candidate only; active rc.1 pin and profile unchanged.",
+    "Continuable activation/catalog, Remote and other consumers remain open. No complete regression or release qualification."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-consumers-pair-20261017",
+    ".goose/out/rc3-r03-consumers-pair-fixed-20261017",
+    ".goose/out/rc3-r03-consumers-structured-20261017"
+  ]
+}

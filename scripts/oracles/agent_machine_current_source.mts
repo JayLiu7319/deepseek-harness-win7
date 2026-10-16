@@ -22,9 +22,9 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const normalize=(v:any,key=''):any=>{
   if(v===undefined)return null
   if(key==='signal')return '<signal>'
-  if(key==='agent')return v.id
+  if(key==='agent')return normalize(v.id)
   if(v instanceof Error)return {name:v.name,message:v.message,...((v as any).code===undefined?{}:{code:(v as any).code}),...((v as any).cause===undefined?{}:{cause:normalize((v as any).cause)})}
-  if(typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(v)){if(!ids.has(v))ids.set(v,`generated:${ids.size+1}`);return ids.get(v)}
+  if(typeof v==='string')return v.replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ig,id=>{if(!ids.has(id))ids.set(id,`generated:${ids.size+1}`);return ids.get(id)!})
   if(Array.isArray(v))return v.map(x=>normalize(x))
   if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).filter(([,x])=>x!==undefined).map(([k,x])=>[k,normalize(x,k)]))
   return v
@@ -32,13 +32,13 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
  const view=()=>normalize({status:agent.status,events:agent.session.snapshotEvents(),messages:agent.session.deriveMessages(),inbox:ctx.sessionProjections.snapshot(agent.session).values.inbox})
  const oldNow=Date.now;Date.now=()=>1000
  try{
-  for(const plugin of [Llm,Sessions,Projections,Prompt,Tools,Agents])await ctx.plugin(plugin)
+  for(const plugin of [Llm,Sessions,Projections,Prompt,Tools,Agents])await ctx.plugin(plugin,plugin===Prompt?test.promptConfig:undefined)
   if(test.persistence)await ctx.plugin(Backend,{root,compression:test.compression??'none'})
   await ctx.plugin(Loop,{agents:[]})
   const adapter=new MockAdapter(test.script??[] ,test.reasoning,test.defaultMaxTokens)
   adapter.systemPromptUpdate=test.systemPromptUpdate
   ctx.llm.registerAdapter(['script'],adapter)
-  ctx.on('system-prompt/assemble',async (assembly:any,context:any,next:any)=>({...await next(),sections:[{name:'test',text:prompt}],contexts:test.context?[{name:'policy',text:test.context}]:[]}))
+  if(!test.realPrompt)ctx.on('system-prompt/assemble',async (assembly:any,context:any,next:any)=>({...await next(),sections:[{name:'test',text:prompt}],contexts:test.context?[{name:'policy',text:test.context}]:[]}))
   ctx.on('agent/request',async (_payload:any,next:any)=>({...await next(),...route}))
   ctx.on('agent/pre-step',async (payload:any,next:any)=>{
    if(preStep.kind==='reject')return {kind:'reject'}
@@ -62,6 +62,18 @@ export async function machineCurrentCase(source:string,test:any,decode:(v:any)=>
    try{
     let value:any
     if(action.method==='prompt')prompt=action.text
+    else if(action.method==='persona'){
+     const persona=await load('packages/preset/persona/src/index.ts')
+     await agent.ctx.plugin(persona,action.config)
+    }else if(action.method==='child'){
+     const {startInProcessRun}=await load('packages/subagent/subagent-in-process-driver/src/index.ts')
+     const events=agent.session.snapshotEvents(),lastEnd=events.findLast((event:any)=>event.type==='turn/end')
+     const seed=action.fork&&lastEnd!==undefined?events.slice(0,lastEnd.seq+1):undefined
+     const run=await startInProcessRun({...action.request,parent:agent,signal:new AbortController().signal},seed?.length?{seed}:{})
+     const result=await run.result
+     value=normalize({id:run.id,result,header:run.localAgent.session.header,events:run.localAgent.session.snapshotEvents(),owned:ctx.agents.isOwnedBy(run.id,agent)})
+     await run.dispose()
+    }
     else if(action.method==='route')route=action.config
     else if(action.method==='preStep')preStep=action.value
     else if(action.method==='idle')await agent.whenIdle()

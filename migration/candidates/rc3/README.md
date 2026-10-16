@@ -46,3 +46,4 @@ R03-B：新增 [agent-machine-checks.json](agent-machine-checks.json)，候选�
 新增27、删除4是manifest路径差分：native landlock→system家族重组和平台子包不能按数量当作新业务能力；benchmark、fixture、前端编译库同样需要分别解释。
 
 本次只读原始观察位于仓库自有 `.goose/out/rc3-assessment-20261016-f4f9d2ab/`。正式差分脚本按默认renameLimit得到6,774条；完整重命名检测得到6,531条，本区JSON同时披露两种口径。后续正式推进应重建候选Source/test/dynamic inventory及实际profile激活图，不能用旧owner图证明rc.3覆盖。
+`nR03-C: [persona / one-shot consumer evidence](agent-consumers-checks.json): 29 actual Source/native journeys matched; 238 selected native tests passed; Source 307 passed with one Windows dangling-symlink EPERM environment gap. Continuable consumers and baseline switch remain open.

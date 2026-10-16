@@ -91,12 +91,12 @@ def append_policy(session, policy):
         session.append("approval/policy", {"policy": policy["approvalPolicy"], "source": "delegation"})
 
 
-def apply_composition(child_ctx, parent, composition):
+def apply_composition(child_ctx, parent, composition, persona_section='deployment:persona', persona_order='DEPLOYMENT_PERSONA'):
     presets = child_ctx.get("agentPresets")
     if presets is not None:
         presets.composeFrom(child_ctx, parent.ctx)
     child_ctx.get("systemPrompt").context({"name": "subagent:delegation", "order": child_ctx.get("systemPrompt").getContextOrder("SUBAGENT_DELEGATION"), "text": DELEGATION_CONTEXT})
     if "persona" in composition:
-        child_ctx.get("systemPrompt").section({"name": "deployment:persona", "order": child_ctx.get("systemPrompt").getSectionOrder("DEPLOYMENT_PERSONA"), "text": composition["persona"]})
+        child_ctx.get("systemPrompt").section({"name": persona_section, "order": child_ctx.get("systemPrompt").getSectionOrder(persona_order), "text": composition["persona"]})
     if "toolFilter" in composition:
         child_ctx.get("tools").restrict(composition["toolFilter"])

@@ -60,7 +60,8 @@ def completed_turn_prefix(parent):
     events = parent.session.events
     for event in reversed(events):
         if event["type"] == "turn/end":
-            return list(events[:event["seq"] + 1])
+            # JSON restoration may represent a validated integral coordinate as float.
+            return list(events[:int(event["seq"]) + 1])
     return []
 
 

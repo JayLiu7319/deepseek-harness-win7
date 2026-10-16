@@ -10,14 +10,14 @@ from dsh.subagent.descriptor import completed_turn_prefix, final_assistant_outpu
 from dsh.subagent.structured import attach_structured
 
 
-def read_result(child, boundary, cancelled, structured=None):
+def read_result(child, boundary, cancelled, structured=None, output_reader=final_assistant_output):
     own = child.session.events[boundary:]
     end = fold_consumed_work(own).end
     recorded = end["data"]["reason"]["kind"] if end is not None else None
     reason = {"completed": "completed", "max-tokens": "max-tokens", "aborted": "aborted", "blocked": "refusal"}.get(recorded, "error")
     if cancelled and reason != "completed":
         reason = "aborted"
-    result = {"output": final_assistant_output(own) or [], "stopReason": reason}
+    result = {"output": output_reader(own) or [], "stopReason": reason}
     if structured is not None:
         if structured["captured"] is not None:
             result["structured"] = structured["captured"]["value"]
@@ -27,7 +27,7 @@ def read_result(child, boundary, cancelled, structured=None):
 
 
 class InProcessRun:
-    def __init__(self, handle, signal, prompt, boundary, structured):
+    def __init__(self, handle, signal, prompt, boundary, structured, output_reader=final_assistant_output, eager_start=None):
         self.id, self.localAgent = handle.agent.id, handle.agent
         self.handle, self.cancelled, self.closing = handle, False, None
         def abort(*_):
@@ -41,10 +41,10 @@ class InProcessRun:
                 if not self.cancelled:
                     self.localAgent.followup(create_user_message({"content": prompt, "source": {"kind": "user"}}))
                     await self.localAgent.when_idle()
-                return read_result(self.localAgent, boundary, self.cancelled, structured)
+                return read_result(self.localAgent, boundary, self.cancelled, structured, output_reader)
             finally:
                 self.detach()
-        self.result = asyncio.create_task(drive())
+        self.result = eager_start(drive()) if eager_start is not None else asyncio.create_task(drive())
         self.result.add_done_callback(lambda task: task.exception() if not task.cancelled() else None)
 
     async def dispose(self):
