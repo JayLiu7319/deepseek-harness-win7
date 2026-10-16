@@ -86,6 +86,14 @@ Source三份catalog测试共26项原断言通过，记录170个完整静态catal
 
 选定Source format helpers、scanLog unit、nested v3 streams及native v3 admission，65项原断言通过，128项其他provider测试未选择。捕获153个helper/扫描前缀完整观测，修正包装器对可变Buffer的持有和浮点序号错误信息后全部匹配。原始失败与修复结果均保留。Python新scanner、v3逻辑和catalog直接消费者 **2,357 passed**，凭据见 [jsonl-current-checks.json](../../migration/candidates/rc3/jsonl-current-checks.json)。部分Source断言实际经过其provider，但此处仅配对显式捕获的helper API，不冒充原生provider已通过。继续generation准备/独立验证/排他发布，活动JsonlStore与writer仍待切换。
 
+## R02-I：不可变generation准备、验证与排他发布
+
+新增有界两次stat/read快照、单遍历史转换、header身份/版本交叉校验、raw与Zstandard损坏尾处理、独立header frame和流式checksummed正文。prepare只产生当前artifact，publish复用同一成功或失败；独占临时文件写入/同步后，由最多两个新Python进程独立验证完整v3、已安装词汇/关系和内嵌Assistant流。重新检查历史源identity后以Win7 MoveFileExW write-through无覆盖发布；同字节竞争目标可保留后续append，不同/非规范目标明确拒绝。旧代际保持原字节，写入/关闭/验证/清理的故障保留错误身份与聚合cause，观察者取消不放弃已开始的提交。
+
+新增125个实际文件系统/当前流验证场景与rc.3完整输出匹配；本轮同时复核共享runner的107 planner和153 scanner场景，共385场景匹配。只有两种语言JSON解析器的底层SyntaxError/JSONDecodeError文字按原生解析错误类别比较，完整原文字分别保存在两端日志；其他业务错误、cause、文件状态、调用次数和artifact严格比较。第一轮12处parser文字差异保留，不伪称逐字相同。
+
+Python提供端、当前scanner、format和Assistant stream直接消费者 **590 passed**（14.69秒）。直接执行未修改的Source generation测试 **72 passed / 1 failed**；唯一失败是当前账户创建symlink返回EPERM，尚未到发布断言，原始XML/日志保留，不能称完整Source范围通过。额外原生故障/取消/新解释器隔离测试已通过。凭据见 [generation-checks.json](../../migration/candidates/rc3/generation-checks.json)，原始输出位于 `.goose/out/rc3-r02-generation-final-20261017/` 及前一失败目录。磁盘余量约180GiB，无Portable重建。继续生产Session、handle和query/projection闭包；当前writer/pin未切换，R02未整体签收。
+
 ## 输出与磁盘管理
 
 开始前磁盘余量约184GB。先执行既有 `process_artifact_retention.py`，其所有权/结束状态/字节核验没有发现新增可回收项目，未删除未知输出或未解决失败。完整清理观察位于 `.goose/out/rc3-r01-20261016/history-retention.json`。

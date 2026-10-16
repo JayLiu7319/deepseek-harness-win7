@@ -48,9 +48,11 @@ def main():
         names = [case['case'] for case in cases]
         if not names or len(names) != len(set(names)):
             raise ValueError('Empty or duplicate corpus cases')
-        report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in [corpus, ROOT/'scripts/session_format_oracle.py',
-                ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']}
+        inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
+            ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'generation' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/session_generation_python.py', ROOT/'scripts/oracles/session_generation_source.mts'])
+        report['inputs'] = {str(path.relative_to(ROOT)).replace('\\', '/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs}
         commands = [
             ['node', str(source/'node_modules/tsx/dist/cli.mjs'), '--tsconfig', str(source/'tsconfig.json'),
              str(ROOT/'scripts/oracles/session_format_source.mts'), str(source), str(corpus), str(output/'source.json')],

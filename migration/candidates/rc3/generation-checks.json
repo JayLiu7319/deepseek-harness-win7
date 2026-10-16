@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R02-I-generation-publication",
+  "status": "targeted-passed-with-source-environment-gap",
+  "paired": [
+    {
+      "corpus": "session_generation_cases",
+      "cases": 125,
+      "report": {
+        "path": ".goose/out/rc3-r02-generation-final-20261017/session_generation_cases/report.json",
+        "sha256": "7723270a597ec902d0081a32b4bab7370d80fed28e66773f2c3bd4dc89812f50"
+      },
+      "inputs": {
+        "scripts/oracles/session_generation_cases.json": "a5f4e8a448a622f97ed9d71e7155077585aed5cb1868d3957d427e8dc9f2d9ff",
+        "scripts/session_format_oracle.py": "4d3c4232fe5a8513f143339809a958205037d1f288790c7d90b9bc46c4b07f29",
+        "scripts/oracles/session_format_python.py": "6acdf4e696a27b8a579ad53b14605c58c50fee76e21bcd8231fbfea882a2caed",
+        "scripts/oracles/session_format_source.mts": "926088040b91844bea6d1539d89dc3090e498c41f241554bd6f39295f2b0a65b",
+        "scripts/oracles/session_generation_python.py": "e3fa1d37f88edd297033f354e6707d30ec6871b8d6caf7e668fc5d03f7471783",
+        "scripts/oracles/session_generation_source.mts": "3b8bc602377265c82cd84054b8cb73b15d9d786a1343098ec82b7619a426d424"
+      }
+    },
+    {
+      "corpus": "session_format_cases",
+      "cases": 107,
+      "report": {
+        "path": ".goose/out/rc3-r02-generation-final-20261017/session_format_cases/report.json",
+        "sha256": "dd46b6deda84481e79d1160f7ee77b2a145c5ed2aac4eb45bbed6984f5a4c878"
+      },
+      "inputs": {
+        "scripts/oracles/session_format_cases.json": "b65e1104680c7d806c60cbc911059074976b511982c581366ea9f1d4f7b0f551",
+        "scripts/session_format_oracle.py": "4d3c4232fe5a8513f143339809a958205037d1f288790c7d90b9bc46c4b07f29",
+        "scripts/oracles/session_format_python.py": "6acdf4e696a27b8a579ad53b14605c58c50fee76e21bcd8231fbfea882a2caed",
+        "scripts/oracles/session_format_source.mts": "926088040b91844bea6d1539d89dc3090e498c41f241554bd6f39295f2b0a65b"
+      }
+    },
+    {
+      "corpus": "jsonl_current_cases",
+      "cases": 153,
+      "report": {
+        "path": ".goose/out/rc3-r02-generation-final-20261017/jsonl_current_cases/report.json",
+        "sha256": "6fce9b44702ce6247c6f064870c3b57ef0e95adbb7a008ce87768e5a924ceb01"
+      },
+      "inputs": {
+        "scripts/oracles/jsonl_current_cases.json": "5f839bb5044274a1acab5cfa561a08a095760653e3ba00f8856bbf8a1ff18108",
+        "scripts/session_format_oracle.py": "4d3c4232fe5a8513f143339809a958205037d1f288790c7d90b9bc46c4b07f29",
+        "scripts/oracles/session_format_python.py": "6acdf4e696a27b8a579ad53b14605c58c50fee76e21bcd8231fbfea882a2caed",
+        "scripts/oracles/session_format_source.mts": "926088040b91844bea6d1539d89dc3090e498c41f241554bd6f39295f2b0a65b"
+      }
+    }
+  ],
+  "native": {
+    "tests": 590,
+    "commands": {
+      "path": ".goose/out/rc3-r02-generation-final-20261017/commands.json",
+      "sha256": "0fe3228ffb50583cd674bee32f61086d7eee03157997ae9c64be531d4ff4e2d2"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-generation-final-20261017/pytest.xml",
+      "sha256": "0fef190808040085815152b37dae881ecec37c6af869dc348495d1ba5d580c8f"
+    }
+  },
+  "source": {
+    "passed": 72,
+    "failed": 1,
+    "reason": "Source symlink creation EPERM before publication assertion on current Windows account",
+    "commands": {
+      "path": ".goose/out/rc3-r02-generation-20261017/source-original-command.json",
+      "sha256": "5a0bf9afb77a38bbbc40636e8e574724075163db9bef2fa1cf04ba6053bbd5fc"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r02-generation-20261017/source-original.xml",
+      "sha256": "5a14d22a059d075568d86e4d841d5c087bb714fcefb594e6d086f074954f774f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/generation.py",
+      "sha256": "664551ced7e8fc937856d9cd0d1bee443dc933b47a0e4d5f375f129612299b6b"
+    },
+    {
+      "path": "dsh/session/generation_verifier.py",
+      "sha256": "a695f1c5fee506b2f4d0ecf0aa39b0f4c4fa7b93e7ffa0343601f71f8a44aff4"
+    },
+    {
+      "path": "dsh/session/jsonl_zstd.py",
+      "sha256": "2456bbcfdc0f7fb9302f5c101243b6486357011d4a7dc1f5829a6e18de53d3aa"
+    },
+    {
+      "path": "scripts/oracles/session_generation_source.mts",
+      "sha256": "3b8bc602377265c82cd84054b8cb73b15d9d786a1343098ec82b7619a426d424"
+    },
+    {
+      "path": "scripts/oracles/session_generation_python.py",
+      "sha256": "e3fa1d37f88edd297033f354e6707d30ec6871b8d6caf7e668fc5d03f7471783"
+    },
+    {
+      "path": "scripts/oracles/generate_session_generation_cases.py",
+      "sha256": "1c3dafebf9689794e96a95945861c863e19867669a74280c3214db8d337f5aa6"
+    },
+    {
+      "path": "scripts/oracles/session_generation_cases.json",
+      "sha256": "a5f4e8a448a622f97ed9d71e7155077585aed5cb1868d3957d427e8dc9f2d9ff"
+    },
+    {
+      "path": "scripts/oracles/session_format_source.mts",
+      "sha256": "926088040b91844bea6d1539d89dc3090e498c41f241554bd6f39295f2b0a65b"
+    },
+    {
+      "path": "scripts/oracles/session_format_python.py",
+      "sha256": "6acdf4e696a27b8a579ad53b14605c58c50fee76e21bcd8231fbfea882a2caed"
+    },
+    {
+      "path": "scripts/session_format_oracle.py",
+      "sha256": "4d3c4232fe5a8513f143339809a958205037d1f288790c7d90b9bc46c4b07f29"
+    },
+    {
+      "path": "tests/test_session_generation.py",
+      "sha256": "3d2f6d3425c0e292a744b66e452708b7ac376c39136dc827989b4ffa3881d52a"
+    }
+  ],
+  "comparison_policy": {
+    "paths": "Only owned per-actor temporary root is replaced by <root>.",
+    "json_parser_cause": "Only Source SyntaxError / Python JSONDecodeError causes compare by native parser error category; exact parser text retained in actor logs. All other error fields and causes compare unchanged."
+  },
+  "limits": [
+    "Library runtime, not production handle integration.",
+    "POSIX branch not exercised on POSIX.",
+    "Source symlink conflict assertion unavailable in this account.",
+    "Not complete R02 or rc.3/release acceptance."
+  ]
+}

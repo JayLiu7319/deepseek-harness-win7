@@ -258,9 +258,12 @@ function execute(test: any): any {
   throw new Error(`Unknown scenario kind: ${kind}`)
 }
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
-const result = corpus.map((test: any) => {
-  try { return { case: test.case, outcome: 'value', value: execute(test) } }
-  catch (error: any) { return { case: test.case, outcome: 'error', name: error.name, message: error.message,
-    ...(error.cause === undefined ? {} : { cause: error.cause instanceof Error ? error.cause.message : String(error.cause) }) } }
-})
+const result = []
+for (const test of corpus) {
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='generation'
+    ? await (await import('./session_generation_source.mts')).generationCase(resolve(sourceArg), test)
+    : execute(test) }) }
+  catch (error: any) { result.push({ case: test.case, outcome: 'error', name: error.name, message: error.message,
+    ...(error.cause === undefined ? {} : { cause: error.cause instanceof Error ? error.cause.message : String(error.cause) }) }) }
+}
 writeFileSync(resolve(outputArg), JSON.stringify(result, null, 2) + '\n', { encoding: 'utf8', flag: 'wx' })

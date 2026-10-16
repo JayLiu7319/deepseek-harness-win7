@@ -385,7 +385,12 @@ def execute(case):
 
 def observe(case):
     try:
-        return dict(case=case['case'], outcome='value', value=execute(case))
+        if case['kind'] == 'generation':
+            from scripts.oracles.session_generation_python import execute as generation_execute
+            value = generation_execute(case)
+        else:
+            value = execute(case)
+        return dict(case=case['case'], outcome='value', value=value)
     except Exception as error:
         result = dict(case=case['case'], outcome='error', name=getattr(error, 'name', 'TypeError' if isinstance(error, TypeError) else 'Error'), message=str(error))
         if hasattr(error, 'cause'):

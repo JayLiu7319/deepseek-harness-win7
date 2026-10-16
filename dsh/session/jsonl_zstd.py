@@ -81,6 +81,38 @@ def compress_frame(data):
         checked(loaded, loaded.ZSTD_freeCCtx(context))
 
 
+async def compress_chunks(chunks):
+    """Encode bounded asynchronous input chunks into one checksummed public frame."""
+    loaded = library()
+    context = loaded.ZSTD_createCCtx()
+    if not context:
+        raise MemoryError('Unable to create Zstandard compressor')
+    try:
+        checked(loaded, loaded.ZSTD_CCtx_setParameter(context, 201, 1))
+        async for data in chunks:
+            source = ctypes.create_string_buffer(data)
+            incoming = Input(ctypes.cast(source, ctypes.c_void_p), len(data), 0)
+            first = True
+            while first or incoming.pos < incoming.size:
+                first = False
+                target = ctypes.create_string_buffer(65536)
+                outgoing = Output(ctypes.cast(target, ctypes.c_void_p), len(target), 0)
+                checked(loaded, loaded.ZSTD_compressStream2(context, ctypes.byref(outgoing), ctypes.byref(incoming), 0))
+                if outgoing.pos:
+                    yield target.raw[:outgoing.pos]
+        incoming = Input(None, 0, 0)
+        while True:
+            target = ctypes.create_string_buffer(65536)
+            outgoing = Output(ctypes.cast(target, ctypes.c_void_p), len(target), 0)
+            remaining = checked(loaded, loaded.ZSTD_compressStream2(context, ctypes.byref(outgoing), ctypes.byref(incoming), 2))
+            if outgoing.pos:
+                yield target.raw[:outgoing.pos]
+            if remaining == 0:
+                break
+    finally:
+        checked(loaded, loaded.ZSTD_freeCCtx(context))
+
+
 def decompress_frame(data, incomplete=False):
     loaded = library()
     context = loaded.ZSTD_createDCtx()
