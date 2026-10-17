@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-Q-Web-source-corpus-and-current-consumers",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-WEB-SOURCE-CONSUMERS-20261017.zip",
+    "bytes": 702206,
+    "sha256": "4d2ae1d5d6db10bf491baab9e0f3268453334b37ce6e2347995d99a2d2fee0e7",
+    "members": 49
+  },
+  "scope": [
+    "202 original tracked apps/web source files and the 40-scenario official Web corpus are copied from pinned Git objects; frontend dist and active client bundles remain unchanged. Three declared external v3 Session sources are included.",
+    "Historical Web generations retired by reviewed source-tree curation are preserved byte-for-byte in before.zip plus Git history; no record/refresh writer deletes prior generations.",
+    "Canonical served profile derives its client graph from active Loader entries, including the Source automatic directory-picker surface. Owned v3 JSONL handles seed/read the actual seven-exchange message-feedback protocol.",
+    "Current historical-format manifests, canonical contiguous fixture roles, highest generation and header admission are checked. Current model-request bulk scrubbing is separate from legacy fixture support.",
+    "Actual unchanged Source manifest tests:41 pass; fixture-generation Source/Python pairs:9 match. Empty id lookup was observed for missing/empty/project-present Source roots; Python finds projects before encoding lookup identity."
+  ],
+  "runs": [
+    {
+      "path": ".goose/out/rc3-web-source-consumers-20261017-e/results.xml",
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 101.492
+    },
+    {
+      "path": ".goose/out/rc3-web-source-consumers-20261017-f/results.xml",
+      "tests": 70,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 1.746
+    }
+  ],
+  "limitations": [
+    "This is targeted acceptance. Prior91/6,87/10 and214/3 runs plus collection failure remain failures; raw diagnostics are archived. No full release qualification implied."
+  ]
+}

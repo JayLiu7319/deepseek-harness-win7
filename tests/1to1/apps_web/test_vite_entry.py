@@ -98,7 +98,8 @@ def test_rejects_the_standalone_vite_server_with_the_full_host_correction():
     assert "if (env.command === 'serve') throw new Error(STANDALONE_ERROR)" in config
     assert "plugins: [rejectStandaloneServe(), clientDocumentTitle(), react(), emitPreviewPage()]" in config
     # It owns the serve command only: `build` and `watch` stay available.
-    assert "configResolved" not in config
+    refusal = config[config.index("function rejectStandaloneServe(): Plugin"):config.index("function emitPreviewPage(): Plugin")]
+    assert "configResolved" not in refusal
 
     # The upstream case preloads this probe and asserts the marker file was never
     # written; the probe itself ships with the mirrored lane.

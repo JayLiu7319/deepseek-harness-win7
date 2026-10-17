@@ -3,7 +3,7 @@
 (the `messageFeedback` Host Remote protocol case).
 
 The reference launches the shipped Web scaffold, seeds the recorded Session
-fixture (`snapshots/web/message-feedback-protocol/session.jsonl`), POSTs the
+fixture (`snapshots/web/message-feedback-protocol/session.v3.jsonl`), POSTs the
 seven recorded exchanges to `/api/messageFeedback/{put,list,delete}` **over the
 bound port** with the browser-session cookie
 (`scaffold.hostFetch` -> `fetch(new URL(path, baseUrl), { headers: { cookie } })`),
@@ -47,7 +47,7 @@ import re
 
 import pytest
 
-from dsh.core.session.types import SessionHeader, SessionId
+from dsh.core.session.types import SessionId
 from canonical_web_fixture import web_context
 from dsh.host.apiproxy.api.message_feedback import (
     MessageFeedbackDomainHandler,
@@ -58,7 +58,7 @@ from dsh.host.apiproxy.api.message_feedback import (
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 SNAPSHOT_DIR = os.path.join(REPO_ROOT, "snapshots", "web", "message-feedback-protocol")
-SESSION_FIXTURE = os.path.join(SNAPSHOT_DIR, "session.jsonl")
+SESSION_FIXTURE = os.path.join(SNAPSHOT_DIR, "session.v3.jsonl")
 PROTOCOL_EXPECTED = os.path.join(SNAPSHOT_DIR, "protocol.expected.json")
 SESSION_ID = "message-feedback-protocol"
 
@@ -135,19 +135,23 @@ async def seed_session(ctx, cwd):
     assert events, "seed fixture has no events"
     assert events[-1].get("type") == "turn/end", "seed fixture must end in turn/end"
 
-    persistence = ctx.get("sessionPersistence") or ctx.get("session_persistence")
+    persistence = ctx.get("sessionPersistence")
     session_id = SessionId(SESSION_ID)
-    meta = SessionHeader(session_id=session_id, created_at=header["createdAt"], cwd=cwd)
+    meta = dict(version=3, id=session_id, createdAt=header["createdAt"], cwd=cwd,
+                isSeeded=False, delegationDepth=0)
     fixture_created_at = header["createdAt"]
-    time_anchor = meta.createdAt if fixture_created_at == 0 else fixture_created_at
+    time_anchor = meta["createdAt"] if fixture_created_at == 0 else fixture_created_at
     materialized = []
     for index, event in enumerate(events):
         record = dict(event)
         record["seq"] = index
         record["time"] = time_anchor + index
         materialized.append(record)
-    await persistence.create(meta)
-    await persistence.append(session_id, materialized)
+    handle = await persistence.create(meta)
+    try:
+        await handle.append(materialized)
+    finally:
+        await handle.close()
     return session_id
 
 
@@ -230,9 +234,6 @@ async def launch_served_host(tmp_path):
     ctx = await web_context(tmp_path / "host")
     service = ctx.get("messageFeedback")
     assert service is not None, "the shipped web composition mounted no messageFeedback provider"
-    # The plugin opens its domain as a task on the active loop.
-    while service._table is None:
-        await asyncio.sleep(0)
     await seed_session(ctx, str(tmp_path))
 
     server = ctx.get("webServer")
@@ -288,12 +289,14 @@ async def test_snapshots_strict_list_put_conflict_and_delete_calls_through_the_s
         host = await launch_served_host(tmp_path)
         ctx = host.ctx
         message_id = MESSAGE_ID
-        persisted = await (ctx.get("sessionPersistence") or ctx.get("session_persistence")).inspect(
-            SessionId(SESSION_ID)
-        )
+        handle = await ctx.get("sessionPersistence").open(SessionId(SESSION_ID), "read")
+        try:
+            persisted = await handle.read()
+        finally:
+            await handle.close()
         assistant_ids = [
             ((event.get("data") or {}).get("message") or {}).get("id")
-            for event in persisted.events
+            for event in persisted["events"]
             if event.get("type") == "assistant/message"
         ]
         assert message_id in assistant_ids, assistant_ids
@@ -389,10 +392,10 @@ async def test_snapshots_strict_list_put_conflict_and_delete_calls_through_the_s
             expected = handle.read()
         assert json.loads(actual) == json.loads(expected)
 
-        # `assertFixtureInventory(SNAPSHOT_DIR, ['protocol.expected.json', 'session.jsonl'])`
+        # `assertFixtureInventory(SNAPSHOT_DIR, ['protocol.expected.json', 'session.v3.jsonl'])`
         from .snapshot_fixtures import assertFixtureInventory
 
-        assertFixtureInventory(SNAPSHOT_DIR, ["protocol.expected.json", "session.jsonl"])
+        assertFixtureInventory(SNAPSHOT_DIR, ["protocol.expected.json", "session.v3.jsonl"])
     finally:
         if host is not None:
             await host.close()
@@ -403,10 +406,10 @@ async def test_snapshots_strict_list_put_conflict_and_delete_calls_through_the_s
 
 
 def test_fixture_inventory_is_mirrored_verbatim():
-    """`assertFixtureInventory(SNAPSHOT_DIR, ['protocol.expected.json', 'session.jsonl'])`."""
+    """`assertFixtureInventory(SNAPSHOT_DIR, ['protocol.expected.json', 'session.v3.jsonl'])`."""
     from .snapshot_fixtures import assertFixtureInventory
 
-    assertFixtureInventory(SNAPSHOT_DIR, ["protocol.expected.json", "session.jsonl"])
+    assertFixtureInventory(SNAPSHOT_DIR, ["protocol.expected.json", "session.v3.jsonl"])
 
 
 @pytest.mark.asyncio
@@ -505,7 +508,8 @@ async def test_the_served_api_answers_malformed_remote_payloads_with_the_gateway
             }, rpc_id
 
         # An id brand has no runtime refinement, so an empty id is boundary-legal
-        # and the business union judges it — still inside a successful envelope.
+        # but the current JSONL provider rejects it as an empty path segment.
+        # Actual pinned Source stat('') throws once the seeded project exists.
         status, response = await host.post(
             "rpc-empty-id", "messageFeedback/list", {"args": {"request": {"sessionId": ""}}}
         )
@@ -514,8 +518,8 @@ async def test_the_served_api_answers_malformed_remote_payloads_with_the_gateway
             "type": "server-response",
             "rpcId": "rpc-empty-id",
             "result": {
-                "ok": True,
-                "value": {"ok": False, "error": {"code": "session-not-found", "sessionId": ""}},
+                "ok": False,
+                "error": {"code": "gateway/internal", "message": "cannot encode an empty path segment", "details": {}},
             },
         }
     finally:

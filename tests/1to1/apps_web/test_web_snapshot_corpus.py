@@ -32,6 +32,7 @@ work item; the UI half additionally needs the Chromium lane
 import os
 
 from .snapshot_fixtures import assertFixtureInventory, snapshot_support
+from .snapshot_fixtures import parseSessionFixtureName, sessionFixtureFiles, assertSessionFixtureVersion
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 CORPUS_ROOT = os.path.join(REPO_ROOT, "snapshots", "web")
@@ -72,9 +73,9 @@ def classify(name):
         # `workspace.final: true`); it is an independent oracle, never rewritten
         # by record or refresh.
         return "workspace-oracle"
-    if base in HOST_FACE:
+    if base in HOST_FACE or parseSessionFixtureName(base) is not None:
         return "host-face"
-    if base in SUPPORT:
+    if base in SUPPORT or base == "paging.patch.yml":
         return "host-face-support"
     if base.endswith(".expected.md") or base.endswith(".expected.json"):
         return "ui-face"
@@ -101,7 +102,7 @@ def test_the_web_snapshot_corpus_is_carried_verbatim():
     """
     assert os.path.isdir(CORPUS_ROOT), CORPUS_ROOT
     official = scenarios(REFERENCE_ROOT)
-    assert len(official) == 35, official
+    assert len(official) == 40, official
     assert scenarios() == official
 
     for name in official:
@@ -127,7 +128,7 @@ def test_every_web_scenario_manifest_resolves_its_session_source():
     request-header bulk and tokenized identities.
     """
     support = snapshot_support()
-    counts = {"manifest": 0, "session.jsonl": 0, "system-prompt.expected.md": 0,
+    counts = {"manifest": 0, "system-prompt.expected.md": 0,
               "tool-schemas.expected.json": 0, "protocol.expected.json": 0}
     owners = set()
     shared = set()
@@ -147,7 +148,10 @@ def test_every_web_scenario_manifest_resolves_its_session_source():
         source = manifest.get("session")
         if source is None:
             owners.add(name)
-            assert "session.jsonl" in entries, name
+            selected = sessionFixtureFiles(entries)
+            primary = selected[0]
+            assertSessionFixtureVersion(primary["name"], read_text(os.path.join(directory, primary["name"])))
+            assert primary["version"] == manifest.get("sessionFormat", {}).get("version", 3), name
         else:
             shared.add(name)
             resolved = os.path.normpath(os.path.join(directory, source["source"]))
@@ -162,8 +166,8 @@ def test_every_web_scenario_manifest_resolves_its_session_source():
 
     # The corpus is not a hand-picked subset: every scenario owns a manifest,
     # and the recorded-session owners and their shared readers stay disjoint.
-    assert counts["manifest"] == 35
-    assert counts["session.jsonl"] == 21
+    assert counts["manifest"] == 40
+    assert len(owners) == 25
     assert counts["system-prompt.expected.md"] == 5
     assert counts["tool-schemas.expected.json"] == 5
     assert counts["protocol.expected.json"] == 1
@@ -173,9 +177,9 @@ def test_every_web_scenario_manifest_resolves_its_session_source():
     # corpus (a cross-profile replay); the web manifests are the only web-owned
     # readers of those logs.
     external = {
-        "bash-abort-row": "../../acp/cancel-tool-calls/session.jsonl",
-        "skill-tool-row": "../../session/skill-load/session.jsonl",
-        "workflow-run": "../../session/workflow-run/session.jsonl",
+        "bash-abort-row": "../../acp/cancel-tool-calls/session.v3.jsonl",
+        "skill-tool-row": "../../session/skill-load/session.v3.jsonl",
+        "workflow-run": "../../session/workflow-run/session.v3.jsonl",
     }
     for name, declared in external.items():
         manifest = support.parseSnapshotManifest(
@@ -224,7 +228,7 @@ def test_host_face_goldens_are_classified_apart_from_the_ui_goldens():
     for name in sorted(prompt_goldens):
         directory = os.path.join(CORPUS_ROOT, name)
         entries = sorted(os.listdir(directory))
-        assert "session.jsonl" in entries, name
+        assert sessionFixtureFiles(entries)[0]["version"] == 3, name
 
     # The UI bucket is the majority of the corpus: this is the half that needs
     # the browser lane, and it is recorded as such rather than deleted.

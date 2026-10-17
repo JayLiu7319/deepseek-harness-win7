@@ -543,3 +543,11 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ACP创建改用拥有的Session writer flush，列举读取metadata.header并传递取消信号，恢复通过stat点查和显式setup(ctx, agent)访问Agent身份。旧ensure_materialized/list-header兼容分支未恢复。直接消费者明确模型路由，真实权限进程从session.v3.jsonl.zstd解码审计，普通/zstd冷恢复保持准确的end-seed边界；失败激活仍按原版关闭路径flush并释放唯一所有者。
 
 实际Source/native的8会话、8模型输出、2MCP及906stdio观察通过，260项扩展消费者通过。另组63项控制通过，包括2项metadata读取中取消与3组实际Source MCP；该组唯一失败是必跑清单引用旧浏览器参数。清单补全3个实际脚本身份并更新MCP的JSONL/zstd身份后，收集与浏览器19项通过，完整19,325项仅收集成功；尚未执行全量测试体。此前125项中20失败、96项中2失败以及清单拒绝均原样保留，见 [有限回执](../../migration/candidates/rc3/acp-current-checks.json)。下一稳定候选执行单次统一发行门禁，不将这些局部结果拼接成发行资格。
+
+### R11-Q — 原版 Web Source、版本化夹具与真实 Host 消费者
+
+b0fff893 的统一门禁在 Python 首个过期 Web 镜像清单处停止，145通过/1失败；该门禁保持失败身份。现从固定 rc3 Git 对象同步202个 apps/web 受控源文件、40场景 Web corpus，以及3个声明的外部 v3 会话源。发行 dist 与客户端 bundle 不变，源树整理前的完整字节另存 before.zip；未修改录制器去删除历史版本。
+
+Web boot 测试改用实际 canonical profile，按活动 Loader 行与原版声明检查客户端图，包含目录选择器运行时挂载的行。反馈协议用拥有的 v3 JSONL handle 录入和读取，原版七次协议交换保持精确；已存在项目时空 sessionId 的实际 Source 路径错误也保留。持久化查找顺序补齐为先遍历项目、再编码 id，缺失/空根目录仍返回未找到。
+
+夹具支持校验最高版本、连续父子角色、文件名与 header 一致、明确历史 generation 与 coverage，并采用当前 system/message 和工具 schema bulk 清理。实际未改 Source manifest41项通过，版本文件9组 Source/Python匹配；定向 Host/持久化80项、镜像/夹具/前端来源70项通过。此前三轮失败及一次收集拒绝原样保留，见 [有限回执](../../migration/candidates/rc3/web-source-current-checks.json)。这些结果不替代下一干净候选的统一门禁。

@@ -119,9 +119,9 @@ class CurrentJsonlSessionPersistence(JsonlStore):
 
     def _find(self, session_id):
         from dsh.session.jsonl_format import encode_segment
-        encoded = encode_segment(session_id)
         matches = []
         for project in self._projects():
+            encoded = encode_segment(session_id)
             for suffix in ('.jsonl.zstd','.jsonl'):
                 path = os.path.join(project,encoded+suffix)
                 if self._exists(path):

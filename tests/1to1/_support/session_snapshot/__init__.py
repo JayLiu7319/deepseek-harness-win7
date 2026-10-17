@@ -6,6 +6,7 @@ Compatible with Python 3.8.10 and Windows 7 SP1.
 
 from .chunk_rows import decode_storage_record, is_chunk_row, pack_chunk_runs
 from .identity import redactSessionSnapshotIds
+from .session_files import parseSessionFixtureName, sessionFixtureName, sessionFixtureFiles, assertSessionFixtureVersion
 from .manifest import parseSnapshotManifest, parse_snapshot_manifest
 from .normalize import (
     extractSnapshotSpillPaths,
@@ -14,6 +15,7 @@ from .normalize import (
     normalizeSessionSnapshots,
     normalizeStdout,
     scrubRequestHeaders,
+    scrubModelRequestBulk,
     scrubSessionSnapshot,
     scrubSystemPrompts,
     scrubToolSchemas,

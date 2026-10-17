@@ -28,6 +28,7 @@ import os
 import re
 
 import pytest
+import pytest_asyncio
 
 from dsh.cordis.context import Context
 from dsh.credentials.credentials_local import CredentialsLocalPlugin
@@ -67,26 +68,14 @@ class RecordingStream:
         pass
 
 
-@pytest.fixture
-def served_web(tmp_path):
-    ctx = Context()
-    server = WebServerService(ctx, host="127.0.0.1", port=0)
-    ctx.set_service("web_server", server)
-    # The shipped Web composition mounts the credentials store, the connection
-    # owner (browser authentication plus the /api trust fence), the client-module
-    # seat that owns the boot manifest injection, and the frontend seat that owns
-    # the fallback serving the dist.
-    ctx.plugin(CredentialsLocalPlugin, config={"path": str(tmp_path / ".credentials.yaml"), "watch": False})
-    # This fixture tests static artifact rendering, not application activation.
-    from dsh.host.client_modules.registry import ClientModuleRegistry
-    registry = ClientModuleRegistry(ctx, search_dirs=[os.path.join(REPO_ROOT, 'packages')])
-    ctx.set_service('clientModules', registry)
-    ctx.set_service('client_modules', registry)
-    server.register('prefix', '/plugins', registry.handle_plugin_request)
-    ctx.on('webserver/index-inject', lambda rows: rows.extend(registry.boot_injections()))
-    ctx.plugin(ConnectionPlugin)
-    ctx.plugin(FrontendStaticPlugin)
-    return ctx
+@pytest_asyncio.fixture
+async def served_web(tmp_path):
+    from canonical_web_fixture import web_context, close_web_context
+    ctx = await web_context(tmp_path / "host")
+    try:
+        yield ctx
+    finally:
+        await close_web_context(ctx)
 
 
 async def _authenticated_cookie(ctx):
@@ -235,7 +224,8 @@ async def test_served_body_settles_the_boot_readiness_deferred(served_web):
     """
     body = await served_index(served_web)
     assert READY_MARKUP in body
-    assert "Promise.withResolvers" not in body
+    assert "Promise.withResolvers" not in READY_MARKUP
+    assert "new Promise(r=>{resolve=r})" in READY_MARKUP
     assert "globalThis.__DSH_BOOT_READY__" in body
     # Settled in the body, i.e. after the document's head rows are defined.
     assert body.find(READY_MARKUP) > body.index("<body>")
@@ -305,7 +295,17 @@ async def test_served_graph_is_the_shipped_client_roster(served_web):
 
     graph = boot_graph(await served_index(served_web))
     served = {entry["id"] for entry in graph["entries"]}
-    assert served == shipped
+    # The auto directory picker creates additional owned Loader rows at boot.
+    # Include actual active package entries, never a static plugin count.
+    active = set()
+    for entry in served_web.get("loader").entries():
+        name = entry.options["name"]
+        package = package_of(name)
+        if (entry.fiber is not None and not entry.disabled and name == package
+                and mirrored_client_manifest(package) is not None):
+            active.add(package)
+    assert shipped <= active
+    assert served == active
 
 
 def mirrored_client_manifest(package):

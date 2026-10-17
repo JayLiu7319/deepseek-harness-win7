@@ -33,6 +33,12 @@ def snapshot_support() -> Any:
     raise last_error
 
 
+parseSessionFixtureName = snapshot_support().parseSessionFixtureName
+sessionFixtureName = snapshot_support().sessionFixtureName
+sessionFixtureFiles = snapshot_support().sessionFixtureFiles
+assertSessionFixtureVersion = snapshot_support().assertSessionFixtureVersion
+
+
 def _read(path: str) -> str:
     with io.open(path, "r", encoding="utf-8", newline="") as handle:
         return handle.read()
@@ -44,21 +50,27 @@ def assertFixtureInventory(directory: str, expected: List[str]) -> None:
     entries = sorted(os.listdir(directory))
     owns_manifest = "snapshot.yml" in entries
     artifacts = [name for name in entries if name != "snapshot.yml"]
-    assert artifacts == sorted(expected)
+    def roles(names):
+        return sorted(set(sessionFixtureName(fixture["index"], 0) if fixture is not None else name
+                          for name in names for fixture in [parseSessionFixtureName(name)]))
+    assert roles(artifacts) == roles(expected)
     if owns_manifest:
         manifest_path = os.path.join(directory, "snapshot.yml")
         manifest = support.parseSnapshotManifest(_read(manifest_path), manifest_path)
         assert manifest["profile"] == "web"
         if manifest.get("session") is None:
-            assert "session.jsonl" in artifacts, "%s: session owner must carry session.jsonl" % directory
+            assert any((parseSessionFixtureName(name) or {}).get("index") == 0 for name in artifacts), (
+                "%s: session owner must carry a canonical parent Session fixture" % directory)
         else:
             assert os.path.exists(
                 os.path.join(directory, manifest["session"]["source"])
             ), "%s: session source" % directory
     for entry in [name for name in artifacts if name.endswith(".jsonl")]:
         content = _read(os.path.join(directory, entry))
-        assert support.scrubRequestHeaders(content) == content, (
-            "%s/%s carries request-header bulk" % (directory, entry)
+        if parseSessionFixtureName(entry) is not None:
+            assertSessionFixtureVersion(entry, content)
+        assert support.scrubModelRequestBulk(content) == content, (
+            "%s/%s carries prompt text or tool-schema bulk" % (directory, entry)
         )
         assert support.redactSessionSnapshotIds([content]) == [content], (
             "%s/%s carries unredacted identities" % (directory, entry)

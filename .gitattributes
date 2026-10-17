@@ -1,7 +1,7 @@
 
 # Snapshot bytes are compared with pinned upstream goldens on Windows too.
 snapshots/** -text
-apps/web/dist/** -text
+apps/web/** -text
 apps/cli/package.json -text
 vendor/*/package.json -text
 vendor/*/LICENSE -text

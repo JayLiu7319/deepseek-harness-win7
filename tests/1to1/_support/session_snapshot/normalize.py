@@ -402,6 +402,33 @@ def scrub_request_headers(raw_log: str) -> str:
     return _scrub_header_content(raw_log, system=True, tools=True)
 
 
+def scrubModelRequestBulk(raw_log: str) -> str:
+    """Current Source scrubs system/message text and request/header tools."""
+    lines = []
+    for line in raw_log.split("\n"):
+        if not line.strip():
+            lines.append(line)
+            continue
+        record = json.loads(line)
+        data = record.get("data")
+        touched = False
+        if isinstance(data, dict):
+            if record.get("type") == "system/message":
+                message = data.get("message")
+                content = message.get("content") if isinstance(message, dict) else None
+                block = content[0] if isinstance(content, list) and content else None
+                if isinstance(block, dict) and isinstance(block.get("text"), str):
+                    block["text"] = SYSTEM
+                    touched = True
+            elif record.get("type") == "request/header":
+                header = data.get("header")
+                if isinstance(header, dict) and "tools" in header:
+                    header["tools"] = TOOLS
+                    touched = True
+        lines.append(json.dumps(record, separators=(",", ":"), ensure_ascii=False) if touched else line)
+    return "\n".join(lines)
+
+
 def scrub_session_snapshot(raw_log: str) -> str:
     scrubbed = scrub_request_headers(raw_log)
     lines = scrubbed.split("\n")

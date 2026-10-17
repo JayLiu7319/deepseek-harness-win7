@@ -66,6 +66,18 @@ async def test_created_handle_detaches_header_immediately_and_has_no_filesystem_
 
 
 @pytest.mark.asyncio
+async def test_empty_id_lookup_only_encodes_when_a_project_directory_exists(backend):
+    # Actual Source findLog iterates projects before encoding the lookup id.
+    assert await backend.stat('') is None
+    Path(backend.root).mkdir()
+    assert await backend.stat('') is None
+    (Path(backend.root) / 'project').mkdir()
+    with pytest.raises(ValueError, match='cannot encode an empty path segment'):
+        await backend.stat('')
+    await backend.close()
+
+
+@pytest.mark.asyncio
 async def test_single_shared_root_encoding_probe_precedes_concurrent_create(backend,monkeypatch):
     import threading
     entered=threading.Event();resume=threading.Event();calls=[]

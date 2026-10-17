@@ -9,6 +9,7 @@ import re
 from typing import Any, Dict, List, Optional, Set
 
 import yaml
+from .session_files import nonNegativeSafeInteger
 
 PROFILES: Set[str] = {"headless", "sdk", "acp", "web"}
 RECORDINGS: Set[str] = {"live", "authored"}
@@ -82,6 +83,7 @@ def parse_snapshot_manifest(source: str, path: str = "snapshot.yml") -> Dict[str
             "workspace",
             "input",
             "session",
+            "sessionFormat",
         ], "manifest")
         if root.get("version") != 1:
             raise ValueError("manifest.version must equal 1")
@@ -232,6 +234,23 @@ def parse_snapshot_manifest(source: str, path: str = "snapshot.yml") -> Dict[str
                 raise ValueError("manifest.session.source must be a relative POSIX path")
             session_ref = {"source": src}
 
+        session_format = None
+        if "sessionFormat" in root:
+            val = _record(root["sessionFormat"], "manifest.sessionFormat")
+            _exact_keys(val, ["version", "coverage"], "manifest.sessionFormat")
+            version = val.get("version")
+            if not nonNegativeSafeInteger(version):
+                raise ValueError("manifest.sessionFormat.version must be a non-negative safe integer")
+            coverage = val.get("coverage")
+            supported = {"multi-hop", "packed-row", "retry-failure", "shipped-profile", "adjacent-migration"}
+            if (not isinstance(coverage, list) or not coverage
+                    or any(not isinstance(item, str) or item not in supported for item in coverage)
+                    or len(set(coverage)) != len(coverage)):
+                raise ValueError("manifest.sessionFormat.coverage must be a non-empty array of unique supported coverage names")
+            if session_ref is not None:
+                raise ValueError("manifest.sessionFormat is only valid when the scenario owns its Session fixtures")
+            session_format = dict(version=version, coverage=list(coverage))
+
         return {
             "version": 1,
             **({"scenario": scenario} if scenario is not None else {}),
@@ -246,6 +265,7 @@ def parse_snapshot_manifest(source: str, path: str = "snapshot.yml") -> Dict[str
             **({"workspace": workspace} if workspace is not None else {}),
             **({"input": input_data} if input_data is not None else {}),
             **({"session": session_ref} if session_ref is not None else {}),
+            **({"sessionFormat": session_format} if session_format is not None else {}),
         }
     except Exception as exc:
         raise ValueError(f"session-snapshot: {path}: {str(exc)}")
