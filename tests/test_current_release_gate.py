@@ -1087,7 +1087,8 @@ def test_extracted_diagnostic_requires_exact_errors_and_source(tmp_path, damage)
     elif damage == 'lossless-first':
         next(row for row in runtime['rows'] if row['name'] == 'create/version/nan')['error']['message'] = 'got NaN'
     else:
-        next(row for row in runtime['rows'] if row['name'] == 'restore/version/negative-zero')['accepted'] = False
+        row = next(row for row in runtime['rows'] if row['name'] == 'restore/version/negative-zero')
+        row['accepted'] = not row['accepted']
     output = tmp_path / 'extracted.json'
     output.write_text(json.dumps(report), encoding='utf-8')
     with pytest.raises(RuntimeError, match='sessionDiagnostic'):

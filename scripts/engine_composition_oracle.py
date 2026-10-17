@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.engine_composition_values import project
 from scripts.verify_portable import extract
 
-PIN = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+PIN = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 OBSERVERS = ('scripts/engine_composition_oracle.py', 'scripts/engine_composition_values.py') + tuple(
     'scripts/oracles/engine_composition/' + name for name in ('route_execution_native_v1.py',
     'route_execution_source_v1.mts', 'route_execution_fixture_v1.py', 'route_execution_fixture_v1.mts'))
