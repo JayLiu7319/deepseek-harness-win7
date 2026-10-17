@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R08-D-standard-cordis-108",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R08-STANDARD-CORDIS-108-20261017.zip",
+    "bytes": 35945813,
+    "sha256": "8e5906d9b9c67b6f431884100d73e8c042d2949437dfb9d84b89f9e5dd858063",
+    "members": [
+      {
+        "path": "rc3-r08-108-native-standard-20261017-final/report.json",
+        "bytes": 25723115,
+        "sha256": "406f5c9510611e68f70ec791b1dd695727cede3af6dfa7667a3f1f5d4c2cb902"
+      },
+      {
+        "path": "rc3-r08-108-native-standard-20261017-final/fresh.host.json",
+        "bytes": 8346935,
+        "sha256": "fcc0f4083f294841a916ce8bc0f53d7a73801e91d0be2b8c7d118fab098d4e3e"
+      },
+      {
+        "path": "rc3-r08-108-native-standard-20261017-final/cold.host.json",
+        "bytes": 2133291,
+        "sha256": "97e445fa79bce5e779d2b82451992bab720ec098d967ec6eebf9e239bfead4ca"
+      },
+      {
+        "path": "rc3-r08-108-native-cordis-20261017-final/report.json",
+        "bytes": 39885334,
+        "sha256": "53f912fc517340185332d74e1fe596c8b64c2f50e9380feecc02262d24b41f30"
+      },
+      {
+        "path": "rc3-r08-108-native-cordis-20261017-final/fresh.host.json",
+        "bytes": 14218249,
+        "sha256": "b21d3349ac174833beda562a6be780a2676a879fc07d8b43a42a0c97bdaab934"
+      },
+      {
+        "path": "rc3-r08-108-native-cordis-20261017-final/cold.host.json",
+        "bytes": 2787475,
+        "sha256": "d330395fd40a2e69cf8f64a4f718c9f2a74d51d025d5ec294f99d047ecd62549"
+      },
+      {
+        "path": "rc3-r08-108-source-standard-20261017-final/report.json",
+        "bytes": 22109907,
+        "sha256": "142e90c36abba126944c5b3fad9ff7d6d5920d36b7d6ab06276d0e53860f9483"
+      },
+      {
+        "path": "rc3-r08-108-source-standard-20261017-final/fresh.host.json",
+        "bytes": 6606433,
+        "sha256": "f7076320c8c204b6bb9c8dff53ec70a6948daa9ec65836f2439940d7a1148d1a"
+      },
+      {
+        "path": "rc3-r08-108-source-standard-20261017-final/cold.host.json",
+        "bytes": 2097202,
+        "sha256": "195de6d9ddaeb1e48721dbc3e783eac62de535a202c0430bd7f42a85f7cac257"
+      },
+      {
+        "path": "rc3-r08-108-source-cordis-20261017-final/report.json",
+        "bytes": 31435217,
+        "sha256": "62d34843ab3510fcd6b5a59de32b9dac832c4b961014c70da6306f24abc52cf9"
+      },
+      {
+        "path": "rc3-r08-108-source-cordis-20261017-final/fresh.host.json",
+        "bytes": 10612246,
+        "sha256": "ea6d0599075863a2ca299b99fd40b11e556ffe1e8fe3b3513a401965510abc06"
+      },
+      {
+        "path": "rc3-r08-108-source-cordis-20261017-final/cold.host.json",
+        "bytes": 2263666,
+        "sha256": "cd038d81358bdbf587790ac9f0203dc60cf2c4b1c741527549604e9e88d2c5b5"
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "side": "native",
+      "preset": "standard",
+      "status": "qualified",
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "compatibility": "68831455107c3737bfbb71d9fc79692afb30bdcaf2eb8d526819958838e3851f",
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "side": "native",
+      "preset": "cordis",
+      "status": "qualified",
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "compatibility": "68831455107c3737bfbb71d9fc79692afb30bdcaf2eb8d526819958838e3851f",
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "side": "source",
+      "preset": "standard",
+      "status": "qualified",
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "compatibility": {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\compat.js",
+        "files": [
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\url.js",
+            "sha256": "73ab2ae6c52319f2dd808612618f489a5b4fdd74f2a14ad13d94ca4d6931a083"
+          },
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\compat.js",
+            "sha256": "15110beddf0546bd438c364170e09810608a3f34844eb42834928abf65c5ceb8"
+          },
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\worker.js",
+            "sha256": "33eb8fc29b7c5fbb2cc2e2ea1dd3ab89e87400ceede567561d4fd53f7d216316"
+          }
+        ],
+        "sha256": "68831455107c3737bfbb71d9fc79692afb30bdcaf2eb8d526819958838e3851f",
+        "scope": "Unchanged Source frontend with the product host capability adapter; distinct from unadapted Source"
+      },
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "side": "source",
+      "preset": "cordis",
+      "status": "qualified",
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "compatibility": {
+        "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\compat.js",
+        "files": [
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\url.js",
+            "sha256": "73ab2ae6c52319f2dd808612618f489a5b4fdd74f2a14ad13d94ca4d6931a083"
+          },
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\compat.js",
+            "sha256": "15110beddf0546bd438c364170e09810608a3f34844eb42834928abf65c5ceb8"
+          },
+          {
+            "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dsh\\host\\browser_compat\\worker.js",
+            "sha256": "33eb8fc29b7c5fbb2cc2e2ea1dd3ab89e87400ceede567561d4fd53f7d216316"
+          }
+        ],
+        "sha256": "68831455107c3737bfbb71d9fc79692afb30bdcaf2eb8d526819958838e3851f",
+        "scope": "Unchanged Source frontend with the product host capability adapter; distinct from unadapted Source"
+      },
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    }
+  ],
+  "coverage": [
+    "Four actual original Chromium108 fresh/cold Standard and Cordis journeys: normal tool execution, ask-user, approval, plan, cancellation and runtime Cordis tools.",
+    "Native production providers and clean rc.3 Source; Source108 explicitly admits the same host browser compatibility adaptation."
+  ],
+  "limitations": [
+    "Finite browser scenarios, not unified release acceptance. Floating Dockkit, deliverables and packaged Desktop remain in progress."
+  ],
+  "retention": "Only twelve finite successful observations archived; no browser profiles, profile directories, build trees or failed workspaces copied into LFS."
+}

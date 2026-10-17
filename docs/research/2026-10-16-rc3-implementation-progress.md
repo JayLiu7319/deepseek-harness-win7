@@ -406,6 +406,10 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 生产版本带 `-rc.3` 后，既有插件安装器将整个版本按点分割转整数，导致本地插件验证被阻断。现在只用三段数字核心比较既有 ABI 下限，发行身份仍保留预发布和构建元数据。安装、升级/回滚及依赖消费者107项通过；新增4项最初错误索引 descriptor 元组，修正后单独4项通过，初轮失败留存。见 [有限回执](../../migration/candidates/rc3/python-abi-version-current-checks.json)。不据此声明完整回归或发布验收。
 
+### R08-D — Standard / Creative 的 Chromium 108 旅程
+
+四条实际原版界面旅程（Python/Source × Standard/Cordis）均通过 fresh/cold 阶段，覆盖工具、提问、审批、计划、取消及运行时 Cordis 管理。未改 Source 108 显式使用同一宿主能力适配，不声称裸原版可直接运行。12份有限报告与原始宿主观察归档35,945,813字节，逐成员核验CRC和SHA；不复制浏览器配置、运行目录或调试树。见 [有限回执](../../migration/candidates/rc3/browser-standard-cordis-108-checks.json)。交付文件、浮窗及完整发行验收仍在实施。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。
