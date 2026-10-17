@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-S-current-Loader-consumers",
+  "status": "targeted-passed",
+  "failed_gate": {
+    "candidate_commit": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b",
+    "passed": 540,
+    "failed": 1,
+    "publishable": false
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-LOADER-CONSUMERS-20261017.zip",
+    "bytes": 1130657,
+    "sha256": "76f8fa6e3e8140b9a5c6865364ae27c69cbaed5f35625f65748143ed2431257e",
+    "members": 34
+  },
+  "runs": [
+    {
+      "path": ".goose/out/rc3-deliverables-loader-20261017-a/results.xml",
+      "tests": "152",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "0",
+      "time": "95.553"
+    },
+    {
+      "path": ".goose/out/rc3-deliverables-loader-20261017-b/results.xml",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.927"
+    },
+    {
+      "path": ".goose/out/rc3-deliverables-loader-20261017-c/results.xml",
+      "tests": "46",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "10.160"
+    },
+    {
+      "path": ".goose/out/rc3-owned-consumer-preflight-20261017-a/results.xml",
+      "tests": "1065",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "1",
+      "time": "88.749"
+    },
+    {
+      "path": ".goose/out/rc3-feedback-loader-20261017-a/results.xml",
+      "tests": "49",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "2.630"
+    }
+  ],
+  "source_controls": {
+    "deliverables_prompt": 1,
+    "feedback": 16,
+    "unchanged_source": true
+  },
+  "scope": [
+    "Current deliverables lifecycle uses the actual canonical Web profile and requires ACTIVE Loader state before checking prompt registration and disposal.",
+    "Every Web client declaration resolves through the effective installation registry; current overrides and historical surfaces are checked separately from the actual active client graph.",
+    "The actual current feedback Loader case expects the unchanged rc3 acknowledgement, uses owned CurrentSession snapshots and verifies exactly one non-model-visible payload. Historical telemetry helper checks are explicitly labeled historical."
+  ],
+  "limitations": [
+    "The 9ab3 unified gate remains failed; no partial observations constitute release acceptance.",
+    "The consumer preflight1063 passes/1skip/1failure, earlier151passes/1failure and corrected46/49 pass runs remain independent results."
+  ]
+}

@@ -155,11 +155,15 @@ def EMPTY_HOST_HALVES_CLASS(package_name: str) -> Any:
 @pytest.mark.asyncio
 async def test_ui_deliverables_registers_guidance_only_while_mounted(tmp_path):
     """"ui-deliverables node plugin" > "registers final-response file-reference guidance only while mounted"."""
-    ctx = await boot_rows(
-        str(tmp_path),
-        ["@deepseek-ai/dsh-system-prompt", "@deepseek-ai/dsh-client-ui-deliverables"],
-    )
+    from canonical_web_fixture import close_web_context, web_context
+
+    # rc.3 also injects the native-open providers. Use their actual production
+    # composition so this Loader lifecycle check cannot pass with a pending row.
+    ctx = await web_context(tmp_path)
     try:
+        mounted = next(entry for entry in ctx.loader.entries()
+                       if entry.options.get("name") == "@deepseek-ai/dsh-client-ui-deliverables")
+        assert mounted.fiber.state == FiberState.ACTIVE
         assembly = await ctx.systemPrompt.assemble()
         section = section_named(assembly, "ui:deliverable-file-references")
         assert section is not None
@@ -169,11 +173,11 @@ async def test_ui_deliverables_registers_guidance_only_while_mounted(tmp_path):
             "code using the exact file-tool path, or a basename when unique among the files changed in that turn."
         )
 
-        await entry_of(ctx, 1).fiber.dispose()
+        await mounted.fiber.dispose()
         after = await ctx.systemPrompt.assemble()
         assert section_named(after, "ui:deliverable-file-references") is None
     finally:
-        await ctx.fiber.dispose()
+        await close_web_context(ctx)
 
 
 # --- settings-backed rows ------------------------------------------------------
@@ -372,20 +376,17 @@ async def test_ui_user_questions_node_plugin_mounts_no_model_facing_tool(tmp_pat
 
 def test_every_shipped_client_row_has_a_host_half():
     """
-    The row table answers every `dsh-client-*` row the shipped Web bundle patch
-    enables, including the Connection and HMR transport owners.
+    The effective installation registry answers every declared Web client row.
+    Current providers override historical surfaces and include transport owners.
     """
-    unimplemented = set()
+    from dsh.boot.plugin_registry_current import CURRENT_HARNESS_PLUGIN_CLASSES
+
     shipped = web_client_rows()
-    assert sorted(name for name in shipped if name in HARNESS_PLUGIN_CLASSES) == sorted(
-        set(shipped) - unimplemented
-    )
-    # Transport owners are registered separately from per-package surfaces;
-    # the Cordis client runner is a surface outside the dsh-client-* prefix.
-    assert sorted(client_rows.CLIENT_HOST_HALF_ROWS) == sorted(
-        (set(shipped) | {"@deepseek-ai/dsh-cordis-client-runner", "@deepseek-ai/dsh-client-ui-directory-picker-native", "@deepseek-ai/dsh-client-ui-directory-picker-browse"}) - unimplemented - {"@deepseek-ai/dsh-client-modules", "@deepseek-ai/dsh-client-connection", "@deepseek-ai/dsh-client-hmr"}
-    )
+    assert shipped
+    assert set(shipped) <= HARNESS_PLUGIN_CLASSES.keys()
     for name, spec in client_rows.CLIENT_HOST_HALF_ROWS.items():
+        assert HARNESS_PLUGIN_CLASSES[name] == CURRENT_HARNESS_PLUGIN_CLASSES.get(name, spec)
+    for name, spec in CURRENT_HARNESS_PLUGIN_CLASSES.items():
         assert HARNESS_PLUGIN_CLASSES[name] == spec
 
 

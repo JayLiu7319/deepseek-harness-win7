@@ -1,13 +1,13 @@
 """
-1:1 parity suite for `@deepseek-ai/dsh-command-feedback`
-(`dsh/feedback/command_feedback.py`).
+Historical helper regressions for `dsh/feedback/command_feedback.py`, plus the
+current installation-owned Loader composition case at the end of this module.
+Current rc.3 producer/Remote contracts live in `tests/test_feedback_current.py`;
+the retired telemetry disclosures below are not current parity evidence.
 
-Upstream is reference/packages/feedback/command-feedback/tests/
-command-feedback.spec.ts and .../loader-composition.spec.ts. Every case keeps
-the upstream setup, action and assertions: the registered command definition,
-the acknowledgement and its session-sharing disclosure, the authoritative
-`feedback/record` payload, the empty-input rejection, cancellation, and the
-model-invisibility of every recorded event.
+The original helper cases came from command-feedback.spec.ts before rc.3.
+The final Loader case follows the current pinned loader-composition.spec.ts:
+the acknowledgement, authoritative `feedback/record` payload, empty-input
+rejection and model-invisibility are checked through the active registry.
 
 The upstream suite mocks `@deepseek-ai/dsh-anonymous-user-id` so the
 acknowledgement is deterministic; here the real producer runs against a
@@ -312,8 +312,11 @@ async def test_boots_cordis_yml_and_records_feedback_without_model_visible_outpu
 
     ctx = await boot("dsh", config_path)
     try:
+        from dsh.core.session.current_session import CurrentSession
+
         store = ctx.get("sessions")
         agent = Agent(session=store.create("feedback-loader-agent"), ctx=ctx, agent_id="feedback-loader-agent")
+        assert isinstance(agent.session, CurrentSession)
         registry = ctx.get("agents")
         if registry is not None and hasattr(registry, "register"):
             registry.register(agent)
@@ -330,7 +333,7 @@ async def test_boots_cordis_yml_and_records_feedback_without_model_visible_outpu
             "kind": "success",
             "text": (
                 "Feedback recorded for session feedback-loader-agent\n"
-                f"Anonymous user: {user_id}. Session sharing is not configured."
+                f"Anonymous user: {user_id}."
             ),
         }
         rejected = await ctx.commands.execute(agent, "/feedback", [], signal)
@@ -340,7 +343,7 @@ async def test_boots_cordis_yml_and_records_feedback_without_model_visible_outpu
         }
 
         # The domain event owns the payload; generic command bookkeeping omits it.
-        assert [event["type"] for event in agent.session.events] == [
+        assert [event["type"] for event in agent.session.snapshotEvents()] == [
             "command/run",
             "feedback/record",
             "command/done",
@@ -348,16 +351,17 @@ async def test_boots_cordis_yml_and_records_feedback_without_model_visible_outpu
             "command/done",
         ]
         run_event = next(
-            event for event in agent.session.events if event["type"] == "command/run"
+            event for event in agent.session.snapshotEvents() if event["type"] == "command/run"
         )
         assert "args" not in run_event["data"]
         feedback = next(
-            event for event in agent.session.events if event["type"] == "feedback/record"
+            event for event in agent.session.snapshotEvents() if event["type"] == "feedback/record"
         )
         assert feedback["data"]["text"] == "the diff view is unreadable"
+        assert json.dumps(agent.session.snapshotEvents()).count("the diff view is unreadable") == 1
 
         # Nothing reached the model.
-        assert agent.session.derive_messages() == []
+        assert agent.session.deriveMessages() == []
         assert agent.session.surface.nodes == []
     finally:
         await ctx.fiber.dispose()
