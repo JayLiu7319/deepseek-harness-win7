@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "1446612838a1f8d4f87aaadc95ce19ca151e78a4",
+  "status": "finite-observations-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-PLUGIN-WINDOW-PIPES-20261017.zip",
+    "bytes": 292454,
+    "sha256": "fdc2e9966c469ae494f08c8f7c65eeedd728db455773caa9e619b5837b3e1a80",
+    "members": 19
+  },
+  "observations": {
+    "x86": {
+      "status": "qualified",
+      "parentPipesClosed": true,
+      "pluginMenu": {
+        "label": "桌面插件…",
+        "accelerator": "CmdOrCtrl+,"
+      },
+      "pluginWindow": {
+        "url": "dsh-app://shell/plugin-manager.html",
+        "node": "undefined",
+        "process": "undefined",
+        "title": "桌面插件",
+        "status": "",
+        "plugins": []
+      },
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-plugin-window-rpc-after-parent-pipe-closure",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "processExit": {
+        "time": "2026-10-17T14:55:30.561Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    },
+    "x64": {
+      "status": "qualified",
+      "parentPipesClosed": true,
+      "pluginMenu": {
+        "label": "桌面插件…",
+        "accelerator": "CmdOrCtrl+,"
+      },
+      "pluginWindow": {
+        "url": "dsh-app://shell/plugin-manager.html",
+        "node": "undefined",
+        "process": "undefined",
+        "title": "桌面插件",
+        "status": "",
+        "plugins": []
+      },
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-plugin-window-rpc-after-parent-pipe-closure",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "processExit": {
+        "time": "2026-10-17T14:55:41.239Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    }
+  },
+  "retained_observer_failure": {
+    "architecture": "x86",
+    "exit_code": 1,
+    "seconds": 68.203,
+    "reason": "CDP Input.dispatchKeyEvent did not invoke the native Electron menu; timed out waiting for plugin window. Owned application was terminated and report preserved.",
+    "archive_prefix": "a/"
+  },
+  "scope": "Actual packaged executables from desktop-1446-current-checks.json, isolated home, both parent pipes closed before invoking actual native plugin-menu click through local main inspector. Real plugin renderer and list RPC, single instance and physical shutdown observed. Browser keyboard synthesis is not used as a native-menu guarantee.",
+  "limitations": [
+    "Finite diagnostic only; does not replace the independent complete release gate or physical Win7 testing.",
+    "Application payload and original frontend remain unchanged; the external observer and main inspector are development-only."
+  ]
+}
