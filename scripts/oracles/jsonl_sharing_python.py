@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import base64
 import ctypes
 import hashlib
 import json
@@ -23,9 +24,10 @@ async def main():
         raise ValueError('Actual Windows Python3.8.10 required')
     sys.path.insert(0, str(root))
     from dsh.cordis.context import Context
-    from dsh.core.session import SessionPlugin, SessionHeader
-    from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+    from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin as JsonlSessionPersistencePlugin
     from dsh.session.file_revision import _windows_api
+    from dsh.session.file_io import open_shared_read
     workspace.mkdir()
     rows = []
     api, _, HandleInformation, _ = _windows_api()
@@ -36,26 +38,33 @@ async def main():
             await ctx.plugin(SessionPlugin)
             await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=str(workspace / (compression + '-' + access)), compression=compression))
             provider = ctx.get('sessionPersistence')
-            meta = SessionHeader('sharing-session', created_at=1)
-            await provider.create(meta)
-            await provider.append(meta.id, [dict(type='session/end-seed', seq=0, time=1, data={})])
-            path = provider.store.locate(meta.to_dict())
+            meta = dict(id='sharing-session',version=3,createdAt=1,isSeeded=False)
+            writer = await provider.create(meta)
+            await writer.append([dict(type='session/end-seed', seq=0, time=1, data={})])
+            path = provider.locate(meta)
             absolute = '\\\\?\\' + os.path.abspath(path)
             handle = api.CreateFileW(absolute, 0x80010000 if access == 'delete' else 0xC0000000, 7, None, 3, 0x80, None)
             if handle == ctypes.c_void_p(-1).value:
                 raise ctypes.WinError(ctypes.get_last_error())
             try:
-                listed = [value.to_dict() for value in await provider.list()]
-                inspected = await provider.inspect(meta.id)
-                raw = await provider.read_raw(meta.id)
-                raw = dict(raw, meta=raw['meta'].to_dict())
-                observed = dict(listed=listed, inspected=dict(meta=inspected.meta.to_dict(), events=inspected.events, inheritedEventCount=0), raw=raw)
+                listed = await provider.list()
+                reader = await provider.open(meta['id'], 'read')
+                try:
+                    inspected = dict(await reader.read(), header=reader.header, inheritedEventCount=reader.inheritedEventCount)
+                finally:
+                    await reader.close()
+                # readRaw is retired: retain physical bytes as diagnostics,
+                # alongside the complete current public list/read results.
+                with open_shared_read(path) as stream:
+                    raw = dict(filename=os.path.basename(path),content=base64.b64encode(stream.read()).decode('ascii'))
+                observed = dict(listed=listed, inspected=inspected, raw=raw)
                 rows.append(dict(name=name, observed=observed))
                 if options.source_observer:
                     repository = Path(__file__).resolve().parents[2]
                     source_output = output.with_suffix('.' + compression + '-' + access + '.source.json')
                     environment = dict(os.environ, DSH_JSONL_SHARING_ROOT=provider.root,
                         DSH_JSONL_SHARING_COMPRESSION=compression, DSH_JSONL_SHARING_NAME=name,
+                        DSH_JSONL_SHARING_FILE=path,
                         DSH_JSONL_SHARING_SOURCE_OUTPUT=str(source_output))
                     with output.with_suffix('.' + compression + '-' + access + '.source.log').open('x', encoding='utf-8') as stream:
                         completed = subprocess.run(['node', 'scripts/oracles/official/node_modules/vitest/vitest.mjs',

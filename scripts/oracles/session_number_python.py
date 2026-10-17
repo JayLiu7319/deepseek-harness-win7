@@ -13,10 +13,10 @@ NAMES = tuple(field + '/' + label for field in FIELDS for label in LABELS) + ACT
 
 
 def observe(name):
-    from dsh.core.session import Session
+    from dsh.core.session.current_session import CurrentSession as Session
 
     if name in ACTIONS:
-        header = dict(id='s', version=0, createdAt=1, isSeeded=False, extra=dict(nested=[1, 2]))
+        header = dict(id='s', version=3, createdAt=1, isSeeded=False, extra=dict(nested=[1, 2]))
         session = Session.create('s', [], header)
         row = dict(name=name)
         if name == 'header-mutation':
@@ -49,10 +49,10 @@ def observe(name):
     field, label = name.split('/')
     if field not in FIELDS or label not in LABELS:
         raise ValueError('Unknown Session number observation')
-    number = {'whole': 0.0 if field in ('version', 'seq') else 1.0, 'negative-zero': -0.0,
+    number = {'whole': 3.0 if field == 'version' else 0.0 if field == 'seq' else 1.0, 'negative-zero': -0.0,
         'fraction': 0.5, 'negative': -1, 'boolean': False, 'unsafe': 9007199254740992,
         'nan': float('nan'), 'infinite': float('inf')}[label]
-    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
+    header = dict(id='s', version=3, createdAt=1, isSeeded=False)
     event = dict(type='session/end-seed', seq=0, time=1, data={})
     (event if field in ('seq', 'time') else header)[field] = number
     row = dict(name=name)

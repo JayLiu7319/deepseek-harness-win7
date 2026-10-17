@@ -22,7 +22,7 @@ SOURCE_INPUTS = {
     'scripts/oracles/vitest.consumers.config.mts',
     'scripts/oracles/vitest.core.config.mts', 'migration/modules.json',
 } | {'scripts/import_paths.py'}
-REQUIRED_MODULES = {'dsh/core/session/__init__.py', 'dsh/core/session/session.py',
+REQUIRED_MODULES = {'dsh/core/session/current_session.py', 'dsh/core/session/current_surface.py', 'dsh/core/session/__init__.py', 'dsh/core/session/session.py',
     'dsh/core/session/types.py', 'dsh/core/session/json.py', 'dsh/cordis/utils.py'}
 
 

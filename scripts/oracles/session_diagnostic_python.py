@@ -14,7 +14,7 @@ NAMES = tuple(mode + '/' + field + '/' + label for mode in MODES for field in FI
 
 
 def observe(name):
-    from dsh.core.session import Session
+    from dsh.core.session.current_session import CurrentSession as Session
 
     mode, field, label = name.split('/')
     if name not in NAMES:
@@ -24,7 +24,7 @@ def observe(name):
             'negative-infinite': -float('inf'), 'empty-array': [], 'string': 's', 'object': {},
             'nested-array': ['x', None, ['y']], 'large-exponent': 1e21, 'small-exponent': 1e-7,
             'decimal-threshold': 1e-6, 'integer-threshold': 1e20})
-    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
+    header = dict(id='s', version=3, createdAt=1, isSeeded=False)
     if label == 'missing':
         del header[field]
     else:
@@ -34,7 +34,7 @@ def observe(name):
         if mode == 'create':
             Session.create('s', [], header)
         else:
-            Session.from_restore('s', [], header)
+            Session.from_restore('s', [], header, 0)
         row['accepted'] = True
     except ValueError as error:
         row.update(error=dict(name='Error', message=str(error)), accepted=False)

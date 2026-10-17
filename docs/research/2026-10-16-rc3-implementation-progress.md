@@ -473,3 +473,8 @@ Standard 缺少现代前置环境时允许安装，完成页提供本地指南�
 用户发现测试客户端主进程 EPIPE 弹窗。原测试实例已按精确 PID 树关闭；Electron 向启动端已关闭的日志管道输出警告会抛出此错误。启动最早阶段仅处理 stdout/stderr 的 EPIPE，其他 I/O 错误继续抛出；新测试启动器持有进程、保存普通文件日志并在期限内回收。真实内置 Node16 同时关闭两个父管道后确实捕获 EPIPE 并继续运行。完整 Electron 旅程通过提示/指南/关闭、原版 RPC/流、插件安装、损坏升级回滚、移除和重连，退出码0，稳定阶段零 renderer 错误。14项相关回归及27项离线包/前置策略/卸载测试通过。初轮空白页 IPC 警告、观察器45秒期限早于实际回滚完成的失败与用户截图均原样保存；没有将其重标为成功。
 
 见 [有限回执](../../migration/candidates/rc3/desktop-guidance-epipe-current-checks.json)。新NSIS分支已用小型夹具编译，完整安装包待稳定候选再构建；未执行管理员安装、系统补丁或物理Win7验收，更新集成及剩余统一迁移继续实施。
+### R11-G — Session 数值边界与当前持久化句柄
+
+数值、诊断、restore sign 的 147 项实际 Source/native 观察转到 v3 Session；退休的 seedLength 输入仍保留为拒绝检查。持久化的 32 项观察改用当前 read handle，并验证两次读取独立推进，以及物理读取完成前后取消的差别。Windows sharing 的 4 项继续使用真实持有者，完整比较 list 快照与 read 结果；原始文件诊断使用共享读取句柄。
+
+五组消费者首次运行 299 通过、1 失败：诊断负例仍把已经为 false 的版本负零结果赋为 false。修正该负例后整组诊断 94 通过。两次 XML 均保留，不拼接为一次全绿运行。有限归档见 `migration/candidates/rc3/session-boundaries-current-checks.json`；统一发布验收仍待完成。

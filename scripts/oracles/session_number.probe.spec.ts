@@ -4,14 +4,14 @@ import {writeFileSync} from 'node:fs'
 import {execFileSync} from 'node:child_process'
 
 it('observes actual public Session header and seed number boundaries',()=>{
-  const pin='a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+  const pin='a4c74a91e06b00fe0b0937bde982170c526cc842'
   if(process.version!=='v22.22.2'||execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()!==pin
     ||execFileSync('git',['-C','reference','status','--porcelain'],{encoding:'utf8'}).trim())throw new Error('Pinned clean Source required')
   const rows:any[]=[]
   for(const field of ['version','createdAt','seedLength','delegationDepth','seq','time']){
-    for(const [label,number] of [['whole',field==='version'||field==='seq'?0:1],['negative-zero',-0],
+    for(const [label,number] of [['whole',field==='version'?3:field==='seq'?0:1],['negative-zero',-0],
       ['fraction',0.5],['negative',-1],['boolean',false],['unsafe',9007199254740992],['nan',NaN],['infinite',Infinity]] as const){
-      const header:any={id:'s',version:0,createdAt:1,isSeeded:false}
+      const header:any={id:'s',version:3,createdAt:1,isSeeded:false}
       const event:any={type:'session/end-seed',seq:0,time:1,data:{}}
       if(field==='seq'||field==='time')event[field]=number
       else header[field]=number
@@ -26,7 +26,7 @@ it('observes actual public Session header and seed number boundaries',()=>{
     }
   }
   for(const action of ['unknown-field','header-mutation','nested-header-mutation','shallow-copy','deep-copy']){
-    const header:any={id:'s',version:0,createdAt:1,isSeeded:false,extra:{nested:[1,2]}}
+    const header:any={id:'s',version:3,createdAt:1,isSeeded:false,extra:{nested:[1,2]}}
     const session=Session.create('s' as any,[],header)
     const row:any={name:action}
     if(action==='header-mutation'){

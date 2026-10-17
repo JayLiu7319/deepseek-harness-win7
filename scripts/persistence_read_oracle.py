@@ -17,14 +17,16 @@ PUBLIC = ('create/whole', 'create/negative-zero', 'create/fraction', 'create/boo
     'read/whole', 'read/negative-zero', 'read/fraction', 'read/boolean', 'read/unsafe', 'abort/before', 'abort/after-read')
 NAMES = tuple(backend + '/' + name for backend in ('jsonl-none', 'jsonl-zstd') for name in PUBLIC) + ('jsonl-none/queued', 'jsonl-zstd/queued')
 SOURCE_INPUTS = {
-    'reference/packages/session/session-persistence/src/coordinator.ts',
+    'reference/packages/session/session-persistence/src/storage-contract.ts',
+    'reference/packages/session/session-persistence-jsonl/src/storage.ts',
+    'reference/packages/session/session-persistence/src/handle.ts',
     'reference/packages/session/session-persistence-jsonl/src/index.ts',
     'reference/packages/util/values/src/index.ts', 'reference/packages/core/session/src/types.ts',
     'scripts/oracles/persistence_public.probe.spec.ts', 'scripts/oracles/persistence_order.probe.spec.ts',
     'scripts/oracles/vitest.persistence-read-probe.config.mts', 'scripts/oracles/vitest.agent-lifecycle.config.mts',
     'scripts/oracles/vitest.consumers.config.mts', 'scripts/oracles/vitest.core.config.mts', 'migration/modules.json',
 } | {'scripts/import_paths.py'}
-REQUIRED_MODULES = {'dsh/session/coordinator.py', 'dsh/session/persistence_jsonl_canonical.py',
+REQUIRED_MODULES = {'dsh/session/jsonl_backend_current.py', 'dsh/session/jsonl_handle.py',
     'dsh/session/preparations.py',
     'dsh/session/jsonl_store.py', 'dsh/cordis/context.py'}
 

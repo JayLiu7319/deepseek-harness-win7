@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-from contextlib import asynccontextmanager
 import hashlib
 import json
 from pathlib import Path
@@ -16,9 +15,9 @@ async def main():
     root = options.root.resolve()
     sys.path.insert(0, str(root))
     from dsh.cordis.context import Context
-    from dsh.core.session import SessionPlugin, SessionHeader
+    from dsh.core.session.current_session import CurrentSessionPlugin
     from dsh.core.abort import AbortController
-    from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
+    from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin
     rows = []
     for name in ('jsonl-none/queued', 'jsonl-zstd/queued'):
         with tempfile.TemporaryDirectory(prefix='dsh-read-order-') as directory:
@@ -28,67 +27,43 @@ async def main():
             reason = RuntimeError('controlled read retired')
             entered, released = asyncio.Event(), asyncio.Event()
             try:
-                await ctx.plugin(SessionPlugin)
-                await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if name.startswith('jsonl-zstd') else 'none'))
+                await ctx.plugin(CurrentSessionPlugin)
+                await ctx.plugin(CurrentJsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if name.startswith('jsonl-zstd') else 'none'))
                 provider = ctx.get('sessionPersistence')
-                legacy = 'legacy' in name
-                await provider.create(SessionHeader('s', created_at=1))
-                await provider.append('s', [dict(type='user/message' if legacy else 'session/end-seed', seq=0, time=1,
-                    data=dict(content=[dict(type='text', text='legacy')], source=dict(kind='user')) if legacy else {})])
-                owner = provider.store
-                key = 'load_stored' if legacy or not name.startswith('sqlite') else 'load_stored_from'
-                original = getattr(owner, key)
+                handle = await provider.create(dict(id='s',version=3,createdAt=1,isSeeded=False))
+                await handle.append([dict(type='session/end-seed',seq=0,time=1,data={})])
+                original = provider.readStoredLog
                 calls = []
-                async def held(*arguments, **keywords):
-                    calls.append(dict(signalForwarded=any(argument is controller.signal for argument in arguments) or keywords.get('signal') is controller.signal))
-                    result = await original(*arguments, **keywords)
-                    if name.endswith('aborted-failure'):
+                async def held(*args):
+                    first = not calls
+                    calls.append(dict(signalForwarded=args[-1] is controller.signal))
+                    if not first:
                         controller.abort(reason)
-                        raise RuntimeError('controlled read failure')
-                    if name.endswith('queued') and len(calls) == 1 or name.endswith('legacy-after'):
+                    result = await original(*args)
+                    if first:
                         entered.set()
                         await released.wait()
                     return result
-                setattr(owner, key, held)
+                provider.readStoredLog = held
                 async def settle(reading):
                     try:
-                        value = await reading
-                        return dict(value=dict(meta=value.meta.to_dict(), events=value.events, inheritedEventCount=value.inheritedEventCount, fromSeq=value.fromSeq))
+                        return dict(value=await reading)
                     except Exception as error:
-                        return dict(error=dict(name='TypeError' if isinstance(error, TypeError) else 'Error', message=str(error)), reasonIdentity=error is reason)
-                if name.endswith('queued'):
-                    first = asyncio.create_task(settle(provider.read_from('s', 0)))
-                    await asyncio.wait_for(entered.wait(), 5)
-                    enqueued = asyncio.Event()
-                    original_lock = provider.storage_lock
-                    @asynccontextmanager
-                    async def queued_lock(identity):
-                        enqueued.set()
-                        async with original_lock(identity):
-                            yield
-                    provider.storage_lock = queued_lock
-                    second = asyncio.create_task(settle(provider.read_from('s', 0, controller.signal)))
-                    await asyncio.wait_for(enqueued.wait(), 5)
-                    controller.abort(reason)
-                    try:
-                        await asyncio.wait_for(asyncio.shield(second), 1)
-                        row['settledBeforeRelease'] = True
-                    except asyncio.TimeoutError:
-                        row['settledBeforeRelease'] = False
-                    row['callsBeforeRelease'] = len(calls)
-                    released.set()
-                    row['first'] = await first
-                    row.update(await second)
-                    provider.storage_lock = original_lock
-                else:
-                    reading = asyncio.create_task(settle(provider.read_from('s', 0, controller.signal)))
-                    if name.endswith('legacy-after'):
-                        await asyncio.wait_for(entered.wait(), 5)
-                        controller.abort(reason)
-                        released.set()
-                    row.update(await reading)
-                row.update(calls=calls, aborted=controller.signal.aborted)
-                setattr(owner, key, original)
+                        return dict(error=dict(name='TypeError' if isinstance(error,TypeError) else 'Error',message=str(error)),reasonIdentity=error is reason)
+                first = asyncio.create_task(settle(handle.read()))
+                await asyncio.wait_for(entered.wait(),5)
+                second = asyncio.create_task(settle(handle.read(0,options=dict(signal=controller.signal))))
+                try:
+                    await asyncio.wait_for(asyncio.shield(second),1)
+                    row['settledBeforeRelease'] = True
+                except asyncio.TimeoutError:
+                    row['settledBeforeRelease'] = False
+                row['callsBeforeRelease'] = len(calls)
+                released.set()
+                row['first'] = await first
+                row.update(await second)
+                row.update(calls=calls,aborted=controller.signal.aborted)
+                provider.readStoredLog = original
             finally:
                 released.set()
                 await ctx.fiber.dispose()

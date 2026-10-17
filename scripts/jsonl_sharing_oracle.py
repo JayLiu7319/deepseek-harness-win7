@@ -15,13 +15,15 @@ NAMES = ('none/delete', 'none/write', 'zstd/delete', 'zstd/write')
 SOURCE_INPUTS = {
     'reference/packages/session/session-persistence-jsonl/src/index.ts',
     'reference/packages/session/session-persistence-jsonl/src/format.ts',
-    'reference/packages/session/session-persistence/src/coordinator.ts',
+    'reference/packages/session/session-persistence/src/storage-contract.ts',
+    'reference/packages/session/session-persistence-jsonl/src/storage.ts',
+    'reference/packages/session/session-persistence/src/handle.ts',
     'scripts/oracles/jsonl_sharing.probe.spec.ts', 'scripts/oracles/jsonl_sharing_python.py',
     'scripts/oracles/vitest.jsonl-sharing-probe.config.mts', 'scripts/oracles/vitest.agent-lifecycle.config.mts',
     'scripts/oracles/vitest.consumers.config.mts', 'scripts/oracles/vitest.core.config.mts', 'migration/modules.json',
 } | {'scripts/import_paths.py'}
 REQUIRED_MODULES = {'dsh/session/file_io.py', 'dsh/session/jsonl_store.py',
-    'dsh/session/persistence_jsonl_canonical.py', 'dsh/cordis/context.py'}
+    'dsh/session/jsonl_backend_current.py', 'dsh/session/jsonl_handle.py', 'dsh/cordis/context.py'}
 
 
 def digest(path):
@@ -113,7 +115,7 @@ def main():
         source_pin()
         report.update(status='matched', target_upstream=SOURCE_COMMIT, cases=len(NAMES),
             observations_sha256=expected, modules=modules,
-            scope='Four complete original/native plaintext/compressed JSONL list/inspect/raw observations while a live owned Win32 delete/read-write handle permits sharing. Joint preproduced files qualify reader sharing, not Source writer parity or attribution of the original transient holder. Exact failure archives and real denials remain unchanged.')
+            scope='Four complete original/native current JSONL list snapshots and handle reads, plus diagnostic physical bytes, while a live owned Win32 delete/read-write handle permits sharing. Retired inspect/readRaw APIs are not called. Joint preproduced files qualify reader sharing, not Source writer parity or attribution of the original transient holder. Exact failure archives and real denials remain unchanged.')
     except Exception as error:
         report['error'] = str(error)
         raise

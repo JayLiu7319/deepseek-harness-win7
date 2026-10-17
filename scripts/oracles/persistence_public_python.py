@@ -15,9 +15,10 @@ async def main():
     root = options.root.resolve()
     sys.path.insert(0, str(root))
     from dsh.cordis.context import Context
-    from dsh.core.session import SessionPlugin, SessionHeader
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+    from dsh.core.session import SessionHeader
     from dsh.core.abort import AbortController
-    from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
+    from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin as JsonlSessionPersistencePlugin
     rows = []
     for backend in ('jsonl-none', 'jsonl-zstd'):
         for operation, label, value in (
@@ -33,22 +34,22 @@ async def main():
                     await ctx.plugin(SessionPlugin)
                     await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=directory, compression='zstd' if backend == 'jsonl-zstd' else 'none'))
                     provider = ctx.get('sessionPersistence')
-                    meta = SessionHeader('s', created_at=1)
+                    meta = SessionHeader('s', version=3, created_at=1)
                     event = dict(type='session/end-seed', seq=0, time=1, data={})
                     if operation == 'create':
-                        await provider.create(SessionHeader('s', created_at=value))
+                        await provider.create(SessionHeader('s', version=3, created_at=value))
                     else:
-                        await provider.create(meta)
+                        handle = await provider.create(meta)
                         if operation != 'append':
-                            await provider.append('s', [event])
+                            await handle.append([event])
                         if operation == 'append':
-                            await provider.append('s', [dict(event, seq=value)])
+                            await handle.append([dict(event, seq=value)])
                         elif operation == 'read':
-                            result = await provider.read_from('s', value)
-                            row['value'] = dict(meta=result.meta.to_dict(), events=result.events, inheritedEventCount=result.inheritedEventCount, fromSeq=result.fromSeq)
+                            result = await handle.read(value)
+                            row['value'] = result
                         else:
-                            owner = provider.store
-                            key = 'load_stored_from' if backend == 'sqlite' else 'load_stored'
+                            owner = provider
+                            key = 'readStoredLog'
                             original = getattr(owner, key)
                             controller = AbortController()
                             entered, released = asyncio.Event(), asyncio.Event()
@@ -64,14 +65,14 @@ async def main():
                             reason = RuntimeError('controlled read retired')
                             if label == 'before':
                                 controller.abort(reason)
-                            reading = asyncio.create_task(provider.read_from('s', 0, controller.signal))
+                            reading = asyncio.ensure_future(handle.read(0, options=dict(signal=controller.signal)))
                             if label == 'after-read':
                                 await asyncio.wait_for(entered.wait(), 5)
                                 controller.abort(reason)
                                 released.set()
                             try:
                                 result = await asyncio.wait_for(reading, 5)
-                                row['value'] = dict(meta=result.meta.to_dict(), events=result.events, inheritedEventCount=result.inheritedEventCount, fromSeq=result.fromSeq)
+                                row['value'] = result
                             except Exception as error:
                                 row.update(error=dict(name='TypeError' if isinstance(error, TypeError) else 'Error', message=str(error)), reasonIdentity=error is reason)
                             row.update(calls=calls, aborted=controller.signal.aborted)

@@ -12,18 +12,18 @@ NAMES = tuple(field + '/' + label for field in FIELDS for label in LABELS)
 
 
 def observe(name):
-    from dsh.core.session import Session
+    from dsh.core.session.current_session import CurrentSession as Session
 
     if name not in NAMES:
         raise ValueError('Unknown Session restore sign observation')
     field, label = name.split('/')
-    value = {'whole': 0.0 if field in ('version', 'seq') else 1.0, 'negative-zero': -0.0, 'fraction': 0.5}[label]
-    header = dict(id='s', version=0, createdAt=1, isSeeded=False)
+    value = {'whole': 3.0 if field == 'version' else 0.0 if field == 'seq' else 1.0, 'negative-zero': -0.0, 'fraction': 0.5}[label]
+    header = dict(id='s', version=3, createdAt=1, isSeeded=False)
     event = dict(type='session/end-seed', seq=0, time=1, data={})
     (event if field in ('seq', 'time') else header)[field] = value
     row = dict(name=name)
     try:
-        session = Session.from_restore('s', [event], header)
+        session = Session.from_restore('s', [event], header, 0)
         actual = session.events[0][field] if field in ('seq', 'time') else session.header[field]
         row.update(accepted=True, safeInteger=type(actual) in (int, float) and math.isfinite(actual)
             and abs(actual) <= 9007199254740991 and int(actual) == actual,

@@ -46,7 +46,7 @@ def test_session_diagnostic_receipt_requires_exact_errors_and_runtime(actual_pai
     elif damage == 'lossless-first':
         next(row for row in runtime['rows'] if row['name'] == 'create/version/nan')['error']['message'] = 'session header version must be 0, got NaN'
     elif damage == 'restore-negative-zero':
-        next(row for row in runtime['rows'] if row['name'] == 'restore/version/negative-zero')['accepted'] = False
+        next(row for row in runtime['rows'] if row['name'] == 'restore/version/negative-zero')['accepted'] = True
     elif damage == 'missing-case':
         runtime['rows'].pop()
     elif damage == 'duplicate':

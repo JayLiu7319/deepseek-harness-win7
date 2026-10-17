@@ -42,15 +42,15 @@ def test_persistence_read_receipt_refuses_lost_semantics_and_foreign_runtime(act
     elif damage == 'signal':
         row['calls'][0]['signalForwarded'] = False
     elif damage == 'after-read':
-        del row['error']
+        row['value']['events'][0]['time'] += 1
     elif damage == 'queue':
         next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/queued')['settledBeforeRelease'] = False
     elif damage == 'legacy':
-        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/read/whole')['value']['fromSeq'] = 1
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/read/whole')['value']['events'].clear()
     elif damage == 'cancel-priority':
-        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')['error']['message'] = 'controlled read failure'
+        row['error'] = dict(name='Error',message='controlled read failure')
     elif damage == 'reason':
-        row['reasonIdentity'] = False
+        next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/before')['reasonIdentity'] = False
     elif damage == 'missing-case':
         runtime['rows'].pop()
     elif damage == 'duplicate':
@@ -62,9 +62,9 @@ def test_persistence_read_receipt_refuses_lost_semantics_and_foreign_runtime(act
     elif damage == 'executable':
         runtime['executable'] = str(tmp_path / 'python.exe')
     elif damage == 'module':
-        del runtime['modules']['dsh/session/coordinator.py']
+        del runtime['modules']['dsh/session/jsonl_handle.py']
     elif damage == 'module-bytes':
-        modules['dsh/session/coordinator.py'] = '0' * 64
+        modules['dsh/session/jsonl_handle.py'] = '0' * 64
         runtime['modules'] = modules.copy()
     else:
         assets['dsh/session/bin/zstd/dsh_zstd.dll'] = '0' * 64
@@ -81,9 +81,9 @@ def test_persistence_read_source_identity_is_required(actual_pair, damage):
     elif damage == 'node':
         source['node'] = 'v22.20.0'
     elif damage == 'inputs':
-        del source['inputs']['reference/packages/session/session-persistence/src/coordinator.ts']
+        del source['inputs']['reference/packages/session/session-persistence/src/handle.ts']
     else:
-        source['inputs']['reference/packages/session/session-persistence/src/coordinator.ts'] = '0' * 64
+        source['inputs']['reference/packages/session/session-persistence/src/handle.ts'] = '0' * 64
     with pytest.raises(ValueError):
         identity(source)
 

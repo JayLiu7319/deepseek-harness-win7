@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-G-session-boundaries",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-SESSION-BOUNDARIES-20261017.zip",
+    "bytes": 99286,
+    "sha256": "0c610d8bf497237649c0e52de29e8b288f9a9d24427bf4ab04c34552169c6643",
+    "members": [
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.0.log",
+        "bytes": 236,
+        "sha256": "ce5e4412407f84952c98688d27675ca0e1ad39a3c7cb0d2648d11718e28f10cd"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.json",
+        "bytes": 14521,
+        "sha256": "f37164446578ee947a2142db004074fbdac7ede0ff8311d00d76869e80d0a0d9"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.native.json",
+        "bytes": 29613,
+        "sha256": "4b413cff9280b1b43ca94943faacee54392121c470f251788a6438461f266803"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.raw-source.json",
+        "bytes": 15163,
+        "sha256": "b561c42da60cec35aa013937f5ea19b499372773ebb75631078930b89e9e5a9e"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_diagnostic.source.json",
+        "bytes": 16971,
+        "sha256": "dcdd376bf42f11505a741c273b6e25aba3dedd0f631526ac7059d7f73f503b7f"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.0.log",
+        "bytes": 236,
+        "sha256": "05810112ea30e5b03bf523b1af901277f4df17d6b56ae6f4e023e3841224e395"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.json",
+        "bytes": 14659,
+        "sha256": "93ce774e55e30fc43828173a4bcf96b5d6c5f9f17fbfa4982afea8b0a2e6fd1d"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.native.json",
+        "bytes": 27855,
+        "sha256": "16a43d16731c25b6442ae095011c2ce638217fa63367385db489200fbf6598d2"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.raw-source.json",
+        "bytes": 13394,
+        "sha256": "c5ca3b408e373ce59e19e473db64c987967b6d365030edf6bec6011beaad76ee"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_number.source.json",
+        "bytes": 15205,
+        "sha256": "6b0006a43803e805a0b423ba0f21b319a5763e17c9e6c2c8e4ee1963b18f8acc"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.0.log",
+        "bytes": 236,
+        "sha256": "270fdbfd95ff5940e03a5f6836f74824a721d42e1de2f1c39111988d89c32f49"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.json",
+        "bytes": 14603,
+        "sha256": "56fd768ed19765823a1a68f0ce8cc232ea6f207a5e57bb8b83263072092901fa"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.native.json",
+        "bytes": 17272,
+        "sha256": "c8fda96ef9586864f467c21f9f3988fefd9f23f4b0adf37ebf2c5e008c8b9173"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.raw-source.json",
+        "bytes": 3286,
+        "sha256": "d8600837dbbedbb1eb3b25d0009ec18db89c38aea212d4d8d3cbb50031bc444b"
+      },
+      {
+        "path": "rc3-numeric-observers-20261017-b/session_restore_sign.source.json",
+        "bytes": 4634,
+        "sha256": "7c2fe5a01ebdbf4b43eb6e5b21794d6873e36247faf90401e8459cf624387eba"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.0.log",
+        "bytes": 236,
+        "sha256": "530a2b3fb2ea9ffc7abaa6fd6c5e7951e182be1fa05b5094edf62c044dd55c96"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.json",
+        "bytes": 16518,
+        "sha256": "a45152142af14835c9a36b424a8d4d7b2a706244da10d06c9feda442bcbdd4a6"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.native.json",
+        "bytes": 24652,
+        "sha256": "22be5d9310f3abe82b3dada91f84b37fa39c34314ab78e7509ead7a74b02479a"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.order-source.json",
+        "bytes": 1449,
+        "sha256": "708d95b6b45b4588296112039fcedffa68dc8d66d895ce5fa06c52ce7c22a8cf"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.public-source.json",
+        "bytes": 6897,
+        "sha256": "416b799742826b8679748586b62027ef3e51f15f0a83dc07d073bd387b965346"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-c/persistence_read.source.json",
+        "bytes": 10368,
+        "sha256": "5a4fb172771163521cff48b8e29dbcd55251da11482836e96de87ab9130c9414"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.json",
+        "bytes": 15146,
+        "sha256": "07b79167e3e3700102ded02cc094b11d9141135d7364f4ec94eabb097b520d4e"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.json",
+        "bytes": 20013,
+        "sha256": "9574280849644f168cc49211d45ac2b876affbe9f2ddd2dbf05c9cfa8688c711"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.none-delete.source.json",
+        "bytes": 1162,
+        "sha256": "75f462602d37ac0b5c6f9c2f6fc6fb2f63a6545e5c88f3c237326ed15e8cb8b4"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.none-delete.source.log",
+        "bytes": 236,
+        "sha256": "216b28c08d8e2d0609d8cc1bac1ea22b126cf031eadc867c510e3e48edcdf638"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.none-write.source.json",
+        "bytes": 1161,
+        "sha256": "5d09c8cad1d6e2930d15c949d9642f3604420e004dc3e1f7dd9272780d91d4e4"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.none-write.source.log",
+        "bytes": 236,
+        "sha256": "594bfe03a862696ec46e868414cfb3be858b07eabee38fe822e6a798da10025e"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.zstd-delete.source.json",
+        "bytes": 1176,
+        "sha256": "0e8187dd0f8224794b102ded4bc75f8caedcdbf915dc5dd55b1f2668608a2799"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.zstd-delete.source.log",
+        "bytes": 236,
+        "sha256": "312175976a3991437c85823b8a0811ba24b3cc263bbabb8aa161c21d8a6f0552"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.zstd-write.source.json",
+        "bytes": 1175,
+        "sha256": "e6444c9a99ed40d764d1159570d725c474f27b07f105ed716657c323e7e5de89"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.native.zstd-write.source.log",
+        "bytes": 236,
+        "sha256": "0c6b58f764bee4bf9bbd167872caeb649904a4bf71e03779cea581f5dfce9705"
+      },
+      {
+        "path": "rc3-persistence-observers-20261017-f/jsonl_sharing.source.json",
+        "bytes": 6930,
+        "sha256": "8b2d1406c917dc9f9a8c09532ad3a56d388c4139b088ff5b04d3fc64e63d02f4"
+      },
+      {
+        "path": "rc3-session-boundary-consumers-20261017-a/results.xml",
+        "bytes": 52273,
+        "sha256": "51de606300679387a4b6d5ad8179bcbf0543970006479c6ad3e2b7caedd4e57d"
+      },
+      {
+        "path": "rc3-session-diagnostic-consumers-20261017-b/results.xml",
+        "bytes": 15974,
+        "sha256": "b28dfa6e2d4ca5acf06d0e189d63ec4bfe5a74ed98ba5421c4a7f893d5a988ff"
+      }
+    ]
+  },
+  "inputs": {
+    "scripts/session_number_oracle.py": "773df9cd075212dd7ff6b83a0684966042885d7c3508c0a7fdf5842be4498baa",
+    "scripts/session_diagnostic_oracle.py": "272156df7912994e551d37777fc37893a0908598de8c29090e7d55027c39bc4b",
+    "scripts/session_restore_sign_oracle.py": "5e0c40fa80c2174e51849b12b2964264f129b521a65e18bfda1c1248ba5b56e0",
+    "scripts/persistence_read_oracle.py": "e03b469e55a8be83db280b9e603a597bdd46e47fb6687f245aac262fd631ccea",
+    "scripts/jsonl_sharing_oracle.py": "c3d1ac35788e807cd0c701b52ab5cf57801807bf926cb9d97283a806992c5edd",
+    "scripts/oracles/session_number_python.py": "475106427dc41623e1e98be8ba7957bd615640f84128526e597646e3d23291b6",
+    "scripts/oracles/session_number.probe.spec.ts": "3a492af1f85cbe19425157143e198ebf49310630bc003c1787c019ac2b06f34b",
+    "scripts/oracles/session_diagnostic_python.py": "5c8ca612eec30066dacda7837f7c6a1bc8773997c996adc76019712251d43b40",
+    "scripts/oracles/session_diagnostic.probe.spec.ts": "476e73607741553c65b69ef48ba5cf4a1a38e592683c0f65bd33bf99ac4f4745",
+    "scripts/oracles/session_restore_sign_python.py": "2dc026676488acd47b05840eabe97ed36f96742eafd9dfd628fafa0b7ac31979",
+    "scripts/oracles/session_restore_sign.probe.spec.ts": "affcce8c21d5c0e00a96e8b6681ba7de10ac59117ef3f94c8af4c596f97eee27",
+    "scripts/oracles/persistence_public_python.py": "32f77fa30cabf735760c474dd84b6f70d99c8c0fccaefa9a0ad955a4de28835f",
+    "scripts/oracles/persistence_public.probe.spec.ts": "ee5c8f8dd0c518c10614cc789e8e1713f9a10f838ee344bd1c1469058d15d78b",
+    "scripts/oracles/persistence_order_python.py": "a49ff9a758d72cd3ad279aa2df0c97734bd3430d951dfbf67cb300aab4cc95ec",
+    "scripts/oracles/persistence_order.probe.spec.ts": "d83eb61ea344374f95510b75409b3f46b3965e8cf48643110288e1ba82f30899",
+    "scripts/oracles/jsonl_sharing_python.py": "b1dfc5a172fc4ec3578d757922d3832aeba4dc09d672ac6e77501d47694b2374",
+    "scripts/oracles/jsonl_sharing.probe.spec.ts": "712a8e857cd6a126b04b9cf408ab58a664f170ab7500a033d87753151fdf77d0",
+    "tests/test_session_diagnostic_consumers.py": "7d9f28d6e0647653e17d216efe442782c7f1599b607fceca230c138b7a254afe",
+    "tests/test_persistence_read_consumers.py": "e11747af4a09a41e9c422bc7df922d7175d7b6c075fc4c91bc8953570067f7d3",
+    "tests/test_jsonl_sharing_consumers.py": "685dfed1bddd4a04efc37328ef9a6465a83a6b9c068bfe98b49ffd4adb6a193f"
+  },
+  "cases": {
+    "session_number": 53,
+    "session_diagnostic": 76,
+    "session_restore_sign": 18,
+    "persistence_read": 32,
+    "jsonl_sharing": 4
+  },
+  "verification": [
+    {
+      "scope": "five boundary consumer modules",
+      "passed": 299,
+      "failed": 1,
+      "reason": "Old negative control assigned its unchanged false outcome for v3 version -0."
+    },
+    {
+      "scope": "complete corrected diagnostic consumer module",
+      "passed": 94,
+      "failed": 0
+    }
+  ],
+  "scope": [
+    "Current Session v3, explicit inheritedCut and detached restore state. Retired seedLength cases remain explicit rejection probes.",
+    "Read handles replace retired coordinators; both providers independently complete a second read while the first observer is held. Abort before physical read rejects; abort after physical completion retains the actual completed value.",
+    "Actual Windows read/write/delete holders, full list snapshots and handle reads retained; raw diagnostic reads use shared handles."
+  ],
+  "failuresRetained": [
+    "rc3-numeric-observers-20261017-a",
+    "rc3-persistence-observers-20261017-a through e",
+    "rc3-session-boundary-consumers-20261017-a"
+  ],
+  "limitations": [
+    "Finite targeted checks; unified release gate remains pending."
+  ]
+}

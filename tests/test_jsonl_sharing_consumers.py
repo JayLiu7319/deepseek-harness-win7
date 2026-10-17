@@ -20,7 +20,7 @@ DAMAGES = ('header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order',
 def damage_observations(runtime, damage):
     observed = runtime['rows'][0]['observed']
     if damage == 'header':
-        observed['listed'][0]['id'] = 'foreign'
+        observed['listed'][0]['header']['id'] = 'foreign'
     elif damage == 'event':
         observed['inspected']['events'][0]['time'] += 1
     elif damage == 'raw':

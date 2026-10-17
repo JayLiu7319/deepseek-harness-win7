@@ -4,7 +4,7 @@ import {writeFileSync} from 'node:fs'
 import {execFileSync} from 'node:child_process'
 
 it('observes actual public Session create and restore admission diagnostics',()=>{
-  const pin='a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+  const pin='a4c74a91e06b00fe0b0937bde982170c526cc842'
   if(process.version!=='v22.22.2'||execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()!==pin
     ||execFileSync('git',['-C','reference','status','--porcelain'],{encoding:'utf8'}).trim())throw new Error('Pinned clean Source required')
   const values=[['missing',undefined],['null',null],['true',true],['false',false],['zero',0],['one',1],
@@ -13,13 +13,13 @@ it('observes actual public Session create and restore admission diagnostics',()=
     ['large-exponent',1e21],['small-exponent',1e-7],['decimal-threshold',1e-6],['integer-threshold',1e20]] as const
   const rows:any[]=[]
   for(const mode of ['create','restore'])for(const field of ['version','id'])for(const [label,value] of values){
-    const header:any={id:'s',version:0,createdAt:1,isSeeded:false}
+    const header:any={id:'s',version:3,createdAt:1,isSeeded:false}
     if(label==='missing')delete header[field]
     else header[field]=value
     const row:any={name:mode+'/'+field+'/'+label}
     try{
       if(mode==='create')Session.create('s' as any,[],header)
-      else Session.fromRestore('s' as any,[],header)
+      else Session.fromRestore('s' as any,[],header,0 as any,'detached')
       row.accepted=true
     }catch(error:any){row.error={name:error.name,message:error.message};row.accepted=false}
     rows.push(row)
