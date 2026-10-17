@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "stage": "R11-AJ",
+  "status": "record-checks-passed",
+  "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "evidence_id": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
+  "qualification_archive": {
+    "path": "migration/evidence/artifacts/RC3-QUALIFICATION-20261018-228CFACC.zip",
+    "bytes": 147531065,
+    "sha256": "f0f175c64849ce0d22b0790fd2fc591daf41989f58961fb8fc7db7f62458f0f2",
+    "members": 15,
+    "candidate": "228cfacca1eeb0936268077b5cec244363359705",
+    "archive_sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-QUALIFICATION-RECORD-CHECKS-20261018.zip",
+    "sha256": "25efac8bd283b06b0f5a80e21ac96ee426a09c4b5ee52cfaa84fb7fbdb6c33fd",
+    "bytes": 20769,
+    "members": 24
+  },
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 110.406
+    },
+    {
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "ready"
+      ],
+      "exit_code": 0,
+      "seconds": 235.859
+    },
+    {
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "status",
+        "--write"
+      ],
+      "exit_code": 0,
+      "seconds": 91.172
+    }
+  ],
+  "current_acceptance": true,
+  "delivery": {
+    "directory": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dist\\dsh-v0.1.5-rc.3-228cfacc-qualified",
+    "files": 6,
+    "bytes": 1217200568
+  },
+  "scope": "Record-only checks after completed single full current Windows gate c; no product code or qualified ZIP rebuilt. Exact qualification archive, full raw reports and Desktop carriers retain their identities."
+}

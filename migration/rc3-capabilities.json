@@ -46,7 +46,7 @@
     "Desktop follows the specified Electron22/Python3.8 Win7 carrier and separate Standard/AIO prerequisite policy."
   ],
   "qualification": {
-    "unified": "running-228cfacc-single-clean-gate-c-after-actual-parent-diagnostic",
+    "unified": "passed-228cfacc-single-clean-gate-c",
     "desktop_installation": "not-executed",
     "win7": "deferred-by-user",
     "real_cloud_providers": "not-verified",
@@ -70,7 +70,10 @@
     ],
     "unified_candidate": "228cfacca1eeb0936268077b5cec244363359705",
     "last_failed_candidate": "228cfacca1eeb0936268077b5cec244363359705",
-    "diagnostic_candidate": "228cfacca1eeb0936268077b5cec244363359705"
+    "diagnostic_candidate": "228cfacca1eeb0936268077b5cec244363359705",
+    "unified_evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
+    "desktop_packaged_runtime": "x86-and-x64-passed-including-closed-pipes-plugin-window",
+    "archive_sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6"
   },
   "manifests": [
     {

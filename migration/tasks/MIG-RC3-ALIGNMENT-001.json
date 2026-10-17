@@ -2,7 +2,7 @@
   "id": "MIG-RC3-ALIGNMENT-001",
   "goal": "Complete rc.3 coordinated production migration and exact candidate qualification.",
   "kind": "implementation",
-  "state": "ready",
+  "state": "integrated",
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "base_product": "54883f096ec4493aa3c9802adcb7b3b5e291e878",
   "requires": [],
@@ -17,7 +17,9 @@
     "Current production presets and unchanged frontend pass real modern/108 journeys, fresh and cold.",
     "scripts/verify_release.py qualifies one frozen clean candidate and actual extracted Portable; Desktop Standard/AIO retain separate installation receipts."
   ],
-  "evidence_ids": [],
+  "evidence_ids": [
+    "RUN-RC3-QUALIFICATION-20261018-228CFACC"
+  ],
   "expected_paths": [
     "dsh",
     "packages",
@@ -25,12 +27,10 @@
     "scripts",
     "migration"
   ],
-  "open_findings": [
-    "Current browser/release/desktop evidence is incomplete."
-  ],
-  "next_action": "Verify production composition, migrate release observer inputs, run unchanged frontend journeys and finish Desktop lanes.",
+  "open_findings": [],
+  "next_action": "Retain exact qualified candidate and separate Desktop artifacts. Win7/admin installation and real cloud validation remain outside this completed current Windows qualification.",
   "conflicts_with": [],
-  "owner": null,
-  "candidate_commit": null,
-  "integrated_commit": null
+  "owner": "codex/rc3-migration",
+  "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
+  "integrated_commit": "228cfacca1eeb0936268077b5cec244363359705"
 }

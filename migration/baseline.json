@@ -1,17 +1,18 @@
 {
   "schema_version": 1,
-  "product_commit": "54883f096ec4493aa3c9802adcb7b3b5e291e878",
+  "product_commit": "228cfacca1eeb0936268077b5cec244363359705",
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "accepted_upstream": null,
   "observed_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
-  "recorded_at": "2026-10-17",
-  "scope": "rc.3 production migration candidate; runtime inputs switched, browser/Portable/Desktop qualification pending. Historical rc.1 receipts retain their exact identity.",
+  "recorded_at": "2026-10-18",
+  "scope": "rc.3 coordinated production migration; exact clean228cfacc complete current Windows Portable qualification, plus separately observed x86/x64 Desktop. Historical qualifications keep exact identities; not universal parity or Win7 certification.",
   "platform_validation": {
-    "python38": "rc3-targeted-passed-full-gate-pending",
+    "python38": "rc3-complete-current-windows-passed",
     "win7": "deferred-by-user",
-    "portable": "rc3-pending",
+    "portable": "rc3-exact-x64-complete-gate-passed-x86-targeted-passed",
     "real_provider": "not-verified",
-    "browser_on_win7": "deferred-by-user"
+    "browser_on_win7": "deferred-by-user",
+    "desktop": "rc3-x86-x64-packaged-runtime-passed-installation-not-executed"
   },
   "historical_qualifications": [
     {
@@ -20,5 +21,6 @@
       "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
       "archive_sha256": "2ab1c51e8a64ee95ab4be8e41fc7e7f9d04f4d5c81b96c41bb9dc568b14cafd6"
     }
-  ]
+  ],
+  "qualification_evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC"
 }

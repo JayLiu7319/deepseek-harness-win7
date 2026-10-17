@@ -2,6 +2,8 @@
 
 日期：2026-10-16。目标 `dsh-v0.1.5-rc.3` / `a4c74a91e06b00fe0b0937bde982170c526cc842`；差分起点为当前活动rc.1 / `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。
 
+2026-10-18 R11-AJ：候选 `228cfacc` 的单次完整当前 Windows 门禁 c 已通过，精确 x64 ZIP 为 `cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6`。Python19,347通过/6跳过、21组固定Source、82个配对及实际解压/浏览器验收通过；x86/x64桌面保留各自精确构建、GUI与关闭父管道后的插件窗口观察。见 [正式资格回执](../../evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json) 和 [分阶段记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)。Win7真机延期，管理员安装和真实云provider尚未验证；清单不认证全部297项或任意插件ABI。以下逐项记录保留当时状态。
+
 R02-E：新增 [v3-logical-checks.json](v3-logical-checks.json)，v2→v3系统消息、canonical envelope、PTC迁移及恢复已完成纯库验证。Source 519项原断言通过，新增1,607个观测场景匹配，含既有回归共3,118项Python定向测试通过；生产恢复/持久化仍待接通。
 
 R02-F：新增 [catalog-checks.json](catalog-checks.json)，完整静态catalog、当前v3准入与surface保护的显式库入口已完成验证。九组3,696场景配对，Python定向3,756项通过；未挂载当前v3 writer或generation持久化。

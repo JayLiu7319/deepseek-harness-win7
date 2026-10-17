@@ -4,7 +4,7 @@
 
 [README.md](README.md) | [AGENTS.md](AGENTS.md)
 
-当前上游目标为 **dsh-v0.1.5-rc.3**（`a4c74a91e06b00fe0b0937bde982170c526cc842`），产品版本为 **0.1.5-rc.3**。生产组合、Session v3、原版前端和 Electron22 桌面宿主已迁移，当前候选正在进行统一资格验证；单项通过不能代替完整发行或 Win7 真机认证。旧 rc.1 的合格提交与回执保留原身份。当前进度见 [迁移台账](migration/README.md) 和 [分阶段记录](docs/research/2026-10-16-rc3-implementation-progress.md)。
+当前上游目标为 **dsh-v0.1.5-rc.3**（`a4c74a91e06b00fe0b0937bde982170c526cc842`），产品版本为 **0.1.5-rc.3**。生产组合、Session v3、原版前端和 Electron22 桌面宿主已迁移；干净候选 `228cfacc` 的单次完整当前 Windows 门禁已通过：Python 19,347通过/6项既有环境跳过、21组固定 Source、82个配对及实际解压 Portable/现代和108浏览器检查通过。x86/x64 Standard、AIO 另有包内桌面与关闭父管道后插件窗口实测。Win7 真机按用户决定延期，管理员安装及真实云 provider 尚未验证；完整上游 parity 和任意插件 ABI 仍未认证。见 [正式回执](migration/evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json)、[迁移台账](migration/README.md) 和 [分阶段记录](docs/research/2026-10-16-rc3-implementation-progress.md)。旧资格和后续记录提交各自保留身份。
 
 规范 JSONL 默认写 `session.v3.jsonl.zstd`；明文配置写 `session.v3.jsonl`，逻辑导出仍为 `session.jsonl`。历史代际只读时在内存转换，写打开时验证并发布新代际，保留旧文件。已有明文根目录须显式配置 `compression: none`；同一根目录不能混用两种压缩格式。升级前停止应用并备份整个 DSH_HOME 及自定义存储根目录；rc.1 不能读取新写的 v3 历史，回退应恢复升级前的完整备份，不能仅换回旧程序。旧私有 SQLite 仍由显式只读 reader 导出。见 [分发与升级说明](docs/distribution.md)。
 

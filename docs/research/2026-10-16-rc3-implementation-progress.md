@@ -2,6 +2,8 @@
 
 本记录推进 [rc.3实施路径](2026-10-16-rc3-baseline-implementation-assessment.md)。2026-10-17 R07-F 已协调切换活动 pin 至 rc.3；此前各节保留当时状态。候选发现或单项定向通过不构成 rc.3 发行资格。Desktop 继续按指定 Electron22 与 Standard/AIO 方案。
 
+2026-10-18 R11-AJ：干净候选 `228cfacc` 已取得约定范围的单次完整当前 Windows 资格，正式记录见本文末节及 [验收回执](../../migration/evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json)。以下早期状态按时间保留。
+
 ## R07-F：正式组合与目标代际切换（2026-10-17）
 
 正式注册表切换 52 个当前绑定，reference/活动目标推进到 a4c74a91；导入 307 份 manifests、bundle/preset 与严格 Typert host 描述符，三份明确产品 overlay 保留双工具 Minimal。234 份原版 browser 资源按官方构建 SHA 导入并保存独立输入载体，未修改 React/TSX/CSS。四预设 Minimal/Standard/PTC/Cordis 的真实 run_profile 对话及跨会话引用定向通过；输入哈希前后核验，156 entries/129 active、53 client rows 仅是此组合观察。版本为 0.1.5-rc.3，未宣称发行合格。
@@ -708,3 +710,19 @@ FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，
 统一门禁c生成并保护的实际ZIP为cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6，106,549,838字节。基于该包的x64 Standard/AIO构建通过（716.906秒），九项包内管道前检通过；实际六项GUI生命周期及七项关闭父管道后的原生菜单插件窗口检查均通过，renderer/console错误为零、物理退出0。插件窗口截图人工检查正常。精确两份安装器身份及原始观察见[本轮桌面回执](../../migration/candidates/rc3/desktop-cc4-current-checks.json)。
 
 同一ZIP的现代原版三预设fresh/cold六阶段独立通过，分别59.141秒、37.468秒和39.891秒，严格绑定包内模块、实际Python和ZIP。此前同候选x86 Portable及Standard/AIO仍保持独立精确载体身份，没有重标为本轮x64包。当前完整Python回归正在执行，有限桌面/浏览器结果不代替统一资格；管理员安装及延期Win7真机仍未执行。
+
+### R11-AJ — 单次完整当前 Windows 资格与精确产物封存
+
+干净候选 `228cfacca1eeb0936268077b5cec244363359705` 的完整门禁 c 退出0，耗时7,597.203秒。完整Python回归19,347通过、6项既有环境跳过、0失败（19,353项收集，5,330.95秒），3,939项必需用例执行校验通过；21组固定Source配置（执行累计2,691通过、13跳过）、82个配对驱动、能力集合、历史读取器及Cordis既定限定接受判据全部通过。物理本地依赖下Cordis runner也在这一轮通过，原比较器、快照与例外判据保持不变。
+
+本轮实际解压的x64 Portable为106,549,838字节，SHA-256 `cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6`。包内运行时及消费者观察、现代和固定108基础浏览器均通过；108 Minimal/Standard/Cordis的fresh/cold六阶段均qualified，错误与console错误为空。未改动的父级发行校验通过，17,665项冻结输入及reference在末次检查保持不变，最终summary为passed/publishable。原ZIP、完整XML/日志、配对原始观察、三预设截图、SDK一次性捕获文件和原始输入清单保存在[资格载体](../../migration/evidence/artifacts/RC3-QUALIFICATION-20261018-228CFACC.zip)，见[正式回执](../../migration/evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json)。大型可重建工作区的省略逐项披露，原现场继续保留；依赖链接以不跟随目标的方式记录。
+
+同一精确ZIP的现代三预设六阶段另有R10-R回执。x86 Portable实际运行通过，x86/x64 Standard、AIO已构建并完成包内GUI、单实例、优雅退出和关闭父管道后的原生菜单插件窗口实测。截图中的EPIPE由桌面标准输出/错误流在父管道关闭后写入触发；宿主在加载Electron前安装仅处理EPIPE的监听，其他流错误仍传播，修复已在两种架构的实际Electron22中验证。两种架构各保留原ZIP和安装器身份，管理员安装尚未执行。
+
+本阶段再核验清理已完成x64构建的5份前置组件暂存副本，共220,296,183字节；原始下载、ZIP成员及两份安装器SHA均在删除前检查，运行目录和原始观察保留。主检出的CRLF差异通过显式原始/合格SHA与字节等价审计披露，不改写用户文件；完整资格始终绑定隔离干净候选及原始冻结清单。后续台账和文档提交属于记录更新。
+
+封存ZIP写完并通过CRC后，末次重命名曾遇Windows共享锁。保留原文件并逐项复核15个成员、暂存字节与完整ZIP SHA后，仅重试重命名成功，147,531,065字节的资格载体SHA为 `f0f175c64849ce0d22b0790fd2fc591daf41989f58961fb8fc7db7f62458f0f2`；没有重建ZIP或重跑门禁。原失败和恢复核验保存在正式回执的sealing字段。
+
+MIG-RC3-ALIGNMENT-001按本次证据集成，当前生产目标为rc.3。8项现行精确Source例外和C58语言调度差异继续保留，已被rc.3修复的token-meter例外保持退休，其他历史失败保持原身份。Win7真机及浏览器按用户决定延期，管理员安装、真实云provider和全部297项/任意插件ABI仍未认证，accepted_upstream保持null。本轮完成的是约定的当前Windows迁移资格，没有发布远程Release。
+
+记录更新选择台账、链接、SHA与diff验证，不重复运行已通过的完整门禁。`migration.py check`、`ready`和`status --write`分别退出0，生成任务明确显示integrated/current acceptance，正式回执为passed/current。六份交付副本逐个SHA核对后放入 `dist/dsh-v0.1.5-rc.3-228cfacc-qualified/`，附manifest和SHA256SUMS；不是重建或远程发布。核验原始日志、封存恢复及精确复制清单见[最终记录检查](../../migration/candidates/rc3/qualification-current-checks.json)。
