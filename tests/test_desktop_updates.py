@@ -19,5 +19,5 @@ def test_actual_node16_signed_update_and_coordinator(tmp_path):
     assert not result.stderr
     report = json.loads(result.stdout)
     assert report['status'] == 'qualified'
-    assert len(report['checks']) == 34
+    assert len(report['checks']) == 35
     assert report['installationExecuted'] is False

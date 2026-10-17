@@ -59,7 +59,7 @@ def extract_tool(archive, identity, destination):
     plain_tree(destination)
 
 
-def validate_portable(directory):
+def validate_portable(directory, architecture='x64'):
     directory = plain_tree(directory)
     required = ('python.exe', 'python38.dll', 'dsh.py', 'apps/web/dist/index.html',
                 'dsh/host/desktop/process.py', 'dsh/host/desktop/health_transaction.py')
@@ -68,6 +68,8 @@ def validate_portable(directory):
     provenance = json.loads((directory / 'build-provenance.json').read_text(encoding='utf-8'))
     if provenance.get('python_runtime', {}).get('version') != [3, 8, 10]:
         raise ValueError('Desktop requires Python3.8.10')
+    if provenance['python_runtime'].get('bits') != (32 if architecture == 'x86' else 64):
+        raise ValueError('Desktop Portable architecture differs')
     # Reject a stale manually supplied Portable: providers and original bundles
     # must match this checkout. The receipt retains its original provenance.
     for prefix in ('dsh', 'apps/web/dist', 'packages'):
@@ -136,12 +138,19 @@ def nsis_define(value):
 
 
 def build(args):
-    if args.architecture != 'x64':
-        raise ValueError('The reviewed Python/native Portable closure is x64; an Electron ia32 swap cannot create x86 support')
+    architecture = args.architecture
+    if architecture not in ('x64', 'x86'):
+        raise ValueError('Unsupported Desktop architecture')
+    if architecture == 'x86' and args.portable_dir is None:
+        raise ValueError('x86 Desktop requires an explicit qualified --portable-dir')
     editions = ('standard', 'aio') if args.edition == 'both' else (args.edition,)
     if 'aio' in editions and args.external_prereq_dir is None:
         raise ValueError('AIO requires --external-prereq-dir with fixed Microsoft offline files')
     tools = json.loads((ROOT / 'scripts/desktop-tool-inputs.json').read_text(encoding='utf-8'))
+    if architecture == 'x86':
+        inputs = json.loads((ROOT / 'scripts/x86-inputs.json').read_text(encoding='utf-8'))
+        electron = next(row for row in inputs['downloads'] if row['name'] == 'electron-v22.3.27-win32-ia32.zip')
+        tools['electron'] = dict(electron, version='22.3.27', architecture='x86')
     source_inputs = desktop_source_inputs()
     update_config = getattr(args, 'update_config', None)
     update_bytes = None
@@ -157,7 +166,8 @@ def build(args):
     verify_file(args.electron_archive, tools['electron'])
     verify_file(args.nsis_archive, tools['nsis'])
     if 'aio' in editions:
-        validate_prerequisites(args.external_prereq_dir, 'x64')
+        for system_arch in (('x86', 'x64') if architecture == 'x86' else ('x64',)):
+            validate_prerequisites(args.external_prereq_dir, system_arch)
     output = Path(args.output_dir).absolute()
     if output.exists() or output.resolve() != output:
         raise ValueError('Desktop output must be a fresh directory without linked ancestors')
@@ -169,7 +179,7 @@ def build(args):
     frozen.mkdir()
     for name, data in installer_inputs.items():
         (frozen / name).write_bytes(data)
-    record = dict(schema=1,status='building',version=VERSION,architecture='x64',tools=tools,sourceInputs=source_inputs,editions=list(editions),
+    record = dict(schema=1,status='building',version=VERSION,architecture=architecture,tools=tools,sourceInputs=source_inputs,editions=list(editions),
                   installerInputs={name:hashlib.sha256(data).hexdigest() for name,data in installer_inputs.items()},
                   installationExecuted=False,releaseQualified=False)
     report = output / 'desktop-build.json'
@@ -178,7 +188,7 @@ def build(args):
             portable, _ = build_portable(output_dir=str(output / 'portable'))
         else:
             portable = args.portable_dir
-        record['portable'] = validate_portable(portable)
+        record['portable'] = validate_portable(portable, architecture)
         unpacked = output / 'desktop-unpacked'
         extract_tool(args.electron_archive, tools['electron'], unpacked)
         (unpacked / 'electron.exe').rename(unpacked / 'DeepSeek Harness.exe')
@@ -226,7 +236,10 @@ def build(args):
         record['pipePreflight'] = dict(path='pipe-preflight/report.json',sha256=digest(preflight),checks=observed['checks'])
         staged = []
         if 'aio' in editions:
-            staged = stage_prerequisites(args.external_prereq_dir, 'x64', output / 'prerequisites')
+            # The ia32 shell also runs on x64 Windows. Servicing packages
+            # must match the OS; the common .NET installer is copied once.
+            staged = stage_prerequisites(args.external_prereq_dir,
+                'both' if architecture == 'x86' else 'x64', output / 'prerequisites')
         record['prerequisites'] = staged
         rows = inventory(unpacked)
         owned = ''.join(row['sha256'] + '\t' + row['path'] + '\n' for row in rows)
@@ -242,8 +255,8 @@ def build(args):
         compiler = output / 'nsis/nsis-3.13/makensis.exe'
         artifacts = []
         for edition in editions:
-            filename = 'dsh-desktop-' + edition + '-setup-v' + VERSION + '-x64.exe'
-            definitions = dict(VERSION=VERSION,EDITION=edition,OUTPUT=output / filename,
+            filename = 'dsh-desktop-' + edition + '-setup-v' + VERSION + '-' + architecture + '.exe'
+            definitions = dict(VERSION=VERSION,EDITION=edition,ARCHITECTURE=architecture,OUTPUT=output / filename,
                                GENERATION=generation,PAYLOAD=unpacked,
                                POLICY=frozen / 'prerequisites.ps1',
                                CLEANUP=frozen / 'uninstall-files.ps1',MAX_INSTALL_ROOT=max_root,

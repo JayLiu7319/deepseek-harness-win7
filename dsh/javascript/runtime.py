@@ -1,4 +1,5 @@
 import asyncio
+import ctypes
 import hashlib
 import inspect
 import json
@@ -12,6 +13,10 @@ from dsh.cordis.service import Service
 RESOURCE_ROOT = Path(__file__).resolve().parent / 'bin'
 BINARY_SHA256 = '032d3ad64ccdd38e0b7afb35153db156fe6469a385f707f31234dc9d2982b7e9'
 MANIFEST_SHA256 = '1ca94baf686d00971c0b35a331948de5a478353b2262a4154e378fa0a1d06dfb'
+if ctypes.sizeof(ctypes.c_void_p) == 4:
+    RESOURCE_ROOT = RESOURCE_ROOT / 'x86'
+    BINARY_SHA256 = '235bed32c4c579a8a3c6c18532b251ae07eebc5e6b9d16e6f0f4d0b5ed2e9cfe'
+    MANIFEST_SHA256 = '0eb84faa322f8ad04ab64f701aa71b3404c9e93f1ae92e072d2822444565525c'
 WORKFLOW_ROOT = Path(__file__).resolve().parent / 'workflow'
 WORKFLOW_MANIFEST_SHA256 = '4398368f929de9a87789b1491ec24f4614d7326f62f8c02685bf7574922e3740'
 

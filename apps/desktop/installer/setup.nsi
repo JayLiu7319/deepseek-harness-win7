@@ -8,7 +8,16 @@ SetCompressor /SOLID lzma
 !include "x64.nsh"
 Name "DeepSeek Harness ${VERSION} (${EDITION})"
 OutFile "${OUTPUT}"
-InstallDir "$PROGRAMFILES64\DeepSeek Harness"
+!ifndef ARCHITECTURE
+  !define ARCHITECTURE x64
+!endif
+!if "${ARCHITECTURE}" == "x64"
+  InstallDir "$PROGRAMFILES64\DeepSeek Harness"
+!else if "${ARCHITECTURE}" == "x86"
+  InstallDir "$PROGRAMFILES32\DeepSeek Harness"
+!else
+  !error "Unsupported desktop architecture"
+!endif
 InstallDirRegKey HKLM "Software\DeepSeekHarnessWin7" "InstallLocation"
 ShowInstDetails show
 ShowUninstDetails show
@@ -43,12 +52,18 @@ Function .onInit
     SetErrorLevel 1
     Abort
   ${EndIf}
+!if "${ARCHITECTURE}" == "x64"
   ${IfNot} ${RunningX64}
     MessageBox MB_ICONSTOP "This package requires x64 Windows."
     SetErrorLevel 1
     Abort
   ${EndIf}
-  SetRegView 64
+!endif
+  ${If} ${RunningX64}
+    SetRegView 64
+  ${Else}
+    SetRegView 32
+  ${EndIf}
 FunctionEnd
 
 Function ValidateInstallDirectory
@@ -155,7 +170,11 @@ Section "Desktop" SEC_DESKTOP
 SectionEnd
 
 Function un.onInit
-  SetRegView 64
+  ${If} ${RunningX64}
+    SetRegView 64
+  ${Else}
+    SetRegView 32
+  ${EndIf}
   # The uninstaller lives inside versions/<generation>.
   GetFullPathName $INSTDIR "$INSTDIR\..\.."
 FunctionEnd

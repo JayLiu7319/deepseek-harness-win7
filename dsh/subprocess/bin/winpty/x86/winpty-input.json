@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "architecture": "x86",
+  "origin": {
+    "name": "pywinpty",
+    "version": "0.5.7",
+    "filename": "pywinpty-0.5.7-cp37-cp37m-win32.whl",
+    "url": "https://files.pythonhosted.org/packages/8e/3a/5bc0951ce04a8a36b9325e1b0b2e7262f21899597e2c69f13394b30e1591/pywinpty-0.5.7-cp37-cp37m-win32.whl",
+    "bytes": 1259890,
+    "sha256": "5fb2c6c6819491b216f78acc2c521b9df21e0f53b9a399d58a5c151a3c4e2a2d",
+    "resourceOnly": true
+  },
+  "files": {
+    "libgcc_s_dw2-1.dll": {
+      "bytes": 119988,
+      "sha256": "bd643207f3f45a9085bbdaea3e68d496662dd4c8ab96ad9d46ed7c6e1acb31de"
+    },
+    "libwinpthread-1.dll": {
+      "bytes": 65693,
+      "sha256": "1f0ab0d093ed1979cf23e62c9a83b9d35428d2527ee13aa4606fd853d8012df2"
+    },
+    "winpty-agent.exe": {
+      "bytes": 2276764,
+      "sha256": "782d0dc0cb31ca87129f942000e4b439bcf9b48255933c1c63f6d32c29cfd993"
+    },
+    "winpty.dll": {
+      "bytes": 2172173,
+      "sha256": "a08ea7696141364ed74b90ca9a0b7c2ceae1887db95f7d4c3987805f828eb36a"
+    },
+    "LICENSE.txt": {
+      "bytes": 1067,
+      "sha256": "0aa57a7c7462b45437cc239c3c037f19bfb163f8caa053b276c368253a5d10f7"
+    },
+    "WINPTY-LICENSE.txt": {
+      "bytes": 1085,
+      "sha256": "c39e428064b4f3e4fe81a975bf0fd3b845922b431bc4d9a7ffc8bfb091981836"
+    },
+    "GCC-COPYING3.txt": {
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    "GCC-RUNTIME-EXCEPTION.txt": {
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    "WINPTHREADS-COPYING.txt": {
+      "bytes": 2883,
+      "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177"
+    }
+  },
+  "scope": "Only the WinPTY C ABI resources; incompatible CPython37 extension and Python wrapper are excluded.",
+  "licenseSources": {
+    "WINPTY-LICENSE.txt": "https://raw.githubusercontent.com/rprichard/winpty/0.4.3/LICENSE",
+    "GCC-COPYING3.txt": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-7.3.0/COPYING3",
+    "GCC-RUNTIME-EXCEPTION.txt": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-7.3.0/COPYING.RUNTIME",
+    "WINPTHREADS-COPYING.txt": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/v5.0.3/mingw-w64-libraries/winpthreads/COPYING"
+  }
+}

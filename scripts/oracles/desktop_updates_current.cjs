@@ -17,14 +17,18 @@ Module._load=oldLoad;
 async function main(){
   assert.equal(process.versions.node,'16.17.1');
   const checks=[];
+  const architecture=process.arch==='ia32'?'x86':process.arch;
   const keys=crypto.generateKeyPairSync('ed25519');
   const config={schemaVersion:1,channel:'win7-electron22',manifestUrl:'https://updates.example.invalid/win7.json',publicKey:keys.publicKey.export({format:'pem',type:'spki'})};
   const data=Buffer.from('owned fake installer bytes - never executed');
   const now=Date.now();
-  const release={schemaVersion:1,channel:'win7-electron22',version:'0.1.5-rc.4',architecture:'x64',electron:'22.3.27',python:'3.8.10',
-    publishedAt:now-1000,expiresAt:now+600000,artifact:{url:'https://updates.example.invalid/dsh-desktop-standard-setup-v0.1.5-rc.4-x64.exe',bytes:data.length,sha256:crypto.createHash('sha256').update(data).digest('hex')}};
+  const release={schemaVersion:1,channel:'win7-electron22',version:'0.1.5-rc.4',architecture,electron:'22.3.27',python:'3.8.10',
+    publishedAt:now-1000,expiresAt:now+600000,artifact:{url:'https://updates.example.invalid/dsh-desktop-standard-setup-v0.1.5-rc.4-'+architecture+'.exe',bytes:data.length,sha256:crypto.createHash('sha256').update(data).digest('hex')}};
   const sign=value=>{const bytes=Buffer.from(JSON.stringify(value));return Buffer.from(JSON.stringify({payload:bytes.toString('base64'),signature:crypto.sign(null,bytes,keys.privateKey).toString('base64')}));};
   assert.deepEqual(signedRelease(sign(release),config,'0.1.5-rc.3'),release);checks.push('signed-compatible-release');
+  const foreign=architecture==='x86'?'x64':'x86';
+  assert.throws(()=>signedRelease(sign({...release,architecture:foreign,artifact:{...release.artifact,url:release.artifact.url.replace('-'+architecture+'.exe','-'+foreign+'.exe')}}),config,'0.1.5-rc.3'));
+  checks.push('reject-other-windows-architecture');
   assert.equal(signedRelease(sign(release),config,'0.1.5-rc.4'),undefined);
   assert.equal(signedRelease(sign(release),config,'0.1.5'),undefined);
   assert.equal(newer('0.1.6-rc.0','0.1.5'),true);checks.push('monotonic-version');
@@ -125,7 +129,7 @@ async function main(){
     const keyPath=join(directory,'fixture-private.pem'),installer=join(directory,release.artifact.url.split('/').pop()),output=join(directory,'fixture-signed.json');
     await fs.writeFile(keyPath,keys.privateKey.export({format:'pem',type:'pkcs8'}),{flag:'wx'});await fs.writeFile(installer,data,{flag:'wx'});
     try{
-      const args=[join(root,'scripts/sign_desktop_update.cjs'),'--installer',installer,'--version',release.version,
+      const args=[join(root,'scripts/sign_desktop_update.cjs'),'--architecture',architecture,'--installer',installer,'--version',release.version,
         '--artifact-url',release.artifact.url,'--manifest-url',config.manifestUrl,'--private-key',keyPath,'--output',output];
       const signed=spawnSync(process.execPath,args,{encoding:'utf8',env:{...process.env,ELECTRON_RUN_AS_NODE:'1'}});
       assert.equal(signed.status,0,signed.stderr);

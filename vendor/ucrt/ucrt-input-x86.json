@@ -1,0 +1,387 @@
+{
+  "version": "10.0.14393.795",
+  "sdkVersion": "10.1.14393.795",
+  "architecture": "x86",
+  "files": [
+    {
+      "name": "api-ms-win-core-file-l2-1-0.dll",
+      "bytes": 18112,
+      "sha256": "efb33877982c3d8001cf752b50bfd1e422327c274bdd1c843d762f629307f95a",
+      "version": "10.0.14393.795",
+      "msiFile": "fil3ede075fc5d0f3a88f8fae9a06d967ba",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-console-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "6b74e4cf18b07d6018e4c2ae561e9a37ab9e1febeff06ead44125cf1b070f372",
+      "version": "10.0.14393.795",
+      "msiFile": "filb5e5a32128c75f35d2d19fdf76c4fad2",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-datetime-l1-1-0.dll",
+      "bytes": 17600,
+      "sha256": "9b84ce7988732ef57b8ea9288e5f2c68a30341fdebf845b871ac855ba298acac",
+      "version": "10.0.14393.795",
+      "msiFile": "fila1b5bafc58c2f26cb78ec7cad52615e4",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-debug-l1-1-0.dll",
+      "bytes": 17600,
+      "sha256": "cc609900e84b3c3021ff54a587a442b5f0db368d7853e687594d20997f1b7684",
+      "version": "10.0.14393.795",
+      "msiFile": "filc35a75a3f2484864e09da7e470a6c9d8",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-errorhandling-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "1387a4a748aa91c94c7605bb4a72f29c0af6f3bc68c11e4b1cdc2e2dfe07e45d",
+      "version": "10.0.14393.795",
+      "msiFile": "fil2253d79a153b31115bb7ad0f9441a801",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-file-l1-1-0.dll",
+      "bytes": 21696,
+      "sha256": "00613efa358764930353232f3442ebb934506051cd7d4eec545e2da35aa8546c",
+      "version": "10.0.14393.795",
+      "msiFile": "filb0fd8aa6b4f6830aaed00e75b9c4997e",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-file-l1-2-0.dll",
+      "bytes": 18112,
+      "sha256": "9e4f1d09a2471ff46b5bb2d9fddb0bc04143398d14341d11423a7589796413f7",
+      "version": "10.0.14393.795",
+      "msiFile": "fil12ddd030b4857e0c26dbfa04fd898829",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-handle-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "2ba31678405d74b791aff50da2671a82f7809130239e3f8c9d21dce68c0786fa",
+      "version": "10.0.14393.795",
+      "msiFile": "fil079659f81621e9d59d6d5a432395b820",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-heap-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "1771e45579e879b6465f4074faea12c2f6cdbbd24ca1a84adff4c6a54ba8fb4d",
+      "version": "10.0.14393.795",
+      "msiFile": "filcb03ebe5440680d01e28dc699c1b6a34",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-interlocked-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "cce75bef6208de3b9018a950eb786fb2f194d3a61762483718066296db268ca7",
+      "version": "10.0.14393.795",
+      "msiFile": "fil1d076a338555f8784c81507b25fc26d1",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-libraryloader-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "b469dc90d8a5d9fe77da16a508dbded6d4eb71aa925e452b8d5b9a70beab0a68",
+      "version": "10.0.14393.795",
+      "msiFile": "fild85b88e15ab3d9d9511bc10d9e54bf3a",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-localization-l1-2-0.dll",
+      "bytes": 20672,
+      "sha256": "08a74c3c146bfddd7236c63e83e5cfb98ebe4595155a8954b50d1f0e60067521",
+      "version": "10.0.14393.795",
+      "msiFile": "fila8b0fe72867e0e4f48166774a332303a",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-memory-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "d6f87ef0d75b45f58a9e6693e38d8c77a6f5fbc7793ed19954661df5f76b90c9",
+      "version": "10.0.14393.795",
+      "msiFile": "filfde743db85849753ae748120438def60",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-namedpipe-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "504c016932749167fe0178dda460d1ccae6e415dfbcd777220205adf90f2c571",
+      "version": "10.0.14393.795",
+      "msiFile": "fildedbf149a56e5bc624283690c8207c35",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-processenvironment-l1-1-0.dll",
+      "bytes": 19136,
+      "sha256": "851031c6dd624b3aff9a0bc125f07d7ada35dbd9d189934cb0641c663b69202c",
+      "version": "10.0.14393.795",
+      "msiFile": "fil18bdc4d7a476e0e6c735dd5c4ff42849",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-0.dll",
+      "bytes": 20160,
+      "sha256": "4c72124fdfdd3d698fc61c3a7098d8e6ed032de3696c262f53d29ab2f0c9dc6b",
+      "version": "10.0.14393.795",
+      "msiFile": "filb1bf063a316d7f2c76d02232a5ebd0b6",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-processthreads-l1-1-1.dll",
+      "bytes": 18624,
+      "sha256": "057b0483fee48563e78ff5a4ce27db03b65189d8a9cb16b4e0d9ccdeab769c81",
+      "version": "10.0.14393.795",
+      "msiFile": "fil8b5aa90c6eeb16e0d8c5dbbfcb29239f",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-profile-l1-1-0.dll",
+      "bytes": 17600,
+      "sha256": "bef15c4f182503b9f9dc582552e47c01efb2b6b6bf02b7eeecabff49724f93b1",
+      "version": "10.0.14393.795",
+      "msiFile": "filca8d1d7db836a1c07c545c5e697654d1",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-rtlsupport-l1-1-0.dll",
+      "bytes": 17600,
+      "sha256": "77dcbc49d395de32d0c7d5185d72e5eb80eab63b3748f9e7232a6313dca238f9",
+      "version": "10.0.14393.795",
+      "msiFile": "filb48af3f3dafcb0c6ab7b62981e064d95",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-string-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "9c74ab29cc474214b690be7f35668eb31c9141cd98f43df66eb1d960c47580d2",
+      "version": "10.0.14393.795",
+      "msiFile": "fil8b1618d2066cbc2aa56cb021513bf13f",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-1-0.dll",
+      "bytes": 20160,
+      "sha256": "a63ec18946c80414c286da083a8f8ed36c12b7b37b9b87c574e7ab85e76cad53",
+      "version": "10.0.14393.795",
+      "msiFile": "fil1edbbf85da76d00cb2924bbc39817849",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-synch-l1-2-0.dll",
+      "bytes": 18624,
+      "sha256": "58c9475a169eecbef8a404a73fda8c4f57282e66e74ba19a1f5c081e9cee7207",
+      "version": "10.0.14393.795",
+      "msiFile": "file420397837c2fbcd289f38dc1b43f718",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-sysinfo-l1-1-0.dll",
+      "bytes": 19136,
+      "sha256": "41999a1a13dad1469845960439f55810bd5df2bab70671d2ef0bced0f76b19b5",
+      "version": "10.0.14393.795",
+      "msiFile": "fil060e84510398e78800f6db03d72bab5c",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-timezone-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "0b015be1efc6d20e6ad2a83704c2efdaaf3738bbeb145bc663a098345f38c82c",
+      "version": "10.0.14393.795",
+      "msiFile": "fil4b6e163e2b3e1fd8f7713c4ddd25341d",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-conio-l1-1-0.dll",
+      "bytes": 19136,
+      "sha256": "2da15eb964ab1e82d5eca744aa1636eb667315f3ef84e365ce556ab8758c3550",
+      "version": "10.0.14393.795",
+      "msiFile": "fil80824a65026ec6d5d70628add2671f6f",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-convert-l1-1-0.dll",
+      "bytes": 22208,
+      "sha256": "ba51a438d47331deef6178345b235e768a4e648d43fd44e28b95e7292cd4f04c",
+      "version": "10.0.14393.795",
+      "msiFile": "fil4570dddebcade10e884a974f602edba8",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-environment-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "1f62695f9fb0fc6feca4283bb4be26eeea1c5f10368ad51c8a5d910d3e105188",
+      "version": "10.0.14393.795",
+      "msiFile": "filf9a3116b6475270616760a7161e95b9a",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "bytes": 20160,
+      "sha256": "9480bb7257c40483e6cb6433cdd90871d55912bdbcfb87f33c11d7401f50f94a",
+      "version": "10.0.14393.795",
+      "msiFile": "fil0aaa49200fae4a01abcc1038971da2f1",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-heap-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "ed8b2def856e4effce4856efcc7f3c35fb7e3428287ba8851cde2da8df1d1c58",
+      "version": "10.0.14393.795",
+      "msiFile": "fil21a45690cd3f0522b87089194770a83a",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-locale-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "37489d3f078513ecccb7bfb9f18ec1338d011b91ad091085ad1db02f633a23bf",
+      "version": "10.0.14393.795",
+      "msiFile": "file0bf06dafdb9cf0cdb59ad542412010a",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-math-l1-1-0.dll",
+      "bytes": 28864,
+      "sha256": "1d8e2b59452b927cc3e0f75b2d5277b667a503c53507fdac11d3d8b44986080d",
+      "version": "10.0.14393.795",
+      "msiFile": "fil502d97532111b81d94c7d40175a41e20",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-multibyte-l1-1-0.dll",
+      "bytes": 25792,
+      "sha256": "86cc087d197b1243413c0963b6f132648489fe26a4a11a7a77163744810e9165",
+      "version": "10.0.14393.795",
+      "msiFile": "fil4c395a7d36a094141ab3664f4ed02fb4",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-private-l1-1-0.dll",
+      "bytes": 72896,
+      "sha256": "2e923d6a71496460c68af6d771ba139098918f5e2c7bdb284251dd18d0a81335",
+      "version": "10.0.14393.795",
+      "msiFile": "filf735ca19cd2c8d03cf7005290aa31537",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-process-l1-1-0.dll",
+      "bytes": 19136,
+      "sha256": "3103333eb85cab4f9473d576680eb2ab2e60f6130ebcb7371bb308179c23ddb7",
+      "version": "10.0.14393.795",
+      "msiFile": "filee9cded78e6c01424e8b6e0f7a0745bb",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "bytes": 22720,
+      "sha256": "8afdaf1c630aecb97ab5625ac8483664643c526bd705decfae0daaf2481f0a81",
+      "version": "10.0.14393.795",
+      "msiFile": "fil7ab141f32a82fc6b258afdbf6675f138",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "bytes": 24256,
+      "sha256": "8824840d84f561d2b46d13f30484683c36328850a596f1e2ee48bca2e7de2d30",
+      "version": "10.0.14393.795",
+      "msiFile": "fil51c007f3a4066c43b3fc269e0987708c",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-string-l1-1-0.dll",
+      "bytes": 24256,
+      "sha256": "6147eb7e5bd6ac004301350ef4b168e552b82e301e14dcf3b10df88d833dc1be",
+      "version": "10.0.14393.795",
+      "msiFile": "fil4a7c2ddfddb7c3bb4eefc55b632a82f6",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-time-l1-1-0.dll",
+      "bytes": 20672,
+      "sha256": "dc7f41906edf362829b5e9157ba0c1da73ce32f95b4cb468cce96521c4c4ac8c",
+      "version": "10.0.14393.795",
+      "msiFile": "filaa742f859a38ab7928dc93670cae64f3",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-crt-utility-l1-1-0.dll",
+      "bytes": 18624,
+      "sha256": "dd0d05feadf990eaa82d691be1990a2bd2ebe7f9874880d1871760dc15d9b3c1",
+      "version": "10.0.14393.795",
+      "msiFile": "fil26b075d7a11c88ff4badd243cb806e3f",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "api-ms-win-core-util-l1-1-0.dll",
+      "bytes": 18112,
+      "sha256": "17b0054b9b323c9e775b719f8938ca2bb98c329566b2de1c763aafeecb3bf316",
+      "version": "10.0.14393.795",
+      "msiFile": "filf9f9db2a98739e571b049960fd32bc9c",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    },
+    {
+      "name": "ucrtbase.dll",
+      "bytes": 917184,
+      "sha256": "94952e907781c68d22294fc38d3463a86bbacf285d637eeb1889f7cf41c69129",
+      "version": "10.0.14393.795",
+      "msiFile": "fila4b850e6d3b1997cb1f47f07278644f0",
+      "cab": "fef2cfedd6135e0ed85290b83f3682c3"
+    }
+  ],
+  "licenseSha256": "a3192caa2c2b65874d0376ec7d4ff75fbcbde9aa824ca32b66f9f7bf8b62b8fa",
+  "origin": "Official Microsoft SDK Burn payload SHA1 verified before read-only MSI table mapping; no installer or system changes.",
+  "redistSha256": "39d660ff8965d73ceaceba75f93d8cf8a87d902080ff50ebbc20309b0a4cd6b3",
+  "source": {
+    "sdkInstaller": "https://go.microsoft.com/fwlink/p/?LinkId=838916",
+    "installerSha256": "0d3a5c94143fe14a45bb9608a951dea04cb01bf1ff90003e8c3d80dacfca05be",
+    "payloads": [
+      {
+        "path": "Installers/9126f6ff98d955951fe9323f4444c119.cab",
+        "url": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/9126f6ff98d955951fe9323f4444c119.cab",
+        "finalUrl": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/9126f6ff98d955951fe9323f4444c119.cab",
+        "bytes": 466669,
+        "sha1": "62D249B37F62B688A8DAC71C8E5F899C03DEE648",
+        "sha256": "3988b3d36c1b4343b0a7d3237a30a3db726af2d17a27dc748a2ee47c7628fd0e"
+      },
+      {
+        "path": "Installers/948a611cd2aca64b1e5113ffb7b95d5f.cab",
+        "url": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/948a611cd2aca64b1e5113ffb7b95d5f.cab",
+        "finalUrl": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/948a611cd2aca64b1e5113ffb7b95d5f.cab",
+        "bytes": 649106,
+        "sha1": "9C59737B52ED62ED9C2CB0D4EB61E4517F308F0E",
+        "sha256": "13719323a05589c3ee7f600794c5d385d692ba1a30d87ce86987b23d511de976"
+      },
+      {
+        "path": "Installers/fef2cfedd6135e0ed85290b83f3682c3.cab",
+        "url": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/fef2cfedd6135e0ed85290b83f3682c3.cab",
+        "finalUrl": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/fef2cfedd6135e0ed85290b83f3682c3.cab",
+        "bytes": 622530,
+        "sha1": "F7378303F4D7E91FD10EC899780814D61F28477F",
+        "sha256": "408b2c176fdc7eee8ae5ab4bbd1b65f284d4900448b6c014c8dc90294a98c31d"
+      },
+      {
+        "path": "Installers/Universal CRT Redistributable-x86_en-us.msi",
+        "url": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/Universal%20CRT%20Redistributable-x86_en-us.msi",
+        "finalUrl": "https://download.microsoft.com/download/C/D/8/CD8533F8-5324-4D30-824C-B834C5AD51F9/standalonesdk/Installers/Universal%20CRT%20Redistributable-x86_en-us.msi",
+        "bytes": 319488,
+        "sha1": "5D405C6C37C2A1BAFA3713B1FAB41AB77B700E75",
+        "sha256": "6d76c3f206059d0a85a550317c0192f079147c1970335eb79deaba9b2aac9556"
+      }
+    ],
+    "redistribution": "https://learn.microsoft.com/en-us/legal/windows-sdk/redist",
+    "deployment": "https://learn.microsoft.com/en-us/cpp/windows/universal-crt-deployment"
+  },
+  "compatibility": {
+    "deployment": "App-local; all 41 x86 DLLs beside the main Python executable. No host installation or OS API patch.",
+    "win7Execution": "deferred; not certified",
+    "modernWindows": "System UCRT takes precedence; modern execution does not qualify app-local loading on Win7."
+  },
+  "signatures": {
+    "status": "All 41 DLLs Authenticode Valid, Microsoft Corporation",
+    "observation": "Actual local PowerShell Get-AuthenticodeSignature; raw evidence preserved separately."
+  }
+}

@@ -21,6 +21,8 @@ ICU_LICENSES = ('ICU-LICENSE', 'LLVM-LICENSE.txt', 'MinGW-COPYING',
 
 def verify_icu_files(directory=None):
     directory = Path(directory) if directory is not None else Path(__file__).parent / 'bin' / 'icu'
+    if directory == Path(__file__).parent / 'bin' / 'icu' and ctypes.sizeof(ctypes.c_void_p) == 4:
+        directory = directory / 'x86'
     directory = directory.resolve()
     manifest = json.loads((directory / 'icu.json').read_text(encoding='utf-8'))
     if not isinstance(manifest, dict):

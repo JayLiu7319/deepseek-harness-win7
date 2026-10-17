@@ -62,13 +62,19 @@ def test_portable_dependency_copy_preserves_native_image_codecs(tmp_path):
 def test_invalid_input_fails_before_release_replacement(tmp_path, monkeypatch, damage):
     import shutil
     root = tmp_path/'checkout'
-    shutil.copytree(ROOT/'dsh/session/bin/icu', root/'dsh/session/bin/icu')
-    shutil.copytree(ROOT/'dsh/session/bin/zstd', root/'dsh/session/bin/zstd')
+    shutil.copytree(ROOT/'dsh/session/bin/icu', root/'dsh/session/bin/icu', ignore=shutil.ignore_patterns('x86'))
+    shutil.copytree(ROOT/'dsh/session/bin/zstd', root/'dsh/session/bin/zstd', ignore=shutil.ignore_patterns('x86'))
     shutil.copytree(ROOT/'dsh/session/bin/unicode', root/'dsh/session/bin/unicode')
     shutil.copytree(ROOT/'dsh/session/resources/sql', root/'dsh/session/resources/sql')
     shutil.copytree(ROOT/'apps/web/dist', root/'apps/web/dist')
     (root/'scripts').mkdir()
     shutil.copyfile(ROOT/'scripts/frontend-inputs.json',root/'scripts/frontend-inputs.json')
+    shutil.copyfile(ROOT/'scripts/runtime-inputs.json',root/'scripts/runtime-inputs.json')
+    runtime = json.loads((root/'scripts/runtime-inputs.json').read_text(encoding='utf-8'))
+    for row in runtime['files']:
+        destination = root/row['path']
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT/row['path'], destination)
     frontend = json.loads((root/'scripts/frontend-inputs.json').read_text(encoding='utf-8'))
     for row in frontend['client_files']:
         destination = root/row['path']
@@ -103,8 +109,8 @@ def test_invalid_input_fails_before_release_replacement(tmp_path, monkeypatch, d
     (dist/'sentinel').write_text('last successful release',encoding='utf-8')
     monkeypatch.setattr(BUILD,'ROOT_DIR',str(root));monkeypatch.setattr(BUILD,'DIST_DIR',str(dist))
     # Keep the licensed native input valid so each intended preflight damage is reached.
-    shutil.copytree(ROOT/'vendor/ucrt', root/'vendor/ucrt')
-    shutil.copytree(ROOT/'dsh/fs/tool_fs_search/bin', root/'dsh/fs/tool_fs_search/bin')
+    shutil.copytree(ROOT/'vendor/ucrt', root/'vendor/ucrt', ignore=shutil.ignore_patterns('x86'))
+    shutil.copytree(ROOT/'dsh/fs/tool_fs_search/bin', root/'dsh/fs/tool_fs_search/bin', ignore=shutil.ignore_patterns('x86'))
     site=tmp_path/'absent' if damage=='missing-runtime' else ROOT/'.venv/Lib/site-packages'
     with pytest.raises((ValueError,FileNotFoundError,RuntimeError)):
         BUILD.build_portable(runtime_dir=sys.base_prefix,site_packages=site)

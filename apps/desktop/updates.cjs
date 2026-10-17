@@ -25,7 +25,9 @@ function configuration(value){
   if(key.asymmetricKeyType!=='ed25519')throw new Error('Win7 updater requires an Ed25519 public key');
   return value;
 }
-function signedRelease(bytes,config,current,now=Date.now()){
+function runtimeArchitecture(){return process.arch==='ia32'?'x86':process.arch;}
+function signedRelease(bytes,config,current,now=Date.now(),architecture=runtimeArchitecture()){
+  if(!['x86','x64'].includes(architecture))throw new Error('Unsupported Win7 update architecture');
   configuration(config);version(current);
   const envelope=JSON.parse(bytes.toString('utf8'));
   if(!exact(envelope,['payload','signature'])||typeof envelope.payload!=='string'||typeof envelope.signature!=='string')throw new Error('Invalid signed update envelope');
@@ -33,7 +35,7 @@ function signedRelease(bytes,config,current,now=Date.now()){
   if(payload.toString('base64')!==envelope.payload||signature.toString('base64')!==envelope.signature||signature.length!==64||!verify(null,payload,config.publicKey,signature))throw new Error('Win7 release signature differs');
   const release=JSON.parse(payload.toString('utf8'));
   if(!exact(release,['schemaVersion','channel','version','architecture','electron','python','publishedAt','expiresAt','artifact'])
-    ||release.schemaVersion!==1||release.channel!=='win7-electron22'||release.architecture!=='x64'
+    ||release.schemaVersion!==1||release.channel!=='win7-electron22'||release.architecture!==architecture
     ||release.electron!=='22.3.27'||release.python!=='3.8.10'
     ||!Number.isSafeInteger(release.publishedAt)||!Number.isSafeInteger(release.expiresAt)
     ||release.publishedAt>now||release.expiresAt<=now||release.expiresAt-release.publishedAt>90*86400000)throw new Error('Win7 release identity or validity window differs');
@@ -41,7 +43,7 @@ function signedRelease(bytes,config,current,now=Date.now()){
   const artifact=release.artifact;
   if(!exact(artifact,['url','bytes','sha256'])||!Number.isSafeInteger(artifact.bytes)||artifact.bytes<=0||artifact.bytes>1024*1024*1024
     ||typeof artifact.sha256!=='string'||!/^[a-f0-9]{64}$/.test(artifact.sha256))throw new Error('Invalid Win7 installer identity');
-  if(decodeURIComponent(url(artifact.url).pathname.split('/').pop())!=='dsh-desktop-standard-setup-v'+release.version+'-x64.exe')throw new Error('Win7 installer filename differs');
+  if(decodeURIComponent(url(artifact.url).pathname.split('/').pop())!=='dsh-desktop-standard-setup-v'+release.version+'-'+architecture+'.exe')throw new Error('Win7 installer filename differs');
   return newer(release.version,current)?release:undefined;
 }
 function response(address,redirects=0){
@@ -100,7 +102,7 @@ class Win7Updater {
     const release=this.release;if(!release)throw new Error('No verified Win7 release available');
     if(release.expiresAt<=Date.now())throw new Error('Verified Win7 release expired before download');
     const directory=await mkdtemp(join(this.temp,'dsh-win7-update-'));
-    const file=join(directory,'dsh-desktop-standard-setup-v'+release.version+'-x64.exe');
+    const file=join(directory,'dsh-desktop-standard-setup-v'+release.version+'-'+release.architecture+'.exe');
     let stream;
     try{
       stream=await open(file,'wx');const hash=createHash('sha256');

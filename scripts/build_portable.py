@@ -26,8 +26,20 @@ RIPGREP_FILES = {
 }
 
 
-def resolve_pinned_ripgrep_source(root_dir=ROOT_DIR):
-    source = os.path.join(root_dir, 'dsh', 'fs', 'tool_fs_search', 'bin', 'rg.exe')
+def ripgrep_identity(architecture):
+    if architecture == 'x64':
+        return RIPGREP_MANIFEST_SHA256, RIPGREP_FILES, 'x86_64-pc-windows-msvc'
+    if architecture == 'x86':
+        files = dict(RIPGREP_FILES)
+        files['rg.exe'] = ('37b10903cc0fe08dcc9efb0c681bf9b435748a63092717d5975494ffaa05205b', 4611072)
+        return '29cfe27a103763f5a4a937817b156e18f52f7c2c4731dccdb4a4e19713b72c5a', files, 'i686-pc-windows-msvc'
+    raise ValueError('Unsupported Portable architecture')
+
+
+def resolve_pinned_ripgrep_source(root_dir=ROOT_DIR, architecture='x64'):
+    ripgrep_identity(architecture)
+    directory = Path(root_dir) / 'dsh/fs/tool_fs_search/bin'
+    source = str(directory / 'x86/rg.exe' if architecture == 'x86' else directory / 'rg.exe')
     if not os.path.isfile(source):
         raise FileNotFoundError(
             "pinned ripgrep %s binary is missing: %s"
@@ -36,25 +48,26 @@ def resolve_pinned_ripgrep_source(root_dir=ROOT_DIR):
     return source
 
 
-def verify_pinned_ripgrep(root_dir, source=None):
+def verify_pinned_ripgrep(root_dir, source=None, architecture='x64'):
     """Approve the exact licensed native input, including explicit overrides."""
-    binary = Path(resolve_pinned_ripgrep_source(root_dir))
+    manifest_hash, approved_files, target = ripgrep_identity(architecture)
+    binary = Path(resolve_pinned_ripgrep_source(root_dir, architecture))
     directory = binary.parent
     manifest = directory / 'ripgrep-input.json'
     if (not manifest.is_file() or manifest.stat().st_nlink != 1
             or os.path.normcase(os.path.realpath(str(manifest))) != os.path.normcase(os.path.abspath(str(manifest)))):
         raise ValueError('Portable ripgrep manifest is missing or aliased')
     manifest_bytes = manifest.read_bytes()
-    if hashlib.sha256(manifest_bytes).hexdigest() != RIPGREP_MANIFEST_SHA256:
+    if hashlib.sha256(manifest_bytes).hexdigest() != manifest_hash:
         raise ValueError('Portable ripgrep manifest bytes differ')
     metadata = json.loads(manifest_bytes.decode('utf-8'))
     if (metadata.get('schema') != 1 or metadata.get('name') != 'BurntSushi/ripgrep'
             or metadata.get('version') != RIPGREP_VERSION
-            or metadata.get('target') != 'x86_64-pc-windows-msvc'
+            or metadata.get('target') != target
             or metadata.get('files') != {name: dict(sha256=identity[0], bytes=identity[1])
-                                        for name, identity in RIPGREP_FILES.items()}):
+                                        for name, identity in approved_files.items()}):
         raise ValueError('Portable ripgrep input identity differs')
-    for name, (expected, size) in RIPGREP_FILES.items():
+    for name, (expected, size) in approved_files.items():
         path = directory / name
         if (os.path.normcase(os.path.realpath(str(path))) != os.path.normcase(os.path.abspath(str(path)))
                 or not path.is_file() or path.stat().st_nlink != 1):
@@ -68,19 +81,20 @@ def verify_pinned_ripgrep(root_dir, source=None):
             or selected.stat().st_nlink != 1):
         raise ValueError('Portable ripgrep override is missing or aliased')
     data = selected.read_bytes()
-    expected, size = RIPGREP_FILES['rg.exe']
+    expected, size = approved_files['rg.exe']
     if len(data) != size or hashlib.sha256(data).hexdigest() != expected:
         raise ValueError('Portable requires the exact pinned ripgrep ' + RIPGREP_VERSION)
     return str(selected), metadata
 
 
-def bundle_pinned_ripgrep(dist_dir=DIST_DIR, root_dir=ROOT_DIR, source=None):
-    source_path, _ = verify_pinned_ripgrep(root_dir, source)
-    target = os.path.join(dist_dir, "dsh", "fs", "tool_fs_search", "bin", "rg.exe")
+def bundle_pinned_ripgrep(dist_dir=DIST_DIR, root_dir=ROOT_DIR, source=None, architecture='x64'):
+    source_path, _ = verify_pinned_ripgrep(root_dir, source, architecture)
+    directory = Path(dist_dir) / 'dsh/fs/tool_fs_search/bin'
+    target = str(directory / 'x86/rg.exe' if architecture == 'x86' else directory / 'rg.exe')
     os.makedirs(os.path.dirname(target), exist_ok=True)
     shutil.copy2(source_path, target)
     for name in ('COPYING', 'LICENSE-MIT', 'UNLICENSE', 'ripgrep-input.json'):
-        shutil.copyfile(os.path.join(os.path.dirname(resolve_pinned_ripgrep_source(root_dir)), name),
+        shutil.copyfile(os.path.join(os.path.dirname(resolve_pinned_ripgrep_source(root_dir, architecture)), name),
                         os.path.join(os.path.dirname(target), name))
     return target
 
@@ -129,7 +143,8 @@ def bundle_python_runtime(dist_dir, runtime_dir):
         stream.write(".\nlib\nDLLs\nimport site\n")
 
 
-def inspect_runtime(runtime_dir):
+def inspect_runtime(runtime_dir, architecture='x64'):
+    ripgrep_identity(architecture)
     command = [os.path.join(runtime_dir, 'python.exe'), '-I', '-c',
         'import json,sys,struct; print(json.dumps(dict(version=list(sys.version_info[:3]), platform=sys.platform, bits=struct.calcsize("P")*8)))']
     result = subprocess.run(command, capture_output=True, encoding='utf-8', timeout=30)
@@ -139,20 +154,23 @@ def inspect_runtime(runtime_dir):
         observed = json.loads(result.stdout)
     except ValueError:
         raise ValueError('supplied Portable Python returned invalid runtime identity') from None
-    if observed != dict(version=[3, 8, 10], platform='win32', bits=64):
-        raise ValueError('Portable requires actual Windows x64 Python 3.8.10, observed ' + repr(observed))
+    if observed != dict(version=[3, 8, 10], platform='win32', bits=32 if architecture == 'x86' else 64):
+        raise ValueError('Portable requires actual Windows '+architecture+' Python 3.8.10, observed ' + repr(observed))
     observed['files'] = {name: hashlib.sha256(Path(runtime_dir, name).read_bytes()).hexdigest()
                          for name in ('python.exe', 'python38.dll')}
     return observed
 
 
-def checked_inputs(root_dir, site_packages):
+def checked_inputs(root_dir, site_packages, architecture='x64'):
     """Resolve all external inputs before touching the last successful release."""
     root = Path(root_dir)
     from dsh.session.icu_collation import verify_icu_files
-    verify_icu_files(root / 'dsh/session/bin/icu')
+    verify_icu_files(root / ('dsh/session/bin/icu/x86' if architecture == 'x86' else 'dsh/session/bin/icu'))
     from dsh.session.zstd import verify_zstd_files
-    verify_zstd_files(root / 'dsh/session/bin/zstd')
+    if architecture == 'x86':
+        verify_zstd_files(root / 'dsh/session/bin/zstd/x86', architecture='x86')
+    else:
+        verify_zstd_files(root / 'dsh/session/bin/zstd')
     from dsh.session.sqlite_sql import verify_sql_files
     verify_sql_files(root / 'dsh/session/resources/sql')
     from dsh.session.text import verify_case_folding
@@ -177,7 +195,8 @@ def checked_inputs(root_dir, site_packages):
                      for d in importlib.metadata.distributions(path=[str(site_packages)])}
     selected = []
     from packaging.requirements import Requirement
-    for line in (root / 'requirements-runtime.lock').read_text(encoding='utf-8').splitlines():
+    lock = 'requirements-runtime-x86.lock' if architecture == 'x86' else 'requirements-runtime.lock'
+    for line in (root / lock).read_text(encoding='utf-8').splitlines():
         if not line or line.startswith('#'):
             continue
         requirement = Requirement(line)
@@ -214,11 +233,11 @@ def bundle_dependencies(distributions, destination):
             shutil.copy2(str(source), str(target))
 
 
-def assemble_portable(dist_dir, zip_output, runtime_dir=None, ripgrep_source=None, site_packages=None):
+def assemble_portable(dist_dir, zip_output, runtime_dir=None, ripgrep_source=None, site_packages=None, architecture='x64'):
     # Resolve before replacing an existing release so a missing pinned build input fails safely.
-    ripgrep_source, metadata = verify_pinned_ripgrep(ROOT_DIR, ripgrep_source)
+    ripgrep_source, metadata = verify_pinned_ripgrep(ROOT_DIR, ripgrep_source, architecture)
     from scripts.ucrt_inputs import verify_pinned_ucrt, bundle_ucrt
-    ucrt = verify_pinned_ucrt(ROOT_DIR)
+    ucrt = verify_pinned_ucrt(ROOT_DIR, architecture)
     runtime_dir = runtime_dir or sys.base_prefix
     if not os.path.isfile(os.path.join(runtime_dir, "python38.dll")):
         raise FileNotFoundError("Python 3.8 Windows runtime is required before staging")
@@ -226,8 +245,12 @@ def assemble_portable(dist_dir, zip_output, runtime_dir=None, ripgrep_source=Non
         if not os.path.isfile(os.path.join(runtime_dir, name)):
             raise FileNotFoundError('Python 3.8 runtime input missing: ' + name)
     site_packages = site_packages or os.path.join(ROOT_DIR, '.venv', 'Lib', 'site-packages')
-    frontend, dependencies = checked_inputs(ROOT_DIR, site_packages)
-    runtime = inspect_runtime(runtime_dir)
+    if architecture == 'x86':
+        frontend, dependencies = checked_inputs(ROOT_DIR, site_packages, architecture)
+        runtime = inspect_runtime(runtime_dir, architecture)
+    else:
+        frontend, dependencies = checked_inputs(ROOT_DIR, site_packages)
+        runtime = inspect_runtime(runtime_dir)
     print(f"[Build Portable] Creating portable release directory at: {dist_dir}")
     if os.path.exists(dist_dir):
         shutil.rmtree(dist_dir)
@@ -235,7 +258,7 @@ def assemble_portable(dist_dir, zip_output, runtime_dir=None, ripgrep_source=Non
     os.makedirs(dist_dir, exist_ok=True)
 
     bundle_python_runtime(dist_dir, runtime_dir)
-    bundle_ucrt(ROOT_DIR, dist_dir)
+    bundle_ucrt(ROOT_DIR, dist_dir, architecture)
 
     with open(ripgrep_source, "rb") as stream:
         ripgrep_digest = hashlib.sha256(stream.read()).hexdigest()
@@ -257,7 +280,7 @@ def assemble_portable(dist_dir, zip_output, runtime_dir=None, ripgrep_source=Non
 
     # 1. Copy dsh framework and apps application
     shutil.copytree(os.path.join(ROOT_DIR, "dsh"), os.path.join(dist_dir, "dsh"), ignore=shutil.ignore_patterns("__pycache__"))
-    bundle_pinned_ripgrep(dist_dir, ROOT_DIR, source=ripgrep_source)
+    bundle_pinned_ripgrep(dist_dir, ROOT_DIR, source=ripgrep_source, architecture=architecture)
     if os.path.exists(os.path.join(ROOT_DIR, "apps", "cli")):
         shutil.copytree(
             os.path.join(ROOT_DIR, "apps", "cli"),
@@ -342,10 +365,15 @@ def publish_candidate(candidate_dir, candidate_zip, dist_dir, zip_output, backup
         raise
 
 
-def build_portable(runtime_dir=None, ripgrep_source=None, site_packages=None, output_dir=None):
+def build_portable(runtime_dir=None, ripgrep_source=None, site_packages=None, output_dir=None, architecture='x64'):
+    ripgrep_identity(architecture)
+    if architecture == 'x86' and (output_dir is None or runtime_dir is None or site_packages is None):
+        raise ValueError('x86 Portable requires explicit output, Python runtime and compatible site-packages')
     parent = os.path.abspath(output_dir) if output_dir is not None else os.path.dirname(os.path.abspath(DIST_DIR))
     dist_dir = os.path.join(parent, 'dsh-win7-portable') if output_dir is not None else os.path.abspath(DIST_DIR)
     zip_output = os.path.join(parent, 'dsh-win7-portable-v' + VERSION + '.zip') if output_dir is not None else os.path.abspath(ZIP_OUTPUT)
+    if architecture == 'x86':
+        zip_output = os.path.join(parent, 'dsh-win7-portable-v' + VERSION + '-x86.zip')
     if os.path.dirname(zip_output) != parent or dist_dir == zip_output:
         raise ValueError('Portable directory and ZIP must be distinct siblings')
     for path in (parent, dist_dir, zip_output):
@@ -370,7 +398,10 @@ def build_portable(runtime_dir=None, ripgrep_source=None, site_packages=None, ou
     try:
         candidate_dir = os.path.join(staging, os.path.basename(dist_dir))
         candidate_zip = os.path.join(staging, os.path.basename(zip_output))
-        assemble_portable(candidate_dir, candidate_zip, runtime_dir, ripgrep_source, site_packages)
+        if architecture == 'x86':
+            assemble_portable(candidate_dir, candidate_zip, runtime_dir, ripgrep_source, site_packages, architecture)
+        else:
+            assemble_portable(candidate_dir, candidate_zip, runtime_dir, ripgrep_source, site_packages)
         publish_candidate(candidate_dir, candidate_zip, dist_dir, zip_output, staging)
         published = True
     finally:
@@ -389,5 +420,6 @@ if __name__ == "__main__":
     parser.add_argument("--ripgrep-source")
     parser.add_argument("--site-packages")
     parser.add_argument('--output-dir', help='Build an isolated candidate under this directory')
+    parser.add_argument('--architecture', choices=('x64', 'x86'), default='x64')
     args = parser.parse_args()
-    build_portable(args.python_runtime, args.ripgrep_source, args.site_packages, args.output_dir)
+    build_portable(args.python_runtime, args.ripgrep_source, args.site_packages, args.output_dir, args.architecture)

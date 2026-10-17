@@ -15,11 +15,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--electron', type=Path, default=ROOT / '.goose/tools/electron-22.3.27-win32-x64/runtime/electron.exe')
     parser.add_argument('--limited-shell', action='store_true')
+    parser.add_argument('--root', type=Path, default=ROOT,
+                        help='Python-host root; run this runner with that root\'s Python for Portable checks')
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     report = dict(status='running', started=time.time())
-    command = [str(args.electron.resolve()), str(ROOT / 'apps/desktop'), '--root', str(ROOT),
+    command = [str(args.electron.resolve()), str(ROOT / 'apps/desktop'), '--root', str(args.root.resolve()),
                '--python', sys.executable, '--home', str(output / 'home'),
                '--test-output', str(output / 'observations')]
     if args.limited_shell:

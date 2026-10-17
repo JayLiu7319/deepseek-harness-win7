@@ -30,11 +30,11 @@ def send(value):
     print('PORTABLE_PROBE ' + json.dumps(value, ensure_ascii=True), flush=True)
 
 
-def identity():
+def identity(architecture='x64'):
     import dsh
     root = Path(sys.executable).resolve().parent
     require(sys.version_info[:3] == (3, 8, 10), 'Python version')
-    require(sys.platform == 'win32' and struct.calcsize('P') == 8, 'Windows x64 runtime')
+    require(sys.platform == 'win32' and struct.calcsize('P') == (4 if architecture == 'x86' else 8), 'Windows ' + architecture + ' runtime')
     require(Path(dsh.__file__).resolve().parent.parent == root, 'external dsh import')
     for path in sys.path:
         common = os.path.commonpath([str(root), os.path.realpath(path)])
@@ -101,13 +101,13 @@ async def close(result):
     await result['shutdown'].wait()
 
 
-async def journey(workspace, home):
+async def journey(workspace, home, architecture='x64'):
     from apps.cli.plugin import run_plugin
     from dsh.boot.profile import init_profile
     from dsh.boot.profile_boot import run_profile
     from dsh.core.abort import NEVER_ABORTED
     from dsh.core.tools import ToolExecutionInput
-    report = dict(identity=identity(), steps=[])
+    report = dict(identity=identity(architecture), steps=[])
     root = Path(sys.executable).parent
     for profile in ('minimal', 'standard', 'creative', 'web', 'headless'):
         result = subprocess.run([sys.executable, '-I', '-B', str(root / 'dsh.py'), '--profile', profile, '--dump-config'],
@@ -221,9 +221,9 @@ async def boot_web(home):
     return await run_profile(dict(profile='web', dshHome=str(home), args=['--no-open', '--port', '0'], waitForExit=False))
 
 
-async def serve(home):
+async def serve(home, architecture='x64'):
     from dsh.extensions.packaged_host import host_remote_namespace
-    report = identity()
+    report = identity(architecture)
     result = await boot_web(home)
     try:
         ctx = result['ctx']
@@ -246,15 +246,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--workspace', required=True)
     parser.add_argument('--serve', action='store_true')
+    parser.add_argument('--architecture', choices=('x64', 'x86'), default='x64')
     options = parser.parse_args()
     workspace = Path(options.workspace).resolve()
+    workspace.mkdir(parents=True, exist_ok=True)
     home = workspace / 'home'
     os.environ['DSH_HOME'] = str(home)
     os.environ['DSH_TELEMETRY_MODE'] = 'DISABLED'
     if options.serve:
-        asyncio.run(serve(home))
+        asyncio.run(serve(home, options.architecture))
     else:
-        send(dict(result='passed', value=asyncio.run(journey(workspace, home))))
+        send(dict(result='passed', value=asyncio.run(journey(workspace, home, options.architecture))))
 
 
 if __name__ == '__main__':

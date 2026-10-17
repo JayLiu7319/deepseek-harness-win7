@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "name": "BurntSushi/ripgrep",
+  "version": "14.1.0",
+  "target": "i686-pc-windows-msvc",
+  "release": "https://github.com/BurntSushi/ripgrep/releases/tag/14.1.0",
+  "archive": {
+    "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-i686-pc-windows-msvc.zip",
+    "sha256": "3b2e4776f9510d2f502fea92f1be45c02ff0f46da50f034b04fe866182ffc0d6",
+    "bytes": 1918821
+  },
+  "sourceRevision": "e50df40a19",
+  "files": {
+    "rg.exe": {
+      "sha256": "37b10903cc0fe08dcc9efb0c681bf9b435748a63092717d5975494ffaa05205b",
+      "bytes": 4611072
+    },
+    "COPYING": {
+      "sha256": "dfe7d0a6134a17d3de7409762e08dc02133303912875cab40a74ba07a390f85a",
+      "bytes": 129
+    },
+    "LICENSE-MIT": {
+      "sha256": "970813655a1bf777d2ead189cef71ab73ab92ce04dc864027d61a45de03e6728",
+      "bytes": 1102
+    },
+    "UNLICENSE": {
+      "sha256": "640514163b17f977adc997cb16f51871122cfb0555ebad1a3f01e167b7ba8857",
+      "bytes": 1235
+    }
+  },
+  "build": {
+    "workflow": "https://github.com/BurntSushi/ripgrep/blob/14.1.0/.github/workflows/release.yml",
+    "toolchain": "nightly (exact compiler revision not recorded in downloaded artifact)",
+    "features": [
+      "pcre2"
+    ],
+    "staticPcre2": true,
+    "pcre2Version": "10.42"
+  },
+  "compatibility": {
+    "subsystemVersion": [
+      6,
+      0
+    ],
+    "importedDlls": [
+      "ADVAPI32.dll",
+      "KERNEL32.dll",
+      "bcrypt.dll",
+      "ntdll.dll",
+      "USERENV.dll"
+    ],
+    "directWin8SynchronizationImports": [],
+    "delayImportDirectory": {
+      "rva": 0,
+      "size": 0
+    },
+    "win7Execution": "deferred; not certified",
+    "scope": "Pinned replacement removes the known rg15 load-time Win8 API dependency; static imports and current Windows search tests do not certify Win7 execution."
+  }
+}

@@ -2,6 +2,7 @@ import json
 import os
 import platform
 import shutil
+import struct
 import sys
 from typing import Any, Dict, List, Optional
 
@@ -33,6 +34,8 @@ def _ripgrep_package_name() -> Optional[str]:
         "x86": "ia32", "i386": "ia32", "i686": "ia32",
     }
     arch = arches.get(machine)
+    if sys.platform == 'win32' and struct.calcsize('P') == 4:
+        arch = 'ia32'
     return "ripgrep-%s-%s" % (system, arch) if system and arch else None
 
 
@@ -51,7 +54,7 @@ async def resolve_rg_path() -> str:
     repo_root = os.path.abspath(os.path.join(package_dir, "..", "..", ".."))
     candidates = [
         sys.executable + "-rg",
-        os.path.join(package_dir, "bin", binary),
+        os.path.join(package_dir, "bin", "x86", binary) if sys.platform == 'win32' and struct.calcsize('P') == 4 else os.path.join(package_dir, "bin", binary),
     ]
     package_name = _ripgrep_package_name()
     if package_name is not None:

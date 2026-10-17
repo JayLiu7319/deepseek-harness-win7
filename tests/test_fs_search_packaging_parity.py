@@ -66,9 +66,9 @@ def test_portable_stages_pinned_rg_and_zip_path_matches_runtime_resolver(tmp_pat
     build = _load_build_module()
     fixture_root = tmp_path / "fixture"
     import shutil
-    shutil.copytree(ROOT / 'vendor/ucrt', fixture_root / 'vendor/ucrt')
-    shutil.copytree(ROOT / 'dsh/session/bin/icu', fixture_root / 'dsh/session/bin/icu')
-    shutil.copytree(ROOT / 'dsh/session/bin/zstd', fixture_root / 'dsh/session/bin/zstd')
+    shutil.copytree(ROOT / 'vendor/ucrt', fixture_root / 'vendor/ucrt', ignore=shutil.ignore_patterns('x86'))
+    shutil.copytree(ROOT / 'dsh/session/bin/icu', fixture_root / 'dsh/session/bin/icu', ignore=shutil.ignore_patterns('x86'))
+    shutil.copytree(ROOT / 'dsh/session/bin/zstd', fixture_root / 'dsh/session/bin/zstd', ignore=shutil.ignore_patterns('x86'))
     shutil.copytree(ROOT / 'dsh/session/bin/unicode', fixture_root / 'dsh/session/bin/unicode')
     shutil.copytree(ROOT / 'dsh/session/resources/sql', fixture_root / 'dsh/session/resources/sql')
     dist = fixture_root / "dist" / "dsh-win7-portable"
@@ -83,7 +83,7 @@ def test_portable_stages_pinned_rg_and_zip_path_matches_runtime_resolver(tmp_pat
     (fixture_root / "README.md").write_text("fixture", encoding="utf-8")
 
     pinned = fixture_root / 'dsh/fs/tool_fs_search/bin/rg.exe'
-    shutil.copytree(ROOT / 'dsh/fs/tool_fs_search/bin', pinned.parent)
+    shutil.copytree(ROOT / 'dsh/fs/tool_fs_search/bin', pinned.parent, ignore=shutil.ignore_patterns('x86'))
     expected_binary = (ROOT / 'dsh/fs/tool_fs_search/bin/rg.exe').read_bytes()
 
     build.ROOT_DIR = str(fixture_root)
@@ -105,6 +105,12 @@ def test_portable_stages_pinned_rg_and_zip_path_matches_runtime_resolver(tmp_pat
         shutil.copyfile(manifest.with_name('LICENSE'), destination.with_name('LICENSE'))
     shutil.copyfile(ROOT / 'migration/baseline.json', fixture_root / 'migration/baseline.json')
     shutil.copyfile(ROOT / 'scripts/frontend-inputs.json', fixture_root / 'scripts/frontend-inputs.json')
+    shutil.copyfile(ROOT / 'scripts/runtime-inputs.json', fixture_root / 'scripts/runtime-inputs.json')
+    runtime_inputs = json.loads((fixture_root / 'scripts/runtime-inputs.json').read_text(encoding='utf-8'))
+    for row in runtime_inputs['files']:
+        destination = fixture_root / row['path']
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / row['path'], destination)
     frontend = json.loads((fixture_root / 'scripts/frontend-inputs.json').read_text(encoding='utf-8'))
     for row in frontend['files'] + frontend['client_files']:
         destination = fixture_root / row['path']

@@ -19,10 +19,14 @@ class DatabaseError(Exception):
 
 @lru_cache(maxsize=1)
 def _library():
-    if os.name != 'nt' or ctypes.sizeof(ctypes.c_void_p) != 8:
-        raise RuntimeError('Pinned SQLite requires Windows x64')
+    if os.name != 'nt' or ctypes.sizeof(ctypes.c_void_p) not in (4, 8):
+        raise RuntimeError('Pinned SQLite requires Windows x86 or x64')
     binary = Path(__file__).with_name('bin') / 'sqlite3.dll'
-    if hashlib.sha256(binary.read_bytes()).hexdigest() != SQLITE_DLL_SHA256:
+    expected = SQLITE_DLL_SHA256
+    if ctypes.sizeof(ctypes.c_void_p) == 4:
+        binary = binary.parent / 'x86' / binary.name
+        expected = '726376a088177a32f053cc3b43d8d11ba55aae3d21782b95b775e3e3f0249803'
+    if hashlib.sha256(binary.read_bytes()).hexdigest() != expected:
         raise RuntimeError('Pinned SQLite DLL hash differs')
     library = ctypes.CDLL(str(binary), winmode=0)
     pointer = ctypes.c_void_p

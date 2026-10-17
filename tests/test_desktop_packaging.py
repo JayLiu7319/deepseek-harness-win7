@@ -71,7 +71,7 @@ def test_desktop_copies_complete_reviewed_package_closure_not_build_fixtures(tmp
 
 @pytest.mark.parametrize('arguments,diagnostic', [
     (['--edition','aio'], 'AIO requires --external-prereq-dir'),
-    (['--architecture','x86'], 'cannot create x86 support'),
+    (['--architecture','x86'], 'requires an explicit qualified --portable-dir'),
 ])
 def test_desktop_cli_rejects_missing_or_unqualified_inputs_before_writing(tmp_path, arguments, diagnostic):
     destination=tmp_path / 'output'

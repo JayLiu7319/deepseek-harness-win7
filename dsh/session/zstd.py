@@ -8,12 +8,23 @@ import os
 ROOT = Path(__file__).resolve().parent / 'bin' / 'zstd'
 MANIFEST_SHA256 = '692afc72c954be69072be01c242512b201c9f684cdc42e572d109a9fd39e32a8'
 DLL_SHA256 = '93d87fd026179637db29580e1db2d1188954241293f0e2279f93a01e007a45cc'
+if ctypes.sizeof(ctypes.c_void_p) == 4:
+    ROOT = ROOT / 'x86'
+    MANIFEST_SHA256 = 'bd4622fa0abc9107ba5e97a5d9704c89957e7c24a3c637ee352becd40b3527af'
+    DLL_SHA256 = '9ee0fe13b587feba66ca470ee208697cb4f4f20c17f2d80600fc9781ae4c2036'
 
 
-def verify_zstd_files(directory=None):
+def verify_zstd_files(directory=None, architecture=None):
     directory = Path(directory).resolve() if directory is not None else ROOT.resolve()
     manifest_path = directory / 'zstd.json'
-    if hashlib.sha256(manifest_path.read_bytes()).hexdigest() != MANIFEST_SHA256:
+    expected = MANIFEST_SHA256
+    if architecture == 'x86':
+        expected = 'bd4622fa0abc9107ba5e97a5d9704c89957e7c24a3c637ee352becd40b3527af'
+    elif architecture not in (None, 'x64'):
+        raise RuntimeError('Unsupported Zstandard architecture')
+    elif architecture == 'x64':
+        expected = '692afc72c954be69072be01c242512b201c9f684cdc42e572d109a9fd39e32a8'
+    if hashlib.sha256(manifest_path.read_bytes()).hexdigest() != expected:
         raise RuntimeError('Pinned Zstandard manifest differs')
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     hashes = dict(manifest['license_sha256'])
@@ -42,8 +53,8 @@ class Output(ctypes.Structure):
 
 @lru_cache(maxsize=1)
 def library():
-    if os.name != 'nt' or ctypes.sizeof(ctypes.c_void_p) != 8:
-        raise RuntimeError('Pinned Zstandard requires Windows x64')
+    if os.name != 'nt' or ctypes.sizeof(ctypes.c_void_p) not in (4, 8):
+        raise RuntimeError('Pinned Zstandard requires Windows x86 or x64')
     directory, _ = verify_zstd_files()
     binary = directory / 'dsh_zstd.dll'
     loaded = ctypes.CDLL(str(binary), winmode=0)

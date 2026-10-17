@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "architecture": "x86",
+  "python": "3.8.10",
+  "downloads": [
+    {
+      "name": "python-3.8.10-embed-win32.zip",
+      "url": "https://www.python.org/ftp/python/3.8.10/python-3.8.10-embed-win32.zip",
+      "bytes": 7348969,
+      "sha256": "760dc79bcb434ee80b1001a30bb6f798287881851bac6d8137867894d40ef1fc"
+    },
+    {
+      "name": "icu4c-78.2-Win32-MSVC2022.zip",
+      "url": "https://github.com/unicode-org/icu/releases/download/release-78.2/icu4c-78.2-Win32-MSVC2022.zip",
+      "bytes": 28672157,
+      "sha256": "3789747e93bf9074a13f3557ad1f01102c874ea412ec7e41facd9405f7f24d62"
+    },
+    {
+      "name": "electron-v22.3.27-win32-ia32.zip",
+      "url": "https://github.com/electron/electron/releases/download/v22.3.27/electron-v22.3.27-win32-ia32.zip",
+      "bytes": 91173960,
+      "sha256": "1119ac7112590cb9c10a8c9b0bb5be65c0e11648a4f1311e6b7a5a00e497c2ce"
+    },
+    {
+      "name": "ripgrep-14.1.0-i686-pc-windows-msvc.zip",
+      "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-i686-pc-windows-msvc.zip",
+      "bytes": 1918821,
+      "sha256": "3b2e4776f9510d2f502fea92f1be45c02ff0f46da50f034b04fe866182ffc0d6"
+    },
+    {
+      "name": "sqlite-dll-win-x86-3510200.zip",
+      "url": "https://sqlite.org/2026/sqlite-dll-win-x86-3510200.zip",
+      "bytes": 1079001,
+      "sha256": "3c3101c2bbb39719fbc9b6513fa04f717eb9d74a0fe76ac8bb263de5a1f11a50"
+    }
+  ],
+  "wheels": [
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "filename": "PyYAML-6.0.3-cp38-cp38-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/99/a5/718a8ea22521e06ef19f91945766a892c5ceb1855df6adbde67d997ea7ed/PyYAML-6.0.3-cp38-cp38-win32.whl",
+      "bytes": 143744,
+      "sha256": "3ff07ec89bae51176c0549bc4c63aa6202991da2d9a6129d7aef7f1407d3f295",
+      "resourceOnly": false
+    },
+    {
+      "name": "requests",
+      "version": "2.32.4",
+      "filename": "requests-2.32.4-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl",
+      "bytes": 64847,
+      "sha256": "27babd3cda2a6d50b30443204ee89830707d396671944c998b5975b031ac2b2c",
+      "resourceOnly": false
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "filename": "certifi-2026.7.22-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
+      "bytes": 136983,
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "resourceOnly": false
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.1",
+      "filename": "charset_normalizer-3.5.1-cp37-abi3-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/01/65/d43b714731bb2f40d4053dfa00ecfc1c5a301f8e3316c5db3a09af59fe94/charset_normalizer-3.5.1-cp37-abi3-win32.whl",
+      "bytes": 174216,
+      "sha256": "dd732602a7009217f658d5863d12d79d373a4de0eebc111094bcdd3bb8e0a6cc",
+      "resourceOnly": false
+    },
+    {
+      "name": "idna",
+      "version": "3.15",
+      "filename": "idna-3.15-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl",
+      "bytes": 72340,
+      "sha256": "048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8",
+      "resourceOnly": false
+    },
+    {
+      "name": "urllib3",
+      "version": "2.2.3",
+      "filename": "urllib3-2.2.3-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl",
+      "bytes": 126338,
+      "sha256": "ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac",
+      "resourceOnly": false
+    },
+    {
+      "name": "Pillow",
+      "version": "10.4.0",
+      "filename": "pillow-10.4.0-cp38-cp38-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/69/66/03002cb5b2c27bb519cba63b9f9aa3709c6f7a5d3b285406c01f03fb77e5/pillow-10.4.0-cp38-cp38-win32.whl",
+      "bytes": 2235185,
+      "sha256": "e88d5e6ad0d026fba7bdab8c3f225a69f063f116462c49892b0149e21b6c0a0e",
+      "resourceOnly": false
+    },
+    {
+      "name": "wsproto",
+      "version": "1.2.0",
+      "filename": "wsproto-1.2.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/78/58/e860788190eba3bcce367f74d29c4675466ce8dddfba85f7827588416f01/wsproto-1.2.0-py3-none-any.whl",
+      "bytes": 24226,
+      "sha256": "b9acddd652b585d75b20477888c56642fdade28bdfd3579aa24a4d2c037dd736",
+      "resourceOnly": false
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "filename": "h11-0.16.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl",
+      "bytes": 37515,
+      "sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "resourceOnly": false
+    },
+    {
+      "name": "backports.zoneinfo",
+      "version": "0.2.1",
+      "filename": "backports.zoneinfo-0.2.1-cp38-cp38-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/c0/34/5fdb0a3a28841d215c255be8fc60b8666257bb6632193c86fd04b63d4a31/backports.zoneinfo-0.2.1-cp38-cp38-win32.whl",
+      "bytes": 36803,
+      "sha256": "1b13e654a55cd45672cb54ed12148cd33628f672548f373963b0bff67b217328",
+      "resourceOnly": false
+    },
+    {
+      "name": "tzdata",
+      "version": "2025.2",
+      "filename": "tzdata-2025.2-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/5c/23/c7abc0ca0a1526a0774eca151daeb8de62ec457e77262b66b359c3c7679e/tzdata-2025.2-py2.py3-none-any.whl",
+      "bytes": 347839,
+      "sha256": "1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8",
+      "resourceOnly": false
+    },
+    {
+      "name": "pywinpty",
+      "version": "0.5.7",
+      "filename": "pywinpty-0.5.7-cp37-cp37m-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/8e/3a/5bc0951ce04a8a36b9325e1b0b2e7262f21899597e2c69f13394b30e1591/pywinpty-0.5.7-cp37-cp37m-win32.whl",
+      "bytes": 1259890,
+      "sha256": "5fb2c6c6819491b216f78acc2c521b9df21e0f53b9a399d58a5c151a3c4e2a2d",
+      "resourceOnly": true
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.27.0",
+      "filename": "opentelemetry_api-1.27.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/fb/1f/737dcdbc9fea2fa96c1b392ae47275165a7c641663fbb08a8d252968eed2/opentelemetry_api-1.27.0-py3-none-any.whl",
+      "bytes": 63970,
+      "sha256": "953d5871815e7c30c81b56d910c707588000fff7a3ca1c73e6531911d53065e7",
+      "resourceOnly": false
+    },
+    {
+      "name": "opentelemetry-sdk",
+      "version": "1.27.0",
+      "filename": "opentelemetry_sdk-1.27.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/c1/bd/a6602e71e315055d63b2ff07172bd2d012b4cba2d4e00735d74ba42fc4d6/opentelemetry_sdk-1.27.0-py3-none-any.whl",
+      "bytes": 110505,
+      "sha256": "365f5e32f920faf0fd9e14fdfd92c086e317eaa5f860edba9cdc17a380d9197d",
+      "resourceOnly": false
+    },
+    {
+      "name": "opentelemetry-semantic-conventions",
+      "version": "0.48b0",
+      "filename": "opentelemetry_semantic_conventions-0.48b0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/b7/7a/4f0063dbb0b6c971568291a8bc19a4ca70d3c185db2d956230dd67429dfc/opentelemetry_semantic_conventions-0.48b0-py3-none-any.whl",
+      "bytes": 149685,
+      "sha256": "a0de9f45c413a8669788a38569c7e0a11ce6ce97861a628cca785deecdc32a1f",
+      "resourceOnly": false
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-common",
+      "version": "1.27.0",
+      "filename": "opentelemetry_exporter_otlp_proto_common-1.27.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/41/27/4610ab3d9bb3cde4309b6505f98b3aabca04a26aa480aa18cede23149837/opentelemetry_exporter_otlp_proto_common-1.27.0-py3-none-any.whl",
+      "bytes": 17848,
+      "sha256": "675db7fffcb60946f3a5c43e17d1168a3307a94a930ecf8d2ea1f286f3d4f79a",
+      "resourceOnly": false
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-http",
+      "version": "1.27.0",
+      "filename": "opentelemetry_exporter_otlp_proto_http-1.27.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/2d/8d/4755884afc0b1db6000527cac0ca17273063b6142c773ce4ecd307a82e72/opentelemetry_exporter_otlp_proto_http-1.27.0-py3-none-any.whl",
+      "bytes": 17203,
+      "sha256": "688027575c9da42e179a69fe17e2d1eba9b14d81de8d13553a21d3114f3b4d75",
+      "resourceOnly": false
+    },
+    {
+      "name": "opentelemetry-proto",
+      "version": "1.27.0",
+      "filename": "opentelemetry_proto-1.27.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/94/56/3d2d826834209b19a5141eed717f7922150224d1a982385d19a9444cbf8d/opentelemetry_proto-1.27.0-py3-none-any.whl",
+      "bytes": 52464,
+      "sha256": "b133873de5581a50063e1e4b29cdcf0c5e253a8c2d8dc1229add20a4c3830ace",
+      "resourceOnly": false
+    },
+    {
+      "name": "protobuf",
+      "version": "4.25.9",
+      "filename": "protobuf-4.25.9-cp38-cp38-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/c1/92/1ff3e0895d2030060204ef66a92f87fd45ff77a45b54be1ab9c8c0cc09be/protobuf-4.25.9-cp38-cp38-win32.whl",
+      "bytes": 392922,
+      "sha256": "7f7c1abcea3fc215918fba67a2d2a80fbcccc0f84159610eb187e9bbe6f939ee",
+      "resourceOnly": false
+    },
+    {
+      "name": "googleapis-common-protos",
+      "version": "1.73.0",
+      "filename": "googleapis_common_protos-1.73.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/69/28/23eea8acd65972bbfe295ce3666b28ac510dfcb115fac089d3edb0feb00a/googleapis_common_protos-1.73.0-py3-none-any.whl",
+      "bytes": 297578,
+      "sha256": "dfdaaa2e860f242046be561e6d6cb5c5f1541ae02cfbcb034371aadb2942b4e8",
+      "resourceOnly": false
+    },
+    {
+      "name": "Deprecated",
+      "version": "1.3.1",
+      "filename": "deprecated-1.3.1-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/84/d0/205d54408c08b13550c733c4b85429e7ead111c7f0014309637425520a9a/deprecated-1.3.1-py2.py3-none-any.whl",
+      "bytes": 11298,
+      "sha256": "597bfef186b6f60181535a29fbe44865ce137a5079f295b479886c82729d5f3f",
+      "resourceOnly": false
+    },
+    {
+      "name": "wrapt",
+      "version": "2.0.1",
+      "filename": "wrapt-2.0.1-cp38-cp38-win32.whl",
+      "url": "https://files.pythonhosted.org/packages/4c/f3/0eab878bb4d0eadbec2b75e399cfa6aa802e634587756d59419080aae1f5/wrapt-2.0.1-cp38-cp38-win32.whl",
+      "bytes": 57936,
+      "sha256": "115cae4beed3542e37866469a8a1f2b9ec549b4463572b000611e9946b86e6f6",
+      "resourceOnly": false
+    },
+    {
+      "name": "importlib-metadata",
+      "version": "8.4.0",
+      "filename": "importlib_metadata-8.4.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/c0/14/362d31bf1076b21e1bcdcb0dc61944822ff263937b804a79231df2774d28/importlib_metadata-8.4.0-py3-none-any.whl",
+      "bytes": 26269,
+      "sha256": "66f342cc6ac9818fc6ff340576acd24d65ba0b3efabb2b4ac08b598965a4a2f1",
+      "resourceOnly": false
+    },
+    {
+      "name": "zipp",
+      "version": "3.20.2",
+      "filename": "zipp-3.20.2-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/62/8b/5ba542fa83c90e09eac972fc9baca7a88e7e7ca4b221a89251954019308b/zipp-3.20.2-py3-none-any.whl",
+      "bytes": 9200,
+      "sha256": "a817ac80d6cf4b23bf7f2828b7cabf326f15a001bea8b1f9b49631780ba28350",
+      "resourceOnly": false
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.13.2",
+      "filename": "typing_extensions-4.13.2-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/8b/54/b1ae86c0973cc6f0210b53d508ca3641fb6d0c56823f288d108bc7ab3cc8/typing_extensions-4.13.2-py3-none-any.whl",
+      "bytes": 45806,
+      "sha256": "a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c",
+      "resourceOnly": false
+    }
+  ]
+}

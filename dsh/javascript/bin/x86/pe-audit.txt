@@ -1,0 +1,200 @@
+
+File: C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-x86-quickjs-20261017-a\dsh_js_worker.exe
+Format: COFF-i386
+Arch: i386
+AddressSize: 32bit
+ImageFileHeader {
+  Machine: IMAGE_FILE_MACHINE_I386 (0x14C)
+  SectionCount: 13
+  TimeDateStamp: 1970-01-01 00:00:00 (0x0)
+  PointerToSymbolTable: 0x125A00
+  SymbolCount: 1946
+  StringTableSize: 36611
+  OptionalHeaderSize: 224
+  Characteristics [ (0x102)
+    IMAGE_FILE_32BIT_MACHINE (0x100)
+    IMAGE_FILE_EXECUTABLE_IMAGE (0x2)
+  ]
+}
+ImageOptionalHeader {
+  Magic: 0x10B
+  MajorLinkerVersion: 14
+  MinorLinkerVersion: 0
+  SizeOfCode: 829440
+  SizeOfInitializedData: 372224
+  SizeOfUninitializedData: 0
+  AddressOfEntryPoint: 0x1390
+  BaseOfCode: 0x1000
+  BaseOfData: 0x0
+  ImageBase: 0x400000
+  SectionAlignment: 4096
+  FileAlignment: 512
+  MajorOperatingSystemVersion: 6
+  MinorOperatingSystemVersion: 1
+  MajorImageVersion: 0
+  MinorImageVersion: 0
+  MajorSubsystemVersion: 6
+  MinorSubsystemVersion: 1
+  SizeOfImage: 1241088
+  SizeOfHeaders: 1024
+  CheckSum: 0x0
+  Subsystem: IMAGE_SUBSYSTEM_WINDOWS_CUI (0x3)
+  Characteristics [ (0x8140)
+    IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE (0x40)
+    IMAGE_DLL_CHARACTERISTICS_NX_COMPAT (0x100)
+    IMAGE_DLL_CHARACTERISTICS_TERMINAL_SERVER_AWARE (0x8000)
+  ]
+  SizeOfStackReserve: 1048576
+  SizeOfStackCommit: 4096
+  SizeOfHeapReserve: 1048576
+  SizeOfHeapCommit: 4096
+  NumberOfRvaAndSize: 16
+  DataDirectory {
+    ExportTableRVA: 0x0
+    ExportTableSize: 0x0
+    ImportTableRVA: 0xE9A24
+    ImportTableSize: 0x3C
+    ResourceTableRVA: 0x0
+    ResourceTableSize: 0x0
+    ExceptionTableRVA: 0x0
+    ExceptionTableSize: 0x0
+    CertificateTableRVA: 0x0
+    CertificateTableSize: 0x0
+    BaseRelocationTableRVA: 0xED000
+    BaseRelocationTableSize: 0x60A8
+    DebugRVA: 0xEB000
+    DebugSize: 0x1C
+    ArchitectureRVA: 0x0
+    ArchitectureSize: 0x0
+    GlobalPtrRVA: 0x0
+    GlobalPtrSize: 0x0
+    TLSTableRVA: 0x0
+    TLSTableSize: 0x0
+    LoadConfigTableRVA: 0xE9940
+    LoadConfigTableSize: 0xBC
+    BoundImportRVA: 0x0
+    BoundImportSize: 0x0
+    IATRVA: 0xE9BBC
+    IATSize: 0x15C
+    DelayImportDescriptorRVA: 0x0
+    DelayImportDescriptorSize: 0x0
+    CLRRuntimeHeaderRVA: 0x0
+    CLRRuntimeHeaderSize: 0x0
+    ReservedRVA: 0x0
+    ReservedSize: 0x0
+  }
+}
+DOSHeader {
+  Magic: MZ
+  UsedBytesInTheLastPage: 120
+  FileSizeInPages: 1
+  NumberOfRelocationItems: 0
+  HeaderSizeInParagraphs: 4
+  MinimumExtraParagraphs: 0
+  MaximumExtraParagraphs: 0
+  InitialRelativeSS: 0
+  InitialSP: 0
+  Checksum: 0
+  InitialIP: 0
+  InitialRelativeCS: 0
+  AddressOfRelocationTable: 64
+  OverlayNumber: 0
+  OEMid: 0
+  OEMinfo: 0
+  AddressOfNewExeHeader: 120
+}
+Import {
+  Name: msvcrt.dll
+  ImportLookupTableRVA: 0xE9A60
+  ImportAddressTableRVA: 0xE9BBC
+  Symbol: __fpecode (0)
+  Symbol: __lc_codepage (0)
+  Symbol: _XcptFilter (0)
+  Symbol: __getmainargs (0)
+  Symbol: __p___initenv (0)
+  Symbol: __p___mb_cur_max (0)
+  Symbol: __p__commode (0)
+  Symbol: __p__fmode (0)
+  Symbol: __p__iob (0)
+  Symbol: __pxcptinfoptrs (0)
+  Symbol: __set_app_type (0)
+  Symbol: __setusermatherr (0)
+  Symbol: _amsg_exit (0)
+  Symbol: _cexit (0)
+  Symbol: atexit (0)
+  Symbol: _errno (0)
+  Symbol: _exit (0)
+  Symbol: _fileno (0)
+  Symbol: _hypot (0)
+  Symbol: _initterm (0)
+  Symbol: _lock (0)
+  Symbol: _msize (0)
+  Symbol: _setmode (0)
+  Symbol: _unlock (0)
+  Symbol: abort (0)
+  Symbol: acos (0)
+  Symbol: asin (0)
+  Symbol: atan (0)
+  Symbol: calloc (0)
+  Symbol: cosh (0)
+  Symbol: exit (0)
+  Symbol: feof (0)
+  Symbol: fflush (0)
+  Symbol: fprintf (0)
+  Symbol: fputc (0)
+  Symbol: fputs (0)
+  Symbol: free (0)
+  Symbol: getchar (0)
+  Symbol: localeconv (0)
+  Symbol: log10 (0)
+  Symbol: malloc (0)
+  Symbol: memchr (0)
+  Symbol: memcmp (0)
+  Symbol: memcpy (0)
+  Symbol: memmove (0)
+  Symbol: memset (0)
+  Symbol: puts (0)
+  Symbol: realloc (0)
+  Symbol: setvbuf (0)
+  Symbol: signal (0)
+  Symbol: sinh (0)
+  Symbol: strchr (0)
+  Symbol: strcmp (0)
+  Symbol: strerror (0)
+  Symbol: strlen (0)
+  Symbol: strrchr (0)
+  Symbol: strstr (0)
+  Symbol: tan (0)
+  Symbol: tanh (0)
+  Symbol: vfprintf (0)
+  Symbol: wcslen (0)
+}
+Import {
+  Name: KERNEL32.dll
+  ImportLookupTableRVA: 0xE9B58
+  ImportAddressTableRVA: 0xE9CB4
+  Symbol: DeleteCriticalSection (0)
+  Symbol: EnterCriticalSection (0)
+  Symbol: GetCPInfo (0)
+  Symbol: GetLastError (0)
+  Symbol: GetModuleHandleA (0)
+  Symbol: GetProcAddress (0)
+  Symbol: GetSystemTime (0)
+  Symbol: GetTickCount64 (0)
+  Symbol: GetTimeZoneInformation (0)
+  Symbol: InitOnceExecuteOnce (0)
+  Symbol: InitializeConditionVariable (0)
+  Symbol: InitializeCriticalSection (0)
+  Symbol: LeaveCriticalSection (0)
+  Symbol: MultiByteToWideChar (0)
+  Symbol: QueryPerformanceCounter (0)
+  Symbol: QueryPerformanceFrequency (0)
+  Symbol: SetUnhandledExceptionFilter (0)
+  Symbol: Sleep (0)
+  Symbol: SleepConditionVariableCS (0)
+  Symbol: SystemTimeToFileTime (0)
+  Symbol: VirtualProtect (0)
+  Symbol: VirtualQuery (0)
+  Symbol: WakeConditionVariable (0)
+  Symbol: WideCharToMultiByte (0)
+}

@@ -3,10 +3,19 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_desktop_runner_rejects_unknown_host_root_option_before_launch(tmp_path):
+    result = subprocess.run([sys.executable, str(ROOT / 'scripts/run_desktop_smoke.py'),
+                             '--output', str(tmp_path / 'output'), '--root'],
+                            capture_output=True, encoding='utf-8', timeout=10)
+    assert result.returncode == 2 and 'expected one argument' in result.stderr
+    assert not (tmp_path / 'output').exists()
 
 
 def test_actual_closed_parent_pipes():

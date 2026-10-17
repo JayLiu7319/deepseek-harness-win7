@@ -6,20 +6,39 @@ unavailable: callers must identify silence as inferred_idle, never stdin_read.
 """
 import asyncio
 import ctypes as c
+import hashlib
 import importlib.util
+import json
 import os
+from pathlib import Path
 import subprocess
 
 from dsh.sandbox.windows_acl import WinApi, JobLimit, P, D
 from dsh.subprocess.types import SubprocessOutcome
 
 
+def native_directory():
+    if c.sizeof(c.c_void_p) == 4:
+        directory = Path(__file__).parent / 'bin/winpty/x86'
+        raw = (directory / 'winpty-input.json').read_bytes()
+        if hashlib.sha256(raw).hexdigest() != '342e652c3f8e145ce7dd4370c5889ba981a4b2e7e7c6bae73f1d59f0deb0660d':
+            raise RuntimeError('Pinned WinPTY x86 manifest differs')
+        for name, identity in json.loads(raw.decode('utf-8'))['files'].items():
+            if Path(name).name != name or '/' in name or '\\' in name:
+                raise RuntimeError('Invalid WinPTY resource path')
+            data = (directory / name).read_bytes()
+            if len(data) != identity['bytes'] or hashlib.sha256(data).hexdigest() != identity['sha256']:
+                raise RuntimeError('Pinned WinPTY x86 resource differs: ' + name)
+        return str(directory)
+    package = importlib.util.find_spec('winpty')
+    if package is None:
+        raise RuntimeError('Win7 terminal requires pinned pywinpty 0.5.7')
+    return os.path.dirname(package.origin)
+
+
 class WinPtyTerminalHandle:
     def __init__(self, spec, environment):
-        package = importlib.util.find_spec('winpty')
-        if package is None:
-            raise RuntimeError('Win7 terminal requires pinned pywinpty 0.5.7')
-        directory = os.path.dirname(package.origin)
+        directory = native_directory()
         # LOAD_WITH_ALTERED_SEARCH_PATH is available on unpatched Windows 7;
         # AddDllDirectory would require an additional OS update there.
         self.dll = c.CDLL(os.path.join(directory, 'winpty.dll'), winmode=0x8)

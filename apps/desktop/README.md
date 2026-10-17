@@ -47,7 +47,7 @@ terminal closes; other stream errors remain errors. Packaged applications reject
 development overrides. The smoke entry verifies real RPC/streaming, renderer
 isolation and actual plugin rollback. Expected control-stream errors during
 Host replacement remain separately recorded, followed by a fresh baseline
-check. Installer qualification, public update-channel publication, x86 and
+check. Installer qualification, public update-channel publication and
 physical Win7 acceptance are separate milestones.
 
 Standard installation may continue with a limited environment. Its finish page
@@ -56,7 +56,25 @@ Build the separate x86/x64 prerequisite ZIP with
 `scripts/build_windows_upgrade.py --external-prereq-dir <verified-inputs> --output-dir <fresh-directory>`.
 This ZIP contains Microsoft prerequisites and the explicit administrator entry
 `upgrade-win7.bat`; it does not add x86 application runtime support. AIO embeds
-the matching prerequisite set. Neither builder executes the system installers.
+the matching prerequisite set. The x86 AIO includes both OS architectures so its
+ia32 application also works on x64 Windows; the shared .NET installer appears
+once. Neither builder executes the system installers.
+
+Both application architectures use pinned Python3.8.10, Electron22 and native
+SQLite/ICU/Zstandard/QuickJS/ripgrep/WinPTY resources. Resource selection follows
+the Python process width, including WOW64. The x86 lock excludes the incompatible
+CPython3.7 pywinpty extension: only its separately verified WinPTY C ABI binaries
+and licenses are used through ctypes.
+
+Prepare an x86 runtime with
+`scripts/prepare_x86_runtime.py --inputs-dir <external-downloads> --stdlib-runtime <python-3.8.10-runtime> --output <fresh-win32-runtime> --download`.
+The fixed archive/wheel identities are in `scripts/x86-inputs.json`. Then run
+`scripts/build_portable.py --architecture x86 --python-runtime <win32-runtime> --site-packages <win32-runtime>/Lib/site-packages --output-dir <fresh-output>`.
+The x86 builder requires explicit inputs and output so it cannot replace the
+default x64 Portable. For Desktop use
+`scripts/build_desktop.py --architecture x86 --portable-dir <current-x86-portable> --electron-archive <pinned-ia32-zip> --edition both --external-prereq-dir <verified-inputs> --output-dir <fresh-output>`.
+Actual development smoke tests of its packaged host can use that host's Python
+to run `scripts/run_desktop_smoke.py --root <desktop-unpacked>/resources/harness --electron <ia32-electron> --output <fresh-output>`.
 
 Desktop updates retain the pinned Source coordinator, update states and shell IPC.
 The Win7 adapter installs a complete Standard NSIS package, including its paired
@@ -80,3 +98,5 @@ Release operators can create the envelope with
 `node scripts/sign_desktop_update.cjs --installer <built-standard-exe> --version <version> --artifact-url <https-url> --manifest-url <https-feed-url> --private-key <external-ed25519-pem> --output <fresh-json>`.
 The private key is never embedded. Publishing the signed feed/installer and
 real administrator installation are separate release operations.
+For an x86 feed, add `--architecture x86` to the signing command and select the
+x86 Standard installer. Each running updater rejects the other architecture.

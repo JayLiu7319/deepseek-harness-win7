@@ -114,8 +114,6 @@ def download(directory, architecture):
 
 def stage_prerequisites(directory, architecture, destination):
     selected = validate_prerequisites(directory, architecture)
-    if architecture not in ('x86', 'x64'):
-        raise ValueError('Select exactly one installer architecture')
     destination = Path(destination)
     destination.mkdir(parents=True, exist_ok=False)
     staged = []
@@ -123,7 +121,7 @@ def stage_prerequisites(directory, architecture, destination):
         source = Path(directory) / row['filename']
         if 'members' in row:
             member = next(item for item in row['members'] if item['filename'].lower().endswith('.msu'))
-            target = destination / ('wmf-' + architecture + '.msu')
+            target = destination / ('wmf-' + row['architecture'] + '.msu')
             with zipfile.ZipFile(str(source)) as archive, archive.open(member['filename']) as stream, target.open('xb') as output:
                 shutil.copyfileobj(stream, output, 1024 * 1024)
             verify_file(target, member)

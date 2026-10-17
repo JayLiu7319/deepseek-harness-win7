@@ -14,6 +14,7 @@ SOURCE_ARCHIVE_SHA256 = 'd0d41bf4842480ca8672a856eb86cb2d5cb6aae008072c9fe91786f
 COMPILER_ARCHIVE_SHA256 = '1e936a4a694fc27f9625e3311f5ec5d6d99abfeaa514fd41c52a4f8347145d1a'
 COMPILER_SHA256 = '821f0bc3eca2915569861955f07fe615b2339efa97b62d45c59968a8d989c68c'
 BINARY_SHA256 = '032d3ad64ccdd38e0b7afb35153db156fe6469a385f707f31234dc9d2982b7e9'
+BINARY_X86_SHA256 = '235bed32c4c579a8a3c6c18532b251ae07eebc5e6b9d16e6f0f4d0b5ed2e9cfe'
 
 
 def digest(path):
@@ -51,14 +52,19 @@ def verify_archive(archive_path, directory, expected, categories=None):
     return selected
 
 
-def build(source, compiler, output):
+def build(source, compiler, output, architecture='x64'):
+    if architecture not in ('x64', 'x86'):
+        raise ValueError('Unsupported QuickJS architecture')
+    target = 'i686-w64-mingw32' if architecture == 'x86' else 'x86_64-w64-mingw32'
     source, compiler, output = source.resolve(), compiler.resolve(), output.resolve()
+    if compiler.name != target + '-clang.exe':
+        raise ValueError('QuickJS compiler architecture differs')
     inputs = verify_archive(source.with_suffix('.zip'), source, SOURCE_ARCHIVE_SHA256)
     toolchain = compiler.parent.parent
     toolchain_inputs = verify_archive(toolchain.with_suffix('.zip'), toolchain, COMPILER_ARCHIVE_SHA256,
-                                     ('bin', 'include', 'lib', 'x86_64-w64-mingw32'))
-    if digest(compiler) != COMPILER_SHA256 or 'msvcrt' not in toolchain.name:
-        raise ValueError('QuickJS requires the pinned x64 MSVCRT compiler')
+                                     ('bin', 'include', 'lib', target))
+    if digest(compiler) != COMPILER_SHA256 or 'msvcrt' not in toolchain.name or compiler.name != target + '-clang.exe':
+        raise ValueError('QuickJS requires the pinned architecture MSVCRT compiler')
     if output.exists():
         raise ValueError('QuickJS build output must be a new directory')
     wrapper = ROOT / 'scripts/native/quickjs_worker.c'
@@ -106,15 +112,21 @@ def build(source, compiler, output):
                       audit_sha256=digest(output / 'pe-audit.txt'), imported_dlls=imports,
                       licenses={path.name: digest(path) for path in sorted(licenses.iterdir())},
                       scope='Private unchanged QuickJS-NG source with an owned two-realm process wrapper. Windows6.1 PE targeting and import inspection; real Win7 execution is not certified.')
+    if architecture == 'x86':
+        provenance['architecture'] = architecture
     (output / 'build-provenance.json').write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(dict(binary=str(binary), sha256=provenance['binary_sha256'], source_files=len(inputs))))
 
 
-def stage(output, destination):
+def stage(output, destination, architecture='x64'):
+    if architecture not in ('x64', 'x86'):
+        raise ValueError('Unsupported QuickJS architecture')
+    binary_hash = BINARY_X86_SHA256 if architecture == 'x86' else BINARY_SHA256
     output, destination = output.resolve(), destination.resolve()
     provenance = json.loads((output / 'build-provenance.json').read_text(encoding='utf-8'))
     wrapper = ROOT / 'scripts/native/quickjs_worker.c'
-    if (provenance['binary_sha256'] != BINARY_SHA256 or digest(output / 'dsh_js_worker.exe') != BINARY_SHA256
+    if (provenance.get('architecture', 'x64') != architecture
+            or provenance['binary_sha256'] != binary_hash or digest(output / 'dsh_js_worker.exe') != binary_hash
             or provenance['source_commit'] != SOURCE_COMMIT or provenance['source_archive_sha256'] != SOURCE_ARCHIVE_SHA256
             or provenance['compiler_sha256'] != COMPILER_SHA256
             or provenance['compiler_archive_sha256'] != COMPILER_ARCHIVE_SHA256
@@ -133,7 +145,7 @@ def stage(output, destination):
     for name in provenance['licenses']:
         shutil.copy2(output / 'licenses' / name, destination / name)
     resources = {path.name: digest(path) for path in sorted(destination.iterdir()) if path.name != 'dsh_js_worker.exe'}
-    manifest = dict(version='0.17.0', source_commit=SOURCE_COMMIT, binary_sha256=BINARY_SHA256, resources=resources)
+    manifest = dict(version='0.17.0', source_commit=SOURCE_COMMIT, binary_sha256=binary_hash, resources=resources)
     (destination / 'runtime.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(dict(staged=str(destination), manifest_sha256=digest(destination / 'runtime.json'))))
 
@@ -145,19 +157,23 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--stage-output', type=Path)
     parser.add_argument('--stage-only', action='store_true')
+    parser.add_argument('--architecture', choices=('x64', 'x86'), default='x64')
     args = parser.parse_args()
     if args.stage_only:
         verify_archive(args.source.resolve().with_suffix('.zip'), args.source.resolve(), SOURCE_ARCHIVE_SHA256)
         compiler = args.compiler.resolve()
         toolchain = compiler.parent.parent
+        target = 'i686-w64-mingw32' if args.architecture == 'x86' else 'x86_64-w64-mingw32'
+        if compiler.name != target + '-clang.exe':
+            raise ValueError('QuickJS compiler architecture differs')
         verify_archive(toolchain.with_suffix('.zip'), toolchain, COMPILER_ARCHIVE_SHA256,
-                       ('bin', 'include', 'lib', 'x86_64-w64-mingw32'))
+                       ('bin', 'include', 'lib', 'i686-w64-mingw32' if args.architecture == 'x86' else 'x86_64-w64-mingw32'))
         if digest(compiler) != COMPILER_SHA256:
             raise ValueError('QuickJS staging compiler differs')
     else:
-        build(args.source, args.compiler, args.output)
+        build(args.source, args.compiler, args.output, args.architecture)
     if args.stage_output:
-        stage(args.output, args.stage_output)
+        stage(args.output, args.stage_output, args.architecture)
 
 
 if __name__ == '__main__':

@@ -507,3 +507,11 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ### R11-M 准备 — 引擎与路由冻结入口
 
 两个要求精确干净提交及同包 Portable 的观察器改为当前 rc3 pin；历史业务比较器的17个正例/篡改拒绝用例通过（`.goose/out/rc3-engine-route-comparison-20261017-a/results.xml`）。发行负例不再把当前已拒绝的 version-0 negative-zero restore 重写为同一个 false，改为翻转实际准入值。新 Portable a 是带工作区修改的开发构建，不具备精确干净候选资格，不用于签收。下一步在隔离干净检出取得新的引擎/路由和完整发行观察；此记录不宣称这些观察已通过。
+
+### R10-G — x86 原生闭包与实际桌面载体
+
+固定官方下载的 Python3.8.10、24个兼容wheel、Electron22 ia32及UCRT输入；从固定源码实际构建i686 ICU、QuickJS和Zstd，SQLite、ripgrep及WinPTY按进程位宽选择并复核完整私有清单。pywinpty旧wheel仅提供C ABI资源，不加载不兼容的Python扩展。实际32位Python原生消费者119通过、1个尚未暂存文件的Git字节夹具失败；暂存后对应及文件搜索7项通过。构建/预检78项、桌面47项、入口16项、前置策略12项分别通过，原始失败独立保留。
+
+实际隔离Python32 Portable完成13步旅程；Electron ia32窗口93.883秒完成原界面、RPC、指南、插件回滚及重连后关闭，实际Node16更新器35项通过。x86 Standard与AIO均在9项打包通信预检后编译，分别116,389,426与424,771,491字节；AIO同时携带两种OS的补丁，共用.NET只存一次。此为fec7d602上的开发输入，不能覆盖随后JSONL修正或代替最终同包资格，未执行管理员安装、补丁重启或物理Win7验收。
+
+现有保留钩子已核验清理成功工作区5,197份未改复制文件1,390,085,961字节，以及较早失败工作区4,410份未改副本1,356,272,658字节；失败样本、XML和清理审计保留。有限归档见 [x86回执](../../migration/candidates/rc3/x86-distribution-current-checks.json)。

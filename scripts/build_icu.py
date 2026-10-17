@@ -12,14 +12,18 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_COMMIT = 'f1b3db8ecd39d5b3a6eff4d5641b176c7f914dfb'
 TOOLCHAIN_SHA256 = '1e936a4a694fc27f9625e3311f5ec5d6d99abfeaa514fd41c52a4f8347145d1a'
 DATA_SHA256 = '7b85654a0bfa6d92ca4ce26515bcdf28d22e1571319d4f80820d227076dbdade'
+DATA_X86_SHA256 = '3789747e93bf9074a13f3557ad1f01102c874ea412ec7e41facd9405f7f24d62'
 
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def checked_inputs(source, toolchain, toolchain_archive, data_archive):
-    if digest(toolchain_archive) != TOOLCHAIN_SHA256 or digest(data_archive) != DATA_SHA256:
+def checked_inputs(source, toolchain, toolchain_archive, data_archive, architecture='x64'):
+    if architecture not in ('x64', 'x86'):
+        raise ValueError('Unsupported ICU architecture')
+    target = 'i686-w64-mingw32' if architecture == 'x86' else 'x86_64-w64-mingw32'
+    if digest(toolchain_archive) != TOOLCHAIN_SHA256 or digest(data_archive) != (DATA_X86_SHA256 if architecture == 'x86' else DATA_SHA256):
         raise ValueError('Pinned ICU build archive differs')
     commit = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], encoding='utf-8').strip()
     dirty = subprocess.check_output(['git', '-C', str(source), 'status', '--porcelain'], encoding='utf-8').strip()
@@ -29,7 +33,7 @@ def checked_inputs(source, toolchain, toolchain_archive, data_archive):
         prefix = toolchain.name + '/'
         selected = [entry for entry in archive.infolist() if not entry.is_dir()
                     and entry.filename.startswith(prefix)
-                    and entry.filename[len(prefix):].split('/')[0] in ('bin', 'include', 'lib', 'x86_64-w64-mingw32')]
+                    and entry.filename[len(prefix):].split('/')[0] in ('bin', 'include', 'lib', target)]
         if not selected:
             raise ValueError('Pinned compiler archive layout differs')
         for entry in selected:
@@ -47,14 +51,15 @@ def checked_inputs(source, toolchain, toolchain_archive, data_archive):
         raise ValueError('Pinned ICU compilation inventory differs')
 
 
-def build(source, toolchain, toolchain_archive, data_archive, output):
-    checked_inputs(source, toolchain, toolchain_archive, data_archive)
+def build(source, toolchain, toolchain_archive, data_archive, output, architecture='x64'):
+    checked_inputs(source, toolchain, toolchain_archive, data_archive, architecture)
     output.mkdir(parents=True, exist_ok=False)
-    compiler = toolchain / 'bin/x86_64-w64-mingw32-clang++.exe'
-    dlltool = toolchain / 'bin/x86_64-w64-mingw32-dlltool.exe'
+    target = 'i686-w64-mingw32' if architecture == 'x86' else 'x86_64-w64-mingw32'
+    compiler = toolchain / ('bin/' + target + '-clang++.exe')
+    dlltool = toolchain / ('bin/' + target + '-dlltool.exe')
     source_root = source / 'icu4c/source'
     with zipfile.ZipFile(str(data_archive)) as archive:
-        (output / 'dsh_icudt78.dll').write_bytes(archive.read('bin64/icudt78.dll'))
+        (output / 'dsh_icudt78.dll').write_bytes(archive.read(('bin/' if architecture == 'x86' else 'bin64/') + 'icudt78.dll'))
     (output / 'data.def').write_text('LIBRARY dsh_icudt78.dll\nEXPORTS\nicudt78_dat DATA\n', encoding='utf-8')
     subprocess.run([str(dlltool), '-d', str(output / 'data.def'), '-l', str(output / 'data.a')], check=True, timeout=30)
     commands = []
@@ -96,17 +101,22 @@ def build(source, toolchain, toolchain_archive, data_archive, output):
         commands.append(command)
         print('Linked ' + binary, flush=True)
     licenses = {'ICU-LICENSE': source / 'LICENSE', 'LLVM-LICENSE.txt': toolchain / 'LICENSE.TXT'}
-    licenses.update({'MinGW-' + path.name: path for path in (toolchain / 'x86_64-w64-mingw32/share/mingw32').glob('COPYING*')})
+    licenses.update({'MinGW-' + path.name: path for path in (toolchain / (target + '/share/mingw32')).glob('COPYING*')})
     for name, path in licenses.items():
         shutil.copy2(str(path), str(output / name))
     manifest = json.loads((ROOT / 'dsh/session/bin/icu/icu.json').read_text(encoding='utf-8'))
     manifest['dll_sha256'] = {name: digest(output / name) for name in manifest['dll_sha256']}
     manifest['license_sha256'] = {name: digest(output / name) for name in licenses}
+    if architecture == 'x86':
+        manifest['data_archive'] = dict(url='https://github.com/unicode-org/icu/releases/download/release-78.2/icu4c-78.2-Win32-MSVC2022.zip', sha256=DATA_X86_SHA256)
+        manifest['build']['target'] = 'i686-w64-windows-gnu'
     (output / 'icu.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8')
     provenance = dict(source=SOURCE_COMMIT, toolchainArchiveSha256=TOOLCHAIN_SHA256,
-                      dataArchiveSha256=DATA_SHA256, commands=commands,
+                      dataArchiveSha256=DATA_X86_SHA256 if architecture == 'x86' else DATA_SHA256, commands=commands,
                       compiler=subprocess.check_output([str(compiler), '--version'], encoding='utf-8'),
                       binaries=manifest['dll_sha256'], deterministicPeTimestamp=True)
+    if architecture == 'x86':
+        provenance['architecture'] = architecture
     (output / 'build-provenance.json').write_text(json.dumps(provenance, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(manifest['dll_sha256']), flush=True)
 
@@ -115,9 +125,10 @@ def main():
     parser = argparse.ArgumentParser()
     for name in ('source', 'toolchain', 'toolchain-archive', 'data-archive', 'output'):
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--architecture', choices=('x64', 'x86'), default='x64')
     options = parser.parse_args()
     build(options.source.resolve(), options.toolchain.resolve(), options.toolchain_archive.resolve(),
-          options.data_archive.resolve(), options.output.resolve())
+          options.data_archive.resolve(), options.output.resolve(), options.architecture)
 
 
 if __name__ == '__main__':

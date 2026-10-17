@@ -10,8 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@pytest.fixture(scope='module')
-def flows():
+def observe_flows(architecture):
     if os.name != 'nt':
         pytest.skip('Windows PowerShell policy consumer')
     script = r'''
@@ -45,13 +44,30 @@ foreach($scenario in @('ready','standard','modern','wmf3','pending','install','a
   } catch {$results+=@{scenario=$scenario;error=$_.Exception.Message;steps=@($script:steps.ToArray())}}
 }
 $results | ConvertTo-Json -Depth 8 -Compress
-'''.replace('__SCRIPT__', str(ROOT / 'apps/desktop/installer/prerequisites.ps1').replace("'", "''"))
+'''.replace('__SCRIPT__', str(ROOT / 'apps/desktop/installer/prerequisites.ps1').replace("'", "''")).replace('x64', architecture)
     command = base64.b64encode(script.encode('utf-16-le')).decode('ascii')
     result = subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
                              '-EncodedCommand', command], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                             encoding='utf-8', timeout=60)
     assert result.returncode == 0, result.stderr
     return {row['scenario']: row for row in json.loads(result.stdout)}
+
+
+@pytest.fixture(scope='module')
+def flows():
+    return observe_flows('x64')
+
+
+def test_x86_policy_selects_matching_system_packages_and_preserves_stop_boundaries():
+    rows = observe_flows('x86')
+    for scenario in ('install', 'already'):
+        assert rows[scenario]['code'] == 0
+        assert rows[scenario]['steps'] == ['ssu-x86.msu', 'sha2-x86.msu', 'd3d-x86.msu', 'net472.exe', 'wmf-x86.msu']
+    for scenario in ('reboot', 'reboot-after'):
+        assert rows[scenario]['code'] == 3010 and rows[scenario]['steps'] == ['ssu-x86.msu']
+    assert rows['failure']['steps'] == ['ssu-x86.msu'] and '2149842967' in rows['failure']['error']
+    assert rows['standard']['code'] == 2 and rows['standard']['steps'] == []
+    assert rows['wmf3']['code'] == 3 and rows['wmf3']['steps'] == []
 
 
 @pytest.mark.parametrize('scenario,code', [('ready', 0), ('standard', 2), ('modern', 2), ('wmf3', 3), ('pending', 3010)])
