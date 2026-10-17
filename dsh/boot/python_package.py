@@ -67,7 +67,9 @@ def read_descriptor(directory):
         raise ValueError("unsupported Python plugin API version")
     if tuple(sys.version_info[:3]) < version_tuple(descriptor["minPythonVersion"], "minPythonVersion"):
         raise ValueError("Python version does not satisfy this plugin")
-    host = tuple(int(part) for part in __version__.split("."))
+    # The authored ABI floor is a numeric three-part release, while the host
+    # distribution identity may also carry SemVer prerelease/build metadata.
+    host = tuple(int(part) for part in __version__.split('-', 1)[0].split('+', 1)[0].split('.'))
     if host < version_tuple(descriptor["minHostVersion"], "minHostVersion"):
         raise ValueError("host version does not satisfy this plugin")
     from dsh.boot.python_plugin_dependencies import libraries

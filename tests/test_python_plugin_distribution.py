@@ -24,6 +24,23 @@ EXAMPLE = ROOT / "examples" / "python-echo"
 PACKAGE = "@example/python-echo"
 
 
+@pytest.mark.parametrize('version', ('0.1.5', '0.1.5-rc.3', '0.1.5+build.7', '0.1.5-rc.3+build.7'))
+def test_numeric_plugin_abi_floor_accepts_distribution_metadata(tmp_path, monkeypatch, version):
+    from dsh.boot import python_package
+    monkeypatch.setattr(python_package, '__version__', version)
+    source = tmp_path / 'source'
+    shutil.copytree(str(EXAMPLE), str(source))
+    path = source / 'package.json'
+    manifest = json.loads(path.read_text(encoding='utf-8'))
+    manifest['dsh']['python']['minHostVersion'] = [0, 1, 5]
+    path.write_text(json.dumps(manifest), encoding='utf-8')
+    assert python_package.read_descriptor(str(source))[0]['name'] == PACKAGE
+    manifest['dsh']['python']['minHostVersion'] = [0, 1, 6]
+    path.write_text(json.dumps(manifest), encoding='utf-8')
+    with pytest.raises(ValueError, match='host version'):
+        python_package.read_descriptor(str(source))
+
+
 @pytest.fixture
 def profile(tmp_path, monkeypatch):
     home = tmp_path / "home"

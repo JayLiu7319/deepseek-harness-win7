@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R09-E-python-plugin-version-floor",
+  "status": "targeted-passed",
+  "coverage": [
+    "Numeric three-part Python ABI floor uses the distribution core release; rc/build metadata remains in distribution identity.",
+    "Actual local/ZIP installation, retained upgrades/rollback and dependency ownership consumers executed."
+  ],
+  "native": [
+    {
+      "passed": 107,
+      "failed": 4,
+      "observation": "Four new test assertions incorrectly indexed the descriptor tuple; fixed assertion subsequently rerun.",
+      "xml": {
+        "path": ".goose/out/rc3-python-abi-version-20261017/results.xml",
+        "sha256": "11abd68bb6f8b8ad22c7b572aa6fe413e08fcb3f1f920757ec048f2e77546227"
+      }
+    },
+    {
+      "passed": 4,
+      "failed": 0,
+      "scope": "Corrected ABI floor cases, all four distribution forms and next-release rejection",
+      "xml": {
+        "path": ".goose/out/rc3-python-abi-version-20261017-b/results.xml",
+        "sha256": "14f42aebcc8a1a8903dc12932e67f1cdf3096368ab5cdffc9a7a17990996488b"
+      }
+    }
+  ],
+  "implementation": [
+    {
+      "path": "dsh/boot/python_package.py",
+      "sha256": "d73f822ff5021b1ae7c9192f1e6e7b94fef75a84f4aa547305187a742ebcadda"
+    },
+    {
+      "path": "tests/test_python_plugin_distribution.py",
+      "sha256": "460d99ea807bb8b8d7a0c84f9531764dee907385e2657bd5414ca65ea6a13750"
+    }
+  ],
+  "limitations": [
+    "Targeted verification only; not a unified release qualification."
+  ],
+  "retention": "Initial failed assertions and raw fixture observations retained; completed successful pytest copies auto-pruned."
+}

@@ -402,6 +402,10 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 按指定桌面方案开始 Electron22 适配；先实现13字节大端帧头、64KiB数据块和1MiB控制消息。83组未修改rc.3 Shell/Host实际编解码观察匹配，原生98项测试通过，包含碎片/交错/截断/取消/大小与字段拒绝；13个完整响应编码与原版逐字节一致。JSON语法错误的Python/V8解析器诊断显式不同，其他协议错误严格比较。见 [有限回执](../../migration/candidates/rc3/desktop-wire-current-checks.json)。实际进程、Electron窗口、Standard/AIO和统一资格仍在实施；未构建Portable，成功短夹具自动清理。
 
+### R09-E — Python 插件 ABI 版本下限
+
+生产版本带 `-rc.3` 后，既有插件安装器将整个版本按点分割转整数，导致本地插件验证被阻断。现在只用三段数字核心比较既有 ABI 下限，发行身份仍保留预发布和构建元数据。安装、升级/回滚及依赖消费者107项通过；新增4项最初错误索引 descriptor 元组，修正后单独4项通过，初轮失败留存。见 [有限回执](../../migration/candidates/rc3/python-abi-version-current-checks.json)。不据此声明完整回归或发布验收。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。
