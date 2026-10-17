@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = ('text.txt', 'empty.txt', '中文.txt', 'fixed-time.txt', 'directory', 'metadata-change.txt', 'missing.txt')
 SOURCE_AREAS = ('packages/fs/fs-local', 'packages/fs/fs', 'vendor/cordis', 'packages/typert', 'vendor/schemastery')
 OBSERVER_INPUTS = ('scripts/win32_stat_oracle.py', 'scripts/oracles/win32_stat_source.mts', 'scripts/oracles/win32_stat_python.py') + ('scripts/import_paths.py',)

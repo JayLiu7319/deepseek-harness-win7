@@ -31,16 +31,28 @@ class ControlledModel:
 async def observe(action):
     from dsh.cordis.context import Context
     from dsh.session.projections import SessionProjectionRegistry
-    from dsh.core.agent_loop import AgentLoopPlugin
-    from dsh.core.agent import AgentPlugin
-    from dsh.core.session import SessionPlugin
+    from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+    from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
+    from dsh.core.agent import AgentOptions
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
     from dsh.core.tools import ToolsPlugin
-    from dsh.core.system_prompt import SystemPrompt
+    from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
+    from dsh.llm.runtime_current import CurrentLlmRuntime
+    from dsh.llm.message import create_user_message
 
     ctx = Context()
     SessionProjectionRegistry(ctx)
     model = ControlledModel()
-    ctx.set_service('llm', model)
+    class Adapter:
+        async def resolve_model(self, provider, identifier, signal=None):
+            return dict(provider=provider, id=identifier, name=identifier)
+
+        async def stream(self, options):
+            async for chunk in model.chat_completion_stream(options['messages'], options.get('tools')):
+                yield chunk
+
+    await ctx.plugin(CurrentLlmRuntime)
+    ctx.get('llm').register_adapter(['mock'], Adapter())
     for plugin in (ToolsPlugin, SystemPrompt, SessionPlugin, AgentPlugin, AgentLoopPlugin):
         await ctx.plugin(plugin)
     current = '' if action == 'empty' else 'initial {{value}}'
@@ -57,9 +69,9 @@ async def observe(action):
         parameters=dict(type='object', properties={}, additionalProperties=False), execute=advance,
         output=dict(schema=dict(type='object', properties=dict(changed=dict(type='boolean')),
             required=['changed'], additionalProperties=False), render=lambda *_: [dict(type='text', text='changed')])))
-    parent = await ctx.get('agent_loop').create('parent')
+    parent = await ctx.get('agent_loop').create('parent', options=AgentOptions(provider='mock', model='mock'))
     try:
-        parent.agent.followup('advance context')
+        parent.agent.followup(create_user_message(dict(content=[dict(type='text', text='advance context')], source=dict(kind='user'))))
         await asyncio.wait_for(parent.agent.when_idle(), 10)
         snapshots = [copy.deepcopy(event['data']) for event in parent.agent.session.events
             if event['type'] == 'user/message'

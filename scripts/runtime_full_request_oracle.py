@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 sys.path.insert(0, str(ROOT))
 from scripts.oracles.runtime_full_request_python import NAMES
 SOURCE_INPUTS = {
@@ -26,7 +26,10 @@ SOURCE_INPUTS = {
 REQUIRED_MODULES = {'dsh/core/agent_loop.py', 'dsh/core/runtime_context.py',
     'dsh/core/system_prompt/types.py', 'dsh/core/system_prompt/__init__.py',
     'dsh/core/session/session.py', 'dsh/core/tools.py', 'dsh/cordis/context.py',
-    'dsh/core/agent.py', 'dsh/core/abort.py', 'dsh/llm/llm_service.py'}
+    'dsh/core/agent.py', 'dsh/core/abort.py', 'dsh/llm/llm_service.py',
+    'dsh/core/agent_loop_current.py', 'dsh/core/react_loop_current.py',
+    'dsh/core/agent_current.py', 'dsh/core/session/current_session.py',
+    'dsh/core/system_prompt/current.py', 'dsh/llm/runtime_current.py'}
 
 
 def digest(path):

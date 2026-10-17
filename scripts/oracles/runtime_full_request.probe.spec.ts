@@ -15,7 +15,7 @@ import * as AgentInvariant from '@deepseek-ai/dsh-agent/invariant'
 import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
 import { MockAdapter, textResponse, toolCallResponse } from '../../reference/packages/core/agent-loop/tests/mock-adapter.ts'
 
-const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+const sourceCommit = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 
 describe('actual Source agent runtime context', () => {
   it('preserves complete attributed model and durable messages at every proposed step', async () => {
@@ -63,7 +63,7 @@ await ctx.plugin(AgentLoop, { agents: [] })
           return { changed: true }
         },
       })
-      const parent = ctx.agentLoop.create(SessionId('parent'), { provider: 'mock', model: 'mock',
+      const parent = await ctx.agentLoop.create(SessionId('parent'), { provider: 'mock', model: 'mock',
         ...(configuration === 'max-tokens' || configuration === 'both' ? {maxTokens:17} : {}),
         ...(reasoning ? {reasoningEffort:'high' as any} : {}),
       })

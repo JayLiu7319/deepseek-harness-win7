@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { observeHttp } from './deepseek_error_http.ts'
 
 it('captures complete actual DeepSeek local HTTP failure graphs', async () => {
-  const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+  const sourceCommit = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
   expect(process.version).toBe('v22.22.2')
   expect(execFileSync('git', ['-C', 'reference', 'rev-parse', 'HEAD'], {encoding: 'utf8'}).trim()).toBe(sourceCommit)
   expect(execFileSync('git', ['-C', 'reference', 'status', '--porcelain'], {encoding: 'utf8'}).trim()).toBe('')

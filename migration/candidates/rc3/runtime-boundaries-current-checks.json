@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-B-current-runtime-boundaries",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R11-BOUNDARIES-20261017-B.zip",
+    "bytes": 80190,
+    "sha256": "5e7faff8845ea96bb25becd5a485ed8108a79aafdc0117e34af6ba143f203a62",
+    "members": [
+      {
+        "path": "rc3-r11-boundaries-20261017-f/runtime_context.0.log",
+        "bytes": 236,
+        "sha256": "b99213fa17ae33c4ef0800b08fa7ad0d77729c3acbd963f8d286a5951d88a176"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-f/runtime_context.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-f/runtime_context.json",
+        "bytes": 16278,
+        "sha256": "4afa9f99126fc9bc4dc1e83f77bc4cc2b0fac7a4679df5d74f5a9e031a45e3db"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-f/runtime_context.native.json",
+        "bytes": 39671,
+        "sha256": "014c030a68990110f15d43ea64f4cbe5ac19f94de1802e815d9dcc82a75fcc51"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-f/runtime_context.source.json",
+        "bytes": 24820,
+        "sha256": "60fdef0624f5338efee2b43e72f9634933cb5d40db3c58f68fb99d731ce30cba"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-d/runtime_full_request.0.log",
+        "bytes": 236,
+        "sha256": "95d85959008a42a5474aabc4539d99e6a10397bf3239366241457712c0367450"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-d/runtime_full_request.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-d/runtime_full_request.json",
+        "bytes": 17115,
+        "sha256": "46d771f22a30dcce4ab4340070a161691d43facf450b1bce41572ed1c47485da"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-d/runtime_full_request.native.json",
+        "bytes": 118257,
+        "sha256": "6e65537966b137651959ef2a89172d791725982b0e07d3528f5eacc08c7bdce2"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-d/runtime_full_request.source.json",
+        "bytes": 99957,
+        "sha256": "6432dfda7feb58ca28481929f8ccc11e80c93f53954060d18b6c7c797c096cf6"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/deepseek_error.0.log",
+        "bytes": 236,
+        "sha256": "ac1bdebfaac18f8af80ae38079af8cf9a03f5b93c41e95fd9af5402275682285"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/deepseek_error.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/deepseek_error.json",
+        "bytes": 17418,
+        "sha256": "12b87fd96ae06441c07bfe98f3dfd13d30f2c2ac13858912ae04706c5072f27f"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/deepseek_error.native.json",
+        "bytes": 43353,
+        "sha256": "2b57df5e4f4201533d081f2e300dbb011c07ce52c05941c88d868ba3398dd29c"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/deepseek_error.source.json",
+        "bytes": 26854,
+        "sha256": "fe05513dc10291e8233adf7d3354befcccb5c4fde8a84d4b4905661ad4c67308"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/win32_stat.json",
+        "bytes": 197,
+        "sha256": "dc4f075967f0b287707c9e5b0c472b026ba8c07fe13a4b04e69f8dcb565d0ba0"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/win32_stat.native.json",
+        "bytes": 6663,
+        "sha256": "829709d107cc2d9327c208bf50158851baa81abbd7977e98d8e79eac67471999"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/win32_stat.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/win32_stat.source.json",
+        "bytes": 20878,
+        "sha256": "57edc7401879d45cbf8c66309c084ea4f5f93a74f2bc95f1298d3f808221c850"
+      },
+      {
+        "path": "rc3-r11-boundaries-20261017-a/win32_stat.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-boundary-consumers-20261017/results.xml",
+        "bytes": 24253,
+        "sha256": "45ecb7ee27b7f52d29e03b4e953e0417bf74963603ffb2f8ede97de01134b442"
+      },
+      {
+        "path": "rc3-r11-boundary-consumers-20261017.log",
+        "bytes": 1068,
+        "sha256": "c0f2f26fb5681627e3104baae96164b6ad7fac7301206772d6af8cac6cc9587e"
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "driver": "runtime_context",
+      "cases": 4,
+      "report": "rc3-r11-boundaries-20261017-f/runtime_context.json"
+    },
+    {
+      "driver": "runtime_full_request",
+      "cases": 16,
+      "report": "rc3-r11-boundaries-20261017-d/runtime_full_request.json"
+    },
+    {
+      "driver": "deepseek_error",
+      "cases": 24,
+      "report": "rc3-r11-boundaries-20261017-a/deepseek_error.json"
+    },
+    {
+      "driver": "win32_stat",
+      "cases": 7,
+      "report": "rc3-r11-boundaries-20261017-a/win32_stat.json"
+    }
+  ],
+  "pythonTests": 158,
+  "diagnostics": [
+    "Source runtime probes await the async Agent factory. Native probes use current production Agent, Session, prompt and LLM providers, canonical user messages and an explicit model route; required imported closure includes these providers.",
+    "The original a/b/c/d/e fixture failures remain in their output folders. No fields were excluded or comparison conditions weakened."
+  ],
+  "limits": [
+    "Finite boundary observations only; remaining historical gates and complete release qualification remain pending."
+  ]
+}

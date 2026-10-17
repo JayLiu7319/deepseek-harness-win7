@@ -39,14 +39,15 @@ async def observe(name):
     action, configuration = name.split('/')
     from dsh.cordis.context import Context
     from dsh.session.projections import SessionProjectionRegistry
-    from dsh.core.agent_loop import AgentLoopPlugin
-    from dsh.core.agent import AgentPlugin
-    from dsh.core.session import SessionPlugin
+    from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+    from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
     from dsh.core.agent import AgentOptions
     from dsh.core.abort import AbortSignal
     from dsh.core.tools import ToolsPlugin
-    from dsh.core.system_prompt import SystemPrompt
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
+    from dsh.llm.message import create_user_message
 
     class Adapter:
         def __init__(self):
@@ -98,7 +99,7 @@ async def observe(name):
     parent = await ctx.get('agent_loop').create('parent', options=AgentOptions(provider=options['provider'],
         model=options['model'], max_tokens=options.get('maxTokens'), reasoning_effort=options.get('reasoningEffort')))
     try:
-        parent.agent.followup('advance context')
+        parent.agent.followup(create_user_message(dict(content=[dict(type='text', text='advance context')], source=dict(kind='user'))))
         await asyncio.wait_for(parent.agent.when_idle(), 10)
         snapshots = [copy.deepcopy(event['data']) for event in parent.agent.session.events
             if event['type'] == 'user/message'
