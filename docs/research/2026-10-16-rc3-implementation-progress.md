@@ -563,3 +563,9 @@ Web boot 测试改用实际 canonical profile，按活动 Loader 行与原版声
 9ab3e1dd 的统一门禁完成540项后在交付插件的旧双行组合处停止，保持失败身份。rc3 原版新增原生打开依赖，测试现使用真实 canonical Web profile，先确认 Loader 已激活，再验证提示注册与卸载。安装注册表检查覆盖当前提供端对历史表的覆盖关系；实际客户端图仍由活动 Loader 与包声明核验，不设固定数量。
 
 交付/Host消费者初轮151通过、1项旧清单失败，修正后客户端46项通过。其余1:1运行时消费者预检1063通过、1项既有跳过、1项反馈旧文案失败；确认原版已移除分享提示后，当前反馈Loader与直接消费者49项通过。旧反馈helper的历史身份明确标注，不作为当前合同证据。实际未改Source的交付提示1项及反馈16项通过。各次失败、XML、命令与冻结输入保存在[有限回执](../../migration/candidates/rc3/loader-consumers-current-checks.json)，不拼接为一次完整通过；下一稳定候选重新取得统一资格。
+
+### R11-T / R10-J — 9ab 候选两种架构的实际载体
+
+9ab3e1dd 的确切x64 Portable SHA为 `f656173e7546a43c2cc647d2c0a26dca3d3e8f92d7d3b2955706910d6f92b694`，3条引擎与7条路由的实际Source/native/解压包完整观察一致；x86 ZIP 的13步实际运行通过。两种架构的Standard/AIO均编译成功，各自内置Node16/Python九项前检及实际Electron22客户端五项检查通过，实例正常退出且无renderer/console错误。四个安装器的尺寸和SHA、原始会话/进程报告与截图见[固定候选有限回执](../../migration/candidates/rc3/9ab3-finite-current-checks.json)。不将9ab的失败统一门禁补签为成功，未执行管理员安装、系统补丁、重启或物理Win7验收。
+
+[rc3职责矩阵](../../migration/rc3-capabilities.json)记录297个manifest、199个有效Loader入口和176个拥有入口的manifest；这些数字不是完成或等价数量。原版资源路径、声明的潜在profile可达性与Python入口分别列出，可选云服务、LSP、外部CLI和Agent Teams仍遵循既定独立范围。全量资格由干净dd4b8ba8候选另行执行，历史rc1矩阵及回执不覆盖。

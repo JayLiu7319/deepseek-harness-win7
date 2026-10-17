@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b",
+  "stage": "R11-T-R10-J-fixed-9ab3-finite-observations",
+  "status": "finite-observations-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-9AB3-FINITE-20261017.zip",
+    "bytes": 10351745,
+    "sha256": "a2050265c5c51ec91904e720d1a1df8abb19399ebebbd59e1637c5d43e254917",
+    "members": 108
+  },
+  "portable_archives": {
+    "x64": {
+      "candidate": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b",
+      "path": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-9ab3-retained-artifacts\\dsh-win7-portable-v0.1.5-rc.3.zip",
+      "bytes": 106549335,
+      "sha256": "f656173e7546a43c2cc647d2c0a26dca3d3e8f92d7d3b2955706910d6f92b694"
+    },
+    "x86": {
+      "command": [
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-9ab3-20261017-a\\extracted\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-u",
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\scripts\\portable_runtime_probe.py",
+        "--workspace",
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-9ab3-20261017-a\\workspace",
+        "--architecture",
+        "x86"
+      ],
+      "exit_code": 0,
+      "seconds": 47.76571726799011,
+      "archive": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-portable-x86-9ab3-20261017-a\\dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+      "archiveSha256": "fcc063a4ba95b060ad7adee87db6641146bb9f559153f672bf9883d25123e1d7",
+      "unchanged": true,
+      "candidate": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b"
+    }
+  },
+  "installers": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115437850,
+      "sha256": "e3f789ac2841ab9f342d544627105385d6a9bc481af2fc1d45ee3956ba274c63",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d329a"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423808848,
+      "sha256": "68628205b4fe82a36650d92704dd4082922fc5c59f1efd8b8f14962b3715da59",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d329a"
+    },
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126300842,
+      "sha256": "c5bf7f5c45a5e3ca2c6f95fc2087c024fc865237a23d4fc7ff1fee47de9410be",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d649a"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349197039,
+      "sha256": "09a5105ecd1f861cf83a63b4af5b73c6f3c7d7b9059c1dd7ecd8d7b869871d1b",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d649a"
+    }
+  ],
+  "observations": {
+    "extracted_x64_engine_cases": 3,
+    "extracted_x64_route_cases": 7,
+    "extracted_x86_runtime_steps": 13,
+    "packaged_x86_gui_checks": 5,
+    "packaged_x64_gui_checks": 5,
+    "packaged_pipe_preflight_checks_per_architecture": 9
+  },
+  "installationExecuted": false,
+  "releaseQualified": false,
+  "limits": [
+    "The same9ab3 candidate unified gate failed540/1; these independent observations do not qualify that failed gate or another commit.",
+    "Both installer editions compiled and their shared architecture payload ran; no elevated installation, system prerequisite installation, reboot, offline Win7 journey or uninstall was executed.",
+    "Actual GUI observes renderer isolation, settings RPC, stream cancellation, second instance ownership and graceful shutdown, not every upstream desktop UI scenario."
+  ]
+}
