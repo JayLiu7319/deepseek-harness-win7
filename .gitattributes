@@ -36,3 +36,7 @@ migration/evidence/artifacts/*.zip filter=lfs diff=lfs merge=lfs -text
 migration/storage/*.zip -text
 dsh/host/browser_compat/url.js -text
 dsh/host/browser_compat/url.LICENSE.txt -text
+apps/desktop/wire.cjs -text
+apps/desktop/locale.cjs -text
+apps/desktop/renderer/** -text
+apps/desktop-host/transport.js -text

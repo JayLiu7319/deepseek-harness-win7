@@ -410,6 +410,12 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 四条实际原版界面旅程（Python/Source × Standard/Cordis）均通过 fresh/cold 阶段，覆盖工具、提问、审批、计划、取消及运行时 Cordis 管理。未改 Source 108 显式使用同一宿主能力适配，不声称裸原版可直接运行。12份有限报告与原始宿主观察归档35,945,813字节，逐成员核验CRC和SHA；不复制浏览器配置、运行目录或调试树。见 [有限回执](../../migration/candidates/rc3/browser-standard-cordis-108-checks.json)。交付文件、浮窗及完整发行验收仍在实施。
 
+### R10-B — Electron 22 / Python 3.8 实际桌面宿主
+
+实现无HTTP监听的canonical Desktop组合、二进制stdio载体及独立Electron窗口，复用原版transport、codec、locale和管理页，提供可复现输入构建与SHA清单。管理页沿用本项目本地Python插件ABI，服务时改路径提示，不将npm ABI冒充可用。健康事务在影子配置生成旧/新清单后发布，实际Host就绪才提交；失败和中断恢复旧文件，外部修改保留现场。升级保留canonical历史，设置和会话不参与快照。
+
+实际Electron22.3.27/Chromium108.0.5359.215验证原版主页面、管理IPC、设置RPC、持续流取消、安装、损坏升级的自动回退、移除及重连baseline。两个窗口均保持sandbox/contextIsolation/webSecurity并关闭Node。切换Host期间3条预期control stream网络错误原样保留，稳定阶段零错误。首次慢失败定位为逐UI卸载反复生成大型source map，已复用相同activation revision的不可变产物；后续收到真实import拒绝而非就绪超时。41项组合/消费者、48项事务/重建/HMR定向检查通过。实际内置Node16另验证9项管道行为，包括2MiB上传、12路交错HEAD、取消、无悬挂请求、强制清理venv子进程树后重新取得配置锁和EOF正常退出。见 [有限回执](../../migration/candidates/rc3/desktop-carrier-current-checks.json)。安装包、更新集成、x86及物理Win7资格继续实施；成功短夹具自动清理，失败观察留存，未运行统一发行门禁。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

@@ -58,7 +58,7 @@ class _IndexScripts(HTMLParser):
 class BrowserCompatibilityPlugin(Plugin):
     id = 'browser-compatibility'
     name = '@deepseek-win7/dsh-host-browser-compatibility'
-    inject = ['webServer']
+    inject = []
 
     def apply(self, ctx):
         def inject(rows):

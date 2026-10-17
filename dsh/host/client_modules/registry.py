@@ -13,7 +13,7 @@ import hashlib
 import json
 import os
 import re
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 from dsh.cordis.plugin import Plugin
 from dsh.host.webserver.webserver import HttpResponseWriter, WebServerService
@@ -523,6 +523,7 @@ class ClientModuleRegistry:
         self._responses: Dict[str, Dict[str, Any]] = {}
         self._batch_responses: Dict[str, Dict[str, Any]] = {}
         self._previous_batch_responses: Dict[str, Dict[str, Any]] = {}
+        self._batch_artifacts = {}
         self._listeners: List[Callable[[], None]] = []
         self.rebuild_listeners: List[Callable[[str, str], None]] = []
         self._roster: Set[str] = set(roster) if roster is not None else set(OFFICIAL_WEB_ROSTER)
@@ -742,10 +743,15 @@ class ClientModuleRegistry:
         ]
 
         artifacts: List[Dict[str, Any]] = []
-        for records in partition_combo_records(bootstrap):
-            artifacts.append(build_batch("bootstrap", records))
-        for records in partition_combo_records(application):
-            artifacts.append(build_batch("application", records))
+        next_artifacts = {}
+        for phase, rows in (("bootstrap", bootstrap), ("application", application)):
+            for records in partition_combo_records(rows):
+                key = (phase, tuple((row['id'], row['entry']['rev']) for row in records))
+                artifact = self._batch_artifacts.get(key)
+                if artifact is None:
+                    artifact = build_batch(phase, records)
+                next_artifacts[key] = artifact
+                artifacts.append(artifact)
 
         batch_responses: Dict[str, Dict[str, Any]] = {}
         for artifact in artifacts:
@@ -759,7 +765,13 @@ class ClientModuleRegistry:
             }
         responses = dict(batch_responses)
         for record in table.values():
-            artifact = build_combo([record], record["entry"]["rev"])
+            # An activation revision owns immutable source bytes. Reuse its
+            # original response while unrelated Loader entries come and go.
+            # In particular, rollback must not reserialize every large source
+            # map once for each entry being torn down.
+            artifact = record.get('_single_artifact')
+            if artifact is None or artifact['rev'] != record['entry']['rev']:
+                artifact = record['_single_artifact'] = build_combo([record], record["entry"]["rev"])
             responses[artifact["url"]] = {
                 "body": artifact["script"],
                 "contentType": JAVASCRIPT_CONTENT_TYPE,
@@ -774,6 +786,7 @@ class ClientModuleRegistry:
         self._previous_batch_responses = self._batch_responses
         self._batch_responses = batch_responses
         self._responses = responses
+        self._batch_artifacts = next_artifacts
         self._table = table
 
         batches = [artifact["descriptor"] for artifact in artifacts]
@@ -904,25 +917,31 @@ class ClientModuleRegistry:
         immutable, so the current generation and one prior generation answer;
         every other revision is rejected rather than served newer bytes.
         """
+        resource = self.fetchBundle(request)
+        response.write_status(resource['status'])
+        for key, value in resource['headers'].items():
+            response.write_header(key, value)
+        if resource['body'] is not None:
+            response.write_body(resource['body'])
+        await response.finish()
+
+    def fetchBundle(self, request):
+        """Serve the same advertised bytes over a shell-owned Fetch carrier."""
         method = request.get("method", "GET")
         if method not in ("GET", "HEAD"):
-            response.write_status(405)
-            await response.finish()
-            return
+            return dict(status=405, headers={}, body=None)
 
-        url = self.resource_url(request)
+        if 'url' in request:
+            parsed = urlsplit(request['url'])
+            url = parsed.path + ('?' + parsed.query if parsed.query else '')
+        else:
+            url = self.resource_url(request)
         entry = self._responses.get(url) or self._previous_batch_responses.get(url)
         if entry is not None:
-            response.write_status(200)
-            response.write_header("content-type", entry["contentType"])
-            response.write_header("cache-control", IMMUTABLE_CACHE)
-            if method != "HEAD":
-                response.write_body(entry["body"])
-            await response.finish()
-            return
+            return dict(status=200, headers={'content-type': entry['contentType'], 'cache-control': IMMUTABLE_CACHE},
+                        body=None if method == 'HEAD' else entry['body'])
 
-        response.write_status(404)
-        await response.finish()
+        return dict(status=404, headers={}, body=None)
 
     def boot_injections(self, graph: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         """
@@ -977,17 +996,22 @@ class ClientModulesPlugin(Plugin):
 
     id = "client-modules"
     name = "@deepseek-ai/dsh-client-modules"
-    inject = ["webServer", "loader"]
+    inject = ["loader"]
 
     def apply(self, ctx: Any) -> None:
         from dsh.host.client_modules.loader_registry import LoaderClientModuleRegistry
-        web_server = ctx.get("webServer")
         self.registry = LoaderClientModuleRegistry(ctx)
         ctx.set_service("client_modules", self.registry)
         ctx.set_service("clientModules", self.registry)
 
         # Register /plugins route
-        disposer_route = web_server.register("prefix", "/plugins", self.registry.handle_plugin_request)
+        def web(child):
+            child.effect(lambda: child.get('webServer').register('prefix', '/plugins',
+                self.registry.handle_plugin_request), 'Client Modules Web carrier')
+        if ctx.get('webServer') is not None:
+            web(ctx)
+        else:
+            ctx.inject(['webServer'], web)
 
         # The index rows arrive through the webserver's injection table, so a
         # subscriber reads the live graph at every emit (upstream
@@ -995,9 +1019,4 @@ class ClientModulesPlugin(Plugin):
         def inject_index(table: List[Dict[str, Any]]) -> None:
             table.extend(self.registry.boot_injections())
 
-        disposer_inject = ctx.on("webserver/index-inject", inject_index)
-
-        if hasattr(ctx, "effect"):
-            ctx.effect(lambda: disposer_route)
-            if disposer_inject is not None:
-                ctx.effect(lambda: disposer_inject)
+        ctx.on("webserver/index-inject", inject_index)

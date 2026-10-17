@@ -25,6 +25,42 @@ async def settle():
 
 
 @pytest.mark.asyncio
+async def test_shell_carrier_without_listener_and_late_web_provider(tmp_path):
+    package(tmp_path, '@fixture/desktop')
+    ctx = Context()
+    loader = Loader(ctx, {'baseUrl': str(tmp_path)})
+    await loader.root.update([dict(id='desktop', name='@fixture/desktop')])
+    fiber = await ctx.plugin(ClientModulesPlugin)
+    try:
+        modules = ctx.get('clientModules')
+        assert ctx.get('webServer') is None
+        url = modules.graph()['entries'][0]['url']
+        request = dict(url='dsh-app://app' + url, method='GET')
+        got = modules.fetchBundle(request)
+        assert got['status'] == 200 and b'module.exports' in got['body']
+        assert modules.fetchBundle(dict(request, method='HEAD')) == dict(got, body=None)
+        assert modules.fetchBundle(dict(request, method='POST'))['status'] == 405
+        assert modules.fetchBundle(dict(request, url='dsh-app://app/plugins/events'))['status'] == 404
+        rows = []
+        ctx.emit('webserver/index-inject', rows)
+        assert rows == modules.boot_injections()
+        web = await ctx.plugin(WebServerPlugin, dict(port=0))
+        await settle()
+        server = ctx.get('webServer')
+        assert server.match('/plugins/x') is not None
+        await web.dispose()
+        assert ctx.get('clientModules') is modules
+        assert modules.fetchBundle(request) == got
+        await fiber.dispose()
+        assert modules.closed and ctx.get('clientModules') is None
+        rows = []
+        ctx.emit('webserver/index-inject', rows)
+        assert not rows
+    finally:
+        await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
 async def test_loader_order_duplicate_owners_unload_and_reactivation(tmp_path):
     for name in ('@fixture/z', '@fixture/a', '@fixture/inactive'):
         package(tmp_path, name)

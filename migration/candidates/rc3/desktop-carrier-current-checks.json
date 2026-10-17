@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-B-electron22-python-carrier",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R10-DESKTOP-CARRIER-20261017.zip",
+    "sha256": "0668286b826a5f06c7904100b057f45c0015e4317b89aa395d4d02fbbeb56fe2",
+    "bytes": 141070,
+    "members": [
+      {
+        "path": "rc3-desktop-electron-20261017-e/report.json",
+        "bytes": 74208,
+        "sha256": "eb0fe691410abe7761b76978998dcfe7943a4e2b95472ba316c1e1761713daa2"
+      },
+      {
+        "path": "rc3-desktop-electron-20261017-e/main.png",
+        "bytes": 101275,
+        "sha256": "b12a946d9b6928fcd4b692d87c199cf48b3a6cb7f57ac455782632f0be6e6d3a"
+      },
+      {
+        "path": "rc3-desktop-electron-20261017-e/plugin-manager.png",
+        "bytes": 46555,
+        "sha256": "3cdbe45ee4f2cd709668ffd630ae5993dcb2982ea24fb5b8a68f0f48bbd42a55"
+      },
+      {
+        "path": "rc3-desktop-pipe-node16-20261017/report.json",
+        "bytes": 867,
+        "sha256": "35063ab18a1a5256f2c22b47a331d8f58506d19bfa641161bc700e88a7f00bb2"
+      },
+      {
+        "path": "rc3-desktop-final-targeted-20261017/results.xml",
+        "bytes": 7146,
+        "sha256": "185643cb00c89ad8242a42812f869f137209071a5ac89027263a1bb52ece3bce"
+      },
+      {
+        "path": "rc3-desktop-runtime-consumers-20261017-b/results.xml",
+        "bytes": 6003,
+        "sha256": "63187d476db6811300546cf13b442983007efc68505cb5937bced8053743ff06"
+      }
+    ]
+  },
+  "native": [
+    {
+      "passed": 41,
+      "scope": "Canonical Desktop cold routes, actual Connection, active Loader bundles and provider lifetime",
+      "xml": {
+        "path": ".goose/out/rc3-desktop-runtime-consumers-20261017-b/results.xml",
+        "sha256": "63187d476db6811300546cf13b442983007efc68505cb5937bced8053743ff06"
+      }
+    },
+    {
+      "passed": 48,
+      "scope": "Health publication/rollback/interruption, immutable source-map/bundle bytes and HMR/rebuild consumers",
+      "xml": {
+        "path": ".goose/out/rc3-desktop-final-targeted-20261017/results.xml",
+        "sha256": "185643cb00c89ad8242a42812f869f137209071a5ac89027263a1bb52ece3bce"
+      }
+    }
+  ],
+  "electron": {
+    "version": "22.3.27",
+    "chromium": "108.0.5359.215",
+    "node": "16.17.1",
+    "status": "qualified",
+    "coverage": [
+      "Original browser application plus original manager renderer; real settings RPC and streaming baseline/abort.",
+      "Both real windows confirm nodeIntegration=false, contextIsolation=true, sandbox=true and webSecurity=true.",
+      "Actual management IPC install, broken-import upgrade rejection, old-version restoration, uninstall and post-restart baseline."
+    ],
+    "transitionObservations": "Three expected control-stream network errors during explicit Host replacement are retained; stable phases have zero console errors."
+  },
+  "pipe": {
+    "node": "16.17.1",
+    "status": "qualified",
+    "checks": 9,
+    "coverage": [
+      "Actual Python3.8 binary stdio; interleaved12 HEADs,2MiB upload, live stream abort, evil origin403 and no pending streams.",
+      "Forced Windows process-tree termination releases profile lease; cold restart and EOF exit0."
+    ]
+  },
+  "inputs": [
+    {
+      "path": "dsh/host/desktop/runtime.py",
+      "sha256": "a82bcc3890b42740c21494ac85d351c6ab8f5c942ac62bd3b34abc35817e0685"
+    },
+    {
+      "path": "dsh/host/desktop/process.py",
+      "sha256": "2b3fcda045001115342771cc1ccaa92bb73168a9f2ca15f838d01191c47214d7"
+    },
+    {
+      "path": "dsh/host/desktop/plugins.py",
+      "sha256": "e0ecd663af16cb1fb5d638c92252ab99891e7e4342dc141c16b6a19e67655f09"
+    },
+    {
+      "path": "dsh/host/desktop/health_transaction.py",
+      "sha256": "1eca073da3f3349a5841be8cd282b5bc2152513a1e1142ce6952d4bcf7e19841"
+    },
+    {
+      "path": "dsh/host/client_modules/registry.py",
+      "sha256": "1c21cca37ed63b9ce742f39d93d01e095958504282b6d6f6d858f4caeee2b9e8"
+    },
+    {
+      "path": "dsh/host/browser_compat/plugin.py",
+      "sha256": "521d322aef9e2c14726eaedf9f29ac19ff4589b4451d5d2b46b7ebcb53df17a8"
+    },
+    {
+      "path": "scripts/build_desktop_inputs.mjs",
+      "sha256": "fb0df9e566ecc24f44a627509fa17329aee64c818edef5277ff4a35c3fde188b"
+    },
+    {
+      "path": "scripts/oracles/desktop_process_current.cjs",
+      "sha256": "5b9b60f849d26742cf055bc5d8f1026274db0052291df0d52f55733c14cd38d1"
+    },
+    {
+      "path": "tests/test_desktop_runtime_current.py",
+      "sha256": "951b3fb0268bcc9a8d4588ec2fbddc8778118f2dba1afb9cf2859ddc5ae691ac"
+    },
+    {
+      "path": "tests/test_desktop_health_transaction.py",
+      "sha256": "50e9396b5b722d6c1df034803a891a3cd528d3d71f031dce0888b975f8b20dc0"
+    },
+    {
+      "path": "tests/test_client_modules_loader.py",
+      "sha256": "3f7ea9525c857a27172e279363b164304fedaa8710dfe7623bb2b901e12ae926"
+    },
+    {
+      "path": "apps/desktop/host-process.cjs",
+      "sha256": "b24c477a34b7163f76b808ca1821fe7ed821afb554943fa09b6f27dcccbc4f49"
+    },
+    {
+      "path": "apps/desktop/locale.cjs",
+      "sha256": "c447748305078e603279c81220cc6b031a4344cccb7734217aae6bc5e4dc8958"
+    },
+    {
+      "path": "apps/desktop/main.cjs",
+      "sha256": "0ae187bed6bbf6c471c0f1c034b9f87dd4ff0c26c7b45692366541a42485a91b"
+    },
+    {
+      "path": "apps/desktop/package.json",
+      "sha256": "5d74e85ae3c104fc7e89f7541fd78e977df2c20ed0f5710a92c626125fc8adf5"
+    },
+    {
+      "path": "apps/desktop/preload-app.cjs",
+      "sha256": "789fd27a90b9dc0b718dcab5daa7da1373d9c59e318db175364719a187a32f2d"
+    },
+    {
+      "path": "apps/desktop/preload.cjs",
+      "sha256": "5b7e69d361a5a531bdb98856775b51b50094f1de0f9c7c0f410110a0cc0b7c00"
+    },
+    {
+      "path": "apps/desktop/project-manager.cjs",
+      "sha256": "5bea9394d459500e88284e4dd639fa5bd816b404afd8bf5da12cc7906f089333"
+    },
+    {
+      "path": "apps/desktop/README.md",
+      "sha256": "f902c2ae8c442c4c8cccf330e5552ed7a5b95766462f6b149eb017cf934eede8"
+    },
+    {
+      "path": "apps/desktop/smoke-test.cjs",
+      "sha256": "dd232e6a0a9c17d89198059400b317c96a0f87f1a0d8cf78bcb8f2814185c630"
+    },
+    {
+      "path": "apps/desktop/source-input.json",
+      "sha256": "8028b54977ea687de16e7b3392c602c77342e16ebb281ccd9b62b81ba4bea66b"
+    },
+    {
+      "path": "apps/desktop/tray.png",
+      "sha256": "38cba354eadc03afdb859107720703a8a8932e6f3b4c48c4f64695c924ba3340"
+    },
+    {
+      "path": "apps/desktop/wire.cjs",
+      "sha256": "ee1d386cdc98b6aa3f91b331e0fb19f81784d2652cd17a5b6141f55e1a865379"
+    },
+    {
+      "path": "apps/desktop/renderer/plugin-manager.css",
+      "sha256": "c1ab4b6d85866488b9dc0a3d567ba0384cc811422cdfdfcb39315e041f979704"
+    },
+    {
+      "path": "apps/desktop/renderer/plugin-manager.html",
+      "sha256": "2aec1fb6879181fffc4f0526a6ea6f7316536e2317ffafd882a0a5750b83a531"
+    },
+    {
+      "path": "apps/desktop/renderer/plugin-manager.js",
+      "sha256": "b926486d417b505316b4b506ab61aa70f19f3068f6d3af16d81bcd543106fb95"
+    },
+    {
+      "path": "apps/desktop-host/transport.js",
+      "sha256": "c5bf775cc09a82f083fd1486f61f6e39ca5ab2b95b2490dac0fdfc55bcfee319"
+    }
+  ],
+  "limitations": [
+    "Finite development Desktop qualification; not a packaged archive or complete release acceptance.",
+    "Manager admits the established local Python ABI, not arbitrary upstream npm/native ABI.",
+    "Installer/update integration, x86 runtime and physical Win7 qualification remain open."
+  ],
+  "retention": "Only successful finite reports/screenshots/XML archived; failed boot/console diagnostics preserved locally. Completed short pytest fixtures auto-pruned; no Portable build."
+}
