@@ -136,3 +136,5 @@ R04-J: [logical log export](log-export-current-checks.json): 27 Source pairs, 11
 - R03-O: [workspace instructions](instructions-current-checks.json): 40 Source/native pairs, 47 native passes; Source 151 passes / 3 symlink EPERM failures / 1 skip. Candidate only.
 
 R03-P: [session reference budgets and full snapshots](session-reference-current-checks.json): 36 actual pairs, 101 selected native and 48 unchanged Source passes. Actual cold v3 Agent references and late-provider cancellation covered; production promotion remains open.
+
+R07-E: [coordinated candidate composition](composition-current-checks.json): unchanged rc.3 inputs, active/disabled Loader audit, derived client graph and actual strict Remote conversations plus cross-session reference. Production promotion and browser/release qualification remain open.

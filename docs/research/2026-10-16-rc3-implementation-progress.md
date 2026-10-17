@@ -375,3 +375,7 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 ### R03-P — 会话引用预算与完整快照
 
 候选引用按已组装模型路由和上下文容量自动分配预算，保留64KiB下限；显式预算跳过模型查询，只有缺adapter可降级，其他元数据错误继续拒绝。截断预览附带准确遗漏量及完整不可信投影的spill位置或明确不可用原因；捕获格式代际写入持久上下文，转录每行至多64个Unicode码点。36组实际原版配对、101项原生和48项原版测试通过；真实当前Agent引用冷v3会话、读取完整spill及迟到metadata/read/spill取消均验证。组合旅程暴露的LLM resolveModelInfo公共接口缺口已补齐，初轮配置覆盖及测试路径诊断保留。回执 `migration/candidates/rc3/session-reference-current-checks.json`；生产pin和完整发行签收仍待完成。
+
+### R07-E — 协调候选组合
+
+新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

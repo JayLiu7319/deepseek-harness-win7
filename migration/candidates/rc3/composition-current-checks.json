@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-E-coordinated-candidate-composition",
+  "status": "targeted-passed",
+  "bindings": 52,
+  "artifacts": [
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/inputs.json",
+      "sha256": "57be5102c4a2ad2feb398095741619944063a029fcef1b52081215e031175159"
+    },
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/activation.json",
+      "sha256": "f4c6092a3de68733cce6ffdb85f5262ff526aa90299b1bf745a694e43a041234"
+    },
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/client-graph.json",
+      "sha256": "6626f000bac7e6450b64d203caf469af4d323422d53753af983d01eecb6e94c0"
+    },
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/journeys.json",
+      "sha256": "0772d3285b70a3d30db40ecc42802d47b7d3d937dcce0728aa1632c1421bbc5c"
+    },
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/reference-journey.json",
+      "sha256": "a27b26ae23fc989a129e8b6d0dbab8640e3c6a1deebd6131da80b42946a4227c"
+    },
+    {
+      "path": ".goose/out/rc3-r07-composition-probe-20261017-j/command.json",
+      "sha256": "d090444094c5e1ae090c6d93435d8293c420dd87c4b258b182b49324f20378c2"
+    }
+  ],
+  "implementation": [
+    {
+      "path": "dsh/boot/plugin_registry_current.py",
+      "sha256": "5d077541dcccc9c6852c48ff6b1c0935341b908b1278620576d3f1a2fd9b7d9e"
+    },
+    {
+      "path": "dsh/client/surfaces_current.py",
+      "sha256": "bfa364e7e70edabcdf15ffe7a95079c931d30ef5c3fb3a2510ccb058d105c7cb"
+    },
+    {
+      "path": "scripts/rc3_composition_probe.py",
+      "sha256": "6c701f030f65410864f255be1c9f5dc8d61ce681b68179430d3d37467adc6a02"
+    }
+  ],
+  "coverage": [
+    "Separate clean pinned rc.3 manifests, bundles, presets and official frontend; candidate providers mounted through canonical run_profile.",
+    "All Loader entries active or explicitly disabled; graph derived from actual entries: 53 client rows in this profile.",
+    "Strict generated Typert descriptors drive create/selectModel/prompt for Minimal, Standard, PTC; each reaches actual assistant/message and completed turn/end, flushed to v3 JSONL.",
+    "Second Standard turn references the Minimal session and durably commits session-reference context."
+  ],
+  "limitations": [
+    "156 entries / 129 active is this adapted Python composition observation, not a fixed parity target.",
+    "Source Minimal is shell-only here; retained product two-tool Minimal and Creative still require production profile tests.",
+    "Production bindings, frontend, ledger and pin remain rc.1; no browser, Portable or Desktop acceptance."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r07-composition-probe-20261017-b/",
+    ".goose/out/rc3-r07-composition-probe-20261017-c/",
+    ".goose/out/rc3-r07-composition-probe-20261017-e/",
+    ".goose/out/rc3-r07-composition-probe-20261017-g/",
+    ".goose/out/rc3-r07-composition-probe-20261017-h/"
+  ]
+}
