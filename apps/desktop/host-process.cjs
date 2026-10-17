@@ -131,12 +131,14 @@ class DesktopHostProcess{
     }finally{clearTimeout(timer);}
   }
   terminate(){
-    const child=this.child;if(!child||child.exitCode!==null||!child.pid)return;
-    // venv redirectors on Windows own a second Python process. Terminating
-    // only the redirector leaves that Host and its profile lease alive.
-    if(process.platform==='win32')execFile(join(process.env.SystemRoot||'C:\\Windows','System32','taskkill.exe'),
-      ['/PID',String(child.pid),'/T','/F'],{windowsHide:true},()=>{});
-    else child.kill('SIGKILL');
+    terminateOwnedProcess(this.child);
   }
 }
-module.exports={DesktopHostProcess};
+function terminateOwnedProcess(child){
+  if(!child||child.exitCode!==null||!child.pid)return;
+  // Windows venv redirectors own the actual Python process and its lease.
+  if(process.platform==='win32')execFile(join(process.env.SystemRoot||'C:\\Windows','System32','taskkill.exe'),
+    ['/PID',String(child.pid),'/T','/F'],{windowsHide:true},()=>{});
+  else child.kill('SIGKILL');
+}
+module.exports={DesktopHostProcess,terminateOwnedProcess};

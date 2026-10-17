@@ -5,13 +5,14 @@ const {readFile}=require('node:fs/promises');
 const {Readable}=require('node:stream');
 const {DesktopProjectManager}=require('./project-manager.cjs');
 const {resolveDesktopLocale}=require('./locale.cjs');
+const {desktopHome}=require('./home.cjs');
 
 protocol.registerSchemesAsPrivileged([{scheme:'dsh-app',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:false,stream:true}}]);
 const development=!app.isPackaged;
 const option=name=>{const index=process.argv.indexOf(name);return index<0?undefined:process.argv[index+1];};
 if(!development&&process.argv.some(value=>['--root','--python','--home','--test-output'].includes(value)))throw new Error('Development overrides unavailable in packaged Desktop');
 const root=development?resolve(option('--root')??join(__dirname,'../..')):join(process.resourcesPath,'harness');
-const home=resolve(development&&option('--home')||process.env.DSH_HOME||join(app.getPath('home'),'.dsh'));
+const home=desktopHome(development&&option('--home')||process.env.DSH_HOME,app.getPath('home'));
 app.setPath('userData',join(home,'desktop','electron'));
 const primary=app.requestSingleInstanceLock();
 let mainWindow,pluginWindow,manager,tray,stopping=false,allowQuit=false;

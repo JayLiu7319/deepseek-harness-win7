@@ -1008,10 +1008,7 @@ class ClientModulesPlugin(Plugin):
         def web(child):
             child.effect(lambda: child.get('webServer').register('prefix', '/plugins',
                 self.registry.handle_plugin_request), 'Client Modules Web carrier')
-        if ctx.get('webServer') is not None:
-            web(ctx)
-        else:
-            ctx.inject(['webServer'], web)
+        ctx.inject(['webServer'], web)
 
         # The index rows arrive through the webserver's injection table, so a
         # subscriber reads the live graph at every emit (upstream

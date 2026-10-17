@@ -25,14 +25,21 @@ async def settle():
 
 
 @pytest.mark.asyncio
-async def test_shell_carrier_without_listener_and_late_web_provider(tmp_path):
+@pytest.mark.parametrize('web_first', [False, True])
+async def test_shell_carrier_without_listener_and_late_web_provider(tmp_path, web_first):
     package(tmp_path, '@fixture/desktop')
     ctx = Context()
     loader = Loader(ctx, {'baseUrl': str(tmp_path)})
     await loader.root.update([dict(id='desktop', name='@fixture/desktop')])
+    if web_first:
+        first = await ctx.plugin(WebServerPlugin, dict(port=0))
     fiber = await ctx.plugin(ClientModulesPlugin)
     try:
         modules = ctx.get('clientModules')
+        if web_first:
+            await settle()
+            assert ctx.get('webServer').match('/plugins/x') is not None
+            await first.dispose()
         assert ctx.get('webServer') is None
         url = modules.graph()['entries'][0]['url']
         request = dict(url='dsh-app://app' + url, method='GET')

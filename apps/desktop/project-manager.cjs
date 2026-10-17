@@ -1,6 +1,6 @@
 'use strict';
 const {spawn}=require('node:child_process');
-const {DesktopHostProcess}=require('./host-process.cjs');
+const {DesktopHostProcess,terminateOwnedProcess}=require('./host-process.cjs');
 class DesktopProjectManager{
   constructor(options){this.options=options;this.tail=Promise.resolve();}
   async start(recover=true){
@@ -14,9 +14,9 @@ class DesktopProjectManager{
       if(value!==undefined)args.push('--value',value);if(name!==undefined)args.push('--name',name);
       const child=spawn(python,args,{cwd:root,windowsHide:true,stdio:['ignore','pipe','pipe']});
       let stdout='',stderr='',size=0;
-      const timer=setTimeout(()=>{child.kill();reject(new Error('Desktop package transaction timed out'));},120000);
+      const timer=setTimeout(()=>{terminateOwnedProcess(child);reject(new Error('Desktop package transaction timed out'));},120000);
       for(const [stream,add] of [[child.stdout,text=>{stdout+=text;}],[child.stderr,text=>{stderr+=text;}]]){
-        stream.on('data',chunk=>{size+=chunk.length;if(size>1024*1024){child.kill();reject(new Error('Desktop package diagnostics exceeded limit'));}else add(chunk.toString('utf8'));});
+        stream.on('data',chunk=>{size+=chunk.length;if(size>1024*1024){terminateOwnedProcess(child);reject(new Error('Desktop package diagnostics exceeded limit'));}else add(chunk.toString('utf8'));});
       }
       child.once('error',error=>{clearTimeout(timer);reject(error);});
       child.once('exit',code=>{
