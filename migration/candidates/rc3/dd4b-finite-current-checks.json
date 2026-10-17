@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "dd4b8ba87bfc5ea4948664d469c836279437d098",
+  "stage": "R10-K-fixed-dd4b-desktop-and-retention",
+  "status": "finite-observations-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-DD4B-FINITE-20261017.zip",
+    "bytes": 295053,
+    "sha256": "bebb6c5a14687f9e32424e4c57b46c2a82e70a76cd54af939e63b6d0f3c70184",
+    "members": 33
+  },
+  "portable_archives": {
+    "x64": {
+      "candidate": "dd4b8ba87bfc5ea4948664d469c836279437d098",
+      "path": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-dd4b-retained-artifacts\\dsh-win7-portable-v0.1.5-rc.3.zip",
+      "bytes": 106549335,
+      "sha256": "928af12e35b8272c92f4c02c13fc7541ed3a6ed346688bf5da87c71581599925"
+    },
+    "x86": {
+      "command": [
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-dd4b-20261017-a\\extracted\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "-u",
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\scripts\\portable_runtime_probe.py",
+        "--workspace",
+        "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-dd4b-20261017-a\\workspace",
+        "--architecture",
+        "x86"
+      ],
+      "exit_code": 0,
+      "seconds": 44.578000000008615,
+      "archive": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-portable-x86-dd4b-20261017-b\\dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+      "archiveSha256": "01499a660278329b3823890922f61adfea94728d54c064109f82860cd74d9c4d",
+      "unchanged": true,
+      "candidate": "dd4b8ba87bfc5ea4948664d469c836279437d098"
+    }
+  },
+  "installers": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115441648,
+      "sha256": "9f433de1d1158cd7a4e733aa55d1b2bc58d95509f1a22e8a119584e75e8f5790",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32da"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423826080,
+      "sha256": "3f6d6dfa966d22cc1ac769f17482fb450dec76df178f1a81ec5543f6260ffdaa",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32da"
+    },
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126314869,
+      "sha256": "f08849c013d2e838fee0fa348ae6ad71ea1d4b064afc091c3e2c19b5719485d5",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64da"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349219962,
+      "sha256": "b514cd98ce934fa3b6d0945cb6dfdee63fc68ebe9eb54089cd8f2e6618690a42",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64da"
+    }
+  ],
+  "packaged_gui": {
+    "x86": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown"
+      ],
+      "rendererExceptions": 0,
+      "consoleErrors": 1
+    },
+    "x64": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown"
+      ],
+      "rendererExceptions": 0,
+      "consoleErrors": 1
+    }
+  },
+  "staged_copy_cleanup": {
+    "files": 23,
+    "bytes": 833624527,
+    "audit": "rc3-completed-prerequisite-retention-20261017-a/audit.json"
+  },
+  "installationExecuted": false,
+  "releaseQualified": false,
+  "limits": [
+    "The dd4b unified gate remains failed2762/1skip/1failure. No later code is qualified by these finite observations.",
+    "Both GUI observers passed five explicit checks. Both x86 and x64 captured one each control-stream network RemoteError after the stable assertions; exact receive phase was not stamped, so zero console errors across the full lifecycle is not claimed. Raw error and stack remain unmodified.",
+    "The first x86 Portable command used an absent operator input path and failed before staging; the corrected independent build and13-step runtime passed.",
+    "Only completed staged prerequisite copies were pruned after fixed original/member hashes matched; installers, external originals, build reports and raw observations remain. No administrator installation, patch, reboot or Win7 certification."
+  ]
+}

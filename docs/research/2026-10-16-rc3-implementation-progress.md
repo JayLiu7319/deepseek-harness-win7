@@ -575,3 +575,9 @@ Web boot 测试改用实际 canonical profile，按活动 Loader 行与原版声
 dd4b8ba8 统一门禁2762通过、1项既有跳过后在旧images描述符断言处停止。直接组合进一步暴露提供端遗漏：未注册生成artifact时，当前commands仍继承旧images参数。现显式声明原版submittedAttachments参数，并通过相同业务实现执行；当前Session/Typert的两种描述符模式均拒绝旧images字段，正确执行、序列化并撤销注册。
 
 直接组合/附件48项、Remote/上传/Session命令等153项以及实际未改Source commands55项通过。初轮2失败/46通过、第二轮1失败/47通过原样保留，见[有限回执](../../migration/candidates/rc3/command-remote-current-checks.json)。本批先对尚未执行到的Python迁移回归集中诊断，待稳定后再运行统一资格；不将失败门禁与后续片段拼接签收。
+
+### R10-K — dd4b 固定载体与已完成副本保留
+
+dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信前检和五项实际打包 GUI 检查；x86 Portable 完成13步运行。两个 GUI 报告各在稳定断言之后记录一条 control-stream network RemoteError，确切接收阶段尚无时间戳，不能宣称完整退出过程无 console 错误；原始错误栈保留，后续定位与最终候选复验另列。dd4b 统一门禁仍是2762通过/1跳过/1失败，未执行管理员安装或物理Win7验收。见[固定候选有限回执](../../migration/candidates/rc3/dd4b-finite-current-checks.json)。
+
+三个较早已完成桌面构建的23份前置组件暂存副本，在固定原始下载及解包成员SHA逐项匹配、无重解析点或硬链接后清理，共833,624,527字节；原始下载、安装器、构建记录和失败观察保留。清理审计与本次载体报告归入同一有限档案。

@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
-  "code_candidate": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b",
   "scope": "Current rc3 manifest responsibility and effective registration inventory. Actual finite receipts and unified qualification remain separate; this is not297-package or arbitrary plugin ABI certification.",
   "inputs": [
     {
@@ -47,15 +46,18 @@
     "Desktop follows the specified Electron22/Python3.8 Win7 carrier and separate Standard/AIO prerequisite policy."
   ],
   "qualification": {
-    "unified": "pending",
+    "unified": "pending-after-failed-dd4b-gate",
     "desktop_installation": "not-executed",
     "win7": "deferred-by-user",
     "real_cloud_providers": "not-verified",
     "finite_receipts": [
       "migration/candidates/rc3/9ab3-finite-current-checks.json",
-      "migration/candidates/rc3/loader-consumers-current-checks.json"
+      "migration/candidates/rc3/loader-consumers-current-checks.json",
+      "migration/candidates/rc3/dd4b-finite-current-checks.json"
     ],
-    "unified_candidate": "dd4b8ba87bfc5ea4948664d469c836279437d098"
+    "unified_candidate": null,
+    "last_failed_candidate": "dd4b8ba87bfc5ea4948664d469c836279437d098",
+    "diagnostic_candidate": "551880c9830264b99ee7eb304103ba79d5146216"
   },
   "manifests": [
     {
@@ -6127,5 +6129,6 @@
       "policy": "owner/provider/consumer scope; registration and literal reachability do not certify parity",
       "parity": "not-certified-by-inventory"
     }
-  ]
+  ],
+  "registration_audit_candidate": "9ab3e1dd85fb09a0a5064aeac0f9583f78b65e3b"
 }
