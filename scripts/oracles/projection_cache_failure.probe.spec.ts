@@ -16,13 +16,14 @@ it('observes real durable cache schema failures separately from prepared fallbac
     const root = join(process.env.PROJECTION_CACHE_WORKSPACE!, name)
     const document = join(root, 'session_projcache', 'sessions', 'owned.json')
     await mkdir(join(root, 'session_projcache', 'sessions'), {recursive: true})
-    const header = {version: 0, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd',isSeeded:false}
-    const record = {identity: {createdAt: name === 'cold-foreign-identity' ? 8 : 9,
+    const header = {version: 3, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd',isSeeded:false}
+    const record = {identity: {formatVersion: 3, isSeeded: false, inheritedEventCount: 0,
+      createdAt: name === 'cold-foreign-identity' ? 8 : 9,
       cwd: name === 'cold-foreign-cwd' ? '/foreign/cwd' : header.cwd},
       rows: name === 'cold-empty' ? {} : {'controlled/count': {
         ver: name === 'cold-version-mismatch' ? 0 : 1, seq: name === 'cold-beyond-log' ? 2 : 0,
         val: name.endsWith('malformed') ? 'bad' : 7}}}
-    await writeFile(document, JSON.stringify({version: 4, record}))
+    await writeFile(document, JSON.stringify({version: 7, record}))
     const ctx = new Context()
     const applied: number[] = []
     const parserFailure = name === 'prepared-runtime-malformed'

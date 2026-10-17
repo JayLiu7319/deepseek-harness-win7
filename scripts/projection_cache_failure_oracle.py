@@ -15,7 +15,9 @@ INPUTS = ['scripts/projection_cache_failure_oracle.py', 'scripts/oracles/project
     'scripts/oracles/projection_cache_failure.probe.spec.ts', 'scripts/oracles/vitest.projection-cache-failure-probe.config.mts',
     'scripts/oracles/vitest.storage-cache.config.mts', 'scripts/oracles/vitest.agent-lifecycle.config.mts',
     'scripts/oracles/vitest.consumers.config.mts', 'scripts/oracles/official/package-lock.json',
-    'dsh/session/projection_cache.py', 'dsh/session/projections.py', 'dsh/storage/domain_impl.py',
+    'dsh/session/projection_cache.py', 'dsh/session/projection_cache_current.py',
+    'dsh/core/session/current_session.py', 'dsh/core/session/types.py',
+    'dsh/session/projections.py', 'dsh/storage/domain_impl.py',
     'dsh/storage/domain_spec.py', 'dsh/storage/storage_json.py', 'dsh/core/session/session.py',
     'reference/packages/session/session-projection-cache/src/index.ts',
     'reference/packages/session/session-projection-cache/src/spec.ts',
@@ -37,10 +39,9 @@ def expected():
             observed['error'] = {'name': 'TypeError', 'message': 'controlled invalid cache value', 'sameParserFailure': True}
         else:
             observed['snapshot'] = {'asOfSeq': 1, 'values': {'controlled/count': 8 if name == 'cold-matching' else 2}}
-        identity = {'createdAt': 9, 'cwd': '/controlled/cwd'}
-        if not malformed:
-            identity.update(isSeeded=False, inheritedEventCount=0)
-        observed['document'] = {'version': 4 if malformed else 5, 'record': {'identity': identity,
+        identity = {'formatVersion': 3, 'createdAt': 9, 'cwd': '/controlled/cwd',
+            'isSeeded': False, 'inheritedEventCount': 0}
+        observed['document'] = {'version': 7, 'record': {'identity': identity,
             'rows': {'controlled/count': {'ver': 1, 'seq': 0 if malformed else 1,
                 'val': 'bad' if malformed else 8 if name == 'cold-matching' else 2}}}}
         rows.append({'name': name, 'observed': observed})

@@ -18,9 +18,9 @@ sys.path.insert(0, str(ROOT))
 import dsh
 from dsh.cordis import Context
 from dsh.core.session import SessionHeader
-from dsh.core.session.session import Session, SessionPlugin
+from dsh.core.session.current_session import CurrentSession as Session, CurrentSessionPlugin as SessionPlugin
 from dsh.session.projections import SessionProjectionsPlugin
-from dsh.session.projection_cache import SessionProjectionCachePlugin
+from dsh.session.projection_cache_current import CurrentSessionProjectionCachePlugin as SessionProjectionCachePlugin
 from dsh.storage.hub import StoragePlugin
 from dsh.storage.plugins import StorageJsonPlugin, StorageDomainPlugin
 
@@ -32,13 +32,14 @@ async def observe(workspace):
         root = workspace / name
         document = root / 'session_projcache/sessions/owned.json'
         document.parent.mkdir(parents=True, exist_ok=True)
-        header = SessionHeader('owned', created_at=9, cwd='/controlled/cwd')
-        record = {'identity': {'createdAt': 8 if name == 'cold-foreign-identity' else 9,
+        header = SessionHeader('owned', version=3, created_at=9, cwd='/controlled/cwd')
+        record = {'identity': {'formatVersion': 3, 'isSeeded': False, 'inheritedEventCount': 0,
+            'createdAt': 8 if name == 'cold-foreign-identity' else 9,
             'cwd': '/foreign/cwd' if name == 'cold-foreign-cwd' else header.cwd},
             'rows': {} if name == 'cold-empty' else {'controlled/count': {
                 'ver': 0 if name == 'cold-version-mismatch' else 1,
                 'seq': 2 if name == 'cold-beyond-log' else 0, 'val': 'bad' if name.endswith('malformed') else 7}}}
-        document.write_text(json.dumps({'version': 4, 'record': record}), encoding='utf-8')
+        document.write_text(json.dumps({'version': 7, 'record': record}), encoding='utf-8')
         context, applied = Context(), []
         parser_failure = (RuntimeError('controlled runtime cache value') if name == 'prepared-runtime-malformed'
                           else TypeError('controlled invalid cache value'))

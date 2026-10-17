@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-Y-current-profile-cache-and-shutdown",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-PROFILE-CACHE-LIFECYCLE-20261017.zip",
+    "bytes": 1469766,
+    "sha256": "20eff2494cba81dc4de5a45b950f5546378bfb90c7c2b59d53b67bf701090486",
+    "members": 23
+  },
+  "inputSha256": {
+    "dsh/core/agent_loop_current.py": "3efe58ca249523019b3b1a084db00db391bf1f986a7740d701122f7e07e8462a",
+    "tests/test_current_profile_shutdown.py": "19990bcdc30316e25f77c1f94ea090f1940506b885a6ce9f8e3ec8ce63088095",
+    "tests/test_profile_spine_recovery.py": "68a7b608e66ce4e0d9ee89a3dad2007ab9670eff7501c459bfbd9b3feb57b36c",
+    "tests/profile_llm_fixture.py": "aa425ae1209d135fbd0f55076f189af45e396ad371e580c491ed0a7fd2cc87e3",
+    "scripts/projection_cache_failure_oracle.py": "2b623b7ece64c3d0e5efcf1d81dbc63780a3477dcdf2a73d50c7cd7c95d2b289",
+    "scripts/oracles/projection_cache_failure_python.py": "73a25f87ec3af3b2626be3694e531b86de4197106915967619c70ebb3c0f21a7",
+    "scripts/oracles/projection_cache_failure.probe.spec.ts": "aed8a77f9d01b57009b9cb47b88016a27a0acec16af705048857bd53dafadbe5"
+  },
+  "verification": [
+    {
+      "scope": "Current Agent machine/lifecycle/projections, real Web profile shutdown and cold persistence",
+      "tests": 171,
+      "passed": 171,
+      "seconds": 14.42
+    },
+    {
+      "scope": "Original/native durable cache malformed/matching/identity/cut cases and observer rejection controls",
+      "passed": 21,
+      "paired_cases": 9
+    },
+    {
+      "scope": "Unmodified Source cache tests",
+      "passed": 25,
+      "seconds": 6.06
+    },
+    {
+      "scope": "Actual original browser exported session plugin restart/upgrade/rollback/removal",
+      "steps": 23,
+      "passed": true,
+      "host_exit_code": 0,
+      "host_errors": "",
+      "renderer_errors": 0,
+      "console_errors": 0
+    }
+  ],
+  "limitations": [
+    "Targeted checks only; full qualification pending.",
+    "The original shutdown failure and the intermediate invalid plugin initialization attempt remain failures in the archive.",
+    "Projection cache fixtures now bind current Session v3 and cache generation v7; durable parser failure identity and strict nine-case comparison remain mandatory.",
+    "The app/stopping listener drains Agent-owned transactions before concurrent provider teardown; explicit plugin unload and existing per-Session checkpoint drain remain covered by the Agent regressions."
+  ]
+}

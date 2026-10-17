@@ -6,6 +6,12 @@ from dsh.core.react_loop_current import ReactLoopAgent
 
 
 class CurrentAgentLoopService(CurrentAgentLifecycleService):
+    def __init__(self, ctx, config=None):
+        super().__init__(ctx, config)
+        # Profile shutdown retires Agents before concurrent provider teardown.
+        # Their final writer/cache barriers still need the live service graph.
+        ctx.on('app/stopping', self.teardown)
+
     async def _publish_preparation(self, tx, preparation, options, setup, source):
         session = preparation.session
         tx.assert_live()

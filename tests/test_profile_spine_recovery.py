@@ -5,6 +5,8 @@ import pytest
 import yaml
 from dsh.boot.profile import init_profile
 from dsh.boot.profile_boot import run_profile
+from dsh.llm.message import create_user_message
+from dsh.core.agent import AgentOptions
 from test_e2e_core_spine_strict_parity import StrictMockLlmAdapter
 
 @pytest.mark.asyncio
@@ -28,17 +30,23 @@ async def test_profile_tool_turn_persists_and_resumes_after_shutdown(tmp_path):
     adapter = ctx.get('llm')
     ctx.get('tools').register_tool(name='multiply', description='Multiply', parameters={'type':'object'},
                                    handler=lambda args: str(args['a'] * args['b']))
-    handle = await ctx.get('agent_loop').create_agent('profile-recovery', meta={'cwd':str(tmp_path)})
+    model = AgentOptions(provider=adapter.provider, model=adapter.model)
+    handle = await ctx.get('agent_loop').create_agent('profile-recovery', options=model, meta={'cwd':str(tmp_path)})
     try:
-        handle.agent.followup('Compute 6 * 7')
+        handle.agent.followup(create_user_message(dict(content=[dict(type='text', text='Compute 6 * 7')], source=dict(kind='user'))))
         await handle.agent.when_idle()
         assert len(adapter.requests) == 2
         events = handle.agent.session.events
         assert any(e['type'] == 'tool/result' for e in events)
         assert '42' in json.dumps(events)
         await handle.agent.session.flush()
-        saved = await ctx.get('sessionPersistence').load('profile-recovery')
-        assert any(e['type'] == 'tool/result' for e in saved.events)
+        reader = await ctx.get('sessionPersistence').open('profile-recovery', 'read')
+        try:
+            saved = await reader.read()
+            assert reader.header['version'] == 3
+            assert any(e['type'] == 'tool/result' for e in saved['events'])
+        finally:
+            await reader.close()
     finally:
         await handle.dispose()
         first['shutdown'].shutdown(0)
@@ -51,10 +59,10 @@ async def test_profile_tool_turn_persists_and_resumes_after_shutdown(tmp_path):
     continuation = StrictMockLlmAdapter([{'text':'Recovered the previous answer: 42.'}])
     fresh.get('llm').responses.extend(continuation.responses)
     continuation = fresh.get('llm')
-    restored = await fresh.get('agent_loop').resume('profile-recovery')
+    restored = await fresh.get('agent_loop').resume('profile-recovery', options=model)
     try:
         assert any(e['type'] == 'tool/result' for e in restored.agent.session.events)
-        restored.agent.followup('What was the result?')
+        restored.agent.followup(create_user_message(dict(content=[dict(type='text', text='What was the result?')], source=dict(kind='user'))))
         await restored.agent.when_idle()
         assert '42' in json.dumps(continuation.requests)
         await restored.agent.session.flush()

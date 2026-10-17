@@ -605,3 +605,9 @@ dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信
 真实HTTP旅程按当前默认组合调用read/file_path与deepseek-flash，检查实际工具结果及新进程冷恢复；显式自定义editor组合仍单独覆盖。三个pi-ai协议同样改用当前read，重试与持久化验证session.v3文件、version3 header和无退休chunk行。JSONL注册表测试真正挂载已解析的当前provider，拥有writer的append/flush/close和冷reader，保留惰性落盘及两个物理校验帧检查；其余显式历史provider测试不作为当前资格。
 
 最终23项通过。初轮36通过/3失败、第二轮100通过/2失败均原样保留；后者包含不适用于一次性任务的Minimal CLI实验和测试漏导入json，未修改产品去兼容这些错误调用。见[有限回执](../../migration/candidates/rc3/headless-jsonl-current-checks.json)。未把旧候选的诊断与这些定向检查合并为全量通过。
+
+### R11-Y — 当前 profile 恢复、缓存读取与退出排空
+
+自定义 profile 恢复旅程改为显式模型、有身份的用户消息及拥有的持久化句柄；仅 LLM 使用当前 prepareCall/stream 测试替身。缓存观察器两侧改用当前 v3 Session、v7 完整格式身份，九种真实 JSON domain 场景仍严格比较解析异常身份、prepared 回退、应用切分和磁盘字节语义；21项消费者与未改 Source 的25项缓存测试通过。
+
+真实 Web profile 的四个存活会话退出稳定复现缓存关闭/writer关闭竞争。当前 Agent 工厂在 app/stopping 阶段先排空其拥有的事务，让最终写入仍能使用活跃提供端，再进入并发卸载。171项 Agent/投影/持久化/冷恢复回归通过，实际原版浏览器的会话级导出插件23步升级、回退与移除旅程通过，Host退出0且无缓存、renderer或console错误。原始失败和中间初始化失败均保留，见[有限回执](../../migration/candidates/rc3/profile-cache-lifecycle-current-checks.json)。最终安装包和单次统一资格仍待完成。
