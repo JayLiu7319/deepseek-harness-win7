@@ -1,5 +1,6 @@
 """rc.3 one-shot spawn/fork consumers of explicit Agent setup and ownership."""
 import uuid
+from dsh.cordis.awaiting import await_callback_result
 
 from dsh.core.react_loop_current import ReactLoopAgent
 from dsh.subagent.in_process import InProcessRun, InProcessProvider, SpawnInProcess, ForkInProcess
@@ -42,7 +43,7 @@ async def start_run(request, seed=None):
                    agentOptions=child_options(parent, request.get('agentOptions'), depth), signal=signal, setup=setup)
     if seed is not None:
         options.update(seed=seed, inheritedEventCount=boundary)
-    handle = await parent.ctx.get('agents').create(options)
+    handle = await await_callback_result(parent.ctx.get('agents').create(options))
     return InProcessRun(handle, signal, request['prompt'], boundary, structured,
                         output_reader=final_assistant_output, eager_start=ReactLoopAgent._start)
 

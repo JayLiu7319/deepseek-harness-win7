@@ -4,6 +4,7 @@ import copy
 import logging
 
 from dsh.cordis.plugin import Plugin
+from dsh.cordis.awaiting import start_coroutine
 from dsh.core.session import snapshot_json_value
 from dsh.core.session.types import SessionLogOffset, _is_safe_non_negative_int
 from dsh.storage.domain_spec import define_domain, domain_table
@@ -54,6 +55,7 @@ class SessionProjectionCache:
     def __init__(self, ctx, table, config):
         self.ctx, self.table, self.config = ctx, table, config
         self.dirty, self.tasks = {}, set()
+        self.writes = {}
         self.closed = False
 
     def _rows(self, header, inherited_event_count):
@@ -117,7 +119,15 @@ class SessionProjectionCache:
 
         # Enter the event loop at call time so an explicitly awaited write
         # cannot overtake an earlier fire-and-forget creation checkpoint.
-        return asyncio.create_task(commit())
+        pending = start_coroutine(commit())
+        writes = self.writes.setdefault(session, set())
+        writes.add(pending)
+        def settled(job):
+            writes.discard(job)
+            if not writes and self.writes.get(session) is writes:
+                self.writes.pop(session, None)
+        pending.add_done_callback(settled)
+        return pending
 
     def _schedule(self, coroutine):
         if self.closed:
@@ -151,7 +161,11 @@ class SessionProjectionCache:
             state[1] = asyncio.get_running_loop().call_later(
                 self.config["writeIntervalMs"] / 1000, lambda: self._schedule(self.write(session)))
 
-    async def drain(self):
+    async def drain(self, session=None):
+        if session is not None:
+            while self.writes.get(session):
+                await asyncio.gather(*list(self.writes[session]), return_exceptions=True)
+            return
         if self.tasks:
             await asyncio.gather(*list(self.tasks), return_exceptions=True)
 

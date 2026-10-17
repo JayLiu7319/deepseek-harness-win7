@@ -200,6 +200,53 @@ async def test_teardown_aggregates_scope_and_durability_failures_without_registr
     finally:await ctx.fiber.dispose()
 
 
+@pytest.mark.asyncio
+async def test_retirement_joins_only_its_admitted_checkpoint_flush(tmp_path, caplog):
+    from dsh.storage.hub import StoragePlugin
+    from dsh.storage.plugins import StorageJsonPlugin, StorageDomainPlugin
+    from dsh.session.projection_cache_current import CurrentSessionProjectionCachePlugin
+    ctx, fiber, factory, persistence = await mount(tmp_path)
+    for plugin, config in ((StoragePlugin, {}),
+                           (StorageJsonPlugin, dict(root=str(tmp_path / 'storage'))),
+                           (StorageDomainPlugin, dict(backend='json')),
+                           (CurrentSessionProjectionCachePlugin, dict(writeEveryEvents=100, writeIntervalMs=60000))):
+        await ctx.plugin(plugin, config)
+    cache = ctx.get('sessionProjectionCache')
+    first = await factory.create_agent('first')
+    other = await factory.create_agent('other')
+    await cache.drain(first.agent.session)
+    await cache.drain(other.agent.session)
+    entered = {name: asyncio.Event() for name in ('first', 'other')}
+    release = {name: asyncio.Event() for name in ('first', 'other')}
+    async def barrier(session):
+        entered[session.id].set()
+        await release[session.id].wait()
+    remove = ctx.on('session/flush', barrier)
+    writes = [cache.write(handle.agent.session) for handle in (first, other)]
+    closing = None
+    try:
+        await asyncio.wait_for(asyncio.gather(*(event.wait() for event in entered.values())), 2)
+        closing = asyncio.create_task(first.dispose())
+        await asyncio.sleep(0)
+        assert not closing.done()
+        assert persistence.tracker.writers['first']._closing is None
+        release['first'].set()
+        await asyncio.wait_for(closing, 2)
+        assert not writes[1].done()
+        assert ctx.get('sessions').get('first') is None
+        assert ctx.get('sessions').get('other') is other.agent.session
+        assert 'Checkpoint write failed' not in caplog.text
+    finally:
+        for event in release.values():
+            event.set()
+        await asyncio.gather(*writes)
+        if closing is not None:
+            await closing
+        remove()
+        await other.dispose()
+        await ctx.fiber.dispose()
+
+
 @pytest.mark.parametrize('kind',['absent','ordinary-file-not-found','corrupt','backend-failure'])
 @pytest.mark.asyncio
 async def test_configured_restore_only_creates_after_typed_absence(tmp_path,kind):

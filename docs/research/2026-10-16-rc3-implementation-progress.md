@@ -521,3 +521,9 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 1030项实际Source/native观察完全匹配，覆盖zstd/明文、整批/拆批append、物理帧哈希、互读冷恢复，以及stat/read/list/suffix/header五种当前元数据入口。保留43条边界配方，移除观察器对已退休chunk-rows的依赖，实际挂载当前后端。配对曾揭示4项真实物理哈希差异：Python按调用方字典顺序编码v3 header，原版会重建固定字段顺序；编码和物理解码现按原版次序生成。766项JSONL、格式及观察器消费者通过。
 
 各轮失败、成功两侧原始观察及互读文件见 [有限回执](../../migration/candidates/rc3/jsonl-provider-current-checks.json)。这不是统一发行通过；干净引擎/路由候选另外发现关闭句柄后的checkpoint flush，继续修复，未把失败运行改为成功。
+
+### R11-M 定向 — 引擎、路由与关闭竞态
+
+干净fec7候选的两条完整观察均严格拒绝：子会话最终checkpoint仍等待flush，写句柄已开始关闭。Python适配现按Session跟踪已接纳的缓存写入，退出先等待自己的写入，再关闭拥有的writer；暂停flush的真实回归验证该边界，并确认无关Session的写入不会阻塞退出。未过滤警告或吞掉持久化失败。动态inject尚未激活时就开始子Agent的首个请求，另导致file-reference提示和模型选择工具缺失；当前in-process调用补齐原版Promise等待边界，首次请求完整继承组合。
+
+当前3条引擎和7条路由开发旅程已完整匹配，165项相关回归通过。比较器扩展v3历史内system消息的UUID关联及精确实现目录文字归一，catalog childId只在等于已登记子身份时归一；其余请求、提示词、工具顺序及事件仍完整比较。present字段说明和list_agents的steering说明按实际原版补齐。见 [有限回执](../../migration/candidates/rc3/engine-route-targeted-checks.json)。此批尚未取得新干净提交及实际解压Portable资格；此前失败与中间诊断不重标。

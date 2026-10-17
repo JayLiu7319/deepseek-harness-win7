@@ -5,6 +5,22 @@ import inspect
 from typing import Any, Optional
 
 
+def start_coroutine(coroutine: Any) -> Any:
+    """Enter a framework-owned async call before returning its Promise analogue."""
+    loop = asyncio.get_running_loop()
+    try:
+        awaited = coroutine.send(None)
+    except StopIteration as stop:
+        result = loop.create_future()
+        result.set_result(stop.value)
+        return result
+    except BaseException as error:
+        result = loop.create_future()
+        result.set_exception(error)
+        return result
+    return loop.create_task(resume_coroutine(coroutine, awaited))
+
+
 async def resume_coroutine(listener: Any, awaited: Any) -> Any:
     """Continue a coroutine already entered by emit, preserving its suspension."""
     while True:

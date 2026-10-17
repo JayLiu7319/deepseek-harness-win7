@@ -63,6 +63,12 @@ class CurrentFactoryTransaction(FactoryTransaction):
                 if self.scope is not None:await self.scope.dispose()
             except BaseException as error:failures.append(error)
             try:
+                # Python continuations can still own the final turn's flush
+                # after machine idle. Join that session's admitted cache cuts
+                # before closing its writer; unrelated sessions remain free.
+                cache = self.factory.ctx.get('sessionProjectionCache')
+                if cache is not None and self.agent is not None:
+                    await cache.drain(self.agent.session)
                 if self.stored is not None:await self.stored['handle'].close()
             except BaseException as error:failures.append(error)
             for detach in (self.detach_agent,self.detach_session):

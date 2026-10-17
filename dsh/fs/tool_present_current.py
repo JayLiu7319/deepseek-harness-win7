@@ -28,7 +28,8 @@ class CurrentToolPresent(Plugin):
             raise ValueError('present requires a positive integer maxFiles')
         pending = WeakKeyDictionary()
         file_schema = dict(type='object', additionalProperties=False,
-                           properties=dict(path=dict(type='string'), description=dict(type='string')),
+                           properties=dict(path=dict(type='string', description='Path of an existing regular file. Relative paths use the Session working directory.'),
+                                           description=dict(type='string', description='Brief description for the user.')),
                            required=['path'])
 
         async def execute(arguments, execution):

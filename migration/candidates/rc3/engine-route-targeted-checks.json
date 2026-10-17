@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-M-engine-route-targeted",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-ENGINE-ROUTE-TARGETED-20261017.zip",
+    "bytes": 15912186,
+    "sha256": "bb4a614fb41c61f29475446e79f42babb7aba48f894698fe40afa22036171c69",
+    "members": [
+      {
+        "path": "rc3-checkpoint-consumers-20261017-a/results.xml",
+        "bytes": 29357,
+        "sha256": "9d02c01dfbab1d71bf2c9a20ccd8f378f94c367402fb479ee10260faaaefb226"
+      },
+      {
+        "path": "rc3-checkpoint-consumers-20261017-b/results.xml",
+        "bytes": 23262,
+        "sha256": "af4b93c4f3343450e538f27a14e0c99317496182e3daea7f433a42464621ad60"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-a/native.json",
+        "bytes": 2481583,
+        "sha256": "da56d649b2334e12af605de58a51dd1634ffefc23fec36aeae88cae21dbc1bbb"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-b/native.json",
+        "bytes": 2481583,
+        "sha256": "4ea721ec3d006e268c1ce78a08a47bcf723e43ad333525d083b3310d9f48bf88"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-c/native.json",
+        "bytes": 2481583,
+        "sha256": "c291614cf1eb59556ed6d435a80e70e7e74753b8472708e36db9db5f66776b94"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-c/ordering.log",
+        "bytes": 12527,
+        "sha256": "55dacea9f8715d720bb771b57fbdbd20be8e1af51c06d3ae7b4a8c350a289f1b"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-d/native.json",
+        "bytes": 2481583,
+        "sha256": "94dfbf9abf47b93e1bd5e5ace7d4aa537edf54b121065d59874853de6710c34e"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-e/native.json",
+        "bytes": 2481583,
+        "sha256": "f47269d10ba9b41da107aa95ad96773f47711d088a7e57a840e8b14db82dce83"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-f/native.json",
+        "bytes": 2481583,
+        "sha256": "3f873ec4735578ffd484155493f4f95f351c1f57c5c38bcae20d1c2c2afc9170"
+      },
+      {
+        "path": "rc3-checkpoint-race-20261017-g/native.json",
+        "bytes": 2481583,
+        "sha256": "447c5d2f8d92d47bec4ed4f0ee49055dbf667abed8a741e3631ca31cf05d74aa"
+      },
+      {
+        "path": "rc3-child-composition-diagnostic-20261017-a/bindings.log",
+        "bytes": 5137,
+        "sha256": "c929c9339a181c157b0288a62b26dd65db0c1d3d6e1df595df88501d3a7f933f"
+      },
+      {
+        "path": "rc3-child-composition-diagnostic-20261017-a/native.json",
+        "bytes": 2491516,
+        "sha256": "b1aac91b8663918bbb641d6adcbac803440671c90f0e6519a7659109f3710cac"
+      },
+      {
+        "path": "rc3-child-composition-diagnostic-20261017-b/native.json",
+        "bytes": 2573564,
+        "sha256": "a181344d8449acdf05246689e85d2582524bea35807259189e3c4ab6dfaa55e7"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/diagnostic-comparison.json",
+        "bytes": 891658,
+        "sha256": "f930a2a6c077ddf5a38dc434463db082859f2377b8a0b7f2b7855c6af3da3a8d"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/native.json",
+        "bytes": 2482840,
+        "sha256": "d7ff222e13a720083c90699550ffe945339d0e7cfda8da2646017359b02cf4b4"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/native.log",
+        "bytes": 480,
+        "sha256": "5ba4d1adabb7db458ab98e8e781bee9a0871226f3382e71386829f4c36bec3a3"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/report.json",
+        "bytes": 5164390,
+        "sha256": "ec879355fec36c1152eb5c36eec1fd2c0f29f18ff23fb7393e0f519037f12d4a"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/source.json",
+        "bytes": 2471725,
+        "sha256": "d0b6e06e1fdadc635b6d3ba5234621a8584512238b6d9be45b06f791f7bde953"
+      },
+      {
+        "path": "rc3-engine-composition-20261017-c/source.log",
+        "bytes": 83,
+        "sha256": "4a04faa91d8b5df2cca861cd6cfe0af2f89e57d895c21784fe627ffa0c20854e"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/comparison.json",
+        "bytes": 142,
+        "sha256": "21a8d5d92babcdfb4714bd326477eef8e3d6e652d91d6fa79b90f1e5e396a4f1"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/native.json",
+        "bytes": 2573225,
+        "sha256": "e4624e3035652f401a916d2b1d9abe0b37c99366802a77775e22baef268dcd06"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/native.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/native.stdout.log",
+        "bytes": 84,
+        "sha256": "1efb630f09cd47932302bf95bcb05ac1ee32c5cd3c5ca2af95af467180dbf8c9"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/source.json",
+        "bytes": 2471625,
+        "sha256": "bdac2b8a2b82b594c50ebe6a4b268a807a4d208de97d446d205e3513be0f919b"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/source.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-engine-current-diagnostic-20261017-a/source.stdout.log",
+        "bytes": 83,
+        "sha256": "e9e21bf0af5c163caee53af8bbb26dedb2218efd22d586d3b49a346153cfe070"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/comparison-catalog-identity.json",
+        "bytes": 142,
+        "sha256": "73e7f20ba86234ed35a9d000e4bd2aadedc4ca96814d69bf2931403fae63018f"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/comparison.json",
+        "bytes": 1507,
+        "sha256": "5a295e3193093dacdac5bdcedf794db35b97e006f0cb1b79b2695c58762cbfad"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/native.json",
+        "bytes": 4675729,
+        "sha256": "6cbabcf3c20e40e82a4a7eb31d7d0778a99e4d20770833cd275cbe5cf9d16619"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/native.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/native.stdout.log",
+        "bytes": 84,
+        "sha256": "cce645b3fef976aa3891b89f71e001486340daf27881c3e5c6b656b1a9982f73"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/source.json",
+        "bytes": 4541122,
+        "sha256": "fcaba59f89ba39d12975c1dce290f4376c34982c9070c44b8fadc4063a0056f0"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/source.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-route-current-diagnostic-20261017-a/source.stdout.log",
+        "bytes": 83,
+        "sha256": "f4eab24205f25464673e30ece5221eeb0036c74b511c3d961a311f77373ca7d5"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/diagnostic-comparison.json",
+        "bytes": 1264768,
+        "sha256": "164e4f8a33cc2f20b9918d21b90be585d639e9a0b75b97d3b14e404ba3e77d7f"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/native.json",
+        "bytes": 4557092,
+        "sha256": "2172d4fb0c1836513dac56700918e682e33defc7c2db7709a8cc80bae75dbc03"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/native.log",
+        "bytes": 579,
+        "sha256": "56fd2d74f901e71bd0271a86d0c64907313c0dfd73ebd4658c198aae0bbed416"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/report.json",
+        "bytes": 5164311,
+        "sha256": "f5e3b2fdda51dbfe7d537bab72b90f29a981c9e37be35dbfc393a0dcfeb890dd"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/source.json",
+        "bytes": 4540870,
+        "sha256": "ac21eadbfa13f29d0d97636ea55af6b75a4b84d593e0cf3785f607cafc9190da"
+      },
+      {
+        "path": "rc3-route-execution-20261017-b/source.log",
+        "bytes": 83,
+        "sha256": "2db9f8554c349e8c9472e59deb8d1035170f16cb3c1ba37767b02e96110e14a5"
+      },
+      {
+        "path": "rc3-x86-64-consumers-20261017-c/results.xml",
+        "bytes": 914,
+        "sha256": "4946e50c4c310d4caefebea39cbcd472a4dcb746dabfad0db8ee2c0cb8960af9"
+      }
+    ]
+  },
+  "scope": [
+    "Actual current Source/native3 engine and7 route journeys match complete requests, tool schemas, durable events, ownership, cancellation and results. Diagnostic runs are development inputs, not frozen/extracted qualification.",
+    "Current in-process Agent publication awaits the Promise continuation before starting child work, so dynamically injected model-selection tools and file-reference prompt are present on the first request.",
+    "Python retirement joins only that Session admitted checkpoint writes before closing its writer. Actual paused flush regression proves unrelated Session writes do not delay retirement. No swallowed durability failure or warning filtering.",
+    "165 final targeted consumers passed,184 earlier controls passed; separate XML kept. UCRT current release receipt5 negative cases passed after545.09s shared fixture preparation.",
+    "System-message UUID graph and verified producer installation text normalization extended to current v3 in-history messages; all other prompt bytes remain compared. Current catalog childId is normalized only when equal to its registered allocated child.",
+    "Actual Source found present file property descriptions and list_agents current steering explanation missing; production tool definitions corrected."
+  ],
+  "limitations": [
+    "Clean fec7 engine/route attempt failed and is retained. New exact clean candidate plus actual extracted archive remains to qualify.",
+    "No unified release, arbitrary schedule, full Node API, physical Win7 or actual installer qualification implied."
+  ],
+  "inputs": {
+    "dsh/cordis/awaiting.py": "ff8cb358fa8f284383d11af6815d788ae4f0491b9895f7a73ef38ad21b17787a",
+    "dsh/core/agent_lifecycle_current.py": "0f8cf4a472aae352f8a024248f783e283a322dccd6ae3dee2fec8765d54d26f3",
+    "dsh/fs/tool_present_current.py": "3b80261261d5ab298bce5763ffdbb8a4e61d6e7eb69282326611bed81f87d305",
+    "dsh/session/projection_cache.py": "f1fd83f0dd3745f73b4f993dc123f32e008f903e54fa321db3efbaa08b85cb7c",
+    "dsh/subagent/control_tools.py": "7bb2b47826241ce910b1ba1c33fcb3d40f6a269d841b83ec81332ebe18e25a19",
+    "dsh/subagent/in_process_current.py": "215aded6558d69f1cd5d80158a35456e9885e88bf360ce5fad5bb406381fb09f",
+    "scripts/engine_composition_values.py": "a4b4a9f84a9e073630cc213d309af1d5a2003a3619b0608d4e9cefcbee93fc79",
+    "scripts/route_execution_values.py": "63d0f6975c3494921c459c161808fa30cf0441fa8695bae623d63a3a526154cf",
+    "tests/test_agent_lifecycle_current.py": "1f8c92bc1b7e6df6840060559eb8cdbc445bfe13c3241ba58e9329f3ee9cf4f0",
+    "tests/test_rc3_engine_route_current.py": "542089837ff9506607b47fefc515bd51976076fd1ae1bdde5ee99caae1252f1b"
+  },
+  "finalControls": {
+    "path": "migration/evidence/artifacts/RC3-ENGINE-ROUTE-CONTROLS-20261017.xml",
+    "sha256": "53c13af75806a902c5abdcbddabb566e78356630eca4e79c488b5e43eda0f966",
+    "passed": 97,
+    "scope": "Current actual capture normalization positive/mutants, paused checkpoint retirement and current subagent units"
+  }
+}

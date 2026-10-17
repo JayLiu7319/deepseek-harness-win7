@@ -31,7 +31,7 @@ def project(report, checkout):
             body = event['event']['data']
             if event['event']['type'] == 'user/message':
                 message = body
-            elif event['event']['type'] in ('assistant/message', 'tool/result'):
+            elif event['event']['type'] in ('assistant/message', 'tool/result', 'system/message'):
                 message = body['message']
             else:
                 continue
@@ -51,15 +51,21 @@ def project(report, checkout):
             result = {}
             for key, content in value.items():
                 current = path + [key]
-                if key == 'id' and isinstance(content, str) and content in messages and value.get('role') in ('user', 'assistant', 'tool'):
+                if key == 'id' and isinstance(content, str) and content in messages and value.get('role') in ('user', 'assistant', 'tool', 'system'):
                     result[key] = messages[content]
-                elif key in ('sessionId', 'runId', 'subagentId', 'parentSession', 'id') and isinstance(content, str) and content in children:
+                elif key in ('sessionId', 'runId', 'subagentId', 'parentSession', 'childId', 'id') and isinstance(content, str) and content in children:
                     assert key != 'id' or ('version' in value and 'createdAt' in value or 'header' in value and 'options' in value)
                     result[key] = children[content]
                 elif key == 'system' and isinstance(content, str):
                     expected = installation(checkout)
                     assert content.count(expected) == 1
                     result[key] = content.replace(expected, installation('<verified producer installation>'))
+                elif key == 'content' and value.get('role') == 'system' and isinstance(content, list):
+                    expected = installation(checkout)
+                    assert len(content) == 1 and content[0].get('type') == 'text'
+                    assert content[0]['text'].count(expected) == 1
+                    result[key] = [dict(content[0], text=content[0]['text'].replace(
+                        expected, installation('<verified producer installation>')))]
                 elif key == 'text' and isinstance(content, str) and content.startswith('{"kind":"foreground",'):
                     payload = json.loads(content)
                     assert payload['kind'] == 'foreground' and payload['runId'] in children

@@ -34,7 +34,7 @@ def project(report, checkout):
                 workflows[name] = row['name'] + '/allocated-workflow/' + str(len(workflows))
             if kind == 'user/message':
                 message = body
-            elif kind in ('assistant/message', 'tool/result'):
+            elif kind in ('assistant/message', 'tool/result', 'system/message'):
                 message = body['message']
             else:
                 continue
@@ -55,7 +55,7 @@ def project(report, checkout):
             result = {}
             for name,item in value.items():
                 current = path + [name]
-                if name == 'id' and isinstance(item,str) and item in messages and value.get('role') in ('user','assistant','tool'):
+                if name == 'id' and isinstance(item,str) and item in messages and value.get('role') in ('user','assistant','tool','system'):
                     result[name] = messages[item]
                 elif name in ('sessionId','runId','subagentId','parentSession','childId','id') and isinstance(item,str) and item in children:
                     assert name != 'id' or ('version' in value and 'createdAt' in value or 'header' in value and 'options' in value)
@@ -66,6 +66,13 @@ def project(report, checkout):
                     expected = installation(checkout)
                     assert item.count(expected) == 1
                     result[name] = item.replace(expected,installation('<verified producer installation>'))
+                elif (name == 'content' and value.get('role') == 'system'
+                        and isinstance(item, list)):
+                    expected = installation(checkout)
+                    assert len(item) == 1 and item[0].get('type') == 'text'
+                    assert item[0]['text'].count(expected) == 1
+                    result[name] = [dict(item[0], text=item[0]['text'].replace(
+                        expected, installation('<verified producer installation>')))]
                 else:
                     result[name] = walk(item,current)
             return result
