@@ -487,3 +487,6 @@ Standard 缺少现代前置环境时允许安装，完成页提供本地指南�
 三条真实原版/native SDK 旅程一致：正常工具与 next-model、部分流生成时取消、缺少 DONE 的普通流错误；帧数分别为 22/13/17，消费者 59 项通过。Source 测试显式叠加 editor 与 fs-local，匹配本产品 Minimal 保留 editor + shell 的既定要求；完整工具 schema 和插件 inventory 逐项比较，不过滤捕获结果。
 
 SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试通过被动监听实际 assistant-stream，记录完整 attemptId/revision/index/time/chunk 屏障，确认部分内容已经消费后再发 shutdown，并与最终 interrupted 内嵌流核对。真实持久化/流时钟先验证窗口与顺序，再作类型化归一；原始时钟和所有 chunk/dt 字节保留。固定导入闭包、原失败、原始请求/帧/JSONL 及边界限制见 `migration/candidates/rc3/sdk-profile-current-checks.json`。尚不代表解压包或统一发行资格。
+### R11-J — 相邻合同与原能力观察器
+
+保留原能力观察器的 21 类观察，转到当前 v3 Session/JSONL/persona。旧 chunkDecode 输入由 released-v1 迁移 codec 解码，chunkPack 的 2/3/1025/float 全部原输入改由当前 accumulator 压缩；不再导入已经移除的 chunk-rows。配对一致，并新增当前提供端缺失及类别缺失的拒绝检查。相邻九组消费者初轮 451 通过、1 个新增断言误用了 checkpoint 的 state 字段；修正为实际 val 字段后能力模块 28 项通过。原 XML 与修正后独立 XML 均保留，见 `migration/candidates/rc3/adjacent-contracts-current-checks.json`。原生 workflow bundle 的重建另作一阶段。

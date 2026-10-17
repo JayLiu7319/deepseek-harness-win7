@@ -1,4 +1,4 @@
-/** Candidate-only observations from an unmodified rc.1 worktree. */
+/** Historical observer name; observations run against the clean current pin. */
 import { readFile, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { resolve, join } from 'node:path'
@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto'
 const [sourcePath, inputPath, outputPath] = process.argv.slice(2)
 if (!sourcePath || !inputPath || !outputPath) throw new Error('Explicit Source, input and fresh output required')
 const source = resolve(sourcePath)
-const pin = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+const pin = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 if (process.version !== 'v22.22.2' || execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim() !== pin
     || execFileSync('git', ['-C', source, 'diff', 'HEAD', '--'], { encoding: 'utf8' }) !== '') {
   throw new Error('Source must be the clean pinned rc.1 candidate')
@@ -27,11 +27,12 @@ const { activeAtToken, formatFileMention } = await load('packages/context/file-r
 const { WorkspaceFileSearch, DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES } = await load('packages/context/file-reference-local/src/search.ts')
 const { turnOutlineProjectionDefinition: definition } = await load('packages/session/session-turn-outline/src/projection.ts')
 const { Session, SessionSeq, SessionLogOffset, SessionStore } = await load('packages/core/session/src/index.ts')
-const { toHeaderLine, parseHeader, scanLog } = await load('packages/session/session-persistence-jsonl/src/format.ts')
+const { toHeaderLine, SessionLogScanner, scanLog } = await load('packages/session/session-persistence-jsonl/src/format.ts')
 const { SessionProjectionRegistry } = await load('packages/session/session-projection/src/index.ts')
 const { default: SystemPrompt } = await load('packages/core/system-prompt/src/index.ts')
 const { turnBoundaryProjectionDefinition: boundaryDefinition } = await load('packages/core/agent-loop/src/index.ts')
-const { decodeStorageRecord, packChunkRuns } = await load('packages/core/session/src/chunk-rows.ts')
+const { releasedV1SessionFormatCodec } = await load('packages/session/session-format-v0-to-v1/src/codec.ts')
+const { AssistantStreamAccumulator } = await load('packages/llm/llm/src/assistant-stream.ts')
 const { scheduleProjectionDefinition: scheduleDefinition } = await load('packages/schedule/schedule/src/projection.ts')
 const retryModule = await load('packages/llm/llm-retry/src/index.ts')
 const require = createRequire(join(source, 'packages/core/system-prompt/package.json'))
@@ -47,10 +48,20 @@ function scalar(token: string) {
   return token === '-0' ? -0 : token === 'NaN' ? NaN : token === 'Infinity' ? Infinity : JSON.parse(token)
 }
 observations.chunkDecode = input.chunkRecords.map((row: any) => {
-  try { return { events: decodeStorageRecord(row) } }
+  try {
+    const events: any[] = []
+    const decoder = releasedV1SessionFormatCodec.createDecoder({type:'session',version:1,id:'legacy-chunks',createdAt:1,delegationDepth:0},'strict')
+    const context = {emitEvent(event:any){events.push(event)},emitRun(run:any){events.push(...run.expand())}}
+    decoder.decodeRow(row,context);decoder.finish(context)
+    return { events }
+  }
   catch (error: any) { return { error: error.message } }
 })
-observations.chunkPack = input.chunkBatches.map((events: any) => packChunkRuns(events))
+observations.chunkPack = input.chunkBatches.map((events: any) => {
+  const stream = new AssistantStreamAccumulator()
+  for(const event of events)stream.push({time:event.time,chunk:event.data.chunk})
+  return stream.snapshot()
+})
 observations.scheduleStates = input.scheduleStates.map((value: any) => {
   try { return {accepted:true,state:scheduleDefinition.stateSchema.parse(value)} }
   catch { return {accepted:false} }
@@ -87,7 +98,7 @@ for (const row of input.lineage) {
   try {
     const cut = row.cut === undefined ? undefined : scalar(row.cut)
     const session = row.mode === 'restore'
-      ? Session.fromRestore(row.header.id, row.seed, row.header, cut)
+      ? Session.fromRestore(row.header.id, row.seed, row.header, cut, 'detached')
       : Session.create(row.header.id, row.seed, row.header, cut)
     const owned = session.ownEvents()
     observations.lineage.push({ header: session.header, firstLiveSeq: session.firstLiveSeq,
@@ -99,16 +110,16 @@ for (const row of input.storageLineage) {
   try {
     const physical = row.physical ?? toHeaderLine(row.header, row.cut === undefined ? undefined : scalar(row.cut))
     const line = JSON.stringify(physical)
-    const parsed = parseHeader(line)
+    const parsed = {meta:new SessionLogScanner(Buffer.from(line+'\n')).meta}
     const scanned = scanLog(Buffer.from(line + '\n'))
-    observations.storageLineage.push({ physical, parsed: parsed ?? null,
+    observations.storageLineage.push({ physical, parsed,
       scanned: { meta: scanned.meta, inheritedEventCount: scanned.inheritedEventCount } })
   } catch (error: any) { observations.storageLineage.push({ error: error.message }) }
 }
 for (const row of input.strictHeaders) {
   const header = { ...row }
   if (header.seedLength === 'UNDEFINED') header.seedLength = undefined
-  try { observations.strictHeaders.push({ header: Session.fromRestore('child', [], header, 0).header }) }
+  try { observations.strictHeaders.push({ header: Session.fromRestore('child', [], header, 0, 'detached').header }) }
   catch (error: any) { observations.strictHeaders.push({ error: error.message }) }
 }
 const search = new WorkspaceFileSearch(input.workspace, {
@@ -164,8 +175,8 @@ try {
     apply: (state: any, event: any) => event.seq < state.cut ? state : { cut: state.cut, own: [...state.own, event.seq] },
     wire: { view: (state: any) => state, viewSchema: { parse: (value: any) => value } },
   })
-  const child = Session.create('lineage-child', input.lineage[1].seed,
-    { ...input.lineage[1].header, id: 'lineage-child' }, SessionLogOffset(2))
+  const child = Session.fromRestore('lineage-child', input.lineage[1].seed,
+    { ...input.lineage[1].header, id: 'lineage-child' }, SessionLogOffset(2), 'detached')
   const checkpoint = ctx.sessionProjections.checkpoint(child)
   child.append('probe/owned', {})
   observations.projectionLineage = {

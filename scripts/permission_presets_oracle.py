@@ -13,7 +13,7 @@ from scripts.permission_presets_values import ALL_NAMES, GROUPS, complete_digest
 from scripts.import_paths import resolve_import_path
 
 
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 OBSERVER_INPUTS = ('scripts/permission_presets_oracle.py', 'scripts/permission_presets_values.py',
     'scripts/oracles/permission_presets_source.mts', 'scripts/oracles/permission_presets.probe.spec.ts',
     'scripts/oracles/permission_presets_python.py', 'scripts/oracles/permission_presets_lifecycle_python.py',

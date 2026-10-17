@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.javascript_workflow_oracle import digest, assets, PRIVATE_ASSET_PATHS
 from scripts.runtime_context_oracle import source_pin, validate_executable
 
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = ('held-ready-exit', 'cancel-before-held-ready-exit')
 
 

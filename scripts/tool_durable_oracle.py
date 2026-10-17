@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = ('success-absent', 'success-null', 'success-false', 'success-zero', 'success-empty-object', 'success-empty-array', 'success-unicode', 'success-graph', 'plain-failure', 'typed-failure', 'abort-before', 'abort-after-first')
 OBSERVER_INPUTS = ('scripts/tool_durable_oracle.py', 'scripts/oracles/tool_durable_source.mts',
                    'scripts/oracles/tool_durable_python.py', 'scripts/tool_durable_cases.py', 'scripts/oracles/tool-durable-cases.json') + ('scripts/import_paths.py',)

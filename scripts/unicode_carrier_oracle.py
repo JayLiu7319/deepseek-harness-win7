@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = tuple(name + '/' + carrier for name in ('high', 'low', 'keys', 'pair', 'astral', 'ascii', 'read') for carrier in ('mux', 'rpc', 'llm'))
 SOURCE_REQUIRED = {'reference/packages/api/gateway/src/stream-server.ts',
     'reference/packages/client/connection/src/rpc-host.ts', 'reference/packages/client/connection/src/http-bridge.ts',

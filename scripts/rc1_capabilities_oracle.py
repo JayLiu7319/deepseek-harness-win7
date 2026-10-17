@@ -1,4 +1,4 @@
-"""Bounded rc.1 Source/runtime checks; acceptance remains a separate receipt."""
+"""Retained observer identity with bounded current Source/runtime checks."""
 import argparse
 import asyncio
 import hashlib
@@ -9,11 +9,14 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PIN = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+PIN = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 REQUIRED = {'grammar', 'mentions', 'searches', 'positions', 'outline', 'changes', 'orders',
             'searchLimits', 'indexed', 'checkpoint', 'lineage', 'storageLineage', 'strictHeaders',
             'projectionLineage', 'turnBoundary', 'turnBoundaryEvents', 'chunkDecode', 'chunkPack',
             'scheduleProjection', 'scheduleStates', 'retryProjection'}
+CURRENT_MODULES = {'dsh/core/session/current_session.py', 'dsh/core/session/current_surface.py',
+                   'dsh/core/system_prompt/current.py', 'dsh/session/jsonl_current.py',
+                   'dsh/session/format_v0_to_v1/codec.py', 'dsh/llm/assistant_stream.py'}
 
 
 def digest(value):
@@ -39,7 +42,7 @@ def validate_runtime(report, root, source_digest, input_digest, modules=None):
             or report.get('inputSha256') != input_digest
             or set(report.get('observations', {})) != REQUIRED
             or digest(report['observations']) != source_digest
-            or not isinstance(report.get('modules'), dict) or not report['modules']
+            or not isinstance(report.get('modules'), dict) or not CURRENT_MODULES.issubset(report['modules'])
             or (modules is not None and report['modules'] != modules)):
         raise ValueError('rc.1 observations or runtime identity differ')
     if modules is None:
@@ -88,22 +91,35 @@ async def native(inputs):
     from dsh.cordis.context import Context
     from dsh.context.file_reference import active_at_token, format_file_mention
     from dsh.context.file_reference_local.search import WorkspaceFileSearch
-    from dsh.core.session import Session, SessionStore, SessionSeq, SessionLogOffset
-    from dsh.core.session.types import validate_rc1_session_header
-    from dsh.session.lineage_storage import to_header_line, parse_header, parse_header_record
+    from dsh.core.session import SessionSeq, SessionLogOffset
+    from dsh.core.session.current_session import CurrentSession as Session, CurrentSessionStore as SessionStore
+    from dsh.core.session.types import validate_session_header
+    from dsh.session.jsonl_current import toHeaderLine as to_header_line, SessionLogScanner, scanLog
     from dsh.core.session.json import UNDEFINED
-    from dsh.core.system_prompt import SystemPrompt
+    from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
     from dsh.session.projections import SessionProjectionRegistry
     from dsh.session.turn_outline import TURN_OUTLINE_DEFINITION
     rows = dict(grammar=[], mentions=[], searches=[], positions=[], outline=[], changes=[], orders={})
-    from dsh.core.session.chunk_rows import decodeStorageRecord, packChunkRuns
+    from dsh.session.format_v0_to_v1.codec import releasedV1SessionFormatCodec
+    from dsh.llm.assistant_stream import AssistantStreamAccumulator
+    from types import SimpleNamespace
     rows['chunkDecode'] = []
     for row in inputs['chunkRecords']:
         try:
-            rows['chunkDecode'].append(dict(events=decodeStorageRecord(row)))
+            events = []
+            decoder = releasedV1SessionFormatCodec['createDecoder'](dict(type='session', version=1, id='legacy-chunks', createdAt=1, delegationDepth=0), 'strict')
+            context = SimpleNamespace(emitEvent=events.append, emitRun=lambda run: events.extend(run['expand']()))
+            decoder.decodeRow(row, context)
+            decoder.finish(context)
+            rows['chunkDecode'].append(dict(events=events))
         except (ValueError, TypeError) as error:
             rows['chunkDecode'].append(dict(error=str(error)))
-    rows['chunkPack'] = [packChunkRuns(events) for events in inputs['chunkBatches']]
+    rows['chunkPack'] = []
+    for events in inputs['chunkBatches']:
+        accumulator = AssistantStreamAccumulator()
+        for event in events:
+            accumulator.push(dict(time=event['time'], chunk=event['data']['chunk']))
+        rows['chunkPack'].append(accumulator.snapshot())
     from dsh.schedule.projection import SCHEDULE_DEFINITION, schedule_state
     from dsh.llm.llm_retry import RETRY_DEFINITION
     rows['scheduleStates'] = []
@@ -144,7 +160,8 @@ async def native(inputs):
         try:
             cut = scalar(row['cut']) if 'cut' in row else UNDEFINED
             constructor = Session.fromRestore if row.get('mode') == 'restore' else Session.create
-            session = constructor(row['header']['id'], row.get('seed'), row['header'], cut)
+            arguments = (row['header']['id'], row.get('seed'), row['header'], cut)
+            session = constructor(*arguments, event_state='detached') if row.get('mode') == 'restore' else constructor(*arguments)
             rows['lineage'].append(dict(header=session.header.to_dict(), firstLiveSeq=session.firstLiveSeq,
                 inheritedEventCount=session.inheritedEventCount, seq=session.seq, owned=session.ownEvents(),
                 ownPositions=[session.isOwnSeq(seq) for seq in (-1, 0, 1, 2, 3, session.seq)]))
@@ -156,11 +173,12 @@ async def native(inputs):
             physical = row['physical'] if 'physical' in row else to_header_line(
                 row['header'], scalar(row['cut']) if 'cut' in row else UNDEFINED)
             line = json.dumps(physical)
-            parsed = parse_header(line)
-            scanned = parse_header_record((line + '\n').encode('utf-8'))
+            raw = (line + '\n').encode('utf-8')
+            parsed = dict(meta=SessionLogScanner(raw).meta)
+            scanned = scanLog(raw)
             rows['storageLineage'].append(dict(physical=physical,
-                parsed=None if parsed is None else dict(meta=parsed.meta.to_dict(), inheritedEventCount=parsed.inheritedEventCount),
-                scanned=dict(meta=scanned.meta.to_dict(), inheritedEventCount=scanned.inheritedEventCount)))
+                parsed=parsed,
+                scanned=dict(meta=scanned['meta'], inheritedEventCount=scanned['inheritedEventCount'])))
         except (ValueError, TypeError) as error:
             rows['storageLineage'].append(dict(error=str(error)))
     rows['strictHeaders'] = []
@@ -169,7 +187,7 @@ async def native(inputs):
         if header.get('seedLength') == 'UNDEFINED':
             header['seedLength'] = UNDEFINED
         try:
-            rows['strictHeaders'].append(dict(header=validate_rc1_session_header('child', header).to_dict()))
+            rows['strictHeaders'].append(dict(header=validate_session_header('child', header, expected_version=3).to_dict()))
         except (ValueError, TypeError) as error:
             rows['strictHeaders'].append(dict(error=str(error)))
     for row in inputs['tokens']:
@@ -233,8 +251,8 @@ async def native(inputs):
             init=lambda _header, cut: dict(cut=cut, own=[]),
             apply=lambda state, event: state if event['seq'] < state['cut'] else dict(cut=state['cut'], own=state['own'] + [event['seq']]),
             wire=dict(view=lambda state: state, viewSchema=lambda value: value)))
-        child = Session.create('lineage-child', inputs['lineage'][1]['seed'],
-                               dict(inputs['lineage'][1]['header'], id='lineage-child'), 2)
+        child = Session.fromRestore('lineage-child', inputs['lineage'][1]['seed'],
+                               dict(inputs['lineage'][1]['header'], id='lineage-child'), 2, 'detached')
         checkpoint = registry.checkpoint(child)
         child.append('probe/owned', {})
         rows['projectionLineage'] = dict(initial=checkpoint['lineageProbe'],
@@ -261,7 +279,7 @@ def main():
         return 0
     source, output = options.source_root.resolve(), options.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    report = dict(status='runner-error', pin=PIN, scope='bounded rc1 Source/runtime observations; no automatic acceptance')
+    report = dict(status='runner-error', pin=PIN, scope='Bounded current Source/runtime observations. Retained chunkDecode probes released-v1 migration decoding; chunkPack probes current AssistantStreamAccumulator using all original batch inputs. Current v3 Session, JSONL and persona orders; no automatic acceptance.')
     try:
         actual = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], encoding='utf-8').strip()
         if actual != PIN:
@@ -271,7 +289,7 @@ def main():
             (workspace / directory).mkdir(parents=True)
         for filename in ('src/中文 name.py', 'src/alpha.py', 'src/f😀p.py', 'src/fxxp.py', 'lib/alpha.py', 'dist/alpha.py', '.git/a', '.venv/a', '.hidden.py', 'file😀.py', '..source/inside.py', 'space dir/a.txt'):
             (workspace / filename).write_text('PRIVATE_BODY_NOT_A_CANDIDATE', encoding='utf-8')
-        from dsh.core.system_prompt import FIRST_PARTY_SECTION_ORDER
+        from dsh.core.system_prompt.current import FIRST_PARTY_SECTION_ORDER
         inputs = dict(workspace=str(workspace), clock=1770000000000,
             searchConfigs=[dict(maxResults=1.0, maxEntries=2.0), dict(maxResults=0), dict(maxEntries=True),
                 dict(maxResults=1.5), dict(excludedDirectories=['nested/path'])],
@@ -287,8 +305,8 @@ def main():
         base = [dict(type='turn/start', seq=0, time=1, data=dict(turn=1)),
                 dict(type='turn/end', seq=1, time=2, data=dict(turn=1, reason=dict(kind='completed')))]
         suffix = base + [dict(type='session/end-seed', seq=2, time=3, data={}),
-                        dict(type='request/context', seq=3, time=4, data=dict(provider='provider', model='model'))]
-        meta = dict(version=0, id='child', createdAt=1, isSeeded=True)
+                        dict(type='probe/context', seq=3, time=4, data=dict(provider='provider', model='model'))]
+        meta = dict(version=3, id='child', createdAt=1, isSeeded=True)
         inputs['lineage'] = [dict(header=meta, seed=base, cut='2'), dict(header=meta, seed=suffix, cut='2'),
             dict(header=meta, seed=suffix, cut='2', mode='restore'), dict(header=meta, seed=[], cut='0'),
             dict(header=dict(meta, isSeeded=False), seed=[], cut='0'), dict(header=meta, cut='0'),
@@ -301,13 +319,18 @@ def main():
         inputs['storageLineage'] = [dict(header=meta, cut='0'), dict(header=meta, cut='2.0'),
             dict(header=dict(meta, isSeeded=False)), dict(header=meta),
             dict(header=dict(meta, isSeeded=False), cut='1')]
-        physical = dict(type='session', version=0, id='child', createdAt=1, delegationDepth=0)
+        physical = dict(type='session', version=3, id='child', createdAt=1, isSeeded=False, delegationDepth=0)
         inputs['storageLineage'] += [dict(physical=dict(physical, seedLength=cut)) for cut in [0, 2, -1, 0.5, True, None, '1', 9007199254740992]]
         inputs['storageLineage'] += [dict(physical=dict(physical, sandboxMode=None)),
             dict(physical=dict(version=1, id='future', seedLength='invalid'))]
-        inputs['strictHeaders'] = [meta, dict(meta, isSeeded=False), dict(version=0, id='child', createdAt=1),
+        inputs['strictHeaders'] = [meta, dict(meta, isSeeded=False), dict(version=3, id='child', createdAt=1),
             dict(meta, isSeeded=1), dict(meta, seedLength=0), dict(meta, seedLength='UNDEFINED')]
         def add(kind, data):
+            if kind == 'user/message':
+                data = dict(data, role='user', id='user-'+str(len(inputs['events'])))
+            elif kind == 'assistant/message':
+                data = dict(data, turn=1, step=1, stream=[])
+                data['message'].update(id='assistant-'+str(len(inputs['events'])), source=dict(kind='model', provider='fixture', model='fixture'))
             row = dict(type=kind, data=data)
             if kind in ('user/message', 'assistant/message'):
                 row['surfaceOp'] = 'append'

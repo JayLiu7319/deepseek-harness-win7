@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { Worker } from 'node:worker_threads'
 import { build } from './node_modules/esbuild/lib/main.js'
 
-const sourceCommit = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+const sourceCommit = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 if (process.version !== 'v22.22.2') throw new Error('Source observations require pinned Node22.22.2')
 if (execFileSync('git', ['-C', 'reference', 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim() !== sourceCommit
     || execFileSync('git', ['-C', 'reference', 'status', '--porcelain'], { encoding: 'utf8' }).trim()) {
