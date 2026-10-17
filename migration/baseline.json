@@ -1,22 +1,24 @@
 {
   "schema_version": 1,
-  "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "product_commit": "54883f096ec4493aa3c9802adcb7b3b5e291e878",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "accepted_upstream": null,
-  "observed_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "recorded_at": "2026-10-15",
-  "scope": "Fixed rc.1 default-profile and finite shared-contract migration qualified by one exact clean candidate receipt. This is not all-manifest upstream parity; alpha history and optional providers remain separate.",
+  "observed_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "recorded_at": "2026-10-17",
+  "scope": "rc.3 production migration candidate; runtime inputs switched, browser/Portable/Desktop qualification pending. Historical rc.1 receipts retain their exact identity.",
   "platform_validation": {
-    "python38": "complete-rc1-gate-passed",
+    "python38": "rc3-targeted-passed-full-gate-pending",
     "win7": "deferred-by-user",
-    "portable": "actual-extracted-rc1-gate-passed",
+    "portable": "rc3-pending",
     "real_provider": "not-verified",
     "browser_on_win7": "deferred-by-user"
   },
-  "qualification": {
-    "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-    "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-    "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-    "archive_sha256": "2ab1c51e8a64ee95ab4be8e41fc7e7f9d04f4d5c81b96c41bb9dc568b14cafd6"
-  }
+  "historical_qualifications": [
+    {
+      "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
+      "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
+      "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
+      "archive_sha256": "2ab1c51e8a64ee95ab4be8e41fc7e7f9d04f4d5c81b96c41bb9dc568b14cafd6"
+    }
+  ]
 }

@@ -246,8 +246,14 @@ def _anchor_inserted_plugin_names(patches: List[Dict[str, Any]], filepath: str) 
     def visit(entry: Dict[str, Any]) -> None:
         name = entry.get("name")
         if isinstance(name, str) and (os.path.isabs(name) or name.startswith("./") or name.startswith("../")):
-            abs_plugin = os.path.abspath(os.path.join(base_dir, name))
-            entry["name"] = path_to_file_url(abs_plugin)
+            target, separator, export = name.rpartition(':')
+            if separator and target.endswith('.py') and export.isidentifier():
+                # Native Python exports use path.py:Class, not a colon in the
+                # filename. Keep the Loader's native class syntax anchored.
+                entry['name'] = os.path.abspath(os.path.join(base_dir, target)) + ':' + export
+            else:
+                abs_plugin = os.path.abspath(os.path.join(base_dir, name))
+                entry["name"] = path_to_file_url(abs_plugin)
         if entry.get("group") and isinstance(entry.get("config"), list):
             for child in entry["config"]:
                 if isinstance(child, dict):

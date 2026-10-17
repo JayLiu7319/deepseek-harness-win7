@@ -47,3 +47,24 @@ async def test_absolute_insert_loads_actual_plugin(tmp_path, load):
         assert ctx.get('absolutePatchLoaded') == 'actual'
     finally:
         await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('load', [load_optional_patches, load_overlay_patches])
+@pytest.mark.parametrize('relative', [False, True])
+async def test_native_python_class_export_is_anchored_separately_from_path(tmp_path, load, relative):
+    plugin = tmp_path / 'class #100% 中文.py'
+    plugin.write_text('from dsh.cordis.plugin import Plugin\nclass Actual(Plugin):\n'
+                      '    def apply(self, ctx):\n        ctx.provide("classExportLoaded", True)\n', encoding='utf-8')
+    specifier = ('./' + plugin.name if relative else str(plugin)) + ':Actual'
+    patch = tmp_path / 'extra.yml'
+    patch.write_text(json.dumps([dict(insert=[dict(id='actual', name=specifier)])]), encoding='utf-8')
+    patches = load('dsh', str(patch))
+    assert patches[0]['insert'][0]['name'] == str(plugin) + ':Actual'
+    config = tmp_path / 'cordis.yml'
+    config.write_text('[]\n', encoding='utf-8')
+    ctx = await boot('dsh', str(config), patches)
+    try:
+        assert ctx.get('classExportLoaded') is True
+    finally:
+        await ctx.fiber.dispose()

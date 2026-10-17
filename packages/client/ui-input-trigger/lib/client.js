@@ -293,7 +293,7 @@ window.__ModuleLoader__.load({
 			headers = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)(/* @__PURE__ */ new Map());
 			/**
 			* Aggregated hot reference lexicon, grouped by trigger (plain-text-reference decision;
-			* see .agents/notes/implemented/architecture/2026-07-25-web-input-machine-and-slash-pipeline.md):
+			* see .agents/notes/archived/architecture/2026-07-25-web-input-machine-and-slash-pipeline.md):
 			* sources implementing the lexicon hook are polled with the session
 			* projection; undefined answers (roll not hot yet) are skipped; multiple
 			* sources on one trigger concatenate in registration order. A snapshot
@@ -587,6 +587,14 @@ window.__ModuleLoader__.load({
 				this.stopFetch();
 				this.reduce({ type: "close" });
 			}
+			/** Re-fetch the currently open menu without changing its hit or visible rows. */
+			refreshOpenMenu() {
+				if (this.disposed || !this.menu.getSnapshot().open || this.hit === null) return;
+				const launched = this.launcher.getSnapshot();
+				const roster = this.deps.roster.sources(this.hit.trigger).filter((source) => launched === null || source.name === launched);
+				if (roster.length === 0) return;
+				this.fetchCandidates(this.hit, roster);
+			}
 			/** Scope teardown: close and abort (the service deletes the map entry). */
 			dispose() {
 				this.disposed = true;
@@ -770,6 +778,9 @@ window.__ModuleLoader__.load({
 			*/
 			constructor(ctx) {
 				super(ctx, "inputTriggers");
+				ctx.on("locale/change", () => {
+					for (const controller of this.live.controllers.values()) controller.refreshOpenMenu();
+				});
 			}
 			/**
 			* Register one trigger source. Live session controllers are notified so a
@@ -845,8 +856,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-input-trigger\src\client\MenuView.module.css.mjs
-		const css = ".TmuHxG_menu{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);max-height:320px;box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;right:0;overflow:hidden}.TmuHxG_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.TmuHxG_item{cursor:pointer;width:100%;min-height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:8px 10px;font-size:14px;line-height:22px;display:flex}.TmuHxG_item.TmuHxG_active{background:var(--dsw-alias-interactive-bg-hover)}.TmuHxG_sectionTitle{min-height:26px;color:var(--dsw-alias-label-tertiary);flex:none;padding:6px 10px 2px;font-size:12px;font-weight:500;line-height:18px}.TmuHxG_sectionTitle:not(:first-child){margin-top:4px}.TmuHxG_itemIcon{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.TmuHxG_itemName{text-overflow:ellipsis;white-space:nowrap;flex:none;max-width:40%;overflow:hidden}.TmuHxG_itemDescription{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:1;overflow:hidden}.TmuHxG_trailing{flex:none;align-items:center;gap:4px;margin-left:auto;display:inline-flex}.TmuHxG_drillHintText{color:var(--dsw-alias-label-caption);white-space:nowrap;font-size:11px;line-height:18px;display:none}.TmuHxG_drillHint{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-caption);border-radius:4px;padding:0 5px;font-family:inherit;font-size:11px;line-height:18px;display:none}.TmuHxG_item.TmuHxG_active .TmuHxG_drillHintText,.TmuHxG_item.TmuHxG_active .TmuHxG_drillHint{display:inline-flex}.TmuHxG_drill{width:20px;height:20px;color:var(--dsw-alias-label-caption);border-radius:4px;flex:none;place-items:center;display:inline-grid}.TmuHxG_drill:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.TmuHxG_groupTitle{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:12px;line-height:16px}.TmuHxG_skeletonRow{box-sizing:border-box;align-items:center;min-height:40px;padding:8px 10px;display:flex}.TmuHxG_skeletonBar{background:var(--dsw-alias-bg-skeleton);border-radius:4px;height:20px;animation:2s cubic-bezier(.36,0,.64,1) infinite TmuHxG_dsh-menu-skeleton}@keyframes TmuHxG_dsh-menu-skeleton{0%{opacity:1}40%{opacity:.6}80%,to{opacity:1}}.TmuHxG_crumbs{border-bottom:.5px solid var(--dsw-alias-border-l1);flex-wrap:wrap;flex:none;align-items:center;gap:2px;margin-bottom:2px;padding:4px 4px 6px;display:flex}.TmuHxG_crumb{max-width:40%;color:var(--dsw-alias-label-tertiary);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:none;border-radius:6px;flex:0 auto;padding:2px 6px;font-family:inherit;font-size:12px;line-height:18px;overflow:hidden}.TmuHxG_crumb:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.TmuHxG_crumbCurrent,.TmuHxG_crumbCurrent:hover{color:var(--dsw-alias-label-primary);cursor:default;background:0 0}.TmuHxG_crumbSeparator{color:var(--dsw-alias-label-caption);flex:none;display:inline-flex}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-input-trigger\src\client\MenuView.module.css.mjs
+		const css = ".h95Bja_menu{z-index:100;--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);max-height:320px;box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 4px);left:0;right:0;overflow:hidden}.h95Bja_viewport{flex-direction:column;min-height:0;display:flex;overflow-y:auto}.h95Bja_item{cursor:pointer;width:100%;min-height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:8px 10px;font-size:14px;line-height:22px;display:flex}.h95Bja_item.h95Bja_active{background:var(--dsw-alias-interactive-bg-hover)}.h95Bja_sectionTitle{min-height:26px;color:var(--dsw-alias-label-tertiary);flex:none;padding:6px 10px 2px;font-size:12px;font-weight:500;line-height:18px}.h95Bja_sectionTitle:not(:first-child){margin-top:4px}.h95Bja_itemIcon{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;display:inline-flex}.h95Bja_itemName{text-overflow:ellipsis;white-space:nowrap;flex:none;max-width:40%;overflow:hidden}.h95Bja_itemDescription{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:1;overflow:hidden}.h95Bja_trailing{flex:none;align-items:center;gap:4px;margin-left:auto;display:inline-flex}.h95Bja_drillHintText{color:var(--dsw-alias-label-caption);white-space:nowrap;font-size:11px;line-height:18px;display:none}.h95Bja_drillHint{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-caption);border-radius:4px;padding:0 5px;font-family:inherit;font-size:11px;line-height:18px;display:none}.h95Bja_item.h95Bja_active .h95Bja_drillHintText,.h95Bja_item.h95Bja_active .h95Bja_drillHint{display:inline-flex}.h95Bja_drill{width:20px;height:20px;color:var(--dsw-alias-label-caption);border-radius:4px;flex:none;place-items:center;display:inline-grid}.h95Bja_drill:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.h95Bja_groupTitle{color:var(--dsw-alias-label-tertiary);padding:8px 10px;font-size:12px;line-height:16px}.h95Bja_skeletonRow{box-sizing:border-box;align-items:center;min-height:40px;padding:8px 10px;display:flex}.h95Bja_skeletonBar{background:var(--dsw-alias-bg-skeleton);border-radius:4px;height:20px;animation:2s cubic-bezier(.36,0,.64,1) infinite h95Bja_dsh-menu-skeleton}@keyframes h95Bja_dsh-menu-skeleton{0%{opacity:1}40%{opacity:.6}80%,to{opacity:1}}.h95Bja_crumbs{border-bottom:.5px solid var(--dsw-alias-border-l1);flex-wrap:wrap;flex:none;align-items:center;gap:2px;margin-bottom:2px;padding:4px 4px 6px;display:flex}.h95Bja_crumb{max-width:40%;color:var(--dsw-alias-label-tertiary);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;background:0 0;border:none;border-radius:6px;flex:0 auto;padding:2px 6px;font-family:inherit;font-size:12px;line-height:18px;overflow:hidden}.h95Bja_crumb:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}.h95Bja_crumbCurrent,.h95Bja_crumbCurrent:hover{color:var(--dsw-alias-label-primary);cursor:default;background:0 0}.h95Bja_crumbSeparator{color:var(--dsw-alias-label-caption);flex:none;display:inline-flex}";
 		const tagId = "@deepseek-ai/dsh-client-ui-input-trigger/MenuView.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -856,26 +867,26 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var MenuView_module_css_default = {
-			"active": "TmuHxG_active",
-			"crumb": "TmuHxG_crumb",
-			"crumbCurrent": "TmuHxG_crumbCurrent",
-			"crumbSeparator": "TmuHxG_crumbSeparator",
-			"crumbs": "TmuHxG_crumbs",
-			"drill": "TmuHxG_drill",
-			"drillHint": "TmuHxG_drillHint",
-			"drillHintText": "TmuHxG_drillHintText",
-			"dsh-menu-skeleton": "TmuHxG_dsh-menu-skeleton",
-			"groupTitle": "TmuHxG_groupTitle",
-			"item": "TmuHxG_item",
-			"itemDescription": "TmuHxG_itemDescription",
-			"itemIcon": "TmuHxG_itemIcon",
-			"itemName": "TmuHxG_itemName",
-			"menu": "TmuHxG_menu",
-			"sectionTitle": "TmuHxG_sectionTitle",
-			"skeletonBar": "TmuHxG_skeletonBar",
-			"skeletonRow": "TmuHxG_skeletonRow",
-			"trailing": "TmuHxG_trailing",
-			"viewport": "TmuHxG_viewport"
+			"active": "h95Bja_active",
+			"crumb": "h95Bja_crumb",
+			"crumbCurrent": "h95Bja_crumbCurrent",
+			"crumbSeparator": "h95Bja_crumbSeparator",
+			"crumbs": "h95Bja_crumbs",
+			"drill": "h95Bja_drill",
+			"drillHint": "h95Bja_drillHint",
+			"drillHintText": "h95Bja_drillHintText",
+			"dsh-menu-skeleton": "h95Bja_dsh-menu-skeleton",
+			"groupTitle": "h95Bja_groupTitle",
+			"item": "h95Bja_item",
+			"itemDescription": "h95Bja_itemDescription",
+			"itemIcon": "h95Bja_itemIcon",
+			"itemName": "h95Bja_itemName",
+			"menu": "h95Bja_menu",
+			"sectionTitle": "h95Bja_sectionTitle",
+			"skeletonBar": "h95Bja_skeletonBar",
+			"skeletonRow": "h95Bja_skeletonRow",
+			"trailing": "h95Bja_trailing",
+			"viewport": "h95Bja_viewport"
 		};
 		//#endregion
 		//#region lib/types/client/MenuView.js

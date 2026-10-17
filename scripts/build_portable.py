@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT_DIR)
 DIST_DIR = os.path.join(ROOT_DIR, "dist", "dsh-win7-portable")
-VERSION = "0.1.2"
+VERSION = "0.1.5-rc.3"
 ZIP_OUTPUT = os.path.join(ROOT_DIR, "dist", f"dsh-win7-portable-v{VERSION}.zip")
 RIPGREP_VERSION = "14.1.0"
 RIPGREP_MANIFEST_SHA256 = '1e06b8d18d8dd34c0fa6cdebaeb5a4894a38b5377fc12e4af74329797e80e04e'
@@ -161,6 +161,9 @@ def checked_inputs(root_dir, site_packages):
     baseline = json.loads((root / 'migration/baseline.json').read_text(encoding='utf-8'))
     if manifest['target_upstream'] != baseline['target_upstream']:
         raise ValueError('frontend input target differs from pinned upstream')
+    from scripts.promote_rc3_inputs import validate_runtime_inputs
+    runtime_inputs = json.loads((root / 'scripts/runtime-inputs.json').read_text(encoding='utf-8'))
+    validate_runtime_inputs(root, runtime_inputs, baseline['target_upstream'])
     expected = {row['path']: row['sha256'] for row in manifest['files']}
     actual = {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in (root / 'apps/web/dist').rglob('*') if p.is_file()}

@@ -132,7 +132,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller#credentials/describe:result',
         schema: _deepseek_ai_dsh_api_settings_controller_credentials_describe_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":86,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":83,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#credentials/set',
@@ -167,7 +167,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller#credentials/set:result',
         schema: _deepseek_ai_dsh_api_settings_controller_credentials_set_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":103,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":100,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#credentials/unset',
@@ -192,7 +192,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller#credentials/unset:result',
         schema: _deepseek_ai_dsh_api_settings_controller_credentials_unset_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":116,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/credentials.ts","line":113,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/canOpenAgentPresetDirectory',
@@ -207,7 +207,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller#settings/canOpenAgentPresetDirectory:result',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_canOpenAgentPresetDirectory_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":136,"column":3},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":131,"column":3},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/describe',
@@ -222,7 +222,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-settings/types#SettingsDescribeValue',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_describe_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":122,"column":3},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":117,"column":3},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/mutate',
@@ -268,7 +268,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-settings/types#SettingsNamespaceView',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_mutate_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":185,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":180,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/openAgentPresetDirectory',
@@ -294,7 +294,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller/types#AgentPresetDirectoryOpenValue',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_openAgentPresetDirectory_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":231,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":226,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/openSettingsDocument',
@@ -310,7 +310,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-settings-controller/types#SettingsDocumentOpenValue',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_openSettingsDocument_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":200,"column":9},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":195,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/replace',
@@ -356,7 +356,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-settings/types#SettingsNamespaceView',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_replace_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":166,"column":3},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":161,"column":3},
     },
     {
       id: '@deepseek-ai/dsh-api-settings-controller#settings/update',
@@ -402,7 +402,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-settings/types#SettingsNamespaceView',
         schema: _deepseek_ai_dsh_api_settings_controller_settings_update_result$schema,
       },
-      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":149,"column":3},
+      sourceLocation: {"file":"packages/api/settings-controller/src/index.ts","line":144,"column":3},
     },
   ],
   model: {
@@ -420,21 +420,21 @@ export const TYPERT = {
             "name": "describe",
             "signature": "@Remote async describe(refs: string[]): Promise<Record<string, CredentialInfo>>",
             "summary": "Describe several references for one configuration surface.",
-            "jsDoc": "/**\n * Describe several references for one configuration surface. Batched because\n * a settings page describes every reference its rows name at once, and one\n * round trip keeps those rows from settling separately.\n * @param refs - reference names, at most {@link MAX_DESCRIBE_REFS}; a name outside the grammar rejects the whole call as `bad-request`.\n * @returns one view per requested name, keyed by that name.\n * @throws TypertRemoteFailure when the request is invalid or no credential provider is mounted.\n */"
+            "jsDoc": "/**\n * Describe several references for one configuration surface. Batched because\n * a settings page describes every reference its rows name at once, and one\n * round trip keeps those rows from settling separately.\n * @param refs - reference names, at most {@link MAX_DESCRIBE_REFS}; a name outside the grammar\n *   rejects the whole call as `gateway/bad-request`.\n * @returns one view per requested name, keyed by that name.\n * @throws RemoteError when the request is invalid or no credential provider is mounted.\n */"
           },
           {
             "kind": "method",
             "name": "set",
             "signature": "@Remote async set(ref: string, value: string): Promise<void>",
             "summary": "Store one value from a configuration surface.",
-            "jsDoc": "/**\n * Store one value from a configuration surface. The value crosses the wire in\n * this direction only: no read path returns it.\n * @param ref - reference name to store under.\n * @param value - the non-empty secret value.\n * @throws TypertRemoteFailure when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
+            "jsDoc": "/**\n * Store one value from a configuration surface. The value crosses the wire in\n * this direction only: no read path returns it.\n * @param ref - reference name to store under.\n * @param value - the non-empty secret value.\n * @throws RemoteError when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
           },
           {
             "kind": "method",
             "name": "unset",
             "signature": "@Remote async unset(ref: string): Promise<void>",
             "summary": "Remove one reference from a configuration surface.",
-            "jsDoc": "/**\n * Remove one reference from a configuration surface.\n * @param ref - reference name to remove.\n * @throws TypertRemoteFailure when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
+            "jsDoc": "/**\n * Remove one reference from a configuration surface.\n * @param ref - reference name to remove.\n * @throws RemoteError when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
           }
         ],
         "types": [
@@ -445,10 +445,10 @@ export const TYPERT = {
         ]
       },
       {
-        "description": "Host service backing the generated `ctx.remote.settings` namespace. Every remote read uses `redactSecrets: true`, so a `role('secret')` field cannot ride a response. Writes expose the settings service's merge, replacement, and path-addressed operations, and classify every provider refusal as `settings-conflict` or `settings-rejected` with the service's message.",
+        "description": "Host service backing the generated `ctx.remote.settings` namespace. Every remote read uses `redactSecrets: true`, so a `role('secret')` field cannot ride a response. Writes expose the settings service's merge, replacement, and path-addressed operations, and classify every provider refusal as `settings/conflict` or `settings/rejected` with the service's message.",
         "summary": "Host service backing the generated `ctx.remote.settings` namespace.",
         "tags": [],
-        "jsDoc": "/**\n * Host service backing the generated `ctx.remote.settings` namespace. Every\n * remote read uses `redactSecrets: true`, so a `role('secret')` field cannot\n * ride a response. Writes expose the settings service's merge, replacement,\n * and path-addressed operations, and classify every provider refusal as\n * `settings-conflict` or `settings-rejected` with the service's message.\n */",
+        "jsDoc": "/**\n * Host service backing the generated `ctx.remote.settings` namespace. Every\n * remote read uses `redactSecrets: true`, so a `role('secret')` field cannot\n * ride a response. Writes expose the settings service's merge, replacement,\n * and path-addressed operations, and classify every provider refusal as\n * `settings/conflict` or `settings/rejected` with the service's message.\n */",
         "key": "settingsController",
         "exportName": "SettingsController",
         "members": [
@@ -457,7 +457,7 @@ export const TYPERT = {
             "name": "describe",
             "signature": "@Remote describe(): SettingsDescribeValue",
             "summary": "Describe every registered namespace for a configuration page: redacted layered values plus the serialized schema the page renders its form from.",
-            "jsDoc": "/**\n * Describe every registered namespace for a configuration page: redacted\n * layered values plus the serialized schema the page renders its form from.\n * @returns provider writability, local-document presence, and one view per namespace.\n * @throws TypertRemoteFailure when no settings provider is mounted.\n */"
+            "jsDoc": "/**\n * Describe every registered namespace for a configuration page: redacted\n * layered values plus the serialized schema the page renders its form from.\n * @returns provider writability, local-document presence, and one view per namespace.\n * @throws RemoteError when no settings provider is mounted.\n */"
           },
           {
             "kind": "method",
@@ -471,35 +471,35 @@ export const TYPERT = {
             "name": "update",
             "signature": "@Remote update( ns: string, patch: Record<string, JsonValue>, expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>",
             "summary": "Merge a patch into one namespace's stored user section.",
-            "jsDoc": "/**\n * Merge a patch into one namespace's stored user section.\n * @param ns - namespace key to write.\n * @param patch - fields to merge into the user section.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws TypertRemoteFailure when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
+            "jsDoc": "/**\n * Merge a patch into one namespace's stored user section.\n * @param ns - namespace key to write.\n * @param patch - fields to merge into the user section.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws RemoteError when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
           },
           {
             "kind": "method",
             "name": "replace",
             "signature": "@Remote replace( ns: string, section: Record<string, JsonValue>, expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>",
             "summary": "Replace one namespace's stored user section wholesale.",
-            "jsDoc": "/**\n * Replace one namespace's stored user section wholesale.\n * @param ns - namespace key to write.\n * @param section - complete replacement user section.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws TypertRemoteFailure when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
+            "jsDoc": "/**\n * Replace one namespace's stored user section wholesale.\n * @param ns - namespace key to write.\n * @param section - complete replacement user section.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws RemoteError when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
           },
           {
             "kind": "method",
             "name": "mutate",
             "signature": "@Remote async mutate( ns: string, ops: SettingsPathOpView[], expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>",
             "summary": "Apply path-addressed edits to one namespace's user section, resolved against the section as stored rather than against whatever the caller last read, then answer with that namespace's new redacted view.",
-            "jsDoc": "/**\n * Apply path-addressed edits to one namespace's user section, resolved against\n * the section as stored rather than against whatever the caller last read,\n * then answer with that namespace's new redacted view.\n * @param ns - namespace key to write.\n * @param ops - the edits to apply, in order.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws TypertRemoteFailure when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
+            "jsDoc": "/**\n * Apply path-addressed edits to one namespace's user section, resolved against\n * the section as stored rather than against whatever the caller last read,\n * then answer with that namespace's new redacted view.\n * @param ns - namespace key to write.\n * @param ops - the edits to apply, in order.\n * @param expectedRevision - revision the caller read; `undefined` writes unconditionally.\n * @returns the namespace's redacted view after the write.\n * @throws RemoteError when the request is invalid, no provider is mounted, or the provider refuses the write.\n */"
           },
           {
             "kind": "method",
             "name": "openSettingsDocument",
             "signature": "@Remote async openSettingsDocument(signal: AbortSignal): Promise<SettingsDocumentOpenValue>",
             "summary": "Materialize the provider-owned settings document and open it in a native text editor.",
-            "jsDoc": "/**\n * Materialize the provider-owned settings document and open it in a native text editor.\n * @param signal - caller lifetime; abort terminates preparation or the native command.\n * @returns confirmation after the native opener accepts the document.\n * @throws TypertRemoteFailure when no document exists, preparation fails, or opening fails.\n */"
+            "jsDoc": "/**\n * Materialize the provider-owned settings document and open it in a native text editor.\n * @param signal - caller lifetime; abort terminates preparation or the native command.\n * @returns confirmation after the native opener accepts the document.\n * @throws RemoteError when no document exists, preparation fails, or opening fails.\n */"
           },
           {
             "kind": "method",
             "name": "openAgentPresetDirectory",
             "signature": "@Remote async openAgentPresetDirectory( agentPreset: string, signal: AbortSignal, ): Promise<AgentPresetDirectoryOpenValue>",
             "summary": "Open one user-authored Agent preset directory or return its path when no native opener exists.",
-            "jsDoc": "/**\n * Open one user-authored Agent preset directory or return its path when no native opener exists.\n * @param agentPreset - preset id resolved against Host-owned roots.\n * @param signal - caller lifetime; abort terminates the native command.\n * @returns an opened confirmation or the resolved directory for text display.\n * @throws TypertRemoteFailure when the preset is missing, read-only, invalid, or cannot be opened.\n */"
+            "jsDoc": "/**\n * Open one user-authored Agent preset directory or return its path when no native opener exists.\n * @param agentPreset - preset id resolved against Host-owned roots.\n * @param signal - caller lifetime; abort terminates the native command.\n * @returns an opened confirmation or the resolved directory for text display.\n * @throws RemoteError when the preset is missing, read-only, invalid, or cannot be opened.\n */"
           }
         ],
         "types": [

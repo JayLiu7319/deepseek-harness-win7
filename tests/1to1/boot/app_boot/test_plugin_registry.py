@@ -521,7 +521,7 @@ async def test_boot_resolves_installation_rows_named_by_the_config():
     d = tmp()
     rows = [
         "- id: timer\n  name: '@deepseek-ai/cordis-plugin-timer'",
-        "- id: system-prompt\n  name: '@deepseek-ai/dsh-system-prompt'\n  config:\n    persona: booted",
+            "- id: system-prompt\n  name: '@deepseek-ai/dsh-system-prompt'\n  config:\n    personaPrefix: booted",
         "- id: tools\n  name: '@deepseek-ai/dsh-tools'",
     ]
     with open(os.path.join(d, "cordis.yml"), "w", encoding="utf-8") as f:
@@ -532,7 +532,7 @@ async def test_boot_resolves_installation_rows_named_by_the_config():
         assert ctx.get("timer") is not None
         prompt = ctx.get("systemPrompt")
         assert prompt is not None
-        assert prompt.layers.global_layer.sections.data["deployment:persona"]["text"] == "booted"
+        assert prompt.layers.global_layer.sections.data["deployment:persona-prefix"]["text"] == "booted"
         assert ctx.get("tools") is not None
         entries = {entry.options.get("name"): entry for entry in ctx.loader.entries()}
         for name in (

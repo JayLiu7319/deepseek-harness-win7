@@ -4285,8 +4285,8 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 			]
 		};
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\experimental\client-ui-agent-team\src\client\TeamAction.module.css.mjs
-		const css = "._11Cc7a_root{position:relative}._11Cc7a_trigger,._11Cc7a_iconButton,._11Cc7a_smallButton,._11Cc7a_taskActions button,._11Cc7a_formActions button{color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:0;border-radius:6px}._11Cc7a_trigger{align-items:center;gap:5px;min-height:28px;padding:3px 7px;font-size:12px;display:inline-flex}._11Cc7a_trigger:hover,._11Cc7a_iconButton:hover,._11Cc7a_smallButton:hover,._11Cc7a_taskActions button:hover,._11Cc7a_formActions button:hover{background:var(--dsw-alias-interactive-bg-hover)}._11Cc7a_count{background:var(--dsw-alias-fill-l2);font-variant-numeric:tabular-nums;text-align:center;border-radius:8px;min-width:16px}._11Cc7a_panel{--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);z-index:110;box-sizing:border-box;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:min(560px,100vw - 32px);max-height:min(680px,100vh - 120px);box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:12px;padding:10px;position:absolute;top:calc(100% + 5px);left:0;overflow:auto}._11Cc7a_toolbar,._11Cc7a_sectionTitle,._11Cc7a_taskTitle,._11Cc7a_taskActions,._11Cc7a_formActions{align-items:center;gap:8px;display:flex}._11Cc7a_toolbar{min-height:28px}._11Cc7a_spacer{flex:1}._11Cc7a_iconButton{justify-content:center;align-items:center;width:26px;height:26px;display:inline-flex}._11Cc7a_panel h3{color:var(--dsw-alias-label-secondary);margin:12px 0 6px;font-size:12px;font-weight:500}._11Cc7a_roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;display:grid}._11Cc7a_member{border:.5px solid var(--dsw-alias-border-l1);min-width:0;color:var(--dsw-alias-label-primary);text-align:left;cursor:pointer;background:0 0;border-radius:8px;align-items:flex-start;gap:8px;padding:8px;display:flex}._11Cc7a_member:disabled{cursor:default}._11Cc7a_memberText{flex-direction:column;min-width:0;display:flex}._11Cc7a_memberText small,._11Cc7a_meta{color:var(--dsw-alias-label-tertiary);font-size:11px}._11Cc7a_diagnostic,._11Cc7a_error,._11Cc7a_warning{color:var(--dsw-alias-state-error-primary)}._11Cc7a_smallButton{align-items:center;gap:4px;margin-left:auto;padding:4px 7px;font-size:11px;display:inline-flex}._11Cc7a_tasks{flex-direction:column;gap:7px;display:flex}._11Cc7a_task,._11Cc7a_form{border:.5px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-bg-base);border-radius:9px;padding:9px}._11Cc7a_taskTitle span{color:var(--dsw-alias-label-tertiary);margin-left:auto;font-size:11px}._11Cc7a_task p{color:var(--dsw-alias-label-secondary);white-space:pre-wrap;margin:5px 0;font-size:12px}._11Cc7a_meta{flex-wrap:wrap;gap:4px 10px;display:flex}._11Cc7a_taskActions{flex-wrap:wrap;margin-top:8px}._11Cc7a_taskActions label{color:var(--dsw-alias-label-tertiary);align-items:center;gap:4px;font-size:11px;display:inline-flex}._11Cc7a_taskActions select,._11Cc7a_form input,._11Cc7a_form textarea{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);font:inherit;border-radius:6px}._11Cc7a_taskActions button,._11Cc7a_formActions button{align-items:center;gap:3px;padding:4px 6px;font-size:11px;display:inline-flex}._11Cc7a_taskActions button:disabled,._11Cc7a_formActions button:disabled{opacity:.45;cursor:default}._11Cc7a_form{gap:6px;margin-bottom:7px;display:grid}._11Cc7a_form input,._11Cc7a_form textarea{width:100%;padding:6px 8px;font-size:12px}._11Cc7a_form textarea{resize:vertical;min-height:58px}._11Cc7a_notice,._11Cc7a_error{padding:9px;font-size:12px}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\experimental\client-ui-agent-team\src\client\TeamAction.module.css.mjs
+		const css = ".XczJrW_root{position:relative}.XczJrW_trigger,.XczJrW_iconButton,.XczJrW_smallButton,.XczJrW_taskActions button,.XczJrW_formActions button{color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:0;border-radius:6px}.XczJrW_trigger{align-items:center;gap:5px;min-height:28px;padding:3px 7px;font-size:12px;display:inline-flex}.XczJrW_trigger:hover,.XczJrW_iconButton:hover,.XczJrW_smallButton:hover,.XczJrW_taskActions button:hover,.XczJrW_formActions button:hover{background:var(--dsw-alias-interactive-bg-hover)}.XczJrW_count{background:var(--dsw-alias-fill-l2);font-variant-numeric:tabular-nums;text-align:center;border-radius:8px;min-width:16px}.XczJrW_panel{--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);z-index:110;box-sizing:border-box;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:min(560px,100vw - 32px);max-height:min(680px,100vh - 120px);box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:12px;padding:10px;position:absolute;top:calc(100% + 5px);left:0;overflow:auto}.XczJrW_toolbar,.XczJrW_sectionTitle,.XczJrW_taskTitle,.XczJrW_taskActions,.XczJrW_formActions{align-items:center;gap:8px;display:flex}.XczJrW_toolbar{min-height:28px}.XczJrW_spacer{flex:1}.XczJrW_iconButton{justify-content:center;align-items:center;width:26px;height:26px;display:inline-flex}.XczJrW_panel h3{color:var(--dsw-alias-label-secondary);margin:12px 0 6px;font-size:12px;font-weight:500}.XczJrW_roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;display:grid}.XczJrW_member{border:.5px solid var(--dsw-alias-border-l1);min-width:0;color:var(--dsw-alias-label-primary);text-align:left;cursor:pointer;background:0 0;border-radius:8px;align-items:flex-start;gap:8px;padding:8px;display:flex}.XczJrW_member:disabled{cursor:default}.XczJrW_memberText{flex-direction:column;min-width:0;display:flex}.XczJrW_memberText small,.XczJrW_meta{color:var(--dsw-alias-label-tertiary);font-size:11px}.XczJrW_diagnostic,.XczJrW_error,.XczJrW_warning{color:var(--dsw-alias-state-error-primary)}.XczJrW_smallButton{align-items:center;gap:4px;margin-left:auto;padding:4px 7px;font-size:11px;display:inline-flex}.XczJrW_tasks{flex-direction:column;gap:7px;display:flex}.XczJrW_task,.XczJrW_form{border:.5px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-bg-base);border-radius:9px;padding:9px}.XczJrW_taskTitle span{color:var(--dsw-alias-label-tertiary);margin-left:auto;font-size:11px}.XczJrW_task p{color:var(--dsw-alias-label-secondary);white-space:pre-wrap;margin:5px 0;font-size:12px}.XczJrW_meta{flex-wrap:wrap;gap:4px 10px;display:flex}.XczJrW_taskActions{flex-wrap:wrap;margin-top:8px}.XczJrW_taskActions label{color:var(--dsw-alias-label-tertiary);align-items:center;gap:4px;font-size:11px;display:inline-flex}.XczJrW_taskActions select,.XczJrW_form input,.XczJrW_form textarea{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);font:inherit;border-radius:6px}.XczJrW_taskActions button,.XczJrW_formActions button{align-items:center;gap:3px;padding:4px 6px;font-size:11px;display:inline-flex}.XczJrW_taskActions button:disabled,.XczJrW_formActions button:disabled{opacity:.45;cursor:default}.XczJrW_form{gap:6px;margin-bottom:7px;display:grid}.XczJrW_form input,.XczJrW_form textarea{width:100%;padding:6px 8px;font-size:12px}.XczJrW_form textarea{resize:vertical;min-height:58px}.XczJrW_notice,.XczJrW_error{padding:9px;font-size:12px}";
 		const tagId = "@deepseek-ai/dsh-experimental-client-ui-agent-team/TeamAction.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -4296,29 +4296,29 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
 			document.head.appendChild(tag);
 		}
 		var TeamAction_module_css_default = {
-			"count": "_11Cc7a_count",
-			"diagnostic": "_11Cc7a_diagnostic",
-			"error": "_11Cc7a_error",
-			"form": "_11Cc7a_form",
-			"formActions": "_11Cc7a_formActions",
-			"iconButton": "_11Cc7a_iconButton",
-			"member": "_11Cc7a_member",
-			"memberText": "_11Cc7a_memberText",
-			"meta": "_11Cc7a_meta",
-			"notice": "_11Cc7a_notice",
-			"panel": "_11Cc7a_panel",
-			"root": "_11Cc7a_root",
-			"roster": "_11Cc7a_roster",
-			"sectionTitle": "_11Cc7a_sectionTitle",
-			"smallButton": "_11Cc7a_smallButton",
-			"spacer": "_11Cc7a_spacer",
-			"task": "_11Cc7a_task",
-			"taskActions": "_11Cc7a_taskActions",
-			"taskTitle": "_11Cc7a_taskTitle",
-			"tasks": "_11Cc7a_tasks",
-			"toolbar": "_11Cc7a_toolbar",
-			"trigger": "_11Cc7a_trigger",
-			"warning": "_11Cc7a_warning"
+			"count": "XczJrW_count",
+			"diagnostic": "XczJrW_diagnostic",
+			"error": "XczJrW_error",
+			"form": "XczJrW_form",
+			"formActions": "XczJrW_formActions",
+			"iconButton": "XczJrW_iconButton",
+			"member": "XczJrW_member",
+			"memberText": "XczJrW_memberText",
+			"meta": "XczJrW_meta",
+			"notice": "XczJrW_notice",
+			"panel": "XczJrW_panel",
+			"root": "XczJrW_root",
+			"roster": "XczJrW_roster",
+			"sectionTitle": "XczJrW_sectionTitle",
+			"smallButton": "XczJrW_smallButton",
+			"spacer": "XczJrW_spacer",
+			"task": "XczJrW_task",
+			"taskActions": "XczJrW_taskActions",
+			"taskTitle": "XczJrW_taskTitle",
+			"tasks": "XczJrW_tasks",
+			"toolbar": "XczJrW_toolbar",
+			"trigger": "XczJrW_trigger",
+			"warning": "XczJrW_warning"
 		};
 		//#endregion
 		//#region lib/types/client/TeamAction.js

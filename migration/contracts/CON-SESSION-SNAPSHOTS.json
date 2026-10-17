@@ -40,5 +40,6 @@
     "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
     "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
   },
-  "historical_native_compatibility_notes": "Legacy native SQLite unit controls retain store UUID, incarnation, transactional revision and atomic backfill coverage. They neither mount a canonical rc.1 SQLite persistence package nor add Source rows; the removed Source provider and its old acceptance remain in alpha history."
+  "historical_native_compatibility_notes": "Legacy native SQLite unit controls retain store UUID, incarnation, transactional revision and atomic backfill coverage. They neither mount a canonical rc.1 SQLite persistence package nor add Source rows; the removed Source provider and its old acceptance remain in alpha history.",
+  "historical": true
 }

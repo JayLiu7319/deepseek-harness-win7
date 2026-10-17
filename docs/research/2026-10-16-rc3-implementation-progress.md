@@ -1,6 +1,14 @@
 # rc.3 分阶段实施记录
 
-本记录推进 [rc.3实施路径](2026-10-16-rc3-baseline-implementation-assessment.md)。活动pin在共享合同与消费者稳定前仍为rc.1，候选发现或单项定向通过不构成rc.3发行资格。Desktop继续按指定Electron22与Standard/AIO方案。
+本记录推进 [rc.3实施路径](2026-10-16-rc3-baseline-implementation-assessment.md)。2026-10-17 R07-F 已协调切换活动 pin 至 rc.3；此前各节保留当时状态。候选发现或单项定向通过不构成 rc.3 发行资格。Desktop 继续按指定 Electron22 与 Standard/AIO 方案。
+
+## R07-F：正式组合与目标代际切换（2026-10-17）
+
+正式注册表切换 52 个当前绑定，reference/活动目标推进到 a4c74a91；导入 307 份 manifests、bundle/preset 与严格 Typert host 描述符，三份明确产品 overlay 保留双工具 Minimal。234 份原版 browser 资源按官方构建 SHA 导入并保存独立输入载体，未修改 React/TSX/CSS。四预设 Minimal/Standard/PTC/Cordis 的真实 run_profile 对话及跨会话引用定向通过；输入哈希前后核验，156 entries/129 active、53 client rows 仅是此组合观察。版本为 0.1.5-rc.3，未宣称发行合格。
+
+旧 rc.1 的合同/映射显式标记历史，87 个任务与 1,216 份证据字节不变；原记录 ZIP 和完整成员 SHA 保留，旧资格只关联原候选。当前矩阵重新生成 297 manifests 和原版测试索引，新任务仍 ready、accepted_upstream 为 null，原九项例外进入待重新实测状态。原生产启动范围 133 通过/3 失败，修复 Minimal 产品 roster、persona section 与旧 reference 前端来源后 51 项定向通过；旧用户 persona/text 在 profile 加载与 live reload 边界转换，新键优先且文件不改写，10 项直接消费者通过。初轮 scoped persona 测试误挂 root 触发重复 section，保留诊断并在真实 agent scope 验证。migration check 通过不代表 parity 验收。
+
+运行时与前端替换前的逐字节备份保留，成功短 pytest 工作区由既有机制清理。真实现代/108 浏览器、默认全部消费者、Optional providers、平台、Portable/Desktop 与单次统一资格继续推进；浏览器首轮 Host 回滚超时独立保留，不回填为通过。
 
 ## R01：候选发现工具与输入审查
 

@@ -160,6 +160,38 @@ def prepare_profile(name: str, user_layer: bool = True, dsh_home: Optional[str] 
     return profile
 
 
+def admit_historical_persona_patches(rows):
+    """Translate the two retired persona keys at the profile input boundary.
+
+    Keep on-disk user patches and unrelated plugin configuration untouched.
+    Explicit current keys win, including an explicitly empty prefix.
+    """
+    rows = copy.deepcopy(rows)
+
+    def visit(entries):
+        if not isinstance(entries, list):
+            return
+        for row in entries:
+            if not isinstance(row, dict):
+                continue
+            name, identity = row.get('name'), row.get('id')
+            config = row.get('config')
+            if isinstance(config, dict):
+                if name == '@deepseek-ai/dsh-system-prompt' or name is None and identity == 'system-prompt':
+                    if 'persona' in config:
+                        config.setdefault('personaPrefix', config.pop('persona'))
+                elif name == '@deepseek-ai/dsh-persona' or name is None and identity == 'persona':
+                    if 'text' in config:
+                        config.setdefault('prefix', config.pop('text'))
+            visit(row.get('insert'))
+            # Cordis group configuration is itself a list of entry patches.
+            if isinstance(config, list):
+                visit(config)
+
+    visit(rows)
+    return rows
+
+
 class ComposedProfile:
     """One profile's patch layers, in application order."""
 
@@ -178,12 +210,12 @@ class ComposedProfile:
         self.overlays = overlays
 
     def all_patches(self) -> List[Dict[str, Any]]:
-        return [
+        return admit_historical_persona_patches([
             *self.bundle_patches,
             *self.profile.patches,
             *self.home_patches,
             *self.overlays,
-        ]
+        ])
 
     allPatches = all_patches
 
@@ -316,7 +348,7 @@ async def _run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
     root_config = os.path.join(composed.profile.dir, PROFILE_ROOT_FILENAME)
 
     def compose_live() -> List[Dict[str, Any]]:
-        return copy.deepcopy([
+        return admit_historical_persona_patches([
             *composed.bundle_patches,
             *(load_optional_patches(NAME, composed.profile.patch_path) or []),
             *(load_optional_patches(NAME, home_patch_path()) or []),

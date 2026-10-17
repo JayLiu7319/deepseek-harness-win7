@@ -24,8 +24,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\SettingsRoot.module.css.mjs
-		const css$3 = "._7iFUNG_triggerRow{flex:none;align-items:center;gap:8px;width:calc(100% + 4px);margin:4px -2px;display:flex}._7iFUNG_triggerRow._7iFUNG_railRow{width:36px;margin:8px 0 10px}._7iFUNG_trigger{box-sizing:border-box;cursor:pointer;width:auto;min-width:0;height:42px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:12px;flex:1;align-items:center;gap:8px;margin:0;padding:0 10px 0 8px;font-family:inherit;font-size:14px;line-height:22px;display:flex;overflow:hidden}._7iFUNG_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}._7iFUNG_trigger._7iFUNG_rail{corner-shape:round;border-radius:50%;flex:none;justify-content:center;gap:0;width:36px;height:36px;margin:0;padding:0}._7iFUNG_triggerLabel{white-space:nowrap;overflow:hidden}._7iFUNG_overlay{z-index:1000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}._7iFUNG_mask{background:var(--dsw-alias-bg-mask-1);backdrop-filter:var(--dsw-mask-blur);position:absolute;inset:0}._7iFUNG_panel{z-index:1;background:var(--dsw-alias-bg-layer-2);width:800px;max-width:calc(100vw - 48px);height:min(800px,100vh - 48px);box-shadow:var(--dsw-elevation-prominent);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:32px;display:flex;position:relative;overflow:hidden}._7iFUNG_nav{box-sizing:border-box;flex-direction:column;flex:none;gap:18px;width:188px;padding:22px 12px 0;display:flex}._7iFUNG_navTitle{color:var(--dsw-alias-label-primary);padding:0 12px;font-size:16px;font-weight:500;line-height:24px}._7iFUNG_navList{flex-direction:column;gap:4px;display:flex}._7iFUNG_navCell{box-sizing:border-box;cursor:pointer;height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:8px;padding:9px 16px 9px 12px;font-family:inherit;font-size:14px;font-weight:400;line-height:22px;display:flex}._7iFUNG_navCell:hover{background:var(--dsw-specific-sidebar-nav-item-hover)}._7iFUNG_navCell._7iFUNG_active{background:var(--dsw-specific-sidebar-nav-item-active)}._7iFUNG_navIcon{flex:none}._7iFUNG_navLabel{white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0;overflow:hidden}._7iFUNG_content{flex-direction:column;flex:1;min-width:0;display:flex}._7iFUNG_header{box-sizing:border-box;flex:none;justify-content:space-between;align-items:flex-start;gap:8px;height:54px;padding:20px 14px 8px 10px;display:flex}._7iFUNG_actions{justify-content:flex-end;align-items:center;gap:8px;min-width:0;margin-left:auto;display:flex}._7iFUNG_close{cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:0;display:inline-flex}._7iFUNG_close:hover{background:var(--dsw-alias-interactive-bg-hover)}._7iFUNG_options{flex:1;min-height:0;padding:0 24px 24px;overflow-y:auto}._7iFUNG_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-settings-general\src\client\SettingsRoot.module.css.mjs
+		const css$3 = ".ry41rG_triggerRow{flex:none;align-items:center;gap:8px;width:calc(100% + 4px);margin:4px -2px;display:flex}.ry41rG_triggerRow.ry41rG_railRow{width:36px;margin:8px 0 10px}.ry41rG_trigger{box-sizing:border-box;cursor:pointer;width:auto;min-width:0;height:42px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:12px;flex:1;align-items:center;gap:8px;margin:0;padding:0 10px 0 8px;font-family:inherit;font-size:14px;line-height:22px;display:flex;overflow:hidden}.ry41rG_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}.ry41rG_trigger.ry41rG_rail{corner-shape:round;border-radius:50%;flex:none;justify-content:center;gap:0;width:36px;height:36px;margin:0;padding:0}.ry41rG_triggerLabel{white-space:nowrap;overflow:hidden}.ry41rG_overlay{z-index:1000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}.ry41rG_mask{background:var(--dsw-alias-bg-mask-1);backdrop-filter:var(--dsw-mask-blur);position:absolute;inset:0}.ry41rG_panel{z-index:1;background:var(--dsw-alias-bg-layer-2);width:800px;max-width:calc(100vw - 48px);height:min(800px,100vh - 48px);box-shadow:var(--dsw-elevation-prominent);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border-radius:32px;display:flex;position:relative;overflow:hidden}.ry41rG_nav{box-sizing:border-box;flex-direction:column;flex:none;gap:18px;width:188px;padding:22px 12px 0;display:flex}.ry41rG_navTitle{color:var(--dsw-alias-label-primary);padding:0 12px;font-size:16px;font-weight:500;line-height:24px}.ry41rG_navList{flex-direction:column;gap:4px;display:flex}.ry41rG_navCell{box-sizing:border-box;cursor:pointer;height:40px;color:var(--dsw-alias-label-primary);text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:8px;padding:9px 16px 9px 12px;font-family:inherit;font-size:14px;font-weight:400;line-height:22px;display:flex}.ry41rG_navCell:hover{background:var(--dsw-specific-sidebar-nav-item-hover)}.ry41rG_navCell.ry41rG_active{background:var(--dsw-specific-sidebar-nav-item-active)}.ry41rG_navIcon{flex:none}.ry41rG_navLabel{white-space:nowrap;text-overflow:ellipsis;flex:1;min-width:0;overflow:hidden}.ry41rG_content{flex-direction:column;flex:1;min-width:0;display:flex}.ry41rG_header{box-sizing:border-box;flex:none;justify-content:space-between;align-items:flex-start;gap:8px;height:54px;padding:20px 14px 8px 10px;display:flex}.ry41rG_actions{justify-content:flex-end;align-items:center;gap:8px;min-width:0;margin-left:auto;display:flex}.ry41rG_close{cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-primary);background:0 0;border:none;border-radius:28px;justify-content:center;align-items:center;padding:0;display:inline-flex}.ry41rG_close:hover{background:var(--dsw-alias-interactive-bg-hover)}.ry41rG_options{flex:1;min-height:0;padding:0 24px 24px;overflow-y:auto}.ry41rG_hiddenLabel{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}";
 		const tagId$3 = "@deepseek-ai/dsh-client-ui-settings-general/SettingsRoot.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$3) + "]") === null) {
 			const tag = document.createElement("style");
@@ -35,36 +35,36 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SettingsRoot_module_css_default = {
-			"actions": "_7iFUNG_actions",
-			"active": "_7iFUNG_active",
-			"close": "_7iFUNG_close",
-			"content": "_7iFUNG_content",
-			"header": "_7iFUNG_header",
-			"hiddenLabel": "_7iFUNG_hiddenLabel",
-			"mask": "_7iFUNG_mask",
-			"nav": "_7iFUNG_nav",
-			"navCell": "_7iFUNG_navCell",
-			"navIcon": "_7iFUNG_navIcon",
-			"navLabel": "_7iFUNG_navLabel",
-			"navList": "_7iFUNG_navList",
-			"navTitle": "_7iFUNG_navTitle",
-			"options": "_7iFUNG_options",
-			"overlay": "_7iFUNG_overlay",
-			"panel": "_7iFUNG_panel",
-			"rail": "_7iFUNG_rail",
-			"railRow": "_7iFUNG_railRow",
-			"trigger": "_7iFUNG_trigger",
-			"triggerLabel": "_7iFUNG_triggerLabel",
-			"triggerRow": "_7iFUNG_triggerRow"
+			"actions": "ry41rG_actions",
+			"active": "ry41rG_active",
+			"close": "ry41rG_close",
+			"content": "ry41rG_content",
+			"header": "ry41rG_header",
+			"hiddenLabel": "ry41rG_hiddenLabel",
+			"mask": "ry41rG_mask",
+			"nav": "ry41rG_nav",
+			"navCell": "ry41rG_navCell",
+			"navIcon": "ry41rG_navIcon",
+			"navLabel": "ry41rG_navLabel",
+			"navList": "ry41rG_navList",
+			"navTitle": "ry41rG_navTitle",
+			"options": "ry41rG_options",
+			"overlay": "ry41rG_overlay",
+			"panel": "ry41rG_panel",
+			"rail": "ry41rG_rail",
+			"railRow": "ry41rG_railRow",
+			"trigger": "ry41rG_trigger",
+			"triggerLabel": "ry41rG_triggerLabel",
+			"triggerRow": "ry41rG_triggerRow"
 		};
 		//#endregion
 		//#region lib/types/client/SettingsRoot.js
 		/**
 		* Settings shell root: the sidebar-foot trigger row plus the centered modal
 		* panel (figma 501:29947, 1080x700) with the section nav rail. The shell is
-		* a pure composition face — every piece of text (trigger label, panel title,
+		* a pure composition face — slot-owned text (trigger label, panel title,
 		* close label, sections) arrives from registrants through slots; accessible
-		* names resolve to that content (trigger: its own text; dialog:
+		* names resolve from localized content (trigger: shell locale; dialog:
 		* aria-labelledby the title node; close: visually-hidden slot text). Modal
 		* open state and the active section id are component-local viewing state;
 		* the onboarding coordinator mounts exactly one ordered registrant while the
@@ -238,6 +238,7 @@ window.__ModuleLoader__.load({
 						ref: triggerButton,
 						type: "button",
 						className: clsx(SettingsRoot_module_css_default.trigger, !wide && SettingsRoot_module_css_default.rail),
+						"aria-label": t("trigger"),
 						"aria-haspopup": "dialog",
 						"aria-expanded": open,
 						onClick: () => {
@@ -272,8 +273,8 @@ window.__ModuleLoader__.load({
 			] });
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\chrome.module.css.mjs
-		const css$2 = "._5ubNPG_triggerLabel{white-space:nowrap;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-settings-general\src\client\chrome.module.css.mjs
+		const css$2 = ".AxqYta_triggerLabel{white-space:nowrap;overflow:hidden}";
 		const tagId$2 = "@deepseek-ai/dsh-client-ui-settings-general/chrome.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$2) + "]") === null) {
 			const tag = document.createElement("style");
@@ -282,7 +283,7 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$2;
 			document.head.appendChild(tag);
 		}
-		var chrome_module_css_default = { "triggerLabel": "_5ubNPG_triggerLabel" };
+		var chrome_module_css_default = { "triggerLabel": "AxqYta_triggerLabel" };
 		//#endregion
 		//#region lib/types/client/chrome.js
 		/**
@@ -319,8 +320,8 @@ window.__ModuleLoader__.load({
 			return (0, react_jsx_runtime.jsx)(react_jsx_runtime.Fragment, { children: t("close") });
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\GeneralSection.module.css.mjs
-		const css$1 = ".k7DJHW_section{flex-direction:column;width:100%;display:flex}.k7DJHW_section>[data-slot=\"settings.general.item\"]>:last-child{border-bottom:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-settings-general\src\client\GeneralSection.module.css.mjs
+		const css$1 = "._9rJueq_section{flex-direction:column;width:100%;display:flex}._9rJueq_section>[data-slot=\"settings.general.item\"]>:last-child{border-bottom:none}";
 		const tagId$1 = "@deepseek-ai/dsh-client-ui-settings-general/GeneralSection.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -329,7 +330,7 @@ window.__ModuleLoader__.load({
 			tag.textContent = css$1;
 			document.head.appendChild(tag);
 		}
-		var GeneralSection_module_css_default = { "section": "k7DJHW_section" };
+		var GeneralSection_module_css_default = { "section": "_9rJueq_section" };
 		//#endregion
 		//#region lib/types/client/GeneralSection.js
 		/**
@@ -344,8 +345,8 @@ window.__ModuleLoader__.load({
 			});
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-settings-general\src\client\SettingsDocumentAction.module.css.mjs
-		const css = ".DpFc-G_action{align-items:center;gap:8px;min-width:0;display:flex}.DpFc-G_error{max-width:180px;color:var(--dsw-alias-state-error-primary);text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:18px;overflow:hidden}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-settings-general\src\client\SettingsDocumentAction.module.css.mjs
+		const css = ".lotwgW_action{align-items:center;gap:8px;min-width:0;display:flex}.lotwgW_error{max-width:180px;color:var(--dsw-alias-state-error-primary);text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:18px;overflow:hidden}";
 		const tagId = "@deepseek-ai/dsh-client-ui-settings-general/SettingsDocumentAction.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -355,8 +356,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SettingsDocumentAction_module_css_default = {
-			"action": "DpFc-G_action",
-			"error": "DpFc-G_error"
+			"action": "lotwgW_action",
+			"error": "lotwgW_error"
 		};
 		//#endregion
 		//#region lib/types/client/SettingsDocumentAction.js
@@ -487,10 +488,10 @@ window.__ModuleLoader__.load({
 			"general.nav": "通用设置",
 			"connection.error": "连接异常",
 			"connection.retry": "立即重连",
-			"connection.connecting": "连接中",
+			"connection.connecting": "自动重连中",
 			"connection.connected": "连接成功",
 			"connection.reconnect": "连接异常，点击立即重连",
-			"connection.restart": "连接中，点击立即重连"
+			"connection.restart": "连接中断，正在自动重试，点击立即重连"
 		};
 		/** English dictionary, checked complete against the zh key set. */
 		const en = {
@@ -502,10 +503,10 @@ window.__ModuleLoader__.load({
 			"general.nav": "General",
 			"connection.error": "Disconnected",
 			"connection.retry": "Reconnect now",
-			"connection.connecting": "Connecting",
+			"connection.connecting": "Reconnecting",
 			"connection.connected": "Connected",
 			"connection.reconnect": "Disconnected, reconnect now",
-			"connection.restart": "Connecting, restart now"
+			"connection.restart": "Reconnecting automatically, reconnect now"
 		};
 		//#endregion
 		//#region lib/types/client/index.js

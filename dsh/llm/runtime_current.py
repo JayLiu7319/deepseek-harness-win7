@@ -8,6 +8,7 @@ from dsh.core.session.json import FrozenDict, deep_freeze
 class CurrentLLMService(LLMService):
     registerAdapter = LLMService.register_adapter
     resolveModelInfo = LLMService.resolve_model_info
+    listModels = LLMService.list_models
     @staticmethod
     def _normalize_model_info(provider, identifier, model, error_type):
         return normalize_model_info(provider, identifier, model, error_type, system_prompt_update=True)

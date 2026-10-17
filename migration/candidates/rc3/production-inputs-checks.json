@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-F-production-input-promotion",
+  "status": "targeted-passed",
+  "artifacts": [
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/inputs.json",
+      "sha256": "3d067cb726f7288698955a99eacb61b7a333a67021353d22632c422137a8d8bb"
+    },
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/activation.json",
+      "sha256": "f5e4fc13ef5100603442117d733f682bdbf8266efc07757c5791ca8a043febd1"
+    },
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/client-graph.json",
+      "sha256": "aa2210e56245d922e49df94e0ec9ae71e290290096ec74a593ae371c89ad848d"
+    },
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/journeys.json",
+      "sha256": "be35489bc5ee1653c1ff17dda5555b602154430296ed17dd74cd652c2d62f47e"
+    },
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/reference-journey.json",
+      "sha256": "74a5430370802fc7cfef0f32796c97a22add082993d5aaba5612847c6c19c2c8"
+    },
+    {
+      "path": ".goose/out/rc3-production-composition-20261017-c/command.json",
+      "sha256": "d0fa5ad45431abb1a5580617de3b9d3c30da686fde4e71fd2fff498437ba0550"
+    },
+    {
+      "path": ".goose/out/rc3-production-boot-20261017-b/command.json",
+      "sha256": "6be08eb3082aba0b11cd23fffe8bdb98d79b30772f510841b146e5264e868f30"
+    },
+    {
+      "path": ".goose/out/rc3-production-boot-20261017-b/results.xml",
+      "sha256": "b35f397571dfd698ccd5dc5db7fd57cb8a12e438d24992bd507339a1f11d3d1d"
+    },
+    {
+      "path": ".goose/out/rc3-production-boot-20261017-b/run.log",
+      "sha256": "fa5b91aa2143750698347b10216cc2f718f39b371cc4d8b34e8b2f348e31eb01"
+    },
+    {
+      "path": ".goose/out/rc3-profile-persona-20261017-b/command.json",
+      "sha256": "aab593f6f525811866494a205a53258862cdefc33f43e84d3843508f020222ac"
+    },
+    {
+      "path": ".goose/out/rc3-profile-persona-20261017-b/results.xml",
+      "sha256": "3d1871fd6885e13e0a65dc746dd63136833c79cc15f69e57c7be0dc2e6210f7e"
+    },
+    {
+      "path": ".goose/out/rc3-profile-persona-20261017-b/run.log",
+      "sha256": "907ad75b84058d88a1442fb955a6fb226a8894c42c6f3505bd5d1ed1930403a3"
+    },
+    {
+      "path": ".goose/out/rc3-boot-native-class-20261017/command.json",
+      "sha256": "b4d2a4213aba27e32bf22b7c30a1ca8eb3222b6389d976fee0bc91145fabfd0d"
+    },
+    {
+      "path": ".goose/out/rc3-boot-native-class-20261017/results.xml",
+      "sha256": "d55f50ab6a985029ffb65133226f2de660bdca1fee44c2055ee466d07c96f2ea"
+    },
+    {
+      "path": ".goose/out/rc3-boot-native-class-20261017/run.log",
+      "sha256": "fdf29a7ff8cc29c1086b0aa2f074057bbbc7b7b00da03b72b09a40f508be28ac"
+    },
+    {
+      "path": ".goose/out/rc3-reference-prepare-20261017/receipt.json",
+      "sha256": "bdfe1365feebdcb419c22217b9d33cdedb8cfcfd04ad25eaef9d60fc4aa7cb33"
+    },
+    {
+      "path": ".goose/out/rc3-production-llm-20261017-b/command.json",
+      "sha256": "62da648b1a106261ee5030a96df427745406e43aa38d253e29360c9686c028db"
+    },
+    {
+      "path": ".goose/out/rc3-production-llm-20261017-b/results.xml",
+      "sha256": "6c1badce4d6b6701a726213a07b6bd531380ea3df893c262fa9524af7d53fa8e"
+    },
+    {
+      "path": ".goose/out/rc3-production-llm-20261017-b/run.log",
+      "sha256": "c14fceb9a206dc068f265452aba0fc91fdc16e47e3c5550869aa557dce9317ee"
+    }
+  ],
+  "runtime_inputs": "scripts/runtime-inputs.json",
+  "frontend_inputs": "scripts/frontend-inputs.json",
+  "historical_records": "migration/history/2026-10-17-rc1/manifest.json",
+  "coverage": [
+    "52 current production bindings; 307 reviewed runtime inputs, three explicit Minimal product overlays; 234 sealed original frontend artifacts.",
+    "Actual canonical run_profile with four presets, strict descriptors, completed assistant turns, v3 flush and cross-session reference; frozen Source and production runtime/frontend inputs.",
+    "Production boot correction scope 51 passed; profile/persona consumers 10 passed; native class export and input boundaries 47 passed. Counts overlap and are not a full regression.",
+    "Original rc.1 evidence bytes and task identities preserved; historical contracts cannot certify the current target.",
+    "Pinned reference dependencies and host libraries prepared without replacing sealed original browser inputs.",
+    "Current public model catalog alias and direct Session facade consumers: 59 passed; initial fixture metadata missing provider was corrected without weakening catalog validation."
+  ],
+  "limitations": [
+    "Browser journeys, Portable, Desktop and unified candidate qualification pending. accepted_upstream remains null.",
+    "Imported runtime inputs are not a complete TypeScript source mirror; product keeps the documented Minimal editor adaptation.",
+    "Initial 133-pass/3-fail boot run and initial persona root-scope rejection retained; later targeted passes do not rewrite them."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-production-boot-20261017-a",
+    ".goose/out/rc3-profile-persona-20261017",
+    ".goose/out/rc3-production-llm-20261017"
+  ]
+}

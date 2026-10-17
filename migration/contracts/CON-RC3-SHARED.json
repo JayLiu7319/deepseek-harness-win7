@@ -1,0 +1,33 @@
+{
+  "id": "CON-RC3-SHARED",
+  "revision": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "status": "specified",
+  "source_paths": [
+    "reference/packages/core/session/src/types.ts",
+    "reference/packages/core/agent-loop/src/index.ts",
+    "reference/packages/client/connection/src/index.ts",
+    "dsh/boot/plugin_registry_current.py",
+    "docs/research/2026-10-16-rc3-baseline-implementation-assessment.md"
+  ],
+  "consumers": [
+    "dsh/api/session_current.py",
+    "dsh/api/workspace_files_current.py",
+    "apps/web/dist/index.html"
+  ],
+  "invariants": [
+    "Session v3 uses actual adjacent immutable format migrations, exact surface/provenance coordinates, read-only cold queries and durable live consumers.",
+    "One coordinated current provider composition serves unchanged official browser resources through strict Connection/Typert contracts.",
+    "Minimal keeps the product-required editor plus persistent shell; Creative retains Cordis management.",
+    "Targeted stage receipts establish only their bounded observations; full qualification binds one exact clean candidate and archive."
+  ],
+  "open_questions": [
+    "Remaining browser/108, complete Source/oracle requalification and Portable/Desktop installation lanes."
+  ],
+  "identity": "Pinned rc.3 SHA, exact candidate commit, owned Session/Agent and captured format coordinates.",
+  "ownership": "Cordis services, reversible plugin effects, read/write persistence handles and per-session scopes.",
+  "ordering": "Durable step/turn boundaries precede committed consumers; abort prevents late context and upload receipt publication.",
+  "errors": "Provider failures remain distinct from missing data; no historical test result is relabeled current.",
+  "cancellation": "Observer abort settles promptly while owned provider work drains and disposes exactly once.",
+  "adaptation": "Python 3.8.10 and Win7 platform implementations; original React/TSX/CSS resources stay unchanged, Desktop uses Electron 22.3.27 per specified research."
+}

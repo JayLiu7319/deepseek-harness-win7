@@ -24,7 +24,7 @@ R02-N：新增 [query-consumers-checks.json](query-consumers-checks.json)，显�
 
 R02-O：新增 [agent-ownership-checks.json](agent-ownership-checks.json)，候选Agent在发布前拥有写handle、存储setup后缀，resume显式持久化崩溃修复，退出排空后释放身份，取消迟到handle与聚合错误已覆盖。Python194通过；Source44通过/1项原有Windows guard跳过。请求机、Inbox与Agent身份scope仍待R03替换，活动profile未切。
 
-本区只登记候选发现与建议实施路径。活动reference、baseline、contracts、tasks和既有rc.1资格不变。R01–R11不是正式migration任务；本区不触发自动状态转换。
+本区保留各阶段当时的候选状态。R07-F 已协调切换正式 reference、baseline、运行时映射与原版前端；旧 rc.1 资格保持原身份，新任务 MIG-RC3-ALIGNMENT-001 等待当前目标的完整证据。R01–R11 是实施行动编号，不触发自动验收。
 
 R03-A：新增 [loop-projections-checks.json](loop-projections-checks.json)，持久化 Inbox、提示词历史投影、运行时上下文和流式 attempt 结算合同的 77 个实际配对场景匹配；Python 342 项、Source 原套件 102 项通过。persona prefix/suffix 顺序作为候选服务提供。请求驱动与 preset 消费者尚待连接，非整体 R03 签收。
 

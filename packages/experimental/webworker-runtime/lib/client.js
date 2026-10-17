@@ -122,10 +122,12 @@ async function localizeSourceMap(source, bundleUrl, fetch) {
 		return source.replace(SOURCE_MAP_TRAILER, "");
 	}
 }
-/** Normalize a RequestInit body to a transferable ArrayBuffer. */
-function toBodyBuffer(body) {
+/** Keep opaque Blobs and transferable streams intact; normalize other bodies to bytes. */
+function toTunnelBody(body) {
 	if (body === void 0 || body === null) return void 0;
 	if (typeof body === "string") return encoder.encode(body).buffer;
+	if (body instanceof Blob) return body;
+	if (body instanceof ReadableStream) return body;
 	if (body instanceof ArrayBuffer) return body;
 	if (ArrayBuffer.isView(body)) return body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength);
 	throw new Error(`web-preview tunnel: unsupported request body ${Object.prototype.toString.call(body)}`);
@@ -199,13 +201,14 @@ var WorkerTunnel = class {
 		const signal = init?.signal;
 		if (signal?.aborted === true) throw new DOMException("The operation was aborted.", "AbortError");
 		const id = this.nextId++;
+		const body = init?.body === void 0 || init.body === null ? void 0 : toTunnelBody(init.body);
 		const frame = {
 			t: "req",
 			id,
 			method: init?.method ?? "GET",
 			url: new URL(input, globalThis.location.origin).toString(),
 			headers: Object.fromEntries(new Headers(init?.headers).entries()),
-			...init?.body === void 0 || init.body === null ? {} : { body: toBodyBuffer(init.body) }
+			...body === void 0 ? {} : { body }
 		};
 		const response = new Promise((resolve, reject) => {
 			this.unary.set(id, {
@@ -214,7 +217,8 @@ var WorkerTunnel = class {
 			});
 		});
 		this.inFlight.set(id, `${frame.method} ${frame.url}`);
-		this.worker.postMessage(frame);
+		if (body instanceof ReadableStream) this.worker.postMessage(frame, [body]);
+		else this.worker.postMessage(frame);
 		if (signal === void 0 || signal === null) return await response;
 		const raced = this.rejectOnAbort(id, signal);
 		try {
@@ -833,6 +837,7 @@ async function connectWorkerHost(worker, options) {
 			loadBundle: (url) => tunnel.loadBundle(url),
 			ownsHost: true
 		};
+		globalThis.__DSH_FILE_UPLOAD__ = { fetch: (input, init) => tunnel.fetch(input, init) };
 		await applyIndexInjections(payload.injections, (src) => tunnel.loadBundle(src));
 		ready.resolve();
 		return {

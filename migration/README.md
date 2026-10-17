@@ -1,6 +1,6 @@
 # 持续对齐记录
 
-2026-10-16：下一目标 `dsh-v0.1.5-rc.3 / a4c74a91` 已开始候选评估，活动基线仍为下述rc.1。实际rc.1→rc.3差分、297-manifest候选矩阵、Session v3/Prompt/文件服务闭包与Desktop交接见 [实施路径评估](../docs/research/2026-10-16-rc3-baseline-implementation-assessment.md) 和 [候选区](candidates/rc3/README.md)。Desktop遵循指定Standard/AIO调研；本轮未切pin、未实施业务迁移或提升验收状态。
+2026-10-17：活动目标与 reference 已推进至 **dsh-v0.1.5-rc.3 / a4c74a91**。正式 Python 注册表、307 份运行时输入与 234 份原版前端资源已协调切换；Minimal 保留 shell + editor，旧用户 persona 字段在加载边界转换而不改写文件。四预设真实 Host 对话及跨会话引用定向通过，浏览器、Portable、Desktop 与单次统一资格仍待完成，`accepted_upstream` 保持 null。rc.1 合同/映射转为显式历史记录，原任务及 1,216 份证据字节不变；不复用旧验收为 rc.3 资格。见 [分阶段实施记录](../docs/research/2026-10-16-rc3-implementation-progress.md)、[候选区](candidates/rc3/README.md) 和 [rc.1 原记录快照](history/2026-10-17-rc1/manifest.json)。
 
 2026-10-15 活动基线 **dsh-v0.1.2-rc.1 / a66e4702047846cdaa10c66c9d3df3951f5ea70d** 已完成约定范围签收。干净代码 `d5f74c2da78f4d81b5fe3d9f1251fed31c03174e` 的单次完整门禁通过：Python 10,738通过/6项既有环境跳过、21组 Source 配置、82个配对驱动及实际解压/现代和108浏览器三预设 fresh/cold 通过。新任务 `MIG-RC1-ALIGNMENT-001` 集成86份当前有限合同；旧任务和 alpha 原始证据保留历史身份，九项既有缺陷判据重新实测。精确 ZIP 与原始观察封存在 [资格载体](evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip)，见 [正式回执](evidence/RUN-RC1-QUALIFICATION-20261015-D5F74C2D.json)、[本轮记录](../docs/research/2026-10-15-rc1-baseline-migration-progress.md) 和 [能力矩阵](rc1-capabilities.json)。`accepted_upstream` 仍为 null：这不是全部274个 manifest、任意插件 ABI、真实云 provider 或 Win7 真机的完整认证。本轮不发布 Release；后续记录提交不重标合格代码。以下是各阶段历史，较早状态不代表当前 pin。
 

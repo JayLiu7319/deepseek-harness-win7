@@ -228,6 +228,8 @@ HARNESS_PLUGIN_CLASSES: Dict[str, str] = {
 # the modules node half discovers its `dsh.client` declaration. Kept in one
 # table (dsh/client/rows.py) so a row and its implementation cannot drift.
 HARNESS_PLUGIN_CLASSES.update(CLIENT_HOST_HALF_ROWS)
+from dsh.boot.plugin_registry_current import CURRENT_HARNESS_PLUGIN_CLASSES
+HARNESS_PLUGIN_CLASSES.update(CURRENT_HARNESS_PLUGIN_CLASSES)
 
 
 def harness_plugin_names() -> List[str]:

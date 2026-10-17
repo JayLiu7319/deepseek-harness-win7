@@ -1,46 +1,88 @@
 {
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "sites": [
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 199,
+      "line": 272,
       "owner": "reference/apps/cli",
       "expression": "if (ctx.fiber.state !== FiberState.ACTIVE || ctx.get('loader') === undefined) return",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 255,
+      "line": 340,
       "owner": "reference/apps/cli",
       "expression": "hostCtx.provide(DSH_LAUNCH_ENVIRONMENT_KEY, options.environment)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 273,
+      "line": 358,
       "owner": "reference/apps/cli",
       "expression": "&& ctx.get('loader') !== undefined) {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 281,
+      "line": 366,
       "owner": "reference/apps/cli",
       "expression": "if (ctx.get('hmr') === undefined) {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 282,
+      "line": 367,
       "owner": "reference/apps/cli",
       "expression": "if (ctx.get('timer') === undefined) {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/apps/cli/src/profile-boot.ts",
-      "line": 303,
+      "line": 388,
       "owner": "reference/apps/cli",
       "expression": "&& ctx.get('loader') !== undefined) {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 191,
+      "owner": "reference/apps/desktop-host",
+      "expression": "ctx.emit('webserver/index-inject', rows)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 228,
+      "owner": "reference/apps/desktop-host",
+      "expression": "const gateway = ctx.get('typertGateway')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 294,
+      "owner": "reference/apps/desktop-host",
+      "expression": "hostCtx.provide(DSH_LAUNCH_ENVIRONMENT_KEY, environment)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 298,
+      "owner": "reference/apps/desktop-host",
+      "expression": "const connection = ctx.get('connection')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 299,
+      "owner": "reference/apps/desktop-host",
+      "expression": "const clientModules = ctx.get('clientModules')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/apps/desktop-host/src/index.ts",
+      "line": 300,
+      "owner": "reference/apps/desktop-host",
+      "expression": "const gateway = ctx.get('typertGateway')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -122,7 +164,7 @@
     },
     {
       "source": "reference/packages/acp/acp/src/session.ts",
-      "line": 445,
+      "line": 442,
       "owner": "reference/packages/acp/acp",
       "expression": "const subagents = this.ctx.get('subagents') as ContinuableDrain | undefined",
       "status": "source-discovery-not-runtime-resolution"
@@ -192,35 +234,35 @@
     },
     {
       "source": "reference/packages/api/gateway/src/index.ts",
-      "line": 648,
+      "line": 643,
       "owner": "reference/packages/api/gateway",
       "expression": "const receiver = this.ctx.get(serviceKey) as unknown",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/remotes/src/client/index.ts",
-      "line": 136,
+      "line": 143,
       "owner": "reference/packages/api/remotes",
       "expression": "export const inject = ['remote']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/remotes/src/index.ts",
-      "line": 34,
+      "line": 36,
       "owner": "reference/packages/api/remotes",
       "expression": "export const inject = ['typertGateway']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/remotes/src/index.ts",
-      "line": 50,
+      "line": 52,
       "owner": "reference/packages/api/remotes",
       "expression": "return ctx.on(event as never, ((...args: unknown[]) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/remotes/src/index.ts",
-      "line": 54,
+      "line": 56,
       "owner": "reference/packages/api/remotes",
       "expression": "return ctx.on(event as never, (function (",
       "status": "source-discovery-not-runtime-resolution"
@@ -234,14 +276,14 @@
     },
     {
       "source": "reference/packages/api/session-controller/src/client/index.ts",
-      "line": 77,
+      "line": 85,
       "owner": "reference/packages/api/session-controller",
       "expression": "export const inject = [",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/client/index.ts",
-      "line": 109,
+      "line": 119,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('connection/reset', () => { sessions.handleConnected() })",
       "status": "source-discovery-not-runtime-resolution"
@@ -255,35 +297,28 @@
     },
     {
       "source": "reference/packages/api/session-controller/src/commands.ts",
-      "line": 164,
+      "line": 178,
       "owner": "reference/packages/api/session-controller",
       "expression": "const titles = this.ctx.get('sessionTitle')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/control.ts",
-      "line": 26,
-      "owner": "reference/packages/api/session-controller",
-      "expression": "ctx.on('session/event', (session, event) => { this.onSessionEvent(session, event) })",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/api/session-controller/src/control.ts",
-      "line": 36,
+      "line": 43,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.inject(['jobs'], (jobsCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/control.ts",
-      "line": 39,
+      "line": 46,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('session/created', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/control.ts",
-      "line": 124,
+      "line": 120,
       "owner": "reference/packages/api/session-controller",
       "expression": "const jobs = this.ctx.get('jobs')",
       "status": "source-discovery-not-runtime-resolution"
@@ -297,128 +332,149 @@
     },
     {
       "source": "reference/packages/api/session-controller/src/history.ts",
-      "line": 123,
+      "line": 54,
+      "owner": "reference/packages/api/session-controller",
+      "expression": "ctx.on('agent/assistant-stream', ({ agent, frame }) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/session-controller/src/history.ts",
+      "line": 62,
+      "owner": "reference/packages/api/session-controller",
+      "expression": "ctx.on('agent/disposed', ({ agent }) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/session-controller/src/history.ts",
+      "line": 145,
       "owner": "reference/packages/api/session-controller",
       "expression": "const disposeEvent = this.ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/history.ts",
-      "line": 128,
+      "line": 150,
       "owner": "reference/packages/api/session-controller",
       "expression": "const disposeCreated = this.ctx.on('session/created', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
+      "source": "reference/packages/api/session-controller/src/history.ts",
+      "line": 165,
+      "owner": "reference/packages/api/session-controller",
+      "expression": ": this.ctx.on('agent/assistant-stream', ({ agent, frame }) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 85,
+      "line": 88,
       "owner": "reference/packages/api/session-controller",
       "expression": "static inject = [",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 137,
+      "line": 146,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('session/created', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 138,
+      "line": 147,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.emit('api-session/added', this.listState.summaryFor(session))",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 140,
+      "line": 149,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('session/disposed', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 141,
+      "line": 150,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.emit('api-session/removed', session.id)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 143,
+      "line": 152,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('agent/status', ({ agent, status }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 144,
+      "line": 153,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.emit('api-session/status', agent.id, status === 'running')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 146,
+      "line": 155,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('agent/error', ({ agent, error }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 147,
+      "line": 156,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.emit('api-session/error', agent.id, errorChain(error))",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 149,
+      "line": 158,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 160,
+      "line": 169,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.emit('api-session/activity', session.id, event.time)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/index.ts",
-      "line": 169,
+      "line": 178,
       "owner": "reference/packages/api/session-controller",
       "expression": "if ('error' in result) this.ctx.emit('api-session/error', sessionId, result.error.message)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/list.ts",
-      "line": 99,
+      "line": 88,
       "owner": "reference/packages/api/session-controller",
       "expression": "ctx.inject(['attachments'], (attachmentCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/list.ts",
-      "line": 191,
-      "owner": "reference/packages/api/session-controller",
-      "expression": "const persistence = this.ctx.get('sessionPersistence')",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/api/session-controller/src/list.ts",
-      "line": 228,
+      "line": 169,
       "owner": "reference/packages/api/session-controller",
       "expression": "const provider = this.ctx.get('sessionQuery')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/api/session-controller/src/list.ts",
-      "line": 335,
+      "line": 273,
       "owner": "reference/packages/api/session-controller",
-      "expression": ": this.ctx.get('sessionProjectionCache')?.cachedSnapshot(header, SessionLogOffset(0))",
+      "expression": "const cache = this.ctx.get('sessionProjectionCache')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/session-controller/src/media-references.ts",
+      "line": 67,
+      "owner": "reference/packages/api/session-controller",
+      "expression": "inject: ['connection', 'fs', 'attachments'],",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -499,50 +555,78 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
+      "source": "reference/packages/api/workspace-files/src/changes.ts",
+      "line": 24,
+      "owner": "reference/packages/api/workspace-files",
+      "expression": "ctx.on('fs/observed', (target, observation) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/workspace-files/src/client/index.ts",
+      "line": 17,
+      "owner": "reference/packages/api/workspace-files",
+      "expression": "export const inject = ['resources', 'remote', 'remote.workspaceFiles']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/workspace-files/src/index.ts",
+      "line": 183,
+      "owner": "reference/packages/api/workspace-files",
+      "expression": "static inject = ['fs', 'sandboxPolicy', 'sessions', 'typert']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/api/workspace-files/src/index.ts",
+      "line": 201,
+      "owner": "reference/packages/api/workspace-files",
+      "expression": "ctx.inject(['sessions', 'typert'], (scope) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 240,
+      "line": 255,
       "owner": "reference/packages/boot/app-boot",
       "expression": "const hmr = ctx.get('hmr')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 539,
+      "line": 554,
       "owner": "reference/packages/boot/app-boot",
       "expression": "const loader = ctx.get('loader')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 726,
+      "line": 741,
       "owner": "reference/packages/boot/app-boot",
       "expression": "const missing = Object.keys(fiber.inject).filter(service => fiber.ctx.get(service) === undefined)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 785,
+      "line": 800,
       "owner": "reference/packages/boot/app-boot",
       "expression": "ctx.provide('dshHomePath', dshHomePath)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 797,
+      "line": 812,
       "owner": "reference/packages/boot/app-boot",
       "expression": "await ctx.get('loader')?.await()",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 798,
+      "line": 813,
       "owner": "reference/packages/boot/app-boot",
       "expression": "if (ctx.get('loader') === undefined) return ctx",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/boot/app-boot/src/index.ts",
-      "line": 839,
+      "line": 855,
       "owner": "reference/packages/boot/app-boot",
       "expression": "const systemPrompt = ctx.get('systemPrompt')",
       "status": "source-discovery-not-runtime-resolution"
@@ -619,42 +703,42 @@
     },
     {
       "source": "reference/packages/bundle/headless/src/index.ts",
-      "line": 113,
+      "line": 112,
       "owner": "reference/packages/bundle/headless",
-      "expression": "const dispose = ctx.on('session/event', (session, event) => {",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/bundle/headless/src/index.ts",
-      "line": 171,
-      "owner": "reference/packages/bundle/headless",
-      "expression": "await ctx.get('loader')?.await()",
+      "expression": "const dispose = ctx.on('agent/assistant-stream', ({ agent: subject, frame }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/headless/src/index.ts",
       "line": 172,
       "owner": "reference/packages/bundle/headless",
-      "expression": "const agents = ctx.get('agents')",
+      "expression": "await ctx.get('loader')?.await()",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/headless/src/index.ts",
       "line": 173,
       "owner": "reference/packages/bundle/headless",
-      "expression": "const defaultModel = ctx.get('agentDefaultModel')",
+      "expression": "const agents = ctx.get('agents')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/headless/src/index.ts",
       "line": 174,
       "owner": "reference/packages/bundle/headless",
+      "expression": "const defaultModel = ctx.get('agentDefaultModel')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/bundle/headless/src/index.ts",
+      "line": 175,
+      "owner": "reference/packages/bundle/headless",
       "expression": "const sessions = ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/headless/src/index.ts",
-      "line": 221,
+      "line": 222,
       "owner": "reference/packages/bundle/headless",
       "expression": "const exit = ctx.get('appExit')",
       "status": "source-discovery-not-runtime-resolution"
@@ -696,35 +780,35 @@
     },
     {
       "source": "reference/packages/bundle/web-app/src/index.ts",
-      "line": 159,
+      "line": 150,
       "owner": "reference/packages/bundle/web-app",
       "expression": "const port = ctx.get('webServer')?.port",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/web-app/src/index.ts",
-      "line": 240,
+      "line": 231,
       "owner": "reference/packages/bundle/web-app",
       "expression": "ctx.provide(WEB_RUNTIME_SERVICE, runtime)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/web-app/src/index.ts",
-      "line": 243,
+      "line": 234,
       "owner": "reference/packages/bundle/web-app",
       "expression": "ctx.inject(['systemPrompt'], (promptCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/web-app/src/index.ts",
-      "line": 251,
+      "line": 242,
       "owner": "reference/packages/bundle/web-app",
       "expression": "ctx.inject(['shellEnv'], (runtimeCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/bundle/web-app/src/index.ts",
-      "line": 262,
+      "line": 253,
       "owner": "reference/packages/bundle/web-app",
       "expression": "ctx.inject(['connection'], (connectionCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -745,37 +829,72 @@
     },
     {
       "source": "reference/packages/client/connection/src/client/index.ts",
-      "line": 74,
+      "line": 72,
       "owner": "reference/packages/client/connection",
       "expression": "export const inject: string[] = []",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/connection/src/client/index.ts",
-      "line": 290,
+      "line": 289,
       "owner": "reference/packages/client/connection",
       "expression": "ctx.provide('connection', handle)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/connection/src/index.ts",
-      "line": 53,
+      "line": 55,
       "owner": "reference/packages/client/connection",
       "expression": "const attachments = ctx.get('attachments')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/connection/src/index.ts",
-      "line": 67,
+      "line": 69,
       "owner": "reference/packages/client/connection",
-      "expression": "export const inject = ['webServer', 'credentials']",
+      "expression": "export const inject = ['credentials']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/connection/src/index.ts",
-      "line": 128,
+      "line": 119,
+      "owner": "reference/packages/client/connection",
+      "expression": "ctx.inject(['webServer'], (webCtx) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/connection/src/index.ts",
+      "line": 140,
       "owner": "reference/packages/client/connection",
       "expression": "ctx.inject(['attachments'], (attachmentCtx) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/file-upload/src/client/index.ts",
+      "line": 18,
+      "owner": "reference/packages/client/file-upload",
+      "expression": "export const inject = ['remote']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/file-upload/src/index.ts",
+      "line": 58,
+      "owner": "reference/packages/client/file-upload",
+      "expression": "static inject = ['agents', 'attachments', 'commands', 'connection']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/file-upload/src/index.ts",
+      "line": 81,
+      "owner": "reference/packages/client/file-upload",
+      "expression": "ctx.on('session/event', (session, event) => { this.observeSessionEvent(session, event) })",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/file-upload/src/index.ts",
+      "line": 82,
+      "owner": "reference/packages/client/file-upload",
+      "expression": "ctx.on('session/disposed', (session) => { this.stagedFiles.delete(session) })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -892,42 +1011,49 @@
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 210,
+      "line": 195,
       "owner": "reference/packages/client/modules",
       "expression": "const inject = optionalStringArray(pkgName, 'dsh.client.inject', decl.inject)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 422,
+      "line": 407,
       "owner": "reference/packages/client/modules",
       "expression": "...(fields.inject !== undefined ? { inject: fields.inject } : {}),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 534,
+      "line": 519,
       "owner": "reference/packages/client/modules",
-      "expression": "static inject = ['webServer', 'loader']",
+      "expression": "static inject = ['loader']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 562,
+      "line": 547,
       "owner": "reference/packages/client/modules",
       "expression": "ctx.on('internal/plugin', (fiber) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 589,
+      "line": 576,
+      "owner": "reference/packages/client/modules",
+      "expression": "if (ctx.get('webServer') === undefined) ctx.inject(['webServer'], registerWebCarrier)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/modules/src/index.ts",
+      "line": 578,
       "owner": "reference/packages/client/modules",
       "expression": "ctx.on('webserver/index-inject', (table) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/modules/src/index.ts",
-      "line": 766,
+      "line": 771,
       "owner": "reference/packages/client/modules",
       "expression": "...(decl.inject !== undefined ? { inject: decl.inject } : {}),",
       "status": "source-discovery-not-runtime-resolution"
@@ -951,6 +1077,20 @@
       "line": 28,
       "owner": "reference/packages/client/modules",
       "expression": "const host = ctx.get('clientModules')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/resources/src/client/index.ts",
+      "line": 23,
+      "owner": "reference/packages/client/resources",
+      "expression": "export const inject = ['slots']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/resources/src/client/index.ts",
+      "line": 34,
+      "owner": "reference/packages/client/resources",
+      "expression": "const disposeService = ctx.reflect.provide('resources', resources)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -1018,30 +1158,37 @@
     },
     {
       "source": "reference/packages/client/ui-attachment/src/client/index.ts",
-      "line": 11,
+      "line": 12,
       "owner": "reference/packages/client/ui-attachment",
       "expression": "export const inject = ['slots']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-attachment/src/client/index.ts",
-      "line": 15,
+      "line": 16,
       "owner": "reference/packages/client/ui-attachment",
       "expression": "ctx.slots.inject('conversation.input.attachments', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-attachment/src/client/index.ts",
-      "line": 19,
+      "line": 20,
       "owner": "reference/packages/client/ui-attachment",
       "expression": "ctx.slots.inject('conversation.message.images', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-attachment/src/client/index.ts",
-      "line": 23,
+      "line": 24,
       "owner": "reference/packages/client/ui-attachment",
       "expression": "ctx.slots.inject('conversation.trajectory.images', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-attachment/src/client/index.ts",
+      "line": 30,
+      "owner": "reference/packages/client/ui-attachment",
+      "expression": "ctx.slots.inject('tool.call.images', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -1067,86 +1214,72 @@
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 45,
+      "line": 47,
       "owner": "reference/packages/client/ui-chat",
       "expression": "export const inject = [",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 70,
+      "line": 72,
       "owner": "reference/packages/client/ui-chat",
       "expression": "ctx.uiSession.provide({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 83,
+      "line": 85,
       "owner": "reference/packages/client/ui-chat",
       "expression": "ctx.slots.inject('settings.general.item', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 88,
+      "line": 90,
       "owner": "reference/packages/client/ui-chat",
       "expression": "inject: (): TranscriptViewRowInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 94,
+      "line": 96,
       "owner": "reference/packages/client/ui-chat",
       "expression": "ctx.slots.inject('conversation.view', () => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 102,
+      "line": 104,
       "owner": "reference/packages/client/ui-chat",
       "expression": "'conversation.chat.node': { kind: 'keyed', scope: 'session', inject: CHAT_NODE_INJECT },",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 106,
+      "line": 108,
       "owner": "reference/packages/client/ui-chat",
-      "expression": "inject: (sessionId: SessionId, actions: BoundActions<typeof chatStore>): ChatViewInjected => {",
+      "expression": "inject: (sessionId: SessionId): ChatViewInjected => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 121,
+      "line": 119,
       "owner": "reference/packages/client/ui-chat",
-      "expression": "fileMentions: (owner: TurnTailOwnerProps) => ctx.get('chatFileMentions')?.forClosing(owner),",
+      "expression": "fileMentions: (owner: TurnTailOwnerProps) => ctx.get('chatFileMentions')?.forClosing(owner, sessionId),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 155,
+      "line": 165,
       "owner": "reference/packages/client/ui-chat",
       "expression": "ctx.slots.inject('conversation.composer.dock', () =>",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 160,
+      "line": 170,
       "owner": "reference/packages/client/ui-chat",
       "expression": "ctx.slots.inject('conversation.approval.detail', () =>",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 163,
-      "owner": "reference/packages/client/ui-chat",
-      "expression": "ctx.slots.inject('details', () => ctx.slots.register({",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/client/ui-chat/src/client/apply.ts",
-      "line": 168,
-      "owner": "reference/packages/client/ui-chat",
-      "expression": "inject: (): DetailsInjected => ({ closeDetails: () => { ctx.layout.closeDetails() } }),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -1249,7 +1382,7 @@
     },
     {
       "source": "reference/packages/client/ui-chat/src/client/contract/slots.ts",
-      "line": 196,
+      "line": 188,
       "owner": "reference/packages/client/ui-chat",
       "expression": "inject: ChatNodeTurnDataInjected",
       "status": "source-discovery-not-runtime-resolution"
@@ -1263,175 +1396,175 @@
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/index.ts",
-      "line": 51,
+      "line": 52,
       "owner": "reference/packages/client/ui-commands",
       "expression": "export const inject = ['inputTriggers', 'sessions', 'remote', 'remote.commands', 'locale']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/index.ts",
-      "line": 61,
+      "line": 62,
       "owner": "reference/packages/client/ui-commands",
       "expression": "ctx.inject(['slots', 'commandUi', 'sessions'], (scope: ClientContext) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/index.ts",
-      "line": 64,
+      "line": 65,
       "owner": "reference/packages/client/ui-commands",
       "expression": "scope.slots.inject('conversation.input.overlay', () => scope.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/index.ts",
-      "line": 69,
+      "line": 70,
       "owner": "reference/packages/client/ui-commands",
       "expression": "inject: (sessionId): PopupSelectInjected => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/service.ts",
-      "line": 124,
+      "line": 74,
       "owner": "reference/packages/client/ui-commands",
       "expression": "static inject = ['inputTriggers', 'sessions', 'remote', 'remote.commands']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/service.ts",
-      "line": 137,
+      "line": 87,
       "owner": "reference/packages/client/ui-commands",
       "expression": "const locale = ctx.get('locale')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/service.ts",
-      "line": 146,
+      "line": 96,
       "owner": "reference/packages/client/ui-commands",
       "expression": "const inputTriggers = ctx.get('inputTriggers')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/service.ts",
-      "line": 162,
+      "line": 112,
       "owner": "reference/packages/client/ui-commands",
       "expression": "ctx.on('connection/reset', () => { this.directory.resetConnected() })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-commands/src/client/service.ts",
-      "line": 486,
+      "line": 455,
       "owner": "reference/packages/client/ui-commands",
       "expression": "const sessions = this.ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 45,
+      "line": 47,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "export const inject = [",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 88,
+      "line": 108,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "const conversation = ctx.get('conversation') as ConversationController | undefined",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 100,
+      "line": 122,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 110,
+      "line": 132,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "ctx.slots.inject('settings.general.item', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 115,
+      "line": 137,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (): EnterBehaviorRowInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 180,
+      "line": 202,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "ctx.uiSession.provide({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 210,
+      "line": 232,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (sessionId: SessionId | undefined): ConversationInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 242,
+      "line": 266,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (sessionId: SessionId, actions: BoundActions<typeof conversationStore>): ConversationSessionInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 261,
+      "line": 286,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (sessionId: SessionId, actions: BoundActions<typeof conversationStore>): ConversationSessionHeaderInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 283,
+      "line": 308,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (sessionId: SessionId | undefined): ComposerBarInjected => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/apply.ts",
-      "line": 359,
+      "line": 388,
       "owner": "reference/packages/client/ui-conversation",
-      "expression": "slots.inject('conversation', function* () {",
+      "expression": "slots.inject('main', function* () {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/queue/QueueDock.tsx",
-      "line": 296,
+      "line": 373,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: ['slots', 'conversation', 'sessions', 'uiConversation'],",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/queue/QueueDock.tsx",
-      "line": 298,
+      "line": 375,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "ctx.slots.inject('conversation.input.dock', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/queue/QueueDock.tsx",
-      "line": 303,
+      "line": 380,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "inject: (sessionId: SessionId): QueueDockInjected => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/service.ts",
-      "line": 358,
+      "line": 538,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "const sessions = this.ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-conversation/src/client/service.ts",
-      "line": 377,
+      "line": 557,
       "owner": "reference/packages/client/ui-conversation",
       "expression": "const uiConversation = this.ctx.get('uiConversation')",
       "status": "source-discovery-not-runtime-resolution"
@@ -1459,44 +1592,51 @@
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
-      "line": 34,
+      "line": 36,
       "owner": "reference/packages/client/ui-deliverables",
       "expression": "export const inject = ['slots', 'locale', 'uiConversation', 'remote', 'remote.session']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
-      "line": 61,
+      "line": 45,
       "owner": "reference/packages/client/ui-deliverables",
-      "expression": "ctx.on('connection/reset', () => {",
+      "expression": "ctx.on('connection/reset', () => { opener.resetHost() })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
-      "line": 69,
+      "line": 48,
       "owner": "reference/packages/client/ui-deliverables",
       "expression": "ctx.slots.inject(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
-      "line": 75,
+      "line": 54,
       "owner": "reference/packages/client/ui-deliverables",
-      "expression": "inject: () => ({",
+      "expression": "inject: (): DeliverablesInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
-      "line": 94,
+      "line": 61,
+      "owner": "reference/packages/client/ui-deliverables",
+      "expression": "ctx.slots.inject('tool.call.toolview', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-deliverables/src/client/index.ts",
+      "line": 82,
       "owner": "reference/packages/client/ui-deliverables",
       "expression": "ctx.provide('chatFileMentions', mentions)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-deliverables/src/index.ts",
-      "line": 12,
+      "line": 14,
       "owner": "reference/packages/client/ui-deliverables",
-      "expression": "export const inject = ['systemPrompt']",
+      "expression": "export const inject = ['systemPrompt', 'connection', 'sessionQuery', 'sessionController', 'workspaceFiles', 'fs', 'sandboxPolicy']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -1585,30 +1725,37 @@
     },
     {
       "source": "reference/packages/client/ui-goal/src/client/index.ts",
-      "line": 50,
+      "line": 52,
       "owner": "reference/packages/client/ui-goal",
       "expression": "export const inject = ['slots', 'sessions', 'remote', 'remote.goals', 'locale', 'uiConversation']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-goal/src/client/index.ts",
-      "line": 60,
+      "line": 62,
       "owner": "reference/packages/client/ui-goal",
       "expression": "ctx.slots.inject('conversation.chat.node', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-goal/src/client/index.ts",
-      "line": 81,
+      "line": 83,
       "owner": "reference/packages/client/ui-goal",
       "expression": "ctx.slots.inject('conversation.input.dock', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-goal/src/client/index.ts",
-      "line": 86,
+      "line": 88,
       "owner": "reference/packages/client/ui-goal",
-      "expression": "inject: (sessionId): GoalBarActions => ({",
+      "expression": "inject: (sessionId): GoalBarInjected => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-goal/src/client/index.ts",
+      "line": 98,
+      "owner": "reference/packages/client/ui-goal",
+      "expression": "subscribeReset: listener => ctx.on('connection/reset', listener),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -1641,14 +1788,21 @@
     },
     {
       "source": "reference/packages/client/ui-input-trigger/src/client/service.ts",
-      "line": 31,
+      "line": 32,
       "owner": "reference/packages/client/ui-input-trigger",
       "expression": "static inject = ['sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-input-trigger/src/client/service.ts",
-      "line": 105,
+      "line": 41,
+      "owner": "reference/packages/client/ui-input-trigger",
+      "expression": "ctx.on('locale/change', () => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-input-trigger/src/client/service.ts",
+      "line": 109,
       "owner": "reference/packages/client/ui-input-trigger",
       "expression": "const sessions = this.ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
@@ -1669,98 +1823,112 @@
     },
     {
       "source": "reference/packages/client/ui-layout/src/client/index.ts",
-      "line": 111,
+      "line": 123,
       "owner": "reference/packages/client/ui-layout",
       "expression": "export const inject = ['slots', 'theme', 'locale']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-layout/src/client/index.ts",
-      "line": 122,
+      "line": 147,
       "owner": "reference/packages/client/ui-layout",
       "expression": "const disposeService = ctx.reflect.provide('layout', layout)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-layout/src/client/index.ts",
-      "line": 137,
-      "owner": "reference/packages/client/ui-layout",
-      "expression": "inject: (actions: PanelActions) => {",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/client/ui-layout/src/client/index.ts",
-      "line": 144,
+      "line": 166,
       "owner": "reference/packages/client/ui-layout",
       "expression": "// provide()'s disposer settles asynchronously; teardown is synchronous fire-and-forget.",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-layout/src/client/index.ts",
-      "line": 154,
+      "line": 176,
       "owner": "reference/packages/client/ui-layout",
       "expression": "const off = ctx.on('theme/change', (snapshot) => { presenter.apply(snapshot) })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
-      "line": 37,
+      "line": 44,
       "owner": "reference/packages/client/ui-message-feedback",
-      "expression": "export const inject = ['slots', 'remote', 'remote.messageFeedback', 'locale']",
+      "expression": "export const inject = ['slots', 'remote', 'remote.messageFeedback', 'remote.sessionFeedback', 'locale']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
-      "line": 59,
+      "line": 70,
       "owner": "reference/packages/client/ui-message-feedback",
       "expression": "ctx.on('connection/reset', () => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
-      "line": 65,
+      "line": 76,
       "owner": "reference/packages/client/ui-message-feedback",
-      "expression": "ctx.slots.inject('conversation.chat.assistant-actions', () => {",
+      "expression": "ctx.slots.inject('conversation.chat.assistant-actions', () => ctx.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
-      "line": 71,
+      "line": 81,
       "owner": "reference/packages/client/ui-message-feedback",
       "expression": "inject: (sessionId): MessageFeedbackInjected => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
+      "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
+      "line": 93,
+      "owner": "reference/packages/client/ui-message-feedback",
+      "expression": "ctx.slots.inject('conversation.input.overlay', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
+      "line": 98,
+      "owner": "reference/packages/client/ui-message-feedback",
+      "expression": "inject: (sessionId): FeedbackDialogInjected => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-message-feedback/src/client/index.ts",
+      "line": 113,
+      "owner": "reference/packages/client/ui-message-feedback",
+      "expression": "ctx.inject(['commandUi'], (scope: ClientContext) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
       "source": "reference/packages/client/ui-model-selection/src/client/index.ts",
-      "line": 104,
+      "line": 119,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "export const inject = ['commandUi', 'locale', 'sessions', 'slots', 'remote', 'remote.session']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-model-selection/src/client/index.ts",
-      "line": 126,
+      "line": 139,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "ctx.inject(['commandUi', 'modelDirectories'], (scope: ClientContext) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-model-selection/src/client/index.ts",
-      "line": 158,
+      "line": 171,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "ctx.inject(['slots', 'modelDirectories'], (scope: ClientContext) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-model-selection/src/client/index.ts",
-      "line": 161,
+      "line": 174,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "scope.slots.inject('conversation.input.model', () => scope.slots.register({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-model-selection/src/client/index.ts",
-      "line": 164,
+      "line": 177,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "inject: (sessionId): ModelSelectInjected => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -1784,6 +1952,27 @@
       "line": 90,
       "owner": "reference/packages/client/ui-model-selection",
       "expression": "const conversation = this.ctx.get('conversation')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-open-in-app/src/client/index.ts",
+      "line": 28,
+      "owner": "reference/packages/client/ui-open-in-app",
+      "expression": "export const inject = ['sessions', 'slots', 'locale']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-open-in-app/src/client/index.ts",
+      "line": 38,
+      "owner": "reference/packages/client/ui-open-in-app",
+      "expression": "ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-open-in-app/src/client/index.ts",
+      "line": 43,
+      "owner": "reference/packages/client/ui-open-in-app",
+      "expression": "inject: (): OpenInAppActionInjected => ({",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -2270,85 +2459,337 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/code/index.ts",
+      "line": 23,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/document/contract.ts",
+      "line": 38,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "inject: {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/html/index.ts",
+      "line": 30,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/html/index.ts",
+      "line": 33,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "inject: (): Pick<HtmlBodyProps, 'readRelated'> => ({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/image/index.ts",
+      "line": 38,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 79,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "export const inject = ['slots', 'locale', 'sidebarRightTabs', 'remote', 'remote.workspaceFiles']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 87,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "const disposePreviews = ctx.reflect.provide('documentPreviews', previews)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 98,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.pane.tab', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 102,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "'sidebar.right.tab.document': { kind: 'keyed', scope: 'session', inject: { hooks: { tabInfo: documentTabInfoFactory } } },",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 104,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "inject: (sessionId, actions): TextPreviewInjected => ({ ...face(sessionId, actions), hooks: { documentPreviews: source } }),",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/index.ts",
+      "line": 108,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.pane.tab.title', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/markdown/index.ts",
+      "line": 28,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/pdf/index.ts",
+      "line": 31,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/pdf/index.ts",
+      "line": 33,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "inject: (_sessionId, actions): PdfBodyInjected => ({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-documentpreview/src/client/text/index.ts",
+      "line": 23,
+      "owner": "reference/packages/client/ui-sidebar-documentpreview",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.tab.document', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-files/src/client/index.ts",
+      "line": 37,
+      "owner": "reference/packages/client/ui-sidebar-files",
+      "expression": "export const inject = ['slots', 'locale', 'sidebarRightTabs', 'remote', 'remote.workspaceFiles']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-files/src/client/index.ts",
+      "line": 49,
+      "owner": "reference/packages/client/ui-sidebar-files",
+      "expression": "const inject = filesFace(createList(ctx.remote))",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-files/src/client/index.ts",
+      "line": 50,
+      "owner": "reference/packages/client/ui-sidebar-files",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.pane.tab', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-files/src/client/index.ts",
+      "line": 54,
+      "owner": "reference/packages/client/ui-sidebar-files",
+      "expression": "ctx.effect(() => ctx.slots.inject('sidebar.right.pane.tab.title', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/contract/slots.ts",
+      "line": 54,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "inject: SidebarRightTabInjected",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/contract/slots.ts",
+      "line": 68,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "inject: SidebarRightTabInjected",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/contract/slots.ts",
+      "line": 79,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "inject: { hooks: { tabInfo: SlotHookFactory<'sidebar.right.tab.guide', UseSidebarRightTabInfo> } }",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 76,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "export const inject = ['slots', 'layout', 'locale', 'resources']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 108,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeRegistry = ctx.reflect.provide('sidebarRightTabs', tabs)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 109,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeService = ctx.reflect.provide('sidebarRight', controller)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 111,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "// type that reaches for them. provide()'s disposer settles asynchronously;",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 149,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeSeat = ctx.slots.inject('rightbar', function* () {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 158,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "'sidebar.right.pane.tab': { kind: 'keyed', scope: 'session', inject: { hooks: { tabInfo: tabInfoFactory } } },",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 159,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "'sidebar.right.pane.tab.title': { kind: 'keyed', scope: 'session', inject: { hooks: { tabInfo: tabInfoFactory } } },",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 163,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "inject: (sessionId): SidebarRightInjected => ({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 174,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeExpand = ctx.slots.inject('conversation.session.header.corner', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 184,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeGuide = ctx.slots.inject('sidebar.right.pane.tab', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 189,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "kind: 'chain', scope: 'session', inject: { hooks: { tabInfo: guideTabInfoFactory } },",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 192,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "inject: () => guideInjected,",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar-right/src/client/index.ts",
+      "line": 194,
+      "owner": "reference/packages/client/ui-sidebar-right",
+      "expression": "const disposeGuideTitle = ctx.slots.inject('sidebar.right.pane.tab.title', () => ctx.slots.register(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
       "source": "reference/packages/client/ui-sidebar/src/client/index.ts",
-      "line": 34,
+      "line": 38,
       "owner": "reference/packages/client/ui-sidebar",
       "expression": "export const inject = ['slots', 'layout', 'uiWorkspace', 'locale']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-sidebar/src/client/index.ts",
-      "line": 40,
+      "line": 44,
       "owner": "reference/packages/client/ui-sidebar",
       "expression": "const workspaceNavigation = ctx.get('uiWorkspace') as unknown as WorkspaceNavigation",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-sidebar/src/client/index.ts",
-      "line": 63,
+      "line": 71,
+      "owner": "reference/packages/client/ui-sidebar",
+      "expression": "ctx.slots.inject('sidebar', () => ctx.slots.register({",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-sidebar/src/client/index.ts",
+      "line": 82,
       "owner": "reference/packages/client/ui-sidebar",
       "expression": "inject: injectProps,",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-skill/src/client/index.ts",
-      "line": 61,
+      "line": 62,
       "owner": "reference/packages/client/ui-skill",
       "expression": "export const inject = ['inputTriggers', 'sessions', 'slots', 'locale', 'remote', 'remote.skills']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-skill/src/client/index.ts",
-      "line": 69,
+      "line": 70,
       "owner": "reference/packages/client/ui-skill",
       "expression": "ctx.slots.inject('tool.call.toolview', () => ctx.slots.register(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-skill/src/client/index.ts",
-      "line": 183,
+      "line": 185,
       "owner": "reference/packages/client/ui-skill",
       "expression": "const inputTriggers = ctx.get('inputTriggers') as InputTriggerServiceContract",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-skill/src/client/index.ts",
-      "line": 187,
+      "line": 189,
       "owner": "reference/packages/client/ui-skill",
       "expression": "ctx.on('connection/reset', clearAll)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-slots/src/index.ts",
-      "line": 136,
+      "line": 144,
       "owner": "reference/packages/client/ui-slots",
       "expression": "? E extends { inject: infer Injected extends object }",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-slots/src/index.ts",
-      "line": 137,
+      "line": 145,
       "owner": "reference/packages/client/ui-slots",
       "expression": "? { inject: Injected }",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-slots/src/index.ts",
-      "line": 175,
+      "line": 183,
       "owner": "reference/packages/client/ui-slots",
       "expression": "SlotMap[K] extends { inject: infer Injected extends object } ? Injected : object",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-slots/src/index.ts",
-      "line": 809,
+      "line": 817,
       "owner": "reference/packages/client/ui-slots",
       "expression": "options: BaseOptions<K, EntryKey, D, H, M, N> & { inject: (...args: InjectParams<K, H>) => I },",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-slots/src/index.ts",
-      "line": 886,
+      "line": 894,
       "owner": "reference/packages/client/ui-slots",
       "expression": "...(options.inject !== undefined ? { inject: options.inject } : {}),",
       "status": "source-discovery-not-runtime-resolution"
@@ -2487,20 +2928,6 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/client/ui-tool/src/client/apply.ts",
-      "line": 43,
-      "owner": "reference/packages/client/ui-tool",
-      "expression": "ctx.slots.inject('conversation.details.tool', () => ctx.slots.register({",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/client/ui-tool/src/client/apply.ts",
-      "line": 46,
-      "owner": "reference/packages/client/ui-tool",
-      "expression": "inject: toolInject,",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
       "source": "reference/packages/client/ui-tool/src/client/tool/toolviews/ask-question-row.tsx",
       "line": 201,
       "owner": "reference/packages/client/ui-tool",
@@ -2543,15 +2970,29 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
+      "source": "reference/packages/client/ui-tool/src/client/tool/toolviews/read-image-row.tsx",
+      "line": 47,
+      "owner": "reference/packages/client/ui-tool",
+      "expression": "inject: ['slots'],",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/client/ui-tool/src/client/tool/toolviews/read-image-row.tsx",
+      "line": 53,
+      "owner": "reference/packages/client/ui-tool",
+      "expression": "ctx.slots.inject('tool.call.toolview', () =>",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
       "source": "reference/packages/client/ui-tool/src/client/tool/toolviews/read-row.tsx",
-      "line": 40,
+      "line": 25,
       "owner": "reference/packages/client/ui-tool",
       "expression": "inject: ['slots'],",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-tool/src/client/tool/toolviews/read-row.tsx",
-      "line": 42,
+      "line": 27,
       "owner": "reference/packages/client/ui-tool",
       "expression": "ctx.slots.inject('tool.call.toolview', () =>",
       "status": "source-discovery-not-runtime-resolution"
@@ -2663,63 +3104,63 @@
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 60,
+      "line": 61,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "* declaration through `slots.inject()` instead of assuming order.",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 62,
+      "line": 63,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "export const inject = [",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 73,
+      "line": 74,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "const sessions = ctx.get('sessions') as ISessions",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 74,
+      "line": 75,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "const workspaces = ctx.get('workspaces') as IWorkspaces",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 95,
+      "line": 96,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "subscribe: listener => ctx.on('connection/reset', listener),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 138,
+      "line": 141,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "ctx.slots.inject('sidebar.workspaces', () => ctx.slots.register(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 143,
+      "line": 146,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "inject: browserInjected,",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 148,
+      "line": 151,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "ctx.slots.inject('conversation.hero.workspace', () => ctx.slots.register(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/client/ui-workspace/src/client/index.ts",
-      "line": 152,
+      "line": 155,
       "owner": "reference/packages/client/ui-workspace",
       "expression": "inject: pickerInjected,",
       "status": "source-discovery-not-runtime-resolution"
@@ -2915,37 +3356,58 @@
     },
     {
       "source": "reference/packages/context/session-reference/src/index.ts",
-      "line": 82,
+      "line": 86,
       "owner": "reference/packages/context/session-reference",
       "expression": "static inject = ['sessionQuery']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/context/session-reference/src/index.ts",
-      "line": 112,
+      "line": 127,
+      "owner": "reference/packages/context/session-reference",
+      "expression": "ctx.on('system-prompt/assemble', async (_assembly, context, next) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/context/session-reference/src/index.ts",
+      "line": 135,
       "owner": "reference/packages/context/session-reference",
       "expression": "ctx.on('agent/pre-step', async ({ agent, signal }, next): Promise<PreStepDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/context/session-reference/src/index.ts",
-      "line": 228,
+      "line": 251,
       "owner": "reference/packages/context/session-reference",
       "expression": "const attached = this.ctx.get('sessions')?.get(record.header.id)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/context/session-reference/src/index.ts",
-      "line": 229,
+      "line": 252,
       "owner": "reference/packages/context/session-reference",
       "expression": "const projections = this.ctx.get('sessionProjections')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/context/session-reference/src/index.ts",
-      "line": 234,
+      "line": 257,
       "owner": "reference/packages/context/session-reference",
       "expression": "return titleOf(this.ctx.get('sessionProjectionCache')?.cachedSnapshot(",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/context/session-reference/src/index.ts",
+      "line": 331,
+      "owner": "reference/packages/context/session-reference",
+      "expression": "prepareReferenceOmission(this.ctx.get('spillStore'), agent.session.id, source, index),",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/context/session-reference/src/index.ts",
+      "line": 363,
+      "owner": "reference/packages/context/session-reference",
+      "expression": "const llm = this.ctx.get('llm')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -3027,63 +3489,70 @@
     },
     {
       "source": "reference/packages/core/agent-loop/src/agent.ts",
-      "line": 139,
+      "line": 145,
       "owner": "reference/packages/core/agent-loop",
       "expression": "inject(input: UserMessage): void {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 221,
+      "line": 228,
       "owner": "reference/packages/core/agent-loop",
       "expression": "* the agent's config `id` and set with `ctx.provide()` before any Loader",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 263,
+      "line": 270,
       "owner": "reference/packages/core/agent-loop",
       "expression": "* (`ctx.provide(CONFIGURED_AGENT_IDENTITIES_KEY, identities)`) to fix",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 353,
+      "line": 360,
       "owner": "reference/packages/core/agent-loop",
       "expression": "static inject = ['agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 385,
+      "line": 392,
       "owner": "reference/packages/core/agent-loop",
       "expression": "agents: applyLauncherIdentities(config.agents, ctx.get(CONFIGURED_AGENT_IDENTITIES_KEY)),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 393,
+      "line": 400,
       "owner": "reference/packages/core/agent-loop",
       "expression": "ctx.inject(['settings'], (settingsCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 422,
+      "line": 429,
       "owner": "reference/packages/core/agent-loop",
       "expression": "const persistence = sessionId === undefined ? undefined : ctx.get('sessionPersistence')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 434,
+      "line": 444,
       "owner": "reference/packages/core/agent-loop",
       "expression": "const fiber = ctx.inject(['sessionPersistence'], (childCtx: Context) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/index.ts",
-      "line": 718,
+      "line": 731,
+      "owner": "reference/packages/core/agent-loop",
+      "expression": "const persistence = this.runtime.ctx.get('sessionPersistence')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/core/agent-loop/src/index.ts",
+      "line": 844,
       "owner": "reference/packages/core/agent-loop",
       "expression": "const persistence = this.runtime.ctx.get('sessionPersistence')",
       "status": "source-discovery-not-runtime-resolution"
@@ -3104,14 +3573,14 @@
     },
     {
       "source": "reference/packages/core/agent-loop/src/invariant.ts",
-      "line": 55,
+      "line": 56,
       "owner": "reference/packages/core/agent-loop",
       "expression": "}, { inject: ['sessions'] })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent-loop/src/runtime-context.ts",
-      "line": 46,
+      "line": 127,
       "owner": "reference/packages/core/agent-loop",
       "expression": "ctx.on('session/event', (subject, event) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -3132,14 +3601,14 @@
     },
     {
       "source": "reference/packages/core/agent/src/index.ts",
-      "line": 261,
+      "line": 257,
       "owner": "reference/packages/core/agent",
       "expression": "ctx.inject(['typert'], (typeCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent/src/index.ts",
-      "line": 283,
+      "line": 271,
       "owner": "reference/packages/core/agent",
       "expression": "ctx.on('internal/status', (fiber) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -3160,14 +3629,14 @@
     },
     {
       "source": "reference/packages/core/agent/src/runtime-types.ts",
-      "line": 149,
+      "line": 241,
       "owner": "reference/packages/core/agent",
       "expression": "inject(message: UserMessage): void",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/agent/src/runtime-types.ts",
-      "line": 216,
+      "line": 308,
       "owner": "reference/packages/core/agent",
       "expression": "* `agent.inject()` to seed model-facing context. This is a notification, not",
       "status": "source-discovery-not-runtime-resolution"
@@ -3188,14 +3657,14 @@
     },
     {
       "source": "reference/packages/core/session/src/index.ts",
-      "line": 862,
+      "line": 898,
       "owner": "reference/packages/core/session",
       "expression": "ctx.inject(['typert'], (typeCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/session/src/index.ts",
-      "line": 1079,
+      "line": 1130,
       "owner": "reference/packages/core/session",
       "expression": "* rather than dispatch a raw `ctx.parallel('session/flush', …)` — one owner,",
       "status": "source-discovery-not-runtime-resolution"
@@ -3209,49 +3678,49 @@
     },
     {
       "source": "reference/packages/core/session/src/invariant.ts",
-      "line": 220,
+      "line": 224,
       "owner": "reference/packages/core/session",
       "expression": "ctx.on('session/created', (session) => { seedSession(session) }, { global: true })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/session/src/invariant.ts",
-      "line": 222,
+      "line": 226,
       "owner": "reference/packages/core/session",
       "expression": "ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/session/src/invariant.ts",
-      "line": 232,
+      "line": 236,
       "owner": "reference/packages/core/session",
       "expression": "ctx.on('internal/dispatch', (_mode, eventName, args) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/session/src/invariant.ts",
-      "line": 241,
+      "line": 245,
       "owner": "reference/packages/core/session",
       "expression": "}, { inject: ['sessions'] })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/session/src/types.ts",
-      "line": 282,
+      "line": 292,
       "owner": "reference/packages/core/session",
       "expression": "* (the queued message claimed for this turn), a synthetic `agent.inject()`",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/system-prompt/src/index.ts",
-      "line": 400,
+      "line": 411,
       "owner": "reference/packages/core/system-prompt",
       "expression": "() => { this.ctx.emit('system-prompt/change') },",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/system-prompt/src/index.ts",
-      "line": 601,
+      "line": 617,
       "owner": "reference/packages/core/system-prompt",
       "expression": "const transformed = await this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
@@ -3300,49 +3769,49 @@
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1011,
+      "line": 1010,
       "owner": "reference/packages/core/tools",
       "expression": "const runtime = this.ctx.get('codeRuntime')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1289,
+      "line": 1288,
       "owner": "reference/packages/core/tools",
       "expression": "return await this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1466,
+      "line": 1465,
       "owner": "reference/packages/core/tools",
       "expression": "const gate = await this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1564,
+      "line": 1563,
       "owner": "reference/packages/core/tools",
       "expression": "const result = await this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1671,
+      "line": 1670,
       "owner": "reference/packages/core/tools",
       "expression": "* seam is consumed opportunistically with `ctx.get('approval')` — a",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1684,
+      "line": 1683,
       "owner": "reference/packages/core/tools",
       "expression": "const approval = this.ctx.get('approval')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/core/tools/src/index.ts",
-      "line": 1734,
+      "line": 1733,
       "owner": "reference/packages/core/tools",
       "expression": "const decision = await this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
@@ -3447,7 +3916,7 @@
     },
     {
       "source": "reference/packages/e2b/subprocess-e2b/src/index.ts",
-      "line": 53,
+      "line": 61,
       "owner": "reference/packages/e2b/subprocess-e2b",
       "expression": "static inject = ['e2b']",
       "status": "source-discovery-not-runtime-resolution"
@@ -3502,29 +3971,15 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/experimental/agent-team/src/mailbox.ts",
-      "line": 249,
-      "owner": "reference/packages/experimental/agent-team",
-      "expression": "root.inject(input)",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/experimental/agent-team/src/mailbox.ts",
-      "line": 254,
-      "owner": "reference/packages/experimental/agent-team",
-      "expression": "target.inject(createUserMessage({ content, source }))",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
       "source": "reference/packages/experimental/agent-team/src/roster.ts",
-      "line": 361,
+      "line": 362,
       "owner": "reference/packages/experimental/agent-team",
       "expression": "const stopEvent = this.ctx.on('session/event', (candidate) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/experimental/agent-team/src/roster.ts",
-      "line": 364,
+      "line": 365,
       "owner": "reference/packages/experimental/agent-team",
       "expression": "const stopDisposed = this.ctx.on('session/disposed', (candidate) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -3615,14 +4070,14 @@
     },
     {
       "source": "reference/packages/experimental/tool-agent-team/src/index.ts",
-      "line": 409,
+      "line": 402,
       "owner": "reference/packages/experimental/tool-agent-team",
       "expression": "ctx.on('agent/created', ({ agent }) => { maybeInstall(agent) })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/experimental/tool-agent-team/src/index.ts",
-      "line": 410,
+      "line": 403,
       "owner": "reference/packages/experimental/tool-agent-team",
       "expression": "ctx.on('agent/disposed', ({ agent }) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -3657,42 +4112,42 @@
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 232,
+      "line": 244,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "signature: 'inject(key: keyof SlotMap & string, callback: () => SlotInjectionEffect): () => void',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 774,
+      "line": 819,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "declaration: 'export class SlotCore {\\n    constructor();\\n    register<K extends keyof SlotMap & string, const EntryKey extends EntryKeyOf<K> = EntryKeyOf<K>, const D extends ChildrenDecl = Record<never, never>, H extends StoreDecl | undefined = undefined, M = never, N extends (keyof LocaleNamespaceMap & string) | undefined = undefined, C extends SlotComponent<never> = SlotComponent<never>>(options: BaseOptions<K, EntryKey, D, H, M, N> & {\\n        inject?: undefined;\\n    }, component: C & SlotComponent<ComposedProps<K, NoInfer<EntryKey>, keyof NoInfer<D> & keyof SlotMap & string, HandleOf<NoInfer<H>>, object, NoInfer<M>, NoInfer<N>>> & RendersCheck<C, D>): () => void;\\n    register<K extends keyof SlotMap & string, I extends object, const EntryKey extends EntryKeyOf<K> = EntryKeyOf<K>, const D extends ChildrenDecl = Record<never, never>, H extends StoreDecl | undefined = undefined, M = never, N extends (keyof LocaleNamespaceMap & string) | undefined = undefined, C extends SlotComponent<never> = SlotComponent<never>>(options: BaseOptions<K, EntryKey, D, H, M, N> & {\\n        inject: (...args: InjectParams<K, H>) => I;\\n    }, component: C & SlotComponent<ComposedProps<K, NoInfer<EntryKey>, keyof NoInfer<D> & keyof SlotMap & string, HandleOf<NoInfer<H>>, I, NoInfer<M>, NoInfer<N>>> & RendersCheck<C, D>): () => void;\\n    register(options: ErasedOptions, component: unknown): () => void;\\n    isLive(entry: StoredEntry): boolean;\\n    entries(key: string): readonly StoredEntry[];\\n    entriesOfSlot(key /* …truncated — full shape in source */',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 786,
+      "line": 831,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "declaration: 'export type SlotInjectOf<K extends keyof SlotMap & string> = SlotMap[K] extends {\\n    inject: infer Injected extends object;\\n} ? Injected : object;',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 806,
+      "line": 851,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "declaration: 'export type SlotSpec<E extends SlotEntryDef> = {\\n    kind: E[\\'kind\\'];\\n    scope: E[\\'scope\\'];\\n} & (\\'inject\\' extends keyof E ? E extends {\\n    inject: infer Injected extends object;\\n} ? {\\n    inject: Injected;\\n} : {\\n    inject?: object;\\n} : {\\n    inject?: never;\\n});',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 938,
+      "line": 983,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "optional: { expression: `ctx.get(${JSON.stringify(service.key)})`, requiresUndefinedCheck: true },",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/api-catalog.ts",
-      "line": 939,
+      "line": 984,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "hardDependency: { inject: [service.key], expression: contextProperty(service.key) },",
       "status": "source-discovery-not-runtime-resolution"
@@ -3860,364 +4315,427 @@
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 113,
-      "owner": "reference/packages/extensions/cordis-client-runner",
-      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation\\', () => ctx.slots.register(\\n      { name: \\'conversation\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 149,
+      "line": 117,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.approval.detail\\', () => ctx.slots.register(\\n      { name: \\'conversation.approval.detail\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 206,
+      "line": 176,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.chat.assistant-actions\\', () => ctx.slots.register(\\n      { name: \\'conversation.chat.assistant-actions\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 251,
+      "line": 223,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.chat.commandview\\', () => ctx.slots.register(\\n      { name: \\'conversation.chat.commandview\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 315,
+      "line": 291,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.chat.node\\', () => ctx.slots.register(\\n      { name: \\'conversation.chat.node\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 360,
+      "line": 338,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.chat.turnTail\\', () => ctx.slots.register(\\n      { name: \\'conversation.chat.turnTail\\', select: owner => null },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 409,
+      "line": 389,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.composer\\', () => ctx.slots.register(\\n      { name: \\'conversation.composer\\', select: owner => null },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 445,
+      "line": 427,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.composer.bar\\', () => ctx.slots.register(\\n      { name: \\'conversation.composer.bar\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 498,
+      "line": 482,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.composer.dock\\', () => ctx.slots.register(\\n      { name: \\'conversation.composer.dock\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 534,
-      "owner": "reference/packages/extensions/cordis-client-runner",
-      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.details.tool\\', () => ctx.slots.register(\\n      { name: \\'conversation.details.tool\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 562,
+      "line": 512,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.hero.agentPreset\\', () => ctx.slots.register(\\n      { name: \\'conversation.hero.agentPreset\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 588,
+      "line": 540,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.hero.brand.mark\\', () => ctx.slots.register(\\n      { name: \\'conversation.hero.brand.mark\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 618,
+      "line": 572,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.hero.workspace\\', () => ctx.slots.register(\\n      { name: \\'conversation.hero.workspace\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 647,
+      "line": 603,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.hero.workspace.directoryFlow\\', () => ctx.slots.register(\\n      { name: \\'conversation.hero.workspace.directoryFlow\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 684,
+      "line": 643,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.attachments\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.attachments\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 744,
+      "line": 705,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.dock\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.dock\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 795,
+      "line": 758,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.left\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.left\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 831,
+      "line": 796,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.model\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.model\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 885,
+      "line": 853,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.overlay\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.overlay\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 921,
+      "line": 891,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.plan\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.plan\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 972,
+      "line": 944,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.input.right\\', () => ctx.slots.register(\\n      { name: \\'conversation.input.right\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1012,
+      "line": 986,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.message.images\\', () => ctx.slots.register(\\n      { name: \\'conversation.message.images\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1046,
+      "line": 1022,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session\\', () => ctx.slots.register(\\n      { name: \\'conversation.session\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1080,
+      "line": 1058,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session.header\\', () => ctx.slots.register(\\n      { name: \\'conversation.session.header\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1138,
+      "line": 1118,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session.header.actions\\', () => ctx.slots.register(\\n      { name: \\'conversation.session.header.actions\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1176,
+      "line": 1156,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session.header.corner\\', () => ctx.slots.register(\\n      { name: \\'conversation.session.header.corner\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 1196,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session.header.lineage\\', () => ctx.slots.register(\\n      { name: \\'conversation.session.header.lineage\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1231,
+      "line": 1254,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.session.header.utilities\\', () => ctx.slots.register(\\n      { name: \\'conversation.session.header.utilities\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1271,
+      "line": 1296,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.trajectory.images\\', () => ctx.slots.register(\\n      { name: \\'conversation.trajectory.images\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1329,
+      "line": 1356,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'conversation.view\\', () => ctx.slots.register(\\n      { name: \\'conversation.view\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1365,
+      "line": 1391,
       "owner": "reference/packages/extensions/cordis-client-runner",
-      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'details\\', () => ctx.slots.register(\\n      { name: \\'details\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'main\\', () => ctx.slots.register(\\n      { name: \\'main\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1393,
+      "line": 1425,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'main.conversation\\', () => ctx.slots.register(\\n      { name: \\'main.conversation\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 1455,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'rightbar\\', () => ctx.slots.register(\\n      { name: \\'rightbar\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 1493,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'rightbar.session\\', () => ctx.slots.register(\\n      { name: \\'rightbar.session\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 1523,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'root\\', () => ctx.slots.register(\\n      { name: \\'root\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1440,
+      "line": 1572,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.action\\', () => ctx.slots.register(\\n      { name: \\'settings.action\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1468,
+      "line": 1602,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.close\\', () => ctx.slots.register(\\n      { name: \\'settings.close\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1520,
+      "line": 1656,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.general.item\\', () => ctx.slots.register(\\n      { name: \\'settings.general.item\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1548,
+      "line": 1686,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.header\\', () => ctx.slots.register(\\n      { name: \\'settings.header\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1593,
+      "line": 1733,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.models.footer\\', () => ctx.slots.register(\\n      { name: \\'settings.models.footer\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1628,
+      "line": 1770,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.models.provider-card\\', () => ctx.slots.register(\\n      { name: \\'settings.models.provider-card\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1676,
+      "line": 1820,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.onboarding\\', () => ctx.slots.register(\\n      { name: \\'settings.onboarding\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1714,
+      "line": 1860,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.plugin.item\\', () => ctx.slots.register(\\n      { name: \\'settings.plugin.item\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1762,
+      "line": 1910,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.plugins.tab\\', () => ctx.slots.register(\\n      { name: \\'settings.plugins.tab\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1812,
+      "line": 1962,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.section\\', () => ctx.slots.register(\\n      { name: \\'settings.section\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1840,
+      "line": 1992,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'settings.trigger\\', () => ctx.slots.register(\\n      { name: \\'settings.trigger\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1883,
+      "line": 2037,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'shell.overlay\\', () => ctx.slots.register(\\n      { name: \\'shell.overlay\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1911,
+      "line": 2067,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar\\', () => ctx.slots.register(\\n      { name: \\'sidebar\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1939,
+      "line": 2097,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.brand.mark\\', () => ctx.slots.register(\\n      { name: \\'sidebar.brand.mark\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 1967,
+      "line": 2127,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.brand.name\\', () => ctx.slots.register(\\n      { name: \\'sidebar.brand.name\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2014,
+      "line": 2176,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.footer.action\\', () => ctx.slots.register(\\n      { name: \\'sidebar.footer.action\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2042,
+      "line": 2223,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.panellist\\', () => ctx.slots.register(\\n      { name: \\'sidebar.panellist\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2268,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.right.pane.tab\\', () => ctx.slots.register(\\n      { name: \\'sidebar.right.pane.tab\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2313,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.right.pane.tab.title\\', () => ctx.slots.register(\\n      { name: \\'sidebar.right.pane.tab.title\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2365,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.right.tab.document\\', () => ctx.slots.register(\\n      { name: \\'sidebar.right.tab.document\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2406,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.right.tab.guide\\', () => ctx.slots.register(\\n      { name: \\'sidebar.right.tab.guide\\', select: owner => null },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2463,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.right.tab.menu.item\\', () => ctx.slots.register(\\n      { name: \\'sidebar.right.tab.menu.item\\', id: \\'my-entry\\', order: 100, label: \\'My entry\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2493,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.settings\\', () => ctx.slots.register(\\n      { name: \\'sidebar.settings\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2070,
+      "line": 2523,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.workspaces\\', () => ctx.slots.register(\\n      { name: \\'sidebar.workspaces\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2099,
+      "line": 2554,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'sidebar.workspaces.directoryFlow\\', () => ctx.slots.register(\\n      { name: \\'sidebar.workspaces.directoryFlow\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2156,
+      "line": 2595,
+      "owner": "reference/packages/extensions/cordis-client-runner",
+      "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'tool.call.images\\', () => ctx.slots.register(\\n      { name: \\'tool.call.images\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
+      "line": 2660,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'tool.call.toolview\\', () => ctx.slots.register(\\n      { name: \\'tool.call.toolview\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts",
-      "line": 2201,
+      "line": 2707,
       "owner": "reference/packages/extensions/cordis-client-runner",
       "expression": "example: 'return {\\n  inject: [\\'slots\\'],\\n  apply(ctx) {\\n    ctx.slots.inject(\\'tool.view.cordis\\', () => ctx.slots.register(\\n      { name: \\'tool.view.cordis\\', key: \\'<one key the owner dispatches>\\' },\\n      () => React.createElement(\\'div\\', null, \\'hello\\'),\\n    ))\\n  },\\n}',",
       "status": "source-discovery-not-runtime-resolution"
@@ -4385,35 +4903,35 @@
     },
     {
       "source": "reference/packages/extensions/tool-cordis/src/api-catalog.ts",
-      "line": 1577,
+      "line": 1671,
       "owner": "reference/packages/extensions/tool-cordis",
       "expression": "description: '`ctx.sessionProjections`: the projection unit table and its drive. The service subscribes to `session/event` once; every committed event passes every registered unit\\'s `apply` (eager drive). A changed state reference computes the next client view; the change feed is notified only when its raw result changes by `Object.is`. Cells build lazily — a unit registered after events flowed, or a session older than the registry, folds `init` over the in-memory log on first touch (event or read). Registration is an effect (disposer rides the calling fiber): an unloaded domain plugin\\'s key disappears from snapshots and clients read it as capability absence. A host reader either declares `sessionProjections` in its plugin `inject` or fails explicitly when the registry or required key is absent. Contributors may preserve optional registration through `ctx.inject([\\'sessionProjections\\'], ...)`. Registrants sharing a key share one unit and are counted: the same tool package mounted in N agent presets registers N times, and the key survives until the last one unloads.',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/tool-cordis/src/api-catalog.ts",
-      "line": 1807,
+      "line": 1901,
       "owner": "reference/packages/extensions/tool-cordis",
       "expression": "description: 'Dispatch the awaited `session/flush` durability checkpoint for `session`, with the carrier captured at enter. THE flush entry point: the store owns the carrier, so callers (the checkpoint policy\\'s per-request barrier, goal-round-driver\\'s idle checkpoint, teardown drains, and consumers that flush themselves before reading storage) must come through here rather than dispatch a raw `ctx.parallel(\\'session/flush\\', …)` — one owner, one spelling, and the scoped-dispatch invariant can pin it.',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/tool-cordis/src/api-catalog.ts",
-      "line": 2970,
+      "line": 3122,
       "owner": "reference/packages/extensions/tool-cordis",
       "expression": "description: 'The session lifecycle began, once before the first turn. Use `agent.inject()` to seed model-facing context. This is a notification, not a veto; disposal requested by a lifecycle owner is rechecked before the driver starts.',",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/tool-cordis/src/api-catalog.ts",
-      "line": 6243,
+      "line": 6575,
       "owner": "reference/packages/extensions/tool-cordis",
       "expression": "optional: { expression: `ctx.get(${JSON.stringify(service.key)})`, requiresUndefinedCheck: true },",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/extensions/tool-cordis/src/api-catalog.ts",
-      "line": 6244,
+      "line": 6576,
       "owner": "reference/packages/extensions/tool-cordis",
       "expression": "hardDependency: { inject: [service.key], expression: contextProperty(service.key) },",
       "status": "source-discovery-not-runtime-resolution"
@@ -4553,23 +5071,30 @@
     },
     {
       "source": "reference/packages/feedback/command-feedback/src/index.ts",
-      "line": 16,
+      "line": 40,
       "owner": "reference/packages/feedback/command-feedback",
       "expression": "export const inject = ['commands']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/feedback/command-feedback/src/index.ts",
-      "line": 92,
+      "line": 85,
       "owner": "reference/packages/feedback/command-feedback",
-      "expression": "const telemetry = ctx.get('sessionTelemetry')",
+      "expression": "static inject = ['sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/feedback/message-feedback/src/index.ts",
-      "line": 152,
+      "line": 119,
       "owner": "reference/packages/feedback/message-feedback",
-      "expression": "static inject = ['storageDomain', 'sessionPersistence', 'sessions']",
+      "expression": "static inject = ['sessionPersistence', 'sessions']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/feedback/message-feedback/src/index.ts",
+      "line": 269,
+      "owner": "reference/packages/feedback/message-feedback",
+      "expression": "await this.ctx.parallel('feedback/committed', {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -4616,14 +5141,14 @@
     },
     {
       "source": "reference/packages/fs/tool-fs-search/src/glob.ts",
-      "line": 360,
+      "line": 362,
       "owner": "reference/packages/fs/tool-fs-search",
       "expression": "ctx.on('tools/post-execute', async (exec, result, next) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs-search/src/grep.ts",
-      "line": 340,
+      "line": 343,
       "owner": "reference/packages/fs/tool-fs-search",
       "expression": "ctx.on('tools/post-execute', async (exec, result, next) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -4651,28 +5176,28 @@
     },
     {
       "source": "reference/packages/fs/tool-fs-search/src/search-core.ts",
-      "line": 364,
+      "line": 365,
       "owner": "reference/packages/fs/tool-fs-search",
       "expression": "* result. `spillStore` is read with `ctx.get()` (not static inject) because",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs-search/src/search-core.ts",
-      "line": 389,
+      "line": 390,
       "owner": "reference/packages/fs/tool-fs-search",
       "expression": "const spillStore = ctx.get('spillStore')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs/src/edit.ts",
-      "line": 125,
+      "line": 127,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "const intent = await ctx.waterfall('fs/edit-intent', target, exec, () => undefined)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs/src/edit.ts",
-      "line": 139,
+      "line": 141,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "ctx.emit('fs/observed', target, { kind: 'present', version: outcome.version }, exec)",
       "status": "source-discovery-not-runtime-resolution"
@@ -4714,14 +5239,14 @@
     },
     {
       "source": "reference/packages/fs/tool-fs/src/read-image.ts",
-      "line": 244,
+      "line": 253,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "const attachments = ctx.get('attachments')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs/src/read-image.ts",
-      "line": 314,
+      "line": 323,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "ctx.emit('fs/observed', target, { kind: 'present', version: info.version }, exec)",
       "status": "source-discovery-not-runtime-resolution"
@@ -4735,7 +5260,7 @@
     },
     {
       "source": "reference/packages/fs/tool-fs/src/read.ts",
-      "line": 161,
+      "line": 163,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "ctx.emit('fs/observed', target, { kind: 'present', version: info.version }, exec)",
       "status": "source-discovery-not-runtime-resolution"
@@ -4756,16 +5281,30 @@
     },
     {
       "source": "reference/packages/fs/tool-fs/src/write.ts",
-      "line": 110,
+      "line": 114,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "const intent = await ctx.waterfall('fs/write-intent', target, exec, () => undefined)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/fs/tool-fs/src/write.ts",
-      "line": 120,
+      "line": 124,
       "owner": "reference/packages/fs/tool-fs",
       "expression": "ctx.emit('fs/observed', target, { kind: 'present', version: outcome.version }, exec)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/fs/tool-present/src/index.ts",
+      "line": 26,
+      "owner": "reference/packages/fs/tool-present",
+      "expression": "export const inject = ['tools', 'fs', 'sessionProjections']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/fs/tool-present/src/index.ts",
+      "line": 99,
+      "owner": "reference/packages/fs/tool-present",
+      "expression": "ctx.on('tools/result', (exec, result) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -4889,42 +5428,42 @@
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 278,
+      "line": 283,
       "owner": "reference/packages/goal/goal-round-driver",
-      "expression": "ctx.on('goal/changed', ({ agent }) => {",
+      "expression": "ctx.on('goal/changed', ({ agent, change }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 284,
+      "line": 296,
       "owner": "reference/packages/goal/goal-round-driver",
       "expression": "ctx.on('agent/inbox/inserted', ({ agent, message }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 292,
+      "line": 304,
       "owner": "reference/packages/goal/goal-round-driver",
       "expression": "ctx.on('agent/inbox/claimed', ({ agent, message }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 299,
+      "line": 311,
       "owner": "reference/packages/goal/goal-round-driver",
       "expression": "ctx.on('agent/inbox/discarded', ({ agent, message }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 307,
+      "line": 319,
       "owner": "reference/packages/goal/goal-round-driver",
       "expression": "ctx.on('session/event', (session: Session, event: SessionEvent) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/goal/goal-round-driver/src/index.ts",
-      "line": 349,
+      "line": 361,
       "owner": "reference/packages/goal/goal-round-driver",
       "expression": "ctx.on('agent/pre-step', async ({ agent, messages, signal }, next): Promise<PreStepDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -4969,6 +5508,13 @@
       "line": 259,
       "owner": "reference/packages/goal/goal",
       "expression": "ctx.on('session/event', (session, event) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/goal/goal/src/index.ts",
+      "line": 505,
+      "owner": "reference/packages/goal/goal",
+      "expression": "this.ctx.emit('goal/activation-changed', {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -5078,154 +5624,140 @@
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 43,
+      "line": 41,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "export const inject = ['shell', 'sessionProjections']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 207,
+      "line": 205,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('agent/session-start', ({ agent, source }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 211,
+      "line": 209,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "if (context) agent.inject(context)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 220,
+      "line": 218,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('agent/pre-step', async ({ agent, messages, turn, signal }, next): Promise<PreStepDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 239,
+      "line": 237,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 248,
+      "line": 246,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('tools/post-execute', async (exec, result, next): Promise<PostToolDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 271,
+      "line": 269,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('agent/turn-stopping', async ({ agent, turn, signal }): Promise<void> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 282,
+      "line": 280,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('subagent/start', (info) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 283,
+      "line": 281,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "const child = ctx.get('agents')?.get(info.id)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 288,
+      "line": 286,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "if (context && child) child.inject(context)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 292,
+      "line": 290,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "ctx.on('subagent/end', (info) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 293,
+      "line": 291,
       "owner": "reference/packages/hooks/hooks-claude-code",
       "expression": "const child = subagentChildren.get(info.runId) ?? ctx.get('agents')?.get(info.id)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/hooks/hooks-claude-code/src/index.ts",
-      "line": 327,
-      "owner": "reference/packages/hooks/hooks-claude-code",
-      "expression": ": ctx.get('sessionPersistence')?.locate(agent.session.header)?.path ?? '',",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 42,
+      "line": 40,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "export const inject = ['shell', 'sessionProjections']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 189,
+      "line": 187,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "ctx.on('agent/session-start', ({ agent, source }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 193,
+      "line": 191,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "if (context) agent.inject(context)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 200,
+      "line": 198,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "ctx.on('agent/pre-step', async ({ agent, messages, turn, signal }, next): Promise<PreStepDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 226,
+      "line": 224,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "ctx.on('tools/pre-execute', async (exec, next): Promise<PreToolDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 235,
+      "line": 233,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "ctx.on('tools/post-execute', async (exec, result, next): Promise<PostToolDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 261,
+      "line": 259,
       "owner": "reference/packages/hooks/hooks-codex",
       "expression": "ctx.on('agent/turn-stopping', async ({ agent, turn, signal }): Promise<void> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/hooks/hooks-codex/src/index.ts",
-      "line": 297,
-      "owner": "reference/packages/hooks/hooks-codex",
-      "expression": ": ctx.get('sessionPersistence')?.locate(agent.session.header)?.path ?? null,",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
       "source": "reference/packages/host/directory-picker-auto/src/index.ts",
-      "line": 29,
+      "line": 30,
       "owner": "reference/packages/host/directory-picker-auto",
       "expression": "export const inject = ['webServer', 'loader']",
       "status": "source-discovery-not-runtime-resolution"
@@ -5235,6 +5767,13 @@
       "line": 27,
       "owner": "reference/packages/host/frontend-static",
       "expression": "export const inject = ['webServer', 'connection']",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/host/open-in-app/src/index.ts",
+      "line": 47,
+      "owner": "reference/packages/host/open-in-app",
+      "expression": "export const inject = ['webServer', 'connection', 'subprocess']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -5260,7 +5799,7 @@
     },
     {
       "source": "reference/packages/interaction/commands/src/index.ts",
-      "line": 366,
+      "line": 389,
       "owner": "reference/packages/interaction/commands",
       "expression": "const store = this.ctx.get('attachments')",
       "status": "source-discovery-not-runtime-resolution"
@@ -5470,35 +6009,35 @@
     },
     {
       "source": "reference/packages/llm/llm-deepseek/src/index.ts",
-      "line": 434,
+      "line": 450,
       "owner": "reference/packages/llm/llm-deepseek",
       "expression": "const credentials = ctx.get('credentials')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-deepseek/src/index.ts",
-      "line": 459,
+      "line": 475,
       "owner": "reference/packages/llm/llm-deepseek",
       "expression": "resolveAttachments: () => ctx.get('attachments'),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-deepseek/src/index.ts",
-      "line": 462,
+      "line": 478,
       "owner": "reference/packages/llm/llm-deepseek",
       "expression": "hostPath => ctx.get('fs')?.processPathFromHostPath(hostPath),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-deepseek/src/index.ts",
-      "line": 466,
+      "line": 482,
       "owner": "reference/packages/llm/llm-deepseek",
       "expression": "const extensions = ctx.get('deepseekLlmApiExtensions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-deepseek/src/index.ts",
-      "line": 490,
+      "line": 506,
       "owner": "reference/packages/llm/llm-deepseek",
       "expression": "ctx.inject(['settings'], (settingsCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -5540,35 +6079,35 @@
     },
     {
       "source": "reference/packages/llm/llm-pi-ai/src/index.ts",
-      "line": 180,
+      "line": 179,
       "owner": "reference/packages/llm/llm-pi-ai",
       "expression": "const credentials = ctx.get('credentials')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-pi-ai/src/index.ts",
-      "line": 202,
+      "line": 201,
       "owner": "reference/packages/llm/llm-pi-ai",
       "expression": "resolveAttachments: () => ctx.get('attachments'),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-pi-ai/src/index.ts",
-      "line": 205,
+      "line": 204,
       "owner": "reference/packages/llm/llm-pi-ai",
       "expression": "hostPath => ctx.get('fs')?.processPathFromHostPath(hostPath),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-pi-ai/src/index.ts",
-      "line": 220,
+      "line": 219,
       "owner": "reference/packages/llm/llm-pi-ai",
       "expression": "ctx.inject(['authorization'], (authorized) => { registerPiAiFlows(authorized, auth) })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/llm-pi-ai/src/index.ts",
-      "line": 296,
+      "line": 295,
       "owner": "reference/packages/llm/llm-pi-ai",
       "expression": "ctx.inject(['settings'], (settingsCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -5617,7 +6156,21 @@
     },
     {
       "source": "reference/packages/llm/llm/src/index.ts",
-      "line": 1059,
+      "line": 993,
+      "owner": "reference/packages/llm/llm",
+      "expression": "hostPath = this.ctx.get('attachments')?.fileHostPath(ref)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/llm/llm/src/index.ts",
+      "line": 1002,
+      "owner": "reference/packages/llm/llm",
+      "expression": "const fs = this.ctx.get('fs') as { processPathFromHostPath(hostPath: string): string | undefined } | undefined",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/llm/llm/src/index.ts",
+      "line": 1114,
       "owner": "reference/packages/llm/llm",
       "expression": "return this.ctx.waterfall(",
       "status": "source-discovery-not-runtime-resolution"
@@ -5666,23 +6219,30 @@
     },
     {
       "source": "reference/packages/llm/token-meter/src/index.ts",
-      "line": 100,
+      "line": 105,
       "owner": "reference/packages/llm/token-meter",
       "expression": "static inject = ['sessionProjections']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/token-meter/src/index.ts",
-      "line": 114,
+      "line": 119,
       "owner": "reference/packages/llm/token-meter",
       "expression": "ctx.on('session/event', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/llm/token-meter/src/index.ts",
-      "line": 189,
+      "line": 196,
       "owner": "reference/packages/llm/token-meter",
       "expression": "return this.ctx.get('llm')?.imageRequestPricing(config.provider, config.model)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/llm/token-meter/src/index.ts",
+      "line": 203,
+      "owner": "reference/packages/llm/token-meter",
+      "expression": "const llm = this.ctx.get('llm')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
@@ -5715,14 +6275,14 @@
     },
     {
       "source": "reference/packages/mcp/mcp-client/src/tools.ts",
-      "line": 401,
+      "line": 410,
       "owner": "reference/packages/mcp/mcp-client",
       "expression": "const attachments = ctx.get('attachments')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/mcp/mcp-client/src/tools.ts",
-      "line": 406,
+      "line": 415,
       "owner": "reference/packages/mcp/mcp-client",
       "expression": "const llm = ctx.get('llm')",
       "status": "source-discovery-not-runtime-resolution"
@@ -6051,28 +6611,28 @@
     },
     {
       "source": "reference/packages/session-query/session-log-export/src/archive.ts",
-      "line": 58,
+      "line": 65,
       "owner": "reference/packages/session-query/session-log-export",
       "expression": "sessionQuery: ctx.get('sessionQuery'),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-log-export/src/archive.ts",
-      "line": 59,
+      "line": 66,
       "owner": "reference/packages/session-query/session-log-export",
       "expression": "sessionPersistence: ctx.get('sessionPersistence'),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-log-export/src/archive.ts",
-      "line": 60,
+      "line": 67,
       "owner": "reference/packages/session-query/session-log-export",
       "expression": "attachments: ctx.get('attachments'),",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-log-export/src/archive.ts",
-      "line": 61,
+      "line": 68,
       "owner": "reference/packages/session-query/session-log-export",
       "expression": "sessions: ctx.get('sessions'),",
       "status": "source-discovery-not-runtime-resolution"
@@ -6114,63 +6674,63 @@
     },
     {
       "source": "reference/packages/session-query/session-log-export/src/index.ts",
-      "line": 36,
+      "line": 39,
       "owner": "reference/packages/session-query/session-log-export",
       "expression": "export const inject = ['commands', 'connection']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query-sqlite/src/index.ts",
-      "line": 205,
+      "line": 204,
       "owner": "reference/packages/session-query/session-query-sqlite",
       "expression": "static override inject = ['sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query-sqlite/src/index.ts",
-      "line": 243,
+      "line": 247,
       "owner": "reference/packages/session-query/session-query-sqlite",
       "expression": "this._optionalPersistenceFiber = ctx.inject(['sessionPersistence'], (childCtx: Context) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/corpus.ts",
-      "line": 50,
+      "line": 43,
       "owner": "reference/packages/session-query/session-query",
       "expression": "this._optionalPersistenceFiber = _ctx.inject(['sessionPersistence'], (childCtx: Context) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/index.ts",
-      "line": 94,
+      "line": 98,
       "owner": "reference/packages/session-query/session-query",
       "expression": "static inject = ['sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/observation.ts",
-      "line": 72,
+      "line": 106,
       "owner": "reference/packages/session-query/session-query",
       "expression": "const persistence = this.ctx.get('sessionPersistence')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/observation.ts",
-      "line": 168,
+      "line": 284,
       "owner": "reference/packages/session-query/session-query",
       "expression": ": this.ctx.get('sessionProjections')?.snapshot(session)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/observation.ts",
-      "line": 192,
+      "line": 308,
       "owner": "reference/packages/session-query/session-query",
       "expression": "const registry = this.ctx.get('sessionProjections')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session-query/session-query/src/observation.ts",
-      "line": 195,
+      "line": 310,
       "owner": "reference/packages/session-query/session-query",
       "expression": "const cache = this.ctx.get('sessionProjectionCache')",
       "status": "source-discovery-not-runtime-resolution"
@@ -6212,7 +6772,7 @@
     },
     {
       "source": "reference/packages/session/session-log-deepseek/src/index.ts",
-      "line": 33,
+      "line": 35,
       "owner": "reference/packages/session/session-log-deepseek",
       "expression": "export const inject = ['deepseekLlmApiExtensions', 'sessions']",
       "status": "source-discovery-not-runtime-resolution"
@@ -6226,91 +6786,70 @@
     },
     {
       "source": "reference/packages/session/session-log-deepseek/src/invariant.ts",
-      "line": 52,
+      "line": 62,
       "owner": "reference/packages/session/session-log-deepseek",
       "expression": "ctx.on('session/created', validateExisting, { global: true })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-log-deepseek/src/invariant.ts",
-      "line": 53,
+      "line": 63,
       "owner": "reference/packages/session/session-log-deepseek",
       "expression": "ctx.on('internal/dispatch', (_mode, eventName, args) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-log-deepseek/src/invariant.ts",
-      "line": 56,
+      "line": 66,
       "owner": "reference/packages/session/session-log-deepseek",
       "expression": "}, { inject: ['sessions'] })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/session/session-persistence-jsonl/src/index.ts",
-      "line": 134,
+      "source": "reference/packages/session/session-persistence-jsonl/src/storage.ts",
+      "line": 535,
       "owner": "reference/packages/session/session-persistence-jsonl",
-      "expression": "static inject = ['sessions']",
+      "expression": "ctx.on('session/event', (session: Session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/session/session-persistence/src/coordinator.ts",
-      "line": 1305,
-      "owner": "reference/packages/session/session-persistence",
-      "expression": "ctx.on('session/created', (session) => {",
+      "source": "reference/packages/session/session-persistence-jsonl/src/storage.ts",
+      "line": 540,
+      "owner": "reference/packages/session/session-persistence-jsonl",
+      "expression": "ctx.on('session/flush', (session: Session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/session/session-persistence/src/coordinator.ts",
-      "line": 1310,
-      "owner": "reference/packages/session/session-persistence",
-      "expression": "ctx.on('session/event', (session, event) => {",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/session/session-persistence/src/coordinator.ts",
-      "line": 1316,
-      "owner": "reference/packages/session/session-persistence",
-      "expression": "ctx.on('session/flush', session => this.flush(session))",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/session/session-persistence/src/coordinator.ts",
-      "line": 1319,
-      "owner": "reference/packages/session/session-persistence",
-      "expression": "ctx.on('session/disposed', (session) => { this.retire(session) })",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/session/session-persistence/src/index.ts",
-      "line": 211,
-      "owner": "reference/packages/session/session-persistence",
-      "expression": "const sessions = this.ctx.get('sessions')",
+      "source": "reference/packages/session/session-persistence-jsonl/src/storage.ts",
+      "line": 548,
+      "owner": "reference/packages/session/session-persistence-jsonl",
+      "expression": "ctx.on('session/disposed', (session: Session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-projection-cache/src/index.ts",
-      "line": 85,
+      "line": 93,
       "owner": "reference/packages/session/session-projection-cache",
       "expression": "static inject = ['storageDomain', 'sessionProjections', 'sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-projection-cache/src/index.ts",
-      "line": 264,
+      "line": 305,
       "owner": "reference/packages/session/session-projection-cache",
       "expression": "this.ctx.on('session/event', (session: Session, event: SessionEvent) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-projection-cache/src/index.ts",
-      "line": 286,
+      "line": 327,
       "owner": "reference/packages/session/session-projection-cache",
       "expression": "this.ctx.on('session/created', (session: Session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-projection-cache/src/index.ts",
-      "line": 294,
+      "line": 335,
       "owner": "reference/packages/session/session-projection-cache",
       "expression": "this.ctx.on('session/disposed', (session: Session) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -6345,70 +6884,77 @@
     },
     {
       "source": "reference/packages/session/session-telemetry-otel/src/index.ts",
-      "line": 148,
+      "line": 157,
       "owner": "reference/packages/session/session-telemetry-otel",
       "expression": "static inject = ['sessions']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry-otel/src/index.ts",
-      "line": 164,
-      "owner": "reference/packages/session/session-telemetry-otel",
-      "expression": "ctx.on('session/event', (_session, event) => {",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/session/session-telemetry-otel/src/index.ts",
-      "line": 244,
+      "line": 171,
       "owner": "reference/packages/session/session-telemetry-otel",
       "expression": "ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 50,
-      "owner": "reference/packages/session/session-telemetry",
-      "expression": "* `agent/error` relay, all through `ctx.effect()`/`ctx.on()` on the composing",
+      "source": "reference/packages/session/session-telemetry-otel/src/index.ts",
+      "line": 246,
+      "owner": "reference/packages/session/session-telemetry-otel",
+      "expression": "ctx.on('session/event', (session, event) => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/session/session-telemetry-otel/src/index.ts",
+      "line": 255,
+      "owner": "reference/packages/session/session-telemetry-otel",
+      "expression": "ctx.on('feedback/committed', (inspection) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 81,
+      "line": 65,
+      "owner": "reference/packages/session/session-telemetry",
+      "expression": "* `ctx.effect()`/`ctx.on()` on the composing fiber, and sweeps already-live",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
+      "line": 93,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "ctx.on('session/created', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 86,
+      "line": 98,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "ctx.on('session/disposed', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 92,
+      "line": 104,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 99,
+      "line": 111,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "ctx.on('session/flush', (session) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 104,
+      "line": 116,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "ctx.on('agent/error', ({ agent, turn, step, error }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/session/session-telemetry/src/coordinator.ts",
-      "line": 216,
+      "line": 202,
       "owner": "reference/packages/session/session-telemetry",
       "expression": "return this.ctx.waterfall('session-telemetry/record', record, () => record)",
       "status": "source-discovery-not-runtime-resolution"
@@ -6527,7 +7073,7 @@
     },
     {
       "source": "reference/packages/shell/bash-sandbox/src/index.ts",
-      "line": 45,
+      "line": 46,
       "owner": "reference/packages/shell/bash-sandbox",
       "expression": "static override inject = ['subprocess', 'sandbox', 'sandboxPolicy']",
       "status": "source-discovery-not-runtime-resolution"
@@ -6555,21 +7101,14 @@
     },
     {
       "source": "reference/packages/shell/shell-env/src/index.ts",
-      "line": 26,
+      "line": 25,
       "owner": "reference/packages/shell/shell-env",
       "expression": "export const inject: string[] = []",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/shell/shell-env/src/index.ts",
-      "line": 213,
-      "owner": "reference/packages/shell/shell-env",
-      "expression": "const location = ctx.get('sessionPersistence')?.locate(agent.session.header)",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
       "source": "reference/packages/shell/tool-bash-persistent/src/index.ts",
-      "line": 429,
+      "line": 432,
       "owner": "reference/packages/shell/tool-bash-persistent",
       "expression": "export const inject = ['tools', 'terminals']",
       "status": "source-discovery-not-runtime-resolution"
@@ -6688,28 +7227,28 @@
     },
     {
       "source": "reference/packages/spill/spill-policy/src/index.ts",
-      "line": 73,
+      "line": 74,
       "owner": "reference/packages/spill/spill-policy",
       "expression": "export const inject = ['tools']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/spill/spill-policy/src/index.ts",
-      "line": 142,
+      "line": 137,
       "owner": "reference/packages/spill/spill-policy",
       "expression": "const spillStore = ctx.get('spillStore')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/spill/spill-policy/src/index.ts",
-      "line": 190,
+      "line": 185,
       "owner": "reference/packages/spill/spill-policy",
       "expression": "ctx.on('tools/post-execute', async (exec, result, next): Promise<PostToolDecision> => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/spill/spill-policy/src/index.ts",
-      "line": 217,
+      "line": 212,
       "owner": "reference/packages/spill/spill-policy",
       "expression": "ctx.on('tools/ptc-dispatch-log', async (dispatch, next): Promise<ContentBlock[]> => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -6869,106 +7408,106 @@
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 405,
+      "source": "reference/packages/subagent/subagent/src/continuation-activation.ts",
+      "line": 192,
       "owner": "reference/packages/subagent/subagent",
       "expression": "ctx.on('agent/disposed', ({ agent }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 497,
-      "owner": "reference/packages/subagent/subagent",
-      "expression": "isAdjacentAgentSendMessageTool(this.ctx.get('tools')?.get('send_message', activation.handle.agent))",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 509,
+      "source": "reference/packages/subagent/subagent/src/continuation-activation.ts",
+      "line": 215,
       "owner": "reference/packages/subagent/subagent",
       "expression": "if (this.ctx.agents.get(childId) !== undefined || this.ctx.get('sessions')?.get(childId) !== undefined) {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1080,
+      "source": "reference/packages/subagent/subagent/src/continuation-activation.ts",
+      "line": 626,
       "owner": "reference/packages/subagent/subagent",
-      "expression": "const llm = this.ctx.get('llm')",
+      "expression": "handle.agent.ctx.on('agent/inbox/claimed', wakeOnInboxRemoval)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1186,
+      "source": "reference/packages/subagent/subagent/src/continuation-activation.ts",
+      "line": 627,
       "owner": "reference/packages/subagent/subagent",
-      "expression": "handle.agent.ctx.on('agent/inbox/claimed', ({ message }) => {",
+      "expression": "handle.agent.ctx.on('agent/inbox/discarded', wakeOnInboxRemoval)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1191,
-      "owner": "reference/packages/subagent/subagent",
-      "expression": "handle.agent.ctx.on('agent/inbox/discarded', ({ message }) => {",
-      "status": "source-discovery-not-runtime-resolution"
-    },
-    {
-      "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1565,
+      "source": "reference/packages/subagent/subagent/src/continuation-activation.ts",
+      "line": 830,
       "owner": "reference/packages/subagent/subagent",
       "expression": "parent.inject(message)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1606,
+      "line": 177,
+      "owner": "reference/packages/subagent/subagent",
+      "expression": "isAdjacentAgentSendMessageTool(this.ctx.get('tools')?.get('send_message', activation.handle.agent))",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/subagent/subagent/src/continuation.ts",
+      "line": 513,
+      "owner": "reference/packages/subagent/subagent",
+      "expression": "const llm = this.ctx.get('llm')",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/subagent/subagent/src/continuation.ts",
+      "line": 527,
       "owner": "reference/packages/subagent/subagent",
       "expression": "const persistence = this.ctx.get('sessionPersistence')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/continuation.ts",
-      "line": 1618,
+      "line": 539,
       "owner": "reference/packages/subagent/subagent",
       "expression": "const query = this.ctx.get('sessionQuery')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/control.ts",
-      "line": 64,
+      "line": 65,
       "owner": "reference/packages/subagent/subagent",
       "expression": "const agents = ctx.get('agents')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/index.ts",
-      "line": 204,
+      "line": 201,
       "owner": "reference/packages/subagent/subagent",
       "expression": "ctx.inject(['agents'], (childCtx: Context) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/index.ts",
-      "line": 215,
+      "line": 212,
       "owner": "reference/packages/subagent/subagent",
       "expression": "ctx.inject(['sessionProjections'], (projectionCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/index.ts",
-      "line": 423,
+      "line": 426,
       "owner": "reference/packages/subagent/subagent",
       "expression": "const parent = this.ctx.get('agents')?.get(parentSessionId)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/index.ts",
-      "line": 443,
+      "line": 446,
       "owner": "reference/packages/subagent/subagent",
       "expression": "const attachments = this.ctx.get('attachments')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/subagent/src/index.ts",
-      "line": 519,
+      "line": 523,
       "owner": "reference/packages/subagent/subagent",
       "expression": "this.ctx.emit('subagent/provider-added', provider)",
       "status": "source-discovery-not-runtime-resolution"
@@ -7066,63 +7605,63 @@
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 44,
+      "line": 45,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "export const inject = ['tools', 'subagents', 'systemPrompt', 'sessionProjections']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 347,
+      "line": 354,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "ctx.on('subagent/provider-added', (subagentProvider) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 606,
+      "line": 613,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "const settings = ctx.get('subagentModelSelection')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 627,
+      "line": 629,
       "owner": "reference/packages/subagent/tool-subagent",
-      "expression": "const parent = ctx.get('agents')?.get(parentId)",
+      "expression": "const sessions = ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 647,
+      "line": 657,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "const agents = ctx.get('agents')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 662,
+      "line": 672,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "fiber = candidate.ctx.inject(['tools', 'subagents', 'systemPrompt'], (runtimeCtx) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 690,
+      "line": 698,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "ctx.on('agent/created', ({ agent: created }) => {",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 693,
+      "line": 701,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "ctx.on('agent/disposed', ({ agent: disposed }) => { removeScoped(disposed) })",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/subagent/tool-subagent/src/index.ts",
-      "line": 697,
+      "line": 705,
       "owner": "reference/packages/subagent/tool-subagent",
       "expression": "ctx.on('tools/change', reconcileComposedAgents)",
       "status": "source-discovery-not-runtime-resolution"
@@ -7206,42 +7745,49 @@
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 232,
+      "line": 253,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "ctx.provide('sessions', this.sessions)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 233,
+      "line": 254,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "ctx.provide('workspaces', this.workspaces)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 256,
+      "line": 255,
+      "owner": "reference/packages/test-support/client-runtime",
+      "expression": "ctx.provide('fileUpload', this.fileUpload as never)",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/test-support/client-runtime/src/index.ts",
+      "line": 279,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "const runtime = new SlotTestRuntime(ctx, ctx.get('slots') as SlotRegistry)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 257,
+      "line": 280,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "await ctx.plugin({ inject: [...uiSessionInject], apply: applyUiSession }).await()",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 270,
+      "line": 293,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "const missing = required.filter(name => this.ctx.get(name) === undefined)",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/client-runtime/src/index.ts",
-      "line": 272,
+      "line": 295,
       "owner": "reference/packages/test-support/client-runtime",
       "expression": "throw new Error(`mount would suspend: missing service(s) ${missing.join(', ')} — provide() them first`)",
       "status": "source-discovery-not-runtime-resolution"
@@ -7262,21 +7808,21 @@
     },
     {
       "source": "reference/packages/test-support/llm-replay/src/index.ts",
-      "line": 880,
+      "line": 1079,
       "owner": "reference/packages/test-support/llm-replay",
       "expression": "const extensions = ctx.get('deepseekLlmApiExtensions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/llm-replay/src/index.ts",
-      "line": 899,
+      "line": 1098,
       "owner": "reference/packages/test-support/llm-replay",
       "expression": ": ctx.on('llm/stream', (options: GenerateOptions, _next) => replay(options))",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/llm-replay/src/index.ts",
-      "line": 921,
+      "line": 1120,
       "owner": "reference/packages/test-support/llm-replay",
       "expression": "export const inject = ['llm']",
       "status": "source-discovery-not-runtime-resolution"
@@ -7285,12 +7831,19 @@
       "source": "reference/packages/test-support/loader-smoke/src/agent-turn.ts",
       "line": 42,
       "owner": "reference/packages/test-support/loader-smoke",
-      "expression": "const agents = ctx.get('agents')?.roots() ?? []",
+      "expression": "const registry = ctx.get('agents')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/test-support/loader-smoke/src/agent-turn.ts",
-      "line": 67,
+      "line": 49,
+      "owner": "reference/packages/test-support/loader-smoke",
+      "expression": "const dispose = ctx.on('agent/created', () => {",
+      "status": "source-discovery-not-runtime-resolution"
+    },
+    {
+      "source": "reference/packages/test-support/loader-smoke/src/agent-turn.ts",
+      "line": 80,
       "owner": "reference/packages/test-support/loader-smoke",
       "expression": "const disposeListener = ctx.on('session/event', (session, event) => {",
       "status": "source-discovery-not-runtime-resolution"
@@ -7584,28 +8137,28 @@
     },
     {
       "source": "reference/packages/workspace/workspace/src/index.ts",
-      "line": 93,
+      "line": 92,
       "owner": "reference/packages/workspace/workspace",
       "expression": "static inject = ['storageDomain', 'sessionPersistence']",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/workspace/workspace/src/index.ts",
-      "line": 264,
+      "line": 263,
       "owner": "reference/packages/workspace/workspace",
       "expression": "if (this.ctx.get('sessions')?.get(id) !== undefined) return true",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/workspace/workspace/src/index.ts",
-      "line": 593,
+      "line": 598,
       "owner": "reference/packages/workspace/workspace",
       "expression": "const sessions = this.ctx.get('sessions')",
       "status": "source-discovery-not-runtime-resolution"
     },
     {
       "source": "reference/packages/workspace/workspace/src/index.ts",
-      "line": 616,
+      "line": 621,
       "owner": "reference/packages/workspace/workspace",
       "expression": "const live = this.ctx.get('sessions')?.get(id)",
       "status": "source-discovery-not-runtime-resolution"

@@ -1,313 +1,53 @@
 {
   "schema_version": 1,
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
-  "scope": "Nine existing defect predicates freshly reproduced against pinned rc.1 in the single complete qualification; not a skip list or broad parity claim.",
-  "exceptions": [
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "scope": "rc.1 predicates remain historical until exact rc.3 requalification; no active exception inferred.",
+  "exceptions": [],
+  "pending_requalification": [
     {
       "id": "UPSTREAM-REPEAT-001",
       "driver": "scripts/repeat_tool_oracle.py",
-      "predicate": "reviewed_proto_difference",
-      "modes": [
-        "proto-key-loss"
-      ],
-      "finding": "JSON __proto__ own-key loss produces a false repeat notice.",
-      "record": "docs/research/2026-10-01-repeat-tool-reminder-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "repeat-tool-paired.json",
-        "sha256": "61bbe8b0ac52b485ffb3b809a1929c26e6a9a6416c617a24deebe1f2733636cb",
-        "observations": [
-          {
-            "mode": "proto-key-loss",
-            "status": "reviewed-upstream-bug"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "reviewed_proto_difference"
     },
     {
       "id": "UPSTREAM-TOKEN-METER-001",
       "driver": "scripts/token_meter_oracle.py",
-      "predicate": "reviewed_input_anchor_difference",
-      "modes": [
-        "late-input-anchor"
-      ],
-      "finding": "Accepted user input is counted by usage and by a stale surface anchor.",
-      "record": "docs/research/2026-10-01-token-meter-replay-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "token-meter-paired.json",
-        "sha256": "0e726c3ca4920b2dd4a2e61ff90c51d49e49ba5316bb5ce7166bbea7e50a7760",
-        "observations": [
-          {
-            "mode": "late-input-anchor",
-            "status": "reviewed-upstream-bug"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "reviewed_input_anchor_difference"
     },
     {
       "id": "UPSTREAM-COMPACTION-POLICY-001",
       "driver": "scripts/compaction_oracle.py",
-      "predicate": "reviewed_route_key_difference",
-      "modes": [
-        "embedded-nul-routes"
-      ],
-      "finding": "NUL-delimited provider/model keys collide.",
-      "record": "docs/research/2026-10-01-compaction-policy-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "compaction-paired.json",
-        "sha256": "1b19b9bc42a7d4923a47b56796a3b543cd0a91de4ca15e285becc0367af4dda8",
-        "observations": [
-          {
-            "mode": "embedded-nul-routes",
-            "status": "reviewed-upstream-bug"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "reviewed_route_key_difference"
     },
     {
       "id": "UPSTREAM-COMPACTION-SUMMARY-001",
       "driver": "scripts/compaction_oracle.py",
-      "predicate": "reviewed_summary_metadata_difference",
-      "modes": [
-        "transaction-private-fields"
-      ],
-      "finding": "Summary extras overwrite prepared transaction metadata.",
-      "record": "docs/research/2026-10-01-compaction-transaction-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "compaction-paired.json",
-        "sha256": "1b19b9bc42a7d4923a47b56796a3b543cd0a91de4ca15e285becc0367af4dda8",
-        "observations": [
-          {
-            "mode": "transaction-private-fields",
-            "status": "reviewed-upstream-bug"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "reviewed_summary_metadata_difference"
     },
     {
       "id": "UPSTREAM-CORDIS-INSPECT-001",
-      "aliases": [
-        "INSPECT-001"
-      ],
       "driver": "scripts/inspect_oracle.py",
-      "predicate": "classify",
-      "modes": [
-        "registry/disposal"
-      ],
-      "finding": "Context disposal retains a pending Client inspect waiter.",
-      "record": "docs/research/2026-10-01-cordis-inspect-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "inspect-paired.json",
-        "sha256": "f5433a78da2a9272af82343e8925f1e82b542b9b97eb846b156ded916928b839",
-        "observations": [
-          {
-            "mode": "registry/disposal",
-            "status": "reviewed-upstream-bug/INSPECT-001"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "classify"
     },
     {
       "id": "CORDIS-GUARD-001",
       "driver": "scripts/cordis_guard_oracle.py",
-      "predicate": "classify",
-      "modes": [
-        "facade/callable-context",
-        "facade/callable-async-context"
-      ],
-      "finding": "Callable service returns expose an unguarded Context.",
-      "record": "docs/research/2026-10-01-cordis-guard-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "cordis-guard-paired.json",
-        "sha256": "d2e5947bc5b532535acc495d574e47b5d96aec43822fc2f75942e0f3b14cde57",
-        "observations": [
-          {
-            "mode": "facade/callable-context",
-            "status": "reviewed-upstream-bug/CORDIS-GUARD-001"
-          },
-          {
-            "mode": "facade/callable-async-context",
-            "status": "reviewed-upstream-bug/CORDIS-GUARD-001"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "classify"
     },
     {
       "id": "CORDIS-RUNTIME-001",
       "driver": "scripts/cordis_runner_oracle.py",
-      "predicate": "classify",
-      "modes": [
-        "runtime-error-nul-collision"
-      ],
-      "finding": "NUL-delimited method/message error keys suppress an independent failure.",
-      "record": "docs/research/2026-10-01-cordis-runner-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "cordis-runner-paired.json",
-        "sha256": "2500837cd2ccaee31b2f6de13944b5292ac3b99de169b3ba95da71a554905d5e",
-        "observations": [
-          {
-            "mode": "runtime-error-nul-collision",
-            "status": "reviewed-upstream-bug/CORDIS-RUNTIME-001-with-Python-guidance"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "classify"
     },
     {
       "id": "CORDIS-LIFECYCLE-001",
       "driver": "scripts/cordis_retirement_oracle.py",
-      "predicate": "classify",
-      "modes": [
-        "remove-host-starting",
-        "stop-host-starting",
-        "remove-dual-starting",
-        "stop-dual-starting",
-        "remove-update-starting",
-        "stop-update-starting"
-      ],
-      "finding": "Stop/remove can resurrect an activation that commits late.",
-      "record": "docs/research/2026-10-01-cordis-retirement-progress.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "cordis-retirement-paired.json",
-        "sha256": "d694a018ba87dcb3ae3c5bacb78f2a53ae41e6f2519d4d1994d1ac559872e391",
-        "observations": [
-          {
-            "mode": "remove-host-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          },
-          {
-            "mode": "stop-host-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          },
-          {
-            "mode": "remove-dual-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          },
-          {
-            "mode": "stop-dual-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          },
-          {
-            "mode": "remove-update-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          },
-          {
-            "mode": "stop-update-starting",
-            "status": "reviewed-upstream-bug/CORDIS-LIFECYCLE-001"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "classify"
     },
     {
       "id": "UPSTREAM-ACP-PERMISSION-001",
       "driver": "scripts/acp_permissions_oracle.py",
-      "predicate": "reviewed_malformed_outcome_difference",
-      "modes": [
-        "unknown-kind-allow",
-        "missing-kind-allow"
-      ],
-      "finding": "Malformed permission response with allow-once bypasses outcome discriminator validation and grants execution.",
-      "record": "migration/reviews/ACP-MALFORMED-PERMISSION-20261003.md",
-      "rc1_review": {
-        "state": "renewed-exact-predicate",
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "member": "acp-permissions-paired.json",
-        "sha256": "b757991a36d98dfa42464c9afe4c0817085aaae35ba576dfab3bf813223369a6",
-        "observations": [
-          {
-            "mode": "unknown-kind-allow",
-            "status": "reviewed-original-defect"
-          },
-          {
-            "mode": "missing-kind-allow",
-            "status": "reviewed-original-defect"
-          }
-        ],
-        "scope": "Existing predicate and listed modes only; no normalization or additional exception."
-      },
-      "historical_source": "cd5ef8148158c3a752a658978873241fdf8e2bbc"
+      "predicate": "reviewed_malformed_outcome_difference"
     }
-  ],
-  "language_adaptations": [
-    {
-      "id": "PY38-RESOLVED-AWAIT",
-      "driver": "scripts/cordis_acceptance.py",
-      "predicate": "evaluate",
-      "cases": [
-        "C58"
-      ],
-      "required_checkpoint": "C59",
-      "finding": "Resolved Python Future scheduling differs from a JavaScript resolved Promise; raw divergence must remain visible.",
-      "rc1_review": {
-        "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
-        "product_commit": "d5f74c2da78f4d81b5fe3d9f1251fed31c03174e",
-        "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
-        "state": "renewed-exact-checkpoint",
-        "members": [
-          {
-            "path": "cordis-raw.json",
-            "sha256": "eb2c61ec044e608da1a51d46d8abd47d6521cec055d6ab8d0605ffa0450df56c"
-          },
-          {
-            "path": "cordis-acceptance.json",
-            "sha256": "b03497b75528cf65495d453196a1ac2e1321fd36751408fa2c3c19eef36382b3"
-          }
-        ],
-        "scope": "Original C58 raw divergence remains visible; unchanged C59 checkpoint must match. No wider scheduling equivalence."
-      }
-    }
-  ],
-  "excluded_migration_defects": [
-    "ACP cross-Session or stale-turn prompt settlement",
-    "Browser observer old-document races",
-    "Unattributed Proactor/HTTP shutdown diagnostics"
   ]
 }

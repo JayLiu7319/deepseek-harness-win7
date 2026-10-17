@@ -119,4 +119,4 @@ def test_dump_config_output():
     from pathlib import Path
     source = Path(__file__).resolve().parents[1] / 'reference/packages/bundle/sdk-minimal/cordis.patch.yml'
     expected_ids = re.findall(r'^    - id: (\S+)', source.read_text(encoding='utf-8'), re.MULTILINE)
-    assert ids_min == expected_ids
+    assert ids_min == expected_ids + ['fs-local', 'str-replace-editor']

@@ -8,8 +8,8 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let react_dom = require("react-dom");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-schedule\src\client\ScheduleCatalogAction.module.css.mjs
-		const css = ".O_vMhq_root{position:relative}.O_vMhq_trigger{min-height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;border-radius:6px;align-items:center;gap:4px;padding:3px 2px;font-size:12px;line-height:18px;display:inline-flex}.O_vMhq_trigger:hover,.O_vMhq_trigger:focus-visible{color:var(--dsw-alias-label-secondary)}.O_vMhq_trigger svg{flex:none}.O_vMhq_trigger>svg:last-child{transition:transform .12s}.O_vMhq_triggerOpen{transform:rotate(180deg)}.O_vMhq_count{margin-left:2px}.O_vMhq_menu{z-index:100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:336px;max-width:min(336px,100vw - 32px);max-height:min(420px,100vh - 140px);box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;flex-direction:column;gap:2px;margin:0;padding:4px;list-style:none;display:flex;position:fixed;overflow:auto}.O_vMhq_row{box-sizing:border-box;width:100%;min-height:54px;color:var(--dsw-alias-label-primary);border-radius:8px;flex-direction:column;flex-shrink:0;gap:3px;padding:8px 10px;display:flex}.O_vMhq_rowOverdue{background:var(--dsw-alias-state-warn-tertiary)}.O_vMhq_status{color:var(--dsw-alias-label-tertiary);align-items:center;gap:5px;font-size:11px;line-height:16px;display:inline-flex}.O_vMhq_statusDot{corner-shape:round;background:var(--dsw-alias-state-business-primary);border-radius:50%;flex:none;width:8px;height:8px}.O_vMhq_rowOverdue .O_vMhq_status{color:var(--dsw-alias-state-warn-label)}.O_vMhq_rowOverdue .O_vMhq_statusDot{background:var(--dsw-alias-state-warn-primary)}.O_vMhq_prompt{overflow-wrap:anywhere;white-space:normal;font-size:13px;line-height:18px}.O_vMhq_metadata{min-width:0;color:var(--dsw-alias-label-tertiary);flex-wrap:wrap;align-items:center;gap:5px;font-size:11px;line-height:16px;display:flex}.O_vMhq_relativeOverdue{color:var(--dsw-alias-state-warn-label)}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-schedule\src\client\ScheduleCatalogAction.module.css.mjs
+		const css = "._1xes0a_root{position:relative}._1xes0a_trigger{min-height:28px;color:var(--dsw-alias-label-tertiary);cursor:pointer;background:0 0;border:0;border-radius:6px;align-items:center;gap:4px;padding:3px 2px;font-size:12px;line-height:18px;display:inline-flex}._1xes0a_trigger:hover,._1xes0a_trigger:focus-visible{color:var(--dsw-alias-label-secondary)}._1xes0a_trigger svg{flex:none}._1xes0a_trigger>svg:last-child{transition:transform .12s}._1xes0a_triggerOpen{transform:rotate(180deg)}._1xes0a_count{margin-left:2px}._1xes0a_menu{z-index:100;box-sizing:border-box;background:var(--dsw-specific-menu);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:336px;max-width:min(336px,100vw - 32px);max-height:min(420px,100vh - 140px);box-shadow:var(--dsw-elevation-prominent);border:0;border-radius:20px;flex-direction:column;gap:2px;margin:0;padding:4px;list-style:none;display:flex;position:fixed;overflow:auto}._1xes0a_row{box-sizing:border-box;width:100%;min-height:54px;color:var(--dsw-alias-label-primary);border-radius:8px;flex-direction:column;flex-shrink:0;gap:3px;padding:8px 10px;display:flex}._1xes0a_rowOverdue{background:var(--dsw-alias-state-warn-tertiary)}._1xes0a_status{color:var(--dsw-alias-label-tertiary);align-items:center;gap:5px;font-size:11px;line-height:16px;display:inline-flex}._1xes0a_statusDot{corner-shape:round;background:var(--dsw-alias-state-business-primary);border-radius:50%;flex:none;width:8px;height:8px}._1xes0a_rowOverdue ._1xes0a_status{color:var(--dsw-alias-state-warn-label)}._1xes0a_rowOverdue ._1xes0a_statusDot{background:var(--dsw-alias-state-warn-primary)}._1xes0a_prompt{overflow-wrap:anywhere;white-space:normal;font-size:13px;line-height:18px}._1xes0a_metadata{min-width:0;color:var(--dsw-alias-label-tertiary);flex-wrap:wrap;align-items:center;gap:5px;font-size:11px;line-height:16px;display:flex}._1xes0a_relativeOverdue{color:var(--dsw-alias-state-warn-label)}";
 		const tagId = "@deepseek-ai/dsh-client-ui-schedule/ScheduleCatalogAction.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -19,18 +19,18 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ScheduleCatalogAction_module_css_default = {
-			"count": "O_vMhq_count",
-			"menu": "O_vMhq_menu",
-			"metadata": "O_vMhq_metadata",
-			"prompt": "O_vMhq_prompt",
-			"relativeOverdue": "O_vMhq_relativeOverdue",
-			"root": "O_vMhq_root",
-			"row": "O_vMhq_row",
-			"rowOverdue": "O_vMhq_rowOverdue",
-			"status": "O_vMhq_status",
-			"statusDot": "O_vMhq_statusDot",
-			"trigger": "O_vMhq_trigger",
-			"triggerOpen": "O_vMhq_triggerOpen"
+			"count": "_1xes0a_count",
+			"menu": "_1xes0a_menu",
+			"metadata": "_1xes0a_metadata",
+			"prompt": "_1xes0a_prompt",
+			"relativeOverdue": "_1xes0a_relativeOverdue",
+			"root": "_1xes0a_root",
+			"row": "_1xes0a_row",
+			"rowOverdue": "_1xes0a_rowOverdue",
+			"status": "_1xes0a_status",
+			"statusDot": "_1xes0a_statusDot",
+			"trigger": "_1xes0a_trigger",
+			"triggerOpen": "_1xes0a_triggerOpen"
 		};
 		//#endregion
 		//#region lib/types/client/ScheduleCatalogAction.js

@@ -4,11 +4,11 @@ window.__ModuleLoader__.load({
 		var module = { exports: {} };
 		var exports = module.exports;
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		let react_jsx_runtime = require("react/jsx-runtime");
 		let react = require("react");
-		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-skill\src\client\SkillRow.module.css.mjs
-		const css = ".rg-lnG_card{flex-direction:column;display:flex}.rg-lnG_row{align-items:center;min-width:0;height:24px;display:flex;position:relative;overflow:hidden}.rg-lnG_row[data-expandable]{cursor:pointer}.rg-lnG_card[data-state=running] .rg-lnG_row:after{content:\"\";background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite rg-lnG_dsh-skill-row-sweep;position:absolute;inset:0 auto 0 0}@keyframes rg-lnG_dsh-skill-row-sweep{0%{left:-300px}90%,to{left:100%}}.rg-lnG_leading{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;margin-right:6px;display:inline-flex;position:relative}.rg-lnG_chevron{color:var(--dsw-alias-label-secondary)}.rg-lnG_iconIdle{opacity:1;transition:opacity .1s;display:inline-flex}.rg-lnG_chevronHover{opacity:0;margin:auto;transition:opacity .1s;position:absolute;inset:0}.rg-lnG_row:hover .rg-lnG_iconIdle{opacity:0}.rg-lnG_row:hover .rg-lnG_chevronHover{opacity:1}.rg-lnG_title{color:var(--dsw-alias-label-secondary);flex:none;font-size:14px;line-height:24px}.rg-lnG_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.rg-lnG_summary{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;font-size:14px;line-height:24px;overflow:hidden}.rg-lnG_errorSummary{color:var(--dsw-alias-state-error-primary)}.rg-lnG_bodyWrap{flex-direction:column;display:flex}.rg-lnG_instructionsCard{border:.5px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-markdown-code-block);border-radius:12px;flex-direction:column;max-height:260px;margin:4px 0 4px 4px;display:flex;overflow:hidden}.rg-lnG_instructionsHeader{border-bottom:.5px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-markdown-code-block-banner);color:var(--dsw-alias-label-caption);text-transform:uppercase;letter-spacing:.04em;flex:none;padding:8px 12px;font-size:11px;font-weight:500;line-height:16px}.rg-lnG_instructions{white-space:pre-wrap;overflow-wrap:anywhere;min-height:0;font:var(--dsw-font-markdown-code-block-small);color:var(--dsw-alias-label-secondary);margin:0;padding:10px 12px 12px;overflow:auto}.rg-lnG_instructions[data-error]{color:var(--dsw-alias-state-error-primary)}.rg-lnG_instructions::-webkit-scrollbar-thumb{background-clip:padding-box;border:2px solid #0000;border-radius:6px}.rg-lnG_instructions::-webkit-scrollbar-track{margin:6px 0}.rg-lnG_inspectButton{border:.5px solid var(--dsw-alias-border-l4);corner-shape:round;background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-secondary);cursor:pointer;opacity:0;border-radius:999px;align-self:flex-start;align-items:center;gap:4px;margin:4px 0 2px 4px;padding:2px 8px;font-size:11px;line-height:16px;transition:opacity .1s;display:inline-flex}.rg-lnG_card:hover .rg-lnG_inspectButton,.rg-lnG_inspectButton:focus-visible{opacity:1}.rg-lnG_inspectButton:hover{background:var(--dsw-alias-interactive-bg-hover-solid);color:var(--dsw-alias-label-primary)}.rg-lnG_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}@media (prefers-reduced-motion:reduce){.rg-lnG_card[data-state=running] .rg-lnG_row:after{animation:none;display:none}.rg-lnG_iconIdle,.rg-lnG_chevronHover,.rg-lnG_inspectButton{transition:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-skill\src\client\SkillRow.module.css.mjs
+		const css = ".a4AKFG_card{flex-direction:column;display:flex}.a4AKFG_row{align-items:center;min-width:0;height:24px;display:flex;position:relative;overflow:hidden}.a4AKFG_row[data-expandable]{cursor:pointer}.a4AKFG_card[data-state=running] .a4AKFG_row:after{content:\"\";background:linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--dsw-alias-bg-base) 60%, transparent) 55%, transparent 100%);pointer-events:none;width:300px;animation:2.6s ease-out infinite a4AKFG_dsh-skill-row-sweep;position:absolute;inset:0 auto 0 0}@keyframes a4AKFG_dsh-skill-row-sweep{0%{left:-300px}90%,to{left:100%}}.a4AKFG_leading{width:16px;height:16px;color:var(--dsw-alias-label-tertiary);flex:none;justify-content:center;align-items:center;margin-right:6px;display:inline-flex;position:relative}.a4AKFG_chevron{color:var(--dsw-alias-label-secondary)}.a4AKFG_iconIdle{opacity:1;transition:opacity .1s;display:inline-flex}.a4AKFG_chevronHover{opacity:0;margin:auto;transition:opacity .1s;position:absolute;inset:0}.a4AKFG_row:hover .a4AKFG_iconIdle{opacity:0}.a4AKFG_row:hover .a4AKFG_chevronHover{opacity:1}.a4AKFG_title{color:var(--dsw-alias-label-secondary);flex:none;font-size:14px;line-height:24px}.a4AKFG_separator{background:var(--dsw-alias-label-caption);border-radius:1px;flex:none;width:2px;height:2px;margin:0 8px}.a4AKFG_summary{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;font-size:14px;line-height:24px;overflow:hidden}.a4AKFG_errorSummary{color:var(--dsw-alias-state-error-primary)}.a4AKFG_bodyWrap{flex-direction:column;display:flex}.a4AKFG_instructionsCard{border:.5px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-markdown-code-block);border-radius:12px;flex-direction:column;max-height:260px;margin:4px 0 4px 4px;display:flex;overflow:hidden}.a4AKFG_instructionsHeader{border-bottom:.5px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-markdown-code-block-banner);color:var(--dsw-alias-label-caption);text-transform:uppercase;letter-spacing:.04em;flex:none;padding:8px 12px;font-size:11px;font-weight:500;line-height:16px}.a4AKFG_instructions{white-space:pre-wrap;overflow-wrap:anywhere;min-height:0;font:var(--dsw-font-markdown-code-block-small);color:var(--dsw-alias-label-secondary);margin:0;padding:10px 12px 12px;overflow:auto}.a4AKFG_instructions[data-error]{color:var(--dsw-alias-state-error-primary)}.a4AKFG_instructions::-webkit-scrollbar-thumb{background-clip:padding-box;border:2px solid #0000;border-radius:6px}.a4AKFG_instructions::-webkit-scrollbar-track{margin:6px 0}.a4AKFG_inspectButton{border:.5px solid var(--dsw-alias-border-l4);corner-shape:round;background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-secondary);cursor:pointer;opacity:0;border-radius:999px;align-self:flex-start;align-items:center;gap:4px;margin:4px 0 2px 4px;padding:2px 8px;font-size:11px;line-height:16px;transition:opacity .1s;display:inline-flex}.a4AKFG_card:hover .a4AKFG_inspectButton,.a4AKFG_inspectButton:focus-visible{opacity:1}.a4AKFG_inspectButton:hover{background:var(--dsw-alias-interactive-bg-hover-solid);color:var(--dsw-alias-label-primary)}.a4AKFG_visuallyHidden{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}@media (prefers-reduced-motion:reduce){.a4AKFG_card[data-state=running] .a4AKFG_row:after{animation:none;display:none}.a4AKFG_iconIdle,.a4AKFG_chevronHover,.a4AKFG_inspectButton{transition:none}}";
 		const tagId = "@deepseek-ai/dsh-client-ui-skill/SkillRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -18,23 +18,23 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SkillRow_module_css_default = {
-			"bodyWrap": "rg-lnG_bodyWrap",
-			"card": "rg-lnG_card",
-			"chevron": "rg-lnG_chevron",
-			"chevronHover": "rg-lnG_chevronHover",
-			"dsh-skill-row-sweep": "rg-lnG_dsh-skill-row-sweep",
-			"errorSummary": "rg-lnG_errorSummary",
-			"iconIdle": "rg-lnG_iconIdle",
-			"inspectButton": "rg-lnG_inspectButton",
-			"instructions": "rg-lnG_instructions",
-			"instructionsCard": "rg-lnG_instructionsCard",
-			"instructionsHeader": "rg-lnG_instructionsHeader",
-			"leading": "rg-lnG_leading",
-			"row": "rg-lnG_row",
-			"separator": "rg-lnG_separator",
-			"summary": "rg-lnG_summary",
-			"title": "rg-lnG_title",
-			"visuallyHidden": "rg-lnG_visuallyHidden"
+			"bodyWrap": "a4AKFG_bodyWrap",
+			"card": "a4AKFG_card",
+			"chevron": "a4AKFG_chevron",
+			"chevronHover": "a4AKFG_chevronHover",
+			"dsh-skill-row-sweep": "a4AKFG_dsh-skill-row-sweep",
+			"errorSummary": "a4AKFG_errorSummary",
+			"iconIdle": "a4AKFG_iconIdle",
+			"inspectButton": "a4AKFG_inspectButton",
+			"instructions": "a4AKFG_instructions",
+			"instructionsCard": "a4AKFG_instructionsCard",
+			"instructionsHeader": "a4AKFG_instructionsHeader",
+			"leading": "a4AKFG_leading",
+			"row": "a4AKFG_row",
+			"separator": "a4AKFG_separator",
+			"summary": "a4AKFG_summary",
+			"title": "a4AKFG_title",
+			"visuallyHidden": "a4AKFG_visuallyHidden"
 		};
 		//#endregion
 		//#region lib/types/client/SkillRow.js
@@ -285,7 +285,7 @@ window.__ModuleLoader__.load({
 				async candidates(session, { query, signal }) {
 					const skills = await fetchCatalog(session.sessionId);
 					if (signal.aborted) return [];
-					return skills.filter((skill) => skill.name.startsWith(query)).map((skill) => ({
+					return (0, _deepseek_ai_dsh_client_ui_primitives.rankByName)(skills, query).map((skill) => ({
 						name: skill.name,
 						description: skill.modelInvocable ? skill.description : `${t("menu.userOnly")} · ${skill.description}`
 					}));

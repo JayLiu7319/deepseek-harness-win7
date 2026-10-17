@@ -156,7 +156,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-workspace-controller#directoryPicker/createDirectory:result',
         schema: _deepseek_ai_dsh_api_workspace_controller_directoryPicker_createDirectory_result$schema,
       },
-      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":86,"column":9},
+      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":88,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-workspace-controller#directoryPicker/list',
@@ -183,7 +183,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-host-directory-picker/types#DirectoryListing',
         schema: _deepseek_ai_dsh_api_workspace_controller_directoryPicker_list_result$schema,
       },
-      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":70,"column":9},
+      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":72,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-workspace-controller#directoryPicker/pick',
@@ -199,7 +199,7 @@ export const TYPERT = {
         typeSymbol: '@deepseek-ai/dsh-api-workspace-controller#directoryPicker/pick:result',
         schema: _deepseek_ai_dsh_api_workspace_controller_directoryPicker_pick_result$schema,
       },
-      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":53,"column":9},
+      sourceLocation: {"file":"packages/api/workspace-controller/src/directory-picker.ts","line":55,"column":9},
     },
     {
       id: '@deepseek-ai/dsh-api-workspace-controller#workspace/archiveSession',

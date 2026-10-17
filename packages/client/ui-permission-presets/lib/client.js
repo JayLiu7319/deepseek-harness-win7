@@ -98,8 +98,8 @@ window.__ModuleLoader__.load({
 			return displayPresetName(name);
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-permission-presets\src\client\PermissionRow.module.css.mjs
-		const css = ".PtVurq_row{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.PtVurq_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.PtVurq_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.PtVurq_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.PtVurq_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.PtVurq_selector:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.PtVurq_selector:disabled{cursor:default}.PtVurq_chevron{flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-permission-presets\src\client\PermissionRow.module.css.mjs
+		const css = ".qSgUKa_row{border-bottom:.5px solid var(--dsw-alias-border-l2);align-items:center;gap:8px;padding:16px 0;display:flex}.qSgUKa_rowText{flex-direction:column;flex:1;gap:4px;min-width:0;padding-right:48px;display:flex}.qSgUKa_title{color:var(--dsw-alias-label-primary);font-size:14px;font-weight:400;line-height:22px}.qSgUKa_desc{color:var(--dsw-alias-label-tertiary);font-size:12px;font-weight:400;line-height:18px}.qSgUKa_selector{background:var(--dsw-alias-bg-module-platform);height:36px;font:inherit;color:var(--dsw-alias-label-primary);cursor:pointer;border:none;border-radius:18px;align-items:center;gap:12px;padding:0 14px;font-size:14px;line-height:22px;display:inline-flex}.qSgUKa_selector:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.qSgUKa_selector:disabled{cursor:default}.qSgUKa_chevron{flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-ui-permission-presets/PermissionRow.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -109,12 +109,12 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var PermissionRow_module_css_default = {
-			"chevron": "PtVurq_chevron",
-			"desc": "PtVurq_desc",
-			"row": "PtVurq_row",
-			"rowText": "PtVurq_rowText",
-			"selector": "PtVurq_selector",
-			"title": "PtVurq_title"
+			"chevron": "qSgUKa_chevron",
+			"desc": "qSgUKa_desc",
+			"row": "qSgUKa_row",
+			"rowText": "qSgUKa_rowText",
+			"selector": "qSgUKa_selector",
+			"title": "qSgUKa_title"
 		};
 		//#endregion
 		//#region lib/types/client/PermissionRow.js

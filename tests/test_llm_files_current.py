@@ -33,6 +33,21 @@ def test_actual_original_llm_file_projection(case):
 
 
 @pytest.mark.asyncio
+async def test_public_catalog_alias_used_by_current_model_selection():
+    ctx = Context()
+    try:
+        await ctx.plugin(CurrentLlmRuntime)
+        class Adapter:
+            async def list_models(self, provider):
+                assert provider == 'public-catalog'
+                return [dict(provider=provider, id='model', name='Current model')]
+        ctx.get('llm').registerAdapter(['public-catalog'], Adapter())
+        assert await ctx.get('llm').listModels('public-catalog') == [dict(provider='public-catalog', id='model', name='Current model')]
+    finally:
+        await ctx.fiber.dispose()
+
+
+@pytest.mark.asyncio
 async def test_actual_agent_keeps_file_history_but_dispatches_current_read_path_and_prices_it(tmp_path):
     ctx = Context()
     handle = None

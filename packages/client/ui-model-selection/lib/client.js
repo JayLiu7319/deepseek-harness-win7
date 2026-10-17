@@ -8,6 +8,7 @@ window.__ModuleLoader__.load({
 		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
 		let react_jsx_runtime = require("react/jsx-runtime");
 		let react = require("react");
+		let react_dom = require("react-dom");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		//#region lib/types/client/catalog.js
 		/** One Host-generation model catalog shared by every Session selector. */
@@ -340,8 +341,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-model-selection\src\client\ModelSelect.module.css.mjs
-		const css = ".b92RFG_root{min-width:0;position:relative}.b92RFG_trigger{min-width:0;max-width:min(360px,45cqw);height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:24px;outline:none;align-items:center;gap:4px;padding:0 4px 0 8px;font-size:13px;font-weight:500;line-height:20px;display:flex}.b92RFG_trigger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_trigger:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3)}.b92RFG_trigger:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.b92RFG_triggerLabel{text-overflow:ellipsis;white-space:nowrap;min-width:0;overflow:hidden}.b92RFG_triggerEffort{color:var(--dsw-alias-label-caption);flex:none}.b92RFG_chevron{color:var(--dsw-alias-label-caption);flex:none;transition:transform .12s}.b92RFG_chevronOpen{transform:rotate(180deg)}.b92RFG_menu{z-index:20;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:max-content;min-width:min(240px,100vw - 32px);max-width:min(420px,100vw - 32px);max-height:min(360px,100vh - 96px);box-shadow:var(--dsw-elevation-prominent);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:absolute;bottom:calc(100% + 8px);right:0;overflow:hidden}.b92RFG_status,.b92RFG_empty{color:var(--dsw-alias-label-tertiary);padding:10px;font-size:13px;line-height:20px}.b92RFG_error,.b92RFG_warning{background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary);border-radius:8px;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;padding:7px 8px;font-size:12px;line-height:18px;display:flex}.b92RFG_warning{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-state-warn-label)}.b92RFG_retry{color:inherit;font:inherit;cursor:pointer;background:0 0;border:none;flex:none;padding:0;font-weight:600}.b92RFG_groups{min-height:0;overflow-y:auto}.b92RFG_group+.b92RFG_group{margin-top:4px}.b92RFG_groupTitle{z-index:1;background:var(--dsw-specific-menu);color:var(--dsw-alias-label-tertiary);padding:5px 8px 3px;font-size:12px;font-weight:500;line-height:18px;position:sticky;top:0}.b92RFG_option{box-sizing:border-box;width:auto;min-width:100%;min-height:38px;color:inherit;text-align:left;cursor:pointer;background:0 0;border:none;border-radius:10px;outline:none;align-items:center;gap:8px;padding:6px 8px;display:flex}.b92RFG_option:hover:not(:disabled),.b92RFG_option:focus-visible{background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_selected{background:0 0}.b92RFG_option:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.b92RFG_optionCopy{flex-direction:column;flex:1;min-width:0;display:flex}.b92RFG_modelName{color:inherit;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}.b92RFG_check{color:var(--dsw-alias-label-primary);flex:0 0 18px;place-items:center;display:grid}.b92RFG_cell{box-sizing:border-box;width:auto;min-width:100%;height:40px;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:0 10px;font-size:14px;line-height:22px;display:flex}.b92RFG_cell:hover{background:var(--dsw-alias-interactive-bg-hover)}.b92RFG_cellLabel{white-space:nowrap;flex:none}.b92RFG_cellValue{text-overflow:ellipsis;white-space:nowrap;text-align:right;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;overflow:hidden}.b92RFG_cellChevron{color:var(--dsw-alias-label-tertiary);flex:none}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-model-selection\src\client\ModelSelect.module.css.mjs
+		const css = ".Zs65jG_root{min-width:0;position:relative}.Zs65jG_trigger{min-width:0;max-width:min(360px,45cqw);height:28px;color:var(--dsw-alias-label-secondary);cursor:pointer;background:0 0;border:none;border-radius:24px;outline:none;align-items:center;gap:4px;padding:0 4px 0 8px;font-size:13px;font-weight:500;line-height:20px;display:flex}.Zs65jG_trigger:hover:not(:disabled){background:var(--dsw-alias-interactive-bg-hover)}.Zs65jG_trigger:focus-visible{box-shadow:0 0 0 2px var(--dsw-alias-border-l3)}.Zs65jG_trigger:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.Zs65jG_triggerLabel{text-overflow:ellipsis;white-space:nowrap;min-width:0;overflow:hidden}.Zs65jG_triggerEffort{text-overflow:ellipsis;white-space:nowrap;min-width:0;color:var(--dsw-alias-label-caption);flex-shrink:1000;overflow:hidden}.Zs65jG_triggerIcon{flex:none;display:none}@container (width<=360px){.Zs65jG_triggerIcon{display:block}.Zs65jG_triggerLabel,.Zs65jG_triggerEffort{display:none}}.Zs65jG_chevron{color:var(--dsw-alias-label-caption);flex:none;transition:transform .12s}.Zs65jG_chevronOpen{transform:rotate(180deg)}.Zs65jG_menu{z-index:1100;background:var(--dsw-specific-menu);--dsw-elevation-stroke-color:var(--dsw-alias-border-l1);width:max-content;min-width:min(240px,100vw - 32px);max-width:min(420px,100vw - 32px);max-height:min(360px,100vh - 96px);box-shadow:var(--dsw-elevation-prominent);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);border:0;border-radius:20px;flex-direction:column;padding:4px;display:flex;position:fixed;overflow:hidden}.Zs65jG_status,.Zs65jG_empty{color:var(--dsw-alias-label-tertiary);padding:10px;font-size:13px;line-height:20px}.Zs65jG_error,.Zs65jG_warning{background:var(--dsw-alias-interactive-bg-hover-danger);color:var(--dsw-alias-state-error-primary);border-radius:8px;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;padding:7px 8px;font-size:12px;line-height:18px;display:flex}.Zs65jG_warning{background:var(--dsw-alias-bg-module-platform);color:var(--dsw-alias-state-warn-label)}.Zs65jG_retry{color:inherit;font:inherit;cursor:pointer;background:0 0;border:none;flex:none;padding:0;font-weight:600}.Zs65jG_groups{min-height:0;overflow-y:auto}.Zs65jG_group+.Zs65jG_group{margin-top:4px}.Zs65jG_groupTitle{z-index:1;background:var(--dsw-specific-menu);color:var(--dsw-alias-label-tertiary);padding:5px 8px 3px;font-size:12px;font-weight:500;line-height:18px;position:sticky;top:0}.Zs65jG_option{box-sizing:border-box;width:auto;min-width:100%;min-height:38px;color:inherit;text-align:left;cursor:pointer;background:0 0;border:none;border-radius:10px;outline:none;align-items:center;gap:8px;padding:6px 8px;display:flex}.Zs65jG_option:hover:not(:disabled),.Zs65jG_option:focus-visible{background:var(--dsw-alias-interactive-bg-hover)}.Zs65jG_selected{background:0 0}.Zs65jG_option:disabled{color:var(--dsw-alias-label-dimmed);cursor:default}.Zs65jG_optionCopy{flex-direction:column;flex:1;min-width:0;display:flex}.Zs65jG_modelName{color:inherit;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:500;line-height:20px;overflow:hidden}.Zs65jG_check{color:var(--dsw-alias-label-primary);flex:0 0 18px;place-items:center;display:grid}.Zs65jG_cell{box-sizing:border-box;width:auto;min-width:100%;height:40px;color:var(--dsw-alias-label-primary);cursor:pointer;text-align:left;background:0 0;border:none;border-radius:10px;align-items:center;gap:8px;padding:0 10px;font-size:14px;line-height:22px;display:flex}.Zs65jG_cell:hover{background:var(--dsw-alias-interactive-bg-hover)}.Zs65jG_cellLabel{white-space:nowrap;flex:none}.Zs65jG_cellValue{text-overflow:ellipsis;white-space:nowrap;text-align:right;min-width:0;color:var(--dsw-alias-label-tertiary);flex:auto;overflow:hidden}.Zs65jG_cellChevron{color:var(--dsw-alias-label-tertiary);flex:none}";
 		const tagId = "@deepseek-ai/dsh-client-ui-model-selection/ModelSelect.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -351,30 +352,31 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var ModelSelect_module_css_default = {
-			"cell": "b92RFG_cell",
-			"cellChevron": "b92RFG_cellChevron",
-			"cellLabel": "b92RFG_cellLabel",
-			"cellValue": "b92RFG_cellValue",
-			"check": "b92RFG_check",
-			"chevron": "b92RFG_chevron",
-			"chevronOpen": "b92RFG_chevronOpen",
-			"empty": "b92RFG_empty",
-			"error": "b92RFG_error",
-			"group": "b92RFG_group",
-			"groupTitle": "b92RFG_groupTitle",
-			"groups": "b92RFG_groups",
-			"menu": "b92RFG_menu",
-			"modelName": "b92RFG_modelName",
-			"option": "b92RFG_option",
-			"optionCopy": "b92RFG_optionCopy",
-			"retry": "b92RFG_retry",
-			"root": "b92RFG_root",
-			"selected": "b92RFG_selected",
-			"status": "b92RFG_status",
-			"trigger": "b92RFG_trigger",
-			"triggerEffort": "b92RFG_triggerEffort",
-			"triggerLabel": "b92RFG_triggerLabel",
-			"warning": "b92RFG_warning"
+			"cell": "Zs65jG_cell",
+			"cellChevron": "Zs65jG_cellChevron",
+			"cellLabel": "Zs65jG_cellLabel",
+			"cellValue": "Zs65jG_cellValue",
+			"check": "Zs65jG_check",
+			"chevron": "Zs65jG_chevron",
+			"chevronOpen": "Zs65jG_chevronOpen",
+			"empty": "Zs65jG_empty",
+			"error": "Zs65jG_error",
+			"group": "Zs65jG_group",
+			"groupTitle": "Zs65jG_groupTitle",
+			"groups": "Zs65jG_groups",
+			"menu": "Zs65jG_menu",
+			"modelName": "Zs65jG_modelName",
+			"option": "Zs65jG_option",
+			"optionCopy": "Zs65jG_optionCopy",
+			"retry": "Zs65jG_retry",
+			"root": "Zs65jG_root",
+			"selected": "Zs65jG_selected",
+			"status": "Zs65jG_status",
+			"trigger": "Zs65jG_trigger",
+			"triggerEffort": "Zs65jG_triggerEffort",
+			"triggerIcon": "Zs65jG_triggerIcon",
+			"triggerLabel": "Zs65jG_triggerLabel",
+			"warning": "Zs65jG_warning"
 		};
 		//#endregion
 		//#region lib/types/client/ModelSelect.js
@@ -391,6 +393,12 @@ window.__ModuleLoader__.load({
 		* announces through the shared transient Toast anchored to the composer
 		* card; the in-menu strip with Retry remains the catalog-load surface.
 		*/
+		/** Unplaced portal card: hidden but laid out at a fixed origin so offsetWidth/offsetHeight are real (Menu primitive's measure pass). */
+		const MEASURE_STYLE = {
+			visibility: "hidden",
+			left: 0,
+			top: 0
+		};
 		/**
 		* Render the composer model seat.
 		* @param props - owner share (locked) + injected face (shared directory
@@ -406,6 +414,8 @@ window.__ModuleLoader__.load({
 			const toastSeq = (0, react.useRef)(0);
 			const rootRef = (0, react.useRef)(null);
 			const triggerRef = (0, react.useRef)(null);
+			const menuRef = (0, react.useRef)(null);
+			const [menuPos, setMenuPos] = (0, react.useState)(null);
 			const itemRefs = (0, react.useRef)([]);
 			const id = (0, react.useId)();
 			const choices = (0, react.useMemo)(() => state.groups.flatMap((group) => group.models.map((model) => ({
@@ -438,13 +448,48 @@ window.__ModuleLoader__.load({
 			(0, react.useEffect)(() => {
 				if (!open) return;
 				const closeOutside = (event) => {
-					if (!rootRef.current?.contains(event.target)) setOpen(false);
+					if (rootRef.current?.contains(event.target) === true) return;
+					if (menuRef.current?.contains(event.target) === true) return;
+					setOpen(false);
 				};
 				document.addEventListener("mousedown", closeOutside);
 				return () => {
 					document.removeEventListener("mousedown", closeOutside);
 				};
 			}, [open]);
+			(0, react.useLayoutEffect)(() => {
+				if (!open) {
+					setMenuPos(null);
+					return;
+				}
+				const place = () => {
+					/* v8 ignore next 2 -- the trigger ref is attached whenever the menu is open. */
+					const rect = triggerRef.current?.getBoundingClientRect();
+					if (rect === void 0) return;
+					const MARGIN = 12;
+					const lw = menuRef.current?.offsetWidth ?? 0;
+					const lh = menuRef.current?.offsetHeight ?? 0;
+					let x = rect.right - lw;
+					let y = rect.top - 8 - lh;
+					if (lw > 0) x = Math.min(Math.max(x, MARGIN), window.innerWidth - lw - MARGIN);
+					if (lh > 0) y = Math.min(Math.max(y, MARGIN), window.innerHeight - lh - MARGIN);
+					setMenuPos({
+						left: x,
+						top: y
+					});
+				};
+				place();
+				window.addEventListener("scroll", place, true);
+				window.addEventListener("resize", place);
+				return () => {
+					window.removeEventListener("scroll", place, true);
+					window.removeEventListener("resize", place);
+				};
+			}, [
+				open,
+				pane,
+				state
+			]);
 			if (!available) return null;
 			const show = () => {
 				setPane("root");
@@ -478,7 +523,7 @@ window.__ModuleLoader__.load({
 				}
 			};
 			const onBlur = (event) => {
-				if (event.relatedTarget instanceof Node && rootRef.current?.contains(event.relatedTarget)) return;
+				if (event.relatedTarget instanceof Node && (rootRef.current?.contains(event.relatedTarget) === true || menuRef.current?.contains(event.relatedTarget) === true)) return;
 				close();
 			};
 			const settleSelection = (accepted) => {
@@ -553,6 +598,10 @@ window.__ModuleLoader__.load({
 							else show();
 						},
 						children: [
+							(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconDataOutline16, {
+								className: ModelSelect_module_css_default.triggerIcon,
+								size: 16
+							}),
 							(0, react_jsx_runtime.jsx)("span", {
 								className: ModelSelect_module_css_default.triggerLabel,
 								children: modelLabel
@@ -564,9 +613,11 @@ window.__ModuleLoader__.load({
 							(0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutline14, { className: clsx(ModelSelect_module_css_default.chevron, open && ModelSelect_module_css_default.chevronOpen) })
 						]
 					}),
-					open && (0, react_jsx_runtime.jsxs)("div", {
+					open && (0, react_dom.createPortal)((0, react_jsx_runtime.jsxs)("div", {
+						ref: menuRef,
 						id: `${id}-menu`,
 						className: ModelSelect_module_css_default.menu,
+						style: menuPos ?? MEASURE_STYLE,
 						role: "menu",
 						"aria-label": t("menu.aria"),
 						"aria-busy": state.status === "loading" || busy,
@@ -717,7 +768,7 @@ window.__ModuleLoader__.load({
 								})]
 							}, level.key))] })
 						]
-					}),
+					}), document.body),
 					toast !== null && (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Toast, {
 						text: toast.text,
 						icon: (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconWarningOutline16, {}),
@@ -744,6 +795,8 @@ window.__ModuleLoader__.load({
 		const zh = {
 			"command.description": "选择本会话使用的模型",
 			"option.loadError": "目录加载失败：{message}",
+			"option.deepseekV4Flash.description": "快速、高效且经济；适合目标明确、常规或并行任务。",
+			"option.deepseekV4Pro.description": "更强的自主编码、知识与复杂推理能力；适合复杂或质量优先的任务，但成本更高。",
 			"trigger.fallback": "选择模型",
 			"trigger.loading": "正在加载模型…",
 			"trigger.selectAria": "选择模型",
@@ -765,6 +818,8 @@ window.__ModuleLoader__.load({
 		const en = {
 			"command.description": "Select the model for this conversation",
 			"option.loadError": "Catalog failed to load: {message}",
+			"option.deepseekV4Flash.description": "Fast, efficient, and economical; suited to focused, routine, or parallel tasks.",
+			"option.deepseekV4Pro.description": "Stronger agentic coding, knowledge, and difficult reasoning; suited to complex or quality-critical tasks at higher cost.",
 			"trigger.fallback": "Select model",
 			"trigger.loading": "Loading models…",
 			"trigger.selectAria": "Select model",
@@ -788,15 +843,26 @@ window.__ModuleLoader__.load({
 		function rowId(providerId, modelId) {
 			return `${providerId}/${modelId}`;
 		}
+		const BUILTIN_DESCRIPTION_KEYS = {
+			"deepseek-official/deepseek-v4-flash": "option.deepseekV4Flash.description",
+			"deepseek-official/deepseek-v4-pro": "option.deepseekV4Pro.description"
+		};
+		function descriptionOf(providerId, model, t) {
+			const key = BUILTIN_DESCRIPTION_KEYS[rowId(providerId, model.id)];
+			return key !== void 0 && model.description === en[key] ? t(key) : model.description;
+		}
 		/** Flatten the directory into popup rows; failure rows are listed for visibility but never selectable. */
 		function optionsOf(directory, t) {
 			const rows = [];
-			for (const group of directory.groups) for (const model of group.models) rows.push({
-				id: rowId(group.id, model.id),
-				label: model.name,
-				detail: model.description !== void 0 ? `${group.name} · ${model.description}` : group.name,
-				...directory.current !== null && directory.current.provider === group.id && directory.current.model === model.id ? { active: true } : {}
-			});
+			for (const group of directory.groups) for (const model of group.models) {
+				const description = descriptionOf(group.id, model, t);
+				rows.push({
+					id: rowId(group.id, model.id),
+					label: model.name,
+					detail: description !== void 0 ? `${group.name} · ${description}` : group.name,
+					...directory.current !== null && directory.current.provider === group.id && directory.current.model === model.id ? { active: true } : {}
+				});
+			}
 			for (const failure of directory.failures) rows.push({
 				id: `failure/${failure.id}`,
 				label: failure.name,
@@ -852,7 +918,7 @@ window.__ModuleLoader__.load({
 				const sessions = scope.sessions;
 				scope.effect(() => command.register({
 					name: "model",
-					description: t("command.description"),
+					description: () => t("command.description"),
 					available: (session) => sessions.subagentAddress(session.sessionId) === void 0,
 					ui: {
 						kind: "popupSelect",

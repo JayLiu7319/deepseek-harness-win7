@@ -48,5 +48,6 @@
     "evidence_id": "RUN-RC1-QUALIFICATION-20261015-D5F74C2D",
     "artifact": "migration/evidence/artifacts/RC1-QUALIFICATION-20261015-D5F74C2D.zip",
     "scope": "Current finite executable provider/consumer corpora, original-browser and extracted observations in the single full receipt. Historical alpha evidence remains historical; no inventory-wide parity, arbitrary ABI/history, paid-provider or Win7 certification."
-  }
+  },
+  "historical": true
 }

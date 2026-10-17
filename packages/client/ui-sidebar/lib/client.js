@@ -4,6 +4,8 @@ window.__ModuleLoader__.load({
 		var module = { exports: {} };
 		var exports = module.exports;
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+		let _deepseek_ai_dsh_client_store = require("@deepseek-ai/dsh-client-store");
+		let _deepseek_ai_dsh_client_ui_slots = require("@deepseek-ai/dsh-client-ui-slots");
 		let react_jsx_runtime = require("react/jsx-runtime");
 		let react = require("react");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
@@ -22,8 +24,8 @@ window.__ModuleLoader__.load({
 			return n;
 		}
 		//#endregion
-		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc1-source-20261014\packages\client\ui-sidebar\src\client\SidebarRoot.module.css.mjs
-		const css = "._43-JWW_root{--dsh-sidebar-inline-padding:12px;height:100%;padding:6px var(--dsh-sidebar-inline-padding);box-sizing:border-box;background:var(--dsw-specific-sidebar-fill);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);flex-direction:column;font-size:14px;display:flex}._43-JWW_root._43-JWW_collapsed{padding:18px 10px 6px}._43-JWW_root._43-JWW_quietBars{--dsh-scrollbar-thumb:transparent;--dsh-scrollbar-thumb-hover:transparent}._43-JWW_fading>*{opacity:0;transition:opacity .15s var(--ds-ease-in-out)}._43-JWW_wide{animation:_43-JWW_wide-in .2s var(--ds-ease-in-out)}@keyframes _43-JWW_wide-in{0%{opacity:0}}._43-JWW_railIn ._43-JWW_iconButton,._43-JWW_railIn ._43-JWW_newSession,._43-JWW_railIn ._43-JWW_regionArea{animation:_43-JWW_rail-in .15s var(--ds-ease-in-out) backwards}._43-JWW_railIn ._43-JWW_footArea{animation:_43-JWW_rail-fade-in .15s var(--ds-ease-in-out) backwards}@keyframes _43-JWW_rail-in{0%{opacity:0;transform:translate(49px)}}@keyframes _43-JWW_rail-fade-in{0%{opacity:0}}._43-JWW_logoRow{box-sizing:border-box;flex:none;justify-content:flex-end;align-items:center;gap:8px;height:60px;margin-bottom:8px;padding:8px 0 8px 4px;display:flex;overflow:hidden}._43-JWW_collapsed ._43-JWW_logoRow{justify-content:flex-start;height:36px;margin-bottom:12px;padding:0}._43-JWW_brand{min-width:0;color:inherit;cursor:pointer;background:0 0;border:none;flex:1;align-items:center;padding:0;display:inline-flex;overflow:hidden}._43-JWW_brandIdentity{align-items:center;gap:8px;min-width:0;height:24px;display:inline-flex}._43-JWW_brandMark{flex:none;justify-content:center;align-items:center;display:inline-flex}._43-JWW_brandName{letter-spacing:.04em;align-items:center;gap:6px;min-width:0;height:24px;font-size:18px;font-weight:600;line-height:24px;display:inline-flex}._43-JWW_fallbackBrandName{letter-spacing:0;white-space:nowrap;font-size:17px}._43-JWW_localBuildBrand{white-space:nowrap;flex-direction:column;flex:none;justify-content:center;align-items:flex-start;gap:1px;height:24px;display:inline-flex}._43-JWW_localBuildTitle{letter-spacing:0;font-size:12px;line-height:13px}._43-JWW_iconButton{corner-shape:round;cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}._43-JWW_iconButton:hover{background:var(--dsw-alias-interactive-bg-hover)}._43-JWW_collapsed ._43-JWW_iconButton{width:36px;height:36px}._43-JWW_collapsed ._43-JWW_toggle ._43-JWW_panelIcon{display:none}._43-JWW_collapsed ._43-JWW_toggle:hover ._43-JWW_panelIcon{display:inline}._43-JWW_collapsed ._43-JWW_toggle:hover ._43-JWW_railMark{display:none}._43-JWW_railMark{justify-content:center;align-items:center;display:inline-flex}._43-JWW_collapsed ._43-JWW_iconButton{color:var(--dsw-alias-label-primary)}._43-JWW_buildVersion{height:10px;color:var(--dsw-alias-label-primary-inverted);background:var(--dsw-alias-label-primary);font-family:var(--ds-font-family-code);white-space:nowrap;border-radius:2px;flex:none;align-items:center;padding:0 3px;font-size:6px;font-weight:500;line-height:10px;display:inline-flex}._43-JWW_newSession{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l3);background:var(--dsw-alias-button-elevated-fill);height:38px;color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:12px;flex:none;justify-content:center;align-items:center;gap:6px;margin:0 2px 8px;padding:8px 16px;font-size:14px;font-weight:500;line-height:22px;display:flex;overflow:hidden}._43-JWW_newSession:hover{background:var(--dsw-alias-button-floating-hover)}._43-JWW_collapsed ._43-JWW_newSession{background:0 0;border-color:#0000;align-self:flex-start;gap:0;width:36px;height:36px;margin:0 0 12px;padding:0}._43-JWW_collapsed ._43-JWW_newSession:hover{background:var(--dsw-alias-interactive-bg-hover)}._43-JWW_newSessionLabel{white-space:nowrap;max-width:200px;overflow:hidden}._43-JWW_collapsed ._43-JWW_newSessionLabel{max-width:0}._43-JWW_regionArea{min-height:0;margin-left:-4px;margin-right:calc(-1 * var(--dsh-sidebar-inline-padding));flex-direction:column;flex:1;padding-left:4px;display:flex;overflow:hidden}._43-JWW_collapsed ._43-JWW_regionArea{margin-left:0;margin-right:0;padding-left:0}._43-JWW_footArea{flex-direction:column;flex:none;display:flex}._43-JWW_settingsArea,._43-JWW_footerActions{flex:none;width:100%;min-width:0}._43-JWW_footerActions{display:flex}._43-JWW_collapsed ._43-JWW_footArea{align-items:center}._43-JWW_collapsed ._43-JWW_settingsArea,._43-JWW_collapsed ._43-JWW_footerActions{justify-content:center;width:auto;display:flex}@media (prefers-reduced-motion:reduce){._43-JWW_wide,._43-JWW_fading>*,._43-JWW_railIn ._43-JWW_iconButton,._43-JWW_railIn ._43-JWW_newSession,._43-JWW_railIn ._43-JWW_footArea,._43-JWW_railIn ._43-JWW_regionArea{transition:none;animation:none}}";
+		//#region \0dsh-css:C:\Users\czh86\Documents\Codex\deepseek-harness-win7\.goose\out\rc3-source-20261016\packages\client\ui-sidebar\src\client\SidebarRoot.module.css.mjs
+		const css = ".gBAHRW_root{--dsh-sidebar-inline-padding:12px;height:100%;padding:6px var(--dsh-sidebar-inline-padding);box-sizing:border-box;background:var(--dsw-specific-sidebar-fill);color:var(--dsw-alias-label-primary);--dsh-scrollbar-thumb:var(--dsw-alias-scrollbar-bg-l2);--dsh-scrollbar-thumb-hover:var(--dsw-alias-scrollbar-hover-l2);flex-direction:column;font-size:14px;display:flex}.gBAHRW_root.gBAHRW_collapsed{padding:18px 10px 6px}.gBAHRW_root.gBAHRW_quietBars{--dsh-scrollbar-thumb:transparent;--dsh-scrollbar-thumb-hover:transparent}.gBAHRW_fading>*{opacity:0;transition:opacity .15s var(--ds-ease-in-out)}.gBAHRW_wide{animation:gBAHRW_wide-in .2s var(--ds-ease-in-out)}@keyframes gBAHRW_wide-in{0%{opacity:0}}.gBAHRW_railIn .gBAHRW_iconButton,.gBAHRW_railIn .gBAHRW_newSession,.gBAHRW_railIn .gBAHRW_panelList,.gBAHRW_railIn .gBAHRW_regionArea{animation:gBAHRW_rail-in .15s var(--ds-ease-in-out) backwards}.gBAHRW_railIn .gBAHRW_footArea{animation:gBAHRW_rail-fade-in .15s var(--ds-ease-in-out) backwards}@keyframes gBAHRW_rail-in{0%{opacity:0;transform:translate(49px)}}@keyframes gBAHRW_rail-fade-in{0%{opacity:0}}.gBAHRW_logoRow{box-sizing:border-box;flex:none;justify-content:flex-end;align-items:center;gap:8px;height:60px;margin-bottom:8px;padding:8px 0 8px 4px;display:flex;overflow:hidden}.gBAHRW_collapsed .gBAHRW_logoRow{justify-content:flex-start;height:36px;margin-bottom:12px;padding:0}.gBAHRW_brand{min-width:0;color:inherit;cursor:pointer;background:0 0;border:none;flex:1;align-items:center;padding:0;display:inline-flex;overflow:hidden}.gBAHRW_brandIdentity{align-items:center;gap:8px;min-width:0;height:24px;display:inline-flex}.gBAHRW_brandMark{flex:none;justify-content:center;align-items:center;display:inline-flex}.gBAHRW_brandName{letter-spacing:.04em;align-items:center;gap:6px;min-width:0;height:24px;font-size:18px;font-weight:600;line-height:24px;display:inline-flex}.gBAHRW_fallbackBrandName{letter-spacing:0;white-space:nowrap;font-size:17px}.gBAHRW_localBuildBrand{white-space:nowrap;flex-direction:column;flex:none;justify-content:center;align-items:flex-start;gap:1px;height:24px;display:inline-flex}.gBAHRW_localBuildTitle{letter-spacing:0;font-size:12px;line-height:13px}.gBAHRW_iconButton{corner-shape:round;cursor:pointer;width:28px;height:28px;color:var(--dsw-alias-label-secondary);background:0 0;border:none;border-radius:50%;flex:none;justify-content:center;align-items:center;padding:0;display:inline-flex}.gBAHRW_iconButton:hover{background:var(--dsw-alias-interactive-bg-hover)}.gBAHRW_collapsed .gBAHRW_iconButton{width:36px;height:36px}.gBAHRW_collapsed .gBAHRW_toggle .gBAHRW_panelIcon{display:none}.gBAHRW_collapsed .gBAHRW_toggle:hover .gBAHRW_panelIcon{display:inline}.gBAHRW_collapsed .gBAHRW_toggle:hover .gBAHRW_railMark{display:none}.gBAHRW_railMark{justify-content:center;align-items:center;display:inline-flex}.gBAHRW_collapsed .gBAHRW_iconButton{color:var(--dsw-alias-label-primary)}.gBAHRW_buildVersion{height:10px;color:var(--dsw-alias-label-primary-inverted);background:var(--dsw-alias-label-primary);font-family:var(--ds-font-family-code);white-space:nowrap;border-radius:2px;flex:none;align-items:center;padding:0 3px;font-size:6px;font-weight:500;line-height:10px;display:inline-flex}.gBAHRW_newSession{box-sizing:border-box;border:.5px solid var(--dsw-alias-border-l3);background:var(--dsw-alias-button-elevated-fill);height:38px;color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:12px;flex:none;justify-content:center;align-items:center;gap:6px;margin:0 2px 8px;padding:8px 16px;font-size:14px;font-weight:500;line-height:22px;display:flex;overflow:hidden}.gBAHRW_newSession:hover{background:var(--dsw-alias-button-floating-hover)}.gBAHRW_collapsed .gBAHRW_newSession{background:0 0;border-color:#0000;align-self:flex-start;gap:0;width:36px;height:36px;margin:0 0 12px;padding:0}.gBAHRW_collapsed .gBAHRW_newSession:hover{background:var(--dsw-alias-interactive-bg-hover)}.gBAHRW_newSessionLabel{white-space:nowrap;max-width:200px;overflow:hidden}.gBAHRW_collapsed .gBAHRW_newSessionLabel{max-width:0}.gBAHRW_panelList{flex-direction:column;flex:none;gap:4px;margin-bottom:8px;display:flex}.gBAHRW_panelRow{box-sizing:border-box;width:100%;min-height:36px;color:var(--dsw-alias-label-secondary);font:inherit;text-align:left;cursor:pointer;background:0 0;border:none;border-radius:8px;align-items:center;gap:8px;padding:7px 8px;line-height:22px;display:flex}.gBAHRW_panelRow:hover{background:var(--dsw-alias-interactive-bg-hover)}.gBAHRW_panelRow.gBAHRW_panelActive{background:var(--dsw-alias-interactive-bg-active);color:var(--dsw-alias-label-primary);font-weight:500}.gBAHRW_panelRow:focus-visible{outline:2px solid var(--dsw-alias-label-primary);outline-offset:-2px}.gBAHRW_panelGlyph{flex:none;justify-content:center;align-items:center;display:inline-flex}.gBAHRW_panelTitle{text-overflow:ellipsis;white-space:nowrap;min-width:0;overflow:hidden}.gBAHRW_collapsed .gBAHRW_panelList{gap:12px;margin-bottom:12px}.gBAHRW_collapsed .gBAHRW_panelRow{width:36px;height:36px;color:var(--dsw-alias-label-primary);justify-content:center;padding:0}.gBAHRW_regionArea{min-height:0;margin-left:-4px;margin-right:calc(-1 * var(--dsh-sidebar-inline-padding));flex-direction:column;flex:1;padding-left:4px;display:flex;overflow:hidden}.gBAHRW_collapsed .gBAHRW_regionArea{margin-left:0;margin-right:0;padding-left:0}.gBAHRW_footArea{flex-direction:column;flex:none;display:flex}.gBAHRW_settingsArea,.gBAHRW_footerActions{flex:none;width:100%;min-width:0}.gBAHRW_footerActions{display:flex}.gBAHRW_collapsed .gBAHRW_footArea{align-items:center}.gBAHRW_collapsed .gBAHRW_settingsArea,.gBAHRW_collapsed .gBAHRW_footerActions{justify-content:center;width:auto;display:flex}@media (prefers-reduced-motion:reduce){.gBAHRW_wide,.gBAHRW_fading>*,.gBAHRW_railIn .gBAHRW_iconButton,.gBAHRW_railIn .gBAHRW_newSession,.gBAHRW_railIn .gBAHRW_panelList,.gBAHRW_railIn .gBAHRW_footArea,.gBAHRW_railIn .gBAHRW_regionArea{transition:none;animation:none}}";
 		const tagId = "@deepseek-ai/dsh-client-ui-sidebar/SidebarRoot.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -33,46 +35,52 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var SidebarRoot_module_css_default = {
-			"brand": "_43-JWW_brand",
-			"brandIdentity": "_43-JWW_brandIdentity",
-			"brandMark": "_43-JWW_brandMark",
-			"brandName": "_43-JWW_brandName",
-			"buildVersion": "_43-JWW_buildVersion",
-			"collapsed": "_43-JWW_collapsed",
-			"fading": "_43-JWW_fading",
-			"fallbackBrandName": "_43-JWW_fallbackBrandName",
-			"footArea": "_43-JWW_footArea",
-			"footerActions": "_43-JWW_footerActions",
-			"iconButton": "_43-JWW_iconButton",
-			"localBuildBrand": "_43-JWW_localBuildBrand",
-			"localBuildTitle": "_43-JWW_localBuildTitle",
-			"logoRow": "_43-JWW_logoRow",
-			"newSession": "_43-JWW_newSession",
-			"newSessionLabel": "_43-JWW_newSessionLabel",
-			"panelIcon": "_43-JWW_panelIcon",
-			"quietBars": "_43-JWW_quietBars",
-			"rail-fade-in": "_43-JWW_rail-fade-in",
-			"rail-in": "_43-JWW_rail-in",
-			"railIn": "_43-JWW_railIn",
-			"railMark": "_43-JWW_railMark",
-			"regionArea": "_43-JWW_regionArea",
-			"root": "_43-JWW_root",
-			"settingsArea": "_43-JWW_settingsArea",
-			"toggle": "_43-JWW_toggle",
-			"wide": "_43-JWW_wide",
-			"wide-in": "_43-JWW_wide-in"
+			"brand": "gBAHRW_brand",
+			"brandIdentity": "gBAHRW_brandIdentity",
+			"brandMark": "gBAHRW_brandMark",
+			"brandName": "gBAHRW_brandName",
+			"buildVersion": "gBAHRW_buildVersion",
+			"collapsed": "gBAHRW_collapsed",
+			"fading": "gBAHRW_fading",
+			"fallbackBrandName": "gBAHRW_fallbackBrandName",
+			"footArea": "gBAHRW_footArea",
+			"footerActions": "gBAHRW_footerActions",
+			"iconButton": "gBAHRW_iconButton",
+			"localBuildBrand": "gBAHRW_localBuildBrand",
+			"localBuildTitle": "gBAHRW_localBuildTitle",
+			"logoRow": "gBAHRW_logoRow",
+			"newSession": "gBAHRW_newSession",
+			"newSessionLabel": "gBAHRW_newSessionLabel",
+			"panelActive": "gBAHRW_panelActive",
+			"panelGlyph": "gBAHRW_panelGlyph",
+			"panelIcon": "gBAHRW_panelIcon",
+			"panelList": "gBAHRW_panelList",
+			"panelRow": "gBAHRW_panelRow",
+			"panelTitle": "gBAHRW_panelTitle",
+			"quietBars": "gBAHRW_quietBars",
+			"rail-fade-in": "gBAHRW_rail-fade-in",
+			"rail-in": "gBAHRW_rail-in",
+			"railIn": "gBAHRW_railIn",
+			"railMark": "gBAHRW_railMark",
+			"regionArea": "gBAHRW_regionArea",
+			"root": "gBAHRW_root",
+			"settingsArea": "gBAHRW_settingsArea",
+			"toggle": "gBAHRW_toggle",
+			"wide": "gBAHRW_wide",
+			"wide-in": "gBAHRW_wide-in"
 		};
 		//#endregion
 		//#region lib/types/client/SidebarRoot.js
 		/**
-		* Sidebar shell: column geometry only. Collapse is a slide plus crossfade:
+		* Sidebar shell: column geometry and global panel navigation.
+		* Collapse is a slide plus crossfade:
 		* content freezes at its expanded width (inline style) and fades out in place
 		* while the sliding column (AppFrame grid tracks) clips it — nothing reflows
-		* mid-slide. At settle the wide-only content unmounts and the four upper
+		* mid-slide. At settle the wide-only content unmounts and the upper
 		* controls enter the 56px rail from the same horizontal offset (one icon each,
 		* same top-down order) on one fade that ends with the slide. The bottom-pinned
 		* settings control only fades. The workspace/session browsing region between
-		* the New Session button and the foot is the `sidebar.workspaces` registrant's,
+		* global panel rows and the foot is the `sidebar.workspaces` registrant's,
 		* and the foot holds `sidebar.settings` plus `sidebar.footer.action`; the shell
 		* hands them the wide flag (plus an expand request callback for the browser).
 		*
@@ -92,14 +100,44 @@ window.__ModuleLoader__.load({
 		const SCROLLBAR_LINGER_MS = 2e3;
 		/** Format complete-build metadata for the local brand badge. */
 		function localBuildVersion() {
-			return `0.1.2-rc.1-a66e470` + ({}.DSH_CLIENT_GIT_DIRTY === "true" ? "-dirty" : "");
+			return `0.1.5-rc.3-a4c74a9` + ({}.DSH_CLIENT_GIT_DIRTY === "true" ? "-dirty" : "");
+		}
+		/** Each panel row subscribes only to its own selection state. */
+		function PanelRow({ id, label, wide, usePanelInfo, selectPanel, renderSlot }) {
+			const active = usePanelInfo((info) => info.activePanelId === id);
+			return (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.Tooltip, {
+				label,
+				delayMs: 500,
+				disabled: wide,
+				children: (0, react_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: clsx(SidebarRoot_module_css_default.panelRow, active && SidebarRoot_module_css_default.panelActive),
+					"aria-label": label,
+					"aria-current": active ? "page" : void 0,
+					onClick: () => {
+						selectPanel(id);
+					},
+					children: [(0, react_jsx_runtime.jsx)("span", {
+						className: SidebarRoot_module_css_default.panelGlyph,
+						"aria-hidden": "true",
+						children: renderSlot("sidebar.panellist", {
+							size: wide ? 16 : 18,
+							active
+						}, { only: id })
+					}), wide && (0, react_jsx_runtime.jsx)("span", {
+						className: clsx(SidebarRoot_module_css_default.panelTitle, SidebarRoot_module_css_default.wide),
+						children: label
+					})]
+				})
+			});
 		}
 		/**
 		* Render the sidebar column shell.
 		* @param props - composed slot props (runtime share + injected callbacks, contract/slots.ts).
 		* @returns the sidebar element tree.
 		*/
-		function SidebarRoot({ collapsed, width, startSession, toggleSidebar, t, renderSlot }) {
+		function SidebarRoot({ collapsed, width, startSession, toggleSidebar, selectPanel, usePanels, usePanelInfo, t, renderSlot }) {
+			const panels = usePanels((snapshot) => snapshot);
 			const [settled, setSettled] = (0, react.useState)(collapsed);
 			(0, react.useEffect)(() => {
 				if (!collapsed) {
@@ -230,6 +268,18 @@ window.__ModuleLoader__.load({
 							})]
 						})
 					}),
+					panels.length > 0 && (0, react_jsx_runtime.jsx)("nav", {
+						className: SidebarRoot_module_css_default.panelList,
+						"aria-label": t("panels.label"),
+						children: panels.map(({ id, label }) => (0, react_jsx_runtime.jsx)(PanelRow, {
+							id,
+							label,
+							wide,
+							usePanelInfo,
+							selectPanel,
+							renderSlot
+						}, id))
+					}),
 					(0, react_jsx_runtime.jsx)("div", {
 						className: SidebarRoot_module_css_default.regionArea,
 						children: renderSlot("sidebar.workspaces", {
@@ -254,24 +304,26 @@ window.__ModuleLoader__.load({
 		}
 		//#endregion
 		//#region lib/types/client/locales.js
-		/** `sidebar` namespace dictionaries: shell controls (brand row, New Session, fold toggle). */
+		/** `sidebar` namespace dictionaries for shell controls and global panels. */
 		/** Simplified Chinese dictionary (the key-set source of truth). */
 		const zh = {
 			"session.new": "新会话",
 			"session.new.label": "新建会话",
 			"toggle.open": "打开侧边栏",
-			"toggle.collapse": "收起侧边栏"
+			"toggle.collapse": "收起侧边栏",
+			"panels.label": "全局面板"
 		};
 		/** English dictionary, checked complete against the zh key set. */
 		const en = {
 			"session.new": "New Session",
 			"session.new.label": "New session",
 			"toggle.open": "Open sidebar",
-			"toggle.collapse": "Collapse sidebar"
+			"toggle.collapse": "Collapse sidebar",
+			"panels.label": "Global panels"
 		};
 		//#endregion
 		//#region lib/types/client/index.js
-		/** Dictionary namespace owned by this plugin (shell controls copy). */
+		/** Dictionary namespace owned by this plugin. */
 		const NS = "sidebar";
 		/** Services required by the sidebar plugin. */
 		const inject = [
@@ -289,15 +341,38 @@ window.__ModuleLoader__.load({
 				zh,
 				en
 			}), "ui-sidebar: dictionaries");
+			const panels = (0, _deepseek_ai_dsh_client_store.createSnapshotStore)([]);
+			const syncPanels = () => {
+				const next = ctx.slots.entriesOfSlot("sidebar.panellist").map(({ options }) => {
+					const id = options.id;
+					return {
+						id,
+						order: options.order ?? 0,
+						label: (0, _deepseek_ai_dsh_client_ui_slots.resolveSlotLabel)(options.label) ?? id
+					};
+				}).sort((a, b) => a.order - b.order);
+				const previous = panels.getSnapshot();
+				if (previous.length === next.length && previous.every((panel, index) => {
+					const candidate = next[index];
+					return panel.id === candidate.id && panel.order === candidate.order && panel.label === candidate.label;
+				})) return;
+				panels.set(next);
+			};
+			ctx.effect(() => ctx.slots.subscribe("sidebar.panellist", syncPanels), "ui-sidebar: panel entries");
+			ctx.effect(() => ctx.locale.subscribe(syncPanels), "ui-sidebar: panel labels");
 			const injectProps = () => ({
 				startSession: (workspaceId) => {
 					workspaceNavigation.startSession(workspaceId);
 				},
 				toggleSidebar: () => {
 					ctx.layout.toggleSidebar();
-				}
+				},
+				selectPanel: (id) => {
+					ctx.layout.selectPanel(id);
+				},
+				hooks: { panels }
 			});
-			ctx.effect(() => ctx.slots.register({
+			ctx.slots.inject("sidebar", () => ctx.slots.register({
 				name: "sidebar",
 				locale: NS,
 				children: {
@@ -307,6 +382,10 @@ window.__ModuleLoader__.load({
 					},
 					"sidebar.brand.name": {
 						kind: "single",
+						scope: "root"
+					},
+					"sidebar.panellist": {
+						kind: "list",
 						scope: "root"
 					},
 					"sidebar.workspaces": {
@@ -323,7 +402,8 @@ window.__ModuleLoader__.load({
 					}
 				},
 				inject: injectProps
-			}, SidebarRoot), "ui-sidebar: slot registration");
+			}, SidebarRoot));
+			syncPanels();
 		}
 		//#endregion
 		exports.apply = apply;
