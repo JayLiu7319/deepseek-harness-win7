@@ -842,13 +842,13 @@ class ToolsService:
         async def shape_dispatch_log(dispatch: Dict[str, Any]) -> Any:
             try:
                 return await self._carrier(exec_input).waterfall(
-                    "tools/code-dispatch-log", dispatch,
+                    "tools/ptc-dispatch-log", dispatch,
                     lambda *_args: dispatch["content"])
             except Exception as error:
                 logger = self._optional_service("logger")
                 if logger is not None and hasattr(logger, "warn"):
                     logger.warn(
-                        "tools: code-dispatch-log listener failed for %s: %s; "
+                        "tools: ptc-dispatch-log listener failed for %s: %s; "
                         "logging the original settled content" %
                         (dispatch["name"], _error_message(error)))
                 return dispatch["content"]
@@ -869,7 +869,7 @@ class ToolsService:
                 kind = self.execution_mode(nested_input)["kind"]
                 await acquire(kind)
                 try:
-                    await append_session("tool/code-dispatch-start", {
+                    await append_session("tool/ptc-dispatch-start", {
                         "rootCallId": exec_input.root_call_id,
                         "parentCallId": exec_input.call_id,
                         "subCallId": sub_call_id,
@@ -886,7 +886,7 @@ class ToolsService:
                         "content": result.content,
                     }
                     logged_content = await shape_dispatch_log(dispatch)
-                    await append_session("tool/code-dispatch", {
+                    await append_session("tool/ptc-dispatch", {
                         "rootCallId": exec_input.root_call_id,
                         "parentCallId": exec_input.call_id,
                         "subCallId": sub_call_id,

@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "tested_worktree_parent": "88a78fc8f7251ce6a09cd1641c128a58d8abeed4",
+  "stage": "R11-AD-current-PTC-event-publication",
+  "status": "targeted-passed",
+  "inputs": {
+    "dsh/core/tools.py": "b0ed1a6922f3aeed7e1f97d1a3acdcac220975525ac6888f30657935ecfa72d7",
+    "tests/test_tools_upstream_parity.py": "a6c034d8d1ca48322e4cbf55070455bdac13ca40460917b81d57b8b128a73436",
+    "tests/test_web_preset_coexistence.py": "432cf2498304d619790e8c6898abc4ea0ce2b24c4f0503cdb9f726f4937a4cb8"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-PTC-CONSUMERS-20261017.zip",
+    "bytes": 1410703,
+    "sha256": "187e601fb5ab7f7182567bc9f91905971eba9743205fdefad83fe640eccdac21",
+    "members": 90
+  },
+  "provider_consumers": {
+    "passed": 275,
+    "failed": 0,
+    "skipped": 0,
+    "exit": {
+      "exit_code": 0,
+      "seconds": 28.32799999997951
+    }
+  },
+  "previously_unexecuted_consumers": {
+    "passed": 371,
+    "failed": 0,
+    "skipped": 0,
+    "exit": {
+      "exit_code": 0,
+      "seconds": 148.9529999999795
+    }
+  },
+  "source_ptc": {
+    "passed": 91,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "source_config_diagnostic": [
+    {
+      "config": "consumers",
+      "exit_code": 0,
+      "seconds": 12.34399999998277
+    },
+    {
+      "config": "agent-lifecycle",
+      "exit_code": 0,
+      "seconds": 10.65600000001723
+    },
+    {
+      "config": "session-recovery",
+      "exit_code": 0,
+      "seconds": 46.125
+    },
+    {
+      "config": "session-projection",
+      "exit_code": 0,
+      "seconds": 4.953000000008615
+    },
+    {
+      "config": "acp",
+      "exit_code": 0,
+      "seconds": 18.53100000001723
+    },
+    {
+      "config": "acp-app",
+      "exit_code": 0,
+      "seconds": 3.5939999999827705
+    },
+    {
+      "config": "mcp",
+      "exit_code": 0,
+      "seconds": 9.437000000005355
+    },
+    {
+      "config": "subagent-acp",
+      "exit_code": 0,
+      "seconds": 25.562999999994645
+    },
+    {
+      "config": "storage-cache",
+      "exit_code": 0,
+      "seconds": 7.14100000000326
+    },
+    {
+      "config": "session-observation",
+      "exit_code": 0,
+      "seconds": 4.01500000001397
+    },
+    {
+      "config": "session-corpus",
+      "exit_code": 0,
+      "seconds": 5.4689999999827705
+    },
+    {
+      "config": "session-sqlite-query",
+      "exit_code": 0,
+      "seconds": 4.203000000008615
+    },
+    {
+      "config": "query-engine-source",
+      "exit_code": 0,
+      "seconds": 6.51600000000326
+    },
+    {
+      "config": "session-tools-source",
+      "exit_code": 0,
+      "seconds": 7.10899999999674
+    },
+    {
+      "config": "jsonl-provider-source",
+      "exit_code": 0,
+      "seconds": 6.312999999994645
+    },
+    {
+      "config": "tool-scheduler-source",
+      "exit_code": 0,
+      "seconds": 5.25
+    },
+    {
+      "config": "deepseek-source",
+      "exit_code": 0,
+      "seconds": 53.094000000011874
+    },
+    {
+      "config": "llm-public-source",
+      "exit_code": 0,
+      "seconds": 6.85899999999674
+    },
+    {
+      "config": "web-search-deepseek-source",
+      "exit_code": 0,
+      "seconds": 5.51600000000326
+    },
+    {
+      "config": "plan-source",
+      "exit_code": 0,
+      "seconds": 6.092999999993481
+    },
+    {
+      "config": "rc1-subagent",
+      "exit_code": 0,
+      "seconds": 37.360000000015134
+    }
+  ],
+  "retained_full_gate_failure": {
+    "candidate": "1446612838a1f8d4f87aaadc95ce19ca151e78a4",
+    "passed": 18969,
+    "skipped": 6,
+    "failed": 1,
+    "collected": 19347,
+    "unexecuted": 371,
+    "seconds": 4939.94,
+    "exit_code": 1,
+    "failure": "Active PTC bridge still published retired required tool/code-dispatch-start and tool/code-dispatch; v3 durable close refused them.",
+    "portable_archive": {
+      "candidate": "1446612838a1f8d4f87aaadc95ce19ca151e78a4",
+      "qualification": "failed-complete-gate",
+      "archive": "dsh-win7-portable-v0.1.5-rc.3.zip",
+      "bytes": 106549837,
+      "sha256": "b98bc2ee18c118255209ee5b623d8aba333872b3d0682cc1d3a50ef1ae059d08"
+    }
+  },
+  "changes": [
+    "Publish current tool/ptc-dispatch-start and tool/ptc-dispatch and current tools/ptc-dispatch-log waterfall from the shared active Tools service.",
+    "Actual multi-preset Web integration asserts shaping hook, preserves program-visible value and verifies both dispatch events after durable shutdown and reopen.",
+    "Strict v3 rejection of obsolete required events is unchanged; historical codecs retain their migration vocabulary."
+  ],
+  "limitations": [
+    "Targeted and diagnostic runs are separate from the failed complete gate; no combined full acceptance is claimed.",
+    "New stable clean candidate must complete one fresh full gate and bind Portable/Desktop artifacts independently.",
+    "Earlier separate subprocess Source119pass/4fail/15skip remains failed and unmodified; these21 configured Source runs do not erase it.",
+    "Failed fixture links are recorded without traversing their targets; original workspace remains retained."
+  ]
+}

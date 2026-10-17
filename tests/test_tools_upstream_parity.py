@@ -1150,8 +1150,8 @@ async def test_run_code_bridge_honors_parallel_cap_and_logs_nested_dispatches():
     assert result.value["result"] == ["a", "b"]
     assert peak == [1]
     assert [name for name, _data in session.events] == [
-        "tool/code-dispatch-start", "tool/code-dispatch",
-        "tool/code-dispatch-start", "tool/code-dispatch",
+        "tool/ptc-dispatch-start", "tool/ptc-dispatch",
+        "tool/ptc-dispatch-start", "tool/ptc-dispatch",
     ]
     assert session.events[0][1]["subCallId"] == "outer:code:1"
     assert session.events[2][1]["subCallId"] == "outer:code:2"

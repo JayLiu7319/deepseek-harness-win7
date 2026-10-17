@@ -11,6 +11,12 @@ from dsh.presets.mount import standing_mount_for, service_for_agent
 @pytest.mark.asyncio
 async def test_standard_ptc_and_cordis_coexist_and_execute(tmp_path):
     ctx = await web_context(tmp_path / 'home')
+    persistence = ctx.get('sessionPersistence')
+    logged_dispatches = []
+    def shape_dispatch(dispatch, next_fn):
+        logged_dispatches.append(dispatch['name'])
+        return [{'type': 'text', 'text': 'durable PTC preview'}]
+    ctx.on('tools/ptc-dispatch-log', shape_dispatch)
     try:
         agents = {}
         for preset in ('standard', 'ptc', 'cordis', 'minimal'):
@@ -33,6 +39,13 @@ async def test_standard_ptc_and_cordis_coexist_and_execute(tmp_path):
         assert not result.is_error, result.content
         assert 'result' in result.value
         assert 'PTC nested dispatch works' in json.dumps(result.value)
+        assert logged_dispatches == ['read']
+        dispatch_events = [event for event in agents['ptc'].session.events
+                           if event['type'].startswith('tool/ptc-dispatch')]
+        assert [event['type'] for event in dispatch_events] == [
+            'tool/ptc-dispatch-start', 'tool/ptc-dispatch']
+        assert dispatch_events[1]['data']['content'] == [
+            {'type': 'text', 'text': 'durable PTC preview'}]
         # Switching a never-started session reuses standing mounts without
         # changing the tools or isolated providers of other sessions.
         for preset in ('ptc', 'cordis', 'standard'):
@@ -41,4 +54,11 @@ async def test_standard_ptc_and_cordis_coexist_and_execute(tmp_path):
         assert [s['name'] for s in tools.schemas(agents['ptc'])] == ['run_code']
     finally:
         await close_web_context(ctx)
+    reader = await persistence.open('coexist-ptc', 'read')
+    try:
+        restored = [event for event in (await reader.read())['events']
+                    if event['type'].startswith('tool/ptc-dispatch')]
+        assert restored == dispatch_events
+    finally:
+        await reader.close()
 

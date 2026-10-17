@@ -649,3 +649,9 @@ FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，
 针对用户截图中的桌面插件窗口，14466128两种实际打包客户端均在父进程stdout/stderr管道主动关闭后，通过主进程调试接口调用实际“桌面插件”菜单项。真实独立窗口加载、中文标题、无Node renderer及插件列表RPC正常；各七项观察通过，renderer/console错误为零，物理退出0。原安装包和产品代码不改，有限原始观察及截图见[断管道插件窗口复验](../../migration/candidates/rc3/plugin-window-pipes-current-checks.json)。
 
 初次观察器使用CDP键盘事件未触发原生菜单，x86在等待窗口时超时（68.203秒）；原失败、清理结果和脚本保留，不能把观察器超时认定为产品窗口故障。后续两种架构实际菜单检查独立通过，仍不代替统一门禁或延期Win7验收。
+
+### R11-AD — 当前 PTC 事件发布与持久化退出
+
+14466128完整门禁执行18,969通过/6跳过后，在多预设PTC执行用例退出时失败，371项尚未执行。实际Tools桥接仍发布退休的tool/code-dispatch-start及tool/code-dispatch，v3严格编码拒绝最终落盘；原失败保持退出1，完整XML、输入、失败工作区普通文件与未遍历的链接目标、日志和精确Portable身份已封存。产品ZIP另按b98bc2ee18c118255209ee5b623d8aba333872b3d0682cc1d3a50ef1ae059d08保留。
+
+共享的当前Tools服务改用原版tool/ptc-dispatch-start、tool/ptc-dispatch和tools/ptc-dispatch-log waterfall。增强真实Web多预设用例确认日志预览替换、程序返回原值、两个当前事件及正常退出后的实际持久化读取。相关275项通过，原版未改PTC91项通过；原未执行371项全部通过，另21组固定Source配置诊断全部退出0。v3对旧必需事件的拒绝和历史格式翻译均不改，不把这些独立片段合成完整资格。原始材料见[PTC发布端回执](../../migration/candidates/rc3/ptc-events-current-checks.json)。下一稳定候选重新执行单次统一门禁。
