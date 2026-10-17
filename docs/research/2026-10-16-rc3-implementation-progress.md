@@ -355,3 +355,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R03-M — 反馈授权遥测
 
 候选OTel默认FEEDBACK_ONLY、拒绝FULL，直接服务emit不上传；仅新提交的本会话canonical反馈授权对应前缀，支持消息反馈及冷会话committed检查，fork继承和伪造bus事件不构成授权。独立协调器对齐live/on-demand、完整历史、游标接续、逐事件脱敏/后端失败、flush与关闭记录；卸载同步执行首个await前的脱敏前缀。72组原版配对、116项原生和74项原版测试通过，真实SDK接收端确认冷历史发送、不激活冷会话、no-op不重发及rc.3资源版本。Python既有protobuf/Source JSON OTLP为SDK适配差异。诊断与回执`migration/candidates/rc3/telemetry-current-checks.json`保留，成功短夹具已自动清理；生产组合和统一发布签收未完成。
+
+### R03-N — 按格式代际增量上传
+
+DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视为v0，旧格式错误水位不污染v3进度；wire保留格式版本、seedLength、surface/provenance及未知ignorable元数据。41组原版配对、100项原生和44项原版测试通过。真实当前Agent两次HTTP请求验证2xx接受回调、精确suffix和JSONL冷恢复游标；seeded header/system替换修正夹具后有明确成功断言，未将配对拒绝冒充成功。回执`migration/candidates/rc3/session-log-current-checks.json`保留诊断，上传仍为opt-in、默认关闭；生产组装和统一资格尚待完成。成功短夹具自动清理，约179GiB磁盘可用。

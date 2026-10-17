@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-N-generation-scoped-deepseek-log-upload",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 41,
+    "report": {
+      "path": ".goose/out/rc3-r03-session-log-qualified-paired-20261017/report.json",
+      "sha256": "3e48e02cb27d25070de0586d63e1ee30c46d03ecc97d61611920432873a581ce"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_log_current_cases.json",
+      "sha256": "dfb1fa50551f3290adba7c513f394f3cdc855a947d32fa190139cd6116fa6071"
+    }
+  },
+  "native": {
+    "passed": 100,
+    "command": {
+      "path": ".goose/out/rc3-r03-session-log-qualified-native-20261017/command.json",
+      "sha256": "5ab4581cf597b0b72d26d70b918bb58996eb6187ef32537618d2b0f9098547e0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-session-log-qualified-native-20261017/pytest.xml",
+      "sha256": "6161070412af4ff0453d0bb86282c04d74d11f5fc0abe380babd6929d0af68cb"
+    }
+  },
+  "source": {
+    "passed": 44,
+    "command": {
+      "path": ".goose/out/rc3-r03-session-log-source-20261017/command.json",
+      "sha256": "fe8ec15bfd0e9ad65c25b67b8072666a2dfb84146d2bc639ec389ce04a0c1545"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-session-log-source-20261017/source.xml",
+      "sha256": "c75a9621d88297ec9d58d8fb908a4bc3cfbf70b6d5a8b53a4c0de1b7a7d4e019"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/session_log_deepseek_current.py",
+      "sha256": "59c5465e909fbce5f0028ab8d547a9465ebeb34cf5998ae19b7e1b858d7d56c9"
+    },
+    {
+      "path": "tests/test_session_log_current.py",
+      "sha256": "cfa2f3e95728d14d2a1beaa55df395f6f7eec8117fe6bd011db3c9fd056e6317"
+    }
+  ],
+  "coverage": [
+    "Generation first gating precedes old-format watermark validation; absent format means v0; safe numeric including float domain and negative-zero rejection; parent-session markers ignored.",
+    "Raw external DTO carries formatVersion and seeded seedLength without isSeeded; current surface placement/source metadata, compact Assistant provenance and opaque ignorable metadata preserved.",
+    "Actual Source/native Session and extension registry incremental/out-of-order acceptance, direct/stale/empty, unload, seeded header, opaque rows and system replacement positive journeys.",
+    "Actual current Agent sends two HTTP requests through official DeepSeek adapter; HTTP 2xx commits versioned markers, second suffix resumes exact first watermark, cold JSONL float-decoded log rebuilds generation cursor."
+  ],
+  "limitations": [
+    "Candidate provider; opt-in upload stays default-off. Production composition/pin and release qualification remain open."
+  ],
+  "diagnostics": [
+    "Initial/positive header actor lacked explicit seed then inherited count; original rejections retained and qualified positive journey corrected.",
+    "Initial system replacement used non-earlier end boundary; corrected actual inclusive endpoint.",
+    "Initial real HTTP test provided unsupported config apiKey; proper launch environment credential used in qualified test."
+  ],
+  "retention": "Short successful fixtures auto-pruned; failed observations/log/XML retained. Disk about179GiB free; no Portable build."
+}

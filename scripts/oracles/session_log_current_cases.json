@@ -1,0 +1,2152 @@
+[
+  {
+    "case": "session-log/sessionFormatVersion/0",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": null,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/1",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 0,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/2",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 1,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/3",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 2,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/4",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": 0
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/5",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 4,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/6",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": -1,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/7",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": true,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/8",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3.5,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/9",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": {
+            "$scalar": "-0"
+          },
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/10",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": {
+            "$scalar": "NaN"
+          },
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionFormatVersion/11",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": {
+            "$scalar": "Infinity"
+          },
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance format version at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/0",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": 0
+    }
+  },
+  {
+    "case": "session-log/throughSeq/1",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0.0
+        }
+      }
+    ],
+    "expected": {
+      "value": 0
+    }
+  },
+  {
+    "case": "session-log/throughSeq/2",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": -1
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/3",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 1
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/4",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 2
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/5",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": true
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/6",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0.5
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/7",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": {
+            "$scalar": "-0"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/8",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": "0"
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/throughSeq/9",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": null
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionId/0",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": 0
+    }
+  },
+  {
+    "case": "session-log/sessionId/1",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "parent",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/sessionId/2",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "",
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionId/3",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": null,
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/sessionId/4",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": 1,
+          "sessionFormatVersion": 3,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "error": "session-log-deepseek: malformed acceptance watermark at seq 1"
+    }
+  },
+  {
+    "case": "session-log/missing-generation",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/old-malformed",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "upload",
+          "sessionFormatVersion": 0,
+          "throughSeq": -9
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/old-other",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "session-log-deepseek/delivery-accepted",
+        "seq": 1,
+        "time": 2,
+        "data": {
+          "sessionId": "",
+          "sessionFormatVersion": 1,
+          "throughSeq": 0
+        }
+      }
+    ],
+    "expected": {
+      "value": -1
+    }
+  },
+  {
+    "case": "session-log/missing-event",
+    "kind": "session-log-current",
+    "operation": "fold",
+    "events": [
+      {
+        "type": "turn/start",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "turn": 1
+        }
+      },
+      null
+    ],
+    "expected": {
+      "error": "session-log-deepseek: missing event 1 below captured length 2"
+    }
+  },
+  {
+    "case": "session-log/incremental/True",
+    "kind": "session-log-current",
+    "enabled": true,
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "append",
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "unload"
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 0,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 0,
+            "throughSeq": 2,
+            "events": [
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 0
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              },
+              {
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                },
+                "type": "turn/end"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 2,
+            "throughSeq": 3,
+            "events": [
+              {
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 2
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              }
+            ]
+          }
+        },
+        {}
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 0
+          }
+        },
+        {
+          "type": "turn/end",
+          "seq": 2,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "reason": {
+              "kind": "completed"
+            }
+          }
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 3,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/incremental/False",
+    "kind": "session-log-current",
+    "enabled": false,
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "append",
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "unload"
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        },
+        {
+          "type": "turn/end",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "reason": {
+              "kind": "completed"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/out-of-order",
+    "kind": "session-log-current",
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "append",
+        "type": "turn/end",
+        "data": {
+          "turn": 1,
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept",
+        "index": 1
+      },
+      {
+        "op": "accept",
+        "index": 0
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 0,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "reason": {
+                    "kind": "completed"
+                  }
+                },
+                "type": "turn/end"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 1,
+            "throughSeq": 3,
+            "events": [
+              {
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 1
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              },
+              {
+                "seq": 3,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 0
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        },
+        {
+          "type": "turn/end",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "reason": {
+              "kind": "completed"
+            }
+          }
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 2,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 1
+          }
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 3,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/direct-stale-empty",
+    "kind": "session-log-current",
+    "actions": [
+      {
+        "op": "prepare",
+        "direct": true
+      },
+      {
+        "op": "prepare",
+        "sessionId": "missing"
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {},
+        {},
+        {},
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 0,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/header/0",
+    "kind": "session-log-current",
+    "meta": {
+      "cwd": "/workspace"
+    },
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000,
+              "cwd": "/workspace"
+            },
+            "afterSeq": -1,
+            "throughSeq": 0,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/header/1",
+    "kind": "session-log-current",
+    "meta": {
+      "isSeeded": true,
+      "parentSession": "parent",
+      "origin": "subagent",
+      "delegationDepth": 2,
+      "agentPreset": "ptc"
+    },
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "seed": [],
+    "cut": 0,
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000,
+              "parentSession": "parent",
+              "seedLength": 0,
+              "origin": "subagent",
+              "delegationDepth": 2,
+              "agentPreset": "ptc"
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "inherited": true
+                },
+                "type": "session/end-seed"
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "session/end-seed",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "inherited": true
+          }
+        },
+        {
+          "type": "turn/start",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/opaque/none",
+    "kind": "session-log-current",
+    "seed": [
+      {
+        "type": "future/event",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "opaque": true
+        },
+        "ignorable": true
+      }
+    ],
+    "actions": [
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1,
+                "data": {
+                  "opaque": true
+                },
+                "ignorable": true,
+                "type": "future/event"
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {},
+                "type": "session/end-seed"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 1,
+            "throughSeq": 2,
+            "events": [
+              {
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 1
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "future/event",
+          "seq": 0,
+          "time": 1,
+          "data": {
+            "opaque": true
+          },
+          "ignorable": true
+        },
+        {
+          "type": "session/end-seed",
+          "seq": 1,
+          "time": 1000,
+          "data": {}
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 2,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/opaque/placement",
+    "kind": "session-log-current",
+    "seed": [
+      {
+        "type": "future/event",
+        "seq": 0,
+        "time": 1,
+        "data": {
+          "opaque": true
+        },
+        "ignorable": true,
+        "surfaceOp": {
+          "opaque": [
+            "data"
+          ]
+        },
+        "sourceEventSeqs": [
+          "opaque"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1,
+                "data": {
+                  "opaque": true
+                },
+                "ignorable": true,
+                "type": "future/event",
+                "surfaceOp": {
+                  "opaque": [
+                    "data"
+                  ]
+                },
+                "sourceEventSeqs": [
+                  "opaque"
+                ]
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {},
+                "type": "session/end-seed"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 1,
+            "throughSeq": 2,
+            "events": [
+              {
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 1
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "future/event",
+          "seq": 0,
+          "time": 1,
+          "data": {
+            "opaque": true
+          },
+          "ignorable": true,
+          "surfaceOp": {
+            "opaque": [
+              "data"
+            ]
+          },
+          "sourceEventSeqs": [
+            "opaque"
+          ]
+        },
+        {
+          "type": "session/end-seed",
+          "seq": 1,
+          "time": 1000,
+          "data": {}
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 2,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/assistant-stream",
+    "kind": "session-log-current",
+    "actions": [
+      {
+        "op": "append",
+        "type": "turn/start",
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "op": "append",
+        "type": "assistant/message",
+        "surfaceOp": "append",
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "id": "answer",
+            "role": "assistant",
+            "source": {
+              "kind": "model",
+              "provider": "mock",
+              "model": "m"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          },
+          "stream": [
+            {
+              "type": "text-chunks",
+              "time0": 1,
+              "index": 0,
+              "dt": [
+                2
+              ],
+              "texts": [
+                "ans",
+                "wer"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "op": "prepare"
+      },
+      {
+        "op": "accept"
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1
+                },
+                "type": "turn/start"
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "id": "answer",
+                    "role": "assistant",
+                    "source": {
+                      "kind": "model",
+                      "provider": "mock",
+                      "model": "m"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "answer"
+                      }
+                    ]
+                  },
+                  "stream": [
+                    {
+                      "type": "text-chunks",
+                      "time0": 1,
+                      "index": 0,
+                      "dt": [
+                        2
+                      ],
+                      "texts": [
+                        "ans",
+                        "wer"
+                      ]
+                    }
+                  ]
+                },
+                "type": "assistant/message",
+                "surfaceOp": "append"
+              }
+            ]
+          }
+        },
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": 1,
+            "throughSeq": 2,
+            "events": [
+              {
+                "seq": 2,
+                "time": 1000,
+                "data": {
+                  "sessionId": "upload",
+                  "sessionFormatVersion": 3,
+                  "throughSeq": 1
+                },
+                "type": "session-log-deepseek/delivery-accepted"
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "turn/start",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1
+          }
+        },
+        {
+          "type": "assistant/message",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "step": 1,
+            "message": {
+              "id": "answer",
+              "role": "assistant",
+              "source": {
+                "kind": "model",
+                "provider": "mock",
+                "model": "m"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "answer"
+                }
+              ]
+            },
+            "stream": [
+              {
+                "type": "text-chunks",
+                "time0": 1,
+                "index": 0,
+                "dt": [
+                  2
+                ],
+                "texts": [
+                  "ans",
+                  "wer"
+                ]
+              }
+            ]
+          },
+          "surfaceOp": "append"
+        },
+        {
+          "type": "session-log-deepseek/delivery-accepted",
+          "seq": 2,
+          "time": 1000,
+          "data": {
+            "sessionId": "upload",
+            "sessionFormatVersion": 3,
+            "throughSeq": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "session-log/system-replace",
+    "kind": "session-log-current",
+    "actions": [
+      {
+        "op": "append",
+        "type": "system/message",
+        "surfaceOp": "append",
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "id": "system",
+            "role": "system",
+            "source": {
+              "kind": "plugin",
+              "plugin": "x"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "head"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "op": "append",
+        "type": "system/message",
+        "surfaceOp": {
+          "op": "replace",
+          "startSeq": 0,
+          "endSeq": 0
+        },
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "id": "replacement",
+            "role": "system",
+            "source": {
+              "kind": "plugin",
+              "plugin": "x"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "head"
+              }
+            ]
+          }
+        },
+        "sourceEventSeqs": [
+          0
+        ]
+      },
+      {
+        "op": "prepare"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "dsh_session_log": {
+            "version": 1,
+            "sessionFormatVersion": 3,
+            "session": {
+              "version": 3,
+              "id": "upload",
+              "createdAt": 1000
+            },
+            "afterSeq": -1,
+            "throughSeq": 1,
+            "events": [
+              {
+                "seq": 0,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "id": "system",
+                    "role": "system",
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "x"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "head"
+                      }
+                    ]
+                  }
+                },
+                "type": "system/message",
+                "surfaceOp": "append"
+              },
+              {
+                "seq": 1,
+                "time": 1000,
+                "data": {
+                  "turn": 1,
+                  "step": 1,
+                  "message": {
+                    "id": "replacement",
+                    "role": "system",
+                    "source": {
+                      "kind": "plugin",
+                      "plugin": "x"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "head"
+                      }
+                    ]
+                  }
+                },
+                "type": "system/message",
+                "surfaceOp": {
+                  "op": "replace",
+                  "startSeq": 0,
+                  "endSeq": 0
+                },
+                "sourceEventSeqs": [
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "system/message",
+          "seq": 0,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "step": 1,
+            "message": {
+              "id": "system",
+              "role": "system",
+              "source": {
+                "kind": "plugin",
+                "plugin": "x"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "head"
+                }
+              ]
+            }
+          },
+          "surfaceOp": "append"
+        },
+        {
+          "type": "system/message",
+          "seq": 1,
+          "time": 1000,
+          "data": {
+            "turn": 1,
+            "step": 1,
+            "message": {
+              "id": "replacement",
+              "role": "system",
+              "source": {
+                "kind": "plugin",
+                "plugin": "x"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "head"
+                }
+              ]
+            }
+          },
+          "sourceEventSeqs": [
+            0
+          ],
+          "surfaceOp": {
+            "op": "replace",
+            "startSeq": 0,
+            "endSeq": 0
+          }
+        }
+      ]
+    }
+  }
+]
