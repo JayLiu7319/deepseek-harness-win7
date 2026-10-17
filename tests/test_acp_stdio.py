@@ -75,7 +75,7 @@ async def test_connection_eof_and_unload_remove_listeners_quiesce_owners_and_ref
         await until(lambda: bridge.closed)
         await bridge.close(ctx)
         assert factory.cancelled == factory.created == factory.disposed
-        assert factory.flushed == factory.created and not factory.live
+        assert factory.flushed == factory.created + factory.created and not factory.live
         assert not any(stdin.listeners.values())
         stdin.emit('data', '{"jsonrpc":"2.0","id":9,"method":"session/list","params":{}}\n')
         await asyncio.sleep(0)

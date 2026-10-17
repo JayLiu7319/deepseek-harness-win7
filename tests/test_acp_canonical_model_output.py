@@ -41,7 +41,7 @@ class RoutedAdapter:
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('backend', ['jsonl', 'sqlite'])
+@pytest.mark.parametrize('backend', ['jsonl', 'jsonl-zstd'])
 async def test_canonical_multistep_turn_keeps_admitted_route_and_resume_never_replays_outputs(tmp_path, backend, monkeypatch):
     runtime, bridge, unused = await boot_profile(tmp_path, backend, monkeypatch)
     ctx = runtime['ctx']
@@ -107,7 +107,7 @@ async def test_canonical_multistep_turn_keeps_admitted_route_and_resume_never_re
 
 
 @pytest.mark.asyncio
-async def test_option_discovery_failure_rolls_back_owned_agent_before_materialization(tmp_path):
+async def test_option_discovery_failure_disposes_owner_and_flushes_its_empty_log(tmp_path):
     ctx, bridge, persistence, factory = bridge_fixture()
     model = ModelRuntime()
     model.available = False
@@ -117,7 +117,8 @@ async def test_option_discovery_failure_rolls_back_owned_agent_before_materializ
         with pytest.raises(RuntimeError, match='route missing'):
             await bridge.new_session(ctx, {'cwd': str(tmp_path)})
         assert factory.created == factory.disposed and not factory.live
-        assert not bridge.sessions and not persistence.headers
+        assert not bridge.sessions and set(persistence.headers) == set(factory.created)
+        assert factory.flushed == factory.created
     finally:
         await bridge.close(ctx)
         await dispose_context(ctx)

@@ -22,12 +22,16 @@ class MemoryPersistence:
         self.materialization_error = None
         self.list_gate = None
 
-    async def list(self):
+    async def list(self, options=None):
         if self.list_gate is not None:
             await self.list_gate.wait()
-        return list(self.headers.values())
+        return [dict(header=header, revision='fixture') for header in self.headers.values()]
 
-    async def ensure_materialized(self, session):
+    async def stat(self, session_id, options=None):
+        header = self.headers.get(session_id)
+        return None if header is None else dict(header=header, revision='fixture')
+
+    async def materialize(self, session):
         if self.materialization_error is not None:
             raise self.materialization_error
         self.headers[session.id] = session.header
@@ -55,6 +59,7 @@ class OwnedFactory:
         self.flushed.append(session.id)
         if 'flush' in self.failures:
             raise self.failures['flush']
+        await self.persistence.materialize(session)
         return True
 
     async def create(self, session_id, meta, options, signal, setup=None):
@@ -94,7 +99,8 @@ class OwnedFactory:
                                 cancel=lambda cause: self.cancelled.append(session.id))
         agent_ctx = Context().extend({'agent': agent})
         if setup is not None:
-            setup(agent_ctx)
+            from dsh.cordis.utils import _js_call_callback
+            _js_call_callback(setup, (agent_ctx, agent))
         return SimpleNamespace(agent=agent, dispose=dispose)
 
 
@@ -255,6 +261,38 @@ async def test_pre_abort_never_reaches_factory_or_storage(tmp_path, operation):
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize('operation', ['list', 'resume'])
+async def test_abort_during_metadata_read_releases_reservation_without_creating_agent(tmp_path, operation):
+    ctx, bridge, persistence, factory = bridge_fixture()
+    controller = AbortController()
+    entered, release = asyncio.Event(), asyncio.Event()
+    observed = []
+
+    async def metadata(*args):
+        observed.append(args[-1]['signal'])
+        entered.set()
+        await release.wait()
+        return [] if operation == 'list' else dict(header=SessionHeader('saved', cwd=str(tmp_path)))
+
+    setattr(persistence, 'list' if operation == 'list' else 'stat', metadata)
+    method = bridge.list_sessions if operation == 'list' else bridge.resume_session
+    pending = asyncio.create_task(method(ctx, {'cwd': str(tmp_path), 'sessionId': 'saved'}, controller.signal))
+    try:
+        await asyncio.wait_for(entered.wait(), 2)
+        controller.abort(RuntimeError('metadata read cancelled'))
+        assert observed[0].aborted
+        release.set()
+        with pytest.raises(RuntimeError, match='metadata read cancelled'):
+            await pending
+        assert not factory.created and not factory.resumed and not bridge.activating and not bridge.sessions
+    finally:
+        release.set()
+        await asyncio.gather(pending, return_exceptions=True)
+        await bridge.close(ctx)
+        await dispose_context(ctx)
+
+
+@pytest.mark.asyncio
 async def test_closed_late_factory_result_is_disposed_not_published(tmp_path):
     ctx, bridge, persistence, factory = bridge_fixture()
     factory.create_gate = asyncio.Event()
@@ -267,7 +305,7 @@ async def test_closed_late_factory_result_is_disposed_not_published(tmp_path):
         with pytest.raises(RuntimeError, match='disposed'):
             await pending
         assert factory.disposed == factory.created and not factory.live
-        assert not bridge.sessions and not persistence.headers
+        assert not bridge.sessions and set(persistence.headers) == set(factory.created)
     finally:
         factory.create_gate.set()
         await asyncio.gather(pending, return_exceptions=True)
@@ -390,6 +428,7 @@ async def boot_profile(tmp_path, backend, monkeypatch):
     monkeypatch.setattr(ctx.get('llm'), 'chat_completion_stream', adapter.chat_completion_stream)
     bridge = next(entry.fiber.plugin for entry in ctx.get('loader').entries
                   if entry.options.get('name') == '@deepseek-ai/dsh-acp')
+    bridge.config.update(provider='openai', model='controlled')
     return runtime, bridge, adapter
 
 

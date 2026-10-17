@@ -201,14 +201,18 @@ def journey(root, workspace, modes=None):
                 assert marker.exists() is (mode == 'allow')
                 if mode in ('cancel-late', 'close-late', 'eof'):
                     assert len(requests) == first + 1
-                files = [path for path in (workspace / 'sessions').rglob('session.jsonl.zstd') if path.parent.name == session_id]
+                files = [path for path in (workspace / 'sessions').rglob('session.v3.jsonl.zstd') if path.parent.name == session_id]
                 assert len(files) == 1, files
                 buffer = files[0].read_bytes()
                 scanned = scan_frames(buffer)
                 assert 'tornStart' not in scanned and scanned['frames'], scanned
                 text = b''.join(decompress_frame(buffer[frame['start']:frame['end']])
                                 for frame in scanned['frames']).decode('utf-8')
-                events = [json.loads(line) for line in text.splitlines()[1:]]
+                from dsh.session.jsonl_current import scanLog
+                rows_on_disk = [json.loads(line) for line in text.splitlines()]
+                assert rows_on_disk[0]['version'] == 3
+                decoded = scanLog(text.encode('utf-8'))
+                events = decoded['events']
                 audit = [event for event in events if event['type'] in ('approval/asked', 'approval/decided')]
                 expected = {'allow': 'allowed-once', 'reject': 'rejected', 'malformed': 'unavailable'}.get(mode, 'cancelled')
                 assert [event['type'] for event in audit] == ['approval/asked', 'approval/decided']

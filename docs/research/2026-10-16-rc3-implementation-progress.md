@@ -537,3 +537,9 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 实际执行 rc3 Source 后更新七份有限快照、inspect API catalog 及 MCP HTTP 目标。abort 56项匹配；guard 117项匹配及2项既有原版缺陷；retirement 2项匹配及6项既有原版缺陷；runner 13项匹配及各1项既有原版缺陷/精确栈适配；inspect 42项匹配及1项既有原版缺陷；Cordis tools 92项匹配，定义、提示和注册顺序本身未变；remote frozen 实际捕获16行。MCP HTTP 16项及真实 ToolsService 消费者通过。
 
 八项既有 Source 缺陷判据按当前输入重新实测，token-meter 17项已一致，旧例外明确退休。Cordis C1–C67 实际观察及 acceptance 通过，原始 C58 的 Python3.8 调度差异继续显式保留，C59 检查点匹配。初轮消费者562通过、2项ACP持久化接口失败；该失败与生成快照过时诊断独立保留，ACP修复另列下一阶段，未重标为完整通过。见 [有限回执](../../migration/candidates/rc3/source-fixtures-current-checks.json)。统一门禁仍待取得。
+
+### R11-P — ACP 当前持久化与真实消费者
+
+ACP创建改用拥有的Session writer flush，列举读取metadata.header并传递取消信号，恢复通过stat点查和显式setup(ctx, agent)访问Agent身份。旧ensure_materialized/list-header兼容分支未恢复。直接消费者明确模型路由，真实权限进程从session.v3.jsonl.zstd解码审计，普通/zstd冷恢复保持准确的end-seed边界；失败激活仍按原版关闭路径flush并释放唯一所有者。
+
+实际Source/native的8会话、8模型输出、2MCP及906stdio观察通过，260项扩展消费者通过。另组63项控制通过，包括2项metadata读取中取消与3组实际Source MCP；该组唯一失败是必跑清单引用旧浏览器参数。清单补全3个实际脚本身份并更新MCP的JSONL/zstd身份后，收集与浏览器19项通过，完整19,325项仅收集成功；尚未执行全量测试体。此前125项中20失败、96项中2失败以及清单拒绝均原样保留，见 [有限回执](../../migration/candidates/rc3/acp-current-checks.json)。下一稳定候选执行单次统一发行门禁，不将这些局部结果拼接成发行资格。

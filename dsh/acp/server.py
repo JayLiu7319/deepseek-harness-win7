@@ -162,7 +162,7 @@ class AcpPlugin(Plugin):
             self.sessions[session_id] = record
             options = await control.options(operation)
             self._assert_open(operation)
-            await persistence.ensure_materialized(record.agent.session)
+            await sessions.flush(record.agent.session)
             self._assert_open(operation)
             self.sessions[session_id] = record
             return {'sessionId': session_id, 'configOptions': options}
@@ -185,10 +185,11 @@ class AcpPlugin(Plugin):
         except ValueError as error:
             raise AcpInvalidParamsError(str(error)) from error
         agents, persistence, sessions = self._providers(ctx)
-        headers = await persistence.list()
+        listed = await persistence.list({'signal': signal})
         self._assert_open(signal)
         entries = []
-        for header in headers:
+        for metadata in listed:
+            header = field(metadata, 'header')
             session_id, directory = field(header, 'id'), field(header, 'cwd')
             if (session_id in self.sessions or session_id in self.activating or sessions.get(session_id) is not None
                     or field(header, 'origin') == 'subagent' or field(header, 'parentSession') is not None
@@ -218,20 +219,17 @@ class AcpPlugin(Plugin):
         self.activating.add(session_id)
         record = None
         control = None
-        def setup(agent_ctx):
+        def setup(agent_ctx, agent):
             nonlocal control
-            agent = getattr(agent_ctx, 'agent', None)
-            if agent is None:
-                raise RuntimeError('ACP resumed Agent is absent during setup')
             control = AcpModelControl(ctx.get('llm'), selection_for(
                 agent.session.request_header(), self._fallback_selection()))
             control.install(agent_ctx)
             if params.get('mcpServers'):
                 return mount_acp_mcp_servers(agent_ctx, params['mcpServers'], cwd)
         try:
-            headers = await persistence.list()
+            metadata = await persistence.stat(session_id, {'signal': operation})
             self._assert_open(operation)
-            header = next((item for item in headers if field(item, 'id') == session_id), None)
+            header = field(metadata, 'header')
             if header is None or field(header, 'origin') == 'subagent' or field(header, 'parentSession') is not None:
                 raise AcpInvalidParamsError('session is not resumable: %s' % session_id)
             if not same_directory(field(header, 'cwd'), cwd):

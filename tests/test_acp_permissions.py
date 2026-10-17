@@ -131,6 +131,7 @@ async def test_canonical_agent_tool_permission_and_next_request_preserve_machine
     ctx, output, effects = runtime['ctx'], [], []
     bridge = next(entry for entry in ctx.get('loader').entries
                   if entry.options.get('name') == '@deepseek-ai/dsh-acp').fiber.plugin
+    bridge.config.update(provider='openai', model='controlled')
     bridge.connection = AcpRpc(lambda frame: output.append(json.loads(frame)))
     adapter = StrictMockLlmAdapter([{'tool_calls': [{'id': 'call-9', 'name': 'guarded_echo', 'arguments': {}}]},
                                    {'text': 'finished after decision'}])

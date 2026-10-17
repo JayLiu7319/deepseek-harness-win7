@@ -31,7 +31,7 @@ async def echo(ctx, agent, text):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('backend', ['jsonl', 'sqlite'])
+@pytest.mark.parametrize('backend', ['jsonl', 'jsonl-zstd'])
 async def test_actual_profile_session_mcp_tools_are_isolated_reaped_and_remounted(tmp_path, backend, monkeypatch, server):
     runtime, bridge, unused = await boot_profile(tmp_path, backend, monkeypatch)
     ctx = runtime['ctx']

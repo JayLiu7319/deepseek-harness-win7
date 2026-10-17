@@ -80,20 +80,21 @@ async def observe():
             if mode == 'reservation':
                 entered, release = asyncio.Event(), asyncio.Event()
                 first = True
-                async def listed():
+                async def stated(session_id, options=None):
                     nonlocal first
                     if first:
                         first = False
                         entered.set()
                         await release.wait()
-                        return []
-                    return [SessionHeader('saved', cwd=cwd)]
+                        return None
+                    return dict(header=SessionHeader('saved', cwd=cwd), revision='fixture')
                 calls = 0
                 async def resume(**kwargs):
                     nonlocal calls
                     calls += 1
                     raise RuntimeError('fixture factory failure')
-                persistence.list, factory.resume = listed, resume
+                persistence.headers['saved'] = SessionHeader('saved', cwd=cwd)
+                persistence.stat, factory.resume = stated, resume
                 pending = asyncio.create_task(bridge.resume_session(ctx, {'sessionId': 'saved', 'cwd': cwd}))
                 await entered.wait()
                 hidden = await bridge.list_sessions(ctx, {})

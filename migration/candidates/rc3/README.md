@@ -138,3 +138,5 @@ R04-J: [logical log export](log-export-current-checks.json): 27 Source pairs, 11
 R03-P: [session reference budgets and full snapshots](session-reference-current-checks.json): 36 actual pairs, 101 selected native and 48 unchanged Source passes. Actual cold v3 Agent references and late-provider cancellation covered; production promotion remains open.
 
 R07-E: [coordinated candidate composition](composition-current-checks.json): unchanged rc.3 inputs, active/disabled Loader audit, derived client graph and actual strict Remote conversations plus cross-session reference. Production promotion and browser/release qualification remain open.
+
+R11-O/P: [current Source fixtures and exception requalification](source-fixtures-current-checks.json) and [current ACP consumers](acp-current-checks.json). Seven snapshots rebuilt from actual rc3 Source, eight retained defect predicates requalified and obsolete token-meter exception retired. Current ACP writer/metadata/stat/setup ownership, actual process permissions/MCP/cold restore and paired observations pass; exact required-lane collection passes. Unified qualification remains open.

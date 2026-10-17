@@ -1364,7 +1364,7 @@ REQUIRED_REGRESSION = {
     'test_acp_mcp_process': {'test_actual_acp_process_owns_stdio_http_session_tools_and_model_consumers'},
     'test_acp_mcp_runtime': {
         'test_actual_profile_session_mcp_tools_are_isolated_reaped_and_remounted[' + backend + ']'
-        for backend in ('jsonl', 'sqlite')
+        for backend in ('jsonl', 'jsonl-zstd')
     } | {'test_actual_profile_http_mcp_headers_and_tool_consumer_are_session_owned'} | {
         'test_actual_factory_rolls_back_all_mcp_children_before_agent_publication[' + failure + ']'
         for failure in ('invalid-declaration', 'missing-executable')
@@ -1413,7 +1413,9 @@ REQUIRED_REGRESSION = {
     'test_browser_compat': {
         'test_host_owns_early_injection_and_unload_removes_it',
         'test_independent_realm_capabilities_and_native_preservation',
-        'test_real_browser_journey_observer_has_valid_module_syntax',
+        'test_real_browser_journey_observer_has_valid_module_syntax[web_journey_browser.mjs]',
+        'test_real_browser_journey_observer_has_valid_module_syntax[rc3_document_journey.mjs]',
+        'test_real_browser_journey_observer_has_valid_module_syntax[rc3_application_journey.mjs]',
     },
     'test_color_mix_gate': {
         *{'test_captured_original_browser_css_lifetimes[' + browser + ']'

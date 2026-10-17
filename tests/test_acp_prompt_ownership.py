@@ -214,6 +214,7 @@ async def test_canonical_profile_acp_prompt_claims_real_turn_and_releases_agent(
     ctx = runtime['ctx']
     bridge = next(entry for entry in ctx.get('loader').entries
                   if entry.options.get('name') == '@deepseek-ai/dsh-acp').fiber.plugin
+    bridge.config.update(provider='openai', model='controlled')
     adapter = StrictMockLlmAdapter([{'text': 'owned answer'}])
     ctx.get('llm').register_adapter(['openai'], adapter)
     try:

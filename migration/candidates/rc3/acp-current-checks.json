@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-P-current-acp",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-ACP-CURRENT-20261017.zip",
+    "bytes": 619431,
+    "sha256": "edad96b0c1462c83b760bdf4e62a1ad53d07caa41c6e06fd85c75d6fdd7b1af2",
+    "members": [
+      {
+        "path": "rc3-acp-current-consumers-20261017-a/command.json",
+        "bytes": 663,
+        "sha256": "052abe41c6e226896d20e48d653981ee97a8d3cc809bd62b30fda3486802e37f"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-a/results.xml",
+        "bytes": 115025,
+        "sha256": "474ba7708aba26f5f22f258f376d43d7fef6cd3dc40eda0d6d305033ab856fbb"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-a/run.log",
+        "bytes": 102648,
+        "sha256": "749b5bfd0627c6b23478b5fbaf5aefd92ab547eeef5cc4d0066a3dc7efbae808"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-b/command.json",
+        "bytes": 467,
+        "sha256": "beb82f61ef07481b43e0a8b02081149028f83fa699149c50386e3737d5174200"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-b/results.xml",
+        "bytes": 19144,
+        "sha256": "e2897b9d91758de992688cdc2cec5912580c4419b3622f314b03bb3cc97e9f4a"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-b/run.log",
+        "bytes": 7011,
+        "sha256": "765839a0d4fbd146f876fd6e41f0f5fbcdc00eaf578bab786aebcf69f16f82d2"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-c/command.json",
+        "bytes": 918,
+        "sha256": "61ab1a9b4d17e592868f27b66aac1c738796eb84bdb102193b30b8b30d85388c"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-c/results.xml",
+        "bytes": 39214,
+        "sha256": "9bcc4f1579a801c3ee5acd5db46159b5936cbd5371dc66b4b352181a73320ace"
+      },
+      {
+        "path": "rc3-acp-current-consumers-20261017-c/run.log",
+        "bytes": 3178,
+        "sha256": "32e88be97986771bc1f0a2329832957391acb9f5f9a3d3ca8478c30dfa36279b"
+      },
+      {
+        "path": "rc3-acp-current-controls-20261017-a/command.json",
+        "bytes": 512,
+        "sha256": "e9b2e6a5978da37cde29f2ca933839fa30d7bb6dd1c9ff9942448961f4defcbf"
+      },
+      {
+        "path": "rc3-acp-current-controls-20261017-a/results.xml",
+        "bytes": 11297,
+        "sha256": "4f304323171126b9712fd084989fc3f12904fe538a8767b298587328a55eb27f"
+      },
+      {
+        "path": "rc3-acp-current-controls-20261017-a/run.log",
+        "bytes": 3632,
+        "sha256": "df113df9c9dd336502649e222fd13953f86af2a3bfa3bd40706d937958b3e248"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-a/sessions.0.log",
+        "bytes": 236,
+        "sha256": "a378b50c36d9ddb1330c80425d946e52dc0af07be9fbbb18c0799284966013e7"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-a/sessions.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-a/sessions.json",
+        "bytes": 9000,
+        "sha256": "940820db5354f3427516024f451d80b8f1f7f2b79f76a2c8f3fcf59c6cb1099b"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-a/sessions.python.json",
+        "bytes": 2676,
+        "sha256": "02f003022882d278e1c506bfc13f69b16635fba43fe883f719a091fcd5774d41"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-a/sessions.ts.json",
+        "bytes": 2550,
+        "sha256": "9b1fc12ba7c4bdbb594f5c550f209bc5087d612e07c76855a7278067e08301a6"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/commands.json",
+        "bytes": 1122,
+        "sha256": "b9e74fd46688f2780ed370b83155b620f7d33131afafde4d9c5600b4e8d55220"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.0.log",
+        "bytes": 234,
+        "sha256": "72af1c9694fb52f4e90eb9329675d293139511b96e24966a80524cb1e3d05f35"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.1.log",
+        "bytes": 236,
+        "sha256": "98b34b818b904c946c4e50baced9b7e368a6cf1f8b8441264378c865e99effae"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.2.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.json",
+        "bytes": 4408,
+        "sha256": "5857fc1f989904b6692eb5ad5e893b9d7928388dd2611b534c652d6ae40da50f"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.python.json",
+        "bytes": 46694,
+        "sha256": "73b1d37fe9d71602c92101b1828c9407d9f1db50e089348b82bbdba7ec164767"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.run.log",
+        "bytes": 8,
+        "sha256": "c9d7a0682d275afe0a4d41a00294f56d6d82783a4de393ea188806cc8b3ee509"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.runtime.ts.json",
+        "bytes": 1367,
+        "sha256": "ccd8db8bb219d63813fd4c94827472af315d2401f7f0de35741573f381cfc805"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/mcp.ts.json",
+        "bytes": 40335,
+        "sha256": "c7fd735f5654980ab5d65f8de204f328d8fd9f9cef3d9157d86ee2dec857ff3d"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.0.log",
+        "bytes": 234,
+        "sha256": "dadd24c4b4d95453bbab8b780d058a8424e867426cddd95c4003b4ecbd013da1"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.json",
+        "bytes": 58072,
+        "sha256": "5da42215b1556ca15cace6deafb439e06b3c6b95de1be74d8f82735ba34355c8"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.python.json",
+        "bytes": 23943,
+        "sha256": "39561b764455cb953b1abbad1b5b6b899a2e328119cfef319550e4be33639b9b"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.run.log",
+        "bytes": 9,
+        "sha256": "36e542ce871d0d0453e8bef9d86b71b2b08d82ba833c1ed6b5eb6a52ef9d28ba"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/model_output.ts.json",
+        "bytes": 23017,
+        "sha256": "2519f391e04527d64701217ae02fa3e7b6a1d80e237a446c106e9890ea328a61"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.0.log",
+        "bytes": 236,
+        "sha256": "80fe98726f4ce0b4a42a5e64c8d55df41d24070a44f8eaf9e9c89b9151d54164"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.json",
+        "bytes": 9000,
+        "sha256": "68734e76a6418beb6af79a9988972eb81230b0cc0460fff83035c62cd48ddcf5"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.python.json",
+        "bytes": 2676,
+        "sha256": "02f003022882d278e1c506bfc13f69b16635fba43fe883f719a091fcd5774d41"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.run.log",
+        "bytes": 9,
+        "sha256": "36e542ce871d0d0453e8bef9d86b71b2b08d82ba833c1ed6b5eb6a52ef9d28ba"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/sessions.ts.json",
+        "bytes": 2550,
+        "sha256": "9b1fc12ba7c4bdbb594f5c550f209bc5087d612e07c76855a7278067e08301a6"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.0.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.1.log",
+        "bytes": 190,
+        "sha256": "5ee0c0343ba9cd4ffcb7e5644cb8774313d6b5cf898bc50da682d9fe4e194b4c"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.2.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.cases.json",
+        "bytes": 164053,
+        "sha256": "2af1d114e394d1892fb993038060942ea7ff3236485aef574dfb5b34a63847a3"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.json",
+        "bytes": 829103,
+        "sha256": "cb0cbfff75b2b1e7c68b241b5547a74afffaea03c627c5017a8e58fe92f0896e"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.python.json",
+        "bytes": 177921,
+        "sha256": "58e3a95348ca85b9224bb0f310f21b93b6fab08c7402eddf3af384ee9b7d9d48"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.run.log",
+        "bytes": 9,
+        "sha256": "36e542ce871d0d0453e8bef9d86b71b2b08d82ba833c1ed6b5eb6a52ef9d28ba"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.schema.json",
+        "bytes": 100602,
+        "sha256": "3f49d7bdfef18ee8959006e4f1b5ac9134543987ec39727679ab8f19f2650b36"
+      },
+      {
+        "path": "rc3-acp-current-pairs-20261017-b/stdio.ts.json",
+        "bytes": 297067,
+        "sha256": "6dc45c8aa4b4cda86264085a7c254debbcc9cfa464c9c238a3dc59b36ed9cef3"
+      },
+      {
+        "path": "t-8e4glfpr/test_current_manifest_resolves0/actual-collection.json",
+        "bytes": 2980211,
+        "sha256": "01004432c04a2133efcd652635c9ecb098faa7672ca445683b19833d226a1491"
+      },
+      {
+        "path": "t-8e4glfpr/test_current_manifest_resolves0/actual-collection.log",
+        "bytes": 2091697,
+        "sha256": "078b43402edefa484d27eb616035f5edc9fb0ccab3276713322260aaadaf6bc2"
+      },
+      {
+        "path": "rc3-collection-current-controls-20261017-b/command.json",
+        "bytes": 315,
+        "sha256": "c58a3276775e518622087a4544fb724cd21c95c5aaa13ebe4d8f4c99ba5f4365"
+      },
+      {
+        "path": "rc3-collection-current-controls-20261017-b/results.xml",
+        "bytes": 2906,
+        "sha256": "79280e5470c7a99bcc0abecb0f07da417d6bdaacb35ba1232b181c1b0720e72a"
+      },
+      {
+        "path": "rc3-collection-current-controls-20261017-b/run.log",
+        "bytes": 912,
+        "sha256": "c7887183f5b4594a8b138ffe192577632ab2b38133c3cbb15b85fb49fcee29b7"
+      }
+    ]
+  },
+  "inputs": {
+    "dsh/acp/server.py": "3a6d5e7952b17e38750bf030d9f356c91acb320ec77c49508d3a4cbe1b905803",
+    "scripts/acp_permission_journey.py": "7310cb27627d83472935fd810613584fdb5aa68c67df02c36350e7ed90a16650",
+    "scripts/oracles/acp_sessions.probe.spec.ts": "bc357e127d93ca83c0fc4ffeb22d4f219618e97c48bfb2b34818aeea6f081a77",
+    "scripts/oracles/acp_sessions_python.py": "bc39cb7917a1b3eb9fde9dcccdb43e69713c5539f2981afbb16fd70193275d0f",
+    "scripts/verify_release.py": "a0a4e154af0059170f3bec07ec172cc9323a10211409ea15840802b3cc929d38",
+    "tests/test_acp_session_controls.py": "2d6999df68083badfc0f42b7ec3cd0c01ca176969659942aa9b0486e7d35aea1",
+    "tests/test_acp_permissions.py": "928bf721246845ecde885bd38dedd7a7e010bdbf3b017c3c8ca7bc3cbc02b76d",
+    "tests/test_acp_prompt_ownership.py": "3fd6d63d528540f269ed588e048b7a3a7d34d4e6248fd15b09784b2f3b55eaaa",
+    "tests/test_acp_canonical_model_output.py": "119ec67d0de2e058eb4bb15636d4d6879914fa0256c66de666bf129887beac7e",
+    "tests/test_acp_mcp_runtime.py": "5dbe7e16fdba24251dc611ce3bcb64135966344e6dc13ea389d65b8ba7a23a27",
+    "tests/test_acp_stdio.py": "eba00b1a89e08578df9da2afe211a0f4120b611abadebc4225b9009eec51c5de"
+  },
+  "scope": [
+    "Current ACP uses the owned Session writer flush, metadata list with signal and point stat with linked signal. Resume setup receives explicit Agent identity as current Source; no retired API fallback.",
+    "Actual current Source/native pairs:8 lifecycle,8 model/output,2 MCP and906 stdio observations pass. Exact raw outputs, commands, timing and input identities are retained.",
+    "260 direct consumers pass, including actual canonical JSONL none/zstd cold resumes, permission decisions, cancellation/EOF, MCP child ownership and real stdio process responses. Separate controls63 pass with1 collection identity failure retained; these include2 new abort-during-metadata tests and3 actual Source MCP configurations.",
+    "Consumer fixtures declare explicit controlled model routes, decode physical v3 persisted permission audit rows, and keep materialization on failed activation teardown according to current Source. Fresh/cold session/end-seed assertion is preserved.",
+    "Required regression list keeps exact instance validation: actual MCP JSONL/zstd parameter names and all3 current browser observer module syntax instances. Actual full collection identity acceptance is separately verified before the full gate."
+  ],
+  "limitations": [
+    "Prior125-case run105 passed/20 failed and96-case run94 passed/2 failed remain failures. Their diagnostics are included; no partial runs are merged into release acceptance.",
+    "No full regression, actual installer/UAC or physical Win7 qualification implied."
+  ],
+  "collectionControls": {
+    "passed": 19,
+    "scope": "Actual complete19325-case collection resolves every required lane before test execution; exact negative parameter/deselection/duplicate refusal and all3 browser observer module syntax checks pass.",
+    "path": "rc3-collection-current-controls-20261017-b/results.xml"
+  }
+}
