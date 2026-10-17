@@ -116,3 +116,5 @@ R09-C: [authenticated external-app routes/icons](open-in-app-host-current-checks
 R09-D: [MCP cursor rejection](mcp-current-checks.json):15 actual pairs,115 selected native and107 unchanged Source tests pass. Repeated-cursor precedence, retained generation, later successful notification swap and real stdio bounded startup/process closure are covered. Current profile activation remains open.
 
 R07-A: [explicit profile initialization](profile-init-current-checks.json):47 actual pairs,67 selected native and22 unchanged Source tests pass. Exclusive two-process creation, failure cleanup, shipped-template metadata and actual boot/dump consumers are covered. Product retains three extra presets; current provider composition and production promotion remain open.
+
+R07-B: [home proxy admission and inserted filesystem paths](boot-layers-current-checks.json):37 actual pairs,199 selected native and76 unchanged Source tests pass. Actual local plugin loading and credentials/LLM/boot consumers are covered. Outbound proxy transport and current composition remain open.

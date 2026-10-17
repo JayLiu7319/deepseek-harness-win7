@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'boot-layers-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/boot_layers_current_python.py', ROOT/'scripts/oracles/boot_layers_current_source.mts'])
         if any(case.get('kind') == 'profile-init-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/profile_init_current_python.py', ROOT/'scripts/oracles/profile_init_current_source.mts'])
         if any(case.get('kind') == 'mcp-current' for case in cases):

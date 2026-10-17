@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-B-home-proxy-and-patch-paths",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 37,
+    "report": {
+      "path": ".goose/out/rc3-r07-boot-layers-final-paired-20261017/report.json",
+      "sha256": "fe554ffc5ffc074e40baedd5cc216f0c2155ce54a77242490029b12dba83ac5d"
+    },
+    "corpus": {
+      "path": "scripts/oracles/boot_layers_current_cases.json",
+      "sha256": "1cfafa2baba0ed2ea248d326dc2ff5bf463a16a1debf6ba5f7004931d4c635c8"
+    }
+  },
+  "native": {
+    "passed": 199,
+    "command": {
+      "path": ".goose/out/rc3-r07-boot-layers-native-20261017/command.json",
+      "sha256": "ebb71f858e31ad924193db9784be044d99ddbe5f6ffbfc5e62a60f2fb32a86e1"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-boot-layers-native-20261017/pytest.xml",
+      "sha256": "9929b318da5553f22190498dbc76b5025d1c97e96887b184b8a4993d6542b093"
+    }
+  },
+  "source": {
+    "passed": 76,
+    "command": {
+      "path": ".goose/out/rc3-r07-boot-layers-source-20261017/command.json",
+      "sha256": "b91c05a8fcb102d2ce7593b980eda1267bc1d70f32616fe705fab64812ff5c20"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-boot-layers-source-20261017/source.xml",
+      "sha256": "e73c49bd3b92f89d4e853bdcc1b9e8367b531ae6134068cd67f31c5f51400a7f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/boot/app_boot.py",
+      "sha256": "5f7ccbf9cdaf481cb9904435d432be1dfd66a18176c7e73f9586a7c2cd5faeb0"
+    }
+  ],
+  "scope": [
+    "Only the resolved Harness-home file may set four proxy names, case insensitive; project files reject them with home-file remedy, trust/bootstrap names remain rejected everywhere. Both files validated before materialization.",
+    "Boot snapshot delegates canonical Windows case-folded, copied-layer resolution while retaining dict API. Actual credentials Web restart, LLM config and normal boot consumers pass.",
+    "Inserted absolute and relative paths become file URLs; assertion names, bare names, existing URLs and non-group config remain literal. Actual Python local plugin with spaces/hash/percent/Unicode loads through both patch entry points.",
+    "Initial paired actor replaced Node process.env with a plain case-sensitive object. Distinct retained diagnostics; corrected actor mutates/restores actual native environment, matching Python Windows semantics."
+  ],
+  "remaining": [
+    "Install and route outbound HTTP proxy policy from the launch snapshot, current providers/presets and release qualification."
+  ]
+}

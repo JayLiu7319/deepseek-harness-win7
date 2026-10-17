@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'profile-init-current':
+        if case['kind'] == 'boot-layers-current':
+            from scripts.oracles.boot_layers_current_python import execute as boot_layers_execute
+            value = boot_layers_execute(case)
+        elif case['kind'] == 'profile-init-current':
             from scripts.oracles.profile_init_current_python import execute as profile_init_execute
             value = profile_init_execute(case)
         elif case['kind'] == 'mcp-current':

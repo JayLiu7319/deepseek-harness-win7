@@ -128,32 +128,22 @@ class LaunchEnvironmentSnapshot:
     """Snapshot of layered environment tracking provenance."""
 
     def __init__(self, layers: List[Dict[str, Any]]):
-        self._layers = layers
+        from dsh.cordis.environment import LaunchEnvironmentSnapshot as Snapshot
+        self._snapshot = Snapshot(copy.deepcopy(layers))
 
     def get(self, name: str) -> Optional[Dict[str, Any]]:
-        for layer in self._layers:
-            if name in layer["values"]:
-                res = {"value": layer["values"][name], "source": layer["source"]}
-                if "path" in layer:
-                    res["path"] = layer["path"]
-                return res
-        return None
+        value = self._snapshot.get(name)
+        return value.to_dict() if value is not None else None
 
     def get_from(self, name: str, sources: List[str]) -> Optional[Dict[str, Any]]:
-        for layer in self._layers:
-            if layer["source"] in sources and name in layer["values"]:
-                res = {"value": layer["values"][name], "source": layer["source"]}
-                if "path" in layer:
-                    res["path"] = layer["path"]
-                return res
-        return None
+        value = self._snapshot.get_from(name, sources)
+        return value.to_dict() if value is not None else None
 
-    # camelCase alias
     getFrom = get_from
 
     @property
     def layers(self) -> List[Dict[str, Any]]:
-        return self._layers
+        return copy.deepcopy(self._snapshot.layers)
 
 
 class OverlayNotFoundError(RuntimeError, FileNotFoundError):
@@ -180,6 +170,7 @@ def _read_env_layer(
     bin_name: str,
     target_dir: str,
     warn: Optional[Callable[[str], None]] = None,
+    home: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     path = os.path.join(os.path.abspath(target_dir), ".env")
     if not os.path.exists(path):
@@ -205,10 +196,17 @@ def _read_env_layer(
     values = parse_dotenv(content)
     for name in values.keys():
         if is_bootstrap_only(name):
+            proxy_name = name.upper() in {"HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY"}
+            if proxy_name and home is not None and os.path.abspath(target_dir) == home:
+                continue
+            remedy = (
+                f"export {name}, or put it in {os.path.join(home or resolve_dsh_home(), '.env')}, which does not travel with a repository"
+                if proxy_name else f"export {name} instead of putting it in a .env file"
+            )
             raise BootstrapEnvError(
                 f'{bin_name}: {path} sets "{name}", which only the launching environment may set '
                 f"(it decides how this process starts, where its code and instructions load from, or how it reaches the network); "
-                f"export {name} instead of putting it in a .env file"
+                + remedy
             )
     return {"path": path, "values": values}
 
@@ -220,12 +218,12 @@ def load_layered_env(
     home: Optional[str] = None,
 ) -> LaunchEnvironmentSnapshot:
     """Load inherited > cwd/.env > $DSH_HOME/.env environment snapshot."""
-    home_dir = home or resolve_dsh_home()
+    home_dir = os.path.abspath(home or resolve_dsh_home())
     base_cwd = os.path.abspath(cwd or os.getcwd())
     inherited = dict(os.environ)
 
-    project_layer = _read_env_layer(bin_name, base_cwd, warn)
-    user_layer = None if os.path.normcase(home_dir) == os.path.normcase(base_cwd) else _read_env_layer(bin_name, home_dir, warn)
+    project_layer = _read_env_layer(bin_name, base_cwd, warn, home_dir)
+    user_layer = None if os.path.normcase(home_dir) == os.path.normcase(base_cwd) else _read_env_layer(bin_name, home_dir, warn, home_dir)
 
     for layer in (project_layer, user_layer):
         if layer is not None:
@@ -247,7 +245,7 @@ def _anchor_inserted_plugin_names(patches: List[Dict[str, Any]], filepath: str) 
 
     def visit(entry: Dict[str, Any]) -> None:
         name = entry.get("name")
-        if isinstance(name, str) and (name.startswith("./") or name.startswith("../")):
+        if isinstance(name, str) and (os.path.isabs(name) or name.startswith("./") or name.startswith("../")):
             abs_plugin = os.path.abspath(os.path.join(base_dir, name))
             entry["name"] = path_to_file_url(abs_plugin)
         if entry.get("group") and isinstance(entry.get("config"), list):

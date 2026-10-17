@@ -335,3 +335,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R07-A — 显式初始化自定义profile
 
 启动器新增 --from-default-profile，仅从发布模板复制bundle列表与reload策略；独占创建目录，拒绝已有manifest或残留目录，不复制本地依赖和用户patch。失败只清理本次独占目录，清理失败保留两项错误。desktop保留为应用管理profile，独立loadProfileDirectory供应用加载。47组实际配对、67项原生和22项原版测试通过，覆盖两个真实进程竞争、启动/配置导出及参数边界。配对将模板表限定为原版五项以比较准确诊断，产品八项模板另行实测，不冒充原版增加了三预设。初轮启动测试遗漏waitForExit=False导致中断，原日志保留且不推断计数；修正后设置明确期限通过。回执 migration/candidates/rc3/profile-init-current-checks.json。生产组装、其余启动增量、pin推进和统一验收仍待完成。
+
+### R07-B — home代理准入与patch路径
+
+仅解析后的Harness-home .env允许四类代理变量，项目层拒绝并指出home文件；CA/TLS及其他bootstrap名称仍拒绝，两层均先验证再写环境。启动快照复用Windows大小写折叠并复制原始层，保留既有dict接口。patch仅将insert及嵌套group中的绝对/相对文件路径转为file URL，断言名称不变。37组配对、199项原生和76项原版通过，包含真实带空格/#/%/中文路径的插件装载、凭据Web重启、LLM配置及普通启动。初轮actor将Node原生环境替成普通对象造成大小写差异；改为操作并恢复真实环境后匹配，原诊断保留。回执 migration/candidates/rc3/boot-layers-current-checks.json。代理传输、生产组合和完整资格仍待完成。

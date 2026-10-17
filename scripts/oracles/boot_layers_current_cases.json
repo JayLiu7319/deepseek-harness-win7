@@ -1,0 +1,955 @@
+[
+  {
+    "case": "home-HTTP_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "HTTP_PROXY=http://proxy:8080\n",
+    "names": [
+      "HTTP_PROXY",
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTP_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "HTTP_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-HTTP_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "HTTP_PROXY=http://proxy:8080\n",
+    "names": [
+      "HTTP_PROXY",
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"HTTP_PROXY\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export HTTP_PROXY, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "HTTP_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-HTTP_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "HTTP_PROXY=from-home\n",
+    "names": [
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTP_PROXY": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "HTTP_PROXY": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-HTTPS_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "HTTPS_PROXY=http://proxy:8080\n",
+    "names": [
+      "HTTPS_PROXY",
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTPS_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "HTTPS_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-HTTPS_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "HTTPS_PROXY=http://proxy:8080\n",
+    "names": [
+      "HTTPS_PROXY",
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"HTTPS_PROXY\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export HTTPS_PROXY, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "HTTPS_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-HTTPS_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "HTTPS_PROXY=from-home\n",
+    "names": [
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTPS_PROXY": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "HTTPS_PROXY": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-ALL_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "ALL_PROXY=http://proxy:8080\n",
+    "names": [
+      "ALL_PROXY",
+      "ALL_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "ALL_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "ALL_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-ALL_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "ALL_PROXY=http://proxy:8080\n",
+    "names": [
+      "ALL_PROXY",
+      "ALL_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"ALL_PROXY\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export ALL_PROXY, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "ALL_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-ALL_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "ALL_PROXY=from-home\n",
+    "names": [
+      "ALL_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "ALL_PROXY": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "ALL_PROXY": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-NO_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "NO_PROXY=http://proxy:8080\n",
+    "names": [
+      "NO_PROXY",
+      "NO_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "NO_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "NO_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-NO_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "NO_PROXY=http://proxy:8080\n",
+    "names": [
+      "NO_PROXY",
+      "NO_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"NO_PROXY\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export NO_PROXY, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "NO_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-NO_PROXY",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "NO_PROXY=from-home\n",
+    "names": [
+      "NO_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "NO_PROXY": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "NO_PROXY": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-http_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "http_proxy=http://proxy:8080\n",
+    "names": [
+      "http_proxy",
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "http_proxy": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        },
+        "HTTP_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "http_proxy": "http://proxy:8080",
+        "HTTP_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-http_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "http_proxy=http://proxy:8080\n",
+    "names": [
+      "http_proxy",
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"http_proxy\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export http_proxy, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "http_proxy": null,
+        "HTTP_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-http_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "http_proxy=from-home\n",
+    "names": [
+      "http_proxy"
+    ],
+    "expected": {
+      "entries": {
+        "http_proxy": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "http_proxy": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-https_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "https_proxy=http://proxy:8080\n",
+    "names": [
+      "https_proxy",
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "https_proxy": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        },
+        "HTTPS_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "https_proxy": "http://proxy:8080",
+        "HTTPS_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-https_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "https_proxy=http://proxy:8080\n",
+    "names": [
+      "https_proxy",
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"https_proxy\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export https_proxy, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "https_proxy": null,
+        "HTTPS_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-https_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "https_proxy=from-home\n",
+    "names": [
+      "https_proxy"
+    ],
+    "expected": {
+      "entries": {
+        "https_proxy": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "https_proxy": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-all_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "all_proxy=http://proxy:8080\n",
+    "names": [
+      "all_proxy",
+      "ALL_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "all_proxy": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        },
+        "ALL_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "all_proxy": "http://proxy:8080",
+        "ALL_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-all_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "all_proxy=http://proxy:8080\n",
+    "names": [
+      "all_proxy",
+      "ALL_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"all_proxy\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export all_proxy, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "all_proxy": null,
+        "ALL_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-all_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "all_proxy=from-home\n",
+    "names": [
+      "all_proxy"
+    ],
+    "expected": {
+      "entries": {
+        "all_proxy": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "all_proxy": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-no_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "no_proxy=http://proxy:8080\n",
+    "names": [
+      "no_proxy",
+      "NO_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "no_proxy": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        },
+        "NO_PROXY": {
+          "value": "http://proxy:8080",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "no_proxy": "http://proxy:8080",
+        "NO_PROXY": "http://proxy:8080"
+      }
+    }
+  },
+  {
+    "case": "project-no_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "project": "no_proxy=http://proxy:8080\n",
+    "names": [
+      "no_proxy",
+      "NO_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"no_proxy\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export no_proxy, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "no_proxy": null,
+        "NO_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "same-dir-no_proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "sameDirectory": true,
+    "home": "no_proxy=from-home\n",
+    "names": [
+      "no_proxy"
+    ],
+    "expected": {
+      "entries": {
+        "no_proxy": {
+          "value": "from-home",
+          "source": "project-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "no_proxy": "from-home"
+      }
+    }
+  },
+  {
+    "case": "home-reject-SSL_CERT_FILE",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "SSL_CERT_FILE=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "SSL_CERT_FILE"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"SSL_CERT_FILE\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export SSL_CERT_FILE instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "SSL_CERT_FILE": null
+      }
+    }
+  },
+  {
+    "case": "home-reject-NODE_TLS_REJECT_UNAUTHORIZED",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "NODE_TLS_REJECT_UNAUTHORIZED=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "NODE_TLS_REJECT_UNAUTHORIZED"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"NODE_TLS_REJECT_UNAUTHORIZED\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export NODE_TLS_REJECT_UNAUTHORIZED instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "NODE_TLS_REJECT_UNAUTHORIZED": null
+      }
+    }
+  },
+  {
+    "case": "home-reject-DSH_HOME",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "DSH_HOME=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "DSH_HOME"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"DSH_HOME\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export DSH_HOME instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "DSH_HOME": "$ROOT/home"
+      }
+    }
+  },
+  {
+    "case": "home-reject-NODE_EXTRA_CA_CERTS",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "NODE_EXTRA_CA_CERTS=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "NODE_EXTRA_CA_CERTS"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"NODE_EXTRA_CA_CERTS\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export NODE_EXTRA_CA_CERTS instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "NODE_EXTRA_CA_CERTS": null
+      }
+    }
+  },
+  {
+    "case": "home-reject-PATH",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "PATH=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "PATH"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"PATH\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export PATH instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "PATH": null
+      }
+    }
+  },
+  {
+    "case": "home-reject-XDG_CONFIG_HOME",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "XDG_CONFIG_HOME=bad\n",
+    "project": "NORMAL=safe\n",
+    "names": [
+      "NORMAL",
+      "XDG_CONFIG_HOME"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/home/.env sets \"XDG_CONFIG_HOME\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export XDG_CONFIG_HOME instead of putting it in a .env file",
+      "materialized": {
+        "NORMAL": null,
+        "XDG_CONFIG_HOME": null
+      }
+    }
+  },
+  {
+    "case": "inherited-wins",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "HTTP_PROXY=from-home\nSHARED=user\n",
+    "project": "SHARED=project\n",
+    "inherited": {
+      "HTTP_PROXY": "inherited"
+    },
+    "names": [
+      "HTTP_PROXY",
+      "SHARED"
+    ],
+    "expected": {
+      "entries": {
+        "HTTP_PROXY": {
+          "value": "inherited",
+          "source": "process"
+        },
+        "SHARED": {
+          "value": "project",
+          "source": "project-env",
+          "path": "$ROOT/project/.env"
+        }
+      },
+      "materialized": {
+        "HTTP_PROXY": "inherited",
+        "SHARED": "project"
+      }
+    }
+  },
+  {
+    "case": "empty-inherited-wins",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "HTTPS_PROXY=from-home\n",
+    "inherited": {
+      "HTTPS_PROXY": ""
+    },
+    "names": [
+      "HTTPS_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTPS_PROXY": {
+          "value": "",
+          "source": "process"
+        }
+      },
+      "materialized": {
+        "HTTPS_PROXY": ""
+      }
+    }
+  },
+  {
+    "case": "case-folded-inherited",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "http_proxy=from-home\n",
+    "inherited": {
+      "HTTP_PROXY": "inherited"
+    },
+    "names": [
+      "HTTP_PROXY",
+      "http_proxy"
+    ],
+    "expected": {
+      "entries": {
+        "HTTP_PROXY": {
+          "value": "inherited",
+          "source": "process"
+        },
+        "http_proxy": {
+          "value": "inherited",
+          "source": "process"
+        }
+      },
+      "materialized": {
+        "HTTP_PROXY": "inherited",
+        "http_proxy": "inherited"
+      }
+    }
+  },
+  {
+    "case": "project-reject-before-home",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "USER_ONLY=not-applied\n",
+    "project": "PROJECT_ONLY=not-applied\nHTTP_PROXY=bad\n",
+    "names": [
+      "USER_ONLY",
+      "PROJECT_ONLY",
+      "HTTP_PROXY"
+    ],
+    "expected": {
+      "error": "dsh: $ROOT/project/.env sets \"HTTP_PROXY\", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export HTTP_PROXY, or put it in $ROOT/home/.env, which does not travel with a repository",
+      "materialized": {
+        "USER_ONLY": null,
+        "PROJECT_ONLY": null,
+        "HTTP_PROXY": null
+      }
+    }
+  },
+  {
+    "case": "home-blank-proxy",
+    "kind": "boot-layers-current",
+    "operation": "env",
+    "home": "HTTP_PROXY=\nNO_PROXY=\"localhost, example.com\"\n",
+    "names": [
+      "HTTP_PROXY",
+      "NO_PROXY"
+    ],
+    "expected": {
+      "entries": {
+        "HTTP_PROXY": {
+          "value": "",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        },
+        "NO_PROXY": {
+          "value": "localhost, example.com",
+          "source": "user-env",
+          "path": "$ROOT/home/.env"
+        }
+      },
+      "materialized": {
+        "HTTP_PROXY": "",
+        "NO_PROXY": "localhost, example.com"
+      }
+    }
+  },
+  {
+    "case": "optional-paths",
+    "kind": "boot-layers-current",
+    "operation": "optional",
+    "patches": [
+      {
+        "id": "assert",
+        "name": "$ABS"
+      },
+      {
+        "insert": [
+          {
+            "id": "absolute",
+            "name": "$ABS"
+          },
+          {
+            "id": "url",
+            "name": "$URL"
+          },
+          {
+            "id": "relative",
+            "name": "../plugin.py"
+          },
+          {
+            "id": "dot",
+            "name": "./plugin.py"
+          },
+          {
+            "id": "bare",
+            "name": "@deepseek-ai/dsh-tools"
+          },
+          {
+            "id": "group",
+            "name": "cordis:group",
+            "group": true,
+            "config": [
+              {
+                "id": "nested",
+                "name": "$ABS"
+              }
+            ]
+          },
+          {
+            "id": "notgroup",
+            "config": [
+              {
+                "name": "$ABS"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "expected": [
+      {
+        "id": "assert",
+        "name": "$ROOT/plugin #100% \u4e2d\u6587.py"
+      },
+      {
+        "insert": [
+          {
+            "id": "absolute",
+            "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+          },
+          {
+            "id": "url",
+            "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+          },
+          {
+            "id": "relative",
+            "name": "file:///$ROOT/plugin.py"
+          },
+          {
+            "id": "dot",
+            "name": "file:///$ROOT/patches/plugin.py"
+          },
+          {
+            "id": "bare",
+            "name": "@deepseek-ai/dsh-tools"
+          },
+          {
+            "id": "group",
+            "name": "cordis:group",
+            "group": true,
+            "config": [
+              {
+                "id": "nested",
+                "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+              }
+            ]
+          },
+          {
+            "id": "notgroup",
+            "config": [
+              {
+                "name": "$ROOT/plugin #100% \u4e2d\u6587.py"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "overlay-paths",
+    "kind": "boot-layers-current",
+    "operation": "overlay",
+    "patches": [
+      {
+        "id": "assert",
+        "name": "$ABS"
+      },
+      {
+        "insert": [
+          {
+            "id": "absolute",
+            "name": "$ABS"
+          },
+          {
+            "id": "url",
+            "name": "$URL"
+          },
+          {
+            "id": "relative",
+            "name": "../plugin.py"
+          },
+          {
+            "id": "dot",
+            "name": "./plugin.py"
+          },
+          {
+            "id": "bare",
+            "name": "@deepseek-ai/dsh-tools"
+          },
+          {
+            "id": "group",
+            "name": "cordis:group",
+            "group": true,
+            "config": [
+              {
+                "id": "nested",
+                "name": "$ABS"
+              }
+            ]
+          },
+          {
+            "id": "notgroup",
+            "config": [
+              {
+                "name": "$ABS"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "expected": [
+      {
+        "id": "assert",
+        "name": "$ROOT/plugin #100% \u4e2d\u6587.py"
+      },
+      {
+        "insert": [
+          {
+            "id": "absolute",
+            "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+          },
+          {
+            "id": "url",
+            "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+          },
+          {
+            "id": "relative",
+            "name": "file:///$ROOT/plugin.py"
+          },
+          {
+            "id": "dot",
+            "name": "file:///$ROOT/patches/plugin.py"
+          },
+          {
+            "id": "bare",
+            "name": "@deepseek-ai/dsh-tools"
+          },
+          {
+            "id": "group",
+            "name": "cordis:group",
+            "group": true,
+            "config": [
+              {
+                "id": "nested",
+                "name": "file:///$ROOT/plugin%20%23100%25%20%E4%B8%AD%E6%96%87.py"
+              }
+            ]
+          },
+          {
+            "id": "notgroup",
+            "config": [
+              {
+                "name": "$ROOT/plugin #100% \u4e2d\u6587.py"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
