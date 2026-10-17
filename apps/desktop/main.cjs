@@ -1,13 +1,15 @@
 'use strict';
 require('./stdio.cjs').protectStdio();
 const {app,BrowserWindow,protocol,ipcMain,Menu,Tray,nativeImage,dialog}=require('electron');
-const {join,resolve,extname}=require('node:path');
+const {join,resolve,extname,dirname}=require('node:path');
 const {readFile}=require('node:fs/promises');
 const {Readable}=require('node:stream');
 const {DesktopProjectManager}=require('./project-manager.cjs');
 const {resolveDesktopLocale}=require('./locale.cjs');
 const {desktopHome}=require('./home.cjs');
 const {desktopEnvironment}=require('./environment.cjs');
+const {DesktopUpdateCoordinator}=require('./update-coordinator.cjs');
+const {Win7Updater,loadConfiguration}=require('./updates.cjs');
 
 protocol.registerSchemesAsPrivileged([{scheme:'dsh-app',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:false,stream:true}}]);
 const development=!app.isPackaged;
@@ -95,6 +97,35 @@ async function main(){
     npmPackage:locale.id==='zh-CN'?'插件文件夹或 ZIP 路径':'Plugin folder or ZIP path',
     targetVersion:locale.id==='zh-CN'?'输入 {name} 的升级 ZIP 或文件夹路径':'Enter the upgrade ZIP or folder path for {name}'};
   const register=(channel,handler)=>ipcMain.handle(channel,(event,...args)=>{assertSender(event);return handler(...args);});
+  const updateConfiguration=development?undefined:await loadConfiguration(join(process.resourcesPath,'win7-update.json'));
+  let updateState={phase:'idle'};
+  const publishUpdate=state=>{
+    updateState=state;
+    for(const window of BrowserWindow.getAllWindows())if(!window.isDestroyed())window.webContents.send('dsh-desktop:updates-state',state);
+    return state;
+  };
+  const updater=new Win7Updater({config:updateConfiguration,currentVersion:app.getVersion(),
+    installRoot:development?undefined:resolve(dirname(app.getPath('exe')),'../..'),quit:()=>app.quit(),
+    onError:error=>publishUpdate({phase:'error',message:error.message})});
+  const updates=new DesktopUpdateCoordinator(publishUpdate,()=>manager.close(),updater,()=>Boolean(updateConfiguration));
+  register('dsh-desktop:updates-check',()=>updates.check());
+  register('dsh-desktop:updates-install',async()=>{await updates.install();});
+  const checkAndPrompt=async manual=>{
+    const state=await updates.check(),messages=locale.messages;
+    if(state.phase==='error'){
+      if(manual)await dialog.showMessageBox({type:'error',title:messages.updateCheckFailedTitle,message:state.message??messages.unknownError});
+      return;
+    }
+    if(state.phase!=='available'){
+      if(manual)await dialog.showMessageBox({type:'info',title:messages.updateCheckTitle,message:state.message??messages.updateCurrent});
+      return;
+    }
+    const result=await dialog.showMessageBox({type:'info',title:messages.updateTitle,message:messages.updateAvailable,
+      detail:messages.updateDetail.replace('{version}',state.version??''),buttons:[messages.installAndRestart,messages.later],defaultId:0,cancelId:1});
+    if(result.response!==0)return;
+    const installed=await updates.install();
+    if(installed.phase==='error')await dialog.showMessageBox({type:'error',title:messages.updateFailedTitle,message:installed.message??messages.unknownError});
+  };
   register('dsh-desktop:locale-get',()=>locale);
   register('dsh-desktop:plugins-list',()=>manager.list());
   const mutation=async(operation,value,name)=>{
@@ -108,7 +139,8 @@ async function main(){
   register('dsh-desktop:plugins-remove',name=>mutation('remove',name));
   register('dsh-desktop:plugins-update',(name,source)=>mutation('upgrade',source,name));
   Menu.setApplicationMenu(Menu.buildFromTemplate([{label:locale.messages.application,submenu:[
-    {label:locale.messages.pluginsMenu,accelerator:'CmdOrCtrl+,',click:openPlugins},{type:'separator'},
+    {label:locale.messages.pluginsMenu,accelerator:'CmdOrCtrl+,',click:openPlugins},
+    {label:locale.messages.checkUpdatesMenu,click:()=>{void checkAndPrompt(true);}},{type:'separator'},
     {label:locale.id==='zh-CN'?'退出':'Quit',click:()=>app.quit()}]}]));
   mainWindow=createWindow(false);
   const icon=nativeImage.createFromPath(join(__dirname,'tray.png'));
@@ -117,6 +149,8 @@ async function main(){
   tray.setContextMenu(Menu.buildFromTemplate([{label:'DeepSeek Harness',click:focus},{label:locale.messages.pluginsMenu,click:openPlugins},
     {type:'separator'},{label:locale.id==='zh-CN'?'退出':'Quit',click:()=>app.quit()}]));
   app.on('activate',focus);
+  publishUpdate(updateState);
+  const updateTimer=setTimeout(()=>{void checkAndPrompt(false);},10000);updateTimer.unref();
   if(development&&option('--test-output'))await require('./smoke-test.cjs').run({app,mainWindow,openPlugins,
     pluginWindow:()=>pluginWindow,guideWindow:()=>guideWindow,environment,manager,output:resolve(option('--test-output'))});
 }

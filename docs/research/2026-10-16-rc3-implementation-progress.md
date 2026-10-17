@@ -497,3 +497,9 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ### R11-L — 当前原生 workflow bundle 与发行 ZIP 选择
 
 使用固定 Node22/esbuild 和干净 rc3 Source 重建原生 workflow bundle，生成资源、完整输入 provenance 及运行时清单哈希协调切换。实际 Source/native session child RPC、持有进程、Host、取消、解析和资源篡改等 123 项通过。发行门禁不再硬编码 v0.1.2 ZIP，改从 canonical Portable builder 的 VERSION 派生，直接路径身份检查通过。归档见 `migration/candidates/rc3/native-workflow-current-checks.json`；此阶段没有把旧 Portable 重标为新候选。
+
+### R10-F — 原版更新协调器与 Win7 完整安装包通道
+
+原版更新协调器原样生成，注入独立 Win7 Standard NSIS 适配器。外部公钥配置和 HTTPS 签名元数据绑定架构、版本、Electron/Python、有效期、字节数与 SHA；没有配置时保持 idle，不复用 Electron44 通道。下载通过后才停止 Host，隐藏 PowerShell 辅助进程等待客户端退出、复核哈希，再打开交互管理员安装器；成功后按安装快捷方式核验并恢复普通用户应用，失败留下诊断。辅助进程启动失败时保留客户端并通知错误。
+
+实际 Electron22/Node16 的34项检查通过，涵盖真实 TLS 拒绝/信任、HTTPS 重定向与大小上限、损坏拒绝、原协调器去重、安装脚本解析及真实签名命令。消费者初轮27项通过；扩展后26通过/1个本地CA夹具失败，修正后34项观察的独立用例通过，保留各次原结果。新桌面烟测79.439秒退出0，检查原界面、更新IPC idle、指引、插件回滚及重连，已关闭自有客户端。见 [有限回执](../../migration/candidates/rc3/desktop-updates-current-checks.json)。未创建或发布更新密钥/通道，未执行真实安装/UAC或Win7补丁重启，x86闭包和单次统一资格仍待完成。

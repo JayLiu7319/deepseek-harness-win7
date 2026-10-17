@@ -74,6 +74,8 @@ async function run({app,mainWindow,openPlugins,pluginWindow,guideWindow,environm
       title:document.querySelector('#title').textContent,status:document.querySelector('#status').textContent,
       plugins:await globalThis.dshDesktop.plugins.list(),locale:await globalThis.dshDesktop.locale()}))()`);
     assert.equal(report.shell.node,'undefined');assert.equal(report.shell.process,'undefined');assert.equal(report.shell.status,'');
+    report.updates=await evaluate(shell,'globalThis.dshDesktop.updates.check()');
+    assert.deepEqual(report.updates,{phase:'idle'});
     const example=resolve(__dirname,'../../examples/python-echo');
     const source=join(output,'broken-upgrade');
     await cp(example,source,{recursive:true,filter:file=>!file.includes('__pycache__')});

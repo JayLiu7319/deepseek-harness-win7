@@ -143,6 +143,15 @@ def build(args):
         raise ValueError('AIO requires --external-prereq-dir with fixed Microsoft offline files')
     tools = json.loads((ROOT / 'scripts/desktop-tool-inputs.json').read_text(encoding='utf-8'))
     source_inputs = desktop_source_inputs()
+    update_config = getattr(args, 'update_config', None)
+    update_bytes = None
+    if update_config is not None:
+        update_bytes = update_config.read_bytes()
+        if len(update_bytes) > 16384:
+            raise ValueError('Desktop update configuration exceeds its byte limit')
+        # Validate with the same Node16 implementation shipped in the shell;
+        # validation executes after extracting the exact Electron runtime below.
+        json.loads(update_bytes.decode('utf-8'))
     installer_inputs = {name: (ROOT / 'apps/desktop/installer' / name).read_bytes()
                         for name in ('setup.nsi','prerequisites.ps1','uninstall-files.ps1')}
     verify_file(args.electron_archive, tools['electron'])
@@ -176,6 +185,15 @@ def build(args):
         default_app = unpacked / 'resources/default_app.asar'
         if default_app.exists():
             default_app.unlink()
+        if update_bytes is not None:
+            configuration_path = unpacked / 'resources/win7-update.json'
+            configuration_path.write_bytes(update_bytes)
+            environment = dict(os.environ, ELECTRON_RUN_AS_NODE='1')
+            validation = "require(process.argv[1]).configuration(JSON.parse(require('fs').readFileSync(process.argv[2],'utf8')))"
+            subprocess.run([str(unpacked / 'DeepSeek Harness.exe'), '-e', validation,
+                            str(ROOT / 'apps/desktop/updates.cjs'), str(configuration_path)],
+                           env=environment, check=True, capture_output=True, timeout=30)
+            record['updateConfiguration'] = dict(sha256=hashlib.sha256(update_bytes).hexdigest(), channel='win7-electron22')
         application = unpacked / 'resources/app'
         application.mkdir()
         for source in sorted((ROOT / 'apps/desktop').glob('*.cjs')):
@@ -253,6 +271,8 @@ def main():
     parser.add_argument('--external-prereq-dir', type=Path)
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--portable-dir', type=Path)
+    parser.add_argument('--update-config', type=Path,
+                        help='Optional Win7 channel HTTPS URL and Ed25519 public key; absent leaves updates idle')
     parser.add_argument('--electron-archive', type=Path, default=ROOT / '.goose/tools/electron-22.3.27-win32-x64/electron-v22.3.27-win32-x64.zip')
     parser.add_argument('--nsis-archive', type=Path, default=ROOT / '.goose/tools/nsis-3.13/nsis-3.13.zip')
     args = parser.parse_args()

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-F-signed-full-installer-updates",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-UPDATES-20261017.zip",
+    "bytes": 298327,
+    "sha256": "d1f2e34d6beba49302fa6f7f65f0d9d71c81478a33003f464564325950b7c6ce",
+    "members": [
+      {
+        "path": "rc3-desktop-update-consumers-20261017-a/results.xml",
+        "bytes": 3993,
+        "sha256": "2a10b8ec7dfec53b61241f2fd520cd26caf0a652c2769968949d54d6629db931"
+      },
+      {
+        "path": "rc3-desktop-update-consumers-20261017-b/results.xml",
+        "bytes": 6069,
+        "sha256": "d2c6bb5e69198d8f551b965ff72b2b6c38d7051b99866d8fceab2c4fa20bef67"
+      },
+      {
+        "path": "rc3-desktop-update-consumers-20261017-c/results.xml",
+        "bytes": 357,
+        "sha256": "638142bb7f687daf1e99ee35a5be76675474213f8df94c7170cfc9048b8d6640"
+      },
+      {
+        "path": "rc3-desktop-update-consumers-20261017-d/results.xml",
+        "bytes": 357,
+        "sha256": "70524d33794fdc76adc99957d5b934f6b5b8e1c6d70506c0ad3e2dd11e92cecd"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-a/run.json",
+        "bytes": 264,
+        "sha256": "f7d8383af084a397bde7726665846056389aba1b8b99c982a46fc51b0bcb176f"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-a/stderr.log",
+        "bytes": 231,
+        "sha256": "c548e6340148fa4a0002320ac5c184d87d50c669e3f8535ef7f4b81f8547f9ea"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-a/stdout.json",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-b/run.json",
+        "bytes": 264,
+        "sha256": "fd42dd5760e7f13d047f7318c755910ea227d30c2e5137a10e4ecd98f14184c4"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-b/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-desktop-updater-20261017-b/stdout.json",
+        "bytes": 856,
+        "sha256": "91a276f508dd2111a7b3f032a9a21a77f5b863f026aa26c6da2f4c052d4c2a7d"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/desktop.log",
+        "bytes": 901,
+        "sha256": "6c80a929ed866aa27d162a94fc71c86d0385e694f39552524e32880f22051189"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/cordis.patch.yml",
+        "bytes": 78,
+        "sha256": "41187614e0f4986bebcf9df9f3a7fba8fbdc3a6f21e4dc6b81f4cabae598b339"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/LICENSE",
+        "bytes": 1112,
+        "sha256": "45694862d233967373308e56520e8379c3492997ff65a098825501ce5639916c"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/package.json",
+        "bytes": 263,
+        "sha256": "7db7d59888ddea7c4e9f3702bac545264f5d08f4039121828e0c5313c6bf1af5"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/python/echo/__init__.py",
+        "bytes": 76,
+        "sha256": "50304b1b3e6288912bdd5b5232b0d503177389583445a145ac1209d316f1c5bb"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/python/echo/formatting.py",
+        "bytes": 59,
+        "sha256": "0d541324b2d652c1d4aca834a210476853db0eefa4f06a478f397b2145ca6930"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/python/echo/plugin.py",
+        "bytes": 55,
+        "sha256": "2112c62ff60e58e22e2bf56ef7fb8b6a6f82495ebce27e3cd64ee301827ea622"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/broken-upgrade/README.md",
+        "bytes": 3218,
+        "sha256": "3ecb543c8f3ff6b979d2f7fb0db49fa753b3843da56f6e126c9c9919268729ee"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/main.png",
+        "bytes": 101275,
+        "sha256": "b12a946d9b6928fcd4b692d87c199cf48b3a6cb7f57ac455782632f0be6e6d3a"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/plugin-manager.png",
+        "bytes": 46555,
+        "sha256": "3cdbe45ee4f2cd709668ffd630ae5993dcb2982ea24fb5b8a68f0f48bbd42a55"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/observations/report.json",
+        "bytes": 76577,
+        "sha256": "90246ac7de3eed95b1927c4bf24ec6fa23a72e8641c8f9c7da32b62a28cc9b97"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-a/runner.json",
+        "bytes": 883,
+        "sha256": "2b69008249dc81ac4eff04703a6919bf764dd4fde049b2108ea4753a903e6221"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/desktop.log",
+        "bytes": 901,
+        "sha256": "6c80a929ed866aa27d162a94fc71c86d0385e694f39552524e32880f22051189"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/cordis.patch.yml",
+        "bytes": 78,
+        "sha256": "41187614e0f4986bebcf9df9f3a7fba8fbdc3a6f21e4dc6b81f4cabae598b339"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/LICENSE",
+        "bytes": 1112,
+        "sha256": "45694862d233967373308e56520e8379c3492997ff65a098825501ce5639916c"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/package.json",
+        "bytes": 263,
+        "sha256": "7db7d59888ddea7c4e9f3702bac545264f5d08f4039121828e0c5313c6bf1af5"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/python/echo/__init__.py",
+        "bytes": 76,
+        "sha256": "50304b1b3e6288912bdd5b5232b0d503177389583445a145ac1209d316f1c5bb"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/python/echo/formatting.py",
+        "bytes": 59,
+        "sha256": "0d541324b2d652c1d4aca834a210476853db0eefa4f06a478f397b2145ca6930"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/python/echo/plugin.py",
+        "bytes": 55,
+        "sha256": "2112c62ff60e58e22e2bf56ef7fb8b6a6f82495ebce27e3cd64ee301827ea622"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/broken-upgrade/README.md",
+        "bytes": 3218,
+        "sha256": "3ecb543c8f3ff6b979d2f7fb0db49fa753b3843da56f6e126c9c9919268729ee"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/main.png",
+        "bytes": 101275,
+        "sha256": "b12a946d9b6928fcd4b692d87c199cf48b3a6cb7f57ac455782632f0be6e6d3a"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/plugin-manager.png",
+        "bytes": 46555,
+        "sha256": "3cdbe45ee4f2cd709668ffd630ae5993dcb2982ea24fb5b8a68f0f48bbd42a55"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/observations/report.json",
+        "bytes": 76563,
+        "sha256": "20467c4dbcbd182b43de8fcfeb5b5b460e86b21d0a42e75d99fe96bb83ad78c2"
+      },
+      {
+        "path": "rc3-desktop-updates-gui-20261017-b/runner.json",
+        "bytes": 884,
+        "sha256": "766c68c386ec2c1d3a5d929bb24917385fb6ad9bf7a9e70a87ade7a6a93337d2"
+      },
+      {
+        "path": "t-ayfbumcv/test_actual_node16_signed_upda0/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-ayfbumcv/test_actual_node16_signed_upda0/stdout.json",
+        "bytes": 1221,
+        "sha256": "8d8875d226232c0515de75aef97190a204c61731fd6a941690fb62757f7e1de5"
+      },
+      {
+        "path": "t-id30d07v/test_actual_node16_signed_upda0/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-id30d07v/test_actual_node16_signed_upda0/stdout.json",
+        "bytes": 1152,
+        "sha256": "036064f1a833f96f4150c0cd2772fb71a8cb03ebe94ae0d79fb08103465afdd9"
+      },
+      {
+        "path": "t-mevxhno3/test_actual_node16_signed_upda0/stderr.log",
+        "bytes": 235,
+        "sha256": "30cfb94e46d93f2d9cb806d234cb4188da8a3bc2ce0b561cb5553f2c1c2a7767"
+      },
+      {
+        "path": "t-mevxhno3/test_actual_node16_signed_upda0/stdout.json",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "inputs": {
+    "apps/desktop/main.cjs": "d9085f4585e64f530942f1efaf76a5e761f02041ed8ba1bc9e9c85c04fd1033a",
+    "apps/desktop/preload.cjs": "dab38852165f56c8396761626aaceacd86a0609d20dcbdeaeb6c900e5f93e6e8",
+    "apps/desktop/smoke-test.cjs": "8ec51ed22bacb0af7d6d59c6f6ca3ac744fe019f3e2f217c5da0728eca574512",
+    "apps/desktop/source-input.json": "454642400a776d6d44c493cd113f3de88a15dbe8b335a8f11310a9ea0adca0f7",
+    "apps/desktop/update-coordinator.cjs": "0972672bbec6cb145e5835f5acaad3a2045152a49a59b0d5d9a0f69f8fa48186",
+    "apps/desktop/updates.cjs": "4944cf9e517b76de4b7737127e69792f360f740ad3393e9f252c7b5f13a7a42b",
+    "scripts/build_desktop.py": "2b26a4aed6c3f0ae7a8029b94bcc73b47329646269a2842aca2fc9e120c04328",
+    "scripts/build_desktop_inputs.mjs": "b2e985108b1219a54f2c71fcdefac6dd64b51ecfa5cba3154bd0f811e87bef4e",
+    "scripts/sign_desktop_update.cjs": "6ac994cd6e59f9ce3a19aca4de25d9d71b34f7420829991c4965542373a7f876",
+    "scripts/oracles/desktop_updates_current.cjs": "0d7214e1b88afd02dc6b42b504bf445c04c371e69ceddbd7774323dbd11700c9",
+    "tests/test_desktop_updates.py": "0362563c7c34a48053419a483da5e1a7a52978453b3b13d6aa13de8acd5c0296"
+  },
+  "scope": [
+    "Verbatim Source coordinator rebuilt with injected Win7 full Standard NSIS adapter; no Electron44 feed reuse.",
+    "Actual Electron22 Node16: 34 checks including real TLS refusal/trust, HTTPS redirects/limits, signature/channel/version rejection, hash/size corruption cleanup, Source operation deduplication, stop-host ordering, PowerShell helper parsing and spawn failure, and actual operator signing command.",
+    "Initial consumer run 27 passed; expanded run 26 passed/1 fixture CA failure; corrected adapter observer passed with 34 checks. These are distinct runs, not a reconstructed whole result.",
+    "Fresh actual Electron GUI b qualified in 79.439 seconds, exit0; original renderer, limited environment guide, update idle IPC, plugin rollback and Host reconnect covered; all owned processes shut down."
+  ],
+  "limitations": [
+    "No public feed/key created or published. Unconfigured packaged builds remain idle.",
+    "No real installer/UAC execution, system patch/reboot or physical Win7 acceptance.",
+    "x86 application closure and complete unified release qualification remain open."
+  ]
+}

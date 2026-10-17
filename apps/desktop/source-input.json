@@ -6,6 +6,7 @@
     "target": "node16.17",
     "format": "cjs"
   },
+  "updaterSubstrate": "Unchanged Source coordinator with explicitly injected Win7 full-installer updater; upstream electron-updater default binding is undefined and never used",
   "transportExtraction": "Original template with constant stream path and escaped newline evaluated; no browser application edits",
   "inputs": [
     {
@@ -19,6 +20,12 @@
       "sourceSha256": "484bc187cbb8d8552df5d88920435a9499b17722e19275238135cbec568de5fa",
       "target": "apps/desktop/locale.cjs",
       "sha256": "c447748305078e603279c81220cc6b031a4344cccb7734217aae6bc5e4dc8958"
+    },
+    {
+      "source": "apps/desktop/src/update-coordinator.ts",
+      "sourceSha256": "441c1cff7bd5af7240ef3b2eec0ad45d0db8aee05fdeb5501ab3fb82d0e41eed",
+      "target": "apps/desktop/update-coordinator.cjs",
+      "sha256": "0972672bbec6cb145e5835f5acaad3a2045152a49a59b0d5d9a0f69f8fa48186"
     },
     {
       "source": "apps/desktop/renderer/plugin-manager.js",

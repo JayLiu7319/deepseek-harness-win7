@@ -28,6 +28,17 @@ for(const [name,target] of [['host-protocol','wire'],['locale','locale']]){
   const result=await esbuild.transform(bytes.toString('utf8'),{loader:'ts',format:'cjs',target:'node16.17'});
   await publish('apps/desktop/'+target+'.cjs',result.code,{path,bytes});
 }
+{
+  const path='apps/desktop/src/update-coordinator.ts',bytes=await readFile(join(source,path));
+  const result=await esbuild.build({absWorkingDir:source,entryPoints:[path],bundle:true,write:false,
+    platform:'node',format:'cjs',target:'node16.17',external:['electron'],plugins:[{
+      name:'explicit-win7-updater-injection',setup(build){
+        build.onResolve({filter:/^electron-updater$/},()=>({path:'injected-updater',namespace:'win7'}));
+        build.onLoad({filter:/.*/,namespace:'win7'},()=>({contents:'export default {autoUpdater: undefined}',loader:'js'}));
+      },
+    }]});
+  await publish('apps/desktop/update-coordinator.cjs',result.outputFiles[0].contents,{path,bytes});
+}
 for(const extension of ['js','html','css']){
   const path='apps/desktop/renderer/plugin-manager.'+extension,bytes=await readFile(join(source,path));
   await publish(path,bytes,{path,bytes});
@@ -42,6 +53,7 @@ for(const extension of ['js','html','css']){
   await publish('apps/desktop-host/transport.js',script,{path,bytes});
 }
 const manifest={sourceCommit:commit,builder:{name:'esbuild',version:esbuild.version,target:'node16.17',format:'cjs'},
+  updaterSubstrate:'Unchanged Source coordinator with explicitly injected Win7 full-installer updater; upstream electron-updater default binding is undefined and never used',
   transportExtraction:'Original template with constant stream path and escaped newline evaluated; no browser application edits',inputs};
 const data=JSON.stringify(manifest,null,2)+'\n';
 if(options.check==='true')assert.equal(await readFile(join(root,'apps/desktop/source-input.json'),'utf8'),data);

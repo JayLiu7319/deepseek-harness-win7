@@ -47,8 +47,8 @@ terminal closes; other stream errors remain errors. Packaged applications reject
 development overrides. The smoke entry verifies real RPC/streaming, renderer
 isolation and actual plugin rollback. Expected control-stream errors during
 Host replacement remain separately recorded, followed by a fresh baseline
-check. Installer, update/release integration, x86 and physical Win7 acceptance
-are separate milestones.
+check. Installer qualification, public update-channel publication, x86 and
+physical Win7 acceptance are separate milestones.
 
 Standard installation may continue with a limited environment. Its finish page
 and a dismissible first-launch notice point to the local `win7-setup.html` guide.
@@ -57,3 +57,26 @@ Build the separate x86/x64 prerequisite ZIP with
 This ZIP contains Microsoft prerequisites and the explicit administrator entry
 `upgrade-win7.bat`; it does not add x86 application runtime support. AIO embeds
 the matching prerequisite set. Neither builder executes the system installers.
+
+Desktop updates retain the pinned Source coordinator, update states and shell IPC.
+The Win7 adapter installs a complete Standard NSIS package, including its paired
+Python host. `--update-config <json>` on the desktop builder embeds a configuration
+with exactly `schemaVersion: 1`, `channel: "win7-electron22"`, an HTTPS
+`manifestUrl` and a PEM Ed25519 `publicKey`. Without it, checks return idle. This
+channel must belong to the Win7 distribution; upstream Electron44 feeds are
+incompatible. No update channel or signing key is generated or published by a build.
+
+The release envelope contains base64 `payload` and Ed25519 `signature` over the
+exact payload bytes. The signed payload binds version, architecture, Electron,
+Python, publication/expiry (at most 90 days), installer HTTPS URL, byte count and
+SHA-256. Checks reject expired, incompatible and unverified metadata. Downloads
+are bounded and verified before stopping the Host. A hidden PowerShell helper
+waits for the desktop process to exit, rechecks the installer hash, then opens
+the interactive administrator installer. Successful installer completion removes
+the downloaded EXE; handoff failures retain `install.log` in the owned update
+temporary directory. User sessions remain in DSH_HOME.
+
+Release operators can create the envelope with
+`node scripts/sign_desktop_update.cjs --installer <built-standard-exe> --version <version> --artifact-url <https-url> --manifest-url <https-feed-url> --private-key <external-ed25519-pem> --output <fresh-json>`.
+The private key is never embedded. Publishing the signed feed/installer and
+real administrator installation are separate release operations.
