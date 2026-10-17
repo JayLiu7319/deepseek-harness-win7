@@ -18,11 +18,11 @@ work = Path(os.environ['DSH_FS_FIXTURE_WORK'])
 sys.path.insert(0, str(selected_root))
 from dsh.cordis.context import Context
 from dsh.core.abort import AbortController
-from dsh.core.system_prompt import SystemPrompt
+from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
 from dsh.core.tools import ToolsPlugin, ToolExecutionInput
 from dsh.fs.fs_local import FsLocalPlugin
 from dsh.fs.fs_observation_policy import FsObservationPolicyPlugin
-from dsh.fs.tool_fs import ToolFsPlugin
+from dsh.fs.tools_current import CurrentToolFs as ToolFsPlugin
 
 
 class Owner:

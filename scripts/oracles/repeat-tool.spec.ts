@@ -41,7 +41,7 @@ await ctx.plugin(AgentLoop, { agents: [] })
         ...turn.map(([name, args]) => toolCallResponse(`call-${++callId}`, name!, JSON.parse(args!))), textResponse('done'),
       ]))
       ctx.llm.registerAdapter(['fixture'], adapter)
-      const agent = ctx.agentLoop.create(SessionId(spec.mode), { provider: 'fixture', model: 'fixture' })
+      const agent = await ctx.agentLoop.create(SessionId(spec.mode), { provider: 'fixture', model: 'fixture' })
       for (const _turn of spec.turns) {
         agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
         await agent.whenIdle()

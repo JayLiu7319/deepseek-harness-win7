@@ -8,10 +8,18 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from dsh.cordis.context import Context
-from dsh.core.session import SessionPlugin
-from dsh.llm.message import create_user_message, create_assistant_message
-from dsh.llm.token_meter import TokenMeterPlugin, estimate_content, estimate_header
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.llm.message import create_user_message, create_assistant_message, create_system_message
+from dsh.llm.token_meter_current import CurrentTokenMeterPlugin as TokenMeterPlugin
+from dsh.llm.token_estimate import estimate_content, estimate_tools_tokens
 from dsh.session.projections import SessionProjectionsPlugin
+from dsh.llm.assistant_stream import AssistantStreamAccumulator
+
+
+def pack(chunks):
+    value=AssistantStreamAccumulator()
+    for chunk in chunks:value.push(dict(time=1,chunk=chunk))
+    return value.snapshot()
 
 
 class Pricing:
@@ -41,9 +49,11 @@ async def observe():
                                       surface_op=options.pop("surface_op", "append"), **options)
             for action in spec["actions"]:
                 op = action["op"]
-                header = action.get("header", dict(config=dict(provider="mock", model="mock"), system="system"))
+                header = action.get("header", dict(config=dict(provider="mock", model="mock")))
                 if op == "user":
                     user(action["text"])
+                elif op == 'system':
+                    session.append('system/message',dict(turn=1,step=max(1,step),message=create_system_message(action['text'],'fixture-system')),surface_op='append')
                 elif op == "header":
                     session.append("request/header", dict(header=header, reason="initial"))
                 elif op in ("call", "input-call"):
@@ -53,20 +63,18 @@ async def observe():
                         user(action["input"])
                     if header is not None:
                         session.append("request/header", dict(header=header, reason="initial"))
-                    text, seqs = action.get("text", "answer"), []
-                    if action.get("provenance") == "exact":
+                    text, stream = action.get("text", "answer"), []
+                    if action.get("provenance") != "empty":
                         provider_text = action.get("providerText", text)
                         chunks = [dict(type="block-start", index=0, blockType="text"),
                                   dict(type="text-delta", index=0, text=provider_text),
                                   dict(type="block-end", index=0, block=dict(type="text", text=provider_text)),
                                   dict(type="finish", reason=dict(kind="stop"))]
-                        for chunk in chunks:
-                            seqs.append(session.append("assistant/chunk", dict(turn=1, step=step, chunk=chunk))["seq"])
-                    data = dict(turn=1, step=step, message=create_assistant_message(dict(content=[dict(type='text', text=text)] if text else [], source=dict(provider='mock', model='mock'))))
+                        stream=pack(chunks)
+                    data = dict(turn=1, step=step, stream=stream, message=create_assistant_message(dict(content=[dict(type='text', text=text)] if text else [], source=dict(provider='mock', model='mock'))))
                     if "usage" in action:
                         data["usage"] = action["usage"]
-                    options = dict(source_event_seqs=seqs) if "provenance" in action else {}
-                    session.append("assistant/message", data, surface_op="append", **options)
+                    session.append("assistant/message", data, surface_op="append")
                     session.append("step/end", dict(turn=1, step=step))
                 elif op == "replace":
                     nodes = meter.measure(session)["nodes"]
@@ -76,15 +84,15 @@ async def observe():
                     if action.get("metered"):
                         session.append("compaction/prune", dict(shadowedRange=dict(start=action["start"], end=action["end"]),
                                                                shadowedSeqs=seqs, shadowedTokenCount=sum(row["heuristicTokens"] for row in selected)))
-                    user(action["text"], surface_op=dict(op="replace", start=action["start"], end=action["end"]), source_event_seqs=seqs)
+                    user(action["text"], surface_op=dict(op="replace", startSeq=action["start"], endSeq=action["end"]), source_event_seqs=seqs)
                 elif op == "usage":
-                    session.append("assistant/chunk", dict(turn=1, step=1, chunk=dict(type="usage", usage=action["usage"])))
+                    session.append("assistant/attempt", dict(turn=1, step=1, stream=pack([dict(type="usage", usage=action["usage"])])))
                 elif op == "retry":
                     session.append("llm/retry-started", dict(turn=1, step=1))
                 elif op == "context":
                     session.append("request/context", {key: action[key] for key in ("contextWindow",) if key in action})
                 elif op == "estimate":
-                    output.append(dict(content=estimate_content(action["content"]), header=estimate_header(action["header"])))
+                    output.append(dict(content=estimate_content(action["content"]), header=estimate_tools_tokens(action["header"])))
                 elif op == "measure":
                     output.append(dict(measurement=meter.measure(session, action.get("header")),
                                        projection=registry.snapshot(session), checkpoint=registry.checkpoint(session)))

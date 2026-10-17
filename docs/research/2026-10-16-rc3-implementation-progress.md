@@ -452,6 +452,10 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 当前提供端在依赖卸载时曾先释放身份作用域，随后异步取消访问已退休的 inbox。现按原版保存不参与调用方追踪的工厂依赖上下文，以真实绑定 disposer 纳入组合 effect，并在所有者清理进入前执行取消前缀，等待机器收尾再释放作用域。重复释放共享同一完成状态。六类依赖分别覆盖空闲、流式生成、注销、旧工厂拒绝及恢复后创建；122项相关回归通过，43组当前 Source/native 生命周期观察完全匹配。原失败逐轮保留；见 [有限回执](../../migration/candidates/rc3/agent-dependency-lifetime-current-checks.json)。这不是统一发行资格。
 
+### R11-E — 当前消息、文件、交互、重复工具与 token 值
+
+消息、文件系统、ask-user、依赖、重复工具和 token 七组观察器已重新挂载当前提供端并执行实际 rc.3 Source/native 捕获，485项直接消费者、漂移拒绝及保留的历史回归通过。token 保留原16条配方并新增历史内 system 消息；采用当前 envelope、嵌入流和 attempt，纯计量调用 estimateToolsTokens。原版已修复输入重复计量，旧 token 例外仍限制在旧 pin，不能用于 rc.3。重复工具观察器等待异步工厂并发送真实 canonical chunk，未删掉工具调用或错误观察。全部原始结果和各轮失败分别保留，见 [有限回执](../../migration/candidates/rc3/values-current-checks.json)。其余观察器及统一资格继续实施。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

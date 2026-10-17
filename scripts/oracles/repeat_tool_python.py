@@ -8,13 +8,16 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
-from dsh.core.agent import AgentPlugin
+from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
 from dsh.session.projections import SessionProjectionRegistry
-from dsh.core.agent_loop import AgentLoopPlugin
-from dsh.core.session import SessionPlugin
-from dsh.core.system_prompt import SystemPrompt
+from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
 from dsh.core.tools import ToolsPlugin
 from dsh.guard.repeat_tool_reminder import RepeatToolReminderPlugin
+from dsh.llm.runtime_current import CurrentLlmRuntime
+from dsh.llm.message import create_user_message
+from dsh.core.agent import AgentOptions
 
 
 class Model:
@@ -30,12 +33,17 @@ class Model:
             raise RuntimeError('fixture response budget exhausted')
         call = self.calls.pop(0)
         if call is None:
-            yield dict(choices=[dict(delta=dict(role='assistant', content='done'), finish_reason='stop')])
+            yield dict(type='block-start',index=0,blockType='text')
+            yield dict(type='text-delta',index=0,text='done')
+            yield dict(type='block-end',index=0,block=dict(type='text',text='done'))
+            yield dict(type='finish',reason=dict(kind='stop'))
         else:
             name, args = call
-            yield dict(choices=[dict(delta=dict(role='assistant', tool_calls=[dict(index=0,
-                id='call-{}'.format(len(self.requests)), type='function', function=dict(name=name, arguments=args))]),
-                finish_reason='tool_calls')])
+            identity='call-{}'.format(len(self.requests))
+            yield dict(type='block-start',index=0,blockType='tool-call')
+            yield dict(type='tool-call-delta',index=0,id=identity,name=name,argumentsDelta=args)
+            yield dict(type='block-end',index=0,block=dict(type='tool-call',id=identity,name=name,arguments=args))
+            yield dict(type='finish',reason=dict(kind='tool-calls'))
 
 
 def notice_texts(messages):
@@ -54,7 +62,16 @@ async def run():
     for spec in cases:
         ctx, model = Context(), Model(spec['turns'])
         SessionProjectionRegistry(ctx)
-        ctx.set_service('llm', model)
+        class Adapter:
+            async def resolve_model(self, provider, identifier, signal=None):
+                return dict(provider=provider, id=identifier, name=identifier)
+
+            async def stream(self, options):
+                async for chunk in model.chat_completion_stream(options['messages'], options.get('tools')):
+                    yield chunk
+
+        await ctx.plugin(CurrentLlmRuntime)
+        ctx.get('llm').register_adapter(['fixture'], Adapter())
         handle = None
         try:
             await ctx.plugin(SessionPlugin)
@@ -78,13 +95,13 @@ async def run():
                 ctx.on('tools/post-execute', lambda *_: dict(kind='block', feedback=[dict(type='text', text='blocked')]))
             if policy == 'replace':
                 ctx.on('tools/post-execute', lambda *_: dict(kind='accept', value=[dict(type='text', text='replaced')]))
-            handle = await ctx.get('agent_loop').create(spec['mode'])
+            handle = await ctx.get('agent_loop').create(spec['mode'], options=AgentOptions(provider='fixture', model='fixture'))
             for _turn in spec['turns']:
-                handle.agent.followup('go')
+                handle.agent.followup(create_user_message(dict(content=[dict(type='text',text='go')],source=dict(kind='user'))))
                 await asyncio.wait_for(handle.agent.when_idle(), 3)
             events = handle.agent.session.events
             if spec['mode'] == 'proto-key-loss':
-                assert received == [call[1] for call in spec['turns'][0]], 'the tool must receive both distinct proto values'
+                assert received == [call[1] for call in spec['turns'][0]], 'the tool must receive both distinct proto values: '+repr(dict(received=received,events=events))
             rows.append(dict(mode=spec['mode'],
                 notices=[dict(content=e['data']['content'], source=e['data']['source']) for e in events
                          if e['type'] == 'user/message' and e['data'].get('source', {}).get('plugin') == 'repeat-tool-reminder'],

@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = ('before-prompt', 'after-prompt', 'after-prompt-dispose', 'after-prompt-restore', 'plain',
          'typed', 'unknown', 'pre-aborted', 'body-aborted')
 OBSERVER_INPUTS = ('scripts/tool_errors_oracle.py', 'scripts/oracles/tool_errors_source.mts',

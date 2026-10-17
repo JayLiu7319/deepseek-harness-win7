@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTO_TARGET = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+PROTO_TARGET = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 PROTO_CASE = dict(mode='proto-key-loss', config=dict(thresholds=[2]), turns=[[
     ['probe', '{"__proto__":{"q":1},"ok":true}'],
     ['probe', '{"__proto__":{"q":2},"ok":true}'],

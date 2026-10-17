@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 GROUPS = ('real', 'read', 'image', 'window', 'escalation', 'diff')
 NAMES = tuple(json.loads((ROOT / 'scripts/oracles/fs-values-cases.json').read_text(encoding='utf-8'))['names'])
 OBSERVER_INPUTS = ('scripts/fs_values_oracle.py', 'scripts/fs_values_cases.py',
@@ -31,6 +31,7 @@ SOURCE_REQUIRED = {
     'reference/pnpm-lock.yaml',
 } | {'reference/node_modules/.pnpm/diff@9.0.0/node_modules/diff/' + name for name in (
     'package.json', 'libesm/diff/base.js', 'libesm/diff/line.js', 'libesm/patch/create.js')}
+REQUIRED_IMPORTS.update({'dsh/fs/tools_current.py', 'dsh/attachment/store_current.py', 'dsh/llm/runtime_current.py', 'dsh/core/system_prompt/current.py'})
 
 
 def digest(path):

@@ -13,7 +13,7 @@ ROOT = options.root.resolve()
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
 from dsh.core.abort import AbortController
-from dsh.core.system_prompt import SystemPrompt
+from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
 from dsh.core.tools import ToolsPlugin, ToolExecutionInput
 from dsh.interaction.user_questions import UserQuestionsPlugin
 from dsh.interaction.tool_ask_user import ToolAskUserPlugin

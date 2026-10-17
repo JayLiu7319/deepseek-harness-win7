@@ -10,10 +10,11 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 NAMES = ('base', 'base-given-id', 'base-null-id', 'user', 'user-role', 'user-string', 'user-no-source', 'assistant', 'assistant-extra', 'assistant-kind', 'tool', 'freeze', 'graph-first', 'graph-repeat', 'projection-empty', 'projection-current', 'projection-section', 'projection-same', 'projection-changed', 'projection-cleared')
 OBSERVER_INPUTS = ('scripts/message_values_oracle.py', 'scripts/oracles/message_values_source.mts', 'scripts/oracles/message_values_python.py', 'scripts/oracles/message-values-cases.json', 'scripts/message_values_cases.py') + ('scripts/import_paths.py',)
 REQUIRED_IMPORTS = {'dsh/llm/message.py', 'dsh/core/session/json.py', 'dsh/core/runtime_context.py', 'dsh/core/session/session.py', 'dsh/cordis/context.py'}
+REQUIRED_IMPORTS.update({'dsh/core/session/current_session.py', 'dsh/core/runtime_context_current.py'})
 
 
 def digest(path):

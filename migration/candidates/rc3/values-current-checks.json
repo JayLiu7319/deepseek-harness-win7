@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-E-current-values",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R11-VALUES-20261017.zip",
+    "bytes": 2516031,
+    "sha256": "3dfb3f9ad106140e1f88d14263c8d8a79a108a4f60ef82aa455b60b7bc29d2c5",
+    "members": [
+      {
+        "path": "rc3-r11-values-20261017-i/repeat_tool.0.log",
+        "bytes": 236,
+        "sha256": "b1326f87ab7afc6a3ae3159ae0b9f273ad696777c6369285f0315ec6f58ceb8b"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/repeat_tool.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/repeat_tool.json",
+        "bytes": 59898,
+        "sha256": "989e2e760c53f49eaf2a73c93270a36d90656d1701ef81372155e609e289d8e9"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/repeat_tool.python.json",
+        "bytes": 25485,
+        "sha256": "2b2d8a6e2a8e5248ca9347cbc8386a0a6383b664f52b1496446ddc72eab87bce"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/repeat_tool.ts.json",
+        "bytes": 25349,
+        "sha256": "d4f7fa5d27bc5cef47d1c5c5ed8ac1229af6b360a05d485e75c202054758308d"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.0.log",
+        "bytes": 235,
+        "sha256": "dda7058873ee56b6f6d5c59f0e59a216ac791ec125472f1e943ff948d4ac4b7b"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.json",
+        "bytes": 147248,
+        "sha256": "6bec1aecc0dca3151b91929f512fb14c0be899160e7104963142ee771530e34e"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.python.json",
+        "bytes": 63042,
+        "sha256": "369894109146b06ea22d1e00989b2e546994d499f7e2f2c9037b799f4731b027"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.ts.json",
+        "bytes": 60621,
+        "sha256": "25702c3e39ecba90f109e1efd6216170da416a194731e1feb5015992de5fd88a"
+      },
+      {
+        "path": "rc3-r11-values-20261017-i/token_meter.ts.json.loop.json",
+        "bytes": 1323,
+        "sha256": "430a516b6a12db32cb950f79493fd5f4527a2ba90d70799a0408839aede0c780"
+      },
+      {
+        "path": "rc3-r11-values-consumers-20261017/results.xml",
+        "bytes": 70013,
+        "sha256": "5dc49b7464293f0779a3871ec88f1704c7e6b59b029e3d718574b7da365ff8c2"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/paired.json",
+        "bytes": 138,
+        "sha256": "10ba50cc14236e934260bad4d65667d9cf3d46e36e35cf847c9cfb8947d69d1f"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/paired.native.json",
+        "bytes": 26509,
+        "sha256": "af514d616fff7cfb9a1cf2c6fbf96a87ec4d8344b082a376c5116331375a5b39"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/paired.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/paired.source.json",
+        "bytes": 1492433,
+        "sha256": "600020112136ed4ea615a617de5277de397cf2e70950fe196212559d761edcfc"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/paired.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/agent-dependencies-pair0/runner.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/paired.json",
+        "bytes": 138,
+        "sha256": "a75935df23a4ab0152932a33c1dcec25bfba4a5b804995a46a5a51a73b6c54af"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/paired.native.json",
+        "bytes": 24817,
+        "sha256": "91c86361b9dc7185b06334924a3de2cd54d1b1994631aa6feb75172607d2cfac"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/paired.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/paired.source.json",
+        "bytes": 1493380,
+        "sha256": "a298e95390d8de7f9dbbc734859921f533a121cf16e2118b99843bb63a7fa7ff"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/paired.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/ask-user-pair0/runner.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.fixture-cleanup.json",
+        "bytes": 610,
+        "sha256": "eef09fa0d81a2aa51df83a83aabfbad095dfaff08e103646898904bf8bd78668"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.fixture-owner.json",
+        "bytes": 25120,
+        "sha256": "b32a98d519ef9984902de8d3c964ab9da407871269671fb66c7664b97e519852"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.json",
+        "bytes": 139,
+        "sha256": "8487e9519fcde4de4c319284e29f4f31c5fbab4aacdfdfa2f75adf9fc050d8f8"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.native.json",
+        "bytes": 438504,
+        "sha256": "7f7f9228b1002a3a4d008c37d19a74d80c7b1d6ac73ee0b56991bfb248a8fb8b"
+      },
+      {
+        "path": "t-b56pltim/fs-values-pair0/paired.source.json",
+        "bytes": 1910334,
+        "sha256": "f22f8ed177ea401f0f99880d67c35907f0027a04ac55d6040d5f9ace2b133a05"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/paired.json",
+        "bytes": 138,
+        "sha256": "f9e4440f65bdde9ddac0980256f8acc2dca1a5d836f55ea538651955e8adac8f"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/paired.native.json",
+        "bytes": 29952,
+        "sha256": "824f18efa0422699fee05a457db4c5b984fdd9d6d1a806c49922c342216f50a1"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/paired.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/paired.source.json",
+        "bytes": 1497889,
+        "sha256": "28e3ad1bf4d943123427858b028fca68850339bf8d387045ad91f1980274628e"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/paired.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/message-values-pair0/runner.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/paired.json",
+        "bytes": 137,
+        "sha256": "85496a09c9ad07a2d5fa47b0a28d553fdc5b56655ce9282174255f15f9cbe159"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/paired.native.json",
+        "bytes": 13529,
+        "sha256": "ffbd797c243ef47b262e01976be4a494d9a2a98aa659d5aac8fe238a4ca4ea30"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/paired.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/paired.source.json",
+        "bytes": 1484367,
+        "sha256": "81f5fa3fdc927d1af69789beeea616c83791915a92937693e88090a41d24d3ce"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/paired.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "t-b56pltim/tool-errors-pair0/runner.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "reports": {
+    "agent-dependencies": {
+      "status": "matched",
+      "cases": 43,
+      "observationsSha256": "2cb76653a09efae0bdaf5c30e9c28eb560cb79904d32c75a52fd77eb41bdb326"
+    },
+    "ask-user": {
+      "status": "matched",
+      "cases": 11,
+      "observationsSha256": "846c86ac7133ca7f52c90eaf049125c511f4f8692361762200337dd9c5b330a2"
+    },
+    "fs-values": {
+      "status": "matched",
+      "cases": 514,
+      "observationsSha256": "bb1c17f5994fbdf26c600ff81b50007c0b494ddda2664509a994b3844a65aa44"
+    },
+    "message-values": {
+      "status": "matched",
+      "cases": 20,
+      "observationsSha256": "3cdff51df5e81bad072c8f05cc3bdb1ad012bdce3fce376bb85566c795dd717d"
+    },
+    "tool-errors": {
+      "status": "matched",
+      "cases": 9,
+      "observationsSha256": "3615d783d230ccc0064171a899d7a8728fea37b457efb1b7a9beb2c40daccb0b"
+    },
+    "repeat_tool": {
+      "cases": 14,
+      "statuses": {
+        "reviewed-upstream-bug": 1,
+        "matched": 13
+      }
+    },
+    "token_meter": {
+      "cases": 17,
+      "statuses": {
+        "matched": 17
+      }
+    }
+  },
+  "pythonConsumers": 485,
+  "inputs": {
+    "scripts/agent_dependencies_oracle.py": "65b614ecf6ff3093a1ce3c89bb33aac31b7a5194dac911da96d29f38300a0468",
+    "scripts/ask_user_oracle.py": "6289dd9c18f2ed72dad053c24ad9afbf70ec44e03a8c092e3cea8999551d4bb2",
+    "scripts/fs_values_oracle.py": "6e7027144497529fc06793fcc237ee19ee0ac3b06e668db518e0628f6f52dba9",
+    "scripts/message_values_oracle.py": "23570683e382373d75e3ab8b0872aaa126ba3d0a6232a4d64e954156ce3ede31",
+    "scripts/tool_errors_oracle.py": "d80bdc43244e61381c35b16d6c9d2adffdb249ab96de71137ecd9082ee088170",
+    "scripts/repeat_tool_oracle.py": "175cf2f8c05fa23879765b4284ee1abdf0e583759168d86ef2df8765b5a6d0fb",
+    "scripts/token_meter_oracle.py": "d902a5658bcd317c0475970fcdeadc1e14e48cdd8a924f4f9fce68077b467ee3",
+    "scripts/oracles/token-meter-cases.json": "0e29290ebefe31b3296fc8a89c13528addc1b08d4e87d5152ce01999c17894d4",
+    "scripts/oracles/token-meter.spec.ts": "fb1e3ac92fd9bd1e377467fce995198e67534e921e2d421e2bc0fcfaed38608a",
+    "scripts/oracles/token_meter_python.py": "775f9d0d1fdb0fb0f3fc6672b6574b781e091abc49f29eb6fcff2369d7533277",
+    "scripts/oracles/repeat-tool.spec.ts": "0cb37219993c7404aaf14391a3956caa68b9f6c2e5a80060bc0bf5be24a70488",
+    "scripts/oracles/repeat_tool_python.py": "f4e0ba512fe58de89240d10f317a83850927c45e411bfa68b85f0a0aa6eade52",
+    "scripts/oracles/ask_user_python.py": "cae71ca22b46bec8696a76b9155999e3a7aafdd233cf50bef62ba80b8b35bddc",
+    "scripts/oracles/message_values_python.py": "747b4dc9aa342b331e73b54efae3519a667b88f73149d970169d0a541bde9cde",
+    "scripts/oracles/fs_values_real_python.py": "7a65a9f73b67875fe0f5eae5001977d87b8c003cd1053f821b3c5e7e4d671525",
+    "scripts/oracles/fs_values_read_python.py": "9d67d1e02e832d4eec2602cd391ba23263a30474d7f668d148bd4766deedcc4c",
+    "scripts/oracles/fs_values_image_python.py": "698dbfcbd85554982705e38db9b508c3b9cc71a5dd551b195b676bcdd0ee4451"
+  },
+  "scope": [
+    "Actual Current Python providers and current Source pin for messages, filesystem, ask-user, dependency ownership, repeat guard and token meter.",
+    "All 16 original token recipes retained, plus explicit in-history system-message recipe; canonical embedded streams and attempts replace retired chunk provenance.",
+    "Current Source counts admitted provider input once; historical rc.1 token exception remains restricted to its old pin and is inactive for rc.3.",
+    "Current estimateToolsTokens pure API replaces retired estimateHeader.",
+    "Consumer suite includes identity/value/guard counterexamples and explicit historical regression tests."
+  ],
+  "failuresRetained": [
+    "rc3-r11-values-20261017-a through h: all rejected runner/value observations retained in their original directories."
+  ],
+  "limitations": [
+    "Finite paired contracts; unified release qualification pending."
+  ]
+}

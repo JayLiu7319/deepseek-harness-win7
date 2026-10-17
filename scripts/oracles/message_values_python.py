@@ -14,9 +14,9 @@ root = options.root.resolve()
 sys.path.insert(0, str(root))
 from dsh.llm import message as helpers
 from dsh.cordis.context import Context
-from dsh.core.session import Session
+from dsh.core.session.current_session import CurrentSession as Session
 from dsh.core.session.json import FrozenDict, FrozenList
-from dsh.core.runtime_context import RuntimeContextProjection, SOURCE
+from dsh.core.runtime_context_current import RuntimeContextProjection, SOURCE
 
 
 def frozen(value):

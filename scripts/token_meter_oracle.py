@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BUG_TARGET = "a66e4702047846cdaa10c66c9d3df3951f5ea70d"
+BUG_TARGET = "a66e4702047846cdaa10c66c9d3df3951f5ea70d"  # Historical exception, inactive for rc.3.
 BUG_CASE = dict(mode="late-input-anchor", actions=[dict(op="input-call", input="abcd", usage=dict(inputTokens=100, outputTokens=20)), dict(op="measure")])
 
 
