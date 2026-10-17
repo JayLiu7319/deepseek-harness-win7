@@ -65,7 +65,8 @@
       "migration/candidates/rc3/extracted-repairs-current-checks.json",
       "migration/candidates/rc3/desktop-228cfacc-current-checks.json",
       "migration/candidates/rc3/path-failure-current-checks.json",
-      "migration/candidates/rc3/extracted-parent-current-checks.json"
+      "migration/candidates/rc3/extracted-parent-current-checks.json",
+      "migration/candidates/rc3/desktop-cc4-current-checks.json"
     ],
     "unified_candidate": "228cfacca1eeb0936268077b5cec244363359705",
     "last_failed_candidate": "228cfacca1eeb0936268077b5cec244363359705",

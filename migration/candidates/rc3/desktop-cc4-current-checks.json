@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
+  "stage": "R10-R",
+  "status": "targeted-desktop-and-modern-passed",
+  "tested_zip": {
+    "bytes": 106549838,
+    "sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-CC4-DESKTOP-20261018.zip",
+    "bytes": 19220720,
+    "sha256": "8fdf589e1078eb2c9c4383593f8f0e8f2d87cec3f9b9ba1ee55f35eb4922f769",
+    "members": 17
+  },
+  "architecture": "x64",
+  "pipeChecks": 9,
+  "build": {
+    "exit_code": 0,
+    "seconds": 716.9060000000172
+  },
+  "installers": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126940549,
+      "sha256": "7281b75bb95bc9701974b8a14c102f021cc7fb827fe6b26c86771fdb66ede1ac",
+      "architecture": "x64",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64j0"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349882671,
+      "sha256": "c237c2593d8b079a42b4342710b75efc382d57b7a3f0237550516c64cfda1f9b",
+      "architecture": "x64",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64j0"
+    }
+  ],
+  "observations": {
+    "lifecycle": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "processExit": {
+        "time": "2026-10-17T21:35:36.900Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    },
+    "closedPipesPlugin": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-plugin-window-rpc-after-parent-pipe-closure",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "processExit": {
+        "time": "2026-10-17T21:35:46.622Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    }
+  },
+  "modern_profiles": {
+    "status": "passed",
+    "candidate": "228cfacca1eeb0936268077b5cec244363359705",
+    "archive_sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6",
+    "profiles": [
+      "minimal",
+      "standard",
+      "cordis"
+    ],
+    "phases": 6,
+    "scope": "Separate exact-ZIP modern original-browser fresh/cold diagnostics; complete gate remains independent."
+  },
+  "modern_results": [
+    {
+      "name": "minimal",
+      "exit_code": 0,
+      "seconds": 59.14100000000326
+    },
+    {
+      "name": "standard",
+      "exit_code": 0,
+      "seconds": 37.46799999999348
+    },
+    {
+      "name": "cordis",
+      "exit_code": 0,
+      "seconds": 39.89100000000326
+    }
+  ],
+  "prior_x86_receipt": "migration/candidates/rc3/desktop-228cfacc-current-checks.json",
+  "limitations": [
+    "Complete qualification-c is still running; these finite checks are not unified acceptance.",
+    "Prior x86 Portable and Standard/AIO remain bound to their own exact228cfacc x86 archive, unchanged and independently recorded.",
+    "No administrator installation, system patch, reboot or deferred physical Win7 execution."
+  ]
+}
