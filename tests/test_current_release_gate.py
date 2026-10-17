@@ -2321,7 +2321,7 @@ def extracted_receipt(tmp_path):
     candidate['legacy_reader_modules'] = provider['modules'].copy()
     jsonl, jsonl_inputs_digest = copy.deepcopy(jsonl_provider_runtime_fixture())
     jsonl['root'] = str(tmp_path)
-    jsonl['moduleFile'] = str(tmp_path / 'dsh/session/jsonl_store.py')
+    jsonl['moduleFile'] = str(tmp_path / 'dsh/session/jsonl_backend_current.py')
     report['jsonlProvider'] = jsonl
     candidate['jsonl_provider_observations_sha256'] = jsonl_observation_digest(jsonl['rows'])
     candidate['jsonl_provider_inputs_sha256'] = jsonl_inputs_digest
@@ -2352,14 +2352,16 @@ def test_session_text_lanes_are_mandatory(tmp_path, damage):
 
 @functools.lru_cache(maxsize=1)
 def jsonl_provider_runtime_fixture():
-    with tempfile.TemporaryDirectory(prefix='jsonl-provider-validator-fixture-') as directory:
-        output = Path(directory) / 'paired.json'
-        result = subprocess.run([sys.executable, str(ROOT / 'scripts/jsonl_provider_oracle.py'), '--output', str(output)],
-            capture_output=True, timeout=150)
-        assert result.returncode == 0 and not result.stderr, result.stderr
-        paired = json.loads(output.read_text(encoding='utf-8'))
-        native = json.loads(output.with_name('paired.native.json').read_text(encoding='utf-8'))
-        return native, paired['generatedInputsSha256']
+    directory = Path(tempfile.mkdtemp(prefix='jsonl-provider-validator-', dir=str(ROOT / '.goose/out')))
+    output = directory / 'paired.json'
+    result = subprocess.run([sys.executable, str(ROOT / 'scripts/jsonl_provider_oracle.py'), '--output', str(output)],
+        capture_output=True, timeout=150)
+    (directory / 'stdout.log').write_bytes(result.stdout)
+    (directory / 'stderr.log').write_bytes(result.stderr)
+    assert result.returncode == 0 and not result.stderr, str(output)
+    paired = json.loads(output.read_text(encoding='utf-8'))
+    native = json.loads(output.with_name('paired.native.json').read_text(encoding='utf-8'))
+    return native, paired['generatedInputsSha256']
 
 
 @pytest.mark.parametrize('damage', ['omit', 'skip', 'duplicate', 'failure'])

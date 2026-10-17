@@ -15,39 +15,38 @@ it('observes actual original compressed and plaintext providers and mutual files
   const rows: any[] = []
   const inputs: any[] = []
   for (const compression of ['zstd','none'] as const) {
-    for (const packChunks of [true,false]) {
-      const key = compression + '-' + String(packChunks)
+    for (const batchSplit of [true,false]) {
+      const key = compression + '-' + (batchSplit ? 'split' : 'whole')
       const root = join(directory, (phase === 'produce' ? 'source-' : 'native-') + key)
       const context = new Context()
       await context.plugin(SessionStore)
-      const fiber = await context.plugin(JsonlPersistence, {root, compression, packChunks})
+      const fiber = await context.plugin(JsonlPersistence, {root, compression})
       const provider: any = context.sessionPersistence
-      const metadata: any = {id:'mutual-'+key+'中文😀', version:0, createdAt:1234, cwd:'C:/jsonl-provider-fixture', delegationDepth:0,isSeeded:false}
+      const metadata: any = {id:'mutual-'+key+'中文😀', version:3, createdAt:1234, cwd:'C:/jsonl-provider-fixture', delegationDepth:0,isSeeded:false}
       const events = oneTurnLog()
       if (phase === 'produce') {
         const lazy = !existsSync(root)
-        await provider.create(metadata)
+        const handle = await provider.create(metadata)
         const detached = !existsSync(root)
-        await provider.append(metadata.id, events.slice(0,3))
+        await handle.append(batchSplit ? events.slice(0,3) : events)
         const path = provider.locate(metadata).path
         const prior = readFileSync(path)
-        await provider.append(metadata.id, events.slice(3))
+        if (batchSplit) await handle.append(events.slice(3))
+        await handle.close()
         const appended = readFileSync(path)
-        inputs.push({key, compression, packChunks, metadata, events, path, revision:await provider.readStoredRevision(metadata.id)})
+        inputs.push({key, compression, batchSplit, metadata, events, path, revision:(await provider.stat(metadata.id)).revision})
         rows.push({id:'materialization/'+key,lazy,detached,retained:appended.subarray(0,prior.length).equals(prior),
           sha256:sha(appended),relative:relative(root,path).replaceAll('\\','/')})
       } else {
         const revisions = JSON.parse(readFileSync(join(directory,'native-revisions.json'),'utf8'))
-        if (await provider.readStoredRevision(metadata.id) !== revisions[key]) throw new Error('Native cross-file full revision differs')
-        const loaded = await provider.load(metadata.id)
-        const inspected = await provider.inspect(metadata.id)
-        const suffix = await provider.readFrom(metadata.id, 2)
-        const raw = await provider.readRaw(metadata.id)
-        const prepared = await provider.prepare(metadata.id)
-        rows.push({id:'mutual/'+key,meta:loaded.meta,events:loaded.events,inspected:inspected.events.length,suffix:suffix.events,
-          raw:raw.content,filename:raw.filename,prepared:prepared.session.snapshotEvents().length,
-          endSeed:prepared.session.snapshotEvents().at(-1)!.type,unpublished:context.sessions.get(metadata.id) === undefined, revisionMatched:true,inheritedEventCount:0})
-        prepared[Symbol.dispose]()
+        const snapshot = await provider.stat(metadata.id)
+        if (snapshot.revision !== revisions[key]) throw new Error('Native cross-file full revision differs')
+        const handle = await provider.open(metadata.id,'read')
+        try {
+          const loaded = await handle.read(),suffix = await handle.read(2)
+          rows.push({id:'mutual/'+key,meta:handle.header,events:loaded.events,eventState:loaded.eventState,
+            suffix:suffix.events,access:handle.access,revisionMatched:true,inheritedEventCount:handle.inheritedEventCount})
+        } finally {await handle.close()}
       }
       await fiber.dispose()
     }

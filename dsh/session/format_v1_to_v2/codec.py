@@ -67,8 +67,10 @@ def decodePhysicalHeader(value):
     if 'origin' in source and source['origin'] != 'subagent':
         raise SessionFormatError('released v2 header origin must be "subagent"')
     header = snapshotSessionFormatJson(dict(version=2, id=source['id'], createdAt=created,
-        isSeeded=source['isSeeded'], delegationDepth=depth,
-        **{key: source[key] for key in HEADER_OPTIONAL if key in source}), 'released v2 logical header')
+        **{key: source[key] for key in ('cwd', 'parentSession') if key in source},
+        isSeeded=source['isSeeded'], **({'origin': source['origin']} if 'origin' in source else {}),
+        delegationDepth=depth, **({'agentPreset': source['agentPreset']} if 'agentPreset' in source else {})),
+        'released v2 logical header')
     assertReleasedV2Header(header)
     return header
 
@@ -135,7 +137,9 @@ def encodeHeader(header, inheritedEventCount):
     cut = sessionFormatCount(inheritedEventCount, 'format v2 inherited event count')
     if not header['isSeeded'] and cut != 0:
         raise SessionFormatError('unseeded format v2 Session has inherited events')
-    return dict(type='session', **{key: value for key, value in header.items() if value is not UNDEFINED})
+    return dict(type='session', **{key: header[key] for key in (
+        'version', 'id', 'createdAt', 'cwd', 'parentSession', 'isSeeded', 'origin',
+        'delegationDepth', 'agentPreset') if header.get(key, UNDEFINED) is not UNDEFINED})
 
 
 def encodeEvent(event):

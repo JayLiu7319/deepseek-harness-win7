@@ -515,3 +515,9 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 实际隔离Python32 Portable完成13步旅程；Electron ia32窗口93.883秒完成原界面、RPC、指南、插件回滚及重连后关闭，实际Node16更新器35项通过。x86 Standard与AIO均在9项打包通信预检后编译，分别116,389,426与424,771,491字节；AIO同时携带两种OS的补丁，共用.NET只存一次。此为fec7d602上的开发输入，不能覆盖随后JSONL修正或代替最终同包资格，未执行管理员安装、补丁重启或物理Win7验收。
 
 现有保留钩子已核验清理成功工作区5,197份未改复制文件1,390,085,961字节，以及较早失败工作区4,410份未改副本1,356,272,658字节；失败样本、XML和清理审计保留。有限归档见 [x86回执](../../migration/candidates/rc3/x86-distribution-current-checks.json)。
+
+### R11-N — 当前 JSONL 物理字节与句柄
+
+1030项实际Source/native观察完全匹配，覆盖zstd/明文、整批/拆批append、物理帧哈希、互读冷恢复，以及stat/read/list/suffix/header五种当前元数据入口。保留43条边界配方，移除观察器对已退休chunk-rows的依赖，实际挂载当前后端。配对曾揭示4项真实物理哈希差异：Python按调用方字典顺序编码v3 header，原版会重建固定字段顺序；编码和物理解码现按原版次序生成。766项JSONL、格式及观察器消费者通过。
+
+各轮失败、成功两侧原始观察及互读文件见 [有限回执](../../migration/candidates/rc3/jsonl-provider-current-checks.json)。这不是统一发行通过；干净引擎/路由候选另外发现关闭句柄后的checkpoint flush，继续修复，未把失败运行改为成功。

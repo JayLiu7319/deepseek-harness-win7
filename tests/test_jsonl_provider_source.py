@@ -32,7 +32,7 @@ def test_actual_source_and_native_compressed_jsonl_mutual_files_and_cold_consume
     oracle.validate_runtime(native, ROOT, oracle.source_identity(source), summary['generatedInputsSha256'], summary['modules'], summary['assets'])
     assert native['rows'] == source['rows']
     mutual = [row for row in source['rows'] if row['id'].startswith('mutual/')]
-    assert len(mutual) == 4 and all(row['revisionMatched'] and row['unpublished'] for row in mutual)
+    assert len(mutual) == 4 and all(row['revisionMatched'] and row['access'] == 'read' for row in mutual)
 
 
 @pytest.mark.parametrize('damage', ['root', 'python', 'moduleFile', 'modules', 'assets', 'input', 'source', 'missing', 'duplicate', 'reordered', 'outcome', 'metadata-omit', 'metadata-changed', 'metadata-mutated', 'metadata-reordered'])

@@ -19,10 +19,10 @@ sys.path.insert(0, str(ROOT))
 from dsh.cordis import Context
 from dsh.core.session import SessionPlugin
 from dsh.session.sqlite_logical import header_from_stored, logical_numbers
-from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
-from dsh.session import jsonl_store
+from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin
+from dsh.session import jsonl_backend_current
 from dsh.session.jsonl_zstd import compress_frame, decompress_frame, scan_frames
-from dsh.session.jsonl_format import parse_header_meta, scan_log
+from dsh.session.jsonl_current import scanLog
 from dsh.cordis.json_text import stringify_json
 
 
@@ -77,7 +77,7 @@ def frames(directory, source):
 async def mount(root, item):
     context = Context()
     await context.plugin(SessionPlugin)
-    await context.plugin(JsonlSessionPersistencePlugin, dict(root=str(root), compression=item['compression'], packChunks=item['packChunks']))
+    await context.plugin(CurrentJsonlSessionPersistencePlugin, dict(root=str(root), compression=item['compression']))
     return context, context.get('sessionPersistence')
 
 
@@ -109,7 +109,7 @@ def metadata_error(error, root=None):
         message = message.replace(str(root), '<root>')
     failure = dict(name=getattr(error, 'name', 'TypeError' if isinstance(error, TypeError) else 'Error'), message=message)
     if getattr(error, 'location', None) is not None:
-        failure['location'] = error.location.to_dict()
+        failure['location'] = error.location.to_dict() if hasattr(error.location, 'to_dict') else dict(error.location)
         failure['location']['path'] = failure['location']['path'].replace(str(root), '<root>')
     return dict(error=failure)
 
@@ -126,23 +126,31 @@ async def metadata_rows(directory, fixtures):
     for index, item in enumerate(fixtures):
         identity, line = item['id'], item['line']
         rows.append(dict(id='metadata-format/' + identity,
-            metadata=metadata_format_observed(lambda: parse_header_meta(line)),
-            scan=metadata_format_observed(lambda: scan_log((line + '\n').encode('utf-8')))))
+            metadata=metadata_format_observed(lambda: scanLog((line + '\n').encode('utf-8'))['meta']),
+            scan=metadata_format_observed(lambda: scanLog((line + '\n').encode('utf-8')))))
         for compression in ('zstd', 'none'):
             relative = Path(compression) / str(index) / '_no-cwd/raw' / (
-                'session.jsonl.zstd' if compression == 'zstd' else 'session.jsonl')
+                'session.v3.jsonl.zstd' if compression == 'zstd' else 'session.v3.jsonl')
             encoded = (directory / 'source-metadata' / relative).read_bytes()
             root = directory / 'native-metadata' / compression / str(index)
             path = directory / 'native-metadata' / relative
             path.parent.mkdir(parents=True)
             path.write_bytes(encoded)
             context, provider = await mount(root, dict(compression=compression, packChunks=True))
+            async def read(operation):
+                handle = await provider.open('raw', 'read')
+                try:
+                    if operation == 'header':
+                        return dict(header=handle.header, access=handle.access, inheritedEventCount=handle.inheritedEventCount)
+                    return await handle.read(2 if operation == 'suffix' else 0)
+                finally:
+                    await handle.close()
             operations = [
-                ('stored', lambda: provider.loadStored('raw')),
-                ('raw', lambda: provider.read_raw('raw')),
+                ('stat', lambda: provider.stat('raw')),
+                ('read', lambda: read('read')),
                 ('list', lambda: provider.list()),
-                ('suffix', lambda: provider.read_from('raw', 0)),
-                ('inspect', lambda: provider.inspect('raw')),
+                ('suffix', lambda: read('suffix')),
+                ('header', lambda: read('header')),
             ]
             try:
                 for name, operation in operations:
@@ -165,7 +173,7 @@ async def main():
     if any(sha((directory / name).read_bytes()) != expected for name, expected in inputs['generated'].items()):
         raise ValueError('Generated JSONL Source fixtures differ')
     original = json.loads((directory / 'source-produce.json').read_text(encoding='utf-8'))
-    fixtures = [{key: item[key] for key in ('key', 'compression', 'packChunks', 'metadata', 'events')} for item in original['inputs']]
+    fixtures = [{key: item[key] for key in ('key', 'compression', 'batchSplit', 'metadata', 'events')} for item in original['inputs']]
     if fixtures != inputs['providerFixtures']:
         raise ValueError('Generated JSONL provider fixtures differ')
     metadata = json.loads((directory / 'source-metadata.json').read_text(encoding='utf-8'))
@@ -177,38 +185,36 @@ async def main():
     for item in original['inputs']:
         root = directory / ('native-' + item['key'])
         context, provider = await mount(root, item)
-        metadata = header_from_stored(item['metadata'])
+        metadata = item['metadata']
         events = item['events']
         try:
             lazy = not root.exists()
-            await provider.create(metadata)
+            handle = await provider.create(metadata)
             detached = not root.exists()
-            await provider.append(metadata.id, events[:3])
-            path = Path(provider.locate(metadata).path)
+            await handle.append(events[:3] if item['batchSplit'] else events)
+            path = Path(provider.locate(metadata))
             prior = path.read_bytes()
-            await provider.append(metadata.id, events[3:])
+            if item['batchSplit']:
+                await handle.append(events[3:])
+            await handle.close()
             appended = path.read_bytes()
             materialized.append(dict(id='materialization/' + item['key'], lazy=lazy, detached=detached,
                 retained=appended[:len(prior)] == prior, sha256=sha(appended), relative=path.relative_to(root).as_posix()))
-            revisions[item['key']] = await provider.stored_revision(metadata.id)
+            revisions[item['key']] = (await provider.stat(metadata['id']))['revision']
         finally:
             await context.fiber.dispose()
         context, provider = await mount(directory / ('source-' + item['key']), item)
         try:
-            if await provider.stored_revision(metadata.id) != item['revision']:
+            if (await provider.stat(metadata['id']))['revision'] != item['revision']:
                 raise AssertionError('Cross-file full filesystem revision differs')
-            loaded = await provider.load(metadata.id)
-            inspected = await provider.inspect(metadata.id)
-            suffix = await provider.read_from(metadata.id, 2)
-            raw = await provider.read_raw(metadata.id)
-            prepared = await provider.prepare(metadata.id)
+            handle = await provider.open(metadata['id'], 'read')
             try:
-                mutual.append(dict(id='mutual/' + item['key'], meta=loaded.meta.to_dict(), events=loaded.events,
-                    inspected=len(inspected.events), suffix=suffix.events, raw=raw['content'], filename=raw['filename'],
-                    prepared=len(prepared.session.events), endSeed=prepared.session.events[-1]['type'],
-                    unpublished=context.get('sessions').get(metadata.id) is None, revisionMatched=True, inheritedEventCount=0))
+                loaded, suffix = await handle.read(), await handle.read(2)
+                mutual.append(dict(id='mutual/' + item['key'], meta=handle.header, events=loaded['events'],
+                    eventState=loaded['eventState'], suffix=suffix['events'], access=handle.access,
+                    revisionMatched=True, inheritedEventCount=handle.inheritedEventCount))
             finally:
-                prepared.dispose()
+                await handle.close()
         finally:
             await context.fiber.dispose()
     rows.extend(materialized + mutual + cross)
@@ -216,7 +222,7 @@ async def main():
     (directory / 'native-revisions.json').write_text(json.dumps(revisions), encoding='utf-8')
     if any(sha((directory / name).read_bytes()) != expected for name, expected in inputs['generated'].items()):
         raise ValueError('Generated JSONL Source fixtures changed during observation')
-    report = dict(root=str(ROOT), python=platform.python_version(), moduleFile=jsonl_store.__file__,
+    report = dict(root=str(ROOT), python=platform.python_version(), moduleFile=jsonl_backend_current.__file__,
         modules={name: sha((ROOT / name).read_bytes()) for name in inputs['modules']},
         assets={name: sha((ROOT / name).read_bytes()) for name in inputs['assets']},
         generatedInputsSha256=sha(arguments.inputs.read_bytes()), rows=logical_numbers(rows))

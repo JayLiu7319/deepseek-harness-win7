@@ -25,15 +25,18 @@ MODULES = ['dsh/session/persistence_jsonl_canonical.py', 'dsh/session/jsonl_stor
     'dsh/core/session/session.py', 'dsh/core/session/preparation.py', 'dsh/core/session/repair.py',
     'dsh/session/repair.py', 'dsh/boot/plugin_registry.py', 'dsh/session/__init__.py']
 ASSETS = ['dsh/session/bin/zstd/' + name for name in FORMAT_ASSETS]
-KEYS = [compression + '-' + str(pack).lower() for compression in ('zstd', 'none') for pack in (True, False)]
+MODULES = sorted(set(MODULES + [path.relative_to(ROOT).as_posix()
+    for directory in ('dsh/session', 'dsh/core/session') for path in (ROOT / directory).rglob('*.py')]))
+KEYS = [compression + '-' + batch for compression in ('zstd', 'none') for batch in ('split', 'whole')]
 INPUTS = MODULES + ASSETS + ['scripts/jsonl_provider_oracle.py', 'scripts/oracles/jsonl_provider_python.py',
     'scripts/oracles/jsonl_provider.probe.spec.ts', 'scripts/oracles/jsonl_frames.mjs',
     'scripts/oracles/jsonl_metadata.probe.spec.ts', 'scripts/oracles/vitest.jsonl-metadata.config.mts',
     'scripts/oracles/vitest.jsonl-provider-probe.config.mts', 'scripts/oracles/vitest.jsonl-provider-source.config.mts'] + [
     'reference/packages/session/session-persistence-jsonl/src/' + name + '.ts'
     for name in ('index', 'format', 'zstd', 'zstd-public-decoder', 'zstd-private-decoder', 'win32')] + [
-    'reference/packages/core/session/src/index.ts',
-    'reference/packages/core/session/src/chunk-rows.ts']
+    'reference/packages/core/session/src/' + name + '.ts'
+    for name in ('index', 'types', 'surface', 'preparation', 'repair', 'invariant',
+                 'known-event-types', 'request-header', 'seq-ranges')]
 
 
 def observation_digest(rows):
@@ -59,7 +62,7 @@ def observation_digest(rows):
     for identity in metadata_ids:
         expected.append('metadata-format/' + identity)
         expected.extend('metadata-public/' + compression + '/' + identity + '/' + operation
-            for compression in ('zstd', 'none') for operation in ('stored', 'raw', 'list', 'suffix', 'inspect'))
+            for compression in ('zstd', 'none') for operation in ('stat', 'read', 'list', 'suffix', 'header'))
     if identities[579:] != expected:
         raise ValueError('JSONL metadata observation order differs')
     if any(row.get('unchanged') is not True or not re.fullmatch('[0-9a-f]{64}', row.get('artifactSha256', ''))
@@ -78,7 +81,7 @@ def validate_runtime(report, root=None, expected_digest=None, expected_inputs=No
     if not isinstance(report, dict) or set(report) != {'root', 'python', 'moduleFile', 'modules', 'assets', 'generatedInputsSha256', 'rows'}:
         raise ValueError('JSONL runtime receipt is incomplete')
     root = Path(root if root is not None else report['root']).resolve()
-    if report['root'] != str(root) or report['python'] != '3.8.10' or report['moduleFile'] != str(root / 'dsh/session/jsonl_store.py'):
+    if report['root'] != str(root) or report['python'] != '3.8.10' or report['moduleFile'] != str(root / 'dsh/session/jsonl_backend_current.py'):
         raise ValueError('JSONL runtime provenance differs')
     for field, paths, supplied in (('modules', MODULES, expected_modules), ('assets', ASSETS, expected_assets)):
         expected = hashes(root, paths) if supplied is None else supplied
@@ -134,11 +137,11 @@ def main():
             '--config', str(ROOT / 'scripts/oracles/vitest.jsonl-metadata.config.mts')])
         produced = json.loads((workspace / 'source-produce.json').read_text(encoding='utf-8'))
         metadata = json.loads((workspace / 'source-metadata.json').read_text(encoding='utf-8'))
-        fixtures = [{key: item[key] for key in ('key', 'compression', 'packChunks', 'metadata', 'events')} for item in produced['inputs']]
+        fixtures = [{key: item[key] for key in ('key', 'compression', 'batchSplit', 'metadata', 'events')} for item in produced['inputs']]
         inputs = dict(modules=MODULES, assets=ASSETS, providerFixtures=fixtures, metadataFixtures=metadata['inputs'], generated=hashes(workspace,
             ['frames/source.json'] + ['frames/' + prefix + '-' + str(index) + '.bin'
                 for prefix in ('plain', 'frame') for index in range(10)] + ['source-metadata.json'] + [
-                'source-metadata/' + compression + '/' + str(index) + '/_no-cwd/raw/session.jsonl'
+                'source-metadata/' + compression + '/' + str(index) + '/_no-cwd/raw/session.v3.jsonl'
                 + ('.zstd' if compression == 'zstd' else '')
                 for index in range(len(metadata['inputs'])) for compression in ('zstd', 'none')]))
         input_path = output.with_name(output.stem + '.inputs.json')
@@ -167,7 +170,7 @@ def main():
             raise ValueError('JSONL observations/owned inputs changed')
         report.update(status='passed', cases=1030, observationsSha256=expected, generatedInputsSha256=generated,
             modules=native['modules'], assets=native['assets'], nativeRoot=str(product),
-            scope='Bounded checksummed frames/UTF16 paths and actual Source/native mutual files, revisions, raw export, cold preparation; arbitrary histories/competition and real Win7 remain unaccepted.')
+            scope='Current v3 handle writes in whole/split batches, checksummed frames/UTF16 paths, actual Source/native mutual files, stat revisions, read/list/suffix/header and cold read handles. Arbitrary histories/competition and physical Win7 remain unaccepted.')
     except Exception as error:
         report['failure'] = str(error)
     output.write_text(json.dumps(report, ensure_ascii=True, indent=2) + '\n', encoding='utf-8')

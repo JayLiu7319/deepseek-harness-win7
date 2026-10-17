@@ -6,11 +6,11 @@ import {join,dirname} from 'node:path'
 import {Context} from '@deepseek-ai/cordis'
 import Sessions from '@deepseek-ai/dsh-session'
 import Jsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
-import {parseHeaderMeta,scanLog} from '../../reference/packages/session/session-persistence-jsonl/src/format.ts'
+import {scanLog} from '../../reference/packages/session/session-persistence-jsonl/src/format.ts'
 import {compressZstdFrame} from '../../reference/packages/session/session-persistence-jsonl/src/zstd.ts'
 
-const base = {type:'session',id:'raw',version:0,createdAt:1,delegationDepth:0}
-const operations = ['stored','raw','list','suffix','inspect']
+const base = {type:'session',id:'raw',version:3,createdAt:1,delegationDepth:0,isSeeded:false}
+const operations = ['stat','read','list','suffix','header']
 const sha = (bytes:Buffer) => createHash('sha256').update(bytes).digest('hex')
 function formatObserved(operation: () => unknown) {
   try {return {value:operation() ?? null}} catch(error:any) {return {error:{name:error.name,message:error.message}}}
@@ -19,7 +19,7 @@ async function observed(operation: () => any,root:string) {
   try {
     const value = await operation()
     if (value && 'revision' in value) delete value.revision
-    return JSON.parse(JSON.stringify({value:value ?? null}).replaceAll(root.replaceAll('\\','\\\\'),'<root>'))
+    return JSON.parse(JSON.stringify({value:value ?? null},(key,value) => key==='revision'?undefined:value).replaceAll(root.replaceAll('\\','\\\\'),'<root>'))
   } catch(error:any) {
     return {error:{name:error.name,message:error.message.replaceAll(root,'<root>'),
       ...error.location === undefined ? {} : {location:{...error.location,path:error.location.path.replaceAll(root,'<root>')}}}}
@@ -41,18 +41,18 @@ it('observes actual malformed header and both physical encodings without mutatio
     delete missing[field]
     cases.push([field+'/missing',JSON.stringify(missing)])
   }
-  cases.push(['version/infinite',JSON.stringify(base).replace('"version":0','"version":1e999')])
+  cases.push(['version/infinite',JSON.stringify(base).replace('"version":3','"version":1e999')])
   cases.push(['retired-sandbox',JSON.stringify({...base,sandboxMode:null})])
   cases.push(['retired-approval',JSON.stringify({...base,approvalPolicy:null})])
 
   for (const [index,[id,line]] of cases.entries()) {
     inputs.push({id,line})
-    rows.push({id:'metadata-format/'+id,metadata:formatObserved(() => parseHeaderMeta(line)),
+    rows.push({id:'metadata-format/'+id,metadata:formatObserved(() => scanLog(Buffer.from(line+'\n')).meta),
       scan:formatObserved(() => scanLog(Buffer.from(line+'\n')))})
     for (const compression of ['zstd','none'] as const) {
       const root = join(directory,'source-metadata',compression,String(index))
       if (existsSync(root)) throw new Error('Metadata observation requires a fresh workspace')
-      const path = join(root,'_no-cwd','raw','session.jsonl'+(compression === 'zstd' ? '.zstd' : ''))
+      const path = join(root,'_no-cwd','raw','session.v3.jsonl'+(compression === 'zstd' ? '.zstd' : ''))
       await mkdir(dirname(path),{recursive:true})
       const plain = Buffer.from(line+'\n')
       const encoded = compression === 'zstd' ? await compressZstdFrame(plain) : plain
@@ -61,8 +61,13 @@ it('observes actual malformed header and both physical encodings without mutatio
       await ctx.plugin(Sessions)
       const fiber = await ctx.plugin(Jsonl,{root,compression})
       const provider:any = ctx.sessionPersistence
-      const invoke:any = {stored:() => provider.loadStored('raw'),raw:() => provider.readRaw('raw'),
-        list:() => provider.list(),suffix:() => provider.readFrom('raw',0),inspect:() => provider.inspect('raw')}
+      const read = async (operation:string) => {
+        const handle = await provider.open('raw','read')
+        try {return operation==='header'?{header:handle.header,access:handle.access,inheritedEventCount:handle.inheritedEventCount}:await handle.read(operation==='suffix'?2:0)}
+        finally {await handle.close()}
+      }
+      const invoke:any = {stat:() => provider.stat('raw'),read:() => read('read'),
+        list:() => provider.list(),suffix:() => read('suffix'),header:() => read('header')}
       try {
         for (const operation of operations) {
           rows.push({id:'metadata-public/'+compression+'/'+id+'/'+operation,
