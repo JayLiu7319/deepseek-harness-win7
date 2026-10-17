@@ -3,14 +3,14 @@
 const assert=require('node:assert/strict');
 const {resolve,join}=require('node:path');
 const {mkdir,writeFile}=require('node:fs/promises');
-const {DesktopHostProcess}=require('../../apps/desktop/host-process.cjs');
 const root=resolve(__dirname,'../..');
 const options=Object.fromEntries(process.argv.slice(2).reduce((rows,value,index,args)=>{
   if(value.startsWith('--'))rows.push([value.slice(2),args[index+1]]);return rows;
 },[]));
 assert.ok(options.output&&options.python,'Explicit fresh output and Python interpreter required');
+const {DesktopHostProcess}=require(join(options['shell-dir']?resolve(options['shell-dir']):join(root,'apps/desktop'),'host-process.cjs'));
 const output=resolve(options.output),report={versions:process.versions,checks:[]};
-const hostOptions={python:resolve(options.python),root,home:join(output,'home'),profile:join(output,'profile')};
+const hostOptions={python:resolve(options.python),root:options.root?resolve(options.root):root,home:join(output,'home'),profile:join(output,'profile')};
 let host;
 async function read(response){const chunks=[];for await(const chunk of response.body)chunks.push(chunk);return Buffer.concat(chunks);}
 async function run(){

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-D-Standard-AIO-build",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R10-DESKTOP-PACKAGING-20261017.zip",
+    "bytes": 122240,
+    "sha256": "3f3d3927298bf2276153cbd435c1a1036993646f09240baf220bec11eaa32f91",
+    "members": [
+      {
+        "path": "rc3-desktop-packaging-20261017-e/desktop-build.json",
+        "bytes": 71576,
+        "sha256": "4582615497c224c12cb492ac68398b67145d4b1eb7b412cd3f867be771ca8fee"
+      },
+      {
+        "path": "rc3-desktop-packaging-20261017-e/standard-nsis.log",
+        "bytes": 2420,
+        "sha256": "d652902237d745b9924c7ab2b709c6ee5a010ff971646a2b6216186bcaa78876"
+      },
+      {
+        "path": "rc3-desktop-packaging-20261017-e/aio-nsis.log",
+        "bytes": 2405,
+        "sha256": "e23d1d02539a6d6b3e1eb95e776e8d48adc9e3b36cad82da309d6887cea73cf4"
+      },
+      {
+        "path": "rc3-desktop-packaging-20261017-e/pipe-preflight.log",
+        "bytes": 274,
+        "sha256": "befac274901a170c5e655d80e96aafa5574ab24d659a03baa273cdbd402ce50e"
+      },
+      {
+        "path": "rc3-desktop-packaging-20261017-e/pipe-preflight/report.json",
+        "bytes": 867,
+        "sha256": "35063ab18a1a5256f2c22b47a331d8f58506d19bfa641161bc700e88a7f00bb2"
+      },
+      {
+        "path": "rc3-desktop-packaged-20261017-e/report.json",
+        "bytes": 74037,
+        "sha256": "67b00c03b7ea1a3cee60a52b60a8c04844192e3254514099a399417a5539f649"
+      },
+      {
+        "path": "rc3-desktop-packaged-20261017-e/main.png",
+        "bytes": 101275,
+        "sha256": "b12a946d9b6928fcd4b692d87c199cf48b3a6cb7f57ac455782632f0be6e6d3a"
+      },
+      {
+        "path": "rc3-desktop-packaging-final-contract-20261017/results.xml",
+        "bytes": 3772,
+        "sha256": "bd1e4e1f30377847210bbee191c6aacb45a72c8159ad4316dc8c872cf7fe5ae2"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 112738895,
+      "sha256": "d0ee87156c1b14e1762f2448319307f72e568cda1667e30ade681b7dd40b7cfd"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 335661882,
+      "sha256": "622e86764bf1a636d8489013d5f2d638cf5c83228f41c8637acdb23067165259"
+    }
+  ],
+  "packagedRuntime": {
+    "path": "pipe-preflight/report.json",
+    "sha256": "35063ab18a1a5256f2c22b47a331d8f58506d19bfa641161bc700e88a7f00bb2",
+    "checks": [
+      "original-index",
+      "interleaved-12-heads",
+      "actual-typert-rpc",
+      "2MiB-request-with-64KiB-frames",
+      "live-stream-baseline-and-abort",
+      "unowned-origin-rejection",
+      "no-pending-streams",
+      "forced-process-tree-exit-releases-profile",
+      "EOF-normal-shutdown"
+    ]
+  },
+  "pythonTests": 25,
+  "packagedGuiChecks": 5,
+  "installationExecuted": false,
+  "releaseQualified": false,
+  "diagnostics": [
+    "Earlier build attempts retained: a Portable completed then rejected a version-shape assertion; b over-included build fixtures and hit Win7 path lengths; c omitted native alias patches; d omitted client_files. The current closure reads frozen runtime and complete frontend manifests, retains native aliases, rejects changed bytes and passes bundled Node16 preflight before compression.",
+    "Packaged GUI retained one control-stream network error and Host-stopping request during graceful browser shutdown after stable checks; no runtime exception, stable RPC or startup failure."
+  ],
+  "limits": [
+    "The two actual NSIS compilers succeeded; no elevated installer, system patch, reboot or physical Win7 installation was executed.",
+    "Standard currently requires prerequisites; the requested reduced-capability install guidance and separate offline-upgrade ZIP are the next implementation stage.",
+    "No x86 native Python closure, app-update integration or unified release qualification is claimed.",
+    "Installer inputs are frozen per build; later source changes do not alter these artifacts or qualify a new generation."
+  ]
+}

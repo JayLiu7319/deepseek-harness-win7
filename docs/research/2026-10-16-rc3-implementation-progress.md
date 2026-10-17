@@ -430,6 +430,12 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 现代Python首轮冷观察在会话加载前取得空基线，旧回答可能提前满足完成条件，后续严格历史断言拒绝。已增加发送前attached/idle屏障，新鲜b旅程通过；原失败保留，其余三条实际观察均有一致历史和新完成序列。有限报告、宿主观察与截图逐成员核验归档，成功浏览器profile自动清理。见 [有限回执](../../migration/candidates/rc3/browser-reconnect-delivery-floating-checks.json)。这不替代Desktop安装执行或统一发行资格。
 
+### R10-D — Standard / AIO 安装载体首批
+
+新增固定Electron/NSIS输入的桌面构建器、PowerShell2兼容前置策略和NSIS向导。AIO严格按实际依赖安装，未知失败停止，需重启时不继续后续组件；卸载只移除清单中哈希仍匹配的自有文件，保留用户内容和修改，拒绝junction及运行中的应用。版本目录隔离升级，动态卸载器纳入自有清单。25项实际PowerShell策略、卸载、归档边界及CLI拒绝检查通过。
+
+实际内置Node16/Python3.8的9项预检先于压缩，原版打包界面5项通过；Standard和AIO均成功编译。初轮输入形状、长测试夹具路径、alias和client_files遗漏均保留原失败，当前运行时闭包按冻结清单校验。见 [有限回执](../../migration/candidates/rc3/desktop-packaging-current-checks.json)。此批未执行管理员安装或Win7补丁/重启；Standard降级安装指引、独立离线升级ZIP、更新集成及x86继续实施，不能把编译或解包目录启动算作安装验收。
+
 ### R11-A — 当前 DeepSeek 完整边界捕获
 
 将既有有限捕获器的Source准入切到当前rc.3后重新执行，76组实际配置、模型、序列化、SSE、HTTP、Files、设置及重试观察严格匹配，未放宽字段比较。120项原始消费者及身份/漂移拒绝用例通过，保留新鲜两侧捕获和日志；没有重标旧rc.1证据。见 [有限回执](../../migration/candidates/rc3/deepseek-capture-current-checks.json)。其余历史观察器、Source配置和统一资格继续迁移。

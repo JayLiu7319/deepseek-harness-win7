@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "electron": {
+    "version": "22.3.27",
+    "architecture": "x64",
+    "url": "https://github.com/electron/electron/releases/download/v22.3.27/electron-v22.3.27-win32-x64.zip",
+    "sha256": "ad723ed7dad32f9459f7a9de1fd6d718cf713c4809c2431503bea62ce8f786e6",
+    "bytes": 97021975
+  },
+  "nsis": {
+    "version": "3.13",
+    "url": "https://downloads.sourceforge.net/project/nsis/NSIS%203/3.13/nsis-3.13.zip",
+    "sha256": "ba63dffc4410ee89193e1cb5a41989991bd77c61068da17e3156d136b7b0b3d8",
+    "bytes": 2363925
+  }
+}
