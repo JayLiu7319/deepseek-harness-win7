@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 OBSERVER_INPUTS = ('scripts/sdk_profile_oracle.py', 'scripts/sdk_profile_values.py', 'scripts/oracles/sdk_profile_driver.py',
     'scripts/oracles/sdk_profile_source.mts', 'scripts/oracles/sdk_profile_python.py', 'scripts/canonical_llm_values.py',
     'scripts/sdk_profile_imports.json', 'scripts/sdk_profile_cases.py', 'scripts/import_paths.py')
@@ -148,7 +148,7 @@ def main():
                 stream.write('\n')
         report = dict(status='matched', scenarios=3, observationsSha256=expected,
             frame_counts={name: len(captured[name]['source']['frames']) for name in SCENARIOS},
-            scope='Actual original minimal SDK normal tool/next-model, pending-stream disposal and ordinary stream failure. Strict typed identifiers and validated live clock windows preserve full wire/durable fields. Raw owned HTTP fixture errors remain retained separately; no Root/extracted/arbitrary schedule or Win7 acceptance inferred.')
+            scope='Actual original minimal SDK with explicit Source editor composition overlay matching the Win7 product requirement: normal tool/next-model, pending-stream disposal and ordinary stream failure. Strict typed identifiers, live admission barrier and validated durable/compact-stream clocks preserve full fields. Raw owned HTTP fixture errors remain retained separately; no extracted/arbitrary schedule or Win7 acceptance inferred.')
     except Exception as error:
         report['error'] = str(error)
     with output.open('x', encoding='utf-8') as stream:

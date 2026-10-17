@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-I-current-sdk-profile",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-SDK-PROFILE-20261017.zip",
+    "bytes": 825977,
+    "sha256": "22bc4eaf208f1e13e387e3d297281d67deabdcbfc9448be1d5690c3cb84f0edc",
+    "members": [
+      {
+        "path": "rc3-sdk-profile-20261017-c/closure-review.json",
+        "bytes": 16598,
+        "sha256": "6c8dc51d90e404da39ccefe1c7395341994bf3da539b1a828dd40eb9962c8412"
+      },
+      {
+        "path": "rc3-sdk-profile-consumers-20261017-a/results.xml",
+        "bytes": 9037,
+        "sha256": "fe99cd95503b316f9aa8b186e618e3bbe15a30673be0bcbfc7da86cb51b8fabc"
+      },
+      {
+        "path": "t-mwpq3rlm/sdk-profile0/paired.capture.log",
+        "bytes": 1507,
+        "sha256": "e71f52f0cb28fa041d5a4b9872551daf5c189aecd95c5bedd67f51d4354f845e"
+      },
+      {
+        "path": "t-mwpq3rlm/sdk-profile0/paired.captured.json",
+        "bytes": 457884,
+        "sha256": "b002676ccf95fe1f8c16c64281f40382ad4b8b50d42e5c8256fc3723e5691e68"
+      },
+      {
+        "path": "t-mwpq3rlm/sdk-profile0/paired.json",
+        "bytes": 664,
+        "sha256": "f42099d06ce0a2e2043cdb18119bd2bd0865bb84166bbd7c71432e89014a38a3"
+      },
+      {
+        "path": "t-mwpq3rlm/sdk-profile0/paired.native.json",
+        "bytes": 665107,
+        "sha256": "87e8d579cf76ef90f24350b2dc1c8bedd4ae0c4e5d2a7f6c81651f54cf01bda2"
+      },
+      {
+        "path": "t-mwpq3rlm/sdk-profile0/paired.source.json",
+        "bytes": 1765133,
+        "sha256": "4f9b25d44645cadbf8a3945b02006af7ca9b0b39296d3cd28e7ba3b784d40a42"
+      }
+    ]
+  },
+  "inputs": {
+    "scripts/sdk_profile_oracle.py": "2c3bb5dd2b4f540e313bdf1022282546df2e42565d01671b5054bb0f9a1a6f69",
+    "scripts/sdk_profile_values.py": "2a518452bea03211ff3076e207c002b2bb7a23e5109e211f6cbdfa73c0e297e4",
+    "scripts/oracles/sdk_profile_driver.py": "47de9979b9584f762d0984084137e8a78afb5dd6fb7182b1052a653c45e76164",
+    "scripts/oracles/sdk_profile_source.mts": "679b9be995b10b90bcdd37e971a0897e79d81a24e56ecc8e92aa6f5cd43ecfde",
+    "scripts/oracles/sdk_profile_python.py": "b403468da722e5afe406ee1648d76a655c237f5151f7401a8b741538830834ff",
+    "scripts/canonical_llm_values.py": "f9f4f26933901fdf0553b234f73c91dcce8c59239f42381a610f09a9cd0977ea",
+    "scripts/sdk_profile_imports.json": "6638044f28edfa2d64a185249abba6a67ad634096d863f67c659ab0610b72f48",
+    "scripts/sdk_profile_cases.py": "4b1c620e0f06ec243fcc80cc6bcb37f0eb84bc05adf49b1840238862781ee2f8",
+    "scripts/import_paths.py": "b898b8c93d9a07fc8589831831e7ed224b98c807db30d8909756238cc68ed91c",
+    "tests/test_sdk_profile_consumers.py": "37ba689983626e0efa1fac748291351d420ffbf6df743fe2435e563070b7b41b",
+    "packages/bundle/sdk-minimal/cordis.patch.yml": "e74589a8c6e91a959146767cc13b0812bac58543eb671d415e160da4b530e00b"
+  },
+  "scenarios": 3,
+  "frameCounts": {
+    "normal": 22,
+    "cancel": 13,
+    "error": 17
+  },
+  "pythonConsumers": 59,
+  "scope": [
+    "Actual canonical profile boot and real SDK RPC/stdin/stdout/HTTP tool round trip, next-model request, in-stream disposal and ordinary missing-DONE failure.",
+    "Explicit Source-only profile overlay adds editor + filesystem to match the existing Win7 Minimal product requirement. Complete tools and inventory remain compared; no post-capture tool filtering.",
+    "Cancellation waits for passive real assistant-stream text-delta observation, recorded with complete attemptId/revision/index/time/chunk, then cross-checks that barrier with persisted interrupted stream. No manufactured RPC notifications.",
+    "Full durable prefix, v3 header, terminal error and cancelled tail are validated. Absolute clocks require the live capture window and stream order before typed normalization; dt/chunks remain compared. Fixed actual import closures preserve optional cancellation import bytes."
+  ],
+  "failuresRetained": [
+    "rc3-sdk-profile-20261017-b: retired chunk notification wait timed out.",
+    "rc3-sdk-profile-20261017-c: old frame counts; subsequent diagnostic canonical comparison exposed declared Minimal editor composition difference.",
+    "rc3-sdk-profile-20261017-d: wrong Node runtime rejected before capture."
+  ],
+  "limitations": [
+    "Finite owned-fixture SDK contract; extracted candidate and unified release qualification remain pending."
+  ]
+}

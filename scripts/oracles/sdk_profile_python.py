@@ -7,11 +7,32 @@ import sys
 
 selected_root = Path(os.environ['DSH_SDK_NATIVE_ROOT']).resolve()
 sys.path.insert(0, str(selected_root))
-from apps.cli.main import main
+import apps.cli.main as cli
+
+original_run_profile = cli.run_profile
+
+
+async def observed_profile(options):
+    result = await original_run_profile(dict(options, wait_for_exit=False))
+    def observed(info):
+        frame = info['frame']
+        if frame['type'] != 'chunk' or frame['chunk']['type'] != 'text-delta' or frame['chunk'].get('text') != 'SDK_PENDING':
+            return
+        path = Path(os.environ['DSH_SDK_LIVE_BARRIER'])
+        temporary = path.with_name(path.name+'.tmp')
+        with temporary.open('x', encoding='utf-8') as stream:
+            json.dump(dict(sessionId=info['agent'].session.id,frame=frame),stream)
+        os.replace(str(temporary),str(path))
+    result['ctx'].on('agent/assistant-stream', observed)
+    await result['shutdown'].wait()
+    return result
+
+
+cli.run_profile = observed_profile
 
 
 try:
-    main()
+    cli.main()
 finally:
     modules = {}
     for name, module in sorted(sys.modules.items()):

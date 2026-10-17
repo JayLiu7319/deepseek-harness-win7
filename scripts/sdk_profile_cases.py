@@ -4,7 +4,8 @@ VALUE_DAMAGES = ('missing-scenario', 'frame-missing', 'reply-order', 'reply-valu
     'durable-event', 'partial-model', 'partial-marker', 'partial-content', 'partial-causality', 'cancel-reason',
     'error-code', 'error-message', 'clock-window', 'clock-type', 'header', 'diagnostics', 'exit-type',
     'fixture', 'side', 'rows', 'module', 'closure-missing', 'closure-extra', 'group-missing', 'bytes',
-    'root', 'python', 'executable', 'workspace', 'capture-root', 'capture-python', 'capture-executable', 'optional-bytes')
+    'root', 'python', 'executable', 'workspace', 'capture-root', 'capture-python', 'capture-executable', 'optional-bytes',
+    'live-barrier', 'stream-clock', 'stream-delta')
 SOURCE_DAMAGES = ('pin', 'node', 'inputs', 'bytes', 'row', 'missing-scenario', 'fixture', 'input-shape')
 EXTRACTED_DAMAGES = ('missing', 'source-missing', 'source-hash', 'source-row', 'source-stamp', 'source-input-shape') + tuple(
     damage for damage in VALUE_DAMAGES if damage != 'bytes')

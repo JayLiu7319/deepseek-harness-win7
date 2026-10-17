@@ -11,6 +11,21 @@ import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 
+# The Win7 product explicitly retains editor + shell in Minimal. Upstream's
+# standalone SDK bundle has shell only. Apply this declared composition overlay
+# to Source, then compare complete schemas/inventory/wire facts without filters.
+SOURCE_MINIMAL_EDITOR_PATCH = '''- insert:
+    - id: fs-local
+      name: '@deepseek-ai/dsh-fs-local'
+      config:
+        cwd: !!js process.env.DSH_CWD ?? process.cwd()
+    - id: str-replace-editor
+      name: '@deepseek-ai/dsh-tool-str-replace-editor'
+      config:
+        maxOutputChars: 16000
+'''
+
+
 def read_session_logs(home):
     absolute = os.path.abspath(str(home))
     if os.name == 'nt' and not absolute.startswith('\\\\?\\'):
@@ -30,6 +45,8 @@ def run(side, scenario, options, destination):
         json.dump(dict(name='sdk-profile-probe', private=True, type='module',
             dsh=dict(profile=dict(bundles=['@deepseek-ai/dsh-sdk-minimal'], patchReload='startup'))), stream, indent=2)
         stream.write('\n')
+    if side == 'source':
+        (profile / 'cordis.patch.yml').write_text(SOURCE_MINIMAL_EDITOR_PATCH, encoding='utf-8')
     requests, observed, errors, fixture_errors = [], [], [], []
     released = threading.Event()
     stopping = threading.Event()
@@ -79,6 +96,7 @@ def run(side, scenario, options, destination):
     environment.update(DSH_HOME=str(home), DSH_TELEMETRY_DISABLED='1', DEEPSEEK_API_KEY='controlled-local-fixture',
         DEEPSEEK_BASE_URL='http://127.0.0.1:' + str(server.server_port), DSH_SDK_NATIVE_ROOT=str(options.native_root),
         DSH_SDK_SOURCE_ROOT=str(options.source_root), DSH_SDK_RUNTIME_OUTPUT=str(native_receipt),
+        DSH_SDK_LIVE_BARRIER=str(phase / 'live-barrier.json'),
         TSX_TSCONFIG_PATH=str(options.source_root / 'tsconfig.json'))
     observers = Path(__file__).resolve().parent
     if side == 'source':
@@ -126,7 +144,18 @@ def run(side, scenario, options, destination):
         send(2, 'session/prompt', dict(sessionId='minimal-controlled', contentBlocks=[dict(type='text', text='Run the controlled local tool.')]))
         wait(lambda frame: frame.get('id') == 2)
         if scenario == 'cancel':
-            wait(lambda frame: frame.get('method') == 'session.event' and frame.get('params', {}).get('event', {}).get('data', {}).get('chunk', {}).get('text') == 'SDK_PENDING')
+            barrier = phase / 'live-barrier.json'
+            while not barrier.is_file():
+                if time.monotonic() >= deadline:
+                    raise TimeoutError('Actual transient chunk did not reach the SDK agent')
+                try:
+                    frame = frames.get(timeout=0.05)
+                except queue.Empty:
+                    continue
+                observed.append(frame)
+                if 'eof' in frame or 'invalid' in frame:
+                    raise ValueError('Invalid SDK runtime output: ' + repr(frame))
+            result['liveBarrier'] = json.loads(barrier.read_text(encoding='utf-8'))
         else:
             wait(lambda frame: frame.get('method') == 'session.event' and frame.get('params', {}).get('event', {}).get('type') == 'turn/end')
         stopping.set()

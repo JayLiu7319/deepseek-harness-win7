@@ -482,3 +482,8 @@ Standard 缺少现代前置环境时允许安装，完成页提供本地指南�
 ### R11-H — Prepared LLM 当前运行时
 
 七组 prepared LLM 观察切换到当前 runtime，Agent 组使用当前 Agent/Loop/Session/Prompt；实际配对 108 项一致，消费者 143 项通过。实际导入增量经检查后写入固定白名单，验证仍检查精确闭包。只固定 assistant 观察时钟，操作超时继续使用真实时钟。归档及失败谱系见 `migration/candidates/rc3/llm-prepared-current-checks.json`。
+### R11-I — SDK 当前持久化流和真实取消屏障
+
+三条真实原版/native SDK 旅程一致：正常工具与 next-model、部分流生成时取消、缺少 DONE 的普通流错误；帧数分别为 22/13/17，消费者 59 项通过。Source 测试显式叠加 editor 与 fs-local，匹配本产品 Minimal 保留 editor + shell 的既定要求；完整工具 schema 和插件 inventory 逐项比较，不过滤捕获结果。
+
+SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试通过被动监听实际 assistant-stream，记录完整 attemptId/revision/index/time/chunk 屏障，确认部分内容已经消费后再发 shutdown，并与最终 interrupted 内嵌流核对。真实持久化/流时钟先验证窗口与顺序，再作类型化归一；原始时钟和所有 chunk/dt 字节保留。固定导入闭包、原失败、原始请求/帧/JSONL 及边界限制见 `migration/candidates/rc3/sdk-profile-current-checks.json`。尚不代表解压包或统一发行资格。

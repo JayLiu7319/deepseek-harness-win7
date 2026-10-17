@@ -4,13 +4,12 @@ import json
 from pathlib import Path
 
 from scripts.canonical_llm_values import observation_digest as value_digest
-from dsh.session.seq_ranges import encode_seq_ranges
 from scripts.sdk_profile_cases import SCENARIOS
 from scripts.import_paths import resolve_import_path
 
 
-FRAME_COUNTS = dict(normal=30, cancel=14, error=18)
-REPLY_POSITIONS = dict(normal=[0, 5, 29], cancel=[0, 5, 13], error=[0, 5, 17])
+FRAME_COUNTS = dict(normal=22, cancel=13, error=17)
+REPLY_POSITIONS = dict(normal=[0, 5, 21], cancel=[0, 5, 12], error=[0, 5, 16])
 IMPORTS = json.loads(Path(__file__).with_name('sdk_profile_imports.json').read_text(encoding='utf-8'))
 OPTIONAL_CANCEL_IMPORT = 'dsh/llm/adapter_failure.py'
 
@@ -44,7 +43,7 @@ def public(capture, scenario, destination):
         raise ValueError('SDK notification carrier differs')
     events = [frame['params']['event'] for frame in notifications if frame['method'] == 'session.event']
     statuses = [frame['params']['status'] for frame in notifications if frame['method'] == 'session.status']
-    count = dict(normal=25, cancel=10, error=13)[scenario]
+    count = dict(normal=17, cancel=9, error=12)[scenario]
     if [event['seq'] for event in events] != list(range(count)) or statuses != (['running'] if scenario == 'cancel' else ['running', 'idle']):
         raise ValueError('SDK event sequence or lifecycle differs')
     if len(capture['logs']) != 1:
@@ -52,21 +51,29 @@ def public(capture, scenario, destination):
     log_name, payload = next(iter(capture['logs'].items()))
     lines = [json.loads(line) for line in payload.splitlines()]
     expected_events = copy.deepcopy(events)
-    for event in expected_events:
-        if 'sourceEventSeqs' in event:
-            event['sourceEventSeqs'] = encode_seq_ranges(event['sourceEventSeqs'])
     if scenario == 'cancel':
-        if len(lines) != 14 or lines[1:11] != expected_events or [event['seq'] for event in lines[1:]] != list(range(13)):
+        if len(lines) != 13 or lines[1:10] != expected_events or [event['seq'] for event in lines[1:]] != list(range(12)):
             raise ValueError('Complete cancelled durable facts differ')
-        partial = lines[11]
+        partial = lines[10]
         if partial['type'] != 'assistant/message' or partial['data'].get('interrupted') is not True:
             raise ValueError('Cancelled partial-message marker differs')
         message = partial['data']['message']
-        if message['source'] != dict(kind='model', provider='deepseek-official', model='deepseek-v4-pro') or message['content'] != [dict(type='text', text='SDK_PENDING')] or partial['sourceEventSeqs'] != [8, 9]:
+        if message['source'] != dict(kind='model', provider='deepseek-official', model='deepseek-v4-pro') or message['content'] != [dict(type='text', text='SDK_PENDING')]:
             raise ValueError('Cancelled partial-message route/content/causality differs')
+        stream = partial['data']['stream']
+        if (len(stream) != 2 or stream[0].get('chunk') != dict(type='block-start', index=0, blockType='text')
+                or stream[1] != dict(type='text-chunks', time0=stream[1].get('time0'), index=0, dt=[], texts=['SDK_PENDING'])):
+            raise ValueError('Cancelled partial stream differs')
+        barrier = copy.deepcopy(capture.get('liveBarrier'))
+        if barrier != dict(sessionId='minimal-controlled', frame=dict(type='chunk', attemptId='minimal-controlled:1',
+                revision=3, index=1, time=stream[1]['time0'], chunk=dict(type='text-delta', index=0, text='SDK_PENDING'))):
+            raise ValueError('Actual pending-stream admission barrier differs')
         if lines[-2]['type'] != 'step/end' or lines[-1]['type'] != 'turn/end' or lines[-1]['data']['reason'] != dict(kind='aborted', reason=dict(kind='disposed')):
             raise ValueError('Cancellation terminal facts differ')
     else:
+        barrier = None
+        if capture.get('liveBarrier') is not None:
+            raise ValueError('Unexpected pending-stream admission barrier')
         if len(lines) != count + 1 or lines[1:] != expected_events:
             raise ValueError('Complete durable facts differ from emitted facts')
         if scenario == 'error':
@@ -75,7 +82,9 @@ def public(capture, scenario, destination):
             if events[-1]['type'] != 'turn/end' or events[-1]['data']['reason'] != dict(kind='error', error=dict(message='SSE stream ended without [DONE]', code='STREAM_CLOSED')):
                 raise ValueError('Full typed stream failure differs')
     header = lines[0]
-    if set(header) != {'type', 'version', 'id', 'createdAt', 'cwd', 'delegationDepth'} or header['id'] != 'minimal-controlled' or header['cwd'] != str(destination):
+    if (set(header) != {'type', 'version', 'id', 'createdAt', 'cwd', 'isSeeded', 'delegationDepth'}
+            or header['type'] != 'session' or type(header['version']) is not int or header['version'] != 3
+            or header['isSeeded'] is not False or header['id'] != 'minimal-controlled' or header['cwd'] != str(destination)):
         raise ValueError('SDK durable header identity differs')
     start, end = capture['startedAt'], capture['endedAt']
     times = [event['time'] for event in lines[1:]]
@@ -83,10 +92,29 @@ def public(capture, scenario, destination):
         raise ValueError('Actual SDK clock window/order differs')
     if type(header['createdAt']) is not int or not start <= header['createdAt'] <= times[0]:
         raise ValueError('Actual SDK creation clock differs')
+    # Validate real compact-stream clocks before assigning typed observation aliases.
+    # Raw captures retain every timestamp; duration deltas and all chunk fields stay compared.
     for event in events + lines[1:]:
+        last = start
+        for index, entry in enumerate(event.get('data', {}).get('stream', [])):
+            field = 'time' if entry.get('type') == 'chunk' else 'time0'
+            value = entry[field]
+            if type(value) is not int or not last <= value <= event['time']:
+                raise ValueError('Actual compact stream clock window/order differs')
+            last = value
+            if field == 'time0':
+                deltas = entry['dt']
+                if not isinstance(deltas, list) or any(type(delta) is not int or delta < 0 for delta in deltas):
+                    raise ValueError('Actual compact stream delta clock differs')
+                last += sum(deltas)
+                if last > event['time']:
+                    raise ValueError('Actual compact stream delta exceeds durable fact')
+            entry[field] = ['validated-live-clock', event['seq'], 'stream', index]
         event['time'] = ['validated-live-clock', event['seq']]
+    if barrier is not None:
+        barrier['frame']['time'] = ['validated-live-clock', 9, 'stream', 1]
     header['createdAt'] = ['validated-live-clock', 'creation']
-    return dict(group='retry', name='sdk/' + scenario, observed=dict(requests=capture['requests'], frames=frames, logName=log_name, log=lines))
+    return dict(group='retry', name='sdk/' + scenario, observed=dict(requests=capture['requests'], frames=frames, logName=log_name, log=lines, liveBarrier=barrier))
 
 
 def validate_imports(capture, root, executable, expected_modules, check_files=True):

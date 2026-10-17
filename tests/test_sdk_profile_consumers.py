@@ -79,7 +79,7 @@ def damage_runtime(report, damage):
     elif damage.startswith('partial-') or damage == 'cancel-reason':
         name, payload = next(iter(cancelled['logs'].items()))
         lines = [json.loads(line) for line in payload.splitlines()]
-        partial = lines[11]
+        partial = lines[10]
         if damage == 'partial-model':
             partial['data']['message']['source']['model'] = 'mock'
         elif damage == 'partial-marker':
@@ -87,7 +87,7 @@ def damage_runtime(report, damage):
         elif damage == 'partial-content':
             partial['data']['message']['content'][0]['text'] += 'foreign'
         elif damage == 'partial-causality':
-            partial['sourceEventSeqs'] = [7, 9]
+            partial['data']['stream'][1]['index'] = 1
         else:
             lines[-1]['data']['reason']['reason']['kind'] = 'foreign'
         cancelled['logs'][name] = '\n'.join(json.dumps(line) for line in lines) + '\n'
@@ -105,6 +105,17 @@ def damage_runtime(report, damage):
         normal['exitCode'] = False
     elif damage == 'fixture':
         normal['fixtureErrors'] = [dict(name='ConnectionResetError')]
+    elif damage == 'live-barrier':
+        cancelled['liveBarrier']['frame']['revision'] += 1
+    elif damage in ('stream-clock', 'stream-delta'):
+        name, payload = next(iter(normal['logs'].items()))
+        lines = [json.loads(line) for line in payload.splitlines()]
+        event = next(event for event in lines[1:] if event['type'] == 'assistant/message')
+        if damage == 'stream-clock':
+            event['data']['stream'][0]['time'] = normal['endedAt'] + 1
+        else:
+            event['data']['stream'][1]['dt'] = [-1]
+        normal['logs'][name] = '\n'.join(json.dumps(line) for line in lines) + '\n'
     elif damage == 'side':
         normal['side'] = 'source'
     elif damage == 'rows':
