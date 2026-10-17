@@ -63,6 +63,7 @@ async def sync_tools(
     # Drain the complete tools/list cursor chain before touching the registry.
     raw_tools: List[Any] = []
     cursor = None
+    seen_cursors, seen_names = set(), set()
     while True:
         if hasattr(client, "request"):
             request = {"method": "tools/list"}
@@ -84,6 +85,20 @@ async def sync_tools(
         else:
             raw_tools.extend(page or [])
             cursor = None
+        if opts.get('currentContract'):
+            # Validate the current page before its cursor, matching Source's
+            # fetch phase error order. No previous registration is touched.
+            page_tools = page.get('tools', []) if isinstance(page, dict) else page or []
+            for tool in page_tools:
+                raw_name = tool.get('name') if isinstance(tool, dict) else getattr(tool, 'name', '')
+                public_name = public_tool_name(server_name, raw_name)
+                if public_name in seen_names:
+                    raise ValueError('mcp-client(%s): server listed tool "%s" more than once — invalid tool list' % (server_name, raw_name))
+                seen_names.add(public_name)
+            if cursor:
+                if cursor in seen_cursors:
+                    raise ValueError('mcp-client(%s): server repeated a tools/list continuation cursor — invalid tool list' % server_name)
+                seen_cursors.add(cursor)
         if not cursor:
             break
 

@@ -14,6 +14,7 @@ class McpClientPlugin(Plugin):
     name = '@deepseek-ai/dsh-mcp-client'
     inject = ['tools']
     Config = CONFIG
+    connection_class = McpConnection
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__(config)
@@ -40,7 +41,7 @@ class McpClientPlugin(Plugin):
                     _active_server_names.pop(owner_id)
             return release
         ctx.effect(reserve)
-        connection = McpConnection(ctx, self.config, policy)
+        connection = self.connection_class(ctx, self.config, policy)
         self.connection = connection
         ctx.effect(lambda: connection.dispose)
         outcome = await connection.ready

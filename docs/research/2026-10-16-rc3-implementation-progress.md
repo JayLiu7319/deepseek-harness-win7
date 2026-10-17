@@ -327,3 +327,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R09-C — 外部应用鉴权路由与图标
 
 三个WebServer路由先经过Connection Host/Origin与浏览器鉴权，再读取正文或解析应用；严格校验方法、JSON类型/64KiB上限、可用应用及实际目录。共享懒解析、缓存正/空图标，ENOENT只刷新当前项一次并清除图标缓存。SSH只取继承process层；图标按原版macOS、Windows PowerShell -File、Linux XDG策略提取，临时文件及时释放。80组配对、321项原生和25项原版测试通过；真实TCP覆盖未读大正文鉴权、chunked成功、超限可读拒绝和卸载，Windows实际System.Drawing生成PNG后清理通过。初轮刷新场景提前拒绝和WebServer测试夹具错误保留，最终正旅程有显式断言。回执 `migration/candidates/rc3/open-in-app-host-current-checks.json`；生产组装、原版浏览器和Desktop资格未签收。
+
+### R09-D — MCP分页循环与代际保留
+
+候选MCP provider对tools/list重复cursor立即拒绝；当前页重复工具优先报错，fetch失败不处置上一代注册。15组配对、115项原生和107项原版测试通过。实际当前插件通知循环后旧工具仍能调用，后续合法通知正常换代；真实stdio服务重复cursor只被请求两次，错误不挂起并回收进程。现有HTTP、图片、ACP创建/撤销消费者同时通过。初轮actor依赖/输出/service及配置夹具错误保留；回执 `migration/candidates/rc3/mcp-current-checks.json`。生产映射和统一验收仍待完成。

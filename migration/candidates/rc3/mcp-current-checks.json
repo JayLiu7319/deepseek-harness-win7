@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R09-D-MCP-cursor-cycles",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 15,
+    "report": {
+      "path": ".goose/out/rc3-r09-mcp-cursor-final-paired-20261017/report.json",
+      "sha256": "6413a6a5fd4a78656dc57506a2e17c97f3641920ad2134f7a5dbece1c8035eb5"
+    },
+    "corpus": {
+      "path": "scripts/oracles/mcp_current_cases.json",
+      "sha256": "8abe25d4f95ca05333952df7620ab1018ce5f88d38a2f47cf1f720ab002ddcf6"
+    }
+  },
+  "native": {
+    "passed": 115,
+    "command": {
+      "path": ".goose/out/rc3-r09-mcp-cursor-native-qualified-20261017/command.json",
+      "sha256": "c1504e6faa76059b3bc762d862bcfb2950218e5a2596bbdb81e8e41874b8ccd0"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-mcp-cursor-native-qualified-20261017/pytest.xml",
+      "sha256": "65b5d322fe83c6dd71428337778563ed1d4403881dd035aa2a62140b14e18efb"
+    }
+  },
+  "source": {
+    "passed": 107,
+    "suites": 3,
+    "command": {
+      "path": ".goose/out/rc3-r09-mcp-cursor-source-20261017/command.json",
+      "sha256": "250542dd67c204fe89f0326b58ef7ad8a5dccbce386225e67af4915938958398"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-mcp-cursor-source-20261017/source.xml",
+      "sha256": "54a7090e1dc3d9a6fb09ca67b6ca589a126ebe70b54e548ce29e173f4b774409"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/mcp/current.py",
+      "sha256": "617e058d3f9146b77119364d5ae53bc8a9a88dc2669a626821196159fa815e74"
+    },
+    {
+      "path": "dsh/mcp/tools.py",
+      "sha256": "81e2f4a1afe72c67054ae4fea8c5065a682953c3f4f7d6efd111f7b3cae5ff0f"
+    },
+    {
+      "path": "dsh/mcp/client.py",
+      "sha256": "421849bb428ba99e44c6f2ecc55a288bab73f0ec809e32af2c46c486905eba91"
+    },
+    {
+      "path": "dsh/mcp/connection.py",
+      "sha256": "c0cb999914f358851fd6f5656b93c4592e321492f952ea2a96f40690031262da"
+    }
+  ],
+  "scope": [
+    "Current bridge rejects immediate/multiple page cursor cycles after current-page duplicate validation, before any old-generation disposer or new registration. Cursor identity remains exact and empty terminal cursor is accepted.",
+    "Current plugin injects current behavior through its connection class; notification failure retains callable old generation, later valid notification swaps and unload cleans. Actual stdio server returns repeated cursor exactly twice, startup rejects without hanging and process closes.",
+    "Existing actual MCP stdio/HTTP/image and ACP factory/ownership consumers pass. Initial actor missing Prompt/explicit output/native service and current plugin config fixture errors are retained in distinct diagnostic directories."
+  ],
+  "remaining": [
+    "Current canonical plugin mapping/profile activation and unified qualification."
+  ]
+}

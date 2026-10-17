@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'open-in-app-host-current':
+        if case['kind'] == 'mcp-current':
+            from scripts.oracles.mcp_current_python import execute as mcp_current_execute
+            value = mcp_current_execute(case)
+        elif case['kind'] == 'open-in-app-host-current':
             from scripts.oracles.open_in_app_host_current_python import execute as open_in_app_host_execute
             value = open_in_app_host_execute(case)
         elif case['kind'] == 'open-in-app-current':

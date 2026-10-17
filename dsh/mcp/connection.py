@@ -51,6 +51,7 @@ class _UnconnectedGeneration:
 
 
 class McpConnection:
+    current_contract = False
     def __init__(self, ctx: Any, config: Dict[str, Any], policy: Dict[str, Any]):
         self.ctx, self.config, self.policy = ctx, config, policy
         self.disposed = False
@@ -66,6 +67,8 @@ class McpConnection:
         self._opts = {'serverName': config.get('serverName', 'default'),
                       'toolCallTimeoutMs': config.get('toolCallTimeoutMs', 60000),
                       'registrationFailure': 'contain'}
+        if self.current_contract:
+            self._opts['currentContract'] = True
         self._label = 'mcp-client(%s)' % self._opts['serverName']
         self.ready = asyncio.get_event_loop().create_future()
         self._start_task = asyncio.create_task(self._initial())

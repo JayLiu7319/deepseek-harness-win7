@@ -112,3 +112,5 @@ R06-F: [current Workspace identity/snapshots](workspace-current-checks.json):110
 R09-B: [verified external application launches](open-in-app-resolver-current-checks.json):100 actual pairs,192 selected native and38 unchanged Source tests pass. Exported catalog, actual filesystem locators, registry/XDG precedence, numeric ICU ordering and detached child survival/credential scrub are covered. Authenticated routes/icons, production activation and desktop acceptance remain open.
 
 R09-C: [authenticated external-app routes/icons](open-in-app-host-current-checks.json):80 actual pairs,321 selected native and25 unchanged Source tests pass. Actual HTTP pre-body auth/bounded chunks, stale launcher refresh/removal, icon cache and real Windows PNG extraction/temp cleanup are covered. Current profile/frontend/desktop qualification remains open.
+
+R09-D: [MCP cursor rejection](mcp-current-checks.json):15 actual pairs,115 selected native and107 unchanged Source tests pass. Repeated-cursor precedence, retained generation, later successful notification swap and real stdio bounded startup/process closure are covered. Current profile activation remains open.

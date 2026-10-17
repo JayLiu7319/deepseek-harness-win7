@@ -1,0 +1,1021 @@
+[
+  {
+    "case": "empty",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": []
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": []
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": []
+    }
+  },
+  {
+    "case": "single",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": [
+          "mcp__test__one"
+        ]
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": [
+        "mcp__test__one"
+      ]
+    }
+  },
+  {
+    "case": "pages",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [
+          {
+            "name": "two",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "b"
+      },
+      {
+        "tools": [
+          {
+            "name": "three",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": [
+          "mcp__test__one",
+          "mcp__test__two",
+          "mcp__test__three"
+        ]
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "b"
+          }
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": [
+        "mcp__test__one",
+        "mcp__test__two",
+        "mcp__test__three"
+      ]
+    }
+  },
+  {
+    "case": "empty-middle",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [],
+        "nextCursor": "b"
+      },
+      {
+        "tools": [
+          {
+            "name": "last",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": ""
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": [
+          "mcp__test__last"
+        ]
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "b"
+          }
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": [
+        "mcp__test__last"
+      ]
+    }
+  },
+  {
+    "case": "repeated",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [],
+        "nextCursor": "a"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "cycle",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [
+          {
+            "name": "two",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "b"
+      },
+      {
+        "tools": [
+          {
+            "name": "three",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "b"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "space-cursor",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": " "
+      },
+      {
+        "tools": [],
+        "nextCursor": " "
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": " "
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "case-sensitive-cursor",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [],
+        "nextCursor": "A"
+      },
+      {
+        "tools": [
+          {
+            "name": "last",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": [
+          "mcp__test__last"
+        ]
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "A"
+          }
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": [
+        "mcp__test__last"
+      ]
+    }
+  },
+  {
+    "case": "unicode-cursor",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "\u6e38\u6807"
+      },
+      {
+        "tools": [],
+        "nextCursor": "\u6e38\u6807"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "\u6e38\u6807"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "duplicate-before-cursor",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server listed tool \"one\" more than once \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "duplicate-before-next-fetch",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "error": "must not reach this page"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server listed tool \"one\" more than once \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "network-preserves",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "one",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "a"
+      },
+      {
+        "error": "network failed"
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "error": "network failed"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old"
+      ]
+    }
+  },
+  {
+    "case": "old-multiple-preserve",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [],
+        "nextCursor": "a"
+      }
+    ],
+    "previous": [
+      "old1",
+      "old2"
+    ],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": [
+        "mcp__test__old1",
+        "mcp__test__old2"
+      ]
+    }
+  },
+  {
+    "case": "initial-reject",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [],
+        "nextCursor": "a"
+      },
+      {
+        "tools": [],
+        "nextCursor": "a"
+      }
+    ],
+    "previous": [],
+    "expected": {
+      "outcome": {
+        "error": "mcp-client(test): server repeated a tools/list continuation cursor \u2014 invalid tool list"
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "a"
+          }
+        }
+      ],
+      "disposed": [],
+      "names": []
+    }
+  },
+  {
+    "case": "long-valid-chain",
+    "kind": "mcp-current",
+    "pages": [
+      {
+        "tools": [
+          {
+            "name": "0",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "0"
+      },
+      {
+        "tools": [
+          {
+            "name": "1",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "1"
+      },
+      {
+        "tools": [
+          {
+            "name": "2",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "2"
+      },
+      {
+        "tools": [
+          {
+            "name": "3",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "3"
+      },
+      {
+        "tools": [
+          {
+            "name": "4",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "4"
+      },
+      {
+        "tools": [
+          {
+            "name": "5",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "5"
+      },
+      {
+        "tools": [
+          {
+            "name": "6",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "6"
+      },
+      {
+        "tools": [
+          {
+            "name": "7",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "7"
+      },
+      {
+        "tools": [
+          {
+            "name": "8",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "8"
+      },
+      {
+        "tools": [
+          {
+            "name": "9",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "9"
+      },
+      {
+        "tools": [
+          {
+            "name": "10",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "10"
+      },
+      {
+        "tools": [
+          {
+            "name": "11",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "11"
+      },
+      {
+        "tools": [
+          {
+            "name": "12",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "12"
+      },
+      {
+        "tools": [
+          {
+            "name": "13",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "13"
+      },
+      {
+        "tools": [
+          {
+            "name": "14",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "14"
+      },
+      {
+        "tools": [
+          {
+            "name": "15",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "15"
+      },
+      {
+        "tools": [
+          {
+            "name": "16",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "16"
+      },
+      {
+        "tools": [
+          {
+            "name": "17",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "17"
+      },
+      {
+        "tools": [
+          {
+            "name": "18",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "18"
+      },
+      {
+        "tools": [
+          {
+            "name": "19",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ],
+        "nextCursor": "19"
+      },
+      {
+        "tools": [
+          {
+            "name": "20",
+            "inputSchema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "outcome": {
+        "registered": [
+          "mcp__test__0",
+          "mcp__test__1",
+          "mcp__test__2",
+          "mcp__test__3",
+          "mcp__test__4",
+          "mcp__test__5",
+          "mcp__test__6",
+          "mcp__test__7",
+          "mcp__test__8",
+          "mcp__test__9",
+          "mcp__test__10",
+          "mcp__test__11",
+          "mcp__test__12",
+          "mcp__test__13",
+          "mcp__test__14",
+          "mcp__test__15",
+          "mcp__test__16",
+          "mcp__test__17",
+          "mcp__test__18",
+          "mcp__test__19",
+          "mcp__test__20"
+        ]
+      },
+      "calls": [
+        {
+          "method": "tools/list"
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "0"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "1"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "2"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "3"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "4"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "5"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "6"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "7"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "8"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "9"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "10"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "11"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "12"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "13"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "14"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "15"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "16"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "17"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "18"
+          }
+        },
+        {
+          "method": "tools/list",
+          "params": {
+            "cursor": "19"
+          }
+        }
+      ],
+      "disposed": [
+        "old"
+      ],
+      "names": [
+        "mcp__test__0",
+        "mcp__test__1",
+        "mcp__test__2",
+        "mcp__test__3",
+        "mcp__test__4",
+        "mcp__test__5",
+        "mcp__test__6",
+        "mcp__test__7",
+        "mcp__test__8",
+        "mcp__test__9",
+        "mcp__test__10",
+        "mcp__test__11",
+        "mcp__test__12",
+        "mcp__test__13",
+        "mcp__test__14",
+        "mcp__test__15",
+        "mcp__test__16",
+        "mcp__test__17",
+        "mcp__test__18",
+        "mcp__test__19",
+        "mcp__test__20"
+      ]
+    }
+  }
+]
