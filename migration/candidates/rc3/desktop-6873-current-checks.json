@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
+  "status": "finite-observations-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-6873-DESKTOP-20261017.zip",
+    "bytes": 596879,
+    "sha256": "7bb4c35f705e30abddace0567fcb9ef7a0484f1f17cce035e7ea2e4999db5987",
+    "members": 63
+  },
+  "portable_x86": {
+    "command": [
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-6873f791-20261017-a\\extracted\\dsh-win7-portable\\python.exe",
+      "-I",
+      "-B",
+      "-u",
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\scripts\\portable_runtime_probe.py",
+      "--workspace",
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-6873f791-20261017-a\\workspace",
+      "--architecture",
+      "x86"
+    ],
+    "exit_code": 0,
+    "seconds": 49.48399999999674,
+    "archive": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-portable-x86-6873f791-20261017-a\\dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+    "archiveSha256": "bece240b5c454e1930f2853f828492549d31fa1f838d70e92b4627cbbcf4d937",
+    "unchanged": true,
+    "candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3"
+  },
+  "builds": [
+    {
+      "architecture": "x86",
+      "pipeChecks": 9,
+      "build": {
+        "exit_code": 0,
+        "seconds": 697.8899999999849
+      },
+      "installationExecuted": false
+    },
+    {
+      "architecture": "x64",
+      "pipeChecks": 9,
+      "build": {
+        "exit_code": 0,
+        "seconds": 706.1870000000054
+      },
+      "installationExecuted": false
+    }
+  ],
+  "installers": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115429618,
+      "sha256": "04bfca7425ce216bf462bb86c2845554048f82edc1c10bbd6e502ae3cf8f895e",
+      "architecture": "x86",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32g0"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423781882,
+      "sha256": "701c4ca2d74db306d192e88b9e6e8e3189e7766a1f8bc823555b32e6808dc596",
+      "architecture": "x86",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32g0"
+    },
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126307907,
+      "sha256": "860714c8536a926b7e65b7b54d8a15703885e4e11e6e470c6f64d146ba410fee",
+      "architecture": "x64",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64g0"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349221478,
+      "sha256": "a42c8c125e4d39061ef2472af729db71fbcc4847130f1afd585e8f232c5fa356",
+      "architecture": "x64",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64g0"
+    }
+  ],
+  "observations": {
+    "x86": {
+      "lifecycle": {
+        "status": "qualified",
+        "checks": [
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-single-instance-ownership",
+          "packaged-graceful-shutdown",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "processExit": {
+          "time": "2026-10-17T15:45:27.959Z",
+          "phase": "closing",
+          "code": 0,
+          "signal": null
+        }
+      },
+      "closedPipesPlugin": {
+        "status": "qualified",
+        "checks": [
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-plugin-window-rpc-after-parent-pipe-closure",
+          "actual-single-instance-ownership",
+          "packaged-graceful-shutdown",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "processExit": {
+          "time": "2026-10-17T15:45:40.958Z",
+          "phase": "closing",
+          "code": 0,
+          "signal": null
+        },
+        "pluginWindow": {
+          "url": "dsh-app://shell/plugin-manager.html",
+          "node": "undefined",
+          "process": "undefined",
+          "title": "\u684c\u9762\u63d2\u4ef6",
+          "status": "",
+          "plugins": []
+        }
+      }
+    },
+    "x64": {
+      "lifecycle": {
+        "status": "qualified",
+        "checks": [
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-single-instance-ownership",
+          "packaged-graceful-shutdown",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "processExit": {
+          "time": "2026-10-17T15:48:19.541Z",
+          "phase": "closing",
+          "code": 0,
+          "signal": null
+        }
+      },
+      "closedPipesPlugin": {
+        "status": "qualified",
+        "checks": [
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-plugin-window-rpc-after-parent-pipe-closure",
+          "actual-single-instance-ownership",
+          "packaged-graceful-shutdown",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "processExit": {
+          "time": "2026-10-17T15:48:30.322Z",
+          "phase": "closing",
+          "code": 0,
+          "signal": null
+        },
+        "pluginWindow": {
+          "url": "dsh-app://shell/plugin-manager.html",
+          "node": "undefined",
+          "process": "undefined",
+          "title": "\u684c\u9762\u63d2\u4ef6",
+          "status": "",
+          "plugins": []
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Separate finite desktop qualification; the single complete release gate remains independent.",
+    "No administrator installation, system patch or reboot executed. Physical Win7 validation is deferred by user.",
+    "Actual x86 and x64 packaged lifecycle and separate plugin windows after parent-pipe closure both observed clean physical process exit."
+  ]
+}
