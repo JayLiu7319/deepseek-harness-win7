@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "status": "targeted-passed",
+  "stage": "R11-AG-extracted-sharing-and-composed-adapter",
+  "observer_commits": [
+    "4d420639",
+    "228cfacca1eeb0936268077b5cec244363359705"
+  ],
+  "tested_archive": {
+    "candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
+    "bytes": 106549839,
+    "sha256": "6f3d98571ecf06e019783319f2c4b641efc300a625550e55876383470ff24deb"
+  },
+  "inputs": {
+    "scripts/oracles/jsonl_sharing_python.py": "db1b54b31b7312bbeb1e0249b3f98f0175ff3b9cc107284e5e5d1462bbca571f",
+    "scripts/verify_portable.py": "acfc7adc27842bef068034fa243f058872e46f553e82adfc69da4b6641d53971",
+    "scripts/verify_release.py": "5f027e7c2b8dfb0702ffd62d4a479f2c7007ac28e91ea29646924ee5d01e3f0f",
+    "tests/test_current_release_gate.py": "9d5cc252de1d3bccffdc100de181b5e79045ea23da7b5fba05c9859192cfdb0b",
+    "tests/test_jsonl_sharing_consumers.py": "a54356e819400f493b3f0f8d6efb3570d37a774fcc97b248b96a3a9719ec47d4",
+    "scripts/portable_runtime_probe.py": "900ad8e7540aaf8fce936be8c75fae6cae3c2b1c16965aa8f3ed9f254a7b46c3",
+    "tests/test_browser108_gate.py": "5cb3c1754ea285a3e9b1d8737543c4a17e51aca28a2b6f60c97d4d76ec370598"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-EXTRACTED-REPAIRS-20261018.zip",
+    "bytes": 22525024,
+    "sha256": "0ba6edae1b80ef66f3acec939efac06c0a15842d77731582d70a36bcd23d089e",
+    "members": 34
+  },
+  "targeted": [
+    {
+      "scope": "sharing complete-observation and extracted receipt controls",
+      "passed": 50,
+      "seconds": 574.313
+    },
+    {
+      "scope": "release collection guards",
+      "passed": 5,
+      "seconds": 22.312
+    },
+    {
+      "scope": "browser108 receipt/injection/x86/updated collection guards",
+      "passed": 106,
+      "seconds": 21.953
+    }
+  ],
+  "actual_extracted": {
+    "sharing_cases": 4,
+    "complete_values_and_physical_revisions_equal": true,
+    "sdk": [
+      "normal",
+      "cancel",
+      "error"
+    ],
+    "browser108_presets": [
+      "minimal",
+      "standard",
+      "cordis"
+    ],
+    "browser108_fresh_cold_phases": 6,
+    "composed_adapter_sha256": "68831455107c3737bfbb71d9fc79692afb30bdcaf2eb8d526819958838e3851f"
+  },
+  "additional_finite_diagnostics": {
+    "repaired_drivers": 11,
+    "pinned_node": "v22.22.2",
+    "rc1_capability_categories": 21,
+    "legacy_readers": "passed",
+    "cordis": "C1-C67 accepted by existing explicit PY38-RESOLVED-AWAIT criterion; raw C58 divergence retained"
+  },
+  "retained_failures": [
+    "Different physical fixture revisions: four exact revision fields; no observation filtering added.",
+    "Old compat.js fragment hash compared with full runtime injection; original failed report unchanged.",
+    "Reused SDK native phase directory already existed before SDK process launch; fresh explicitly named phase passes.",
+    "Default Node22.20 capability run rejected; pinned22.22.2 fresh diagnostic matches."
+  ],
+  "boundary": "Independent targeted diagnostics only. All failed extracted/full runs remain failed. Single clean 228cfacc release qualification and separate desktop/x86 lanes are running; no stitching of partial results. Administrator installation and user-deferred Win7 execution remain untested."
+}
