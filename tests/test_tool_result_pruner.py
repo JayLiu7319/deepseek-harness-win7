@@ -5,10 +5,11 @@ from pathlib import Path
 import pytest
 
 from dsh.boot.plugin_registry import install_harness_plugin_classes
-from dsh.compaction.pruner import ToolResultPruner, ToolResultPrunerPlugin, DEFAULTS, PRUNE_MARKER, code_point_length, resolve_config
+from dsh.compaction.pruner import DEFAULTS, PRUNE_MARKER, code_point_length, resolve_config
+from dsh.compaction.current import CurrentToolResultPruner as ToolResultPruner, CurrentToolResultPrunerPlugin as ToolResultPrunerPlugin
 from dsh.cordis.context import Context
 from dsh.cordis.loader import Loader
-from dsh.core.session import SessionPlugin, Session
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin, CurrentSession as Session
 from dsh.core.session.invariant import SessionInvariantPlugin
 from dsh.diagnostics.invariants import InvariantRegistry
 from dsh.llm.token_meter import TokenMeter, TokenMeterPlugin
@@ -79,7 +80,7 @@ async def test_configuration_content_and_durable_result_contract(case):
     entry = row['result']['pruned'][0]
     assert set(entry) == {'originalSeq', 'replacementSeq', 'callId', 'charsBefore', 'charsAfter'}
     replacement = row['events'][entry['replacementSeq']]
-    assert replacement['surfaceOp'] == dict(op='replace', start=entry['originalSeq'], end=entry['originalSeq'])
+    assert replacement['surfaceOp'] == dict(op='replace', startSeq=entry['originalSeq'], endSeq=entry['originalSeq'])
     assert replacement['sourceEventSeqs'] == [entry['originalSeq']]
     data = replacement['data']
     assert data['error'] == dict(name='ExitError', code='EXIT_1')

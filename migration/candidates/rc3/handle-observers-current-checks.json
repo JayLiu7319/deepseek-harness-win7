@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "tested_worktree_parent": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
+  "stage": "R11-AE-current-handle-observers",
+  "status": "targeted-passed",
+  "inputs": {
+    "scripts/oracles/agent-factory.spec.ts": "2037a3b48ac1343d37a1cfbc7dc990842efb28ed961710f96205a80514205673",
+    "scripts/oracles/agent_factory_python.py": "84fa93bc1cb072a9cbd13e926db0ba93928be69b4d287aa76f57f0bf7eadf5e6",
+    "scripts/oracles/pruner.spec.ts": "d981cec1ea9c488deba12d4ba9557cf218775e7c4577d38c40949a6817bef5c3",
+    "scripts/oracles/pruner_python.py": "e53bcc6273ca236fdc50e952a9b6413e22124345004b6a5172b95fe7634b12f3",
+    "scripts/oracles/session-live.spec.ts": "101817acf9fc7b3bd0ba214bc3dc35ae752ff22e67565595fee054f0ba8ea996",
+    "scripts/oracles/session-prepared.spec.ts": "8bf51b39d9845414a3c825481eb1b2b92aa7a73bf1103bcfa146d98e0ef46dec",
+    "scripts/oracles/session-recovery-fixtures.json": "0e581971ad55406a2ed2519260177de13967c37d5d22045bf85362995c558a5e",
+    "scripts/oracles/session-recovery.spec.ts": "d74843b257c7b86b90603ccc75d8fa4ee04f9d61ae2f2e94cd2cb5eefc7ea665",
+    "scripts/oracles/session-storage.spec.ts": "e451de3b6c3b26be46f4f939e2e89a3a9a6c51819023a18bbc481cb27174be81",
+    "scripts/oracles/session_live_python.py": "df7fdc6cc915e58dac2500c4610ce5e1c928a99c7c39aa27fb43a26c96e4bea1",
+    "scripts/oracles/session_prepared_python.py": "d1d2d7e96803a965f7adc96adc69d5ea0c9ff55370c0d595db222eb729e42c72",
+    "scripts/oracles/session_recovery_python.py": "4634e2dcddf2b63887e34bf1c6d7d6b2f71ab2e3f664316c5cd9d7ffbc487771",
+    "scripts/oracles/session_storage_python.py": "5b3068e860b3bdaa44b4ea7610d0bfe7ca5e22225761fc7b84a44886ba791942",
+    "tests/test_tool_result_pruner.py": "fa00d512ae85a58a6ca1153b4aeb16bf69b30bfa237a953fa17bc041554bcaa0"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-OBSERVERS-20261018.zip",
+    "bytes": 10202744,
+    "sha256": "ecb4d2e20cc99155ed4ca9eb65f76f8b157275914b1ce7b3ccdbeb7ab8728a7c",
+    "members": 774
+  },
+  "corrected_runs": [
+    {
+      "driver": "agent_factory",
+      "cases": 9,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/agent_factory_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-agent-factory-current-20261018-c\\paired.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "driver": "pruner",
+      "cases": 41,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/pruner_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-pruner-current-20261018-b\\paired.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "driver": "session_recovery",
+      "cases": 7,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/session_recovery_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-session-recovery-current-20261018-d\\paired.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "driver": "session_live",
+      "cases": 4,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/session_live_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-session_live-current-20261018-b\\paired.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "driver": "session_prepared",
+      "cases": 5,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/session_prepared_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-session_prepared-current-20261018-c\\paired.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "driver": "session_storage",
+      "cases": 8,
+      "status": "matched",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/session_storage_oracle.py",
+        "--output",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-session-storage-current-20261018-a\\paired.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "consumers": {
+    "passed": 264,
+    "failed": 0,
+    "skipped": 0,
+    "exit": {
+      "exit_code": 0,
+      "seconds": 6.0
+    }
+  },
+  "initial_consumers": {
+    "passed": 240,
+    "failed": 4,
+    "exit_code": 1
+  },
+  "initial_paired_diagnostic": {
+    "drivers": 82,
+    "passed": 76,
+    "failed": 6
+  },
+  "retained_full_gate": {
+    "candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
+    "result": "failed",
+    "publishable": false,
+    "python": {
+      "passed": 19341,
+      "skipped": 6,
+      "failed": 0,
+      "collected": 19347,
+      "required": 3933,
+      "seconds": 5025.98
+    },
+    "official_source_configurations": 21,
+    "failed_stage": "agent-factory-paired",
+    "exit_code": 1
+  },
+  "limitations": [
+    "The complete gate remains failed; full Python success and corrected standalone pairs are separate observations.",
+    "Root diagnostic bytes are sealed; reconstructible nested fixtures are explicitly inventoried as omitted and originals remain retained.",
+    "Main checkout and frozen archive differ in raw CRLF bytes; mixed-root extracted diagnostics were strictly rejected, with no validator relaxation.",
+    "Fresh extracted diagnostics in the clean candidate root and a later stable complete qualification remain pending."
+  ]
+}

@@ -8,11 +8,12 @@ from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from dsh.compaction.pruner import ToolResultPruner, ToolResultPrunerPlugin, DEFAULTS, PRUNE_MARKER, code_point_length, resolve_config
+from dsh.compaction.pruner import DEFAULTS, PRUNE_MARKER, code_point_length, resolve_config
+from dsh.compaction.current import CurrentToolResultPruner as ToolResultPruner, CurrentToolResultPrunerPlugin as ToolResultPrunerPlugin
 from dsh.boot.plugin_registry import install_harness_plugin_classes
 from dsh.cordis.context import Context
 from dsh.cordis.loader import Loader
-from dsh.core.session import Session, SessionPlugin
+from dsh.core.session.current_session import CurrentSession as Session, CurrentSessionPlugin as SessionPlugin
 from dsh.core.session.invariant import SessionInvariantPlugin
 from dsh.core.session.json import FrozenDict
 from dsh.diagnostics.invariants import InvariantRegistry
@@ -47,7 +48,7 @@ def append_step(session, turn, call, content, extra=None):
     session.append('step/start', dict(turn=turn, step=1))
     assistant = dict(id='assistant-' + call, role='assistant', source=dict(kind='model', provider='test', model='model'),
         content=[dict(type='tool-call', id=call, name='bash', arguments='{}')])
-    session.append('assistant/message', dict(turn=turn, step=1, message=assistant), surface_op='append')
+    session.append('assistant/message', dict(turn=turn, step=1, stream=[], message=assistant), surface_op='append')
     session.append('tool/call', dict(turn=turn, step=1, callId=call, name='bash', arguments='{}'))
     message = dict(id='result-' + call, role='user', source=dict(kind='tool', callId=call),
         content=[dict(type='tool-result', toolCallId=call, isError=True, content=content, futureBlock=dict(keep=True))],

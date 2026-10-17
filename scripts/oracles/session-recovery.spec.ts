@@ -15,17 +15,23 @@ it('observes real JSONL cold recovery without changing reference source', async 
       await ctx.plugin(SessionStore)
       await ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
       const p = ctx.sessionPersistence
-      const meta = { id: fixture.mode, version: 0, createdAt: 1, delegationDepth: 0 ,isSeeded:false}
-      const path = p.locate(meta as any)!.path
+      const meta = { id: fixture.mode, version: 0, createdAt: 1, delegationDepth: 0 }
+      const path = join(root, '_no-cwd', fixture.mode, 'session.jsonl')
       await mkdir(dirname(path), { recursive: true })
       const bytes = [JSON.stringify({ type: 'session', ...meta }), ...fixture.events.map(e => JSON.stringify(e))].join('\n') + '\n' + fixture.tail
       await writeFile(path, bytes)
-      const inspected = await p.inspect(meta.id as any)
-      const before = await p.readFrom(meta.id as any, 1)
+      const reader = await p.open(meta.id as any, 'read')
+      const inspected = await reader.read()
+      const before = await reader.read(1)
+      await reader.close()
       const untouched = await readFile(path, 'utf8') === bytes
-      const loaded = await p.load(meta.id as any)
-      const again = await p.load(meta.id as any)
-      const after = await p.readFrom(meta.id as any, 0)
+      const writer = await p.open(meta.id as any, 'write')
+      const loaded = await writer.read()
+      await writer.close()
+      const reopened = await p.open(meta.id as any, 'read')
+      const again = await reopened.read()
+      const after = await reopened.read(0)
+      await reopened.close()
       rows.push({ mode: fixture.mode, inspected: inspected.events, before: before.events, untouched,
         loaded: loaded.events, again: again.events, after: after.events })
     } finally { await ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) }

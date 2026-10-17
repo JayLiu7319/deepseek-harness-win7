@@ -34,7 +34,7 @@ function appendStep(session: Session, turn: number, call: string, content: any[]
   session.append('step/start', { turn, step: 1 })
   const assistant = { id: 'assistant-' + call, role: 'assistant', source: { kind: 'model', provider: 'test', model: 'model' },
     content: [{ type: 'tool-call', id: call, name: 'bash', arguments: '{}' }] }
-  session.append('assistant/message', { turn, step: 1, message: assistant } as any, { surfaceOp: 'append' })
+  session.append('assistant/message', { turn, step: 1, stream: [], message: assistant } as any, { surfaceOp: 'append' })
   session.append('tool/call', { turn, step: 1, callId: call, name: 'bash', arguments: '{}' } as any)
   const message = { id: 'result-' + call, role: 'user', source: { kind: 'tool', callId: call },
     content: [{ type: 'tool-result', toolCallId: call, isError: true, content, futureBlock: { keep: true } }], futureMessage: { keep: true } }

@@ -17,11 +17,14 @@ it('observes real live JSONL lifecycle', async () => {
       if(mode==='preexisting'){session=ctx.sessions.create('s' as any);turn(session)}
       let fiber=await ctx.plugin(Jsonl,{root,compression:'none'})
       if(!session) session=ctx.sessions.create('s' as any)
+      let writer=await ctx.sessionPersistence.create(session.header)
+      if(mode==='preexisting')await writer.append(session.snapshotEvents())
       if(mode==='reload-open') session.append('turn/start',{turn:1})
       else if(mode!=='preexisting') turn(session)
       if(mode==='unload'||mode==='reload-open'){
         await fiber.dispose()
         fiber=await ctx.plugin(Jsonl,{root,compression:'none'})
+        writer=await ctx.sessionPersistence.open(session.id,'write')
       }
       if(mode==='reload-open') session.append('turn/end',{turn:1,reason:{kind:'completed'}})
       await ctx.sessions.flush(session)
@@ -31,9 +34,11 @@ it('observes real live JSONL lifecycle', async () => {
         await ctx.fiber.dispose()
         ctx=new Context();await ctx.plugin(SessionStore);await ctx.plugin(Jsonl,{root,compression:'none'})
         session=ctx.sessions.create('s' as any);turn(session,2)
-        try {await ctx.sessions.flush(session)} catch {rejected=true}
+        try {await ctx.sessionPersistence.create(session.header)} catch {rejected=true}
       }
-      const physical=await ctx.sessionPersistence.readFrom('s' as any,0)
+      const reader=await ctx.sessionPersistence.open('s' as any,'read')
+      const physical=await reader.read()
+      await reader.close()
       rows.push({mode,rejected,events:physical.events.map(e=>({type:e.type,seq:e.seq,data:e.data}))})
     }finally{await ctx.fiber.dispose();await rm(root,{recursive:true,force:true})}
   }
