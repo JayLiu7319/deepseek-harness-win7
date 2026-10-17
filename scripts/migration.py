@@ -139,12 +139,16 @@ def validate(data, root):
                           "invariants": list, "source_paths": list, "consumers": list,
                           "open_questions": list}, key)
         need(type(contract["revision"]) is int and contract["revision"] > 0, key + ": invalid revision")
-        need(contract["target_upstream"] == target, key + ": target mismatch")
+        require_sha(contract['target_upstream'], key + '.target_upstream')
+        historical = contract.get('historical') is True
+        need(contract["target_upstream"] != target if historical else contract["target_upstream"] == target,
+             key + ": target mismatch")
         need(contract["status"] in {"draft", "specified"}, key + ": unsupported status")
         for name in ("invariants", "source_paths"):
             strings(contract[name], key + "." + name, True)
-        for name in contract["source_paths"]:
-            file_path(root, name)
+        if not historical:
+            for name in contract["source_paths"]:
+                file_path(root, name)
         if contract["status"] == "specified":
             for name in ("identity", "ownership", "ordering", "errors", "cancellation", "adaptation"):
                 need(isinstance(contract.get(name), str) and bool(contract[name].strip()), key + ": specified contract missing " + name)
@@ -206,6 +210,8 @@ def validate(data, root):
         for item in task["provides"]:
             fields(item, {"contract": str, "revision": int}, key + ".provides")
             need(item["contract"] in contracts, key + ": unknown provided contract")
+            need(historical or contracts[item['contract']]['target_upstream'] == target,
+                 key + ': historical contract cannot provide current acceptance')
             current_revision = contracts[item["contract"]]["revision"]
             need(type(item["revision"]) is int and item["revision"] > 0 and
                  (item["revision"] <= current_revision if historical else item["revision"] == current_revision), key + ": stale provided revision")
@@ -214,6 +220,8 @@ def validate(data, root):
             fields(dep, {"task": str, "contract": str, "revision": int}, key + ".requires")
             need(dep["task"] in tasks, key + ": missing dependency " + dep["task"])
             need(dep["contract"] in contracts, key + ": missing dependency contract")
+            need(historical or contracts[dep['contract']]['target_upstream'] == target,
+                 key + ': historical contract cannot satisfy current dependency')
             current_revision = contracts[dep["contract"]]["revision"]
             need(type(dep["revision"]) is int and dep["revision"] > 0 and
                  (dep["revision"] <= current_revision if historical else dep["revision"] == current_revision), key + ": stale dependency revision")
@@ -244,7 +252,10 @@ def validate(data, root):
                 need(not blockers(task, data), key + ": unresolved dependency/conflict")
     for key, mapping in data["mappings"].items():
         fields(mapping, {"target_upstream": str, "cases": list}, key)
-        need(mapping["target_upstream"] == target, key + ": target mismatch")
+        require_sha(mapping['target_upstream'], key + '.target_upstream')
+        historical = mapping.get('historical') is True
+        need(mapping["target_upstream"] != target if historical else mapping["target_upstream"] == target,
+             key + ": target mismatch")
         seen = set()
         for case in mapping["cases"]:
             fields(case, {"id": str, "origin": str, "contract": str, "test": str, "status": str}, key)
@@ -341,7 +352,9 @@ def render_status(data):
              "- Observed upstream: {}".format(base["observed_upstream"] or "not checked"),
              "- Manifest inventory: {} (includes fixtures; not a module completion count).".format(sum(counts.values())),
              "- Classifications: " + ", ".join("{}={}".format(k, v) for k, v in sorted(counts.items())),
-             "- Indexed scenarios: {} (not certified parity).".format(sum(len(m["cases"]) for m in data["mappings"].values())),
+            "- Indexed current scenarios: {} (not certified parity); historical scenarios: {}.".format(
+                sum(len(m['cases']) for m in data['mappings'].values() if not m.get('historical')),
+                sum(len(m['cases']) for m in data['mappings'].values() if m.get('historical'))),
              "", "| Task | State | Eligibility / blockers | Next action |", "|---|---|---|---|"]
     for key, task in sorted(data["tasks"].items()):
         reason = "; ".join(blockers(task, data)) or ("eligible" if task["state"] == "ready" else "not ready")

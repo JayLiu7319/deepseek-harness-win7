@@ -78,6 +78,27 @@ def test_dependency_requires_integrated_exact_contract_evidence(ledger):
     assert not m.blockers(consumer, data)
 
 
+def test_historical_contract_keeps_old_source_identity_without_certifying_new_target(ledger):
+    data, root = ledger
+    certify(data, root)
+    data['baseline']['target_upstream'] = 'b' * 40
+    data['modules']['target_upstream'] = 'b' * 40
+    data['contracts']['CON-A'].update(historical=True, source_paths=['retired-old-source.ts'])
+    m.validate(data, root)
+    assert not m.valid_runs(data['tasks']['TASK-A'], data)
+    consumer = add_consumer(data)
+    consumer.update(target_upstream='b' * 40, state='ready', evidence_ids=[])
+    with pytest.raises(m.RecordError, match='historical contract cannot satisfy'):
+        m.validate(data, root)
+
+
+def test_historical_flag_cannot_bypass_current_contract_source_validation(ledger):
+    data, root = ledger
+    data['contracts']['CON-A'].update(historical=True, source_paths=['missing.ts'])
+    with pytest.raises(m.RecordError, match='target mismatch'):
+        m.validate(data, root)
+
+
 def test_shared_evidence_reads_each_file_once_and_rechecks_in_next_validation(ledger, monkeypatch):
     data, root = ledger
     run = certify(data, root)
