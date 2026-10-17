@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R08-C-original-browser-host-capabilities",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R08-BROWSER-20261017.zip",
+    "sha256": "dc00cc9d353d0da04ef9f3a14ad38acf280fea68207d4665314e84e0f2a3812a"
+  },
+  "lanes": [
+    {
+      "lane": "modern-native",
+      "report": {
+        "path": ".goose/out/rc3-r08-combined-modern-native-20261017-f/report.json",
+        "sha256": "76ee6e17b2c657d9216f9f41633eb8bb734deea1362bcc2020b922dbfa513444"
+      },
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "status": "qualified"
+    },
+    {
+      "lane": "modern-source",
+      "report": {
+        "path": ".goose/out/rc3-r08-combined-modern-source-20261017-f/report.json",
+        "sha256": "10d34b740c75e24a436554ee24e77115795e516a760c352d91bed3b6b729a15e"
+      },
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "status": "qualified"
+    },
+    {
+      "lane": "108-native",
+      "report": {
+        "path": ".goose/out/rc3-r08-combined-108-native-20261017-f/report.json",
+        "sha256": "055dc8743ad7ec10637cef53d70b9cc9b8c3ea2c4bd1d79b1f2fe90184c62bfe"
+      },
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "status": "qualified"
+    },
+    {
+      "lane": "108-source",
+      "report": {
+        "path": ".goose/out/rc3-r08-combined-108-source-20261017-f/report.json",
+        "sha256": "293e2986e2496ef109070fc5addb5b4e0a7f05faf2409a56588e5a8bcaea39bb"
+      },
+      "phases": [
+        "fresh",
+        "cold"
+      ],
+      "status": "qualified"
+    }
+  ],
+  "native": {
+    "passed": 86,
+    "xml": {
+      "path": ".goose/out/rc3-r08-browser-final-targeted-20261017/results.xml",
+      "sha256": "296897b83052ed335af893cb42104fdf95a31b809982af70c3ae311c749b7c71"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/browser_compat/compat.js",
+      "sha256": "15110beddf0546bd438c364170e09810608a3f34844eb42834928abf65c5ceb8"
+    },
+    {
+      "path": "dsh/host/browser_compat/plugin.py",
+      "sha256": "ba04b641b3c71e1df45fd874878ebcbf28d45d163a6436d97d445a4b9838c110"
+    },
+    {
+      "path": "dsh/host/browser_compat/worker.js",
+      "sha256": "33eb8fc29b7c5fbb2cc2e2ea1dd3ab89e87400ceede567561d4fd53f7d216316"
+    },
+    {
+      "path": "dsh/host/browser_compat/url-entry.cjs",
+      "sha256": "1d15d1bd6bace0a86eb42fb200b403a624e99f728c7637b0cbd1e2176513e90f"
+    },
+    {
+      "path": "dsh/host/browser_compat/url.js",
+      "sha256": "73ab2ae6c52319f2dd808612618f489a5b4fdd74f2a14ad13d94ca4d6931a083"
+    },
+    {
+      "path": "dsh/host/browser_compat/url-input.json",
+      "sha256": "8bd2e208a6c63421704e7d3c139f2b97e446b704d3d9ae6b178d9ae41a16bc62"
+    },
+    {
+      "path": "scripts/browser_compat_input.mjs",
+      "sha256": "ecb9a48ccc34bbcca6f8ba97b8b50d40a2d44e60c69611b6f11b6cd7c4f23653"
+    },
+    {
+      "path": "scripts/browser_compat_semantics.mjs",
+      "sha256": "341d79f10e25073990980dd2d0e2b7250ce725eb2c6df47d67abd8eba7428df1"
+    },
+    {
+      "path": "scripts/browser_worker_semantics.mjs",
+      "sha256": "8baa7163d85748fd5863c6b882cbafb59096cb2536273c56c3aae49410798e2c"
+    },
+    {
+      "path": "scripts/build_browser_url_adapter.mjs",
+      "sha256": "6a563e42b8dfe3ee348ba52d4c64e493a7face030148e334b4cb8625daf06b70"
+    },
+    {
+      "path": "scripts/oracles/browser_profiles/web_journey_browser.mjs",
+      "sha256": "84d70cf040f0f5dc59531fd814084bd2818e23fbde989ab1bcef4732663c281e"
+    },
+    {
+      "path": "scripts/oracles/browser_profiles/rc3_document_journey.mjs",
+      "sha256": "76a52376a623a0b664d8fb6700c4dbe5234975a4e2e69ede5fece2a9933d1cca"
+    },
+    {
+      "path": "scripts/oracles/browser_profiles/rc3_application_journey.mjs",
+      "sha256": "8405f295be7414a9fb43845d793074c6bf9ad801ec6157c8666c059ea7f620bd"
+    }
+  ],
+  "coverage": [
+    "Original frontend unchanged; main document and recognized PDF/upload Blob workers receive gated missing capabilities. Vendored core-js3.49.0 parser/methods built with esbuild0.25.12; 157 frozen inputs, deterministic rebuild verified.",
+    "Real Chromium108 URL resource authority, rendered red/blue PDF page pixels, markdown/code/plaintext identity, bounded text scroll through line12000, isolated HTML related JS/CSS, image dimensions, fullscreen/collapse and two Dockkit panes.",
+    "Actual 140-turn cold history paging/jump, Unicode quoted @file menu, immutable generic upload and next real model request, feedback add/delete without model call, model settings Apply/hot catalog and cold restart retention.",
+    "Owned worker termination/revocation observed at0 and error-free.98 independent capability semantics and38 worker-ownership VM checks run inside pytest; VM checks are distinct from actual browser execution."
+  ],
+  "limitations": [
+    "Minimal combined matrix only; Standard/Creative current capability regression, remaining browser delivery/reconnect/float details and Desktop carrier continue separately.",
+    "Chromium108 Source lane explicitly injects the same Host adapter; unadapted original Source lacks required capabilities and is not called qualified.",
+    "No Portable build, full regression, release qualification or physical Windows7 certification."
+  ],
+  "diagnostics": [
+    "Original failed browser observations remain under .goose/out, including missing Promise.try/toHex/Map methods, invalid fixture embedded stream, repeated call-ID fixture, baseline KeyError, repeated scenario completion observer and hidden collapsed settings-field gesture. No application frontend patch or Source mutation."
+  ],
+  "retention": "Each successful browser profile removed after physical browser/Host exit. Selected reports/Host records/screenshots archived and every member byte/SHA checked; failures and active/unknown files preserved."
+}

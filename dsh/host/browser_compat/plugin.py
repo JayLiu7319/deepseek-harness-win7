@@ -1,11 +1,34 @@
 """Reversible early injection; reject a final HTML document that moved it late."""
 from html.parser import HTMLParser
+import hashlib
+import json
 from pathlib import Path
 
 from dsh.cordis.plugin import Plugin
 
 
-SCRIPT = Path(__file__).with_name('compat.js').read_text(encoding='utf-8')
+def script():
+    directory = Path(__file__).parent
+    manifest = json.loads((directory / 'url-input.json').read_text(encoding='utf-8'))
+    parser = (directory / 'url.js').read_bytes()
+    if (len(parser) != manifest['output']['bytes'] or
+            hashlib.sha256(parser).hexdigest() != manifest['output']['sha256']):
+        raise RuntimeError('browser URL compatibility artifact differs from its recorded input')
+    base = parser.decode('utf-8') + '\n' + (directory / 'compat.js').read_text(encoding='utf-8')
+    workers = (directory / 'worker.js').read_text(encoding='utf-8')
+    workers = workers.replace('__DSH_REALM_CODE__', json.dumps(base, ensure_ascii=False))
+    return ('(function(){\nconst legacy = typeof Iterator === "undefined" || '
+            'typeof Promise.withResolvers !== "function" || typeof AbortSignal.any !== "function" || '
+            'typeof Promise.try !== "function" || typeof Math.sumPrecise !== "function" || '
+            'typeof Uint8Array.fromBase64 !== "function" || typeof Uint8Array.prototype.toHex !== "function" || '
+            'typeof Uint8Array.prototype.toBase64 !== "function" || typeof Map.prototype.getOrInsertComputed !== "function" || '
+            'typeof Set.prototype.intersection !== "function" || '
+            'typeof Map.prototype.getOrInsert !== "function" || typeof ArrayBuffer.prototype.transferToFixedLength !== "function" || '
+            '(typeof URL === "function" && new URL("dsh-resource://file/x").hostname !== "file");\n' +
+            base + '\nif (legacy) {\n' + workers + '\n}\n})();')
+
+
+SCRIPT = script()
 
 
 class _IndexScripts(HTMLParser):

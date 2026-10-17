@@ -392,6 +392,12 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 长历史原版浏览器调用 `/api/session/page` 时，`projectionMode=none` 有意省略投影，却被 Python observation 的属性读取转成 KeyError；现将可选 projections 属性映射为 None，不额外计算投影。真实 Agent 的 live/cold 分页保持相同连续日志，冷分页不激活会话；历史、观察租约和激活直接消费者100项通过。见 [有限回执](../../migration/candidates/rc3/history-page-baseline-checks.json)。原浏览器失败载荷保留，完整浏览器组合与发行验收继续实施。
 
+### R08-C — 原版页面与 Chromium108 能力适配
+
+现代浏览器和 Chromium108 的 Source/Python 四条 Minimal fresh/cold 组合旅程均通过。原版前端字节不变；108 Source 明确加载相同 Host 能力适配，区别于未适配原版。按能力缺口注入 URL 非特殊协议完整解析器和现代方法，并将同一能力前缀仅复制到具名 PDF/upload Blob worker，保留原脚本字节、立即撤销时序和可逆所有权；core-js3.49.0/esbuild0.25.12 的157输入可确定重建，86项适配/门禁定向通过。
+
+真实页面覆盖140轮冷历史翻页跳转、Unicode引号路径引用、Markdown/Code/Plaintext切换、12000行有界文本、HTML隔离及相邻JS/CSS、图片、PDF红蓝像素、全屏/折叠/双Dockkit面板、反馈增删、不可变附件和实际下一模型请求，以及 Models Apply 后热目录更新和冷启动保留。worker结束后计数归零且无错误。原版PDF现代API异常、夹具嵌入流/重复调用ID及观察器错误均保留诊断。原始36个报告/Host观察/截图封装为12.5MB并逐成员核验；成功浏览器profile在进程退出后自动清理。见 [有限回执](../../migration/candidates/rc3/browser-capabilities-current-checks.json)。Standard/Creative当前垫片回归、余下交付/重连/浮窗、Desktop与统一资格继续实施，未构建Portable。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

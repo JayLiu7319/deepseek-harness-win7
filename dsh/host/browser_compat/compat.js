@@ -6,6 +6,40 @@
  */
 (() => {
   'use strict';
+  // Body/Blob bytes consumes through the original arrayBuffer operation so
+  // native brand, locked/disturbed body, abort and size failures are retained.
+  for (const Constructor of [globalThis.Response, globalThis.Request, globalThis.Blob]) {
+    if (!Constructor || typeof Constructor.prototype.bytes === 'function') continue;
+    const arrayBuffer = Constructor.prototype.arrayBuffer;
+    if (typeof arrayBuffer !== 'function') continue;
+    const methods = {async bytes() {return new Uint8Array(await Reflect.apply(arrayBuffer, this, []));}};
+    Object.defineProperty(Constructor.prototype, 'bytes', {value: methods.bytes, writable: true, configurable: true});
+  }
+  // The pinned PDF bundle installs its own iterator join method, but first
+  // addresses Iterator.prototype. Chromium 108 already has the intrinsic
+  // iterator prototype; expose its abstract constructor without replacing
+  // that shared prototype or claiming unimplemented iterator helpers.
+  // https://tc39.es/ecma262/2025/multipage/control-abstraction-objects.html#sec-iterator-constructor
+  if (typeof globalThis.Iterator === 'undefined') {
+    const prototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()));
+    function Iterator() {
+      if (new.target === undefined || new.target === Iterator) {
+        throw new TypeError('Iterator is an abstract constructor');
+      }
+    }
+    Object.defineProperty(Iterator, 'prototype', {value: prototype, writable: false});
+    const inherited = key => ({
+      configurable: true,
+      get() { return key === 'constructor' ? Iterator : 'Iterator'; },
+      set(value) {
+        if (this === prototype) throw new TypeError('Cannot replace Iterator prototype ' + String(key));
+        Object.defineProperty(this, key, {value, writable: true, enumerable: true, configurable: true});
+      }
+    });
+    Object.defineProperty(prototype, 'constructor', inherited('constructor'));
+    Object.defineProperty(prototype, Symbol.toStringTag, inherited(Symbol.toStringTag));
+    Object.defineProperty(globalThis, 'Iterator', {value: Iterator, writable: true, configurable: true});
+  }
   if (typeof Promise.withResolvers !== 'function') {
     const methods = {
       withResolvers() {

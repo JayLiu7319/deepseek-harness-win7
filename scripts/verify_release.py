@@ -2197,8 +2197,9 @@ def verify(args, output):
     if not browser108:
         raise RuntimeError('release requires the fixed Chromium 108 observer: use --browser108')
     observer108 = validate_browser108_input(browser108)
+    from dsh.host.browser_compat.plugin import SCRIPT as browser_compatibility_script
     candidate['browserCompatibility'] = dict(observer108,
-        adapter_sha256=digest(ROOT / 'dsh/host/browser_compat/compat.js'))
+        adapter_sha256=hashlib.sha256(browser_compatibility_script.encode('utf-8')).hexdigest())
     python = str(ROOT / '.venv/Scripts/python.exe')
     environment = release_environment(browser)
     environment['DSH_TEST_CHROMIUM108'] = str(Path(browser108).resolve())

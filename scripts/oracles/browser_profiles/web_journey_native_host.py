@@ -39,15 +39,28 @@ def task_trace(task):
     chain = []
     current = task.get_coro()
     while current is not None:
-        frame = getattr(current, 'cr_frame', None) or getattr(current, 'gi_frame', None)
+        frame = getattr(current, 'cr_frame', None) or getattr(current, 'gi_frame', None) or getattr(current, 'ag_frame', None)
         if frame is not None:
             row = dict(path=frame.f_code.co_filename, function=frame.f_code.co_name, line=frame.f_lineno)
+            for key in ('error', 'entry_id', 'eid'):
+                if key in frame.f_locals:
+                    row[key] = str(frame.f_locals[key])
+            owner = frame.f_locals.get('self')
+            if owner is not None:
+                row['owner'] = type(owner).__name__
+                row['ownerName'] = str(getattr(owner, 'name', ''))
+            entry = frame.f_locals.get('entry')
+            if entry is not None:
+                row['entry'] = str(getattr(entry, 'id', ''))
             session = frame.f_locals.get('session')
             if type(session).__name__ == 'LocalTerminalSession':
                 row['unpublishedTerminal'] = session.read(dict(count=1000))
                 row['terminalConfig'] = session.config
             chain.append(row)
-        current = getattr(current, 'cr_await', None) or getattr(current, 'gi_yieldfrom', None)
+        next_frame = getattr(current, 'cr_await', None) or getattr(current, 'gi_yieldfrom', None) or getattr(current, 'ag_await', None)
+        if frame is not None and frame.f_code.co_name == '_run_async_init':
+            next_frame = frame.f_locals.get('gen', next_frame)
+        current = next_frame
     return dict(name=task.get_name(), chain=chain)
 
 
@@ -98,8 +111,15 @@ async def main():
     builtins.__web_journey_probe = record
     time.time = lambda: options.clock / 1000
     runtime = None
+    async def observe_boot():
+        await asyncio.sleep(25)
+        if runtime is None:
+            OUTPUT.with_suffix('.boot-tasks.json').write_text(json.dumps(
+                [task_trace(task) for task in asyncio.all_tasks()], indent=2), encoding='utf-8')
+    boot_observer = asyncio.create_task(observe_boot())
     try:
         runtime = await run_profile(dict(profile='web', dshHome=str(home), args=['--no-open', '--port', options.port], waitForExit=False))
+        boot_observer.cancel()
         ctx = runtime['ctx']
         record['loaderEntries'] = [dict(name=entry.options.get('name'), id=entry.options.get('id'),
             disabled=bool(entry.disabled), state=entry.fiber.state if entry.fiber else None)
@@ -120,7 +140,12 @@ async def main():
                 session.append('request/context', dict(turn=turn, step=1, provider='web-journey-fixture', model='fixture'))
                 session.append_assistant_message(dict(id='history-assistant-%d' % turn, role='assistant',
                     source=dict(kind='model', provider='web-journey-fixture', model='fixture'),
-                    content=[dict(type='text', text='HISTORY_RESPONSE_%03d' % turn)]), turn=turn, step=1)
+                    content=[dict(type='text', text='HISTORY_RESPONSE_%03d' % turn)]), turn=turn, step=1,
+                    stream=[dict(type='chunk', time=options.clock, chunk=chunk) for chunk in [
+                        dict(type='block-start', index=0, blockType='text'),
+                        dict(type='text-delta', index=0, text='HISTORY_RESPONSE_%03d' % turn),
+                        dict(type='block-end', index=0, block=dict(type='text', text='HISTORY_RESPONSE_%03d' % turn)),
+                        dict(type='finish', reason=dict(kind='stop'))]])
                 session.append('step/end', dict(turn=turn, step=1))
                 session.append('turn/end', dict(turn=turn, reason=dict(kind='completed')))
             ctx.get('sessionTitle').rename(session, 'HISTORY_PROMPT_001')
@@ -157,8 +182,11 @@ async def main():
                     header=session.header.to_dict() if session else None,
                     events=copy.deepcopy(list(session.snapshotEvents())) if session else [],
                     requests=copy.deepcopy(record['requests']), cancellation=copy.deepcopy(record['cancellation']),
-                    tools=[tool['name'] for tool in ctx.get('tools').schemas(agent)] if agent else [])
-                record['snapshots'].append(value)
+                    tools=[tool['name'] for tool in ctx.get('tools').schemas(agent)] if agent else [],
+                    deepseekModels=await ctx.get('llm').listModels('deepseek-official'))
+                if not record['snapshots'] or record['snapshots'][-1] != value:
+                    record['snapshots'].append(value)
+                record.setdefault('snapshotReads', []).append(dict(commandId=request['id'], index=len(record['snapshots']) - 1))
                 answer(dict(id=request['id'], ok=True, value=value))
             elif command == 'shutdown':
                 session = ctx.get('sessions').get(session_id) if session_id is not None else None
@@ -174,6 +202,8 @@ async def main():
         record['failure'] = dict(name=type(error).__name__, message=str(error))
         raise
     finally:
+        boot_observer.cancel()
+        await asyncio.gather(boot_observer, return_exceptions=True)
         if runtime is not None:
             runtime['shutdown'].shutdown(1 if 'failure' in record else 0)
             await runtime['shutdown'].wait()

@@ -8,6 +8,7 @@ import {basename, dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createInterface} from 'node:readline';
 import {closeOriginalBrowser, deferProviderOnboarding, isolatedBrowserArguments, navigateOriginalPage} from './browser_onboarding.mjs';
+import {browserCompatibilityInput} from './browser_compat_input.mjs';
 
 const options = Object.fromEntries(process.argv.slice(2).reduce((rows, value, i, args) => {
   if (value.startsWith('--')) rows.push([value.slice(2), args[i + 1]]); return rows;
@@ -110,7 +111,7 @@ try {
   report.capabilitiesBefore = await cdp.evaluate(`({abortSignalAny:typeof AbortSignal.any,
     promiseWithResolvers:typeof Promise.withResolvers,abortSignalTimeout:typeof AbortSignal.timeout})`);
   if(options['archive']) report.archiveSha256 = createHash('sha256').update(await readFile(resolve(options.archive))).digest('hex');
-  report.compatibilitySha256 = createHash('sha256').update(await readFile(join(options.python, '..', 'dsh/host/browser_compat/compat.js'))).digest('hex');
+  report.compatibilitySha256 = (await browserCompatibilityInput(join(options.python, '..', 'dsh/host/browser_compat'))).sha256;
   const requests = new Map();
   const replyJobs = new Set();
   cdp.listeners.push(message => {

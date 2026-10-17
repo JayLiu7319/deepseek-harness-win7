@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import shutil
 import subprocess
@@ -53,9 +54,59 @@ def test_independent_realm_capabilities_and_native_preservation():
     assert json.loads(result.stdout)['passed']
 
 
-def test_real_browser_journey_observer_has_valid_module_syntax():
+@pytest.mark.parametrize('name', ['web_journey_browser.mjs', 'rc3_document_journey.mjs', 'rc3_application_journey.mjs'])
+def test_real_browser_journey_observer_has_valid_module_syntax(name):
     node = shutil.which('node')
     assert node is not None
-    result = subprocess.run([node, '--check', str(ROOT / 'scripts/oracles/browser_profiles/web_journey_browser.mjs')],
+    result = subprocess.run([node, '--check', str(ROOT / 'scripts/oracles/browser_profiles' / name)],
                             cwd=str(ROOT), capture_output=True, encoding='utf-8', timeout=30)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_worker_adapter_owns_only_recognized_workers_and_releases_resources():
+    result = subprocess.run([shutil.which('node'), str(ROOT / 'scripts/browser_worker_semantics.mjs')],
+                            cwd=str(ROOT), capture_output=True, encoding='utf-8', timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert json.loads(result.stdout)['passed']
+
+
+def test_source_and_python_inject_identical_composed_adapter():
+    expression = ('import {browserCompatibilityInput} from "./scripts/browser_compat_input.mjs";'
+                  'console.log((await browserCompatibilityInput("dsh/host/browser_compat")).sha256);')
+    result = subprocess.run([shutil.which('node'), '--input-type=module', '-e', expression],
+                            cwd=str(ROOT), capture_output=True, encoding='utf-8', timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert result.stdout.strip() == hashlib.sha256(SCRIPT.encode('utf-8')).hexdigest()
+
+
+def test_url_adapter_has_recorded_bytes_license_and_reviewed_entry():
+    directory = ROOT / 'dsh/host/browser_compat'
+    record = json.loads((directory / 'url-input.json').read_text(encoding='utf-8'))
+    assert record['package'] == 'core-js' and record['version'] == '3.49.0'
+    assert record['license'] == 'MIT'
+    data = (directory / 'url.js').read_bytes()
+    assert record['output'] == dict(path='url.js', bytes=len(data), sha256=hashlib.sha256(data).hexdigest())
+    assert hashlib.sha256((directory / 'url.LICENSE.txt').read_bytes()).hexdigest() == record['licenseSha256']
+    entry = (directory / 'url-entry.cjs').read_text(encoding='utf-8').encode('utf-8')
+    assert next(row for row in record['inputs'] if row['path'] == 'url-entry.cjs')['sha256'] == hashlib.sha256(entry).hexdigest()
+    assert data.decode('utf-8') + '\n' in SCRIPT
+
+
+def test_url_adapter_builder_requires_explicit_inputs(tmp_path):
+    node = shutil.which('node')
+    result = subprocess.run([node, str(ROOT / 'scripts/build_browser_url_adapter.mjs')],
+                            cwd=str(tmp_path), capture_output=True, encoding='utf-8', timeout=30)
+    assert result.returncode != 0
+    assert 'Explicit core-js package and esbuild package paths required' in result.stderr
+
+
+def test_url_adapter_builder_rejects_wrong_source_version(tmp_path):
+    package = tmp_path / 'source'
+    package.mkdir()
+    (package / 'package.json').write_text(json.dumps(dict(name='core-js', version='0.0.0')), encoding='utf-8')
+    builder = tmp_path / 'builder.cjs'
+    builder.write_text('module.exports = {version:"0.25.12"};', encoding='utf-8')
+    result = subprocess.run([shutil.which('node'), str(ROOT / 'scripts/build_browser_url_adapter.mjs'),
+                             '--source', str(package), '--esbuild', str(builder)],
+                            cwd=str(tmp_path), capture_output=True, encoding='utf-8', timeout=30)
+    assert result.returncode != 0 and '0.0.0' in result.stderr

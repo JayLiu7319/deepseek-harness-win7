@@ -6,6 +6,9 @@ import {dirname,join,resolve} from 'node:path';
 import {createInterface} from 'node:readline';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {closeOriginalBrowser,credentialFreeEnvironment,deferProviderOnboarding,isolatedBrowserArguments,navigateOriginalPage} from '../../browser_onboarding.mjs';
+import {prepareDocuments,documentJourney} from './rc3_document_journey.mjs';
+import {applicationJourney} from './rc3_application_journey.mjs';
+import {browserCompatibilityInput} from '../../browser_compat_input.mjs';
 
 const options=Object.fromEntries(process.argv.slice(2).reduce((pairs,value,index,args)=>{
   if(value.startsWith('--'))pairs.push([value.slice(2),args[index+1]]);
@@ -16,6 +19,14 @@ if(!options.browser||!options.output||!options['run-dir']||!['source','native'].
 const output=resolve(options.output),stage=dirname(fileURLToPath(import.meta.url));
 await mkdir(output);
 const report={side:options.side,preset:options.preset,phases:[],errors:[],consoleErrors:[],consoleLogs:[],responses:[],clicks:[],wire:[],requests:[]};
+report.invocation={executable:process.execPath,arguments:process.argv.slice(1),options};
+if(options['compat-script']){
+  assert.equal(options.side,'source','The native host owns its production compatibility injection');
+  const path=resolve(options['compat-script']);
+  const {script,...input}=await browserCompatibilityInput(dirname(path));
+  report.sourceHostAdaptation={path,...input,
+    scope:'Unchanged Source frontend with the product host capability adapter; distinct from unadapted Source'};
+}
 if(options['file-references']==='true')report.fileReferenceScope='Actual original composer and remote.mux; isolated paths, no file-body injection';
 const delay=milliseconds=>new Promise(done=>setTimeout(done,milliseconds));
 
@@ -70,13 +81,19 @@ class CDP{
 }
 
 async function click(cdp,selector,text){
-  const point=await until(()=>cdp.evaluate(`(()=>{
+  let previous,steady=0;
+  const point=await until(async()=>{
+    const current=await cdp.evaluate(`(()=>{
     const element=Array.from(document.querySelectorAll(${JSON.stringify(selector)})).find(value=>${JSON.stringify(text)}===undefined||value.textContent.trim().startsWith(${JSON.stringify(text)}));
     if(!element||element.disabled)return false;
     element.scrollIntoView({block:'center'});
     const rect=element.getBoundingClientRect(),x=rect.x+rect.width/2,y=rect.y+rect.height/2;
     return rect.width&&rect.height&&element.contains(document.elementFromPoint(x,y))&&{x,y};
-  })()`),'visible original control '+selector);
+  })()`);
+    const identity=JSON.stringify(current);
+    steady=current&&identity===previous?steady+1:0;previous=identity;
+    return steady>=3&&current;
+  },'settled visible original control '+selector);
   await cdp.evaluate(`(()=>{
     const element=Array.from(document.querySelectorAll(${JSON.stringify(selector)})).find(value=>${JSON.stringify(text)}===undefined||value.textContent.trim().startsWith(${JSON.stringify(text)})),events=[];
     const listener=event=>events.push({trusted:event.isTrusted,matched:element.contains(event.target)});
@@ -99,9 +116,11 @@ async function phase(name){
   let readyResolve,readyReject;
   const ready=new Promise((resolveReady,reject)=>{readyResolve=resolveReady;readyReject=reject;});
   const common=['--run-dir',resolve(options['run-dir']),'--output',receipt,'--preset',options.preset,'--phase',name];
+  if(report.sourceHostAdaptation)common.push('--compat-script',report.sourceHostAdaptation.path);
   if(!options.workspace||!options.clock||!options['approval-artifact'])throw new Error('Controlled workspace, clock and approval artifact required');
   if(options['long-history']==='true')common.push('--history-turns','140');
   common.push('--workspace',resolve(options.workspace),'--clock',options.clock,'--approval-artifact',resolve(options['approval-artifact']));
+  if(options['rc3-documents']==='true'&&name==='fresh')await prepareDocuments(resolve(options.workspace));
   if(options['file-references']==='true'){
     await mkdir(join(resolve(options.workspace),'references space'),{recursive:true});
     await writeFile(join(resolve(options.workspace),'references space','中文 file.md'),'PRIVATE_REFERENCE_BODY_MUST_NOT_ENTER_MODEL_REQUEST\n','utf8');
@@ -130,7 +149,13 @@ async function phase(name){
     pending.set(id,{resolve:resolveCommand,reject,timer});
     host.stdin.write(JSON.stringify({id,command:commandName})+'\n');
   });
-  const snapshot=async()=>{const value=await command('snapshot');state.snapshots.push(value);return value;};
+  let lastSnapshot;
+  const snapshot=async()=>{
+    const value=await command('snapshot'),digest=createHash('sha256').update(JSON.stringify(value)).digest('hex');
+    state.snapshotReads??=[];
+    if(digest!==lastSnapshot){state.snapshots.push(value);lastSnapshot=digest;}
+    state.snapshotReads.push({index:state.snapshots.length-1,at:Date.now(),sha256:digest});return value;
+  };
   try{
     host=spawn(executable,argumentsValue,{windowsHide:true,env:environment,cwd:output});
     host.stderr.on('data',value=>state.hostErrors+=value);
@@ -184,8 +209,11 @@ async function phase(name){
     await cdp.call('Runtime.enable');await cdp.call('Network.enable');await cdp.call('Page.enable');
     await cdp.call('Emulation.setDeviceMetricsOverride',{width:1680,height:1000,deviceScaleFactor:1,mobile:false});
     await cdp.call('Emulation.setLocaleOverride',{locale:'en-US'});
+    await cdp.call('Emulation.setUserAgentOverride',{userAgent:state.browserIdentity.userAgent,acceptLanguage:'en-US,en;q=0.9',platform:'Win32'});
     await navigateOriginalPage(cdp,until,boot.url);
     await until(()=>cdp.evaluate('document.getElementById("root")?.childElementCount>0'),'original frontend mounted');
+    state.bootGraph=await cdp.evaluate('window.__DSH_BOOT__');
+    state.resourceUrlCapability=await cdp.evaluate(`(()=>{try{const value=new URL('dsh-resource://file/session/s/x');return {hostname:value.hostname,protocol:value.protocol,href:value.href,languages:navigator.languages}}catch(error){return {error:String(error)}}})()`);
     state.capabilitiesAfter=await cdp.evaluate('({any:typeof AbortSignal.any,withResolvers:typeof Promise.withResolvers,timeout:typeof AbortSignal.timeout})');
     const notice='[role="dialog"][aria-label="Internal Testing Notice"]';
     if(name==='fresh'){
@@ -258,15 +286,29 @@ async function phase(name){
       await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'Backspace',code:'Backspace',windowsVirtualKeyCode:8});
       await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'Backspace',code:'Backspace',windowsVirtualKeyCode:8});
       await until(()=>cdp.evaluate('!document.querySelector("[data-composer-input]")?.textContent'),'reference draft cleared by actual keys');
+      // Lexical applies its selection update after the DOM deletion. Let that
+      // owned update finish before the next, distinct user gesture.
+      await cdp.evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
     }
+    const submissions=new Map();
     const submit=async scenario=>{
       await click(cdp,'[data-composer-input][contenteditable="true"]');
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'End',code:'End',windowsVirtualKeyCode:35});
+      await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'End',code:'End',windowsVirtualKeyCode:35});
       await cdp.call('Input.insertText',{text:scenario});
+      state.submittedInputs??=[];
+      state.submittedInputs.push(await cdp.evaluate(`({scenario:${JSON.stringify(scenario)},
+        text:document.querySelector('[data-composer-input]')?.textContent,
+        active:document.activeElement?.outerHTML,buttons:[...document.querySelectorAll('[data-composer-card] button')]
+          .map(button=>({label:button.getAttribute('aria-label'),disabled:button.disabled}))})`));
+      const before=await snapshot();
+      submissions.set(scenario,before.events.at(-1)?.seq??-1);
       await click(cdp,'[data-composer-card] button[aria-label="Send message"], [data-composer-card] button[aria-label="发送消息"]');
     };
     const complete=async scenario=>await until(async()=>{
       const value=await snapshot();
-      return value.agentStatus==='idle'&&value.events.some(event=>event.type==='assistant/message'
+      assert.ok(submissions.has(scenario));
+      return value.agentStatus==='idle'&&value.events.some(event=>event.seq>submissions.get(scenario)&&event.type==='assistant/message'
         &&JSON.stringify(event.data).includes(scenario+'_FINAL'))&&value;
     },'actual model/tool next request '+scenario,60000);
     const scenarios=name==='cold'?['WEB_REOPEN']:options.preset==='minimal'?['WEB_TOOL','WEB_CANCEL']:
@@ -300,6 +342,8 @@ async function phase(name){
       }
       await complete(scenario);
     }
+    if(options['rc3-documents']==='true')await documentJourney({cdp,click,until,state,output,phase:name});
+    if(options['rc3-application']==='true')await applicationJourney({cdp,click,until,state,phase:name,snapshot,submit,complete,workspace:resolve(options.workspace),runDir:resolve(options['run-dir'])});
     state.cssMixAdapter=await cdp.evaluate("JSON.parse(JSON.stringify(window[Symbol.for('deepseek-win7.host.color-mix')]?.current?.facts??null))");
     state.cssMixPalette=await cdp.evaluate(String.raw`(()=>{const n=document.querySelector('[class*=trajectory]')??document.querySelector('[class*=Trajectory]')??document.body;const s=getComputedStyle(n);return Object.fromEntries([...new Set([...document.querySelectorAll('style')].flatMap(t=>[...t.textContent.matchAll(/var\((--[^,)]+)/g)].map(m=>m[1])))].filter(k=>k.startsWith('--dsw-')||k.startsWith('--trajectory-')).map(k=>[k,s.getPropertyValue(k).trim()]));})()`);
     state.cssMixDynamic=await cdp.evaluate(`(async()=>{
@@ -393,11 +437,9 @@ async function phase(name){
     assert.equal(selectedPreset?.data.agentPreset??state.final.header.agentPreset,options.preset);
     if(options.preset==='minimal'){
       state.toolRegistrationOrder=state.final.tools;
-      assert.deepEqual([...state.final.tools].sort(),['pwsh','str_replace_editor']);
-      if(options.side==='native'&&JSON.stringify(state.final.tools)!==JSON.stringify(['str_replace_editor','pwsh'])){
-        (report.openFindings??=[]).push({kind:'minimal-tool-registration-order',actual:state.final.tools,
-          observedSource:['str_replace_editor','pwsh'],scope:'Functional browser research only; complete wire/preset parity remains unqualified.'});
-      }
+      const expected=options.side==='source'?['pwsh']:['pwsh','str_replace_editor'];
+      assert.deepEqual([...state.final.tools].sort(),expected);
+      state.minimalProductAdaptation=options.side==='native'?'Retained editor alongside the rc.3 shell-only Source preset':null;
     }
     assert.deepEqual(report.errors,[]);assert.deepEqual(report.consoleErrors,[]);
     await closeOriginalBrowser(cdp,browser,until);
@@ -409,6 +451,21 @@ async function phase(name){
     state.passed=true;
   }catch(error){
     state.failure=String(error);
+    if(cdp)state.documentFailure=await cdp.evaluate(`(()=>{
+      const rows=[];const element=document.querySelector('[data-document-preview] [role="alert"]')??document.querySelector('[data-textpreview-state]');
+      const errorValue=(e,depth=0)=>e&&depth<3?{name:e.name,message:e.message,stack:e.stack,type:e.type,
+        cause:errorValue(e.cause,depth+1)}:null;
+      let fiber=element&&element[Object.keys(element).find(key=>key.startsWith('__reactFiber$'))];
+      for(let i=0;fiber&&i<16;i++,fiber=fiber.return){
+        const props=fiber.memoizedProps;
+        const failures=[];let hook=fiber.memoizedState;
+        for(let j=0;hook&&j<30;j++,hook=hook.next)if(hook.memoizedState?.error)failures.push(errorValue(hook.memoizedState.error));
+        rows.push({name:fiber.type?.name??null,keys:props&&Object.keys(props),tab:props?.tab,contentId:props?.contentId,
+          state:props?.state,info:props?.info,failures});
+      }
+      return {rows,html:element?.outerHTML.slice(0,16000),facadeKeys:Object.keys(window.__ModuleLoader__??{}),
+        workerFacts:globalThis[Symbol.for('deepseek-win7.host.workers')]?.facts??null};
+    })()`);
     if(cdp)state.historyFailure=await cdp.evaluate(`(()=>({active:[...document.querySelectorAll('nav[aria-label="Turn navigation"] button[aria-current]')].map(n=>n.outerHTML),
       prompts:[...document.querySelectorAll('[data-chat-flow-kind]')].filter(n=>n.textContent.includes('HISTORY_PROMPT_001')).map(n=>({text:n.textContent,top:n.getBoundingClientRect().top})),
       focus:document.activeElement?.outerHTML}))()`);
@@ -434,7 +491,7 @@ async function phase(name){
 }
 
 try{
-  if(options.side==='native')report.compatibilitySha256=createHash('sha256').update(await readFile(join(resolve(options.root),'dsh/host/browser_compat/compat.js'))).digest('hex');
+  if(options.side==='native')report.compatibilitySha256=(await browserCompatibilityInput(join(resolve(options.root),'dsh/host/browser_compat'))).sha256;
   if(options.archive)report.archiveSha256=createHash('sha256').update(await readFile(resolve(options.archive))).digest('hex');
   await assert.rejects(lstat(resolve(options['approval-artifact'])),error=>error.code==='ENOENT');
   await phase('fresh');

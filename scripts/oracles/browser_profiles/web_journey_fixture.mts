@@ -6,6 +6,11 @@ export const inject=['llm','sessions']
 
 export function apply(ctx:Context){
   const record=(globalThis as any).__webJourneyProbe
+  if(record.hostCapabilityAdapter){
+    ctx.on('webserver/index-inject',rows=>{
+      rows.unshift({kind:'script',placement:'head',text:record.hostCapabilityAdapter.text})
+    })
+  }
   ctx.on('session/event',(session,event)=>record.events.push({sessionId:session.id,event:structuredClone(event)}))
   class Adapter extends LlmAdapter{
     private calls=new Map<string,number>()
@@ -74,7 +79,7 @@ export function apply(ctx:Context){
               argumentsValue.justification='Allow this exact controlled write to the isolated test home.'
             }
           }
-          const argumentsText=JSON.stringify(argumentsValue),id=scenario.toLowerCase()+'-call-'+call
+          const argumentsText=JSON.stringify(argumentsValue),id=scenario.toLowerCase()+'-'+user.id+'-call-'+call
           yield {type:'block-start' as const,index:0,blockType:'tool-call' as const}
           yield {type:'tool-call-delta' as const,index:0,id:id as any,name:tool,argumentsDelta:argumentsText}
           yield {type:'block-end' as const,index:0,block:{type:'tool-call' as const,id:id as any,name:tool,arguments:argumentsText}}

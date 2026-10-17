@@ -4,6 +4,7 @@ import {existsSync,lstatSync,mkdirSync,readFileSync,readdirSync,writeFileSync} f
 import {dirname,join,relative,resolve} from 'node:path'
 import {createInterface} from 'node:readline'
 import {fileURLToPath,pathToFileURL} from 'node:url'
+import {browserCompatibilityInput} from '../../browser_compat_input.mjs'
 
 const options=Object.fromEntries(process.argv.slice(2).reduce((pairs:string[][],value,index,args)=>{
   if(value.startsWith('--'))pairs.push([value.slice(2),args[index+1]])
@@ -72,6 +73,11 @@ const record:any={sourceRoot:root,node:process.version,phase:options.phase,prese
   lookups:[],requests:[],events:[],cancellation:[],snapshots:[],approvalArtifact:resolve(options['approval-artifact']),
   durableBefore:before,fixtureSha256:sha(fixture)}
 record.clockCallers=clockCallers
+if(options['compat-script']){
+  const path=resolve(options['compat-script'])
+  const {script,...input}=await browserCompatibilityInput(dirname(path))
+  record.hostCapabilityAdapter={path,...input,text:script}
+}
 ;(globalThis as any).__webJourneyProbe=record
 let runtime:any,lines:ReturnType<typeof createInterface>|undefined
 try{
@@ -99,7 +105,11 @@ try{
       session.append('request/context', {turn,step:1,provider:'web-journey-fixture',model:'fixture'})
       session.append('assistant/message', {turn,step:1,message:{id:'history-assistant-'+turn,role:'assistant',
         source:{kind:'model',provider:'web-journey-fixture',model:'fixture'},
-        content:[{type:'text',text:'HISTORY_RESPONSE_'+String(turn).padStart(3,'0')}]}}, {surfaceOp:'append'})
+        content:[{type:'text',text:'HISTORY_RESPONSE_'+String(turn).padStart(3,'0')}]},
+        stream:[{type:'block-start',index:0,blockType:'text'},
+          {type:'text-delta',index:0,text:'HISTORY_RESPONSE_'+String(turn).padStart(3,'0')},
+          {type:'block-end',index:0,block:{type:'text',text:'HISTORY_RESPONSE_'+String(turn).padStart(3,'0')}},
+          {type:'finish',reason:{kind:'stop'}}].map(chunk=>({type:'chunk',time:observedClock,chunk}))}, {surfaceOp:'append'})
       session.append('step/end', {turn,step:1})
       session.append('turn/end', {turn,reason:{kind:'completed'}})
     }
@@ -129,8 +139,11 @@ try{
       const value={attached:session!==undefined,agentStatus:agent?.status??null,
         header:session?structuredClone(session.header):null,events:session?structuredClone(session.snapshotEvents()):[],
         requests:structuredClone(record.requests),cancellation:structuredClone(record.cancellation),
-        tools:agent?ctx.get('tools').schemas(agent).map((tool:any)=>tool.name):[]}
-      record.snapshots.push(value)
+        tools:agent?ctx.get('tools').schemas(agent).map((tool:any)=>tool.name):[],
+        deepseekModels:await ctx.get('llm').listModels('deepseek-official')}
+      const serialized=JSON.stringify(value)
+      if(record.lastSnapshot!==serialized){record.snapshots.push(value);record.lastSnapshot=serialized}
+      ;(record.snapshotReads??=[]).push({commandId:request.id,index:record.snapshots.length-1})
       answer({id:request.id,ok:true,value})
     }else if(request.command==='shutdown'){
       const session=sessionId===undefined?undefined:ctx.get('sessions').get(sessionId)
@@ -150,6 +163,7 @@ try{
   process.stdin.pause()
   if(runtime)await runtime.shutdown.shutdown(record.failure?1:0)
   record.exitCode=process.exitCode??0
+  delete record.lastSnapshot
   record.durableAfter=durableFiles()
   mkdirSync(dirname(output),{recursive:true})
   writeFileSync(output,JSON.stringify(record,null,2)+'\n',{encoding:'utf8',flag:'wx'})

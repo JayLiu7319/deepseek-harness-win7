@@ -20,7 +20,7 @@ class FixturePlugin(Plugin):
                 self.calls = {}
 
             async def list_models(self, provider):
-                return [dict(id='fixture', name='Controlled local browser journey')]
+                return [dict(provider=provider, id='fixture', name='Controlled local browser journey')]
 
             async def resolve_model(self, provider, model, signal=None):
                 record['lookups'].append(dict(provider=provider, id=model))
@@ -88,7 +88,7 @@ class FixturePlugin(Plugin):
                                 arguments.update(sandbox_permissions='danger-full-access',
                                     justification='Allow this exact controlled write to the isolated test home.')
                         arguments_text = json.dumps(arguments, separators=(',', ':'))
-                        call_id = scenario.lower() + '-call-' + str(call)
+                        call_id = scenario.lower() + '-' + user['id'] + '-call-' + str(call)
                         yield dict(type='block-start', index=0, blockType='tool-call')
                         yield dict(type='tool-call-delta', index=0, id=call_id, name=tool, argumentsDelta=arguments_text)
                         yield dict(type='block-end', index=0, block=dict(type='tool-call', id=call_id,
