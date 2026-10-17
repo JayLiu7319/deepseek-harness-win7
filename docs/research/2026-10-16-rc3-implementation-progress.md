@@ -683,3 +683,9 @@ FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，
 实际6873包的108三预设fresh/cold六阶段独立通过，含原版文件引用、Minimal长历史可信分页、Standard/Creative计划审批与持久化重放。Node22.22.2下11个修复后驱动、21类能力和legacy reader重新通过；Cordis67场景依现有PY38-RESOLVED-AWAIT判据通过，原始C58差异仍保留。默认Node22.20被拒绝的诊断亦保留。完整命令、原始失败/观察、截图及边界见[解压修复回执](../../migration/candidates/rc3/extracted-repairs-current-checks.json)。这些独立片段不组成完整资格。
 
 干净228cfacc已冻结，单次统一门禁、同候选x86 Portable及双架构Standard/AIO检查正在独立执行。6873完整门禁仍失败；管理员安装、真实云provider和用户延期的Win7真机仍未认证。
+
+### R10-Q — 228cfacc 双架构桌面与现代浏览器
+
+同一冻结候选的x86 Portable包内Python通过13步实际检查；x86/x64均生成Standard及AIO、通过九项管道前检、六项实际客户端生命周期检查和七项关闭父进程管道后的真实菜单插件窗口检查。renderer/console错误均为零，物理退出0；截图已复核。现代浏览器原版三预设fresh/cold六阶段亦使用该候选精确ZIP独立通过，包含文件引用、长历史分页和计划审批重放。精确四份安装包身份、原始命令与截图见[228cfacc桌面/现代浏览器回执](../../migration/candidates/rc3/desktop-228cfacc-current-checks.json)。
+
+证据整理最初将桌面与Portable元数据目录都命名为x86-build而拒绝；保留原桌面元数据，另建x86-portable-build后封装，原始测试结果不改写。此前6873桌面构建的14份前置组件暂存副本经原下载/ZIP成员、保留安装包及完整SHA核验后清理526,960,355字节，原始组件及全部观察保留。单次统一门禁继续运行，本有限回执不代替完整资格；管理员安装、系统补丁、重启及延期Win7真机均未执行。
