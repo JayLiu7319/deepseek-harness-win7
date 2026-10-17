@@ -275,7 +275,11 @@ async def test_canonical_web_command_compaction_and_cold_restart(tmp_path, prese
         assert service_for_agent(ctx, agent, 'compaction') is not None
         assert ctx.get('commands').find(agent, 'compact') is not None
         ctx.get('llm').register_adapter(['compact-probe'], Adapter())
-        agent.session.append_request_header(dict(config=dict(provider='compact-probe', model='probe'), system='original prefix'))
+        agent.session.append_request_header(dict(config=dict(provider='compact-probe', model='probe')))
+        system = agent.session.append_event('system/message', dict(turn=1, step=1,
+            message=dict(id='compact-system', role='system',
+                         source=dict(kind='plugin', plugin='@deepseek-ai/dsh-system-prompt'),
+                         content=[dict(type='text', text='original prefix')])))
         agent.session.append_user_message('implementation facts ' * 300)
         agent.session.append_user_message('recent question')
         execution = await ctx.get('commands').execute(agent, '/compact', [], AbortController().signal)
@@ -285,7 +289,9 @@ async def test_canonical_web_command_compaction_and_cold_restart(tmp_path, prese
         assert record['data']['sourceCommandId'] == execution.command_id
         assert record['data']['llmStreamCall'] is True
         assert len(requests) == 1 and requests[0]['purpose'] == 'compaction'
-        assert requests[0]['system'] == 'original prefix'
+        assert 'system' not in requests[0]
+        assert requests[0]['messages'][0] == system['data']['message']
+        assert sum(message['role'] == 'system' for message in requests[0]['messages']) == 1
         assert agent.session.surface.replace_generation == 1
         await agent.session.flush()
         expected = [event for event in agent.session.events if event['type'].startswith(('command/', 'compaction/'))]

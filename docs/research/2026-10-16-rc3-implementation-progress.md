@@ -581,3 +581,9 @@ dd4b8ba8 统一门禁2762通过、1项既有跳过后在旧images描述符断言
 dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信前检和五项实际打包 GUI 检查；x86 Portable 完成13步运行。两个 GUI 报告各在稳定断言之后记录一条 control-stream network RemoteError，确切接收阶段尚无时间戳，不能宣称完整退出过程无 console 错误；原始错误栈保留，后续定位与最终候选复验另列。dd4b 统一门禁仍是2762通过/1跳过/1失败，未执行管理员安装或物理Win7验收。见[固定候选有限回执](../../migration/candidates/rc3/dd4b-finite-current-checks.json)。
 
 三个较早已完成桌面构建的23份前置组件暂存副本，在固定原始下载及解包成员SHA逐项匹配、无重解析点或硬链接后清理，共833,624,527字节；原始下载、安装器、构建记录和失败观察保留。清理审计与本次载体报告归入同一有限档案。
+
+### R11-V — 共用开发解释器与当前压缩命令消费者
+
+551880c9 的剩余部分诊断在实际Source/native观察器处暴露共用venv路径判定错误：解释器精确匹配已选sys.executable，却仍被要求位于工作树内。开发观察器现允许明确共用的解释器，解压产品仍强制自己的root/python.exe；外来解释器、模块越界和字节更改继续拒绝。压缩命令Web消费者改用当前有身份的system/message，确认辅助请求仅有一个系统消息并冷恢复v3命令记录。相关182项通过，包含实际Source/native的LLM与runtime-context配对。
+
+诊断因相同观察器夹具重复失败而主动中止，保留111份LLM、68份发行回执、3份压缩命令失败报告及停止原因，不统计为一次完整回归；修正后的发行回执消费者另行检查。原始失败、实际配对和命令/XML见[有限回执](../../migration/candidates/rc3/regression-consumers-current-checks.json)。统一资格及后续未执行的回归仍待完成。

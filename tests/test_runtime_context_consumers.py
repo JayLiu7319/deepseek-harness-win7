@@ -13,6 +13,19 @@ from scripts.runtime_context_oracle import NAMES, canonical, identity, validate_
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_development_interpreter_may_be_shared_but_product_interpreter_is_owned(tmp_path, monkeypatch):
+    from scripts import runtime_context_oracle as oracle
+    shared = tmp_path / 'shared-venv' / 'python.exe'
+    monkeypatch.setattr(oracle.sys, 'executable', str(shared))
+    oracle.validate_executable(str(shared), ROOT)
+    with pytest.raises(ValueError, match='selected interpreter'):
+        oracle.validate_executable(str(tmp_path / 'foreign-python.exe'), ROOT)
+    product = tmp_path / 'product'
+    with pytest.raises(ValueError, match='selected interpreter'):
+        oracle.validate_executable(str(shared), product)
+    oracle.validate_executable(str(product / 'python.exe'), product)
+
+
 @pytest.fixture(scope='module')
 def actual_pair(tmp_path_factory):
     output = tmp_path_factory.mktemp('runtime-context-pair') / 'paired.json'

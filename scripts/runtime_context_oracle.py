@@ -80,7 +80,11 @@ def validate_executable(executable, root, check_files=True):
     selected = Path(sys.executable).resolve() if root == ROOT and check_files else (root / 'python.exe').resolve()
     if Path(executable).resolve() != selected:
         raise ValueError('Observer executable is not the selected interpreter')
-    selected.relative_to(root)
+    # A development checkout may deliberately share a venv through a junction.
+    # Its exact selected interpreter is still checked above; extracted products
+    # must continue to own their interpreter inside the selected product root.
+    if root != ROOT or not check_files:
+        selected.relative_to(root)
 
 
 def validate_runtime(report, root, expected_digest, modules, check_files=True):

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-V-shared-development-runtime-and-current-compaction-consumer",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-REGRESSION-CONSUMERS-20261017.zip",
+    "bytes": 422586,
+    "sha256": "5b9f2910af78db091bbf49175e484d8ebb10377afafffe2513e4987cfcaae8ad",
+    "members": 238
+  },
+  "selected_python": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "182",
+    "time": "125.795",
+    "timestamp": "2026-10-17T18:24:54.136505+08:00",
+    "hostname": "起床困难户的rog"
+  },
+  "interrupted_diagnostic": {
+    "candidate": "551880c9830264b99ee7eb304103ba79d5146216",
+    "status": "interrupted-partial-diagnostic",
+    "failed_reports_by_module": {
+      "tests/test_current_release_gate.py": 68,
+      "tests/test_canonical_llm_consumers.py": 111,
+      "tests/test_command_compact.py": 3
+    },
+    "exit_code": 4294967295
+  },
+  "scope": [
+    "Development uses exactly the selected sys.executable, including a deliberately shared venv junction. Extracted products must still use their own root/python.exe. Foreign interpreters and imported-module roots/bytes remain rejected.",
+    "Canonical Web compaction command stores the system head as a current identified system/message, validates the auxiliary request messages and cold v3 command replay.",
+    "Actual Source/native canonical LLM and runtime-context consumers pass; the current release-receipt consumer check is a separate pending run."
+  ],
+  "limitations": [
+    "Interrupted partial diagnostics are neither full regression nor qualification. Raw182 failed reports retained; repeated common fixture failures are not182 distinct defects.",
+    "No claim that an archive from an earlier candidate contains this fix. Stable unified qualification remains pending."
+  ]
+}
