@@ -10,7 +10,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['scripts/session_corpus_list_oracle.py', 'scripts/oracles/session_corpus_list_python.py',
+INPUTS = ['scripts/oracles/current_persistence_fixture.py', 'scripts/oracles/current_persistence_fixture.ts',
+    'dsh/session/query_current.py', 'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'scripts/session_corpus_list_oracle.py', 'scripts/oracles/session_corpus_list_python.py',
     'scripts/oracles/session_corpus_list_expected.json', 'scripts/oracles/session_corpus_list.probe.spec.ts',
     'scripts/oracles/vitest.session-corpus-list-probe.config.mts', 'scripts/oracles/vitest.session-corpus.config.mts',
     'scripts/oracles/vitest.agent-lifecycle.config.mts', 'scripts/oracles/vitest.consumers.config.mts',

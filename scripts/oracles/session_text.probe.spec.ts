@@ -20,7 +20,7 @@ it('observes literal Unicode regex and all semantic extraction whitespace bounda
     const live = row.headers.filter((_: any, index: number) => row.provider === 'live' || row.provider === 'mixed' && index % 2 === 0)
     const persisted = row.headers.filter((_: any, index: number) => row.provider === 'persisted' || row.provider === 'mixed' && index % 2 === 1)
     for (const header of live) ctx.sessions.enter(Session.create(header.id, [], header))
-    ctx.provide('sessionPersistence', {list: async () => persisted} as any)
+    ctx.provide('sessionPersistence', {list: async () => persisted.map(header => ({header,revision:'controlled'}))} as any)
     const query = new TestSessionQueryEngine(ctx)
     await Promise.resolve()
     await Promise.resolve()

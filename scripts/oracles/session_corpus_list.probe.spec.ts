@@ -1,3 +1,4 @@
+import { readFixture } from './current_persistence_fixture.ts'
 import { writeFile } from 'node:fs/promises'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -9,7 +10,7 @@ it('observes actual corpus listing with declared listing failure and publication
   for (const name of ['no-provider', 'persisted-live', 'tie-order', 'duplicate-durable', 'foreign-header',
     'listing-failure', 'foreign-rejection', 'pre-abort', 'list-abort', 'signal-forwarded', 'post-list-attach', 'clone-detachment']) {
     const ctx = new Context()
-    const header = {version: 0, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd',isSeeded:false}
+    const header = {version: 3, id: SessionId('owned'), createdAt: 9, cwd: '/controlled/cwd',isSeeded:false}
     const controller = new AbortController()
     const failure: any = name === 'foreign-rejection' ? 'offline' : new TypeError('controlled listing failure')
     const counters = {lists: 0, sameSignal: false}
@@ -22,14 +23,14 @@ it('observes actual corpus listing with declared listing failure and publication
       if (['persisted-live', 'foreign-header', 'clone-detachment'].includes(name)) {
         ctx.sessions.enter(Session.create(header.id, [], {...header, createdAt: name === 'foreign-header' ? 8 : 9}))
       }
-      if (name !== 'no-provider') ctx.provide('sessionPersistence', {list: async (signal: any) => {
+      if (name !== 'no-provider') ctx.provide('sessionPersistence', readFixture(async (signal: any) => {
         counters.lists += 1
         counters.sameSignal = signal === controller.signal
         if (['listing-failure', 'foreign-rejection'].includes(name)) throw failure
         if (name === 'list-abort') controller.abort(failure)
         if (name === 'post-list-attach') ctx.sessions.enter(Session.create(header.id, [], header))
         return headers
-      }} as any)
+      }) as any)
       const corpus = new SessionCorpus(ctx, 4)
       await Promise.resolve()
       await Promise.resolve()

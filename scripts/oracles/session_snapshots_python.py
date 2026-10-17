@@ -22,8 +22,8 @@ import dsh
 from dsh.cordis import Context
 from dsh.core.abort import AbortController
 from dsh.core.session import SessionHeader
-from dsh.core.session.session import SessionPlugin
-from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin as JsonlSessionPersistencePlugin
 
 fixture_spec = importlib.util.spec_from_file_location('session_snapshot_fixture', Path(__file__).with_name('session_snapshot_fixture.py'))
 fixture = importlib.util.module_from_spec(fixture_spec)
@@ -39,7 +39,7 @@ async def observe():
             parent = Path(tempfile.mkdtemp(prefix='dsh-snapshot-'))
             root = parent/'original'
             file = parent/'original.db'
-            header = SessionHeader(session_id='s',created_at=1)
+            header = SessionHeader(session_id='s',version=3,created_at=1,cwd='/controlled/cwd')
             first_event = dict(type='session/end-seed',seq=0,time=1,data={})
             context = None
             async def mount(location):
@@ -56,46 +56,50 @@ async def observe():
             reason = TypeError('snapshot deadline')
             try:
                 persistence = await mount(':memory:' if mode == 'memory' else root if backend.startswith('jsonl') else file)
-                await persistence.create(header)
+                writer = await persistence.create(header)
                 if mode == 'lazy':
-                    observed['count'] = len(await persistence.listSnapshots())
+                    observed['count'] = len(await persistence.list())
+                    observed['physicalExists'] = Path(persistence.locate(writer.header)).exists()
                 elif mode == 'preabort':
                     controller = AbortController()
                     controller.abort(reason)
-                    await persistence.listSnapshots(controller.signal)
+                    await persistence.list(dict(signal=controller.signal))
                 else:
-                    await persistence.append(header.id,[first_event])
-                    initial = (await persistence.listSnapshots())[0]
+                    await writer.append([first_event])
+                    await writer.flush()
+                    initial = (await persistence.list())[0]
                     if mode == 'stable':
-                        repeated = await persistence.listSnapshots()
-                        identity = os.stat(persistence.locate(header).path if backend.startswith('jsonl') else str(file))
+                        repeated = await persistence.list()
+                        identity = os.stat(persistence.locate(writer.header) if backend.startswith('jsonl') else str(file))
                         prefix = ':'.join(str(value) for value in (
                             identity.st_dev,identity.st_ino,identity.st_size,identity.st_mtime_ns))+':' if backend.startswith('jsonl') else (
                             'file:{}:{}:{}:store:'.format(identity.st_dev,identity.st_ino,identity.st_ctime_ns))
-                        observed.update(count=len(repeated),same=repeated[0].revision==initial.revision,
-                                        qualified=grammar(initial.revision),statIdentity=initial.revision.startswith(prefix))
+                        observed.update(count=len(repeated),same=repeated[0]['revision']==initial['revision'],
+                                        qualified=grammar(initial['revision']),statIdentity=initial['revision'].startswith(prefix))
                     elif mode in ('append','memory'):
-                        await persistence.append(header.id,[
+                        await writer.append([
                             dict(type='turn/start',seq=1,time=2,data=dict(turn=1)),
                             dict(type='turn/end',seq=2,time=3,data=dict(turn=1,reason=dict(kind='completed'))),
                         ])
-                        next_snapshot = (await persistence.listSnapshots())[0]
+                        await writer.flush()
+                        next_snapshot = (await persistence.list())[0]
                         if mode == 'memory':
-                            observed.update(qualified=grammar(initial.revision),
-                                same=(await persistence.listSnapshots())[0].revision==next_snapshot.revision,
-                                counterDelta=int(next_snapshot.revision.split(':')[-1])-int(initial.revision.split(':')[-1]))
+                            observed.update(qualified=grammar(initial['revision']),
+                                same=(await persistence.list())[0]['revision']==next_snapshot['revision'],
+                                counterDelta=int(next_snapshot['revision'].split(':')[-1])-int(initial['revision'].split(':')[-1]))
                         else:
-                            observed['changed'] = initial.revision != next_snapshot.revision
+                            observed['changed'] = initial['revision'] != next_snapshot['revision']
                             if backend == 'sqlite':
-                                observed['counterDelta'] = int(next_snapshot.revision.split(':')[-1])-int(initial.revision.split(':')[-1])
+                                observed['counterDelta'] = int(next_snapshot['revision'].split(':')[-1])-int(initial['revision'].split(':')[-1])
                     elif mode == 'noop':
-                        await persistence.append(header.id,[])
-                        observed['same'] = (await persistence.listSnapshots())[0].revision==initial.revision
+                        await writer.append([])
+                        observed['same'] = (await persistence.list())[0]['revision']==initial['revision']
                     elif mode == 'detached':
-                        initial.header.created_at = 999
-                        repeated = (await persistence.listSnapshots())[0]
-                        observed.update(createdAt=repeated.header.created_at,sameToken=repeated.revision==initial.revision)
+                        initial['header']['createdAt'] = 999
+                        repeated = (await persistence.list())[0]
+                        observed.update(createdAt=repeated['header']['createdAt'],sameToken=repeated['revision']==initial['revision'])
                     elif mode in ('reopen','copy'):
+                        await writer.close()
                         await context.fiber.dispose()
                         context = None
                         location = root if backend.startswith('jsonl') else file
@@ -106,28 +110,30 @@ async def observe():
                             else:
                                 shutil.copyfile(str(file),str(location))
                         persistence = await mount(location)
-                        repeated = (await persistence.listSnapshots())[0]
+                        repeated = (await persistence.list())[0]
                         if mode == 'reopen':
-                            observed.update(same=repeated.revision==initial.revision,qualified=grammar(repeated.revision))
+                            observed.update(same=repeated['revision']==initial['revision'],qualified=grammar(repeated['revision']))
                         else:
-                            observed.update(sameHeader=repeated.header.to_dict()==initial.header.to_dict(),
-                                            different=repeated.revision!=initial.revision,qualified=grammar(repeated.revision))
+                            observed.update(sameHeader=repeated['header']==initial['header'],
+                                            different=repeated['revision']!=initial['revision'],qualified=grammar(repeated['revision']))
                     else:
-                        path = persistence.locate(header).path
+                        path = persistence.locate(writer.header)
                         os.utime(path,ns=(1000000000000000000,1000000000000000000))
                         fixture.set_change_time(path, 1500000000000000000)
                         before = os.stat(path)
-                        first = (await persistence.listSnapshots())[0]
+                        first = (await persistence.list())[0]
                         bytes_value = bytearray(Path(path).read_bytes())
                         bytes_value[-2] = 32
                         Path(path).write_bytes(bytes_value)
                         os.utime(path,ns=(1000000000000000000,1000000000000000000))
                         fixture.set_change_time(path, 1500000001000000000)
                         after = os.stat(path)
-                        next_snapshot = (await persistence.listSnapshots())[0]
+                        await writer.flush()
+                        next_snapshot = (await persistence.list())[0]
                         observed.update(sameSize=before.st_size==after.st_size,sameFile=before.st_ino==after.st_ino,
-                            sameMtime=before.st_mtime_ns==after.st_mtime_ns,changedToken=first.revision!=next_snapshot.revision,
-                            changeFieldAdvanced=int(next_snapshot.revision.split(':')[-1])>int(first.revision.split(':')[-1]))
+                            sameMtime=before.st_mtime_ns==after.st_mtime_ns,changedToken=first['revision']!=next_snapshot['revision'],
+                            changeFieldAdvanced=int(next_snapshot['revision'].split(':')[-1])>int(first['revision'].split(':')[-1]))
+                await writer.close()
             except Exception as error:
                 observed['error'] = dict(name=type(error).__name__,message=getattr(error,'message',str(error)),sameReason=error is reason)
             finally:

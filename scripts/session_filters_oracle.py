@@ -10,7 +10,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['scripts/session_filters_oracle.py','scripts/oracles/session_filters_python.py',
+INPUTS = ['scripts/oracles/session_event_trace_current_fixture.json', 'scripts/oracles/current_persistence_fixture.py', 'scripts/oracles/current_persistence_fixture.ts',
+    'dsh/session/query_current.py', 'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'scripts/session_filters_oracle.py','scripts/oracles/session_filters_python.py',
     'scripts/oracles/session_filters_expected.json','scripts/oracles/session_filters_cases.json',
     'scripts/oracles/session_event_trace_fixture.json','scripts/oracles/session_filters.probe.spec.ts',
     'scripts/oracles/vitest.session-filters-probe.config.mts',

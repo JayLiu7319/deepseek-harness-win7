@@ -1,3 +1,4 @@
+import { readFixture } from './current_persistence_fixture.ts'
 import { writeFile } from 'node:fs/promises'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -13,7 +14,7 @@ it('observes one-shot lineage contracts and stack-independent descendants', asyn
     const controller = new AbortController()
     const failure: any = name === 'foreign-rejection' ? 'offline' : new TypeError('controlled lineage failure')
     const counters = {lists: 0, inspections: 0, sameSignal: false}
-    const header = (id: string, createdAt = 1, parent?: string) => ({version: 0, id: SessionId(id), createdAt,
+    const header = (id: string, createdAt = 1, parent?: string) => ({version: 3, id: SessionId(id), createdAt,
       ...parent === undefined ? {} : {parentSession: SessionId(parent)},isSeeded:false})
     let headers: any[] = [header('target')]
     if (['complete','clone-detachment'].includes(name)) headers = [header('root',0),header('parent',1,'root'),
@@ -47,14 +48,13 @@ it('observes one-shot lineage contracts and stack-independent descendants', asyn
         for (const meta of headers) ctx.sessions.enter(Session.create(meta.id,[],meta))
       if (['persisted','listing-failure','foreign-rejection','pre-abort','list-abort'].includes(name))
         ctx.provide('sessionPersistence',{
-          list: async (signal: any) => {
+          ...readFixture(async (signal: any) => {
             counters.lists += 1
             counters.sameSignal = signal === controller.signal
             if (['listing-failure','foreign-rejection'].includes(name)) throw failure
             if (name === 'list-abort') controller.abort(failure)
             return headers
-          },
-          inspect: async () => {counters.inspections += 1; throw new Error('unexpected inspection')},
+          }, async () => {counters.inspections += 1; throw new Error('unexpected inspection')}),
         } as any)
       const query = new TestSessionQueryEngine(ctx)
       await Promise.resolve(); await Promise.resolve()

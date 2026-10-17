@@ -16,18 +16,22 @@ if __name__ == '__main__':
     ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 import dsh
+from scripts.oracles.current_persistence_fixture import read_fixture
 from dsh.cordis import Context
 from dsh.core.abort import AbortController
-from dsh.core.session import Session, SessionHeader
-from dsh.core.session.session import SessionPlugin
-from dsh.session.session_query import SessionQueryService, compile_session_text_filter, materialize_session_result_filters
-from dsh.session.session_query import materialize_session_event_result_filters, filter_session_event_documents, build_session_event_search_documents
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSession as Session
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSessionQueryService as SessionQueryService
+from dsh.session.session_query import compile_session_text_filter, materialize_session_result_filters
+from dsh.session.session_query import materialize_session_event_result_filters, filter_session_event_documents
+from dsh.session.query_current import documents as build_session_event_search_documents
 
 
 async def observe():
     directory = Path(__file__).parent
     cases = json.loads((directory/'session_filters_cases.json').read_text(encoding='utf-8'))
-    events = json.loads((directory/'session_event_trace_fixture.json').read_text(encoding='utf-8'))
+    events = json.loads((directory/'session_event_trace_current_fixture.json').read_text(encoding='utf-8'))
     rows = []
     for item in cases:
         filters = copy.deepcopy(item.get('filters'))
@@ -56,8 +60,8 @@ async def observe():
             else:
                 context = Context()
                 await context.plugin(SessionPlugin)
-                live = SessionHeader('live',created_at=2,cwd='/workspace')
-                cold = SessionHeader('cold',created_at=1)
+                live = SessionHeader('live', version=3, created_at=2,cwd='/workspace')
+                cold = SessionHeader('cold', version=3, created_at=1)
                 context.get('sessions').enter(Session.create(live.id,events,live))
                 controller = AbortController()
                 counters = dict(lists=0,inspections=0,sameSignal=True)
@@ -72,8 +76,8 @@ async def observe():
                 async def inspection(identity,signal=None):
                     counters['inspections'] += 1
                     return dict(meta=cold,events=events, inheritedEventCount=0)
-                context.set_service('sessionPersistence',SimpleNamespace(list=listing,inspect=inspection))
-                query = SessionQueryService(context,open_at='never')
+                context.set_service('sessionPersistence',read_fixture(listing, inspection))
+                query = SessionQueryService(context)
                 if item['name'] in ('public-sessions-pre-abort','public-sessions-invalid-before-abort'):
                     controller.abort(failure)
                 if item['mode'] == 'public-sessions':

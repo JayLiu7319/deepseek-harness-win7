@@ -10,7 +10,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['scripts/session_lineage_oracle.py', 'scripts/oracles/session_lineage_python.py',
+INPUTS = ['scripts/oracles/current_persistence_fixture.py', 'scripts/oracles/current_persistence_fixture.ts',
+    'dsh/session/query_current.py', 'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'scripts/session_lineage_oracle.py', 'scripts/oracles/session_lineage_python.py',
     'scripts/oracles/session_lineage_expected.json', 'scripts/oracles/session_lineage.probe.spec.ts',
     'scripts/oracles/vitest.session-lineage-probe.config.mts', 'scripts/oracles/vitest.session-corpus.config.mts',
     'dsh/session/tracing.py', 'dsh/session/session_query.py', 'dsh/session/persistence.py',

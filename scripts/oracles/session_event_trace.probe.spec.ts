@@ -1,3 +1,4 @@
+import { readFixture } from './current_persistence_fixture.ts'
 import { readFile, writeFile } from 'node:fs/promises'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -5,7 +6,7 @@ import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
 import { TestSessionQueryEngine } from '../../reference/packages/session-query/session-query/tests/test-service.ts'
 
 it('observes exact surface, event traces and raw windows', async () => {
-  const fixture = JSON.parse(await readFile('scripts/oracles/session_event_trace_fixture.json','utf8'))
+  const fixture = JSON.parse(await readFile('scripts/oracles/session_event_trace_current_fixture.json','utf8'))
   const rows: any[] = []
   const names = ["trace-original","trace-replacement","trace-log-only","trace-current","trace-detachment","surface-live","surface-cold","surface-empty","surface-invalid","list-records","list-invalid","trace-missing-before-invalid","trace-invalid-surface","trace-duplicate-sources","trace-non-surface-source","window-target","window-default","window-clamped","window-alias","window-invalid-before","window-invalid-after","window-invalid-limit","window-before-abort","trace-pre-abort","trace-list-failure","trace-inspect-failure","trace-foreign-failure","trace-header-conflict","trace-attach-wins","read-session-adoption"]
   for (const name of names) {
@@ -13,11 +14,11 @@ it('observes exact surface, event traces and raw windows', async () => {
     const controller = new AbortController()
     const failure: any = name === 'trace-foreign-failure' ? 'offline' : new TypeError('controlled event failure')
     const counters = {lists:0,inspections:0,sameSignal:true}
-    const meta = {version:0,id:SessionId('owned'),createdAt:9,cwd:'/controlled/cwd',isSeeded:false}
+    const meta = {version:3,id:SessionId('owned'),createdAt:9,cwd:'/controlled/cwd',isSeeded:false}
     let events = structuredClone(fixture)
     if (name === 'surface-empty') events = []
     if (['surface-invalid','list-invalid','trace-missing-before-invalid','trace-invalid-surface'].includes(name))
-      events[2].surfaceOp.start = 99
+      events[2].surfaceOp.startSeq = 99
     if (name === 'trace-duplicate-sources') events[3].sourceEventSeqs = [0,0]
     if (name === 'trace-non-surface-source') events[0].sourceEventSeqs = [0]
     const normalizeEvent = (event: any) => ({seq:event.seq,type:event.type,time:event.time,
@@ -30,22 +31,21 @@ it('observes exact surface, event traces and raw windows', async () => {
         'read-session-adoption'].includes(name)
       if (live) ctx.sessions.enter(Session.create(meta.id,events,meta))
       else ctx.provide('sessionPersistence',{
-        list: async (signal: any) => {
+        ...readFixture(async (signal: any) => {
           counters.lists += 1
           counters.sameSignal &&= signal === (['trace-pre-abort','window-before-abort',
             'trace-list-failure','trace-inspect-failure','trace-foreign-failure','trace-header-conflict',
             'trace-attach-wins'].includes(name) ? controller.signal : undefined)
           if (name === 'trace-list-failure') throw failure
           return [meta]
-        },
-        inspect: async (_id: string, signal: any) => {
+        }, async (_id: string, signal: any) => {
           counters.inspections += 1
           counters.sameSignal &&= signal === (['trace-inspect-failure','trace-foreign-failure',
             'trace-header-conflict','trace-attach-wins'].includes(name) ? controller.signal : undefined)
           if (['trace-inspect-failure','trace-foreign-failure'].includes(name)) throw failure
           if (name === 'trace-attach-wins') ctx.sessions.enter(Session.create(meta.id,events,meta))
           return {meta:{...meta,cwd:name === 'trace-header-conflict' ? '/foreign' : meta.cwd},events,inheritedEventCount:0}
-        },
+        }),
       } as any)
       const query = new TestSessionQueryEngine(ctx,{readWindowMax:name === 'window-invalid-limit' ? 2 : 50})
       await Promise.resolve(); await Promise.resolve()

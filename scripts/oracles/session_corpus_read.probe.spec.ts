@@ -1,3 +1,4 @@
+import { readFixture } from './current_persistence_fixture.ts'
 import { writeFile } from 'node:fs/promises'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -14,7 +15,7 @@ it('observes exact corpus loads and bounded title batches', async () => {
     'batch-concurrency', 'batch-abort-drain', 'pre-abort']
   for (const name of names) {
     const ctx = new Context()
-    const header = (id: string, createdAt = 9) => ({version: 0, id: SessionId(id), createdAt, cwd: '/controlled/cwd',isSeeded:false})
+    const header = (id: string, createdAt = 9) => ({version: 3, id: SessionId(id), createdAt, cwd: '/controlled/cwd',isSeeded:false})
     const title = (id: string) => ({type: 'session/title', seq: 0, time: 3,
       data: {title: 'Title ' + id, messageSeqs: [], source: {kind: 'user'}}}) as any
     const controller = new AbortController()
@@ -39,14 +40,13 @@ it('observes exact corpus loads and bounded title batches', async () => {
       if (['load-live', 'batch-live-only', 'batch-mixed-duplicates', 'batch-list-failure', 'batch-foreign-failure', 'batch-clone'].includes(name)) live('a')
       if (name === 'batch-live-only') live('b')
       if (!['load-missing-provider'].includes(name)) ctx.provide('sessionPersistence', {
-        list: async (signal: any) => {
+        ...readFixture(async (signal: any) => {
           counters.lists += 1
           counters.signals &&= signal === controller.signal
           if (['batch-list-failure', 'batch-foreign-failure'].includes(name)) throw failure
           if (name === 'batch-list-attach') {live('b'); listed = [header('a')]}
           return listed
-        },
-        inspect: async (id: string, signal: any) => {
+        }, async (id: string, signal: any) => {
           counters.inspections.push(id)
           counters.signals &&= signal === controller.signal
           counters.inFlight += 1
@@ -62,10 +62,10 @@ it('observes exact corpus loads and bounded title batches', async () => {
             inspected = {meta: header(id, name === 'load-header-conflict' ? 8 : 9), events: [event],inheritedEventCount:0}
             return inspected
           } finally {counters.inFlight -= 1; counters.settled += 1}
-        },
+        }),
       } as any)
       const corpus = new SessionCorpus(ctx, 2)
-      const query = new TestSessionQueryEngine(ctx, {persistedInspectConcurrency: 2})
+      const query = new TestSessionQueryEngine(ctx, {persistedReadConcurrency: 2})
       await Promise.resolve(); await Promise.resolve()
       if (name === 'pre-abort') controller.abort(failure)
       try {

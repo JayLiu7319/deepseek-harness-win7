@@ -10,7 +10,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['scripts/session_event_trace_oracle.py', 'scripts/oracles/session_event_trace_python.py',
+INPUTS = ['scripts/oracles/session_event_trace_current_fixture.json', 'scripts/oracles/current_persistence_fixture.py', 'scripts/oracles/current_persistence_fixture.ts',
+    'dsh/session/query_current.py', 'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'scripts/session_event_trace_oracle.py', 'scripts/oracles/session_event_trace_python.py',
     'scripts/oracles/session_event_trace_expected.json', 'scripts/oracles/session_event_trace_fixture.json', 'scripts/oracles/session_event_trace.probe.spec.ts',
     'scripts/oracles/vitest.session-event-trace-probe.config.mts', 'scripts/oracles/vitest.session-corpus.config.mts',
     'dsh/session/tracing.py', 'dsh/session/session_query.py', 'dsh/session/persistence.py',

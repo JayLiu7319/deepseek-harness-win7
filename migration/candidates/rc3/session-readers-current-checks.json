@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-AA-current-session-readers",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-SESSION-READERS-20261017.zip",
+    "bytes": 280140,
+    "sha256": "843538a14a85b1460ae5cca90b9bef99b9a77b9385e3239e8787591fc2803cf6",
+    "members": 42
+  },
+  "inputSha256": {
+    "dsh/session/observation_current.py": "9227bf7059e0495ca95d782f1dc5c2985d405f097fba23f28dd83f38f0f39f1d",
+    "scripts/oracles/session_corpus_list.probe.spec.ts": "1bbba79260841b25755d14c001a2fd7afb8d455353f7d438d39b26c373ad2ba8",
+    "scripts/oracles/session_corpus_list_python.py": "f2346f6eaf68940c58f97dc4599c0b09364d47b1de8773f8095448a44b220183",
+    "scripts/oracles/session_corpus_read.probe.spec.ts": "333567bc3fdd74d3502b3998027a74b9da232060ddc3c92ba061b7a5f29a1a7e",
+    "scripts/oracles/session_corpus_read_expected.json": "b1ae7d1d8b97652e22ce0475b3f3479ceaf61d701b07676128fba63a3557d88e",
+    "scripts/oracles/session_corpus_read_python.py": "9ff26b5f84cfe6d324b1a4c16055a2293d4a5b8e2e9f70c63913cd3ecbe83c31",
+    "scripts/oracles/session_event_trace.probe.spec.ts": "be98cc10da9145b2cf6ca3c6c788c3ff0c3bc83513304f0475f46e2c53a56dbd",
+    "scripts/oracles/session_event_trace_expected.json": "1a5903180243f897dbc87144a9175bf1162646eb002f29709bfa5f54f36f008b",
+    "scripts/oracles/session_event_trace_python.py": "d99a0cc3e9ec25b1c679539cd45b865a00588e4a57b408eef288dabcc39ae100",
+    "scripts/oracles/session_filters.probe.spec.ts": "803e865174fedb451ff809dca72d9ad11841b72905d1ce4e855ee42fee959da1",
+    "scripts/oracles/session_filters_python.py": "ba195d1c1aa1a73ddfd41cbee23e344bcfc4f50f523941c8ff6072913a97feb2",
+    "scripts/oracles/session_lineage.probe.spec.ts": "df326b90f072f4b98e93e550eb64509b9685533489c70e1d3e701071a8ee73a7",
+    "scripts/oracles/session_lineage_python.py": "ff4fad1c98723ece902e5bd2112e365d5a1062e626885af555a2dc8f62d172fd",
+    "scripts/oracles/session_observation_read.probe.spec.ts": "fcc60353069dc42402f0fe996893384a73c81ead0ce7c36aac2482256657bf8c",
+    "scripts/oracles/session_observation_read_expected.json": "2f73c881b67ba2ed6856bfebed715411cb4d09568d3a8d54c102c3dc90f6be54",
+    "scripts/oracles/session_observation_read_python.py": "7cdf41ab3f70cdc178c4dcd9697722e117f4b155532ed6535a480f7e02b2c733",
+    "scripts/oracles/session_snapshots.probe.spec.ts": "c1faad15f4392ca9bea560cf5b30099b4f2cec2d6ac848843534482d346aef6c",
+    "scripts/oracles/session_snapshots_expected.json": "1ab06604fdb8e2701fceda330fee014e2ae36b2304f65961561a8776faf3b5bb",
+    "scripts/oracles/session_snapshots_python.py": "51853ed69ab918dc1140eae315dc4fee42ce84b9a2a8132ca03726eb7c4cc718",
+    "scripts/oracles/session_text.probe.spec.ts": "6cb44880c0efa13a550cd3e08a2ef1fb05e4282a288820a5672f5c03c069558d",
+    "scripts/oracles/session_text_inputs.py": "f0b464138fb1bba5b4e5ba23f130d0907176bb2f09f1e400b631ec9b2903ee4e",
+    "scripts/oracles/session_text_python.py": "cbe24353e2ad651be63d39a4d53b2cd8e14198d5967c9760a93e083816fb59b4",
+    "scripts/session_corpus_list_oracle.py": "ea41dd8904e9e5c85664e2964523582866af789782f8b49494f847cc9aadd97e",
+    "scripts/session_corpus_read_oracle.py": "5f9f6edc1d0f14419b5f960c5d4d87da32bf0417d087b67f4bc38fcc6ec24bf6",
+    "scripts/session_event_trace_oracle.py": "a3adf549ed5ff77ca250160867e2fe6ac43bfeddccf9919dba9910ba5a17f572",
+    "scripts/session_filters_oracle.py": "e544685b1d96bc9f9a876731e111c4427db1fedaf77f5770f9f27f69b26b229c",
+    "scripts/session_lineage_oracle.py": "2ca7789b2a5f73636a5d8e2f12184dd6fc84f8bcd6499d04f762cdfb2017b82e",
+    "scripts/session_observation_read_oracle.py": "5cdab46494bb3ba7454626749f2f439604ad7a24a01afbb1d095899f2d2ac2ea",
+    "scripts/session_snapshots_oracle.py": "bcb14650d658a76c96c5dd4fa2c604df2b416a921615c46050e91716212f642c",
+    "scripts/session_text_oracle.py": "623def4daa610c59409aa4ccb1353825530f36f5825c699fec6546412c24e2bd",
+    "tests/test_session_observation_read_observer.py": "6b2e39639896350d22a8596d740557b23454e18fefa0079cf715e28b85a6b315",
+    "tests/test_session_snapshots_observer.py": "5be8f7b34b9fe134064a3775ec9d46c557ef41a844c4bfd93d2c58136a30d81a",
+    "scripts/oracles/current_persistence_fixture.py": "af2663d9dc2dda2bda04bebeba7f4b66cff016d8cbe75e584aeb0f86313363a6",
+    "scripts/oracles/current_persistence_fixture.ts": "6104c05f2d920b21ec05f6f92cec90e3070f48b9c541e1bbb86b3785599dca4a",
+    "scripts/oracles/session_event_trace_current_fixture.json": "6738b3e74441e8b20aa69e3509f5d06c0ccd93849e74640653e52f8846629a8f"
+  },
+  "verification": [
+    {
+      "passed": 56,
+      "seconds": 11.32,
+      "scope": "Actual current Source/native point reader and 17 durable snapshot cases, strict ownership/revision mutations."
+    },
+    {
+      "passed": 54,
+      "errors": 13,
+      "seconds": 30.57,
+      "scope": "Five corpus/trace/filter/lineage pairs and text native checks passed; text observer used the retired SessionHeader decoder and failed."
+    },
+    {
+      "passed": 236,
+      "seconds": 10.8,
+      "scope": "Corrected actual 7883 Source/native text observations, current observation lifecycle, historical query regressions and strict observer mutations."
+    }
+  ],
+  "limitations": [
+    "Intermediate failures and raw observations are retained unchanged.",
+    "Current stat/open/read/close and v3 headers replace retired controlled provider seams; no production fallback is added.",
+    "Pending headers are visible immediately; lazy physical materialization is checked independently.",
+    "Historical tests still use historical fixtures; their two unawaited-close warnings are retained.",
+    "Full regression and exact packaged release qualification remain pending."
+  ]
+}

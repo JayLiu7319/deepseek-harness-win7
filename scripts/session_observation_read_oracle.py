@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUTS = ['scripts/session_observation_read_oracle.py', 'scripts/oracles/session_observation_read_python.py',
+INPUTS = ['dsh/session/observation_current.py', 'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'scripts/session_observation_read_oracle.py', 'scripts/oracles/session_observation_read_python.py',
     'scripts/oracles/session_observation_read_expected.json', 'scripts/oracles/session_observation_read.probe.spec.ts',
     'scripts/oracles/vitest.session-observation-read-probe.config.mts', 'scripts/oracles/vitest.session-observation.config.mts',
     'scripts/oracles/vitest.agent-lifecycle.config.mts', 'scripts/oracles/vitest.consumers.config.mts',
@@ -21,7 +21,6 @@ INPUTS = ['scripts/session_observation_read_oracle.py', 'scripts/oracles/session
     'reference/packages/session-query/session-query/src/config.ts',
     'reference/packages/session-query/session-query/tests/observation.spec.ts',
     'reference/packages/session/session-persistence/src/errors.ts',
-    'reference/packages/session/session-persistence/src/coordinator.ts',
     'tests/test_session_observation_read_source.py', 'tests/test_session_observation_read_observer.py']
 EXPECTED = json.loads((ROOT / 'scripts/oracles/session_observation_read_expected.json').read_text(encoding='utf-8'))
 
@@ -36,7 +35,7 @@ def expected():
 
 def validate_observations(rows):
     if canonical(rows) != canonical(EXPECTED):
-        raise ValueError('Session observation raw error, identity, exact cut, borrow or release differs')
+        raise ValueError('Session observation raw error, identity, exact cut, stat/open/close ownership differs')
 
 
 def validate_runtime(report):
@@ -85,7 +84,7 @@ def main():
         if report['inputSha256'] != hashes():
             raise ValueError('Session observation inputs changed during observation')
         report.update(status='passed', cases=16,
-            scope='Actual reader, SessionStore and registry with declared borrowed-source and failure seams; no complete durable/Web/profile/replay certification.')
+            scope='Actual reader, SessionStore and registry with declared stat/open/read/close and failure seams; no complete durable/Web/profile/replay certification.')
     except Exception as error:
         report['error'] = str(error)
     output.write_text(json.dumps(report, ensure_ascii=True, indent=2) + '\n', encoding='utf-8')

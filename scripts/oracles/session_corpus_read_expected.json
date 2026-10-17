@@ -131,7 +131,7 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "failed to inspect session \"a\": controlled corpus failure",
+        "message": "failed to read stored session \"a\": controlled corpus failure",
         "code": "SESSION_QUERY_PERSISTENCE_FAILED",
         "sameCause": true,
         "sameFailure": false
@@ -153,7 +153,7 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "failed to inspect session \"a\": unknown error",
+        "message": "failed to read stored session \"a\": unknown error",
         "code": "SESSION_QUERY_PERSISTENCE_FAILED",
         "sameCause": true,
         "sameFailure": false
@@ -449,7 +449,7 @@
           "status": "rejected",
           "error": {
             "name": "SessionQueryError",
-            "message": "failed to inspect session \"b\": controlled corpus failure",
+            "message": "failed to read stored session \"b\": controlled corpus failure",
             "code": "SESSION_QUERY_PERSISTENCE_FAILED",
             "sameCause": true,
             "sameFailure": false

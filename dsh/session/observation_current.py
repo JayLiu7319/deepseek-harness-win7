@@ -17,6 +17,8 @@ class CurrentSessionObservation:
         self._disposed = False
 
     def __getattr__(self, key):
+        if key not in self._view:
+            raise AttributeError(key)
         value = self._view[key]
         return value() if key=='events' and callable(value) else value
 

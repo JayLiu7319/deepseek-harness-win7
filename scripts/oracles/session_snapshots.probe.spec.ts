@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdtemp, rm, copyFile, cp, stat, utimes } from 'node:fs/promises'
+import { readFile, writeFile, mkdtemp, rm, copyFile, cp, stat, utimes, access } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -16,7 +16,7 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
       const parent = await mkdtemp(join(tmpdir(),'dsh-snapshot-'))
       const root = join(parent,'original')
       const file = join(parent,'original.db')
-      const meta = {version:0,id:'s',createdAt:1,isSeeded:false} as any
+      const meta = {version:3,id:'s',createdAt:1,cwd:'/controlled/cwd',isSeeded:false} as any
       const firstEvent = {type:'session/end-seed',seq:0,time:1,data:{}} as any
       let context: Context | undefined
       const mount = async (location: string) => {
@@ -31,17 +31,21 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
       const reason = new TypeError('snapshot deadline')
       try {
         let persistence = await mount(mode === 'memory' ? ':memory:' : backend.startsWith('jsonl') ? root : file)
-        await persistence.create(meta)
-        if (mode === 'lazy') observed.count = (await persistence.listSnapshots()).length
+        const writer = await persistence.create(meta)
+        if (mode === 'lazy') {
+          observed.count = (await persistence.list()).length
+          observed.physicalExists = await access(persistence.locate(meta)!.path).then(() => true, () => false)
+        }
         else if (mode === 'preabort') {
           const controller = new AbortController()
           controller.abort(reason)
-          await persistence.listSnapshots(controller.signal)
+          await persistence.list({signal:controller.signal})
         } else {
-          await persistence.append(meta.id,[firstEvent])
-          const initial = (await persistence.listSnapshots())[0]
+          await writer.append([firstEvent])
+          await writer.flush()
+          const initial = (await persistence.list())[0]
           if (mode === 'stable') {
-            const repeated = await persistence.listSnapshots()
+            const repeated = await persistence.list()
             const identity = await stat(backend.startsWith('jsonl') ? persistence.locate(meta)!.path : file,{bigint:true})
             const prefix = backend.startsWith('jsonl')
               ? [identity.dev,identity.ino,identity.size,identity.mtimeNs].join(':')+':'
@@ -49,26 +53,28 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
             Object.assign(observed,{count:repeated.length,same:repeated[0].revision===initial.revision,
               qualified:grammar(initial.revision),statIdentity:initial.revision.startsWith(prefix)})
           } else if (mode === 'append' || mode === 'memory') {
-            await persistence.append(meta.id,[
+            await writer.append([
               {type:'turn/start',seq:1,time:2,data:{turn:1}},
               {type:'turn/end',seq:2,time:3,data:{turn:1,reason:{kind:'completed'}}},
             ] as any)
-            const next = (await persistence.listSnapshots())[0]
+            await writer.flush()
+            const next = (await persistence.list())[0]
             if (mode === 'memory') Object.assign(observed,{qualified:grammar(initial.revision),
-              same:(await persistence.listSnapshots())[0].revision===next.revision,
+              same:(await persistence.list())[0].revision===next.revision,
               counterDelta:Number(next.revision.split(':').at(-1))-Number(initial.revision.split(':').at(-1))})
             else {
               observed.changed = initial.revision !== next.revision
               if (backend === 'sqlite') observed.counterDelta = Number(next.revision.split(':').at(-1))-Number(initial.revision.split(':').at(-1))
             }
           } else if (mode === 'noop') {
-            await persistence.append(meta.id,[])
-            observed.same = (await persistence.listSnapshots())[0].revision === initial.revision
+            await writer.append([])
+            observed.same = (await persistence.list())[0].revision === initial.revision
           } else if (mode === 'detached') {
             initial.header.createdAt = 999
-            const repeated = (await persistence.listSnapshots())[0]
+            const repeated = (await persistence.list())[0]
             Object.assign(observed,{createdAt:repeated.header.createdAt,sameToken:repeated.revision===initial.revision})
           } else if (mode === 'reopen' || mode === 'copy') {
+            await writer.close()
             await context!.fiber.dispose()
             context = undefined
             let location = backend.startsWith('jsonl') ? root : file
@@ -78,7 +84,7 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
               else await copyFile(file,location)
             }
             persistence = await mount(location)
-            const repeated = (await persistence.listSnapshots())[0]
+            const repeated = (await persistence.list())[0]
             if (mode === 'reopen') Object.assign(observed,{same:repeated.revision===initial.revision,qualified:grammar(repeated.revision)})
             else Object.assign(observed,{sameHeader:JSON.stringify(repeated.header)===JSON.stringify(initial.header),
               different:repeated.revision!==initial.revision,qualified:grammar(repeated.revision)})
@@ -92,19 +98,21 @@ it('observes actual durable snapshot qualification, stable reopening, copied sto
             }
             fixture('1500000000000000000')
             const before = await stat(path,{bigint:true})
-            const first = (await persistence.listSnapshots())[0]
+            const first = (await persistence.list())[0]
             const bytes = await readFile(path)
             bytes[bytes.length-2] = 32
             await writeFile(path,bytes)
             await utimes(path,1_000_000_000,1_000_000_000)
             fixture('1500000001000000000')
             const after = await stat(path,{bigint:true})
-            const next = (await persistence.listSnapshots())[0]
+            await writer.flush()
+            const next = (await persistence.list())[0]
             Object.assign(observed,{sameSize:before.size===after.size,sameFile:before.ino===after.ino,
               sameMtime:before.mtimeNs===after.mtimeNs,changedToken:first.revision!==next.revision,
               changeFieldAdvanced:BigInt(next.revision.split(':').at(-1)!)>BigInt(first.revision.split(':').at(-1)!)})
           }
         }
+        await writer.close()
       } catch (error: any) {
         observed.error = {name:error.name,message:error.message,sameReason:error===reason}
       } finally {

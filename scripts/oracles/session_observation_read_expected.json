@@ -10,8 +10,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 0,
-        "releases": 0,
+        "stats": 0,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -27,8 +28,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 0,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -44,8 +46,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 0,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 0
       }
     }
@@ -61,8 +64,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 0,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -78,8 +82,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 0,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -95,8 +100,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -112,14 +118,15 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 0,
-        "releases": 0,
+        "stats": 0,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
   },
   {
-    "name": "borrow-abort",
+    "name": "stat-abort",
     "observed": {
       "error": {
         "name": "SessionQueryError",
@@ -129,8 +136,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -146,8 +154,9 @@
         "sameFailure": false
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 0
       }
     }
@@ -163,8 +172,9 @@
         "sameFailure": true
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -180,7 +190,7 @@
         "revision": "controlled:0",
         "projections": null
       },
-      "releasesAfterFirst": 0,
+      "closesAfterFirst": 1,
       "retainFailure": {
         "message": "session observation \"owned\" is disposed",
         "ordinaryError": true
@@ -191,8 +201,9 @@
         "length": 2
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 0
       }
     }
@@ -208,7 +219,7 @@
         "revision": null,
         "projections": null
       },
-      "releasesAfterFirst": 0,
+      "closesAfterFirst": 0,
       "retainFailure": {
         "message": "session observation \"owned\" is disposed",
         "ordinaryError": true
@@ -219,8 +230,9 @@
         "length": 2
       },
       "counters": {
-        "borrows": 0,
-        "releases": 0,
+        "stats": 0,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
@@ -237,14 +249,15 @@
         "projections": null
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 0,
+        "closes": 0,
         "applied": 0
       }
     }
   },
   {
-    "name": "detached-live-retry",
+    "name": "stable-cold-read",
     "observed": {
       "cut": {
         "source": "prepared",
@@ -255,8 +268,9 @@
         "projections": null
       },
       "counters": {
-        "borrows": 2,
-        "releases": 2,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 0
       }
     }
@@ -273,8 +287,9 @@
         "projections": null
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 0
       }
     }
@@ -296,8 +311,9 @@
         }
       },
       "counters": {
-        "borrows": 1,
-        "releases": 1,
+        "stats": 1,
+        "opens": 1,
+        "closes": 1,
         "applied": 2
       }
     }

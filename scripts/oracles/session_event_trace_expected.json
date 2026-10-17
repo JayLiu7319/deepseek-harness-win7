@@ -254,11 +254,11 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "invalid session surface: surface replace: start seq 99 not found in surface",
+        "message": "invalid session surface: surface replace at seq 2: startSeq and endSeq must reference earlier events",
         "code": "SESSION_QUERY_INVALID_SURFACE",
         "sameCause": false,
         "sameFailure": false,
-        "causeMessage": "surface replace: start seq 99 not found in surface"
+        "causeMessage": "surface replace at seq 2: startSeq and endSeq must reference earlier events"
       },
       "counters": {
         "lists": 1,
@@ -326,11 +326,11 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "invalid session surface: surface replace: start seq 99 not found in surface",
+        "message": "invalid session surface: surface replace at seq 2: startSeq and endSeq must reference earlier events",
         "code": "SESSION_QUERY_INVALID_SURFACE",
         "sameCause": false,
         "sameFailure": false,
-        "causeMessage": "surface replace: start seq 99 not found in surface"
+        "causeMessage": "surface replace at seq 2: startSeq and endSeq must reference earlier events"
       },
       "counters": {
         "lists": 1,
@@ -362,11 +362,11 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "invalid session surface: surface replace: start seq 99 not found in surface",
+        "message": "invalid session surface: surface replace at seq 2: startSeq and endSeq must reference earlier events",
         "code": "SESSION_QUERY_INVALID_SURFACE",
         "sameCause": false,
         "sameFailure": false,
-        "causeMessage": "surface replace: start seq 99 not found in surface"
+        "causeMessage": "surface replace at seq 2: startSeq and endSeq must reference earlier events"
       },
       "counters": {
         "lists": 1,
@@ -701,7 +701,7 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "failed to inspect session \"owned\": controlled event failure",
+        "message": "failed to read stored session \"owned\": controlled event failure",
         "code": "SESSION_QUERY_PERSISTENCE_FAILED",
         "sameCause": true,
         "sameFailure": false,
@@ -719,7 +719,7 @@
     "observed": {
       "error": {
         "name": "SessionQueryError",
-        "message": "failed to inspect session \"owned\": unknown error",
+        "message": "failed to read stored session \"owned\": unknown error",
         "code": "SESSION_QUERY_PERSISTENCE_FAILED",
         "sameCause": true,
         "sameFailure": false,

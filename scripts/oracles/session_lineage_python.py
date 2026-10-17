@@ -15,12 +15,14 @@ if __name__ == '__main__':
     ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 import dsh
+from scripts.oracles.current_persistence_fixture import read_fixture
 from dsh.cordis import Context
 from dsh.cordis.errors import ThrownValueError
 from dsh.core.abort import AbortController
-from dsh.core.session import Session, SessionHeader
-from dsh.core.session.session import SessionPlugin
-from dsh.session.session_query import SessionQueryService
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSession as Session
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSessionQueryService as SessionQueryService
 
 
 async def observe():
@@ -33,7 +35,7 @@ async def observe():
         failure = 'offline' if name == 'foreign-rejection' else TypeError('controlled lineage failure')
         counters = dict(lists=0, inspections=0, sameSignal=False)
         def header(identity, created_at=1, parent=None):
-            return SessionHeader(identity, created_at=created_at, parent_session=parent)
+            return SessionHeader(identity, version=3, created_at=created_at, parent_session=parent)
         headers = [header('target')]
         if name in ('complete', 'clone-detachment'):
             headers = [header('root', 0), header('parent', 1, 'root'), header('target', 2, 'parent'),
@@ -68,7 +70,7 @@ async def observe():
                 descendants=dict(count=len(descendants), first=descendants[0], last=descendants[-1])
                     if name == 'deep' else descendants)
         observed = {}
-        query = SessionQueryService(context, open_at='never')
+        query = SessionQueryService(context)
         try:
             await context.plugin(SessionPlugin)
             if name not in ('persisted', 'listing-failure', 'foreign-rejection', 'pre-abort', 'list-abort'):
@@ -88,7 +90,7 @@ async def observe():
                 counters['inspections'] += 1
                 raise AssertionError('unexpected inspection')
             if name in ('persisted', 'listing-failure', 'foreign-rejection', 'pre-abort', 'list-abort'):
-                context.set_service('sessionPersistence', SimpleNamespace(list=listing, inspect=inspection))
+                context.set_service('sessionPersistence', read_fixture(listing, inspection))
             if name == 'pre-abort':
                 controller.abort(failure)
             try:

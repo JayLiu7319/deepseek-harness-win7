@@ -1,3 +1,4 @@
+import { readFixture } from './current_persistence_fixture.ts'
 import { readFile, writeFile } from 'node:fs/promises'
 import { it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
@@ -9,7 +10,7 @@ import { TestSessionQueryEngine } from '../../reference/packages/session-query/s
 
 it('observes owned filters, finite bounds, literal matching and concrete query consumers', async () => {
   const cases = JSON.parse(await readFile('scripts/oracles/session_filters_cases.json','utf8'))
-  const events = JSON.parse(await readFile('scripts/oracles/session_event_trace_fixture.json','utf8'))
+  const events = JSON.parse(await readFile('scripts/oracles/session_event_trace_current_fixture.json','utf8'))
   const rows: any[] = []
   for (const input of cases) {
     const filters = structuredClone(input.filters)
@@ -34,20 +35,19 @@ it('observes owned filters, finite bounds, literal matching and concrete query c
       } else {
         ctx = new Context()
         await ctx.plugin(SessionStore)
-        const live = {version:0,id:SessionId('live'),createdAt:2,cwd:'/workspace',isSeeded:false}
-        const cold = {version:0,id:SessionId('cold'),createdAt:1,isSeeded:false}
+        const live = {version:3,id:SessionId('live'),createdAt:2,cwd:'/workspace',isSeeded:false}
+        const cold = {version:3,id:SessionId('cold'),createdAt:1,isSeeded:false}
         ctx.sessions.enter(Session.create(live.id,events,live))
         const controller = new AbortController()
         const counters = {lists:0,inspections:0,sameSignal:true}
         observed.counters = counters
         ctx.provide('sessionPersistence',{
-          list: async (signal: any) => {
+          ...readFixture(async (signal: any) => {
             counters.lists += 1
             counters.sameSignal &&= signal === (input.mode === 'public-sessions' ? controller.signal : undefined)
             if (input.name === 'public-sessions-failure') throw failure
             return [cold]
-          },
-          inspect: async () => {counters.inspections += 1; return {meta:cold,events,inheritedEventCount:0}},
+          }, async () => {counters.inspections += 1; return {meta:cold,events,inheritedEventCount:0}}),
         } as any)
         const query = new TestSessionQueryEngine(ctx)
         await Promise.resolve(); await Promise.resolve()

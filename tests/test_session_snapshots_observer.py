@@ -3,7 +3,7 @@ import pytest
 from scripts.session_snapshots_oracle import expected, validate_observations, validate_runtime
 
 
-@pytest.mark.parametrize('damage', ['missing', 'extra', 'reorder', 'unknown', 'lazy', 'stable',
+@pytest.mark.parametrize('damage', ['missing', 'physical', 'extra', 'reorder', 'unknown', 'lazy', 'stable',
     'qualified', 'stat', 'append', 'batch', 'noop', 'detached', 'reopen', 'copy', 'abort-name',
     'abort-message', 'abort-identity', 'same-size', 'same-file', 'same-mtime', 'rewrite', 'change-time',
     'memory', 'memory-counter', 'numeric-boolean'])
@@ -18,8 +18,10 @@ def test_snapshot_observer_refuses_changed_provider_contract(damage):
         rows.reverse()
     elif damage == 'unknown':
         rows[0]['observed']['unknown'] = True
+    elif damage == 'physical':
+        indexed['jsonl-zstd-lazy']['physicalExists'] = True
     elif damage == 'lazy':
-        indexed['jsonl-lazy']['count'] = 1
+        indexed['jsonl-lazy']['count'] = 0
     elif damage in ('stable', 'qualified', 'stat'):
         indexed['jsonl-stable'][{'stable': 'same', 'qualified': 'qualified', 'stat': 'statIdentity'}[damage]] = False
     elif damage == 'append':

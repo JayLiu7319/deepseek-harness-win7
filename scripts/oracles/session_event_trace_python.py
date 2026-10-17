@@ -16,16 +16,18 @@ if __name__ == '__main__':
     ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 import dsh
+from scripts.oracles.current_persistence_fixture import read_fixture
 from dsh.cordis import Context
 from dsh.cordis.errors import ThrownValueError
 from dsh.core.abort import AbortController
-from dsh.core.session import Session, SessionHeader
-from dsh.core.session.session import SessionPlugin
-from dsh.session.session_query import SessionQueryService
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSession as Session
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSessionQueryService as SessionQueryService
 
 
 async def observe():
-    fixture = json.loads((Path(__file__).parent / 'session_event_trace_fixture.json').read_text(encoding='utf-8'))
+    fixture = json.loads((Path(__file__).parent / 'session_event_trace_current_fixture.json').read_text(encoding='utf-8'))
     rows = []
     names = ["trace-original","trace-replacement","trace-log-only","trace-current","trace-detachment","surface-live","surface-cold","surface-empty","surface-invalid","list-records","list-invalid","trace-missing-before-invalid","trace-invalid-surface","trace-duplicate-sources","trace-non-surface-source","window-target","window-default","window-clamped","window-alias","window-invalid-before","window-invalid-after","window-invalid-limit","window-before-abort","trace-pre-abort","trace-list-failure","trace-inspect-failure","trace-foreign-failure","trace-header-conflict","trace-attach-wins","read-session-adoption"]
     for name in names:
@@ -33,12 +35,12 @@ async def observe():
         controller = AbortController()
         failure = 'offline' if name == 'trace-foreign-failure' else TypeError('controlled event failure')
         counters = dict(lists=0, inspections=0, sameSignal=True)
-        meta = SessionHeader('owned', created_at=9, cwd='/controlled/cwd')
+        meta = SessionHeader('owned', version=3, created_at=9, cwd='/controlled/cwd')
         events = copy.deepcopy(fixture)
         if name == 'surface-empty':
             events = []
         if name in ('surface-invalid','list-invalid','trace-missing-before-invalid','trace-invalid-surface'):
-            events[2]['surfaceOp']['start'] = 99
+            events[2]['surfaceOp']['startSeq'] = 99
         if name == 'trace-duplicate-sources':
             events[3]['sourceEventSeqs'] = [0,0]
         if name == 'trace-non-surface-source':
@@ -48,7 +50,7 @@ async def observe():
             return dict(seq=event['seq'], type=event['type'], time=event['time'],
                         text=content[0]['text'] if content else None)
         observed = {}
-        query = SessionQueryService(context, open_at='never', read_window_max=2 if name == 'window-invalid-limit' else 50)
+        query = SessionQueryService(context, read_window_max=2 if name == 'window-invalid-limit' else 50)
         try:
             await context.plugin(SessionPlugin)
             live = name in ('trace-original','trace-replacement','trace-log-only','trace-current','trace-detachment',
@@ -76,9 +78,9 @@ async def observe():
                         raise ThrownValueError(failure)
                     if name == 'trace-attach-wins':
                         context.get('sessions').enter(Session.create(meta.id, events, meta))
-                    return dict(meta=SessionHeader(meta.id, created_at=9,
+                    return dict(meta=SessionHeader(meta.id, version=3, created_at=9,
                         cwd='/foreign' if name == 'trace-header-conflict' else meta.cwd), events=events, inheritedEventCount=0)
-                context.set_service('sessionPersistence', SimpleNamespace(list=listing, inspect=inspection))
+                context.set_service('sessionPersistence', read_fixture(listing, inspection))
             if name in ('trace-pre-abort','window-before-abort'):
                 controller.abort(failure)
             try:

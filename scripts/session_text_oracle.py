@@ -13,7 +13,7 @@ from scripts.query_unicode_oracle import canonical, validate_icu_identity
 
 
 DATA_SHA256 = '34f97be27ca68fdd2d3fdbb4a648c545f473c8089eafc50df792afbd8ea5650f'
-INPUTS = ['scripts/session_text_oracle.py', 'scripts/oracles/session_text_inputs.py',
+INPUTS = ['dsh/session/query_current.py', 'dsh/core/session/current_session.py', 'scripts/session_text_oracle.py', 'scripts/oracles/session_text_inputs.py',
           'scripts/oracles/session_text_python.py', 'scripts/oracles/session_text.probe.spec.ts',
           'scripts/oracles/vitest.session-text-probe.config.mts', 'scripts/query_unicode_oracle.py',
           'dsh/session/text.py', 'dsh/session/session_query.py', 'dsh/session/tracing.py',

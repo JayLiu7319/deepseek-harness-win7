@@ -15,12 +15,14 @@ if __name__ == '__main__':
     ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 import dsh
+from scripts.oracles.current_persistence_fixture import read_fixture
 from dsh.cordis import Context
 from dsh.cordis.errors import ThrownValueError
 from dsh.core.abort import AbortController
-from dsh.core.session import Session, SessionHeader, SessionPlugin
-from dsh.session.corpus import SessionCorpus
-from dsh.session.session_query import SessionQueryService
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSession as Session, CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSessionCorpus as SessionCorpus
+from dsh.session.query_current import CurrentSessionQueryService as SessionQueryService
 from dsh.session.title import fold_session_title
 
 
@@ -33,7 +35,7 @@ async def observe():
     for name in names:
         ctx = Context()
         def header(identity, created_at=9):
-            return SessionHeader(identity, created_at=created_at, cwd='/controlled/cwd')
+            return SessionHeader(identity, version=3, created_at=created_at, cwd='/controlled/cwd')
         def title(identity):
             return {'type': 'session/title', 'seq': 0, 'time': 3,
                 'data': {'title': 'Title ' + identity, 'messageSeqs': [], 'source': {'kind': 'user'}}}
@@ -56,7 +58,7 @@ async def observe():
             return {'name': getattr(error, 'name', type(error).__name__),
                 'message': getattr(error, 'message', str(error)), 'code': getattr(error, 'code', None),
                 'sameCause': getattr(error, 'cause', None) is failure, 'sameFailure': error is failure}
-        query = SessionQueryService(ctx, open_at='never', persisted_inspect_concurrency=2)
+        query = SessionQueryService(ctx, persisted_read_concurrency=2)
         try:
             await ctx.plugin(SessionPlugin)
             if name in ('load-live', 'batch-live-only', 'batch-mixed-duplicates', 'batch-list-failure', 'batch-foreign-failure', 'batch-clone'):
@@ -110,7 +112,7 @@ async def observe():
                     counters['inFlight'] -= 1
                     counters['settled'] += 1
             if name != 'load-missing-provider':
-                ctx.set_service('sessionPersistence', SimpleNamespace(list=listing, inspect=inspect))
+                ctx.set_service('sessionPersistence', read_fixture(listing, inspect))
             corpus = SessionCorpus(ctx, 2)
             if name == 'pre-abort':
                 controller.abort(failure)

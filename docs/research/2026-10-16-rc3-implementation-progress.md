@@ -615,3 +615,7 @@ dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信
 ### R11-Z — 当前查询观察器与示例构建回执
 
 FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，两侧均实际使用当前引擎，完整排序、revision、游标和2034项Unicode观察仍严格比较。ICU拒绝测试只复制本架构的根文件，不把新增x86子目录当文件；示例插件通过原构建器更新当前Host协议回执，浏览器源码不改。107项通过、1项因未指定浏览器跳过，实际浏览器检查独立列在R11-Y，不合并计数。原始配对、XML与冻结输入见[有限回执](../../migration/candidates/rc3/query-observers-current-checks.json)；未晋升统一资格。
+
+### R11-AA — current Session read observers
+
+已将 corpus/list/read、event trace、filters、lineage、point observation、durable snapshots 和文本排序配对迁至 v3 Session 与显式只读句柄；原历史夹具保留独立使用。读取后的内存 lease 不继续占有后端，异常关闭次数、取消原因身份和快照变化仍严格比较。Python 可选观察属性缺失改为 AttributeError。定向56项及236项通过，文本观察7,883项逐项对照原版；中间54通过/13错误及原始输出保留。证据见 migration/candidates/rc3/session-readers-current-checks.json；完整回归和实际发行验收仍待稳定候选。

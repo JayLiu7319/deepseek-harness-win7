@@ -18,8 +18,9 @@ from dsh.session import text as text_module
 from dsh.session.icu_collation import IcuCollator
 from dsh.session.session_query import compile_session_text_filter, extract_session_event_text
 from dsh.cordis.context import Context
-from dsh.core.session import SessionHeader, Session, SessionPlugin
-from dsh.session.query_engine import SqliteSessionQueryEngine
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSession as Session, CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSqliteSessionQueryEngine as SqliteSessionQueryEngine
 
 
 inputs = json.loads(arguments.inputs.read_text(encoding='utf-8'))
@@ -38,20 +39,20 @@ async def observe_orders():
         context = Context()
         await context.plugin(SessionPlugin)
         live = [header for index, header in enumerate(row['headers']) if row['provider'] == 'live' or row['provider'] == 'mixed' and index % 2 == 0]
-        persisted = [SessionHeader.from_dict(header) for index, header in enumerate(row['headers']) if row['provider'] == 'persisted' or row['provider'] == 'mixed' and index % 2 == 1]
+        persisted = [header for index, header in enumerate(row['headers']) if row['provider'] == 'persisted' or row['provider'] == 'mixed' and index % 2 == 1]
         for value in live:
-            header = SessionHeader.from_dict(value)
-            context.get('sessions').enter(Session.create(header.id, [], header))
+            header = value
+            context.get('sessions').enter(Session.create(header['id'], [], header))
         class Persistence:
-            async def list(self, signal=None):
-                return persisted
+            async def list(self, options=None):
+                return [dict(header=header, revision='controlled') for header in persisted]
         context.set_service('sessionPersistence', Persistence())
         query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='never'))
         try:
             records = await query.listSessions()
             trace = await query.traceSession('root')
-            orders.append(dict(name=row['name'], listed=[record['header'].id for record in records],
-                               children=[child['session']['header'].id for child in trace['descendants']]))
+            orders.append(dict(name=row['name'], listed=[record['header']['id'] for record in records],
+                               children=[child['session']['header']['id'] for child in trace['descendants']]))
         finally:
             await query.close()
             await context.fiber.dispose()
