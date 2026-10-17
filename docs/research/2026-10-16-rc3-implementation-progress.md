@@ -323,3 +323,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R09-B — 外部应用解析与独立启动
 
 原样导出rc.3应用目录，按平台核验bundle、PATH、文件、版本目录、注册表及XDG入口；一次解析共享懒注册表，SSH不探测，版本名复用固定ICU数字排序。启动器传递字面argv、过滤继承凭据并叠加显式adapter环境；只观察早期失败，真实子进程在宿主退出后继续运行。100组实际配对、192项原生和38项原版测试通过，包含真实目录、独立父子进程、超时信号、fallback/ENOENT。初轮记录器路径归一化和测试命令错误保留。详见 `migration/candidates/rc3/open-in-app-resolver-current-checks.json`；鉴权路由、图标、生产组装和Desktop资格仍待完成。成功短测试夹具自动清理，磁盘约179GiB可用。
+
+### R09-C — 外部应用鉴权路由与图标
+
+三个WebServer路由先经过Connection Host/Origin与浏览器鉴权，再读取正文或解析应用；严格校验方法、JSON类型/64KiB上限、可用应用及实际目录。共享懒解析、缓存正/空图标，ENOENT只刷新当前项一次并清除图标缓存。SSH只取继承process层；图标按原版macOS、Windows PowerShell -File、Linux XDG策略提取，临时文件及时释放。80组配对、321项原生和25项原版测试通过；真实TCP覆盖未读大正文鉴权、chunked成功、超限可读拒绝和卸载，Windows实际System.Drawing生成PNG后清理通过。初轮刷新场景提前拒绝和WebServer测试夹具错误保留，最终正旅程有显式断言。回执 `migration/candidates/rc3/open-in-app-host-current-checks.json`；生产组装、原版浏览器和Desktop资格未签收。

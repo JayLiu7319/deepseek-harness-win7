@@ -1,0 +1,3547 @@
+[
+  {
+    "case": "lazy-catalog-icon-launch",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      },
+      {
+        "path": "/open-in-app/apps"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "auth-first-401",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "rejection": 401,
+    "requests": [
+      {
+        "path": "/open-in-app/apps",
+        "method": "POST"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open",
+        "size": 70000
+      },
+      {
+        "path": "/open-in-app/apps",
+        "rejection": null
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 401,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 401,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 401,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "auth-first-403",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "rejection": 403,
+    "requests": [
+      {
+        "path": "/open-in-app/apps",
+        "method": "POST"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open",
+        "size": 70000
+      },
+      {
+        "path": "/open-in-app/apps",
+        "rejection": null
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 403,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 403,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 403,
+          "headers": {},
+          "body": {
+            "base64": ""
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-3",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/apps",
+        "method": "POST"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-4",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/apps",
+        "method": "PUT"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-5",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/apps",
+        "method": "HEAD"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-6",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor",
+        "method": "POST"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-7",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor",
+        "method": "PUT"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-8",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor",
+        "method": "HEAD"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "GET"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-9",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "method": "GET"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "POST"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-10",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "method": "PUT"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "POST"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "method-11",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "method": "HEAD"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 405,
+          "headers": {
+            "allow": "POST"
+          },
+          "body": {
+            "base64": ""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "content-type-0",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "headers": {}
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 415,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "unsupported-media-type",
+            "message": "content-type must be application/json"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "content-type-1",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "headers": {
+          "content-type": "text/plain"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 415,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "unsupported-media-type",
+            "message": "content-type must be application/json"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "content-type-2",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "headers": {
+          "content-type": "application/json-extra"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 415,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "unsupported-media-type",
+            "message": "content-type must be application/json"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "content-type-3",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "headers": {
+          "content-type": " APPLICATION/JSON ; charset=utf-8"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "content-type-4",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "headers": {
+          "content-type": "\ufeffapplication/json\ufeff"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-0",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": ""
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-1",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-2",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "null"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-3",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "[]"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-4",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "true"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-5",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "42"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-6",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "\"body\""
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-7",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{\"app\":\"cursor\"}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-8",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{\"path\":\"$ROOT/workspace\"}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-9",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{\"app\":3,\"path\":\"/\"}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-10",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{\"app\":\"cursor\",\"path\":false}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-11",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "{\"app\":\"cursor\",\"path\":\"/\",\"x\":NaN}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-12",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "text": "\ufeff{\"app\":\"cursor\",\"path\":\"/\"}"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-unreadable",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "unreadable": true
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body unreadable"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-size-65536",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "size": 65536
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "request body must be JSON with string \"app\" and \"path\""
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-size-65537",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "size": 65537
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 413,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "payload-too-large",
+            "message": "request body is too large"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "body-size-131072",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "size": 131072
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 413,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "payload-too-large",
+            "message": "request body is too large"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-0",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "unknown",
+          "path": "$ROOT/workspace"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "unknown or unavailable app: unknown"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-1",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "vscode",
+          "path": "$ROOT/workspace"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "unknown or unavailable app: vscode"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-2",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": ""
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "path must be an absolute directory path"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-3",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": "relative"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "path must be an absolute directory path"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-4",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": "C:relative"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "path must be an absolute directory path"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-5",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": "$ROOT/missing"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "directory does not exist: $ROOT/missing"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-6",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "directory does not exist: $ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "open-validation-7",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "cursor",
+          "path": "$ROOT/workspace",
+          "extra": "allowed"
+        }
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-42",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/unknown"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for unknown"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-43",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/vscode"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for vscode"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-44",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor/"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cursor/"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-45",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor?x=1"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-46",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cur%73or"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cur%73or"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-47",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor/../unknown"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for unknown"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-48",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/%2e/cursor"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-49",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon//cursor"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for /cursor"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-50",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/iconcursor"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "icon-path-51",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "requests": [
+      {
+        "path": "/open-in-app/icon/\u56fe\u6807"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for %E5%9B%BE%E6%A0%87"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "launch-failed",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "outcomes": [
+      "failed",
+      "launched"
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/open"
+      },
+      {
+        "path": "/open-in-app/apps"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 502,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "launch-failed",
+            "message": "failed to launch cursor"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "launch-missing",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "outcomes": [
+      "missing",
+      "launched"
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/open"
+      },
+      {
+        "path": "/open-in-app/apps"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        },
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "refresh-removes-stale",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "platform": "linux",
+    "env": {
+      "XDG_DATA_DIRS": ""
+    },
+    "resolveFromDisk": true,
+    "executables": {
+      "code": "$ROOT/tool.exe"
+    },
+    "files": {
+      "tool.exe": ""
+    },
+    "outcomes": [
+      "missing"
+    ],
+    "removeOnLaunch": "tool.exe",
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "vscode",
+          "path": "$ROOT/workspace"
+        }
+      },
+      {
+        "path": "/open-in-app/apps"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "vscode"
+            ]
+          }
+        },
+        {
+          "status": 502,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "launch-failed",
+            "message": "failed to launch vscode"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": []
+          }
+        }
+      ],
+      "probes": {
+        "code": 2,
+        "code-insiders": 1,
+        "cursor": 1,
+        "ghostty": 1,
+        "gnome-terminal": 1,
+        "goland": 1,
+        "idea": 1,
+        "kitty": 1,
+        "konsole": 1,
+        "phpstorm": 1,
+        "pycharm": 1,
+        "rider": 1,
+        "rustrover": 1,
+        "smerge": 1,
+        "studio": 1,
+        "subl": 1,
+        "webstorm": 1,
+        "windsurf": 1,
+        "zed": 1
+      },
+      "launches": [
+        {
+          "command": "$ROOT/tool.exe",
+          "args": [
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "refresh-removes-file-launcher",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "platform": "win32",
+    "env": {
+      "LOCALAPPDATA": "$ROOT/local"
+    },
+    "files": {
+      "local/GitHubDesktop/app-2.0/GitHubDesktop.exe": "",
+      "local/GitHubDesktop/app-2.0/resources/app/cli.js": ""
+    },
+    "outcomes": [
+      "missing"
+    ],
+    "removeOnLaunch": "local/GitHubDesktop/app-2.0/GitHubDesktop.exe",
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/open",
+        "body": {
+          "app": "github",
+          "path": "$ROOT/workspace"
+        }
+      },
+      {
+        "path": "/open-in-app/apps"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "explorer",
+              "github"
+            ]
+          }
+        },
+        {
+          "status": 502,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "launch-failed",
+            "message": "failed to launch github"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "explorer"
+            ]
+          }
+        }
+      ],
+      "probes": {
+        "reg.exe": 5,
+        "wt": 1
+      },
+      "launches": [
+        {
+          "command": "$ROOT/local/GitHubDesktop/app-2.0/GitHubDesktop.exe",
+          "args": [
+            "$ROOT/local/GitHubDesktop/app-2.0/resources/app/cli.js",
+            "open",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "ELECTRON_RUN_AS_NODE": "1"
+            },
+            "windowsHide": true
+          }
+        }
+      ],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "refresh-evicts-icon-cache",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "outcomes": [
+      "missing",
+      "launched"
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        },
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        },
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "cache-null-icon",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "files": {},
+    "requests": [
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cursor"
+          }
+        },
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cursor"
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-process-SSH_CONNECTION",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "process",
+        "values": {
+          "SSH_CONNECTION": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": []
+          }
+        },
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cursor"
+          }
+        },
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "unknown or unavailable app: cursor"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-process-SSH_TTY",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "process",
+        "values": {
+          "SSH_TTY": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": []
+          }
+        },
+        {
+          "status": 404,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "not-found",
+            "message": "no icon for cursor"
+          }
+        },
+        {
+          "status": 400,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "code": "bad-request",
+            "message": "unknown or unavailable app: cursor"
+          }
+        }
+      ],
+      "probes": {},
+      "launches": [],
+      "commands": [],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-project-env-SSH_CONNECTION",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "project-env",
+        "values": {
+          "SSH_CONNECTION": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-project-env-SSH_TTY",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "project-env",
+        "values": {
+          "SSH_TTY": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-user-env-SSH_CONNECTION",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "user-env",
+        "values": {
+          "SSH_CONNECTION": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "ssh-user-env-SSH_TTY",
+    "kind": "open-in-app-host-current",
+    "operation": "routes",
+    "layers": [
+      {
+        "source": "user-env",
+        "values": {
+          "SSH_TTY": "present"
+        }
+      }
+    ],
+    "requests": [
+      {
+        "path": "/open-in-app/apps"
+      },
+      {
+        "path": "/open-in-app/icon/cursor"
+      },
+      {
+        "path": "/open-in-app/open"
+      }
+    ],
+    "expected": {
+      "responses": [
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "apps": [
+              "finder",
+              "cursor",
+              "terminal"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "image/png",
+            "cache-control": "public, max-age=3600"
+          },
+          "body": {
+            "base64": "iVBORwD/"
+          }
+        },
+        {
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store"
+          },
+          "body": {
+            "ok": true
+          }
+        }
+      ],
+      "probes": {
+        "xcode-select": 1
+      },
+      "launches": [
+        {
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Cursor.app",
+            "$ROOT/workspace"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ],
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "withdrawn": true,
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-declared",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "expected": {
+      "icon": {
+        "contentType": "image/png",
+        "base64": "iVBORwD/"
+      },
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-fallback",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "plist": "bad JSON",
+    "expected": {
+      "icon": {
+        "contentType": "image/png",
+        "base64": "iVBORwD/"
+      },
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-declared-missing",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "plist": "{\"CFBundleIconFile\":\"Missing\"}",
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-no-output",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "noOutput": true,
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-command-failed",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "commandFailure": true,
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        },
+        {
+          "command": "sips",
+          "flags": [
+            "-s",
+            "format",
+            "png",
+            "-Z",
+            "128",
+            "$ROOT/apps/Cursor.app/Contents/Resources/AppIcon.icns",
+            "--out"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-no-icon",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "files": {},
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "plutil",
+          "args": [
+            "-convert",
+            "json",
+            "-o",
+            "-",
+            "$ROOT/apps/Cursor.app/Contents/Info.plist"
+          ]
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "mac-resolved-iconless",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "open",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": null,
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "windows-icon-success",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "win32",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "$ROOT/tool.exe",
+        "args": []
+      },
+      "icon": {
+        "kind": "executable",
+        "path": "$ROOT/a b';&$(literal).exe"
+      }
+    },
+    "noOutput": false,
+    "commandFailure": false,
+    "expected": {
+      "icon": {
+        "contentType": "image/png",
+        "base64": "iVBORwD/"
+      },
+      "commands": [
+        {
+          "command": "powershell.exe",
+          "flags": [
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File"
+          ],
+          "executable": "$ROOT/a b';&$(literal).exe",
+          "script": "param([string]$Source, [string]$Target)\n$ErrorActionPreference = \"Stop\"\nAdd-Type -AssemblyName System.Drawing\n$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($Source)\nif ($null -eq $icon) { exit 1 }\n$bitmap = $icon.ToBitmap()\n$bitmap.Save($Target, [System.Drawing.Imaging.ImageFormat]::Png)\n"
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "windows-icon-no-output",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "win32",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "$ROOT/tool.exe",
+        "args": []
+      },
+      "icon": {
+        "kind": "executable",
+        "path": "$ROOT/a b';&$(literal).exe"
+      }
+    },
+    "noOutput": true,
+    "commandFailure": false,
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "powershell.exe",
+          "flags": [
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File"
+          ],
+          "executable": "$ROOT/a b';&$(literal).exe",
+          "script": "param([string]$Source, [string]$Target)\n$ErrorActionPreference = \"Stop\"\nAdd-Type -AssemblyName System.Drawing\n$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($Source)\nif ($null -eq $icon) { exit 1 }\n$bitmap = $icon.ToBitmap()\n$bitmap.Save($Target, [System.Drawing.Imaging.ImageFormat]::Png)\n"
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "windows-icon-failure",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "win32",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "$ROOT/tool.exe",
+        "args": []
+      },
+      "icon": {
+        "kind": "executable",
+        "path": "$ROOT/a b';&$(literal).exe"
+      }
+    },
+    "noOutput": false,
+    "commandFailure": true,
+    "expected": {
+      "icon": null,
+      "commands": [
+        {
+          "command": "powershell.exe",
+          "flags": [
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File"
+          ],
+          "executable": "$ROOT/a b';&$(literal).exe",
+          "script": "param([string]$Source, [string]$Target)\n$ErrorActionPreference = \"Stop\"\nAdd-Type -AssemblyName System.Drawing\n$icon = [System.Drawing.Icon]::ExtractAssociatedIcon($Source)\nif ($null -eq $icon) { exit 1 }\n$bitmap = $icon.ToBitmap()\n$bitmap.Save($Target, [System.Drawing.Imaging.ImageFormat]::Png)\n"
+        }
+      ],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-theme-priority",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=test",
+      "data/icons/hicolor/512x512/apps/test.png": "large",
+      "data/icons/hicolor/128x128/apps/test.png": "small",
+      "data/pixmaps/test.svg": "fallback"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": {
+        "contentType": "image/png",
+        "base64": "bGFyZ2U="
+      },
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-scalable",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=test",
+      "data/icons/hicolor/scalable/apps/test.svg": "<svg/>"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": {
+        "contentType": "image/svg+xml",
+        "base64": "PHN2Zy8+"
+      },
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-pixmap",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=test",
+      "data/pixmaps/test.png": "pixmap"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": {
+        "contentType": "image/png",
+        "base64": "cGl4bWFw"
+      },
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-absolute",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=$ROOT/logo.svg",
+      "logo.svg": "<svg>absolute</svg>"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": {
+        "contentType": "image/svg+xml",
+        "base64": "PHN2Zz5hYnNvbHV0ZTwvc3ZnPg=="
+      },
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-unsupported",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=$ROOT/logo.icns",
+      "logo.icns": "unserved"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": null,
+      "commands": [],
+      "tempsRemoved": true
+    }
+  },
+  {
+    "case": "linux-icon-missing",
+    "kind": "open-in-app-host-current",
+    "operation": "icon",
+    "platform": "linux",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [],
+          "desktopId": "test"
+        }
+      }
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nIcon=missing"
+    },
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "app",
+        "args": []
+      }
+    },
+    "expected": {
+      "icon": null,
+      "commands": [],
+      "tempsRemoved": true
+    }
+  }
+]

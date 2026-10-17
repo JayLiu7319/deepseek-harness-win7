@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='open-in-app-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='open-in-app-host-current'
+    ? await (await import('./open_in_app_host_current_source.mts')).openInAppHostCase(resolve(sourceArg),test)
+    : test.kind==='open-in-app-current'
     ? await (await import('./open_in_app_current_source.mts')).openInAppCase(resolve(sourceArg),test)
     : test.kind==='workspace-current'
     ? await (await import('./workspace_current_source.mts')).workspaceCase(resolve(sourceArg),test)

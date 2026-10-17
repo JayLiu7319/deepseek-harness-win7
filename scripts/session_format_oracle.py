@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'open-in-app-host-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/open_in_app_host_current_python.py', ROOT/'scripts/oracles/open_in_app_host_current_source.mts', ROOT/'dsh/resources/open_in_app_catalog_current.json'])
         if any(case.get('kind') == 'open-in-app-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/open_in_app_current_python.py', ROOT/'scripts/oracles/open_in_app_current_source.mts', ROOT/'dsh/resources/open_in_app_catalog_current.json'])
         if any(case.get('kind') == 'workspace-current' for case in cases):

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R09-C-open-in-app-routes-icons",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 80,
+    "report": {
+      "path": ".goose/out/rc3-r09-open-app-host-qualified-20261017/report.json",
+      "sha256": "9a0d2af4199301ee63f6cc50472e0a806e7cf2da5a9355a30a008567e2a79e15"
+    },
+    "corpus": {
+      "path": "scripts/oracles/open_in_app_host_current_cases.json",
+      "sha256": "b5afe491458d865dbb9f00df4752a87e4c168fec1394f49ae7f883b912037a30"
+    }
+  },
+  "native": {
+    "passed": 321,
+    "command": {
+      "path": ".goose/out/rc3-r09-open-app-host-native-qualified-20261017/command.json",
+      "sha256": "e0a49c6720777de0e1c29704ae16258ab1379075e49fa8831a2d582835a8a440"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-open-app-host-native-qualified-20261017/pytest.xml",
+      "sha256": "abe6b61295e167eb47370e05a749fe96e4ddae48ab58ae12b75b4e2ca27ffcea"
+    }
+  },
+  "source": {
+    "passed": 25,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r09-open-app-host-source-20261017/command.json",
+      "sha256": "1582d8e9475610216e50c778eb1124e7632bf12023cdcb6ffbc9f4efd1e655ad"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-open-app-host-source-20261017/source.xml",
+      "sha256": "c7b7b8a1d127a3cf43bf650b660bc3412ee1dc5291bdefeda0aa349744de1e0d"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/open_in_app_current.py",
+      "sha256": "c57f585da5beefa2733835caa4420f936b523df6031959cd038b1e674ba9a355"
+    },
+    {
+      "path": "dsh/host/open_in_app_icons_current.py",
+      "sha256": "679e93b37bfff1d224f1463e3ffb0187dbec9433fe2bda426df8804d9eff3f8e"
+    }
+  ],
+  "scope": [
+    "Connection trust/auth first on all three HTTP routes before catalog/body; bounded explicit timing config, lazy shared resolutions, cached positive/null icons, exact method/media/body/path validation, missing executable single refresh and retry/removal.",
+    "Inherited process SSH facts only; project/user materialization does not suppress desktop. Literal PowerShell -File associated-icon extraction, macOS plutil/sips fallback and Linux XDG hicolor/scalable/pixmap precedence; owned temporary paths removed.",
+    "Actual canonical WebServer plugin plus current Connection TCP verifies Host/auth before unconsumed large body, chunked accepted launch, early 64KiB refusal and reversible route withdrawal. Real Windows System.Drawing extraction returns decodable PNG and removes temp files.",
+    "Initial paired refresh inputs were rejected before launch; corrected positive journeys explicitly assert one stale launch/removal and two successful retry attempts plus icon cache eviction. Initial native missing filename and unpublished WebServer fixture errors preserved; corrected qualified run is separate."
+  ],
+  "remaining": [
+    "Current canonical Loader/profile activation, unchanged frontend/browser journeys and desktop packaging qualification.",
+    "Existing Source EPERM and Win32 1175 failures elsewhere remain open."
+  ]
+}
