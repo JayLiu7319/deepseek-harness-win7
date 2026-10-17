@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-A-current-DeepSeek-captures",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R11-DEEPSEEK-CAPTURE-20261017.zip",
+    "bytes": 36064,
+    "sha256": "d96e5080217ee4714e9eb0b363a1bb14fbc005926197a6de1df7791f0de92d0c",
+    "members": [
+      {
+        "path": "rc3-r11-deepseek-capture-20261017-a/report.0.log",
+        "sha256": "b9028b324900f3b32fc53dafc9426831221302f4caf24e8459e804bd9f1aa762",
+        "bytes": 236
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-20261017-a/report.1.log",
+        "sha256": "7efd80e34d12bc6ba98d339accf28a198a0a4c6b2c2a28a4dc55cd9b61183b65",
+        "bytes": 338
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-20261017-a/report.json",
+        "sha256": "f5c5c9c9caa161ba2bb2ff7c36344817e0f2d85c51f5132a38ce67da2567d921",
+        "bytes": 18559
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-20261017-a/report.native.json",
+        "sha256": "79beef2a2dbf7a59afe1651f65b07fc27d6b0debf368811537ca6ecbff14db53",
+        "bytes": 109474
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-20261017-a/report.source.json",
+        "sha256": "5eb3596d900a1f32c3fafd74d6a251496cd574f5b319e7dc48af3da66607f030",
+        "bytes": 90467
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-consumers-20261017/results.xml",
+        "sha256": "82f1c7f17baa255822284fdc08c64403c667b599d63be802f0fa8a9ad20811d0",
+        "bytes": 18110
+      },
+      {
+        "path": "rc3-r11-deepseek-capture-consumers-20261017.log",
+        "sha256": "48733fc684326bfbfb25525b36f0e5aa89ce37bdfe95c24e3a9adfb621d79c9b",
+        "bytes": 995
+      }
+    ]
+  },
+  "pairedCases": 76,
+  "pythonTests": 120,
+  "scope": "Fresh unmodified rc.3 Source and Python captures retain strict full config, model, serialization, SSE, HTTP, Files, settings and retry observations; existing identity/drift rejection consumers passed.",
+  "limits": [
+    "This reobserves the retained finite boundary contract against the current target; it does not relabel rc.1 evidence.",
+    "Other historical observers/configurations and unified rc.3 qualification remain pending."
+  ]
+}

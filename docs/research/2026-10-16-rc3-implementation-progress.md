@@ -430,6 +430,10 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 现代Python首轮冷观察在会话加载前取得空基线，旧回答可能提前满足完成条件，后续严格历史断言拒绝。已增加发送前attached/idle屏障，新鲜b旅程通过；原失败保留，其余三条实际观察均有一致历史和新完成序列。有限报告、宿主观察与截图逐成员核验归档，成功浏览器profile自动清理。见 [有限回执](../../migration/candidates/rc3/browser-reconnect-delivery-floating-checks.json)。这不替代Desktop安装执行或统一发行资格。
 
+### R11-A — 当前 DeepSeek 完整边界捕获
+
+将既有有限捕获器的Source准入切到当前rc.3后重新执行，76组实际配置、模型、序列化、SSE、HTTP、Files、设置及重试观察严格匹配，未放宽字段比较。120项原始消费者及身份/漂移拒绝用例通过，保留新鲜两侧捕获和日志；没有重标旧rc.1证据。见 [有限回执](../../migration/candidates/rc3/deepseek-capture-current-checks.json)。其余历史观察器、Source配置和统一资格继续迁移。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

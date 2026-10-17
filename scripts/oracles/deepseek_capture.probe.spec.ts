@@ -12,7 +12,7 @@ import { observeSettings } from './deepseek_capture_settings.ts'
 
 it('records actual pinned DeepSeek boundary observations', async () => {
   expect(process.version).toBe('v22.22.2')
-  expect(execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()).toBe('a66e4702047846cdaa10c66c9d3df3951f5ea70d')
+  expect(execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim()).toBe('a4c74a91e06b00fe0b0937bde982170c526cc842')
   expect(execFileSync('git',['-C','reference','status','--porcelain'],{encoding:'utf8'}).trim()).toBe('')
   const paths = [
   "migration/modules.json",
@@ -78,5 +78,5 @@ it('records actual pinned DeepSeek boundary observations', async () => {
   }
   expect(rows.length).toBe(fixtures.length)
   expect(Object.fromEntries(paths.map(path => [path,createHash('sha256').update(readFileSync(path)).digest('hex')]))).toEqual(inputs)
-  writeFileSync(process.env.DSH_DEEPSEEK_CAPTURE_OUTPUT!, JSON.stringify({sourceCommit:'a66e4702047846cdaa10c66c9d3df3951f5ea70d',node:process.version,inputs,rows},null,2)+'\n',{encoding:'utf8',flag:'wx'})
+  writeFileSync(process.env.DSH_DEEPSEEK_CAPTURE_OUTPUT!, JSON.stringify({sourceCommit:'a4c74a91e06b00fe0b0937bde982170c526cc842',node:process.version,inputs,rows},null,2)+'\n',{encoding:'utf8',flag:'wx'})
 })
