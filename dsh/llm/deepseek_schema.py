@@ -15,6 +15,7 @@ def config_schema():
         "contextWindow": positive(), "maxTokens": positive(),
         "inputModalities": z.array(z.union(["text", "image"])).min(1).default(["text"]),
         "imagePixelBudget": z.union([positive(), "low"]), "imageMaxBytes": positive(),
+        "systemPromptUpdate": z.const("in-history"),
     })
     fields = {key: positive().default(value) for key, value in DEFAULTS.items()
               if key not in ("apiKeyEnv", "streamIdleTimeoutMs", "filesApiTimeoutMs",

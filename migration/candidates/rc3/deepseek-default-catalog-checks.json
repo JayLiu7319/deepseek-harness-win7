@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R08-A-default-deepseek-catalog",
+  "status": "targeted-passed",
+  "paired": {
+    "source": {
+      "path": ".goose/out/rc3-deepseek-public-catalog-20261017/source.json",
+      "sha256": "33d862466de4ec729df5ec22a2a5c87827dee2efd09dceffc72e418d4c85ce8d"
+    },
+    "native": {
+      "path": ".goose/out/rc3-deepseek-public-catalog-20261017/native.json",
+      "sha256": "5960a1153dcf9d5a99966b12197bf10cafdbc1214a684628a170c0b6d362ac97"
+    },
+    "scope": "Actual default/custom providers, public catalogs, seven resolved model metadata and seven prepared calls; no network model calls"
+  },
+  "native": {
+    "passed": 144,
+    "xml": {
+      "path": ".goose/out/rc3-deepseek-default-consumers-20261017-b/results.xml",
+      "sha256": "e9c470cb2009778decf6c54be4166ad78500fff9c64d224d4f5a05ad5a31a929"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/llm/deepseek_config.py",
+      "sha256": "6fe07668d55d029111f675b27f8e1ac0fea94351dcf9703ebcf44488d44e1aae"
+    },
+    {
+      "path": "dsh/llm/deepseek_schema.py",
+      "sha256": "ac60b038ebf8d121c8d6568d67d0b4446bbeecca9c5a417bed35c32bea4afae7"
+    },
+    {
+      "path": "dsh/llm/llm_deepseek.py",
+      "sha256": "944094e266b41c3590efc0d5a181ebaacd892ee90a2183ba9d212c94e6a6fadf"
+    },
+    {
+      "path": "tests/test_deepseek_config_snapshot.py",
+      "sha256": "8d9035dad4e63906af4ff64e86bf4ef1b114168b6443fe59d211c604bd53f77c"
+    },
+    {
+      "path": "scripts/oracles/rc3_deepseek_catalog.mts",
+      "sha256": "d722f8c0d87909dff920aed4e4a426d24c47333f57e688b1d42b51cd2bbc2c40"
+    },
+    {
+      "path": "scripts/oracles/rc3_deepseek_catalog.py",
+      "sha256": "be69f6ed2b8608bf83801ffc4fd7e5aec9d550cb540c48e38ad605cbd41f5d04"
+    }
+  ],
+  "diagnostics": [
+    "Initial expanded selection: 60 passed and 118 setup errors from a historical rc.1-pinned capture observer; preserved separately, not a passing run."
+  ],
+  "limitations": [
+    "Original UI exposed missing deepseek-flash and in-history metadata. This fixes the provider contract; browser settings save/cold restore and unified release acceptance remain pending."
+  ],
+  "retention": "Successful owned short pytest fixtures auto-pruned. No Portable built. Historical failures and observations preserved."
+}

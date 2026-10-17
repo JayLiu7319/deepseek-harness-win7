@@ -73,6 +73,8 @@ class DeepSeekAdapter:
         info = DeepSeekAdapter.catalog_info(provider, configured)
         info['context'] = {'contextWindow': configured.get('contextWindow', options['defaultContextWindow'])}
         info["defaultMaxTokens"] = configured.get("maxTokens", options["maxTokens"])
+        if 'systemPromptUpdate' in configured:
+            info['systemPromptUpdate'] = configured['systemPromptUpdate']
         efforts = [dict(id=key, name=name, description=description) for key, name, description in (
             ('off', 'Off', 'Use for simple tasks that do not need reasoning.'),
             ('low', 'Low', 'Prefer for routine or latency-sensitive tasks.'),

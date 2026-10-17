@@ -21,6 +21,8 @@ def environment():
     {"models": [{"id": "a"}, {"id": "a"}]},
     {"models": [{"id": "a", "inputModalities": ["image", "image"]}]},
     {"models": [{"id": "a", "imagePixelBudget": 1}]},
+    {"models": [{"id": "a", "systemPromptUpdate": "leading"}]},
+    {"models": [{"id": "a", "systemPromptUpdate": None}]},
     {"fileExpiresAfterSeconds": 3600, "fileRefreshMarginSeconds": 3600},
     {"maxImagesPerRequest": 1}, {"maxRequestFilesBytes": 1},
     {"maxInlineRequestImageBytes": 1}, {"fileQuotaCleanupBatch": 1001},
@@ -39,6 +41,31 @@ def test_catalog_and_policy_are_detached_and_environment_is_used():
     config["models"][0]["id"] = "changed"
     assert options["models"][0]["id"] == "vision"
     assert resolve_options({}, environment())["models"][-1]["inputModalities"] == ["text", "image"]
+
+
+@pytest.mark.asyncio
+async def test_current_default_catalog_and_prepared_call_keep_in_history_capability():
+    from dsh.llm.runtime_current import CurrentLlmRuntime
+    from dsh.llm.deepseek_schema import config_schema
+    ctx = Context()
+    try:
+        await ctx.plugin(CurrentLlmRuntime)
+        await ctx.plugin(LLMDeepSeekPlugin)
+        llm = ctx.get('llm')
+        rows = await llm.listModels('deepseek-official')
+        assert [row['id'] for row in rows] == [
+            'deepseek-flash', 'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-v4-flash-vision-exp']
+        assert rows[0]['name'] == 'DeepSeek-V41-Flash' and rows[0]['inputModalities'] == ['text', 'image']
+        prepared = await llm.prepareCall(dict(provider='deepseek-official', model='deepseek-flash'))
+        assert prepared['systemPromptUpdate'] == 'in-history'
+        assert 'systemPromptUpdate' not in await llm.prepareCall(dict(provider='deepseek-official', model='deepseek-v4-flash'))
+        schema = config_schema()
+        assert schema({})['models'][0]['systemPromptUpdate'] == 'in-history'
+        assert schema(dict(models=[dict(id='custom', systemPromptUpdate='in-history')]))['models'][0]['systemPromptUpdate'] == 'in-history'
+        with pytest.raises(ValidationError):
+            schema(dict(models=[dict(id='custom', systemPromptUpdate='leading')]))
+    finally:
+        await ctx.fiber.dispose()
 
 
 @pytest.mark.asyncio

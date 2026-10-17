@@ -5,6 +5,9 @@ import math
 from dsh.llm.retry_policy import resolve_retry_policy, MAX_TIMER_DELAY_MS
 
 DEFAULT_MODELS = [
+    {"id": "deepseek-flash", "name": "DeepSeek-V41-Flash", "contextWindow": 1000000,
+     "inputModalities": ["text", "image"], "imagePixelBudget": 640000, "imageMaxBytes": 1048576,
+     "systemPromptUpdate": "in-history"},
     {"id": "deepseek-v4-flash", "name": "DeepSeek-V4-Flash", "contextWindow": 1000000,
      "description": "Fast, efficient, and economical; suited to focused, routine, or parallel tasks."},
     {"id": "deepseek-v4-pro", "name": "DeepSeek-V4-Pro", "contextWindow": 1000000,
@@ -82,6 +85,8 @@ def resolve_options(config, environment):
         if model["id"] in seen:
             raise DeepSeekConfigError('llm-deepseek: duplicate catalog model "{}"'.format(model["id"]))
         seen.add(model["id"])
+        if "systemPromptUpdate" in model and model["systemPromptUpdate"] != "in-history":
+            raise DeepSeekConfigError('llm-deepseek: catalog model "{}" systemPromptUpdate must be "in-history" when present'.format(model["id"]))
         if "imageDetail" in model:
             raise ValueError("llm-deepseek: use imagePixelBudget instead of imageDetail")
         for field in ("name", "description"):
