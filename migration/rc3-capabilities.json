@@ -46,7 +46,7 @@
     "Desktop follows the specified Electron22/Python3.8 Win7 carrier and separate Standard/AIO prerequisite policy."
   ],
   "qualification": {
-    "unified": "running-228cfacc-single-clean-gate",
+    "unified": "failed-228cfacc-cordis-runner-dependency-path; remaining-diagnostics-in-progress",
     "desktop_installation": "not-executed",
     "win7": "deferred-by-user",
     "real_cloud_providers": "not-verified",
@@ -63,7 +63,8 @@
       "migration/candidates/rc3/handle-observers-current-checks.json",
       "migration/candidates/rc3/isolated-readers-current-checks.json",
       "migration/candidates/rc3/extracted-repairs-current-checks.json",
-      "migration/candidates/rc3/desktop-228cfacc-current-checks.json"
+      "migration/candidates/rc3/desktop-228cfacc-current-checks.json",
+      "migration/candidates/rc3/path-failure-current-checks.json"
     ],
     "unified_candidate": "228cfacca1eeb0936268077b5cec244363359705",
     "last_failed_candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",

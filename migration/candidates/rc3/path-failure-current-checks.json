@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
+  "stage": "R11-AH",
+  "status": "full-gate-failed-local-dependency-repair-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-228CFACC-PATH-FAILURE-20261018.zip",
+    "bytes": 106696812,
+    "sha256": "3827d01c0f0de76352d25cf0662d7556b85685c48202fb7c23ec4c5d920f4577",
+    "members": 11
+  },
+  "failed_gate": {
+    "exit_code": 1,
+    "seconds": 6197.561999999976,
+    "collected": 19353,
+    "passed": 19347,
+    "skipped": 6,
+    "required_lanes": 3939,
+    "python_seconds": 5140.24,
+    "source_configurations": 21,
+    "passed_paired_drivers": 21,
+    "failed_driver": "cordis_runner",
+    "failure": "Six exact Vitest stack frames resolve outside isolated CWD through shared dependency junction; business observations and all other fixture bytes remain unchanged.",
+    "root_reports_member": "failed-root-reports.zip",
+    "nested_workspace_omitted": true
+  },
+  "exact_failed_zip": {
+    "member": "failed-candidate.zip",
+    "bytes": 106549838,
+    "sha256": "f2450ae96d69250f2c18216d2ebc9149c6f3618d23d6796827ab7f900b438c7b"
+  },
+  "repair": {
+    "scope": "Only isolated dependency junction replaced by verified physical pinned dependencies. Product, Source, fixture, comparator and original dependencies unchanged.",
+    "files": 15551,
+    "bytes": 181939069,
+    "all_file_hashes_member": "physical-dependency-audit.json",
+    "actual_runner": {
+      "exit_code": 0,
+      "scenarios": 15,
+      "result": "passed-under-existing-classifier"
+    }
+  },
+  "limitations": [
+    "Original full gate stays failed.",
+    "Remaining pairs and extracted flow are separate diagnostics before a new stable full qualification.",
+    "No administrator installation, patching, reboot, real cloud provider or deferred Win7 execution."
+  ]
+}
