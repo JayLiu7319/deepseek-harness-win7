@@ -1,12 +1,12 @@
 {
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "source_sha256": {
     "scripts/oracles/inspect-cases.json": "61c072fd77a45008b4315e8b5cea4547760340da3f5e856a71f390c5cc7f8993",
     "scripts/oracles/inspect.spec.ts": "359686dfa493af67bacbb4dc986bfd4c49ded331bf61c0f1cb61c78286e911eb",
     "reference/packages/core/tools/src/json-schema.ts": "13deffdfd34539e23706b0fde235991da45b2f07c5c18dbbf3ca734c1da0c788",
     "reference/packages/extensions/cordis-host-runner/src/inspect-registry.ts": "1f530c25e6eeffdf6386e2896b4555825111cb6efdb4b784fae71c3cc08e518e",
     "reference/packages/extensions/tool-cordis/src/providers.ts": "1bdd9a6348e69bb3e98f4bfa926922945c0d6d8281e13157ec48f21a6f70e5a6",
-    "reference/packages/extensions/tool-cordis/src/api-catalog.ts": "f26de853682a2ec203a0abe9dc716b050b560bfc91206c0d1b9dbce3fe03f5a1"
+    "reference/packages/extensions/tool-cordis/src/api-catalog.ts": "eb8bf45bf60a4cac3628c84683d8e20d43a808806f72fd65f98954a477ea3328"
   },
   "observations": [
     {

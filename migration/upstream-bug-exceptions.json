@@ -1,53 +1,146 @@
 {
   "schema_version": 1,
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
-  "scope": "rc.1 predicates remain historical until exact rc.3 requalification; no active exception inferred.",
-  "exceptions": [],
-  "pending_requalification": [
+  "scope": "Finite exact rc.3 observations requalified each retained predicate. Discovery index only; not a skip list or whole-upstream parity claim.",
+  "exceptions": [
     {
       "id": "UPSTREAM-REPEAT-001",
       "driver": "scripts/repeat_tool_oracle.py",
-      "predicate": "reviewed_proto_difference"
-    },
-    {
-      "id": "UPSTREAM-TOKEN-METER-001",
-      "driver": "scripts/token_meter_oracle.py",
-      "predicate": "reviewed_input_anchor_difference"
+      "predicate": "reviewed_proto_difference",
+      "modes": [
+        "proto-key-loss"
+      ],
+      "finding": "JSON __proto__ own-key loss produces a false repeat notice.",
+      "record": "docs/research/2026-10-01-repeat-tool-reminder-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/values-current-checks.json"
     },
     {
       "id": "UPSTREAM-COMPACTION-POLICY-001",
       "driver": "scripts/compaction_oracle.py",
-      "predicate": "reviewed_route_key_difference"
+      "predicate": "reviewed_route_key_difference",
+      "modes": [
+        "embedded-nul-routes"
+      ],
+      "finding": "NUL-delimited provider/model keys collide.",
+      "record": "docs/research/2026-10-01-compaction-policy-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/compaction-invariant-current-checks.json"
     },
     {
       "id": "UPSTREAM-COMPACTION-SUMMARY-001",
       "driver": "scripts/compaction_oracle.py",
-      "predicate": "reviewed_summary_metadata_difference"
+      "predicate": "reviewed_summary_metadata_difference",
+      "modes": [
+        "transaction-private-fields"
+      ],
+      "finding": "Summary extras overwrite prepared transaction metadata.",
+      "record": "docs/research/2026-10-01-compaction-transaction-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/compaction-invariant-current-checks.json"
     },
     {
       "id": "UPSTREAM-CORDIS-INSPECT-001",
+      "aliases": [
+        "INSPECT-001"
+      ],
       "driver": "scripts/inspect_oracle.py",
-      "predicate": "classify"
+      "predicate": "classify",
+      "modes": [
+        "registry/disposal"
+      ],
+      "finding": "Context disposal retains a pending Client inspect waiter.",
+      "record": "docs/research/2026-10-01-cordis-inspect-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
     },
     {
       "id": "CORDIS-GUARD-001",
       "driver": "scripts/cordis_guard_oracle.py",
-      "predicate": "classify"
+      "predicate": "classify",
+      "modes": [
+        "facade/callable-context",
+        "facade/callable-async-context"
+      ],
+      "finding": "Callable service returns expose an unguarded Context.",
+      "record": "docs/research/2026-10-01-cordis-guard-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
     },
     {
       "id": "CORDIS-RUNTIME-001",
       "driver": "scripts/cordis_runner_oracle.py",
-      "predicate": "classify"
+      "predicate": "classify",
+      "modes": [
+        "runtime-error-nul-collision"
+      ],
+      "finding": "NUL-delimited method/message error keys suppress an independent failure.",
+      "record": "docs/research/2026-10-01-cordis-runner-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
     },
     {
       "id": "CORDIS-LIFECYCLE-001",
       "driver": "scripts/cordis_retirement_oracle.py",
-      "predicate": "classify"
+      "predicate": "classify",
+      "modes": [
+        "remove-host-starting",
+        "stop-host-starting",
+        "remove-dual-starting",
+        "stop-dual-starting",
+        "remove-update-starting",
+        "stop-update-starting"
+      ],
+      "finding": "Stop/remove can resurrect an activation that commits late.",
+      "record": "docs/research/2026-10-01-cordis-retirement-progress.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
     },
     {
       "id": "UPSTREAM-ACP-PERMISSION-001",
       "driver": "scripts/acp_permissions_oracle.py",
-      "predicate": "reviewed_malformed_outcome_difference"
+      "predicate": "reviewed_malformed_outcome_difference",
+      "modes": [
+        "unknown-kind-allow",
+        "missing-kind-allow"
+      ],
+      "finding": "Malformed permission response with allow-once bypasses outcome discriminator validation and grants execution.",
+      "record": "migration/reviews/ACP-MALFORMED-PERMISSION-20261003.md",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
     }
+  ],
+  "pending_requalification": [],
+  "retired_exceptions": [
+    {
+      "id": "UPSTREAM-TOKEN-METER-001",
+      "status": "resolved-upstream",
+      "driver": "scripts/token_meter_oracle.py",
+      "predicate": "reviewed_input_anchor_difference",
+      "modes": [
+        "late-input-anchor"
+      ],
+      "reason": "Current Source counts admitted provider input once; all 17 current token recipes match. Historical predicate is restricted to rc.1 and cannot apply to rc.3.",
+      "requalification_record": "migration/candidates/rc3/values-current-checks.json"
+    }
+  ],
+  "language_adaptations": [
+    {
+      "id": "PY38-RESOLVED-AWAIT",
+      "driver": "scripts/cordis_acceptance.py",
+      "predicate": "evaluate",
+      "cases": [
+        "C58"
+      ],
+      "required_checkpoint": "C59",
+      "finding": "Resolved Python Future scheduling differs from a JavaScript resolved Promise; raw divergence must remain visible.",
+      "requalified_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "requalification_record": "migration/candidates/rc3/source-fixtures-current-checks.json"
+    }
+  ],
+  "excluded_migration_defects": [
+    "ACP cross-Session or stale-turn prompt settlement",
+    "Browser observer old-document races",
+    "Unattributed Proactor/HTTP shutdown diagnostics"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "source_sha256": {
     "scripts/oracles/cordis-retirement-cases.json": "a1f24ccb8bf64e235a224e78b629d511e1ca859643ed722c24adb69b989a8351",
     "scripts/oracles/cordis-retirement.spec.ts": "10d48b3d9c7e884fb47973ac43e7389db9c879d8ddaeb80225f751d0cc8b4cff",

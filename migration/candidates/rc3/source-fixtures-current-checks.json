@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-O-source-fixtures",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-SOURCE-FIXTURES-20261017.zip",
+    "bytes": 1149210,
+    "sha256": "a8e6533230ce4c132401d2f133c30316721214c7ab3684598945740fb265d13f",
+    "members": [
+      {
+        "path": "rc3-mcp-http-current-20261017-a/commands.json",
+        "bytes": 656,
+        "sha256": "f48676b4e641a5e31770735b158eaa78631f8c9d6abaa40e4e57fd25d068f80d"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/native.json",
+        "bytes": 50668,
+        "sha256": "e5557eec834fadebed8e142c02b58186aeedc325bde9e86bec93e6a28ea6d66c"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/run-0.log",
+        "bytes": 236,
+        "sha256": "b66357cef3bd7d020afae353008f8d0b78935fc7f72d4a1b6e7def7e42538f60"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/run-1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/cancel.json",
+        "bytes": 1654,
+        "sha256": "7dc15807e170cef53326363f276e9f4ded53454ed6bb274ebb78b581a4fa0ba7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/close-pending.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/delete-405.json",
+        "bytes": 1656,
+        "sha256": "665b56c279c6080c3e1124cd4c6e40180cb5ed839e00403f09105f5006e7911a"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/get-sse.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/invalid-envelope.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/json-batch.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/json-bom.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/json.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/missing-content.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/peer-error.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/post-sse.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/session.json",
+        "bytes": 1656,
+        "sha256": "665b56c279c6080c3e1124cd4c6e40180cb5ed839e00403f09105f5006e7911a"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/sse-bom.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/status-401.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/timeout.json",
+        "bytes": 1676,
+        "sha256": "ac89d1c2967ec393590401c77e7d2d34d1aa4ebd6ecf3985480dbb67c9d5ba09"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source-peers/unexpected-content.json",
+        "bytes": 1329,
+        "sha256": "57b20a0efad95b100c10f97d7a8f74071f8725a85d81d6b2be1f77e16f2b02f7"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-a/source.json",
+        "bytes": 44822,
+        "sha256": "9137f944db428ffe0e076224644a6a8c35053eb710ea2b63a49ee85178a1daa1"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-b/report.0.log",
+        "bytes": 236,
+        "sha256": "426907c9fe8e00c40b8a04e18216626d77b5b577fa7cd4585b4b2a3961111e15"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-b/report.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-b/report.json",
+        "bytes": 3917,
+        "sha256": "595405b2834bc9938928cb46d9dc939ddbfea6bee53c14e9e52f01ae918c54ef"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-b/report.python.json",
+        "bytes": 50668,
+        "sha256": "e5557eec834fadebed8e142c02b58186aeedc325bde9e86bec93e6a28ea6d66c"
+      },
+      {
+        "path": "rc3-mcp-http-current-20261017-b/report.ts.json",
+        "bytes": 44822,
+        "sha256": "9137f944db428ffe0e076224644a6a8c35053eb710ea2b63a49ee85178a1daa1"
+      },
+      {
+        "path": "rc3-source-fixture-consumers-20261017-a/command.json",
+        "bytes": 824,
+        "sha256": "78a32deedcabd3c993072b564cc97c4a5bfef245e8bd7c50bd6b5a69883c1c60"
+      },
+      {
+        "path": "rc3-source-fixture-consumers-20261017-a/results.xml",
+        "bytes": 89939,
+        "sha256": "f80e6bdfbf0a6c06dc589f914ff86a9949947bb6a5a0ab141b34ffd69401634e"
+      },
+      {
+        "path": "rc3-source-fixture-consumers-20261017-a/run.log",
+        "bytes": 11324,
+        "sha256": "e8cf12ecfa3edab1230a993555829841302be5eda26b8a90d65a079bfea5e946"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/abort.json",
+        "bytes": 34428,
+        "sha256": "edd73bd0a4ff6393231a5ec126ddf8200120815cb578f1ee1daf17daa2db82be"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/abort.source.json",
+        "bytes": 13650,
+        "sha256": "e675ef9b9e13a3ab006bad13142465cb5bd02b718319db495c58edf8fc2468ab"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/abort.source.log",
+        "bytes": 235,
+        "sha256": "4114d3087646015cc82de3ec35f59d94ea0bd4b27269127b62b303422878bccc"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_guard.0.log",
+        "bytes": 236,
+        "sha256": "ddbf5cc1731a9ea5c1058babf78a0b47103faf89083e087f7ffd3a1fc6e64c4d"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_guard.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_guard.json",
+        "bytes": 12376,
+        "sha256": "73839a2349d69776ce750097ab4b6a253259fa8877278ac7547d0223967632b9"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_guard.python.json",
+        "bytes": 39001,
+        "sha256": "0fa3cbf060f421c88cb07849acb611ce50ea9d1955db36376e6c5f1aebef9a12"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_guard.ts.json",
+        "bytes": 36317,
+        "sha256": "0114edec7ba7954222bece7fb02c2fc3d1345c013becf954454de058cc8c8f6a"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_retirement.0.log",
+        "bytes": 236,
+        "sha256": "2af7ec566228dbb9d69721f836b2c58075cc57ca7de396a1f7b838b031c2ca6b"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_retirement.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_retirement.json",
+        "bytes": 3960,
+        "sha256": "28fb8bac15e84c7d54f0379d55eef133ce2be0680846a0aa7cd5fd878acf2214"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_retirement.python.json",
+        "bytes": 31224,
+        "sha256": "6ceb4c4826ca0835b1ef55debeb92114fb4e506d0ad67c90042fb3d173f7f712"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_retirement.ts.json",
+        "bytes": 29398,
+        "sha256": "eadd1e89c7564270437e90d43dd09ffd883778dd7ca18433f3cbf4865e62de20"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_runner.0.log",
+        "bytes": 236,
+        "sha256": "4cbbff53d7e55a885e5d32b3b2bb914f43b9075eb605aa5118bd56e39c968bf9"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_runner.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_runner.json",
+        "bytes": 5757,
+        "sha256": "ecd9c6427d83f0016aab2f6c01e4b136dc1bf135085c7c8788dc6331d59a642d"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_runner.python.json",
+        "bytes": 243807,
+        "sha256": "7cdd5fe0a507f462f632224a12b8d456e40d084b809b12eeca3508f384bf53a8"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_runner.ts.json",
+        "bytes": 238452,
+        "sha256": "05f64a0f0b2760de34a77e77332fe4df077b1e530bc783cc32801c210f6b76d4"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_tools.0.log",
+        "bytes": 235,
+        "sha256": "6c79d7d6c528778841d4d2eddce8099700fa23d77e0f2c013998560c1116e0be"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_tools.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_tools.json",
+        "bytes": 3388,
+        "sha256": "f56dcecbf69592d671467589d78c1d6d556ddfbabc632a62cfe8231807317889"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_tools.python.json",
+        "bytes": 75935,
+        "sha256": "2559b6604ac2c39560e2c204210e7b89f1884d74d81e72fb732d2ba47b772939"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/cordis_tools.ts.json",
+        "bytes": 73225,
+        "sha256": "513917551694c2a5a45a5af9a8937acf906f923f703e8e9fa7a1b65807d3052b"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.0.log",
+        "bytes": 81,
+        "sha256": "49828980de412890cfdad45b3f165bc4e64c36b43ea41198e2db5358957d91b3"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.1.log",
+        "bytes": 236,
+        "sha256": "a6a45d4d63a27fc3b8a7bb58e785518df302461800e17efa6f12ead242277394"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.2.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.json",
+        "bytes": 3197,
+        "sha256": "e7413a1a7a828b0962b37cb231b23ef29d7e7b43e80f6c20545d92d0029594a7"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.python.json",
+        "bytes": 1293927,
+        "sha256": "46b91a5015ce8024ac980102f40451b000719d603ba7a5694b088f3d2c974b20"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/inspect.ts.json",
+        "bytes": 1270855,
+        "sha256": "36f70a4ece8f42dbc20c36ca98ef646d1f0fadf4df3aecea857bce681c79e518"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-a/remote-frozen.json",
+        "bytes": 2863,
+        "sha256": "268f0c0b3aa44b9f1cdfc4dc2d0a4e938945741e410aafd9f7cb013a19640877"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/acp_permissions.0.log",
+        "bytes": 236,
+        "sha256": "5d289d7ddb2f6aac16bcd15b2a1b809cc275d769e6d4e4be6a12ceb25f2be9ec"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/acp_permissions.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/acp_permissions.json",
+        "bytes": 32732,
+        "sha256": "91bcfdf0925d72743f9923fc7f6476e69327c351e76348ea0dcb68b7a7a3ab4d"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/acp_permissions.python.json",
+        "bytes": 12403,
+        "sha256": "99c567b78c473067ee67bdf37f7b8a0590e9b3190600b2c17d1105e3104a4949"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/acp_permissions.ts.json",
+        "bytes": 11869,
+        "sha256": "4f9f75c73947ce64af75249cefe4cb669a0ce68ce543e656a798cc196167507c"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis-current-acceptance.json",
+        "bytes": 543,
+        "sha256": "d7cbedacccc593fb8e995a9ad0374fcb3b1759f1879f7c7752c11d0a2e6c7f0e"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis-current.json",
+        "bytes": 201942,
+        "sha256": "c000bab78a93a694deab5a5c19de54e6bf4963595a085102bd387a8692448e96"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis_tools.0.log",
+        "bytes": 235,
+        "sha256": "b768aae0c51a28bf78fec2b191fd95f470aa409e08352466e173a28c8e7b6f3f"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis_tools.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis_tools.json",
+        "bytes": 126036,
+        "sha256": "078e555461d67ca50272af4d83d480b4c23c30921d2146b6f4ac5ab1aa9a1af3"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis_tools.python.json",
+        "bytes": 75935,
+        "sha256": "2559b6604ac2c39560e2c204210e7b89f1884d74d81e72fb732d2ba47b772939"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/cordis_tools.ts.json",
+        "bytes": 73225,
+        "sha256": "513917551694c2a5a45a5af9a8937acf906f923f703e8e9fa7a1b65807d3052b"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.0.log",
+        "bytes": 81,
+        "sha256": "49828980de412890cfdad45b3f165bc4e64c36b43ea41198e2db5358957d91b3"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.1.log",
+        "bytes": 236,
+        "sha256": "70564668ccb57dd2336c6470a8ce3df6f482dc589a4cabb97ee5272a4c2f84e7"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.2.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.json",
+        "bytes": 2776892,
+        "sha256": "863b9cd72de99fe4ee662e85dc26f14bd0d094e59035ab2a93de5596fd9b583d"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.python.json",
+        "bytes": 1293927,
+        "sha256": "46b91a5015ce8024ac980102f40451b000719d603ba7a5694b088f3d2c974b20"
+      },
+      {
+        "path": "rc3-source-fixtures-20261017-b/inspect.ts.json",
+        "bytes": 1270855,
+        "sha256": "36f70a4ece8f42dbc20c36ca98ef646d1f0fadf4df3aecea857bce681c79e518"
+      }
+    ]
+  },
+  "scope": [
+    "Current actual Source captures refresh seven bounded fixtures; no target-only substitution. Current exported inspect catalog includes 71 service,68 event,736 type and10 inherited Context entries. Cordis tool definitions, prompt and registration order are unchanged under actual comparison.",
+    "Abort56 matched; guard117 matched plus2 reviewed Source defects; retirement2 matched plus6 reviewed Source defects; runner13 matched plus1 reviewed Source defect and1 exact Python stack adaptation; inspect42 matched plus1 reviewed disposal defect; Cordis tools92 matched; remote frozen16 captured rows.",
+    "ACP permission12 observations retain2 precise malformed-grant Source differences. MCP HTTP16 exact observations and actual owned ToolsService consumer pass refreshed strict target guard.",
+    "All67 current Cordis recipes observed; C58 retains the explicit Python3.8 resolved-await scheduling adaptation and C59 checkpoint matches. Acceptance evaluation passes without filtering raw C58.",
+    "Eight active Source exception predicates requalified under current pin. Token-meter17 cases now match; its old rc.1 workaround is retired rather than generalized.",
+    "Initial fixture consumers562 passed/2 failed expose ACP stale persistence calls. That run remains failed; ACP remediation and subsequent actual process/paired validation are recorded separately."
+  ],
+  "limitations": [
+    "Finite provider/consumer evidence only; no unified release or actual installer/physical Win7 qualification.",
+    "Initial stale generated contract/catalog attempts and failed consumer XML retained unchanged."
+  ],
+  "inputs": {
+    "dsh/extensions/cordis_contracts.json": "06bdb5ea02aebfd831777e1590aa7e871005481a2293fd9c785310dbdb6b77c4",
+    "dsh/extensions/inspect_catalog.json": "e51b14ac41fc36424f34d80cd3e9e2ae002df88891ea9dfa5acf07e6e7dd01b2",
+    "migration/upstream-bug-exceptions.json": "90d049180274865a2475bd6b403eca56915889fa4dfefa7b75845bf7ce2f9b56",
+    "scripts/oracles/mcp_http_expected.json": "2e46267e9141096741533b34f163d422b15826301c042b547deb06691bebe6db",
+    "tests/fixtures/abort-source-observations.json": "4e7f5bd4a55bd7d098040b5c6a1e8782c2bd574e20233df130f60f52057146d8",
+    "tests/fixtures/cordis-guard-source-observations.json": "6970d347c5b472e3db2a025169d1b04148b6a2a01585fb297032d7305c992baa",
+    "tests/fixtures/cordis-retirement-source-observations.json": "88d523f78e28ece8a9c7071490c249686d2f9bc105680f3caf23865e5e7f4d93",
+    "tests/fixtures/cordis-runner-source-observations.json": "eeffd873e0929852b00946e9d85b1274394c2f37a477d44f4ad38b4c73d16c16",
+    "tests/fixtures/cordis-tools-source-observations.json": "e1ad5499acc4ff5360982eda4178c519ed819d48294adf5f98c3655bd95f573b",
+    "tests/fixtures/inspect-source-observations.json": "ff7522d03c6f32fa51d1172f947a45c70e479cdebd81b80a1460e19290232f61",
+    "tests/fixtures/remote-frozen-source-observations.json": "98378a5002c01712a28ad720fd864fd43168368f22290331f172771cc557be30"
+  }
+}

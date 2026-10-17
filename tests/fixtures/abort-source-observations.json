@@ -1,5 +1,5 @@
 {
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "node": "v22.22.2",
   "source_sha256": {
     "scripts/oracles/abort.spec.ts": "c2eee4f1c4559a7ef0ad48138038f16781133e489bd7f5e5df1c5d16824ef348",
@@ -8,8 +8,8 @@
     "scripts/oracles/vitest.consumers.config.mts": "b70704a79f8c14cbccbaa62ac717ca4a48402767893e3e85850f491f6a68108f",
     "scripts/oracles/vitest.core.config.mts": "1e5c431e8bfb8a36462353049517f01dab46455c95e5184c8ab0e97856977bd1",
     "reference/packages/extensions/cordis-host-runner/src/inspect-registry.ts": "1f530c25e6eeffdf6386e2896b4555825111cb6efdb4b784fae71c3cc08e518e",
-    "reference/packages/core/tools/src/index.ts": "5f696f8840cbd136ab0b5903e7de8fd83ad39b3b057e6202845aede4d827c90b",
-    "reference/packages/guard/timeout-policy/src/index.ts": "d447e54cef81abc7cec4d55dad48a7b4243f107d836c04ee3078bcb36fbdb2a2"
+    "reference/packages/core/tools/src/index.ts": "cc8d54b6a0d6005a26871e84ce3390ba0bbd7fa61a8c65d4b9cc2fbd86126ac2",
+    "reference/packages/guard/timeout-policy/src/index.ts": "f4f2fc036ff273ff01588e29682504d1ff6fd3db6386345f2e7085074bec2959"
   },
   "observations": [
     {

@@ -531,3 +531,9 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ### R10-H — 干净 Windows 检出的生成字节
 
 固定 f0db 候选的桌面构建前检发现，新增的原版更新协调器缺少 Git 字节保留规则，干净 Windows 检出将 LF 转为 CRLF，严格哈希校验因此拒绝。补充该生成文件的 `-text` 属性，未修改生成内容或原版来源哈希。实际 Git checkout filter 与全部桌面 Source/generated 输入匹配，打包与实际 Node16 更新器消费者15项通过。见 [有限回执](../../migration/candidates/rc3/desktop-checkout-bytes-checks.json)。下一稳定提交重新冻结，原 f0db 的有限观察仍保留自身身份。
+
+### R11-O — 当前 Source 快照与缺陷判据
+
+实际执行 rc3 Source 后更新七份有限快照、inspect API catalog 及 MCP HTTP 目标。abort 56项匹配；guard 117项匹配及2项既有原版缺陷；retirement 2项匹配及6项既有原版缺陷；runner 13项匹配及各1项既有原版缺陷/精确栈适配；inspect 42项匹配及1项既有原版缺陷；Cordis tools 92项匹配，定义、提示和注册顺序本身未变；remote frozen 实际捕获16行。MCP HTTP 16项及真实 ToolsService 消费者通过。
+
+八项既有 Source 缺陷判据按当前输入重新实测，token-meter 17项已一致，旧例外明确退休。Cordis C1–C67 实际观察及 acceptance 通过，原始 C58 的 Python3.8 调度差异继续显式保留，C59 检查点匹配。初轮消费者562通过、2项ACP持久化接口失败；该失败与生成快照过时诊断独立保留，ACP修复另列下一阶段，未重标为完整通过。见 [有限回执](../../migration/candidates/rc3/source-fixtures-current-checks.json)。统一门禁仍待取得。

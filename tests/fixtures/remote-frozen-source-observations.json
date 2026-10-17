@@ -1,5 +1,5 @@
 {
-  "target_upstream": "a66e4702047846cdaa10c66c9d3df3951f5ea70d",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "node": "v22.22.2",
   "source_sha256": {
     "scripts/oracles/remote-frozen.spec.ts": "9ea64f2edcf12a889c0b755b132399d2f9dd2cd3787e5d8b1c0f06973ca16164",
