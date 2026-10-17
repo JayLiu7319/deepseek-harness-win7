@@ -60,7 +60,8 @@
       "migration/candidates/rc3/ptc-events-current-checks.json",
       "migration/candidates/rc3/desktop-6873-current-checks.json",
       "migration/candidates/rc3/plugin-window-pipes-current-checks.json",
-      "migration/candidates/rc3/handle-observers-current-checks.json"
+      "migration/candidates/rc3/handle-observers-current-checks.json",
+      "migration/candidates/rc3/isolated-readers-current-checks.json"
     ],
     "unified_candidate": null,
     "last_failed_candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",

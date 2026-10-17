@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "tested_worktree_parent": "93781bd8bb2e074c971c0b85519b232c26a5ae21",
+  "status": "targeted-passed",
+  "stage": "R11-AF-isolated-reader-helper-imports",
+  "inputs": {
+    "scripts/oracles/session_corpus_list_python.py": "23e06083511c303736f0ba9014eb188cd0205c99539d0fb950b79e9f182790bf",
+    "scripts/oracles/session_corpus_read_python.py": "2226b9dabe15a2fa7ae24dcb4041665a6a42e5ed2d9bbf4b6697182634c1ae3b",
+    "scripts/oracles/session_event_trace_python.py": "b413cbd32d7073656a0a7a3f6c6101c3348371649e49addf38b4c28cbc17e40f",
+    "scripts/oracles/session_filters_python.py": "12b3aa50e4af6d8ee1c0f860092a786256cc42ed38ef4f775e1e92ccfe811b90",
+    "scripts/oracles/session_lineage_python.py": "62592edc8c7cfded3d2d2ac4c605ec0ba8176e93b919249d1079a8e2cf780a0e"
+  },
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-ISOLATED-READERS-20261018.zip",
+    "bytes": 7339962,
+    "sha256": "349c250a68fd28e282f680d26782d3873d65e43948e694ab9b96be743577e885",
+    "members": 324
+  },
+  "targeted_exit": {
+    "exit_code": 0,
+    "seconds": 1.5
+  },
+  "actual_extracted_python": [
+    {
+      "name": "session_corpus_list",
+      "command": [
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_corpus_list_python.py",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-isolated-readers-20261018-a\\session_corpus_list.json",
+        "--root",
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable"
+      ],
+      "exit_code": 0,
+      "seconds": 4.297000000020489
+    },
+    {
+      "name": "session_corpus_read",
+      "command": [
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_corpus_read_python.py",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-isolated-readers-20261018-a\\session_corpus_read.json",
+        "--root",
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5780000000377186
+    },
+    {
+      "name": "session_event_trace",
+      "command": [
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_event_trace_python.py",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-isolated-readers-20261018-a\\session_event_trace.json",
+        "--root",
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5940000000409782
+    },
+    {
+      "name": "session_filters",
+      "command": [
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_filters_python.py",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-isolated-readers-20261018-a\\session_filters.json",
+        "--root",
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5939999999827705
+    },
+    {
+      "name": "session_lineage",
+      "command": [
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable\\python.exe",
+        "-I",
+        "-B",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\session_lineage_python.py",
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-isolated-readers-20261018-a\\session_lineage.json",
+        "--root",
+        "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh Portable \u4e2d\u6587 5_fdrg6d\\dsh-win7-portable"
+      ],
+      "exit_code": 0,
+      "seconds": 0.8589999999967404
+    }
+  ],
+  "retained_failure": {
+    "candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
+    "stage": "actual-extracted-corpus-list",
+    "result": "failed",
+    "failure": "Observer helper imported scripts as if present in the product under -I",
+    "exit": {
+      "exit_code": 1,
+      "seconds": 711.125
+    }
+  },
+  "limitations": [
+    "Package product code is unchanged; helper search is added after the selected product root, and complete runtime/module provenance checks stay strict.",
+    "Five actual isolated child runs validate complete observations and selected extracted dsh root; no full release or browser qualification is claimed.",
+    "Raw failed extracted root reports are sealed, nested fixture directories are explicitly omitted and originals remain retained."
+  ]
+}

@@ -15,7 +15,8 @@ if __name__ == '__main__':
     ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 import dsh
-from scripts.oracles.current_persistence_fixture import read_fixture
+sys.path.insert(1, str(Path(__file__).resolve().parent))
+from current_persistence_fixture import read_fixture
 from dsh.cordis import Context
 from dsh.cordis.errors import ThrownValueError
 from dsh.core.abort import AbortController
