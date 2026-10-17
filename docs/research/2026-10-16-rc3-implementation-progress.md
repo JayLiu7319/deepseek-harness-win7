@@ -315,3 +315,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R06-E — 交付文件原生打开
 
 新增候选客户端宿主，提供Connection鉴权内 `/api/present.host` 和 `/api/present.open`。动作只能由Session交付事件坐标授权，按被查看Session的cwd校验当前常规文件，反向映射并重新resolve核验Host路径后才调用open/reveal；不接受请求中的文件路径，不激活Agent、不复制/下载文件。调用绑定请求和插件寿命取消；卸载先移除路由、取消并等待已接纳的原生操作，结束即释放订阅。52组实际原版配对、269项原生测试通过，包含真实TCP鉴权、持久化继承声明在冷子会话目录中打开当前源文件、取消/等待/重试；同时修复配对发现的current Connection默认404文本类型头。原版两套测试29通过、1符号链接EPERM失败。回执 `migration/candidates/rc3/present-open-current-checks.json` 保留诊断；Sidebar、生成描述符、生产组装及浏览器/打包验收仍待完成。
+
+### R06-F — 工作区快照与路径
+
+候选工作区注册器从persistence snapshot提取header，接通bootstrap、懒刷新、archive及冷domain重开；不打开事件正文。完整路径准入在realpath前拒绝相对路径、Windows当前驱动相对路径，根目录默认标题保留根拼写。110组原版配对（105跨平台路径事实、5个真实domain/registry旅程）和222项原生测试通过；原版51通过、2符号链接EPERM失败。实际当前Agent/持久化冷会话的启动索引、后到会话归属/归档刷新、存储重开和根目录标题已验证。原版资源、Dockkit、右Sidebar、文件树、文档预览的host入口均为空函数，其浏览器部分保留R08原样导入；不新增Python替代浏览器实现。详情见 `migration/candidates/rc3/workspace-current-checks.json`。当前生产基线和全量验收尚未推进。

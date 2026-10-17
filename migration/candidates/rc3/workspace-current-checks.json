@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R06-F-workspace-registry",
+  "status": "native-targeted-passed-source-permission-failures-open",
+  "paired": {
+    "matched": 110,
+    "report": {
+      "path": ".goose/out/rc3-r06-workspace-registry-qualified-20261017/report.json",
+      "sha256": "3216971f1f768dd530a5456998dd436001116126c0a36facfe263dcabca1366d"
+    },
+    "corpus": {
+      "path": "scripts/oracles/workspace_current_cases.json",
+      "sha256": "b0327c51a30f18b4c01666412ce442dbed524e41f6aa7f13282e32e0b871de42"
+    }
+  },
+  "native": {
+    "passed": 222,
+    "command": {
+      "path": ".goose/out/rc3-r06-workspace-registry-native-20261017/command.json",
+      "sha256": "376aa604d3d5624c16a711e09594ca9e93ac81b6d65f637e30b233063c4aa089"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-workspace-registry-native-20261017/pytest.xml",
+      "sha256": "3936d260fdd52144e63a625813d70d228e1d715f99da5df7be93d0f55b3a26d3"
+    }
+  },
+  "source": {
+    "passed": 51,
+    "failed": 2,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r06-workspace-registry-source-20261017/command.json",
+      "sha256": "97534b2053f5dc66117629bd46a89c0bcd4a9cd0ece05d43a4a861f0bf384cd3"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r06-workspace-registry-source-20261017/source.xml",
+      "sha256": "381110d44cde1cecba56f3239ee45489e3d5aa8c5d3af13a85d36f135e801eb1"
+    },
+    "failure": "Two unchanged Source cases fail creating symlink fixtures on Windows EPERM."
+  },
+  "implementation": [
+    {
+      "path": "dsh/workspace/current.py",
+      "sha256": "0f423b1824ccceab96501e27d3eeb5bdd85626e6d389de46cd52ecff76702acc"
+    },
+    {
+      "path": "dsh/workspace/workspace.py",
+      "sha256": "a315ede42c9522ea6b7ae7bc47c9014433c3b7403d84799cde0e30fbf7d2bb35"
+    }
+  ],
+  "scope": [
+    "Current registry projects headers from every persistence snapshot for bootstrap, refresh, archive membership and cold reopen; reads no event bodies. Existing rc1 registry retains header-list behavior.",
+    "Fully qualified Workspace paths reject Host cwd/current-drive-dependent inputs before realpath; default filesystem-root title remains nonempty. 105 pure Windows/POSIX path facts and five real domain/registry journeys are matched.",
+    "Native actual current Agent/persistence bootstrap, later cold Session attachment/archive refresh, domain reopen, root title and no-Agent/no-event-body checks pass alongside old Workspace Remote and preview consumers.",
+    "Inspected original resources/Dockkit/right Sidebar/files/documentpreview index host halves: pure no-op contributors, with browser dependencies on workspaceFiles. Their browser implementation is scheduled for unchanged bundle import, not reimplemented in Python."
+  ],
+  "remaining": [
+    "Current profile activation and unchanged Sidebar/browser acceptance.",
+    "Original EPERM and separately retained Win32 1175 qualification limits remain open."
+  ]
+}

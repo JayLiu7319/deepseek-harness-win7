@@ -1,0 +1,1420 @@
+[
+  {
+    "case": "path-win32-0",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": ""
+    }
+  },
+  {
+    "case": "path-win32-1",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": ".",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "."
+    }
+  },
+  {
+    "case": "path-win32-2",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "..",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": ".."
+    }
+  },
+  {
+    "case": "path-win32-3",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "relative/path",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "path"
+    }
+  },
+  {
+    "case": "path-win32-4",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-win32-5",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-win32-6",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-win32-7",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work/",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-8",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work//",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-9",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-win32-10",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:work",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-11",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "C:/"
+    }
+  },
+  {
+    "case": "path-win32-12",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "C:\\"
+    }
+  },
+  {
+    "case": "path-win32-13",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/work/",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-14",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\work\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-15",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "c:relative",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "relative"
+    }
+  },
+  {
+    "case": "path-win32-16",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\work",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-17",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-18",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "server"
+    }
+  },
+  {
+    "case": "path-win32-19",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-20",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-21",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\path",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "path"
+    }
+  },
+  {
+    "case": "path-win32-22",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//server/share",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-23",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///server/share",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-24",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\\\share",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-25",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\C:\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-win32-26",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\.\\pipe\\name",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "name"
+    }
+  },
+  {
+    "case": "path-win32-27",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\UNC\\server\\share\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-win32-28",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "1:/work",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-29",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\u212a:/work",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-win32-30",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "C:\\"
+    }
+  },
+  {
+    "case": "path-win32-31",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": true,
+      "title": "C:/"
+    }
+  },
+  {
+    "case": "path-win32-32",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-win32-33",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "\\"
+    }
+  },
+  {
+    "case": "path-win32-34",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\\\server\\share",
+    "platform": "win32",
+    "expected": {
+      "qualified": false,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-linux-0",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": ""
+    }
+  },
+  {
+    "case": "path-linux-1",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": ".",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "."
+    }
+  },
+  {
+    "case": "path-linux-2",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "..",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": ".."
+    }
+  },
+  {
+    "case": "path-linux-3",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "relative/path",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "path"
+    }
+  },
+  {
+    "case": "path-linux-4",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-linux-5",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-linux-6",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-linux-7",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work/",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-8",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work//",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-9",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-linux-10",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:work",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:work"
+    }
+  },
+  {
+    "case": "path-linux-11",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-linux-12",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\"
+    }
+  },
+  {
+    "case": "path-linux-13",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/work/",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-14",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\work\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\work\\"
+    }
+  },
+  {
+    "case": "path-linux-15",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "c:relative",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "c:relative"
+    }
+  },
+  {
+    "case": "path-linux-16",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\work",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\work"
+    }
+  },
+  {
+    "case": "path-linux-17",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-18",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server"
+    }
+  },
+  {
+    "case": "path-linux-19",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share"
+    }
+  },
+  {
+    "case": "path-linux-20",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share\\"
+    }
+  },
+  {
+    "case": "path-linux-21",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\path",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share\\path"
+    }
+  },
+  {
+    "case": "path-linux-22",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//server/share",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-linux-23",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///server/share",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-linux-24",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\\\share",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\\\share"
+    }
+  },
+  {
+    "case": "path-linux-25",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\C:\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\?\\C:\\"
+    }
+  },
+  {
+    "case": "path-linux-26",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\.\\pipe\\name",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\.\\pipe\\name"
+    }
+  },
+  {
+    "case": "path-linux-27",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\UNC\\server\\share\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\?\\UNC\\server\\share\\"
+    }
+  },
+  {
+    "case": "path-linux-28",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "1:/work",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-29",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\u212a:/work",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-linux-30",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\\\"
+    }
+  },
+  {
+    "case": "path-linux-31",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\"
+    }
+  },
+  {
+    "case": "path-linux-32",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": true,
+      "title": "\\"
+    }
+  },
+  {
+    "case": "path-linux-33",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\"
+    }
+  },
+  {
+    "case": "path-linux-34",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\\\server\\share",
+    "platform": "linux",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\\\server\\share"
+    }
+  },
+  {
+    "case": "path-darwin-0",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": ""
+    }
+  },
+  {
+    "case": "path-darwin-1",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": ".",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "."
+    }
+  },
+  {
+    "case": "path-darwin-2",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "..",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": ".."
+    }
+  },
+  {
+    "case": "path-darwin-3",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "relative/path",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "path"
+    }
+  },
+  {
+    "case": "path-darwin-4",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-darwin-5",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-darwin-6",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "/"
+    }
+  },
+  {
+    "case": "path-darwin-7",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work/",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-8",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work//",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-9",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-darwin-10",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:work",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:work"
+    }
+  },
+  {
+    "case": "path-darwin-11",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:"
+    }
+  },
+  {
+    "case": "path-darwin-12",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\"
+    }
+  },
+  {
+    "case": "path-darwin-13",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/work/",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-14",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\work\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\work\\"
+    }
+  },
+  {
+    "case": "path-darwin-15",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "c:relative",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "c:relative"
+    }
+  },
+  {
+    "case": "path-darwin-16",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\work",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\work"
+    }
+  },
+  {
+    "case": "path-darwin-17",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/work",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-18",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server"
+    }
+  },
+  {
+    "case": "path-darwin-19",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share"
+    }
+  },
+  {
+    "case": "path-darwin-20",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share\\"
+    }
+  },
+  {
+    "case": "path-darwin-21",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\share\\path",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\share\\path"
+    }
+  },
+  {
+    "case": "path-darwin-22",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "//server/share",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-darwin-23",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "///server/share",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "share"
+    }
+  },
+  {
+    "case": "path-darwin-24",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\server\\\\share",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\server\\\\share"
+    }
+  },
+  {
+    "case": "path-darwin-25",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\C:\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\?\\C:\\"
+    }
+  },
+  {
+    "case": "path-darwin-26",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\.\\pipe\\name",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\.\\pipe\\name"
+    }
+  },
+  {
+    "case": "path-darwin-27",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\?\\UNC\\server\\share\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\?\\UNC\\server\\share\\"
+    }
+  },
+  {
+    "case": "path-darwin-28",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "1:/work",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-29",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\u212a:/work",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "work"
+    }
+  },
+  {
+    "case": "path-darwin-30",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:\\\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "C:\\\\"
+    }
+  },
+  {
+    "case": "path-darwin-31",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "C:/\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\"
+    }
+  },
+  {
+    "case": "path-darwin-32",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "/\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": true,
+      "title": "\\"
+    }
+  },
+  {
+    "case": "path-darwin-33",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\"
+    }
+  },
+  {
+    "case": "path-darwin-34",
+    "kind": "workspace-current",
+    "operation": "path",
+    "path": "\\\\\\server\\share",
+    "platform": "darwin",
+    "expected": {
+      "qualified": false,
+      "title": "\\\\\\server\\share"
+    }
+  },
+  {
+    "case": "registry-cold-snapshots",
+    "kind": "workspace-current",
+    "actions": [
+      {
+        "op": "view"
+      },
+      {
+        "op": "create",
+        "path": "b"
+      },
+      {
+        "op": "headers",
+        "headers": [
+          {
+            "id": "one",
+            "path": "a"
+          },
+          {
+            "id": "two",
+            "path": "b"
+          }
+        ]
+      },
+      {
+        "op": "attach",
+        "path": "b",
+        "id": "two"
+      },
+      {
+        "op": "archive",
+        "id": "two"
+      },
+      {
+        "op": "reopen"
+      },
+      {
+        "op": "detach",
+        "path": "b",
+        "id": "two"
+      },
+      {
+        "op": "reopen"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "items": [
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": []
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": []
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": []
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": []
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": []
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": [
+                "two"
+              ]
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": []
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": [
+                "two"
+              ]
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": [
+            "two"
+          ]
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": [
+                "two"
+              ]
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": [
+            "two"
+          ]
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": []
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": [
+            "two"
+          ]
+        },
+        {
+          "items": [
+            {
+              "path": "b",
+              "title": "b",
+              "sessionIds": []
+            },
+            {
+              "path": "a",
+              "title": "a",
+              "sessionIds": [
+                "one"
+              ]
+            }
+          ],
+          "archived": [
+            "two"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "registry-relative-106",
+    "kind": "workspace-current",
+    "actions": [
+      {
+        "op": "relative",
+        "path": "."
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "error": "Workspace path is not fully qualified: '.'"
+        }
+      ]
+    }
+  },
+  {
+    "case": "registry-relative-107",
+    "kind": "workspace-current",
+    "actions": [
+      {
+        "op": "relative",
+        "path": "relative"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "error": "Workspace path is not fully qualified: 'relative'"
+        }
+      ]
+    }
+  },
+  {
+    "case": "registry-relative-108",
+    "kind": "workspace-current",
+    "actions": [
+      {
+        "op": "relative",
+        "path": "C:work"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "error": "Workspace path is not fully qualified: 'C:work'"
+        }
+      ]
+    }
+  },
+  {
+    "case": "registry-relative-109",
+    "kind": "workspace-current",
+    "actions": [
+      {
+        "op": "relative",
+        "path": "\\rooted"
+      }
+    ],
+    "expected": {
+      "results": [
+        {
+          "error": "Workspace path is not fully qualified: '\\rooted'"
+        }
+      ]
+    }
+  }
+]

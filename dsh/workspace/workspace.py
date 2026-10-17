@@ -24,6 +24,12 @@ class WorkspaceOrderInvalidError(Exception):
 
 
 class WorkspaceRegistry:
+    _normalize_path = staticmethod(realpath_normalize)
+    _default_title = staticmethod(os.path.basename)
+
+    async def _list_stored_headers(self):
+        return await self.ctx.get('sessionPersistence').list()
+
     def __init__(self, ctx):
         self.ctx = ctx
         self._state, self._table, self._global = None, None, None
@@ -40,7 +46,7 @@ class WorkspaceRegistry:
         await self._recover_pending_mutation()
         self._validate_stored_state()
         if not self._state['initialized'] or self._table.size:
-            await self._index_headers(await self.ctx.get('sessionPersistence').list())
+            await self._index_headers(await self._list_stored_headers())
         if not self._state['initialized']:
             await self._bootstrap()
         sessions = self.ctx.get('sessions')
@@ -83,7 +89,7 @@ class WorkspaceRegistry:
                 accounted.add(sid)
 
     async def create(self, path, title=None):
-        canonical = realpath_normalize(path)
+        canonical = self._normalize_path(path)
         if not os.path.isdir(canonical):
             raise ValueError("cannot create a workspace at '%s': path is not a directory" % canonical)
         async with self._lock:
@@ -92,7 +98,7 @@ class WorkspaceRegistry:
                 if entity.path == canonical:
                     return entity
             identity, now = str(uuid.uuid4()), now_iso()
-            record = dict(path=canonical, title=title if title is not None else os.path.basename(canonical), sessionIds=[], createdAt=now, updatedAt=now)
+            record = dict(path=canonical, title=title if title is not None else self._default_title(canonical), sessionIds=[], createdAt=now, updatedAt=now)
             entity = WorkspaceEntity(self._host, identity, record)
             state = self._state
             self._entities[identity] = entity
@@ -120,7 +126,7 @@ class WorkspaceRegistry:
     list_workspaces = list
 
     async def resolveByPath(self, path):
-        canonical = realpath_normalize(path)
+        canonical = self._normalize_path(path)
         return next((entity for entity in self._entities.values() if entity.path == canonical), None)
 
     resolve_by_path = resolveByPath
@@ -182,7 +188,7 @@ class WorkspaceRegistry:
                 return
             sessions = self.ctx.get('sessions')
             if not (sessions is not None and sessions.get(sid) is not None) and sid not in self._headers:
-                await self._index_headers(await self.ctx.get('sessionPersistence').list())
+                await self._index_headers(await self._list_stored_headers())
                 if sid not in self._headers:
                     raise WorkspaceUnknownSessionError(sid)
             await self._set_state(dict(self._state, archivedSessionIds=self.archivedSessionIds + [sid]))
@@ -199,7 +205,7 @@ class WorkspaceRegistry:
             self._headers[sid] = header
             self._session_paths.pop(sid, None)
             try:
-                canonical = realpath_normalize(cwd) if cwd is not None else None
+                canonical = self._normalize_path(cwd) if cwd is not None else None
                 if canonical is None or not os.path.isdir(canonical):
                     raise ValueError('cwd is not a directory')
                 self._remember_session_path(sid, canonical)
@@ -213,7 +219,7 @@ class WorkspaceRegistry:
             self._headers[sid] = live.header
             return live.header
         if sid not in self._headers:
-            await self._index_headers(await self.ctx.get('sessionPersistence').list())
+            await self._index_headers(await self._list_stored_headers())
         if sid not in self._headers:
             raise ValueError("cannot validate session '%s': session persistence holds no such session" % sid)
         return self._headers[sid]
@@ -234,7 +240,7 @@ class WorkspaceRegistry:
                     continue
                 identity = str(uuid.uuid4())
                 now = datetime.fromtimestamp(field(headers[0], 'createdAt', 0) / 1000, timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
-                await self._table.put(identity, dict(path=path, title=os.path.basename(path), sessionIds=ids, createdAt=now, updatedAt=now))
+                await self._table.put(identity, dict(path=path, title=self._default_title(path), sessionIds=ids, createdAt=now, updatedAt=now))
             else:
                 record = self._table.get(identity)
                 ids += [sid for sid in record['sessionIds'] if sid not in ids]
@@ -259,8 +265,10 @@ class WorkspacePlugin(Plugin):
     name = '@deepseek-ai/dsh-workspace'
     inject = ['storageDomain', 'sessionPersistence']
 
+    registry_class = WorkspaceRegistry
+
     async def apply(self, ctx):
-        service = WorkspaceRegistry(ctx)
+        service = self.registry_class(ctx)
         await service.init()
         ctx.set_service('workspaceRegistry', service)
         ctx.set_service('workspaces', service)
