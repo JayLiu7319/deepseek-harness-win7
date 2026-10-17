@@ -587,3 +587,9 @@ dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信
 551880c9 的剩余部分诊断在实际Source/native观察器处暴露共用venv路径判定错误：解释器精确匹配已选sys.executable，却仍被要求位于工作树内。开发观察器现允许明确共用的解释器，解压产品仍强制自己的root/python.exe；外来解释器、模块越界和字节更改继续拒绝。压缩命令Web消费者改用当前有身份的system/message，确认辅助请求仅有一个系统消息并冷恢复v3命令记录。相关182项通过，包含实际Source/native的LLM与runtime-context配对。
 
 诊断因相同观察器夹具重复失败而主动中止，保留111份LLM、68份发行回执、3份压缩命令失败报告及停止原因，不统计为一次完整回归；修正后的发行回执消费者另行检查。原始失败、实际配对和命令/XML见[有限回执](../../migration/candidates/rc3/regression-consumers-current-checks.json)。统一资格及后续未执行的回归仍待完成。
+
+### R10-L — 退出时先释放renderer订阅
+
+增强实际CDP观察后，dd4b打包客户端在closing阶段明确复现control-stream network错误，新退出后断言正确拒绝该运行。桌面退出现先销毁拥有的窗口，再关闭其消费的后端；两次实际Electron22开发实例通过六项完整观察，退出后renderer/console错误均为零。桌面运行时、EPIPE真实关闭管道、打包和更新消费者19项通过。
+
+观察器增加阶段、时间戳和实际子进程exit记录；CDP关闭时立即结束待回包调用。此前约15秒包含Browser.close的CDP超时，不能据此认定后端退出卡住。开发检查与打包资格明确分开，最终同候选两种架构仍待重新验收。失败复现与后续观察原样见[有限回执](../../migration/candidates/rc3/desktop-shutdown-current-checks.json)。

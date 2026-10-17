@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-L-renderer-before-host-shutdown",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-SHUTDOWN-20261017.zip",
+    "bytes": 296488,
+    "sha256": "8da49fa4e61c9f7d60a81ba0cad94f1701f962c4d9bca8df060ed29758447a1c",
+    "members": 14
+  },
+  "selected_python": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "19",
+    "time": "18.615",
+    "timestamp": "2026-10-17T18:33:06.654187+08:00",
+    "hostname": "起床困难户的rog"
+  },
+  "before": {
+    "candidate": "dd4b8ba87bfc5ea4948664d469c836279437d098",
+    "mode": "packaged",
+    "status": "rejected",
+    "console_error_phase": "closing"
+  },
+  "after": {
+    "mode": "development",
+    "status": "development-checks-passed",
+    "checks": [
+      "original-development-renderer-without-node",
+      "development-python-settings-rpc",
+      "development-stream-baseline-and-cancellation",
+      "actual-single-instance-ownership",
+      "development-graceful-shutdown",
+      "complete-observed-lifecycle-without-renderer-errors"
+    ],
+    "process_exit": {
+      "time": "2026-10-17T10:31:54.526Z",
+      "phase": "closing",
+      "code": 0,
+      "signal": null
+    },
+    "timeline": [
+      {
+        "phase": "onboarding",
+        "time": "2026-10-17T10:31:51.475Z"
+      },
+      {
+        "phase": "settings",
+        "time": "2026-10-17T10:31:51.479Z"
+      },
+      {
+        "phase": "stream",
+        "time": "2026-10-17T10:31:51.598Z"
+      },
+      {
+        "phase": "single-instance",
+        "time": "2026-10-17T10:31:51.617Z"
+      },
+      {
+        "phase": "stable",
+        "time": "2026-10-17T10:31:51.847Z"
+      },
+      {
+        "phase": "closing",
+        "time": "2026-10-17T10:31:53.998Z"
+      },
+      {
+        "phase": "closed",
+        "time": "2026-10-17T10:31:54.564Z"
+      }
+    ],
+    "renderer_exceptions": 0,
+    "console_errors": 0
+  },
+  "scope": [
+    "Desktop destroys owned renderer windows before closing their consumed backend, releasing subscriptions without a control-stream network failure.",
+    "Observer records phases, timestamps and actual child exit; checks errors after exit too. CDP socket closure rejects pending commands immediately instead of waiting fifteen seconds for Browser.close.",
+    "Two explicit development checks pass; packaged dd4b reproduction remains rejected."
+  ],
+  "limitations": [
+    "The earlier fifteen-second measurement included CDP response timeout; no backend shutdown hang is inferred.",
+    "New shutdown order has actual development Electron22 evidence. Final packaged x86/x64 candidate qualification remains pending; earlier installer receipts do not cover this source change.",
+    "No administrator installation, system patches, reboot or physical Win7 qualification."
+  ]
+}

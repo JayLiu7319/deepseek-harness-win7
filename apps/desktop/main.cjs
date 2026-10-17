@@ -158,6 +158,9 @@ app.on('window-all-closed',()=>{});
 app.on('before-quit',event=>{
   if(allowQuit)return;
   event.preventDefault();if(stopping)return;stopping=true;
+  // Release renderer subscriptions before closing the transport they consume.
+  // Otherwise a live control stream receives a network failure during quit.
+  for(const window of BrowserWindow.getAllWindows())if(!window.isDestroyed())window.destroy();
   Promise.resolve(manager?.close()).catch(error=>console.error(error)).finally(()=>{
     tray?.destroy();allowQuit=true;app.quit();
   });
