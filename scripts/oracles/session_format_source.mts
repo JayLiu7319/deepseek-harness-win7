@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='session-stats-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='telemetry-current'
+    ? await (await import('./telemetry_current_source.mts')).telemetryCase(resolve(sourceArg),test)
+    : test.kind==='session-stats-current'
     ? await (await import('./session_stats_current_source.mts')).statsCase(resolve(sourceArg),test,decode)
     : test.kind==='http-proxy-install-current'
     ? await (await import('./http_proxy_install_current_source.mts')).httpProxyInstallCase(resolve(sourceArg),test)

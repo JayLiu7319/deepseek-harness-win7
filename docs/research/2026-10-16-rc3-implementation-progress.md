@@ -351,3 +351,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R03-L — 嵌入流 Session 统计
 
 候选统计消费者改用assistant/attempt和最终assistant/message的嵌入流，保留重试首token，取消步骤按step/end计数；精确处理outputTokens、小数、空/prototype工具ID及持久化状态/视图边界。67组实际配对、224项原生和44项未改原版测试通过。真实Agent写入JSONL后冷重放、步骤中间checkpoint续算及卸载重挂已验证，并修复磁盘合法整数以float解码时投影range/slice失败；先验证整数域再转换索引。初轮测试DTO错误和实际数值故障记录保留，成功短夹具自动清理。回执`migration/candidates/rc3/session-stats-current-checks.json`；尚未切换生产pin或完成统一发布验收。
+
+### R03-M — 反馈授权遥测
+
+候选OTel默认FEEDBACK_ONLY、拒绝FULL，直接服务emit不上传；仅新提交的本会话canonical反馈授权对应前缀，支持消息反馈及冷会话committed检查，fork继承和伪造bus事件不构成授权。独立协调器对齐live/on-demand、完整历史、游标接续、逐事件脱敏/后端失败、flush与关闭记录；卸载同步执行首个await前的脱敏前缀。72组原版配对、116项原生和74项原版测试通过，真实SDK接收端确认冷历史发送、不激活冷会话、no-op不重发及rc.3资源版本。Python既有protobuf/Source JSON OTLP为SDK适配差异。诊断与回执`migration/candidates/rc3/telemetry-current-checks.json`保留，成功短夹具已自动清理；生产组合和统一发布签收未完成。

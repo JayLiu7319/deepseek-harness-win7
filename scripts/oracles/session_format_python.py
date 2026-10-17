@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-stats-current':
+        if case['kind'] == 'telemetry-current':
+            from scripts.oracles.telemetry_current_python import execute as telemetry_execute
+            value = telemetry_execute(case)
+        elif case['kind'] == 'session-stats-current':
             from scripts.oracles.session_stats_current_python import execute as stats_execute
             value = stats_execute(case, decode)
         elif case['kind'] == 'http-proxy-install-current':

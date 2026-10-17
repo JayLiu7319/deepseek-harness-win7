@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-M-feedback-only-telemetry",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 72,
+    "report": {
+      "path": ".goose/out/rc3-r03-telemetry-qualified-paired-20261017/report.json",
+      "sha256": "42198e10193603e1fa7298253dfcbb060d38f235d1d148d3c8401b99ada5551f"
+    },
+    "corpus": {
+      "path": "scripts/oracles/telemetry_current_cases.json",
+      "sha256": "259826033eac40cf924a175dfaa5a413f7880d30f66de950e2115edc458e38e0"
+    }
+  },
+  "native": {
+    "passed": 116,
+    "command": {
+      "path": ".goose/out/rc3-r03-telemetry-sdk-qualified-native-20261017/command.json",
+      "sha256": "c5336c59e983403d01f3ff3f22a74fb777174e34a7924cebe202fac0aa67b601"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-telemetry-sdk-qualified-native-20261017/pytest.xml",
+      "sha256": "e92ddd0f757e595201a54b583f4beeeac64f07e008839e1f7b159575555be147"
+    }
+  },
+  "source": {
+    "passed": 74,
+    "command": {
+      "path": ".goose/out/rc3-r03-telemetry-source-20261017/command.json",
+      "sha256": "e840ec72344af979f39a99dd6e839a406b9ac2a93f5a55e9b5bb4e049df2ab12"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-telemetry-source-20261017/source.xml",
+      "sha256": "27672195e4bc33ccfb5925eabbd52e4f8872720e95cec8829691d4fbfe59e58e"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/telemetry_current.py",
+      "sha256": "f3de11ebc5d022cb3eb794feabee58d5790383be4ef777a6149992643949ec47"
+    },
+    {
+      "path": "dsh/session/telemetry.py",
+      "sha256": "3cfe1b950a81ec90e2818219cad88cb2d567790f659a90713feedc4beb29a4c6"
+    },
+    {
+      "path": "tests/test_session_telemetry_current.py",
+      "sha256": "d28c4556163f923bcc336f629408df6c304b41cc70c9c54eb2a7d9d975a1523c"
+    }
+  ],
+  "coverage": [
+    "Source coordinator live/on-demand, includeHistory, lifecycle boundary, handoff cursor, per-event fail-closed redaction and sink failure, reload/disposal and root/child scopes.",
+    "Current OTel defaults FEEDBACK_ONLY, rejects FULL before registration, drops direct emit, authorizes own new canonical feedback/message events; ignores inherited feedback and cloned bus values.",
+    "Actual Python SDK HTTP/protobuf collector confirms full stored cold-session history through committed feedback only, no-op mutations do not authorize, no cold Session activation, exact instrumentation/resource versions.",
+    "Keep JS async disposal synchronous prefix before first await so same-scope redaction owns shutdown records. Nullish mode default and integral JSON float batch values map into Python SDK."
+  ],
+  "limitations": [
+    "Coordinator paired actors use recording sinks; actual SDK validation separately uses Source original 74 tests and native real collector.",
+    "Candidate provider; production registry/pin remain rc1/v0. No full regression or release acceptance.",
+    "Python SDK uses protobuf OTLP while Source SDK uses JSON OTLP; both existing supported collector formats retained."
+  ],
+  "diagnostics": [
+    "Initial Source actor used wrong Context disposer; retained.",
+    "Refined Source actor accidentally rejected ops for undefined rejectSeq; retained.",
+    "Root-scope comparison exposed async cleanup prefix ordering; fixed in coordinator and both scope variants now matched."
+  ],
+  "retention": "Successful short fixtures auto-pruned; paired/log/XML receipts retained. No Portable built."
+}

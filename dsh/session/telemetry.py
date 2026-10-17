@@ -17,6 +17,8 @@ LOG = logging.getLogger('session-telemetry')
 
 class OpenTelemetrySessionBackend(Service):
     inject = ['sessions']
+    app_version = '0.1.2-alpha.1'
+    instrumentation_version = '0.1.2-alpha.1'
 
     def __init__(self, ctx, config=None):
         config = config or {}
@@ -65,9 +67,9 @@ class OpenTelemetrySessionBackend(Service):
         mapping = dict(maxExportBatchSize='max_export_batch_size', maxQueueSize='max_queue_size', scheduledDelayMillis='schedule_delay_millis', exportTimeoutMillis='export_timeout_millis')
         if any(key not in mapping for key in processor):
             raise ValueError('unsupported Python OTel processor option')
-        self.provider = LoggerProvider(resource=Resource({'service.name': 'DeepSeek Harness', 'service.version': '0.1.2-alpha.1', 'user.id': get_or_create_anonymous_user_id()}), shutdown_on_exit=False)
+        self.provider = LoggerProvider(resource=Resource({'service.name': 'DeepSeek Harness', 'service.version': self.app_version, 'user.id': get_or_create_anonymous_user_id()}), shutdown_on_exit=False)
         self.provider.add_log_record_processor(BatchLogRecordProcessor(OTLPLogExporter(**options), **{mapping[key]: value for key, value in processor.items()}))
-        self.loggers = {channel: self.provider.get_logger('@deepseek-ai/dsh-session-telemetry-otel' + ('/ops' if channel == 'ops' else ''), '0.1.2-alpha.1') for channel in ('ledger', 'ops')}
+        self.loggers = {channel: self.provider.get_logger('@deepseek-ai/dsh-session-telemetry-otel' + ('/ops' if channel == 'ops' else ''), self.instrumentation_version) for channel in ('ledger', 'ops')}
         ctx.effect(lambda: self.shutdown)
         ctx.on('session/event', self.event)
         if mode == 'FULL':
@@ -78,9 +80,12 @@ class OpenTelemetrySessionBackend(Service):
                 self.adopt(session)
 
     def enqueue(self, record):
+        record = self.ctx.waterfall_sync('session-telemetry/record', copy.deepcopy(record), lambda value: value)
+        self._export_record(record)
+
+    def _export_record(self, record):
         from opentelemetry.sdk._logs import LogRecord
         from opentelemetry._logs import SeverityNumber
-        record = self.ctx.waterfall_sync('session-telemetry/record', copy.deepcopy(record), lambda value: value)
         severity = record['severity'].upper()
         stamp = int(record['time'] * 1000000)
         self.loggers[record['channel']].emit(LogRecord(timestamp=stamp, observed_timestamp=stamp, trace_id=0, span_id=0, trace_flags=0, severity_text=severity,
