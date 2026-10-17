@@ -46,7 +46,7 @@
     "Desktop follows the specified Electron22/Python3.8 Win7 carrier and separate Standard/AIO prerequisite policy."
   ],
   "qualification": {
-    "unified": "pending-after-failed-1446-gate",
+    "unified": "pending-after-failed-6873-gate",
     "desktop_installation": "not-executed",
     "win7": "deferred-by-user",
     "real_cloud_providers": "not-verified",
@@ -57,10 +57,13 @@
       "migration/candidates/rc3/desktop-916e-current-checks.json",
       "migration/candidates/rc3/gate-controls-current-checks.json",
       "migration/candidates/rc3/desktop-1446-current-checks.json",
-      "migration/candidates/rc3/ptc-events-current-checks.json"
+      "migration/candidates/rc3/ptc-events-current-checks.json",
+      "migration/candidates/rc3/desktop-6873-current-checks.json",
+      "migration/candidates/rc3/plugin-window-pipes-current-checks.json",
+      "migration/candidates/rc3/handle-observers-current-checks.json"
     ],
     "unified_candidate": null,
-    "last_failed_candidate": "1446612838a1f8d4f87aaadc95ce19ca151e78a4",
+    "last_failed_candidate": "6873f7913f2cd1aeda7a69c33c92d48daf7533a3",
     "diagnostic_candidate": "75c4566a8b14285c8f9a45f139dab6b2bfd4b370"
   },
   "manifests": [
