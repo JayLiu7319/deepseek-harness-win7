@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-P-session-reference",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 36,
+    "report": {
+      "path": ".goose/out/rc3-r03-reference-qualified-paired-20261017/report.json",
+      "sha256": "c36c746f93d543f95176e55c3305317241570f2623900a1c0f6eed9cd523884c"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_reference_current_cases.json",
+      "sha256": "dbbb46f22d1519001a24fa729147c4c2fca7cdf7df80437b4761ebb43eef9a38"
+    }
+  },
+  "native": {
+    "passed": 101,
+    "command": {
+      "path": ".goose/out/rc3-r03-reference-native-20261017-c/command.json",
+      "sha256": "7fd27d13b69ebc7330db987cf5302fc9d71b275c0b115ec41e6eaaf23fb4716c"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-reference-native-20261017-c/results.xml",
+      "sha256": "39767c69df9ed945abf00297fa5dc5d54822ea9e7a1d35aab6d404565d2543b0"
+    }
+  },
+  "source": {
+    "passed": 48,
+    "command": {
+      "path": ".goose/out/rc3-r03-reference-source-20261017/command.json",
+      "sha256": "cfe947bf67dc997b4737b6cd0517e6b16b9251356c15a55703b50c32ac7c197d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-reference-source-20261017/results.xml",
+      "sha256": "97ace9ec825bc9d52e12f7d5f6a7f82ecb878636ca164f22170ed20fbd253f5b"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/context/session_reference_current.py",
+      "sha256": "257126063f917220ef67023bbf44ad151e1fb7efe25ae9d32c825154a340f105"
+    },
+    {
+      "path": "dsh/llm/runtime_current.py",
+      "sha256": "44c9de1d765580b08bf3685f8cd3d683cd5c06cd74e4cbcbaa418fd5f757f714"
+    },
+    {
+      "path": "tests/test_session_reference_current.py",
+      "sha256": "62c77f39a615505f66e2f776d0974a3e2bb556949aae7755836a32d8eaccd820"
+    }
+  ],
+  "coverage": [
+    "Model-relative reference budget, assembled route precedence, explicit cap bypass, missing adapter fallback and real model metadata interface.",
+    "Exact tag-safe previews, full untrusted transcript fragments, omission counts, saved/unavailable outcomes and captured format version.",
+    "Real Agent cold v3 surface, durable context and readable filesystem spill; prompt cancellation before late metadata/read/spill completes."
+  ],
+  "limitations": [
+    "Production pin/frontend remain rc.1; no unified release or Desktop qualification."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-reference-paired-20261017-a",
+    ".goose/out/rc3-r03-reference-native-20261017-b",
+    ".goose/out/rc3-r07-composition-probe-20261017-h"
+  ]
+}

@@ -371,3 +371,7 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 ### R03-O — 工作区指令与提交边界
 
 候选指令插件迁移到当前 Inbox、fs provider 和步骤投影；基线身份使用原版数字序列化，空候选数组保留，逐文件 UTF-8 上限在流中执行。同目录不可用候选回滚整组观察，不用暂时读取失败撤销已授权指令。40 组原版配对、47 项原生通过，包含真实当前 Agent 读取嵌套文件后在 step/end 之后发布指令、再次修改、卸载及冷 v3 日志。原版套件 151 通过、3 项符号链接创建 EPERM、1 跳过，诊断完整保留；初轮 schema 测试误把结果对象当异常已修正。Win7 Minimal 编辑器作为明确保留工具参与文件触达。回执 `migration/candidates/rc3/instructions-current-checks.json`；生产映射、前端 pin 和统一资格仍未签收。成功短夹具自动清理。
+
+### R03-P — 会话引用预算与完整快照
+
+候选引用按已组装模型路由和上下文容量自动分配预算，保留64KiB下限；显式预算跳过模型查询，只有缺adapter可降级，其他元数据错误继续拒绝。截断预览附带准确遗漏量及完整不可信投影的spill位置或明确不可用原因；捕获格式代际写入持久上下文，转录每行至多64个Unicode码点。36组实际原版配对、101项原生和48项原版测试通过；真实当前Agent引用冷v3会话、读取完整spill及迟到metadata/read/spill取消均验证。组合旅程暴露的LLM resolveModelInfo公共接口缺口已补齐，初轮配置覆盖及测试路径诊断保留。回执 `migration/candidates/rc3/session-reference-current-checks.json`；生产pin和完整发行签收仍待完成。

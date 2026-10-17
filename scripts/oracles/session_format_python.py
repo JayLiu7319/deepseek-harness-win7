@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'instructions-current':
+        if case['kind'] == 'session-reference-current':
+            from scripts.oracles.session_reference_current_python import execute as reference_execute
+            value = reference_execute(case)
+        elif case['kind'] == 'instructions-current':
             from scripts.oracles.instructions_current_python import execute as instructions_execute
             value = instructions_execute(case)
         elif case['kind'] == 'log-export-current':

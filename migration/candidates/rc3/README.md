@@ -134,3 +134,5 @@ R07-D: [live-frame headless consumer](headless-current-checks.json):28 actual ru
 R04-J: [logical log export](log-export-current-checks.json): 27 Source pairs, 112 native and 45 unchanged Source tests pass. Real v3 live/cold ZIP export includes generic streamed files and releases the producer on cancellation; production composition remains staged.
 
 - R03-O: [workspace instructions](instructions-current-checks.json): 40 Source/native pairs, 47 native passes; Source 151 passes / 3 symlink EPERM failures / 1 skip. Candidate only.
+
+R03-P: [session reference budgets and full snapshots](session-reference-current-checks.json): 36 actual pairs, 101 selected native and 48 unchanged Source passes. Actual cold v3 Agent references and late-provider cancellation covered; production promotion remains open.
