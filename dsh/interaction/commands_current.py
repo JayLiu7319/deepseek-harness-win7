@@ -3,10 +3,15 @@ from dsh.attachment.error import AttachmentError
 from dsh.attachment.store_current import decode_upload
 from dsh.core.session.json import FrozenDict, FrozenList
 from dsh.interaction.commands import CommandRuntime
+from dsh.typert.remote import Remote
 
 
 class CurrentCommandRuntime(CommandRuntime):
     _attachment_field = 'attachments'
+
+    @Remote('execute')
+    async def remoteExecute(self, agent, line, submittedAttachments, signal):
+        return await super().remoteExecute(agent, line, submittedAttachments, signal)
 
     def __init__(self, ctx=None, config=None):
         super().__init__(ctx, config)

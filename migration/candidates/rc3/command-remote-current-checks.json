@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-U-command-Remote-wire-identity",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-COMMAND-REMOTE-20261017.zip",
+    "bytes": 1151139,
+    "sha256": "b91752da7398d9fd4b6bb7e2b03703568eb025f0ef141d420747a60f7d86d12e",
+    "members": 27
+  },
+  "failed_gate": {
+    "candidate_commit": "dd4b8ba87bfc5ea4948664d469c836279437d098",
+    "passed": 2762,
+    "skipped": 1,
+    "failed": 1,
+    "publishable": false
+  },
+  "runs": [
+    {
+      "path": ".goose/out/rc3-command-remote-20261017-a/results.xml",
+      "tests": "48",
+      "failures": "2",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.779"
+    },
+    {
+      "path": ".goose/out/rc3-command-remote-20261017-b/results.xml",
+      "tests": "48",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.456"
+    },
+    {
+      "path": ".goose/out/rc3-command-remote-20261017-c/results.xml",
+      "tests": "48",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.360"
+    },
+    {
+      "path": ".goose/out/rc3-command-consumers-20261017-a/results.xml",
+      "tests": "153",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "5.469"
+    }
+  ],
+  "unchanged_source_tests": 55,
+  "scope": [
+    "Current commands Remote declares the Source submittedAttachments parameter even without a generated artifact, instead of inheriting the legacy images parameter.",
+    "Actual effective current Session/Typert providers drive both descriptor modes; legacy images wire requests are rejected before command bookkeeping. Current list attachments, RPC JSON, exact execution and reversible registration are verified.",
+    "Attachment, upload, Session-command, identity-command and Remote direct consumers pass."
+  ],
+  "limitations": [
+    "Initial2fail/46pass and1fail/47pass remain failures. Fixed48pass and selected153pass are independent runs, not full regression.",
+    "The dd4b unified gate remains failed. Remaining Python migration regression diagnostics precede another stable full qualification."
+  ]
+}

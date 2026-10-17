@@ -569,3 +569,9 @@ Web boot 测试改用实际 canonical profile，按活动 Loader 行与原版声
 9ab3e1dd 的确切x64 Portable SHA为 `f656173e7546a43c2cc647d2c0a26dca3d3e8f92d7d3b2955706910d6f92b694`，3条引擎与7条路由的实际Source/native/解压包完整观察一致；x86 ZIP 的13步实际运行通过。两种架构的Standard/AIO均编译成功，各自内置Node16/Python九项前检及实际Electron22客户端五项检查通过，实例正常退出且无renderer/console错误。四个安装器的尺寸和SHA、原始会话/进程报告与截图见[固定候选有限回执](../../migration/candidates/rc3/9ab3-finite-current-checks.json)。不将9ab的失败统一门禁补签为成功，未执行管理员安装、系统补丁、重启或物理Win7验收。
 
 [rc3职责矩阵](../../migration/rc3-capabilities.json)记录297个manifest、199个有效Loader入口和176个拥有入口的manifest；这些数字不是完成或等价数量。原版资源路径、声明的潜在profile可达性与Python入口分别列出，可选云服务、LSP、外部CLI和Agent Teams仍遵循既定独立范围。全量资格由干净dd4b8ba8候选另行执行，历史rc1矩阵及回执不覆盖。
+
+### R11-U — commands Remote 当前参数身份
+
+dd4b8ba8 统一门禁2762通过、1项既有跳过后在旧images描述符断言处停止。直接组合进一步暴露提供端遗漏：未注册生成artifact时，当前commands仍继承旧images参数。现显式声明原版submittedAttachments参数，并通过相同业务实现执行；当前Session/Typert的两种描述符模式均拒绝旧images字段，正确执行、序列化并撤销注册。
+
+直接组合/附件48项、Remote/上传/Session命令等153项以及实际未改Source commands55项通过。初轮2失败/46通过、第二轮1失败/47通过原样保留，见[有限回执](../../migration/candidates/rc3/command-remote-current-checks.json)。本批先对尚未执行到的Python迁移回归集中诊断，待稳定后再运行统一资格；不将失败门禁与后续片段拼接签收。

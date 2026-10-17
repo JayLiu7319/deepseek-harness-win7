@@ -8,12 +8,10 @@ import pytest
 from dsh.boot.plugin_registry import resolve_harness_plugin
 from dsh.cordis.context import Context
 from dsh.core.agent import Agent
-from dsh.core.session import SessionStore
 from dsh.api.session import SessionController
 from dsh.llm.llm_service import LlmError
 from dsh.settings.provider import SettingsProvider
-from dsh.typert.registry import TypertRegistry
-from dsh.typert.dispatch import RemoteDispatcher, assert_json
+from dsh.typert.dispatch import TypertGatewayError, assert_json
 from dsh.typert.protocol import TypertLookupProvider
 from dsh.typert.artifact import UNDEFINED
 from dsh.typert.artifact import read_generated_artifact
@@ -57,10 +55,12 @@ async def test_boot_default_model_has_serializable_live_settings(late_settings):
 @pytest.mark.asyncio
 @pytest.mark.parametrize('strict_artifact', [False, True])
 async def test_boot_commands_remote_serializes_and_owns_effects(strict_artifact):
+    from dsh.typert.current import CurrentRemoteDispatcher
+
     ctx = Context()
     try:
-        await ctx.plugin(TypertRegistry)
-        await ctx.plugin(SessionStore)
+        await ctx.plugin(resolve_harness_plugin('@deepseek-ai/dsh-typert-registry'))
+        await ctx.plugin(resolve_harness_plugin('@deepseek-ai/dsh-session'))
         await ctx.plugin(resolve_harness_plugin('@deepseek-ai/dsh-commands'))
         if strict_artifact:
             ctx.get('typert').register(read_generated_artifact('packages/interaction/commands/lib/typert.host.js'))
@@ -69,13 +69,13 @@ async def test_boot_commands_remote_serializes_and_owns_effects(strict_artifact)
             'agent', 'agentId', 'host#Agent', '@deepseek-ai/dsh-session/types#SessionId', lambda key: agent if key == agent.id else None))
         commands = ctx.get('commands')
         dispose = commands.register(dict(name='sample', description='Controlled command',
-                                         input=dict(hint='<value>', images=True),
+                                         input=dict(hint='<value>', attachments=True),
                                          handler=lambda invocation: dict(kind='success', text=invocation.rawInput)))
-        remote = RemoteDispatcher(ctx)
+        remote = CurrentRemoteDispatcher(ctx)
         async def call(method, **args):
             return await remote.invoke(dict(namespace='commands', method=method, args=dict(agentId=agent.id, **args)))
         listed = await call('list')
-        expected = [dict(name='sample', description='Controlled command', input=dict(hint='<value>', images=True))]
+        expected = [dict(name='sample', description='Controlled command', input=dict(hint='<value>', attachments=True))]
         assert listed == expected
         assert_json(listed)
         async def handler(endpoint, payload, signal):
@@ -85,13 +85,15 @@ async def test_boot_commands_remote_serializes_and_owns_effects(strict_artifact)
             headers={'content-type': 'application/json'}, body=json.dumps(envelope).encode('utf-8')))
         assert response['status'] == 200
         assert json.loads(response['body'])['result'] == dict(ok=True, value=expected)
-        execution = await call('execute', line='/sample exact input', images=[])
+        with pytest.raises(TypertGatewayError, match='unexpected "images"'):
+            await call('execute', line='/sample exact input', images=[])
+        execution = await call('execute', line='/sample exact input', submittedAttachments=[])
         assert_json(execution)
         assert execution['result'] == dict(kind='success', text=' exact input')
         events = [event for event in agent.session.events if event['type'].startswith('command/')]
         assert [event['type'] for event in events] == ['command/run', 'command/done']
         assert all(event['data']['commandId'] == execution['commandId'] for event in events)
-        assert await call('execute', line='/missing', images=[]) is UNDEFINED
+        assert await call('execute', line='/missing', submittedAttachments=[]) is UNDEFINED
         dispose()
         assert await call('list') == []
     finally:
