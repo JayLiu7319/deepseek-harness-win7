@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-A-desktop-v3-wire",
+  "status": "targeted-passed",
+  "source": {
+    "path": ".goose/out/rc3-desktop-wire-source-20261017-b/source.json",
+    "sha256": "3372d208a82a6a084f63a32772e624a5aded50eabe35f11203e5b476dc4d9f20"
+  },
+  "corpus": {
+    "path": "scripts/oracles/desktop_wire_current_cases.json",
+    "sha256": "84522ed59d3b8d92f4b95c98ad0de43717e06f53c36ec65e306e7b96a2c74681"
+  },
+  "native": {
+    "passed": 98,
+    "xml": {
+      "path": ".goose/out/rc3-desktop-wire-native-20261017-b/results.xml",
+      "sha256": "ddf0d5b27a30a3c42bb49010c2854098ba3a0f744e541aa2b47ea2fcec5f7ab6"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/desktop/wire.py",
+      "sha256": "d26bb7b46ed4ead9398d0e468ddc403c80d9a5efd9769b816781bdf3ed645d5e"
+    },
+    {
+      "path": "scripts/oracles/desktop_wire_current.mts",
+      "sha256": "3a05fcc9bae9977500ddb8f7bab51360411634834a7c9f00d4d7457f4699b930"
+    },
+    {
+      "path": "tests/test_desktop_wire_current.py",
+      "sha256": "9757c3dd3b8fd6a2982363ce57316aa64bd44ffd6c8fe45f30983c286078cbd6"
+    }
+  ],
+  "coverage": [
+    "83 actual unchanged rc.3 Electron-shell/Host codec observations: byte fragmentation1..1048576, full64KiB binary chunks, repeated headers/Unicode, stream id boundaries, interleaving and empty data, truncation, invalid header/body/status/control/error payloads and advertised size limits.",
+    "Native decode results and13 re-encoded complete response frames agree with actual Source bytes. Python/V8 invalid JSON parser diagnostics remain explicitly different; protocol taxonomy and all other error messages are compared exactly."
+  ],
+  "limitations": [
+    "Framing only; process descriptor adaptation, Electron22 UI, installers and release qualification remain in progress."
+  ],
+  "retention": "Original Source and native XML retained; completed short pytest fixtures auto-pruned. No Portable build."
+}
