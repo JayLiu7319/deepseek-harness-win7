@@ -55,7 +55,8 @@
       "migration/candidates/rc3/loader-consumers-current-checks.json",
       "migration/candidates/rc3/dd4b-finite-current-checks.json",
       "migration/candidates/rc3/desktop-916e-current-checks.json",
-      "migration/candidates/rc3/gate-controls-current-checks.json"
+      "migration/candidates/rc3/gate-controls-current-checks.json",
+      "migration/candidates/rc3/desktop-1446-current-checks.json"
     ],
     "unified_candidate": null,
     "last_failed_candidate": "916e1279fd84e1c5270a170de48ca077bbf7e2c3",

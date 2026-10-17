@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "1446612838a1f8d4f87aaadc95ce19ca151e78a4",
+  "stage": "R10-N-fixed-1446-desktop-lifecycle",
+  "status": "finite-observations-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-1446-DESKTOP-20261017.zip",
+    "bytes": 311075,
+    "sha256": "c7627e7b957def8fa8fbb6dd54fde5e83a1c2e9c002968726d194d03ef29c144",
+    "members": 45
+  },
+  "portable_x86": {
+    "command": [
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-14466128-20261017-a\\extracted\\dsh-win7-portable\\python.exe",
+      "-I",
+      "-B",
+      "-u",
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\scripts\\portable_runtime_probe.py",
+      "--workspace",
+      "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-runtime-x86-14466128-20261017-a\\workspace",
+      "--architecture",
+      "x86"
+    ],
+    "exit_code": 0,
+    "seconds": 49.546999999991385,
+    "archive": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\rc3-portable-x86-14466128-20261017-a\\dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+    "archiveSha256": "c8bd78ec93229fa0195d96657a334e1f4821dba99c993c68c99d8913965d52e3",
+    "unchanged": true,
+    "candidate": "1446612838a1f8d4f87aaadc95ce19ca151e78a4"
+  },
+  "runtime_observation_validation": {
+    "result": "passed",
+    "probe_exit_code": 0,
+    "steps": [
+      "dump-minimal",
+      "dump-standard",
+      "dump-creative",
+      "dump-web",
+      "dump-headless",
+      "pack-install-transitive-dependencies",
+      "tool-execute-restart-module-cleanup",
+      "upgrade-real-tool",
+      "rollback-real-tool",
+      "remove-installed-source",
+      "creative-export-native-build-pack-install",
+      "web-real-boot-session-flush",
+      "cold-session-restart-read-surface"
+    ],
+    "original_wrapper_exit_code": 1,
+    "wrapper_error": "KeyError: 'steps' after successful product run; post-validation corrected lookup to value.steps without rerunning product.",
+    "archiveSha256": "c8bd78ec93229fa0195d96657a334e1f4821dba99c993c68c99d8913965d52e3"
+  },
+  "builds": [
+    {
+      "architecture": "x86",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32f0",
+      "pipeChecks": 9,
+      "exit": {
+        "exit_code": 0,
+        "seconds": 711.390000000014,
+        "output": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32f0"
+      },
+      "installationExecuted": false
+    },
+    {
+      "architecture": "x64",
+      "directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64f0",
+      "pipeChecks": 9,
+      "exit": {
+        "exit_code": 0,
+        "seconds": 713.9219999999914,
+        "output": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64f0"
+      },
+      "installationExecuted": false
+    }
+  ],
+  "installers": [
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115442714,
+      "sha256": "7263c6ca54a07721140fa587440446cbfc6aeebeb9faadc997be79fe176eb355",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32f0"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423803058,
+      "sha256": "ec71387998059a285e39a6305d7e5179192ad376b7b7ccdb025700ebbdcecd67",
+      "architecture": "x86",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32f0"
+    },
+    {
+      "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126315323,
+      "sha256": "94684282204d636e95282c193cf4b8ffd1a08c7ede253cb7a107fb0a4e6e76cb",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64f0"
+    },
+    {
+      "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349218612,
+      "sha256": "9a8cc7e95c50229fb2774f620cbbbeaae8f4189f58f2dd950c8f10be79e4d264",
+      "architecture": "x64",
+      "build_directory": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d64f0"
+    }
+  ],
+  "packaged_gui": {
+    "x86": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "rendererExceptions": 0,
+      "consoleErrors": 0,
+      "processExit": {
+        "time": "2026-10-17T13:57:52.696Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    },
+    "x64": {
+      "status": "qualified",
+      "checks": [
+        "original-packaged-renderer-without-node",
+        "packaged-python-settings-rpc",
+        "packaged-stream-baseline-and-cancellation",
+        "actual-single-instance-ownership",
+        "packaged-graceful-shutdown",
+        "complete-observed-lifecycle-without-renderer-errors"
+      ],
+      "rendererExceptions": 0,
+      "consoleErrors": 0,
+      "processExit": {
+        "time": "2026-10-17T14:00:54.633Z",
+        "phase": "closing",
+        "code": 0,
+        "signal": null
+      }
+    }
+  },
+  "retention": {
+    "files_removed": 14,
+    "bytes_removed": 526960355,
+    "archive_member": "main/.goose/out/rc3-retention-916e-prerequisites-20261017-a/audit.json"
+  },
+  "limitations": [
+    "The separate single complete release qualification for this candidate remains running. These finite observations do not replace or amend earlier failed full gates.",
+    "Installers were compiled and hashed; no administrator installation, system patch, reboot or physical Win7 execution occurred. Win7 qualification remains explicitly deferred by the user.",
+    "Actual packaged x86 and x64 observations include complete shutdown; renderer exceptions and console errors remain zero through physical process exit.",
+    "Source subprocess selected-run failures remain independently recorded; no new skip or passing result is assigned to them."
+  ]
+}
