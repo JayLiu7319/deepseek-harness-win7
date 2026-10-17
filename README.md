@@ -4,9 +4,9 @@
 
 [README.md](README.md) | [AGENTS.md](AGENTS.md)
 
-当前上游基线为 **dsh-v0.1.2-rc.1**（`a66e4702047846cdaa10c66c9d3df3951f5ea70d`）。合格代码 `d5f74c2d` 已通过单次完整门禁：Python **10,738通过、6项既有环境跳过**，21组固定 Source 配置、82个配对驱动及同包实际解压/现代浏览器/Chromium108 三预设 fresh/cold 验收通过。Session、投影、Remote、SDK/ACP、子代理、文件引用和原样 Web 已完成本轮约定范围迁移；这不是全部274个 manifest 的完整 parity 或 Win7 真机认证。本轮未发布 Release，产品版本仍单独管理。详见 [迁移台账](migration/README.md) 和 [本轮签收记录](docs/research/2026-10-15-rc1-baseline-migration-progress.md)。
+当前上游目标为 **dsh-v0.1.5-rc.3**（`a4c74a91e06b00fe0b0937bde982170c526cc842`），产品版本为 **0.1.5-rc.3**。生产组合、Session v3、原版前端和 Electron22 桌面宿主已迁移，当前候选正在进行统一资格验证；单项通过不能代替完整发行或 Win7 真机认证。旧 rc.1 的合格提交与回执保留原身份。当前进度见 [迁移台账](migration/README.md) 和 [分阶段记录](docs/research/2026-10-16-rc3-implementation-progress.md)。
 
-规范 JSONL 与原版一致，默认写 `session.jsonl.zstd`，逻辑导出仍为 `session.jsonl`。已有 plaintext 根目录须显式配置 `compression: none`，或为默认压缩选择单独的 root；两种物理格式不能混用同一个 root，也不会静默转换已有日志。rc.1 逻辑 header 使用 `isSeeded` 和独立 inherited cut，既有私有 version-0 JSONL 继续在编码/解码边界转换；旧 SQLite 数据通过显式产品自有只读 reader 导出，不重新引入已删除的 canonical provider。历史设计见 [JSONL 推进记录](docs/research/2026-10-05-jsonl-provider-progress.md)。
+规范 JSONL 默认写 `session.v3.jsonl.zstd`；明文配置写 `session.v3.jsonl`，逻辑导出仍为 `session.jsonl`。历史代际只读时在内存转换，写打开时验证并发布新代际，保留旧文件。已有明文根目录须显式配置 `compression: none`；同一根目录不能混用两种压缩格式。升级前停止应用并备份整个 DSH_HOME 及自定义存储根目录；rc.1 不能读取新写的 v3 历史，回退应恢复升级前的完整备份，不能仅换回旧程序。旧私有 SQLite 仍由显式只读 reader 导出。见 [分发与升级说明](docs/distribution.md)。
 
 > Web 核心链路已通过原版前端与本地模拟模型验收（创建工作区、对话、工具执行、恢复、反馈、分支、导出）；完整上游 parity、真实模型和 Win7 真机验收仍未完成。见 [Web 验收记录](docs/research/2026-09-29-web-usable-baseline.md)。历史审查见 [当前状态审查](docs/research/2026-09-28-current-state-mvp-audit.md) 和 [入口切换实施记录](docs/research/2026-09-28-canonical-entry-progress.md)。CLI 已统一到正式 profile 入口，旧 CLI 分流不再保留。
 
@@ -37,17 +37,14 @@
   [ctx.fs]                     [ctx.terminal]               [ctx.agent_loop]
   Local Workspace FS           Persistent PowerShell        Turn & Step Loop
          |                            |                            |
-  [ctx.web_server]             [ctx.client_modules]         [ctx.apiproxy]
-  HTTP / SSE Gateway           CJS Bundle Registry          Dual Streams + RPC
+  [ctx.web_server]             [ctx.client_modules]         [ctx.connection]
+  HTTP / WebSocket             Client Bundle Registry       Typert Remote / Fetch
 ```
 
 - **上下文容器 (`Context`)**：服务（Service）统一绑在 `ctx` 上，插件之间通过 Key 进行依赖查找而非强耦合导入。
 - **依赖声明 (`inject`)**：插件通过 `inject` 字段声明所需服务，等待服务就绪后触发 `apply(ctx)`。
 - **可逆副作用 (`effect`)**：所有的工具注册、事件监听均注册为可撤销 effect，插件卸载/重载时自动清理资源。
-- **旧兼容实现 (`ApiProxy`，不是固定上游的正式浏览器协议)**：正式路径需要迁移到 Connection → Gateway → Remote；下列旧路由仅存在于内部兼容代码；正式 Web profile 不使用它们。
-  - `/api/events/mux`：分发增量 Token 流、问答请求 (`question/requested`)、审批请求 (`approval/requested`)、目标投影 (`session/projection`)。
-  - `/api/events/host`：分发会话生命周期、多工作区状态与背景作业。
-  - `POST /api/respond`：异步应答唤醒挂起的工具协程。
+- **正式浏览器协议**：Connection → Typert Gateway → Remote，业务流走 `/api/remote.mux` WebSocket；`/plugins/events` 是客户端 HMR SSE。旧 ApiProxy、双业务 SSE 和 `/api/respond` 已退休。
 
 ---
 
@@ -150,9 +147,11 @@ git submodule update --init --recursive
 .venv\Scripts\python.exe scripts\build_portable.py
 ```
 
-构建产物将放置在 `dist/dsh-win7-portable/` 并打包为 `dist/dsh-win7-portable-v0.1.2.zip`：
+当前构建产物放置在 `dist/dsh-win7-portable/` 并打包为 `dist/dsh-win7-portable-v0.1.5-rc.3.zip`：
 - 双击 **`dsh-web.bat`**：一键启动 Web GUI 并在浏览器中打开。
 - **`dsh.bat --profile headless "任务"`**：通过正式入口执行单次任务。
+
+桌面版采用 Electron22.3.27 与内置 Python3.8.10，分别构建 x64/x86 的 Standard 和 AIO 安装包。Standard 不安装系统补丁；AIO 按实际缺失项使用离线微软组件，必要时先重启、再运行同一安装器。独立环境升级 ZIP 和构建命令见 [分发与升级说明](docs/distribution.md)。安装包编译、解包运行和真实管理员安装分别验收。
 
 ---
 
@@ -180,18 +179,17 @@ deepseek-harness-win7/
 │   ├── cli/                  # CLI 入口实现
 │   └── web/                  # 官方 React 18 Web 前端 SPA (dist)
 ├── packages/
-│   └── client/               # 40 个官方 Client 模块与 CJS 动态 bundle
+│   └── client/               # 原版 Client 模块，按实际 Loader 组合派生
 ├── dsh/
 │   ├── cordis/               # Cordis 核心微内核 (Context, EventBus, Plugin, Loader)
 │   ├── core/                 # 核心 Agent 循环、Surface 投影与 Session 存储
-│   ├── host/                 # Host 网关服务 (WebServer, ClientModules, ApiProxy, FrontendStatic)
+│   ├── host/                 # WebServer、Connection、ClientModules、Remote 与 Desktop 载体
 │   ├── fs/                   # 文件系统与 str_replace_editor 工具
 │   ├── shell/                # pwsh / cmd 持久化终端工具
 │   ├── llm/                  # OpenAI / DeepSeek API 驱动与 TokenMeter
 │   ├── goal/                 # CAS 目标服务与工具
 │   ├── plan/                 # Plan 模式控制器
-│   ├── presets/              # 预设配置 (minimal.yaml, standard.yaml, creative.yaml)
-│   └── harness.py            # Harness 装配与启动器
+│   └── boot/                 # canonical profile 解析、组合与启动
 ├── scripts/                  # 便携版构建与自动化打包脚本
 ├── tests/                    # pytest 自动化测试套件
 ├── dsh.py                    # 主 CLI / Web 启动入口
@@ -205,4 +203,4 @@ deepseek-harness-win7/
 
 ## 许可证
 
-[MIT](LICENSE)
+[上游 MIT 许可证](reference/LICENSE)；分发内各第三方组件保留各自的许可证与来源记录。
