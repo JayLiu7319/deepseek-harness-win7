@@ -1,0 +1,4976 @@
+[
+  {
+    "case": "resolution-0",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {},
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-1",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-2",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-3",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-4",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-5",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-6",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-7",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-8",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-9",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-10",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-11",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-12",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-13",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-14",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-15",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-16",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-17",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-18",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-19",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-20",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-21",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-22",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-23",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:8080",
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:8080",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy:8080",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-24",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-25",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-26",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-27",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-28",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-29",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-30",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-31",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-32",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-33",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-34",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-35",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:pass@secure:443",
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:pass@secure:443",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "https://user:pass@secure:443",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-36",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-37",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-38",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-39",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-40",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-41",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-42",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        },
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-43",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        },
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-44",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        },
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-45",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        },
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-46",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-47",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5://proxy:1080",
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-48",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-49",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-50",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-51",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-52",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-53",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-54",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        },
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-55",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        },
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-56",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        },
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-57",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        },
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-58",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-59",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url",
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-60",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-61",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-62",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "http://proxy:8080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-63",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "http://proxy:8080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://proxy:8080",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://proxy:8080",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-64",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "https://user:pass@secure:443"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-65",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "https://user:pass@secure:443",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "https://user:pass@secure:443",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "https://user:pass@secure:443",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-66",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "socks5://proxy:1080"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-67",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "socks5://proxy:1080",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-68",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "not a url"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-69",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "not a url",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-70",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": ""
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "resolution-71",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "",
+      "HTTPS_PROXY": "",
+      "ALL_PROXY": "http://all:8000"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://all:8000",
+        "httpsProxy": "http://all:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://all:8000",
+        "http://all:8000",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-0",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "http_proxy": "http://lower",
+      "HTTP_PROXY": "http://upper"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://lower",
+        "httpsProxy": "http://lower",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://lower",
+        "http://lower",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-1",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "http_proxy": "  ",
+      "HTTP_PROXY": "http://upper"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://upper",
+        "httpsProxy": "http://upper",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://upper",
+        "http://upper",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-2",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "all_proxy": "bad",
+      "ALL_PROXY": "http://upper"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "all_proxy",
+          "message": "all_proxy is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-3",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "ALL_PROXY": "socks5://all",
+      "HTTP_PROXY": "http://http",
+      "HTTPS_PROXY": "ftp://other"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://http",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "ALL_PROXY",
+          "message": "ALL_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        },
+        {
+          "kind": "invalid",
+          "origin": "HTTPS_PROXY",
+          "message": "HTTPS_PROXY uses the unsupported ftp:// scheme; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        "http://http",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-4",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy",
+      "NO_PROXY": "* , example.com"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy",
+        "httpsProxy": "http://proxy",
+        "noProxy": "*",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-5",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy",
+      "NO_PROXY": "LOCALHOST,example.com\t127.0.0.1,::1,[::1]"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy",
+        "httpsProxy": "http://proxy",
+        "noProxy": "LOCALHOST,example.com,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-6",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "\ufeff http://proxy \u00a0"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy",
+        "httpsProxy": "http://proxy",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        "http://proxy",
+        "http://proxy",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-7",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "NO_PROXY": "*"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "precedence-8",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy",
+      "NO_PROXY": "example.com:80"
+    },
+    "urls": [
+      "http://example.com/a",
+      "https://example.com/a",
+      "http://127.0.0.2:8000/a",
+      "https://app.localhost/",
+      "http://[::ffff:127.0.0.2]/",
+      "ftp://example.com",
+      "ws://example.com"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy",
+        "httpsProxy": "http://proxy",
+        "noProxy": "example.com:80,localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        "http://proxy",
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "loopback",
+    "kind": "http-proxy-current",
+    "operation": "loopback",
+    "hosts": [
+      "localhost",
+      "LOCALHOST.",
+      "app.localhost",
+      "app.localhost.",
+      "notlocalhost",
+      "localhost..",
+      "127.0.0.1",
+      "127.255.255.254",
+      "127.999.1.1",
+      "127.01.0.1",
+      "1270.0.0.1",
+      "0.0.0.0",
+      "::",
+      "[::]",
+      "::1",
+      "[::1]",
+      "::ffff:127.0.0.2",
+      "::ffff:7f00:2",
+      "[::ffff:7fff:ffff]",
+      "::ffff:a00:1",
+      "128.0.0.1"
+    ],
+    "expected": [
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-0",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-1",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": ".example.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": ".example.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-2",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "*.example.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "*.example.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-3",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "*",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "*",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "*",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "*",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "*",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "*",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "*",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "bypass-4",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com:80",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com:80",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-5",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com:443",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com:443",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-6",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com:0080",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-7",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "EXAMPLE.COM.",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-8",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "localhost",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "localhost",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-9",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "::1",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "::1",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  {
+    "case": "bypass-10",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "[::1]",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "[::1]",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  {
+    "case": "bypass-11",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "[::1]:3000",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  {
+    "case": "bypass-12",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "10.0.0.0/8",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-13",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": " , , [ , .",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-14",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "*.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "*.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-15",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "*example.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "*example.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-16",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com..",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com..",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "bypass-17",
+    "kind": "http-proxy-current",
+    "operation": "bypass",
+    "requests": [
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://example.com/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://api.example.com/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://notexample.com/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "https://example.com/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://example.com.:8080/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://[::1]:3000/"
+      },
+      {
+        "noProxy": "example.com\u00a0other.com",
+        "url": "http://10.0.0.1/"
+      }
+    ],
+    "expected": [
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  {
+    "case": "supported-urls",
+    "kind": "http-proxy-current",
+    "operation": "supported",
+    "urls": [
+      "http://proxy",
+      "http://proxy_host:8000",
+      "https://user:p%40ss@\u4ee3\u7406.example",
+      "HTTP://PROXY:80",
+      "http:proxy",
+      "http:/proxy",
+      "http:////proxy",
+      "http://127.1",
+      "http://0x7f000001",
+      "http://0177.0.0.1",
+      "http://2130706433",
+      "http://[::1]:80",
+      "https://[::ffff:127.0.0.1]",
+      "http://proxy:65536",
+      "http://127.999.1.1",
+      "http://host with space",
+      "http://%zz",
+      "http://[::1%25eth0]",
+      "http://",
+      "socks5:proxy",
+      "file:///tmp/x",
+      "mailto:x@example.com",
+      "about:blank",
+      "not a url",
+      "ftp://proxy",
+      "http://proxy:0",
+      "http://proxy:",
+      "http://user:pass@proxy/path?q=x#y"
+    ],
+    "expected": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "case": "url-resolution-0",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy",
+        "httpsProxy": "http://proxy",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://proxy"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-1",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy_host:8000"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy_host:8000",
+        "httpsProxy": "http://proxy_host:8000",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://proxy_host:8000"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-2",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://user:p%40ss@\u4ee3\u7406.example"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://user:p%40ss@\u4ee3\u7406.example",
+        "httpsProxy": "https://user:p%40ss@\u4ee3\u7406.example",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "https://user:p%40ss@\u4ee3\u7406.example"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-3",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "HTTP://PROXY:80"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "HTTP://PROXY:80",
+        "httpsProxy": "HTTP://PROXY:80",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "HTTP://PROXY:80"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-4",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http:proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http:proxy",
+        "httpsProxy": "http:proxy",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http:proxy"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-5",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http:/proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http:/proxy",
+        "httpsProxy": "http:/proxy",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http:/proxy"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-6",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http:////proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http:////proxy",
+        "httpsProxy": "http:////proxy",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http:////proxy"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-7",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://127.1"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://127.1",
+        "httpsProxy": "http://127.1",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://127.1"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-8",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://0x7f000001"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://0x7f000001",
+        "httpsProxy": "http://0x7f000001",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://0x7f000001"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-9",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://0177.0.0.1"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://0177.0.0.1",
+        "httpsProxy": "http://0177.0.0.1",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://0177.0.0.1"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-10",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://2130706433"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://2130706433",
+        "httpsProxy": "http://2130706433",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://2130706433"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-11",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://[::1]:80"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://[::1]:80",
+        "httpsProxy": "http://[::1]:80",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://[::1]:80"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-12",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "https://[::ffff:127.0.0.1]"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "https://[::ffff:127.0.0.1]",
+        "httpsProxy": "https://[::ffff:127.0.0.1]",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "https://[::ffff:127.0.0.1]"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-13",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:65536"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-14",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://127.999.1.1"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-15",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://host with space"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-16",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://%zz"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-17",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://[::1%25eth0]"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-18",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-19",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "socks5:proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "socks",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY names a SOCKS proxy, which is not supported; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-20",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "file:///tmp/x"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY uses the unsupported file:// scheme; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-21",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "mailto:x@example.com"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY uses the unsupported mailto:// scheme; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-22",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "about:blank"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY uses the unsupported about:// scheme; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-23",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "not a url"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY is not a valid URL; connecting directly"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-24",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "ftp://proxy"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "noProxy": "",
+        "source": "none"
+      },
+      "diagnostics": [
+        {
+          "kind": "invalid",
+          "origin": "HTTP_PROXY",
+          "message": "HTTP_PROXY uses the unsupported ftp:// scheme; connecting directly for that scheme \u2014 set an http:// or https:// proxy URL instead"
+        }
+      ],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-25",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:0"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:0",
+        "httpsProxy": "http://proxy:0",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://proxy:0"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-26",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://proxy:"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://proxy:",
+        "httpsProxy": "http://proxy:",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://proxy:"
+      ]
+    }
+  },
+  {
+    "case": "url-resolution-27",
+    "kind": "http-proxy-current",
+    "operation": "resolve",
+    "env": {
+      "HTTP_PROXY": "http://user:pass@proxy/path?q=x#y"
+    },
+    "urls": [
+      "http://127.1/",
+      "http://0x7f000001/",
+      "http://2130706433/",
+      "http://0177.0.0.1/",
+      "http://example.com/"
+    ],
+    "expected": {
+      "policy": {
+        "httpProxy": "http://user:pass@proxy/path?q=x#y",
+        "httpsProxy": "http://user:pass@proxy/path?q=x#y",
+        "noProxy": "localhost,127.0.0.1,::1,[::1]",
+        "source": "env"
+      },
+      "diagnostics": [],
+      "routes": [
+        null,
+        null,
+        null,
+        null,
+        "http://user:pass@proxy/path?q=x#y"
+      ]
+    }
+  }
+]

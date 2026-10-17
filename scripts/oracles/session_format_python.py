@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'boot-layers-current':
+        if case['kind'] == 'http-proxy-current':
+            from scripts.oracles.http_proxy_current_python import execute as http_proxy_execute
+            value = http_proxy_execute(case)
+        elif case['kind'] == 'boot-layers-current':
             from scripts.oracles.boot_layers_current_python import execute as boot_layers_execute
             value = boot_layers_execute(case)
         elif case['kind'] == 'profile-init-current':

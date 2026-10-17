@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-C1-outbound-proxy-policy",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 129,
+    "report": {
+      "path": ".goose/out/rc3-r07-http-proxy-policy-final-paired-20261017/report.json",
+      "sha256": "676ddd8d86253e63a3a675f3c084b6a21ff8b52a6f4fd1cdcbc03103741feab3"
+    },
+    "corpus": {
+      "path": "scripts/oracles/http_proxy_current_cases.json",
+      "sha256": "23f3843635ee62b2b1be3d66075ead932d345ae1606eca985bbb31f1c79708dc"
+    }
+  },
+  "native": {
+    "passed": 169,
+    "command": {
+      "path": ".goose/out/rc3-r07-http-proxy-policy-native-20261017/command.json",
+      "sha256": "a0f22884b7008a5f75d0d802771359ccfb6f2afb82218e5165785d63692e7e7a"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-http-proxy-policy-native-20261017/pytest.xml",
+      "sha256": "2448c8e69145dc6fa961faf43c1d3752de14e8532ef05947767b9fd6a2d3e345"
+    }
+  },
+  "source": {
+    "passed": 65,
+    "command": {
+      "path": ".goose/out/rc3-r07-http-proxy-policy-source-20261017/command.json",
+      "sha256": "e5eb384eafc3704abeb8a591d1a550c5ed936b001d98ddeb5e35d8222c360170"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-http-proxy-policy-source-20261017/source.xml",
+      "sha256": "4edbcf659e716614aa09d599303951116710eb9127ba71839eb320f8678119c5"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/http_proxy_policy.py",
+      "sha256": "c1b788d27ea25899214793ccbf5b86dbbdd10c8cd6a61f167eff30dad0063e73"
+    }
+  ],
+  "scope": [
+    "Pure candidate policy: lowercase/uppercase blank-aware precedence, ALL_PROXY and one-way HTTPS fallback; an explicitly rejected own scheme remains direct. Exact diagnostics never echo proxy URL credentials.",
+    "Explicit loopback and mapped/numeric IPv4 bypass, suffix and port-aware NO_PROXY matching, Unicode whitespace and preserved caller order. URL policy fields validated with special-scheme hostname/numeric address normalization.",
+    "129 actual Source/native observations include 72 resolution combinations plus precedence/URL/bypass cases. Original matcher parity uses actual undici routing."
+  ],
+  "remaining": [
+    "Process-global policy installation, actual transport routes/TLS/cancellation and child environment integration, provider assembly and unified qualification."
+  ]
+}

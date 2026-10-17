@@ -339,3 +339,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R07-B — home代理准入与patch路径
 
 仅解析后的Harness-home .env允许四类代理变量，项目层拒绝并指出home文件；CA/TLS及其他bootstrap名称仍拒绝，两层均先验证再写环境。启动快照复用Windows大小写折叠并复制原始层，保留既有dict接口。patch仅将insert及嵌套group中的绝对/相对文件路径转为file URL，断言名称不变。37组配对、199项原生和76项原版通过，包含真实带空格/#/%/中文路径的插件装载、凭据Web重启、LLM配置及普通启动。初轮actor将Node原生环境替成普通对象造成大小写差异；改为操作并恢复真实环境后匹配，原诊断保留。回执 migration/candidates/rc3/boot-layers-current-checks.json。代理传输、生产组合和完整资格仍待完成。
+
+### R07-C1 — 出站代理策略
+
+候选纯策略按原版处理大小写/空白优先级、ALL_PROXY和HTTPS单向回退；显式被拒绝的协议槽保持直连，不借用另一协议。保留诊断及NO_PROXY条目顺序，覆盖端口/后缀、loopback全范围、IPv4映射和URL数字地址形式。129组实际配对、169项原生和65项原版通过，原版matcher使用真实undici观察。回执 migration/candidates/rc3/http-proxy-policy-current-checks.json；当前仅纯策略，不计进程安装、原生传输/TLS/取消、子进程或生产组装资格。
