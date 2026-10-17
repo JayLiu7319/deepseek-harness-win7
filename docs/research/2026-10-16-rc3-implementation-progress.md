@@ -478,3 +478,7 @@ Standard 缺少现代前置环境时允许安装，完成页提供本地指南�
 数值、诊断、restore sign 的 147 项实际 Source/native 观察转到 v3 Session；退休的 seedLength 输入仍保留为拒绝检查。持久化的 32 项观察改用当前 read handle，并验证两次读取独立推进，以及物理读取完成前后取消的差别。Windows sharing 的 4 项继续使用真实持有者，完整比较 list 快照与 read 结果；原始文件诊断使用共享读取句柄。
 
 五组消费者首次运行 299 通过、1 失败：诊断负例仍把已经为 false 的版本负零结果赋为 false。修正该负例后整组诊断 94 通过。两次 XML 均保留，不拼接为一次全绿运行。有限归档见 `migration/candidates/rc3/session-boundaries-current-checks.json`；统一发布验收仍待完成。
+
+### R11-H — Prepared LLM 当前运行时
+
+七组 prepared LLM 观察切换到当前 runtime，Agent 组使用当前 Agent/Loop/Session/Prompt；实际配对 108 项一致，消费者 143 项通过。实际导入增量经检查后写入固定白名单，验证仍检查精确闭包。只固定 assistant 观察时钟，操作超时继续使用真实时钟。归档及失败谱系见 `migration/candidates/rc3/llm-prepared-current-checks.json`。

@@ -24,6 +24,10 @@ SOURCE_INPUTS = CANONICAL_SOURCE_INPUTS | {'scripts/oracles/llm_prepared_iterato
 
 
 GROUP_MODULES['agent'] += ['dsh/core/session/lineage.py', 'dsh/core/turn_boundary.py']
+# Fixed reviewed closure for current providers, not inferred during verification.
+for _current_group in ('public','generation','failure','iterator','equality','default'):
+    GROUP_MODULES[_current_group] += ['dsh/llm/file_content_current.py','dsh/llm/runtime_current.py']
+GROUP_MODULES['agent'] += ['dsh/cordis/text.py', 'dsh/core/agent_current.py', 'dsh/core/agent_dispatch_current.py', 'dsh/core/agent_lifecycle_current.py', 'dsh/core/agent_loop_current.py', 'dsh/core/assistant_stream_current.py', 'dsh/core/inbox_current.py', 'dsh/core/react_loop_current.py', 'dsh/core/runtime_context_current.py', 'dsh/core/session/current.py', 'dsh/core/session/current_request_header.py', 'dsh/core/session/current_session.py', 'dsh/core/session/current_surface.py', 'dsh/core/session/current_vocabulary.py', 'dsh/core/system_prompt/current.py', 'dsh/llm/assembler.py', 'dsh/llm/assistant_stream.py', 'dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py', 'dsh/session/format/__init__.py', 'dsh/session/format/catalog.py', 'dsh/session/format/chain.py', 'dsh/session/format/error.py', 'dsh/session/format/filename.py', 'dsh/session/format/json.py', 'dsh/session/format_v0_to_v1/__init__.py', 'dsh/session/format_v0_to_v1/codec.py', 'dsh/session/format_v0_to_v1/migration.py', 'dsh/session/format_v0_to_v1/payload.py', 'dsh/session/format_v0_to_v1/relationships.py', 'dsh/session/format_v0_to_v1/validation.py', 'dsh/session/format_v1_to_v2/__init__.py', 'dsh/session/format_v1_to_v2/codec.py', 'dsh/session/format_v1_to_v2/migration.py', 'dsh/session/format_v1_to_v2/validation.py', 'dsh/session/format_v2_to_v3/__init__.py', 'dsh/session/format_v2_to_v3/codec.py', 'dsh/session/format_v2_to_v3/migration.py', 'dsh/session/format_v2_to_v3/payload.py', 'dsh/session/format_v2_to_v3/references.py', 'dsh/session/format_v2_to_v3/validation.py']
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()

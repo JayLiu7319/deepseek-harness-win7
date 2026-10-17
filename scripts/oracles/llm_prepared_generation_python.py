@@ -11,7 +11,7 @@ async def observe(name):
     from dsh.cordis.context import Context
     from dsh.core.abort import AbortController
     from dsh.core.session.json import FrozenDict, FrozenList, deep_freeze
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     from dsh.llm.retry_policy import resolve_retry_policy
     ctx = Context()
     await ctx.plugin(LlmRuntime)

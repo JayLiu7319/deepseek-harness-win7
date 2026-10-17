@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-H-current-prepared-llm",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-LLM-PREPARED-20261017.zip",
+    "bytes": 111358,
+    "sha256": "8141fd0aab4eebe06e02800b29b155ca30110727c0e42f3da807022a4579f805",
+    "members": [
+      {
+        "path": "rc3-llm-prepared-20261017-c/closure-additions.json",
+        "bytes": 2353,
+        "sha256": "3b730b3de7b2b54877cd2e771c1499d44f4ec90c248a5b1fc306d4dac144d3ab"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.agent.source.json",
+        "bytes": 35740,
+        "sha256": "8a41333a1694236e42de1545eab3e0a47c25768f8f607c7393cc76d4013517d5"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.default.source.json",
+        "bytes": 990,
+        "sha256": "7ace680b757dc89d2f99fb97c94eacfd6e31d70b0d8f7e1a199deb9eb3773b61"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.equality.source.json",
+        "bytes": 8320,
+        "sha256": "5816c2b8ea0e7fef1b729e4493a8572313f274e7e03648785c0c1ed9a750ee8f"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.failure.source.json",
+        "bytes": 18946,
+        "sha256": "220216fe04f16ae2acddb7037a3261e562a90de02baae4246e469bde7630c422"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.generation.source.json",
+        "bytes": 18499,
+        "sha256": "9e7f8e9f805410679d709d8886519cfb073ff86af5a3dd0c3f6c07b20e1d1e19"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.iterator.source.json",
+        "bytes": 1992,
+        "sha256": "168705002cdd77384c446bff1b854b11f62646a025f734d5cdaa1c36bee057f3"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.json",
+        "bytes": 139,
+        "sha256": "c867632288d94fe7d4f802dbc07394c5b1c536127cc19c787d351b1d4c12e6f7"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.agent.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.agent.native.json",
+        "bytes": 53122,
+        "sha256": "3f16f060ef33dfecd813f36723c9419e12823deec11c8347d043d1883fdc5213"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.default.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.default.native.json",
+        "bytes": 11847,
+        "sha256": "31baab507f32f24fed64093bcc643c43034858ee085482d616a2a976467c9e6f"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.equality.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.equality.native.json",
+        "bytes": 19499,
+        "sha256": "0b92cc9252dd1ad5c6abf75c9e1f970407dc36635631f3ce03346dc00d5c7bf8"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.failure.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.failure.native.json",
+        "bytes": 30864,
+        "sha256": "cd050cecdd1fe32bf73f92edc0a92c150acb9a8622b010b11cad0b09b72a1ee7"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.generation.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.generation.native.json",
+        "bytes": 30252,
+        "sha256": "d16ac52a60c3234b1e8bec34735fde0975bf96c5e8dc833f955e3e3ecc67ea8c"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.iterator.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.iterator.native.json",
+        "bytes": 13105,
+        "sha256": "926988100c97b2b1f87df11e9b4d133c7989f7f350268fb9e2b96b0edc312016"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.json",
+        "bytes": 364009,
+        "sha256": "dbf9b011483edf645656ad4564e33b63474c2f293d2010435287803a0817218b"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.public.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.native.public.native.json",
+        "bytes": 42550,
+        "sha256": "1e011d4d57f112728d277c592fe684d90b9e1a783bf1a6467644a9570e21398f"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.public.source.json",
+        "bytes": 30084,
+        "sha256": "8a78d371f0f71b6eab2fec2f4a87612cb0c6ac1a0f2c4107c37f6fee988719ce"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.source.json",
+        "bytes": 133165,
+        "sha256": "59ea3696a0c23715a49be3b02acab840fa20fb9a62d0ae5633e9fa207488f313"
+      },
+      {
+        "path": "rc3-llm-prepared-20261017-d/report.source.log",
+        "bytes": 236,
+        "sha256": "11899195a4997bd8f3f6213221f6b8a20e05227926194b09f21e43bc912805e3"
+      },
+      {
+        "path": "rc3-llm-prepared-consumers-20261017-a/results.xml",
+        "bytes": 22273,
+        "sha256": "56fcd61506a4723e860934c55162eb318b0152bc9e35a696db1e60a5fae977d9"
+      }
+    ]
+  },
+  "inputs": {
+    "scripts/llm_prepared_oracle.py": "2262e543ba77208a77e23866f06c6e292fd5a6f07be1c3660ea8b5ab1bee76ec",
+    "scripts/oracles/llm_prepared_agent.probe.spec.ts": "31ac828666b07718c7449c6e4dd63db8f6ffb6ce7a06fc73d79129b1982620a0",
+    "scripts/oracles/llm_prepared_agent_python.py": "4f11f430fad5424a04314db992cac48e3fb22d07c61295b14b5321d95f6e3efe",
+    "scripts/oracles/llm_prepared_default_python.py": "4d29a8a575d12af23cdb5f6f504e2601cfcf182c4f56bfadf3e8039f8ccea22b",
+    "scripts/oracles/llm_prepared_equality_python.py": "4514adbfe78a8059354b705a882ccfb79b353153be26bd97a15fb7ad03d01832",
+    "scripts/oracles/llm_prepared_failure_python.py": "03ea8ee68abaf31ff91263d67e40bdde31360c95ba8d0def457a596335107696",
+    "scripts/oracles/llm_prepared_generation_python.py": "6b54cb336d4027c6e56aab45b6778d5ba913e7906e6dc103fad4c51aa486aea6",
+    "scripts/oracles/llm_prepared_iterator_python.py": "3e08cd1b9da14fa598a6367e4549de0eb5f1cb3aa4b8f85bc8741ca615f62d1f",
+    "scripts/oracles/llm_prepared_public_python.py": "259b5e867f8b156ce39e976e46c2d29844d71103f6e7ef353b5539a1ca1c846c"
+  },
+  "cases": 108,
+  "pythonConsumers": 143,
+  "scope": [
+    "All seven original observer groups use current runtime; agent group uses current Agent/Loop/Session/Prompt providers.",
+    "Fixed reviewed import closures include actual current dependencies and remain exact set guards.",
+    "Assistant-only observation clocks are fixed consistently; operation deadlines retain real clocks."
+  ],
+  "failuresRetained": [
+    "rc3-r11-remaining-probes-20261017-a/llm_prepared",
+    "rc3-llm-prepared-20261017-b",
+    "rc3-llm-prepared-20261017-c"
+  ],
+  "limitations": [
+    "Finite targeted checks; unified release gate remains pending."
+  ]
+}

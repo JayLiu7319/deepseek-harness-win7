@@ -4,21 +4,24 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 import sys
 
 
 async def observe(name):
     from dsh.cordis.context import Context
     from dsh.session.projections import SessionProjectionRegistry
-    from dsh.core.agent_loop import AgentLoopPlugin
-    from dsh.core.agent import AgentPlugin
-    from dsh.core.session import SessionPlugin
+    from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+    from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
     from dsh.core.agent import AgentOptions
-    from dsh.core.system_prompt import SystemPrompt
+    from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
     from dsh.core.tools import ToolsPlugin
     from dsh.core.session.json import FrozenDict
     from dsh.llm.agent_request import is_agent_loop_request
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
+    from dsh.llm.message import create_user_message
     ctx = Context()
     SessionProjectionRegistry(ctx)
     for plugin in (LlmRuntime,ToolsPlugin,SystemPrompt,SessionPlugin, AgentPlugin, AgentLoopPlugin):
@@ -75,7 +78,7 @@ async def observe(name):
     parent = await ctx.get('agent_loop').create('prepared-agent',options=AgentOptions(provider='fixture',model='model',
         max_tokens=64 if name == 'request-overrides' else None,reasoning_effort='high' if name == 'request-overrides' else None))
     try:
-        parent.agent.followup('prepared request')
+        parent.agent.followup(create_user_message(dict(content=[dict(type='text',text='prepared request')],source=dict(kind='user'))))
         await asyncio.wait_for(parent.agent.when_idle(),10)
         return dict(name=name,trace=trace,requests=requests,
             events=[dict(type=event['type'],data=copy.deepcopy(event['data'])) for event in parent.agent.session.events],
@@ -92,7 +95,9 @@ arguments = parser.parse_args()
 root = arguments.root.resolve()
 sys.path.insert(0,str(root))
 names = ('defaults','request-overrides','signal','registration-switch','missing-middleware')
-rows = [asyncio.run(observe(name)) for name in names]
+import dsh.core.assistant_stream_current as stream_provider
+with patch.object(stream_provider, 'time', SimpleNamespace(time=lambda:1728000000)):
+    rows = [asyncio.run(observe(name)) for name in names]
 modules = {}
 for name,module in sorted(sys.modules.items()):
     source = getattr(module,'__file__',None)

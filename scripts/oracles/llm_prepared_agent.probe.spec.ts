@@ -1,7 +1,7 @@
 import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
 import {execFileSync} from 'node:child_process'
 import {writeFileSync} from 'node:fs'
-import {expect,it} from 'vitest'
+import {expect,it,vi} from 'vitest'
 import {Context} from '@deepseek-ai/cordis'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import {SessionId} from '@deepseek-ai/dsh-session'
@@ -9,6 +9,7 @@ import {LlmAdapter,createUserMessage,isAgentLoopRequest} from '@deepseek-ai/dsh-
 import {mountAgentLoopTestDependencies} from '@deepseek-ai/dsh-agent-loop-testkit'
 
 it('captures actual AgentLoop public prepared request consumers',async()=>{
+  const clock=vi.spyOn(Date,'now').mockReturnValue(1728000000000)
   const rows=[]
   for(const name of ['defaults','request-overrides','signal','registration-switch','missing-middleware']){
     const ctx=new Context()
@@ -50,7 +51,7 @@ await ctx.plugin(AgentLoop,{agents:[]})
       if(name==='missing-middleware')return (async function*(){yield {type:'finish' as const,reason:{kind:'stop' as const}}})()
       return next()
     })
-    agent=ctx.agentLoop.create(SessionId('prepared-agent'),{provider:'fixture',model:'model',
+    agent=await ctx.agentLoop.create(SessionId('prepared-agent'),{provider:'fixture',model:'model',
       ...name==='request-overrides'?{maxTokens:64,reasoningEffort:'high' as any}:{}})
     try{
       agent.followup(createUserMessage({content:[{type:'text',text:'prepared request'}],source:{kind:'user'}}))
@@ -58,6 +59,7 @@ await ctx.plugin(AgentLoop,{agents:[]})
       rows.push({name,trace,requests,events:agent.session.snapshotEvents().map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
     }finally{await ctx.fiber.dispose()}
   }
+  clock.mockRestore()
   expect(rows).toHaveLength(5)
   writeFileSync(process.env.DSH_LLM_PREPARED_AGENT_OUTPUT!,JSON.stringify({sourceCommit:execFileSync('git',['-C','reference','rev-parse','HEAD'],{encoding:'utf8'}).trim(),node:process.version,rows},null,2)+'\n',{encoding:'utf8',flag:'wx'})
 })
