@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BUG_TARGET = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+BUG_TARGET = 'a4c74a91e06b00fe0b0937bde982170c526cc842'  # Both exact defects reobserved on current Source.
 BUG_CASE = dict(mode='embedded-nul-routes', kind='config', config=dict(modelPolicies=[
     dict(provider='a\0b', model='c', maxTokens=1), dict(provider='a', model='b\0c', maxTokens=2)]),
     target=dict(provider='a', model='b\0c'), window=1000)
@@ -39,13 +39,13 @@ def reviewed_summary_metadata_difference(left, right, spec, target):
     if target != BUG_TARGET or spec != SUMMARY_BUG_CASE:
         return False
     expected = dict(mode='transaction-private-fields',
-        inputs=[dict(keys=['messages', 'system'], system='original prefix',
-            text=['important facts ' * 300], routed=dict(provider='old', model='old-model'), sameSignal=True)],
-        outcome=dict(shadowedSeqs=[0], shadowedTokenCount=1208),
+        inputs=[dict(keys=['messages'],
+            text=['original prefix', 'important facts ' * 300], routed=dict(provider='old', model='old-model'), sameSignal=True)],
+        outcome=dict(shadowedSeqs=[1], shadowedTokenCount=1208),
         summaries=[dict(sourceCommandId='real-command', summary=[dict(type='text', text='custom checkpoint')],
-            rawOutput=[dict(type='text', text='raw')], shadowedRange=dict(start=0, end=0), shadowedSeqs=[0],
+            rawOutput=[dict(type='text', text='raw')], shadowedRange=dict(start=1, end=1), shadowedSeqs=[1],
             shadowedTokenCount=1208, provider='custom', model='template', sameIdentity=True)],
-        flushes=0, generation=1, nodes=[5, 1],
+        flushes=0, generation=1, nodes=[0, 6, 2],
         events=[dict(type=kind, error=False) for kind in ('compaction/start', 'compaction/summary', 'compaction/end')])
     expected_left = copy.deepcopy(expected)
     expected_left['outcome']['shadowedTokenCount'] = -1

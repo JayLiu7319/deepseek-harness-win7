@@ -456,6 +456,12 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 消息、文件系统、ask-user、依赖、重复工具和 token 七组观察器已重新挂载当前提供端并执行实际 rc.3 Source/native 捕获，485项直接消费者、漂移拒绝及保留的历史回归通过。token 保留原16条配方并新增历史内 system 消息；采用当前 envelope、嵌入流和 attempt，纯计量调用 estimateToolsTokens。原版已修复输入重复计量，旧 token 例外仍限制在旧 pin，不能用于 rc.3。重复工具观察器等待异步工厂并发送真实 canonical chunk，未删掉工具调用或错误观察。全部原始结果和各轮失败分别保留，见 [有限回执](../../migration/candidates/rc3/values-current-checks.json)。其余观察器及统一资格继续实施。
 
+### R11-F — 压缩事务与 v3 关系不变量
+
+实际当前配对发现压缩不变量仍以历史 SurfaceManager 重放当前替换操作。提供端现使用所属 Session 的 surface 实现，保留显式历史消费者，同时正确检查 v3 被替换区段。观察器采用历史内 system head、当前替换拼写和当前 token/LLM/Session；系统头不进入压缩区段，摘要输入保留其消息。250项压缩、错误身份、实际HTTP/Agent及不变量消费者通过。
+
+原版当前仍可实际复现 NUL 路由碰撞与私有 shadowedTokenCount 覆盖两项既有缺陷；仅按当前实测的完整配方、完整输出和精确 pin 重审例外，新增系统头、范围、额外字段与旧 pin 漂移拒绝。初轮30条差异和前两轮拒绝保留，见 [有限回执](../../migration/candidates/rc3/compaction-invariant-current-checks.json)。未取得新的统一发行资格。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

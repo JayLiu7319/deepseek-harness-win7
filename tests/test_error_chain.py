@@ -33,7 +33,9 @@ async def test_actual_transaction_keeps_error_identity_closes_once_and_flushes(c
     observed = await transaction(case)
     assert observed['outcome']['sameFailure'] is True
     assert observed['endAttempts'] == 1
-    assert observed['generation'] == 0 and observed['nodes'] == [0, 1]
+    assert observed['generation'] == 0 and observed['nodes'] == [0, 1, 2]
+    assert observed['inputs'][0]['text'][0] == 'original prefix'
+    assert observed['inputs'][0]['keys'] == ['messages']
     assert observed['summaries'] == []
     if case.get('closeFailure'):
         assert observed['outcome']['code'] == ('commit' if case['manual'] else None)

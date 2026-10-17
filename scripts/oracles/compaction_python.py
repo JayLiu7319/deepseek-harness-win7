@@ -8,15 +8,17 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from dsh.compaction.compaction_basic.config import resolve_config, resolve_target_policy, resolve_compact_spec
-from dsh.compaction.engine import CompactionEngine, ManualCompactionError
+from dsh.compaction.engine import ManualCompactionError
+from dsh.compaction.current import CurrentCompactionEngine as CompactionEngine
 from dsh.compaction.transaction import compact
 from dsh.cordis.context import Context
 from dsh.core.abort import AbortController
-from dsh.core.session import SessionPlugin, Session
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin, CurrentSession as Session
 from dsh.core.session.json import FrozenDict, FrozenList
-from dsh.llm.token_meter import TokenMeter
+from dsh.llm.token_meter_current import CurrentTokenMeter as TokenMeter
 from dsh.session.projections import SessionProjectionsPlugin
-from dsh.llm.llm_service import LLMService
+from dsh.llm.runtime_current import CurrentLLMService as LLMService
+from dsh.llm.message import create_system_message
 from dsh.compaction.command_compact import CommandCompactPlugin
 from dsh.interaction.commands import CommandsPlugin
 from dsh.core.agent import Agent
@@ -188,9 +190,10 @@ async def transaction(spec):
         await ctx.plugin(SessionProjectionsPlugin)
         meter = TokenMeter(ctx)
         session = ctx.get('sessions').create()
+        session.append('system/message',dict(turn=1,step=1,message=create_system_message('original prefix','fixture-system')),surface_op='append')
         session.append_user_message('important facts ' * 300)
         session.append_user_message('recent question')
-        session.append_request_header(dict(config=dict(provider='old', model='old-model'), system='original prefix'))
+        session.append_request_header(dict(config=dict(provider='old', model='old-model')))
         manual = spec.get('manual', True)
         if not manual:
             session.append('turn/start', dict(turn=1))
@@ -213,8 +216,9 @@ async def transaction(spec):
             session.append = append
         async def summarize(input, agent, signal):
             if spec.get('action') == 'header':
-                session.append_request_header(dict(config=dict(provider='new', model='new-model'), system='changed prefix'))
-            inputs.append(dict(keys=sorted(input), system=input.get('system'),
+                session.append_request_header(dict(config=dict(provider='new', model='new-model')))
+                session.append('system/message',dict(turn=1,step=1,message=create_system_message('changed prefix','fixture-system')),surface_op=dict(op='replace',startSeq=0,endSeq=0))
+            inputs.append(dict(keys=sorted(input),
                 text=[''.join(block.get('text', '') for block in message['content']) for message in input['messages']],
                 routed=agent.session.request_header()['config'], sameSignal=signal is control.signal))
             if spec.get('action') == 'outside':
@@ -238,7 +242,10 @@ async def transaction(spec):
             if spec['flush'] != 'void':
                 raise RuntimeError('flush failed')
         try:
-            result = await compact(SimpleNamespace(ctx=ctx, summarize=summarize), session, 0, 0,
+            backend = SimpleNamespace(ctx=ctx, summarize=summarize,
+                summarization_input=lambda owner, selected: CompactionEngine.summarization_input(None, owner, selected),
+                replacement_surface=lambda start, end: CompactionEngine.replacement_surface(None, start, end))
+            result = await compact(backend, session, 1, 1,
                 agent=Owner(session), manual=manual, source_command_id='real-command', signal=control.signal,
                 flush=flush if 'flush' in spec else None)
             outcome = {key: result[key] for key in ('shadowedSeqs', 'shadowedTokenCount')}
@@ -310,6 +317,8 @@ async def observe():
             runtime.register_adapter(['routed', 'summary-p'], llm)
             meter = TokenMeter(ctx)
             session = ctx.get('sessions').create()
+            if 'systemChars' in spec:
+                session.append('system/message',dict(turn=1,step=1,message=create_system_message('x'*spec['systemChars'],'fixture-system')),surface_op='append')
             for turn in range(1, 5):
                 text = 'fixture ' * 40
                 session.append('turn/start', dict(turn=turn))
@@ -317,8 +326,6 @@ async def observe():
                 session.append('step/start', dict(turn=turn, step=1))
                 if turn == 1 and not spec.get('headerless'):
                     header = dict(config=dict(provider='routed', model='shared'))
-                    if 'systemChars' in spec:
-                        header['system'] = 'x' * spec['systemChars']
                     session.append('request/header', dict(header=header, reason='initial'))
                 session.append_assistant_message(dict(role='assistant', content=[dict(type='text', text=text + ' assistant ' + str(turn))]), turn=turn, step=1)
                 session.append('step/end', dict(turn=turn, step=1))

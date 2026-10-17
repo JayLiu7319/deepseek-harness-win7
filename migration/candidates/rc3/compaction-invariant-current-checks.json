@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-F-compaction-v3-invariant",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-COMPACTION-INVARIANT-20261017.zip",
+    "bytes": 40318,
+    "sha256": "dd346f1c4604fd1ad799899726318dcf9a921f4fd2ca379c19a6c03b48afc7e7",
+    "members": [
+      {
+        "path": "rc3-compaction-consumers-20261017-a/results.xml",
+        "bytes": 15301,
+        "sha256": "9212ac161e00b8d4d2182e9b287a1146e27cf0f3446a2b9bdc28810163c195c7"
+      },
+      {
+        "path": "rc3-compaction-lifecycle-20261017-a/results.xml",
+        "bytes": 21096,
+        "sha256": "602273b59033148d6de306f7a67e4348c92c88efd4c3ea714d14b92cbef2de11"
+      },
+      {
+        "path": "rc3-compaction-observer-20261017-d/report.0.log",
+        "bytes": 236,
+        "sha256": "d553f4cbe1ab48917d1a7dc5d768654ab6d93b4b597105542054cf496896ff18"
+      },
+      {
+        "path": "rc3-compaction-observer-20261017-d/report.1.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-compaction-observer-20261017-d/report.json",
+        "bytes": 828849,
+        "sha256": "9c4eaab0f988dc32fcea0aa406230ed82c1cd0d2672f282101475230d8fcfe33"
+      },
+      {
+        "path": "rc3-compaction-observer-20261017-d/report.python.json",
+        "bytes": 366771,
+        "sha256": "24048598674f74e71ebb8e0f9127dbc74c2572b6e5e25580c7c88c9ee3d8d34a"
+      },
+      {
+        "path": "rc3-compaction-observer-20261017-d/report.ts.json",
+        "bytes": 355898,
+        "sha256": "d591d9d5cba604287718fd398c89b89d15ccff6ed82f5e1b6b2d3a63da1a8900"
+      }
+    ]
+  },
+  "cases": 172,
+  "pythonConsumers": 250,
+  "inputs": {
+    "dsh/compaction/invariant.py": "17d863f79aa2ab94f8ed2e89618dcd7b23d37825fb2a5ee78645de7cb8cdbeb1",
+    "scripts/compaction_oracle.py": "0163a1ec94683ce89cd2d970da7de2c509fd7b6138af19d40e6486c5dc142f59",
+    "scripts/oracles/compaction.spec.ts": "7d859db372bb713be9a68cfb460368facfc7b101d447e6319f0c649507a76632",
+    "scripts/oracles/compaction_python.py": "a69145d80ba4fb49856fcc1d99900ebc2a5bf6346e5d0651aedd883f00d1640c",
+    "scripts/oracles/compaction-invariant-cases.json": "82dff059e3aef410550651fccae08e63706e5ddee7c3003a0e5dd9e0bded2e4d",
+    "tests/test_error_chain.py": "ff32675e50d151ce6ef9486fc2a0a385b1ed28fb8226a4ee0b7730efba3c1bc7",
+    "tests/test_compaction_oracle_current.py": "0c5e5f775479b5b48ed8023c67bcb4bc1cf13dedc624e1fa4c676d15ab1d909f"
+  },
+  "scope": [
+    "Invariant trace uses the owning Session surface implementation; current startSeq/endSeq no longer enter the historical grammar.",
+    "All compaction policy, command, transaction, error-graph and invariant recipes retained on current providers.",
+    "In-history system head remains outside the compacted range and is included in summary messages.",
+    "Fresh current Source reobserved both embedded-NUL route collision and spoofed shadowedTokenCount defects; exact recipes/full expected rows/current pin constrain these two exceptions. Counterexamples reject changed inputs, system head, nodes, fields and other pins."
+  ],
+  "failuresRetained": [
+    "rc3-r11-remaining-probes-20261017-a/compaction: retired header.system rejected.",
+    "rc3-compaction-observer-20261017-b: retired replacement spelling rejected.",
+    "rc3-compaction-observer-20261017-c: complete 30-row differences retained before fixing provider surface selection and observer shape."
+  ],
+  "limitations": [
+    "Finite targeted contract; unified release qualification remains pending."
+  ]
+}

@@ -34,11 +34,11 @@ def _same(left: Any, right: Any) -> bool:
 
 
 class _Trace:
-    def __init__(self) -> None:
+    def __init__(self, surface_factory: Any = SurfaceManager) -> None:
         self.open_turn: Any = None
         self.compaction: Optional[Dict[str, Any]] = None
         self.surface_events: Any = []
-        self.surface = SurfaceManager(self.surface_events)
+        self.surface = surface_factory(self.surface_events)
 
 
 def _id(value: Any, label: str, fail: Callable[[str], None]) -> None:
@@ -201,7 +201,10 @@ def install(ctx: Any, fail: Callable[[str], None]) -> Callable[[], None]:
             trace.compaction["summarized"] = transition["kind"] == "summary"
 
     def seed(session: Any) -> _Trace:
-        trace = _Trace()
+        # Replay with the owning Session's surface grammar. Current v3 uses
+        # startSeq/endSeq and an in-history system head; historical Sessions
+        # retain their own grammar for explicit legacy consumers.
+        trace = _Trace(type(session.surface))
         traces[session] = trace
         stale = _orphans(session.events)
         for event in session.events:

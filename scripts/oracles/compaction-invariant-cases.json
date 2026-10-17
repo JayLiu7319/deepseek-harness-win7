@@ -2729,8 +2729,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 5,
-          "end": 5
+          "startSeq": 5,
+          "endSeq": 5
         },
         "sourceEventSeqs": [
           5
@@ -2873,8 +2873,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -2930,8 +2930,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -2987,8 +2987,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -3045,8 +3045,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -3103,8 +3103,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -3152,8 +3152,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -3819,8 +3819,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -3847,8 +3847,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 0,
-          "end": 0
+          "startSeq": 0,
+          "endSeq": 0
         },
         "sourceEventSeqs": [
           0
@@ -5665,8 +5665,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 2,
-          "end": 4
+          "startSeq": 2,
+          "endSeq": 4
         },
         "sourceEventSeqs": [
           2,
@@ -5816,8 +5816,8 @@
         },
         "surfaceOp": {
           "op": "replace",
-          "start": 2,
-          "end": 4
+          "startSeq": 2,
+          "endSeq": 4
         },
         "sourceEventSeqs": [
           2,

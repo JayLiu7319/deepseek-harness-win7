@@ -128,9 +128,10 @@ async function transaction(spec: any): Promise<any> {
     await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(TokenMeter)
     const session = ctx.sessions.create()
+    session.append('system/message', {turn:1, step:1, message:createMessage({role:'system',content:[{type:'text',text:'original prefix'}],source:{kind:'plugin',plugin:'fixture-system'}})}, {surfaceOp:'append'})
     session.append('user/message', createUserMessage({ content: [{ type: 'text', text: 'important facts '.repeat(300) }], source: { kind: 'user' } }), { surfaceOp: 'append' })
     session.append('user/message', createUserMessage({ content: [{ type: 'text', text: 'recent question' }], source: { kind: 'user' } }), { surfaceOp: 'append' })
-    session.append('request/header', { header: { config: { provider: 'old', model: 'old-model' }, system: 'original prefix' }, reason: 'initial' })
+    session.append('request/header', { header: { config: { provider: 'old', model: 'old-model' } }, reason: 'initial' })
     const manual = spec.manual !== false
     if (!manual) session.append('turn/start', { turn: 1 })
     const control = new AbortController()
@@ -154,7 +155,10 @@ async function transaction(spec: any): Promise<any> {
       }) as any
     }
     const summarize = async (input: any, agent: any, signal: any): Promise<any> => {
-      if (spec.action === 'header') session.append('request/header', { header: { config: { provider: 'new', model: 'new-model' }, system: 'changed prefix' }, reason: 'initial' })
+      if (spec.action === 'header') {
+        session.append('request/header', { header: { config: { provider: 'new', model: 'new-model' } }, reason: 'initial' })
+        session.append('system/message', {turn:1, step:1, message:createMessage({role:'system',content:[{type:'text',text:'changed prefix'}],source:{kind:'plugin',plugin:'fixture-system'}})}, {surfaceOp:{op:'replace',startSeq:0,endSeq:0}})
+      }
       inputs.push({ keys: Object.keys(input).sort(), system: input.system,
         text: input.messages.map((m: any) => m.content.map((b: any) => b.text ?? '').join('')),
         routed: agent.session.requestHeader().config, sameSignal: signal === control.signal })
@@ -168,7 +172,7 @@ async function transaction(spec: any): Promise<any> {
     }
     let outcome: any
     try {
-      const result = await compactSurfaceRegion({ meter: ctx.tokenMeter, summarize }, session, 0, 0,
+      const result = await compactSurfaceRegion({ meter: ctx.tokenMeter, summarize }, session, 1, 1,
         { session } as any, { owner: manual ? null : 'current-turn', stability: manual ? 'selected-span' : 'whole-surface',
           sourceCommandId: 'real-command', ...spec.flush === undefined ? {} : { flush: async () => {
             flushes++
@@ -261,15 +265,16 @@ it('observes pinned compaction policies and real routed transactions', async () 
       const adapter = new Adapter(spec.window === undefined || spec.window === 'measured' ? 1000 : spec.window, spec)
       ctx.llm.registerAdapter(['routed', 'summary-p'], adapter)
       const session = ctx.sessions.create()
+      if (spec.systemChars !== undefined) session.append('system/message', {turn:1,step:1,message:createMessage({role:'system',content:[{type:'text',text:'x'.repeat(spec.systemChars)}],source:{kind:'plugin',plugin:'fixture-system'}})},{surfaceOp:'append'})
       for (let turn = 1; turn <= 4; turn++) {
         const text = 'fixture '.repeat(40)
         session.append('turn/start', { turn })
         session.append('user/message', createUserMessage({ content: [{ type: 'text', text: text + ' user ' + turn }], source: { kind: 'user' } }), { surfaceOp: 'append' })
         session.append('step/start', { turn, step: 1 })
         if (turn === 1 && !spec.headerless) session.append('request/header', { header: {
-          config: { provider: 'routed', model: 'shared' }, ...spec.systemChars === undefined ? {} : { system: 'x'.repeat(spec.systemChars) },
+          config: { provider: 'routed', model: 'shared' },
         }, reason: 'initial' })
-        session.append('assistant/message', { turn, step: 1, message: createMessage({ role: 'assistant',
+        session.append('assistant/message', { turn, step: 1, stream:[], message: createMessage({ role: 'assistant',
           content: [{ type: 'text', text: text + ' assistant ' + turn }], source: { provider: 'routed', model: 'shared' } }) }, { surfaceOp: 'append' })
         session.append('step/end', { turn, step: 1 })
         session.append('turn/end', { turn, reason: { kind: 'completed' } })
