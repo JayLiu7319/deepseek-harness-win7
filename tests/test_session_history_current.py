@@ -19,6 +19,35 @@ from tests.test_session_agents_current import api_harness
 CASES = json.loads((Path(__file__).resolve().parents[1] / 'scripts/oracles/session_history_current_cases.json').read_text(encoding='utf-8'))
 
 
+@pytest.mark.asyncio
+async def test_real_live_and_cold_pages_without_projection_baselines(tmp_path):
+    ctx, api = await api_harness(tmp_path)
+    history = CurrentSessionHistory(ctx, lambda observed: observed.dispose())
+    abort = AbortController()
+    try:
+        handle = await ctx.get('agents').create(dict(sessionId='paged',
+            agentOptions=dict(provider='script', model='model'), meta=dict(cwd=str(tmp_path))))
+        for index in range(4):
+            handle.agent.followup(message('page-%s' % index))
+            await handle.agent.whenIdle()
+        committed = list(handle.agent.session.snapshotEvents())
+        request = dict(address=dict(kind='session', sessionId='paged'),
+                       throughSeq=committed[-1]['seq'], maxMessages=2)
+        live = await history.page(request, abort.signal)
+        assert live['hasMore'] is True
+        assert live['records'][-1]['event'] == committed[-1]
+        await handle.dispose()
+        cold = await history.page(request, abort.signal)
+        assert cold == live and ctx.get('sessions').get('paged') is None
+        older = await history.page(dict(request, beforeSeq=cold['records'][0]['event']['seq'],
+                                       maxMessages=100), abort.signal)
+        assert older['hasMore'] is False
+        assert older['records'] + cold['records'] == [dict(type='event', event=e) for e in committed]
+    finally:
+        abort.abort()
+        await ctx.fiber.dispose()
+
+
 @pytest.mark.parametrize('case', CASES, ids=lambda case: case['case'])
 def test_actual_source_history_control_contract(case):
     assert json_equal(execute(case), case['expected'])

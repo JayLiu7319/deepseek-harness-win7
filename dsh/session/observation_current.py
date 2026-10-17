@@ -20,6 +20,11 @@ class CurrentSessionObservation:
         value = self._view[key]
         return value() if key=='events' and callable(value) else value
 
+    @property
+    def projections(self):
+        """An observation without projection work exposes an absent baseline."""
+        return self._view.get('projections')
+
     def retain(self):
         if self._disposed:
             raise ValueError('session observation "%s" is disposed' % field(self._view['header'],'id'))

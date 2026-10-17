@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R08-B-optional-observation-baseline",
+  "status": "targeted-passed",
+  "native": {
+    "passed": 100,
+    "xml": {
+      "path": ".goose/out/rc3-history-page-consumers-20261017/results.xml",
+      "sha256": "4aff8e20864a61e619df33e5b14467de60dfca3bc9492b1478bdc345afb17007"
+    },
+    "command": ".venv/Scripts/python.exe -m pytest tests/test_session_history_current.py tests/test_session_observation_current.py tests/test_session_agents_current.py --junitxml=.goose/out/rc3-history-page-consumers-20261017/results.xml --durations=8"
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/observation_current.py",
+      "sha256": "71d1df75b0f8c54d193cea1ea5d809e741b5da62233c0a55ad87c37f7f1113ce"
+    },
+    {
+      "path": "tests/test_session_history_current.py",
+      "sha256": "1d77cf68a676096f55e45d50201bd1e1395b1cda4502f3d5137132827a4efa55"
+    },
+    {
+      "path": "tests/test_session_observation_current.py",
+      "sha256": "d64cd8707b5f69f989a2f750ddc12c188d4dc9a6feb18487909df3c6034a8c3a"
+    }
+  ],
+  "coverage": [
+    "Original long-history browser issued /api/session/page; native Typert payload failed with gateway/internal projections because projectionMode=none deliberately omits the baseline.",
+    "Optional observation property now returns None; preserves lazy event cuts and avoids projection work.",
+    "Real Agent live/cold pages concatenate into the exact committed journal without cold activation; direct observation, history and activation consumers pass."
+  ],
+  "diagnostics": [
+    {
+      "path": ".goose/out/rc3-r08-combined-108-native-20261017-b/report.json",
+      "sha256": "00edfb519628faae3f84a8492f3cae8f12fe4f3f54af6b5cfd5546d2aec769db"
+    }
+  ],
+  "limitations": [
+    "Targeted provider/consumer checks; combined browser, Portable, Desktop and unified qualification remain separate."
+  ],
+  "retention": "Short completed pytest workspaces auto-pruned; failed browser raw observations retained. No Portable build."
+}

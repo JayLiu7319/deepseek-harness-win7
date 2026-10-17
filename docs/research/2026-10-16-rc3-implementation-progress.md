@@ -388,6 +388,10 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 原版 Models 设置页暴露生产 DeepSeek provider 缺失 `deepseek-flash`，其图片输入和 `systemPromptUpdate: in-history` 能力也未进入 prepared call。现补齐原版默认目录、配置 schema 与 adapter 元数据；非法显式能力值继续拒绝。未修改 rc.3 Source 的默认/自定义 provider 与 Python 实际服务比较，两个目录、7 次解析和 7 次 prepared call 完全一致；模型配置、图片/文件消费者及浏览器能力相关定向共144项通过。初轮误选历史 rc.1 capture observer 的60通过/118 setup错误单独保留，不计为通过。见 [有限回执](../../migration/candidates/rc3/deepseek-default-catalog-checks.json)。浏览器模型设置保存/冷恢复、Desktop 和统一发行资格继续实施；成功短测试夹具自动清理，未构建 Portable。
 
+### R08-B — 无投影基线的历史分页
+
+长历史原版浏览器调用 `/api/session/page` 时，`projectionMode=none` 有意省略投影，却被 Python observation 的属性读取转成 KeyError；现将可选 projections 属性映射为 None，不额外计算投影。真实 Agent 的 live/cold 分页保持相同连续日志，冷分页不激活会话；历史、观察租约和激活直接消费者100项通过。见 [有限回执](../../migration/candidates/rc3/history-page-baseline-checks.json)。原浏览器失败载荷保留，完整浏览器组合与发行验收继续实施。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

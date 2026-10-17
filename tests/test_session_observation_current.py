@@ -110,6 +110,7 @@ async def test_live_cut_is_lazy_shared_and_stable(setup,monkeypatch):
     def snapshot(*args):calls.append(args);return original(*args)
     monkeypatch.setattr(session,'snapshotEvents',snapshot)
     first=await reader.read('cold',dict(projectionMode='none'));retained=first.retain()
+    assert first.projections is None and retained.projections is None
     session.append('turn/end',dict(turn=1,reason=dict(kind='completed')))
     assert not calls and not p.calls and first.cursor==0
     assert len(first.events)==1 and first.events is retained.events and len(calls)==1
