@@ -13,8 +13,11 @@ from scripts.runtime_context_oracle import NAMES, canonical, identity, validate_
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_development_interpreter_may_be_shared_but_product_interpreter_is_owned(tmp_path, monkeypatch):
-    from scripts import runtime_context_oracle as oracle
+@pytest.mark.parametrize('module', ['runtime_context_oracle', 'runtime_full_request_oracle',
+                                  'deepseek_capture_oracle', 'deepseek_error_oracle'])
+def test_development_interpreter_may_be_shared_but_product_interpreter_is_owned(tmp_path, monkeypatch, module):
+    import importlib
+    oracle = importlib.import_module('scripts.' + module)
     shared = tmp_path / 'shared-venv' / 'python.exe'
     monkeypatch.setattr(oracle.sys, 'executable', str(shared))
     oracle.validate_executable(str(shared), ROOT)

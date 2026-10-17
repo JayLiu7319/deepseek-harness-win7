@@ -17,6 +17,19 @@ REQUIRED_MODULES = (set(GROUP_MODULES['query']) - {'dsh/llm/model_info.py'}) | {
     'dsh/fs/tool_fs_search/grep.py', 'dsh/fs/tool_fs_search/search_core.py',
     'dsh/subprocess/__init__.py', 'dsh/subprocess/collector.py', 'dsh/subprocess/local.py',
     'dsh/subprocess/service.py', 'dsh/subprocess/types.py',
+    # Current filesystem providers import the native directory/open services.
+    # Keep the actual cold closure explicit, including their host dependencies.
+    'dsh/host/__init__.py', 'dsh/host/client_modules/__init__.py',
+    'dsh/host/client_modules/registry.py', 'dsh/host/directory_picker/__init__.py',
+    'dsh/host/directory_picker/auto.py', 'dsh/host/directory_picker/base.py',
+    'dsh/host/directory_picker/browse.py', 'dsh/host/directory_picker/directory_picker.py',
+    'dsh/host/directory_picker/native.py', 'dsh/host/frontend_static/__init__.py',
+    'dsh/host/frontend_static/frontend_static.py', 'dsh/host/http_proxy.py',
+    'dsh/host/http_proxy_policy.py', 'dsh/host/http_proxy_transport.py',
+    'dsh/host/native_command.py', 'dsh/host/plugin_inventory/__init__.py',
+    'dsh/host/plugin_inventory/plugin_inventory.py', 'dsh/host/plugin_inventory/types.py',
+    'dsh/host/webserver/__init__.py', 'dsh/host/webserver/injections.py',
+    'dsh/host/webserver/socket_server.py', 'dsh/host/webserver/webserver.py',
 }
 RUNTIME_DAMAGES = ('missing', 'root', 'workspace', 'python', 'executable', 'binary', 'binary-sha', 'path',
     'override', 'node', 'version', 'version-exit', 'version-stderr', 'module', 'module-bytes',

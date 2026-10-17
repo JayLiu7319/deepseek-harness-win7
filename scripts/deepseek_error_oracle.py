@@ -53,11 +53,8 @@ def identity(source, check_files=True):
 
 
 def validate_executable(executable, root, check_files=True):
-    root = Path(root).resolve()
-    selected = Path(sys.executable).resolve() if root == ROOT and check_files else (root / 'python.exe').resolve()
-    if Path(executable).resolve() != selected:
-        raise ValueError('Observer executable is not the selected interpreter')
-    selected.relative_to(root)
+    from scripts.runtime_context_oracle import validate_executable as validate_selected
+    validate_selected(executable, root, check_files)
 
 
 def validate_runtime(report, root, expected_digest, modules, check_files=True):

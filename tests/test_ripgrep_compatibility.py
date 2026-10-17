@@ -176,7 +176,7 @@ def actual_isolated_runtime(tmp_path_factory):
     (parent / 'process.stderr').write_bytes(completed.stderr)
     assert completed.returncode == 0, completed.stderr
     value = json.loads(output.read_text(encoding='utf-8'))
-    assert len(value['modules']) == 114 and set(value['modules']) == REQUIRED_MODULES
+    assert set(value['modules']) == REQUIRED_MODULES
     validate_runtime(value, ROOT, sys.executable, value['modules'], parent / 'workspace')
     return value, parent / 'workspace'
 

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-W-observer-selection-and-native-search-closure",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-OBSERVERS-20261017.zip",
+    "bytes": 1667925,
+    "sha256": "731327f58d7d74e0b8258baee270de82287817f1ced61cead8ae4d5a931fe953",
+    "members": 425
+  },
+  "runs": [
+    {
+      "path": "rc3-observer-consumers-20261017-a",
+      "name": "pytest",
+      "errors": "22",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "285",
+      "time": "93.585",
+      "timestamp": "2026-10-17T18:43:13.801084+08:00",
+      "hostname": "起床困难户的rog"
+    },
+    {
+      "path": "rc3-native-search-consumers-20261017-b",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "39",
+      "time": "5.158",
+      "timestamp": "2026-10-17T18:45:15.452020+08:00",
+      "hostname": "起床困难户的rog"
+    },
+    {
+      "path": "rc3-extracted-native-search-consumers-20261017-a",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "7",
+      "time": "345.925",
+      "timestamp": "2026-10-17T18:43:57.433357+08:00",
+      "hostname": "起床困难户的rog"
+    }
+  ],
+  "scope": [
+    "Three duplicate interpreter validators delegate to the shared exact selected-interpreter/product-owned-interpreter guard. All four guard consumers are tested with a selected external development interpreter and rejected foreign interpreter.",
+    "Actual native-search cold process imports136 reviewed modules, including22 current native-directory/open Host dependencies; complete module paths/bytes remain mandatory. The obsolete test literal114 is replaced by exact reviewed set comparison.",
+    "Actual Source/native DeepSeek capture120, errors58, full-request41 and context27 tests pass in the first run, which still fails22 native-search setup cases. Corrected native-search39 and full extracted validator seven mutation consumers pass separately."
+  ],
+  "limitations": [
+    "The broader release-receipt diagnostic was interrupted after a common old native-search closure masked later mutations. Its failures and operator stop stay preserved, not reclassified.",
+    "The ongoing427-module diagnostic uses75c4566a and intentionally remains independent. Its first174 completed-module raw failure reports are included; no final or complete status is claimed.",
+    "No complete regression or release qualification; prior archives do not cover this code change."
+  ]
+}
