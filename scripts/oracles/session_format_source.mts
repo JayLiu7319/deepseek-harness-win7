@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='headless-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='log-export-current'
+    ? await (await import('./log_export_current_source.mts')).logExportCase(resolve(sourceArg),test)
+    : test.kind==='headless-current'
     ? await (await import('./headless_current_source.mts')).headlessCase(resolve(sourceArg),test)
     : test.kind==='session-log-current'
     ? await (await import('./session_log_current_source.mts')).sessionLogCase(resolve(sourceArg),test,decode)

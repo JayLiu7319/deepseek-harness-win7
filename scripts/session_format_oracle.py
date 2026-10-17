@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'log-export-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/log_export_current_python.py', ROOT/'scripts/oracles/log_export_current_source.mts'])
         if any(case.get('kind') == 'headless-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/headless_current_python.py', ROOT/'scripts/oracles/headless_current_source.mts'])
         if any(case.get('kind') == 'session-log-current' for case in cases):

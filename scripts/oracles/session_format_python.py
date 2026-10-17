@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'headless-current':
+        if case['kind'] == 'log-export-current':
+            from scripts.oracles.log_export_current_python import execute as export_execute
+            value = export_execute(case)
+        elif case['kind'] == 'headless-current':
             from scripts.oracles.headless_current_python import execute as headless_execute
             value = headless_execute(case)
         elif case['kind'] == 'session-log-current':

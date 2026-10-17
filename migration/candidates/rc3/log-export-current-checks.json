@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R04-J-logical-log-export",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 27,
+    "report": {
+      "path": ".goose/out/rc3-r04-export-qualified-paired-20261017/report.json",
+      "sha256": "95bbe294460ec94b0b19e88eee861b02eea05ab359eb2471444383efeff785e0"
+    },
+    "corpus": {
+      "path": "scripts/oracles/log_export_current_cases.json",
+      "sha256": "949dec9f6cee9551bb505834e808f993f28f788aae33b9367db842367a4434ba"
+    }
+  },
+  "native": {
+    "passed": 112,
+    "command": {
+      "path": ".goose/out/rc3-r04-export-qualified-native-20261017/command.json",
+      "sha256": "4461b68e1ad38af7aee30a032aa9c43df79e9fef5b6b92bca7b3d0ab2804331d"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-export-qualified-native-20261017/results.xml",
+      "sha256": "1abfb493b1e7235b9f260ad09c8d6879fadbca2dff23f12ec726ef9bed18108a"
+    }
+  },
+  "source": {
+    "passed": 45,
+    "command": {
+      "path": ".goose/out/rc3-r04-export-source-20261017/command.json",
+      "sha256": "d6c7c9c77c3c82b0ce83ca1bd8d801e0d31a7149057039e46e84df6fb28efe81"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r04-export-source-20261017/results.xml",
+      "sha256": "dc98391c2bd0487981bce54690c7ed88da9b9eba5293c81db73f277bc70d077f"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/log_export_current.py",
+      "sha256": "0770f7218b908c0d6cd2200c5258d3556df72bcf8b300aa64b42200fe8c2cdb8"
+    },
+    {
+      "path": "tests/test_log_export_current.py",
+      "sha256": "7af2e3304181dfa7e3efbf9415710358e90843c8cf36ae10808da54d9c54e7c9"
+    }
+  ],
+  "coverage": [
+    "Canonical JSONL through read handles; only not-found becomes absent; read failure closes handle; close failure remains visible.",
+    "Depth-first descendants, live flush barriers, embedded stream/message attachment discovery, image deduplication and per-name generic-file streaming.",
+    "Real current Agent and JSONL live/cold exports, ZIP member contents, original GET/HEAD failures, actual Connection-owned unload and bounded compressor cancellation/consumer-close release."
+  ],
+  "limitations": [
+    "Bindings are staged; production baseline and frontend are still rc.1.",
+    "ZIP bytes use Python zipfile rather than Source fflate; compare logical members, ordering and bytes, not compressed archive identity.",
+    "No unified release or Desktop qualification claimed."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r07-composition-probe-20261017-c",
+    ".goose/out/rc3-r04-export-native-20261017-a",
+    ".goose/out/rc3-r04-export-native-20261017-b",
+    ".goose/out/rc3-r04-export-native-20261017-c",
+    ".goose/out/rc3-r04-export-native-20261017-d",
+    ".goose/out/rc3-r04-export-native-20261017-e",
+    ".goose/out/rc3-r04-export-native-20261017-f"
+  ]
+}

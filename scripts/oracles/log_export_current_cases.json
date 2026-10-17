@@ -1,0 +1,1678 @@
+[
+  {
+    "case": "log-export/empty",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-cwd",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "cwd": "C:/\u9879\u76ee"
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"cwd\":\"C:/\u9879\u76ee\",\"isSeeded\":false,\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-parentSession",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "parentSession": "parent"
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"parentSession\":\"parent\",\"isSeeded\":false,\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-origin",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "origin": "subagent"
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"origin\":\"subagent\",\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-delegationDepth",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "delegationDepth": 2
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":2}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-agentPreset",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "agentPreset": {
+            "name": "standard"
+          }
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0,\"agentPreset\":{\"name\":\"standard\"}}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-seedLength",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "seedLength": 4
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/header-unknown",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false,
+          "unknown": "ignored"
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/json-text",
+    "kind": "log-export-current",
+    "operation": "serialize",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"opaque\",\"seq\":0,\"time\":1.5,\"ignorable\":true,\"data\":{\"2\":\"two\",\"10\":\"ten\",\"text\":\"\u6c49\u5b57\\ud800\",\"number\":1}}\n",
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/read-False",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "signal": false,
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"opaque\",\"seq\":0,\"time\":1.5,\"ignorable\":true,\"data\":{\"2\":\"two\",\"10\":\"ten\",\"text\":\"\u6c49\u5b57\\ud800\",\"number\":1}}\n",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          false
+        ],
+        [
+          "read",
+          "root",
+          0,
+          false
+        ],
+        [
+          "close",
+          "root"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/read-True",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "signal": true,
+    "expected": {
+      "value": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"opaque\",\"seq\":0,\"time\":1.5,\"ignorable\":true,\"data\":{\"2\":\"two\",\"10\":\"ten\",\"text\":\"\u6c49\u5b57\\ud800\",\"number\":1}}\n",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          true
+        ],
+        [
+          "read",
+          "root",
+          0,
+          true
+        ],
+        [
+          "close",
+          "root"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/missing",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "id": "missing",
+    "expected": {
+      "value": null,
+      "trace": [
+        [
+          "open",
+          "missing",
+          "read",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/openError",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "openError": "secret host path",
+    "expected": {
+      "error": "secret host path",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/readError",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "readError": "secret host path",
+    "expected": {
+      "error": "secret host path",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          false
+        ],
+        [
+          "read",
+          "root",
+          0,
+          false
+        ],
+        [
+          "close",
+          "root"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/closeError",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "closeError": "secret host path",
+    "expected": {
+      "error": "secret host path",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          false
+        ],
+        [
+          "read",
+          "root",
+          0,
+          false
+        ],
+        [
+          "close",
+          "root"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/close-over-read-error",
+    "kind": "log-export-current",
+    "operation": "read",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "opaque",
+            "seq": 0,
+            "time": 1.5,
+            "ignorable": true,
+            "data": {
+              "10": "ten",
+              "2": "two",
+              "text": "\u6c49\u5b57\ud800",
+              "number": 1.0
+            }
+          }
+        ]
+      }
+    },
+    "readError": "read denied",
+    "closeError": "close denied",
+    "expected": {
+      "error": "close denied",
+      "trace": [
+        [
+          "open",
+          "root",
+          "read",
+          false
+        ],
+        [
+          "read",
+          "root",
+          0,
+          false
+        ],
+        [
+          "close",
+          "root"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/entries-empty",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": []
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n"
+        }
+      ],
+      "trace": []
+    }
+  },
+  {
+    "case": "log-export/file-name-0",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "content": [
+                {
+                  "type": "image",
+                  "attachment": {
+                    "attachmentId": "image-one",
+                    "mediaType": "image/png",
+                    "byteLength": 3
+                  }
+                },
+                {
+                  "type": "tool-result",
+                  "content": [
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "a/b\\c\u0000\u007f.txt"
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "another.txt"
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"tool-result\",\"content\":[{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"a/b\\\\c\\u0000\u007f.txt\"}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"another.txt\"}},{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/another.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/a_b_c__.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "another.txt"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "a/b\\c\u0000\u007f.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/file-name-1",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "content": [
+                {
+                  "type": "image",
+                  "attachment": {
+                    "attachmentId": "image-one",
+                    "mediaType": "image/png",
+                    "byteLength": 3
+                  }
+                },
+                {
+                  "type": "tool-result",
+                  "content": [
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "."
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "another.txt"
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"tool-result\",\"content\":[{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\".\"}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"another.txt\"}},{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/another.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/file",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "another.txt"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "."
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/file-name-2",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "content": [
+                {
+                  "type": "image",
+                  "attachment": {
+                    "attachmentId": "image-one",
+                    "mediaType": "image/png",
+                    "byteLength": 3
+                  }
+                },
+                {
+                  "type": "tool-result",
+                  "content": [
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": ".."
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "another.txt"
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"tool-result\",\"content\":[{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"..\"}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"another.txt\"}},{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/another.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/file",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "another.txt"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          ".."
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/file-name-3",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "content": [
+                {
+                  "type": "image",
+                  "attachment": {
+                    "attachmentId": "image-one",
+                    "mediaType": "image/png",
+                    "byteLength": 3
+                  }
+                },
+                {
+                  "type": "tool-result",
+                  "content": [
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": ""
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "another.txt"
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"tool-result\",\"content\":[{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"\"}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"another.txt\"}},{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/another.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/file",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "another.txt"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          ""
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/file-name-4",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "content": [
+                {
+                  "type": "image",
+                  "attachment": {
+                    "attachmentId": "image-one",
+                    "mediaType": "image/png",
+                    "byteLength": 3
+                  }
+                },
+                {
+                  "type": "tool-result",
+                  "content": [
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "\u6b63\u5e38\u6587\u4ef6.txt"
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "another.txt"
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"tool-result\",\"content\":[{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"\u6b63\u5e38\u6587\u4ef6.txt\"}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"another.txt\"}},{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/another.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/\u6b63\u5e38\u6587\u4ef6.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "another.txt"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "\u6b63\u5e38\u6587\u4ef6.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/carrier-message",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "message": {
+                "content": [
+                  {
+                    "type": "image",
+                    "attachment": {
+                      "attachmentId": "image-one",
+                      "mediaType": "image/png",
+                      "byteLength": 3
+                    }
+                  },
+                  {
+                    "type": "file",
+                    "attachment": {
+                      "attachmentId": "sha256:abcdef",
+                      "mediaType": "text/plain",
+                      "byteLength": 3,
+                      "name": "stream.txt"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"message\":{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"stream.txt\"}}]}}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/stream.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "stream.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/carrier-inserted",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "inserted": [
+                {
+                  "content": [
+                    {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    },
+                    {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "stream.txt"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"inserted\":[{\"content\":[{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}},{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"stream.txt\"}}]}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/stream.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "stream.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/carrier-stream",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "stream": [
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "stream.txt"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"stream\":[{\"type\":\"chunk\",\"chunk\":{\"type\":\"block-end\",\"block\":{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}}},{\"type\":\"chunk\",\"chunk\":{\"type\":\"block-end\",\"block\":{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"stream.txt\"}}}}]}}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/stream.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "stream.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/descendants",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "stream": [
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "stream.txt"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "child": {
+        "header": {
+          "version": 3,
+          "id": "child",
+          "createdAt": 1,
+          "isSeeded": true,
+          "parentSession": "root"
+        },
+        "events": []
+      }
+    },
+    "includeDescendants": true,
+    "live": [
+      "child"
+    ],
+    "descendants": [
+      {
+        "session": {
+          "header": {
+            "id": "root"
+          }
+        },
+        "descendants": []
+      },
+      {
+        "session": {
+          "header": {
+            "id": "child"
+          }
+        },
+        "descendants": [
+          {
+            "session": {
+              "header": {
+                "id": "child"
+              }
+            },
+            "descendants": []
+          }
+        ]
+      },
+      {
+        "session": {
+          "header": {
+            "id": "child"
+          }
+        },
+        "descendants": []
+      }
+    ],
+    "expected": {
+      "value": [
+        {
+          "path": "session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"root\",\"createdAt\":1,\"isSeeded\":false,\"delegationDepth\":0}\n{\"type\":\"message\",\"data\":{\"stream\":[{\"type\":\"chunk\",\"chunk\":{\"type\":\"block-end\",\"block\":{\"type\":\"image\",\"attachment\":{\"attachmentId\":\"image-one\",\"mediaType\":\"image/png\",\"byteLength\":3}}}},{\"type\":\"chunk\",\"chunk\":{\"type\":\"block-end\",\"block\":{\"type\":\"file\",\"attachment\":{\"attachmentId\":\"sha256:abcdef\",\"mediaType\":\"text/plain\",\"byteLength\":3,\"name\":\"stream.txt\"}}}}]}}\n"
+        },
+        {
+          "path": "subagents/child/session.v3.jsonl",
+          "content": "{\"type\":\"session\",\"version\":3,\"id\":\"child\",\"createdAt\":1,\"parentSession\":\"root\",\"isSeeded\":true,\"delegationDepth\":0}\n"
+        },
+        {
+          "path": "media/image-one.png",
+          "data": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "path": "files/ab/abcdef/stream.txt",
+          "chunks": [
+            [
+              4,
+              5
+            ],
+            [
+              6
+            ]
+          ]
+        }
+      ],
+      "trace": [
+        [
+          "trace",
+          "root"
+        ],
+        [
+          "flush",
+          "child"
+        ],
+        [
+          "open",
+          "child",
+          "read",
+          true
+        ],
+        [
+          "read",
+          "child",
+          0,
+          true
+        ],
+        [
+          "close",
+          "child"
+        ],
+        [
+          "image",
+          "image-one"
+        ],
+        [
+          "file",
+          "sha256:abcdef",
+          "stream.txt"
+        ]
+      ]
+    }
+  },
+  {
+    "case": "log-export/missing-descendant",
+    "kind": "log-export-current",
+    "operation": "entries",
+    "logs": {
+      "root": {
+        "header": {
+          "version": 3,
+          "id": "root",
+          "createdAt": 1,
+          "isSeeded": false
+        },
+        "events": [
+          {
+            "type": "message",
+            "data": {
+              "stream": [
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "image",
+                      "attachment": {
+                        "attachmentId": "image-one",
+                        "mediaType": "image/png",
+                        "byteLength": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "chunk",
+                  "chunk": {
+                    "type": "block-end",
+                    "block": {
+                      "type": "file",
+                      "attachment": {
+                        "attachmentId": "sha256:abcdef",
+                        "mediaType": "text/plain",
+                        "byteLength": 3,
+                        "name": "stream.txt"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "child": {
+        "header": {
+          "version": 3,
+          "id": "child",
+          "createdAt": 1,
+          "isSeeded": true,
+          "parentSession": "root"
+        },
+        "events": []
+      }
+    },
+    "includeDescendants": true,
+    "descendants": [
+      {
+        "session": {
+          "header": {
+            "id": "absent"
+          }
+        },
+        "descendants": []
+      }
+    ],
+    "expected": {
+      "error": "subagent \"absent\" has no stored log",
+      "trace": [
+        [
+          "trace",
+          "root"
+        ],
+        [
+          "open",
+          "absent",
+          "read",
+          true
+        ]
+      ]
+    }
+  }
+]

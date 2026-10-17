@@ -363,3 +363,7 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 ### R07-D — Headless实时帧消费者
 
 候选headless从agent/assistant-stream读取本Agent的reasoning，start/end和非reasoning块关闭行，重试重新开启标题；最终非空回答/退出状态只取运行区间持久日志，缺失序号拒绝。28组实际原版runner配对、43项原生和19项原版测试通过，包含真实当前Agent完成/取消、v3 JSONL在退出前flush及监听释放。公共hook重构后的既有HTTP编辑器/重试/startup回归通过，不能据此声称rc.3生产启动已验收。Python appReady为现有启动适配；回执`migration/candidates/rc3/headless-current-checks.json`保留初轮夹具/取消枚举诊断，成功短夹具自动清理。
+
+### R04-J — 当前逻辑日志导出
+
+组合验证发现旧导出仍依赖raw artifact，已新增通过只读handle重建canonical v3 JSONL的候选实现；仅不存在返回404，读取失败关闭handle且不泄漏宿主路径。后代按深度顺序flush/读取，图片及通用文件跨日志去重，嵌入式assistant流中的附件也进入ZIP。27组原版配对、112项原生和45项未改原版测试通过，包含真实Agent的live/cold日志及附件ZIP内容、GET/HEAD、卸载和取消/关闭消费者后的资源释放。ZIP压缩器保留Python标准库适配，不能比较压缩字节身份。回执`migration/candidates/rc3/log-export-current-checks.json`；生产pin尚未切换，继续组合验证。成功短夹具自动清理，失败诊断保留。
