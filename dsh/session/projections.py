@@ -9,6 +9,7 @@ from dsh.cordis.plugin import Plugin
 from dsh.cordis.service import Service
 from dsh.core.session import snapshot_json_value
 from dsh.core.session.json import UNDEFINED
+from dsh.core.session.types import SessionLogOffset
 
 
 def _parse(schema, value):
@@ -139,7 +140,9 @@ class SessionProjectionRegistry(Service):
         return UnitCell(state, events[-1]["seq"] if events else -1)
 
     def _advance(self, definition, cell, events, through):
-        for seq in range(cell.observed_seq + 1, through + 1):
+        # JSON/SQLite decode JS numbers as floats. Validate the integer domain
+        # before converting positions for Python's range/slice operations.
+        for seq in range(int(SessionLogOffset(cell.observed_seq + 1)), int(SessionLogOffset(through + 1))):
             if seq >= len(events) or events[seq]["seq"] != seq:
                 raise ValueError('session projection %r cannot advance across missing seq %s' % (definition["key"], seq))
             state = definition["apply"](cell.state, events[seq])
@@ -168,7 +171,7 @@ class SessionProjectionRegistry(Service):
     def on_session_event(self, session, event):
         for registration in list(self._registrations.values()):
             cell = registration.cells.get(session)
-            seq = event["seq"]
+            seq = int(SessionLogOffset(event["seq"]))
             if cell is not None and cell.observed_seq >= seq:
                 continue
             if cell is None:
@@ -280,7 +283,7 @@ class SessionProjectionRegistry(Service):
                                  'the supplied log end; re-read from seq 0' % (key, base_seq))
             state = (_parse(definition["stateSchema"], row["val"]) if usable
                      else definition["init"](header, inherited_event_count))
-            start = row["seq"] - base_seq + 1 if usable else 0
+            start = int(SessionLogOffset(row["seq"] - base_seq + 1)) if usable else 0
             for index in range(start, len(events)):
                 event = events[index]
                 if event is None or event["seq"] != base_seq + index:

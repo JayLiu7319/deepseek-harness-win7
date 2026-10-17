@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'http-proxy-install-current':
+        if case['kind'] == 'session-stats-current':
+            from scripts.oracles.session_stats_current_python import execute as stats_execute
+            value = stats_execute(case, decode)
+        elif case['kind'] == 'http-proxy-install-current':
             from scripts.oracles.http_proxy_install_current_python import execute as http_proxy_install_execute
             value = http_proxy_install_execute(case)
         elif case['kind'] == 'http-proxy-current':

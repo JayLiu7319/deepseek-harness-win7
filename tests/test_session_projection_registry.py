@@ -154,6 +154,21 @@ def test_checkpoint_detaches_mutable_state_and_includes_host_only_units():
     assert registry.snapshot(session)["values"] == {}
 
 
+def test_json_numeric_positions_drive_hydrated_cells_and_late_notifications():
+    registry, session = SessionProjectionRegistry(), Session('numeric-positions')
+    registry.register(count())
+    session.append('test/mark', {})
+    rows = dict(count=dict(ver=1, seq=0.0, val=1))
+    registry.hydrate(session, rows, [], 1.0)
+    event = session.append('test/mark', {})
+    registry.on_session_event(session, dict(event, seq=1.0))
+    assert registry.snapshot(session)['values'] == dict(count=2)
+    late = SessionProjectionRegistry()
+    late.register(count())
+    late.on_session_event(session, dict(event, seq=1.0))
+    assert late.snapshot(session)['values'] == dict(count=2)
+
+
 def test_restore_floor_anchors_below_lowest_matching_row():
     registry = SessionProjectionRegistry()
     assert registry.restoreFloor({}) is None

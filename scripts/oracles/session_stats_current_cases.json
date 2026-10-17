@@ -1,0 +1,7842 @@
+[
+  {
+    "case": "stats/stream-0",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-1",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": ""
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-2",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-3",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "reasoning-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-4",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "text-chunks",
+              "index": 0,
+              "time0": 120,
+              "dt": [
+                7,
+                9
+              ],
+              "texts": [
+                "",
+                "",
+                "x"
+              ]
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-5",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "tool-call-chunks",
+              "index": 0,
+              "time0": 125,
+              "dt": [],
+              "args": [
+                ""
+              ],
+              "name": "shell"
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-6",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "tool-call-chunks",
+              "index": 0,
+              "time0": 125,
+              "dt": [
+                2
+              ],
+              "args": [
+                "",
+                "{}"
+              ]
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-7",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 80,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/stream-8",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 190,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-0",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-1",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {}
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-2",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-3",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 0
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-4",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 2.5
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 2.5,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 2.5
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 2.5,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 2.5
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-5",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "output_tokens": 9
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-6",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "completion_tokens": 9
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-7",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": -1
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-8",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": true
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-9",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": "4"
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-10",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": {
+              "$scalar": "NaN"
+            }
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/usage-11",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": {
+              "$scalar": "Infinity"
+            }
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-0",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": []
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 150
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-1",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": ""
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 150
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 50,
+            "ttftSteps": 1,
+            "decodeMs": 30,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-2",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 130
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 130
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-3",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "reasoning-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 130
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 130
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-4",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "text-chunks",
+              "index": 0,
+              "time0": 120,
+              "dt": [
+                7,
+                9
+              ],
+              "texts": [
+                "",
+                "",
+                "x"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 136
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 136
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 36,
+            "ttftSteps": 1,
+            "decodeMs": 44,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-5",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "tool-call-chunks",
+              "index": 0,
+              "time0": 125,
+              "dt": [],
+              "args": [
+                ""
+              ],
+              "name": "shell"
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 125
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 125
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 25,
+            "ttftSteps": 1,
+            "decodeMs": 55,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-6",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "tool-call-chunks",
+              "index": 0,
+              "time0": 125,
+              "dt": [
+                2
+              ],
+              "args": [
+                "",
+                "{}"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 127
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 127
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 27,
+            "ttftSteps": 1,
+            "decodeMs": 53,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-7",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 80,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 80
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 80
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 1,
+            "decodeMs": 100,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/retry-8",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 190,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 155,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 150,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "second"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 165,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "last"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 10
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 190
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 190
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 10,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 10
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 10,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 90,
+            "ttftSteps": 1,
+            "decodeMs": 0,
+            "decodeTokens": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/cancel",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": 130
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/duplicate",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 1,
+          "step": 0
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 2,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 2,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 2,
+            "steps": 3,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 1,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 2,
+            "steps": 3,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 3,
+            "steps": 4,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 3,
+            "steps": 4,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 30,
+            "ttftSteps": 1,
+            "decodeMs": 50,
+            "decodeTokens": 3
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/no-open",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 3
+          }
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/foreign",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/attempt",
+        "time": 140,
+        "data": {
+          "turn": 1,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 1,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 130,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "hi"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/restart",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "step/start",
+        "time": 140,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 155,
+              "chunk": {
+                "type": "text-delta",
+                "index": 0,
+                "text": "x"
+              }
+            }
+          ],
+          "usage": {
+            "outputTokens": 8
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 140,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 40,
+            "toolMs": 0,
+            "ttftMs": 15,
+            "ttftSteps": 1,
+            "decodeMs": 25,
+            "decodeTokens": 8,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 40,
+            "toolMs": 0,
+            "ttftMs": 15,
+            "ttftSteps": 1,
+            "decodeMs": 25,
+            "decodeTokens": 8
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 40,
+            "toolMs": 0,
+            "ttftMs": 15,
+            "ttftSteps": 1,
+            "decodeMs": 25,
+            "decodeTokens": 8,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 40,
+            "toolMs": 0,
+            "ttftMs": 15,
+            "ttftSteps": 1,
+            "decodeMs": 25,
+            "decodeTokens": 8
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/legacy-chunk-ignored",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "step/start",
+        "time": 100,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      },
+      {
+        "type": "assistant/chunk",
+        "time": 130,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "chunk": {
+            "type": "text-delta",
+            "index": 0,
+            "text": "hi"
+          }
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 180,
+        "data": {
+          "turn": 0,
+          "step": 0,
+          "stream": [],
+          "usage": {
+            "outputTokens": 5
+          }
+        }
+      },
+      {
+        "type": "step/end",
+        "time": 200,
+        "data": {
+          "turn": 0,
+          "step": 0
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": {
+              "turn": 0,
+              "step": 0,
+              "startTime": 100,
+              "firstTokenTime": null
+            },
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": 0,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 1,
+            "steps": 1,
+            "llmMs": 80,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-empty",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/result",
+        "time": 110,
+        "data": {
+          "message": {
+            "source": {
+              "callId": ""
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": ""
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 125,
+        "data": {
+          "callId": ""
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 150,
+        "data": {
+          "message": {
+            "source": {
+              "callId": ""
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 170,
+        "data": {
+          "message": {
+            "source": {
+              "callId": ""
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "": 125
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-constructor",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/result",
+        "time": 110,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "constructor"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": "constructor"
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 125,
+        "data": {
+          "callId": "constructor"
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 150,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "constructor"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 170,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "constructor"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "constructor": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "constructor": 125
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-toString",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/result",
+        "time": 110,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "toString"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": "toString"
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 125,
+        "data": {
+          "callId": "toString"
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 150,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "toString"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 170,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "toString"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "toString": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "toString": 125
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-__proto__",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/result",
+        "time": 110,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "__proto__"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": "__proto__"
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 125,
+        "data": {
+          "callId": "__proto__"
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 150,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "__proto__"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 170,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "__proto__"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "__proto__": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "__proto__": 125
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-one",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/result",
+        "time": 110,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "one"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": "one"
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 125,
+        "data": {
+          "callId": "one"
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 150,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "one"
+            }
+          }
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 170,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "one"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "one": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "one": 125
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 25,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-cancel",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/call",
+        "time": 120,
+        "data": {
+          "callId": "a"
+        }
+      },
+      {
+        "type": "tool/call",
+        "time": 150,
+        "data": {
+          "callId": "b"
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {}
+      },
+      {
+        "type": "tool/result",
+        "time": 180,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "a"
+            }
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "a": 120
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "a": 120,
+              "b": 150
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/tool-negative",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "tool/call",
+        "time": 150,
+        "data": {
+          "callId": "a"
+        }
+      },
+      {
+        "type": "tool/result",
+        "time": 120,
+        "data": {
+          "message": {
+            "source": {
+              "callId": "a"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {
+              "a": 150
+            }
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": false,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/ignored",
+    "kind": "session-stats-current",
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {}
+      },
+      {
+        "type": "llm/retry",
+        "time": 100,
+        "data": {}
+      },
+      {
+        "type": "user/message",
+        "time": 100,
+        "data": {}
+      }
+    ],
+    "expected": {
+      "version": 1,
+      "stages": [
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        },
+        {
+          "same": true,
+          "state": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0,
+            "lastTurn": null,
+            "openStep": null,
+            "pendingCalls": {}
+          },
+          "view": {
+            "turns": 0,
+            "steps": 0,
+            "llmMs": 0,
+            "toolMs": 0,
+            "ttftMs": 0,
+            "ttftSteps": 0,
+            "decodeMs": 0,
+            "decodeTokens": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "stats/view/valid",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0
+      }
+    }
+  },
+  {
+    "case": "stats/view/extra",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "extra": 1
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/missing",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/fraction-turn",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0.5,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/boolean",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": true,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/negative",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": -1,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/nan",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": {
+        "$scalar": "NaN"
+      }
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/infinity",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": {
+        "$scalar": "Infinity"
+      },
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/view/fraction-tokens",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "view",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0.5
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0.5
+      }
+    }
+  },
+  {
+    "case": "stats/state/valid",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0,
+        "lastTurn": null,
+        "openStep": null,
+        "pendingCalls": {}
+      }
+    }
+  },
+  {
+    "case": "stats/state/extra",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {},
+      "extra": 1
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/missing",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/fraction-turn",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0.5,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/boolean",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": true,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/negative",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": -1,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/nan",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": {
+        "$scalar": "NaN"
+      },
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/infinity",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": {
+        "$scalar": "Infinity"
+      },
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/fraction-tokens",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0.5,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0.5,
+        "lastTurn": null,
+        "openStep": null,
+        "pendingCalls": {}
+      }
+    }
+  },
+  {
+    "case": "stats/state/open",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": {
+        "turn": 2,
+        "step": 3,
+        "startTime": 4,
+        "firstTokenTime": 5,
+        "extra": 6
+      },
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0,
+        "lastTurn": null,
+        "openStep": {
+          "turn": 2,
+          "step": 3,
+          "startTime": 4,
+          "firstTokenTime": 5
+        },
+        "pendingCalls": {}
+      }
+    }
+  },
+  {
+    "case": "stats/state/missing-open",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": {
+        "turn": 0,
+        "step": 0,
+        "startTime": 1
+      },
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/pending",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {
+        "constructor": 3,
+        "": 0
+      }
+    },
+    "expected": {
+      "accepted": true,
+      "value": {
+        "turns": 0,
+        "steps": 0,
+        "llmMs": 0,
+        "toolMs": 0,
+        "ttftMs": 0,
+        "ttftSteps": 0,
+        "decodeMs": 0,
+        "decodeTokens": 0,
+        "lastTurn": null,
+        "openStep": null,
+        "pendingCalls": {
+          "constructor": 3,
+          "": 0
+        }
+      }
+    }
+  },
+  {
+    "case": "stats/state/negative-pending",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": null,
+      "openStep": null,
+      "pendingCalls": {
+        "a": -1
+      }
+    },
+    "expected": {
+      "accepted": false
+    }
+  },
+  {
+    "case": "stats/state/fraction-last",
+    "kind": "session-stats-current",
+    "operation": "schema",
+    "schema": "state",
+    "value": {
+      "turns": 0,
+      "steps": 0,
+      "llmMs": 0,
+      "toolMs": 0,
+      "ttftMs": 0,
+      "ttftSteps": 0,
+      "decodeMs": 0,
+      "decodeTokens": 0,
+      "lastTurn": 0.5,
+      "openStep": null,
+      "pendingCalls": {}
+    },
+    "expected": {
+      "accepted": false
+    }
+  }
+]

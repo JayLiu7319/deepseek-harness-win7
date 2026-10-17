@@ -122,3 +122,5 @@ R07-B: [home proxy admission and inserted filesystem paths](boot-layers-current-
 R07-C1: [outbound proxy policy](http-proxy-policy-current-checks.json):129 actual pairs,169 selected native and65 unchanged Source tests pass, including actual Source undici matcher parity. Candidate pure routing is covered; installation, real native transport and child integration remain open.
 
 R07-C2: [process proxy transport and child egress](http-proxy-install-current-checks.json):64 actual pairs and231 selected native tests pass. Source install24pass; subprocess egress7pass/1Windows case-fold expectation failure retained. Actual HTTP/TLS forwarding, nested TLS verification/cancellation, LLM, child and boot restoration are covered. Current composition and release qualification remain open.
+
+R03-L: [embedded-stream Session stats](session-stats-current-checks.json):67 actual pairs,224 selected native and44 unchanged Source tests pass. Actual Agent/JSONL cold replay, checkpoint-tail timing and unload/remount are covered. Validated JSON numeric positions now work with Python range/slice. Current composition and release qualification remain open.

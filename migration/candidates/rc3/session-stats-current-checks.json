@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-L-embedded-stream-session-stats",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 67,
+    "report": {
+      "path": ".goose/out/rc3-r03-stats-qualified-paired-20261017/report.json",
+      "sha256": "a2fcbc80ff8abf83b2e50925a06fa65817e5b265c828cc53a40c6c2c2e30072a"
+    },
+    "corpus": {
+      "path": "scripts/oracles/session_stats_current_cases.json",
+      "sha256": "5d71fde74ec36df551c8eaaddd23ce72a1148cd1e6210ecc1c4e2a8734ee2012"
+    }
+  },
+  "native": {
+    "passed": 224,
+    "command": {
+      "path": ".goose/out/rc3-r03-stats-registry-final-native-20261017/command.json",
+      "sha256": "bf7a636ac9b44156be4edec7ccd16792af471a74ff613c566f5d01cb1734a768"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-stats-registry-final-native-20261017/pytest.xml",
+      "sha256": "87788b9ccd6bccda5c0087b8f900d62379144342eac7ab755d7a5e8de21d881e"
+    }
+  },
+  "source": {
+    "passed": 44,
+    "command": {
+      "path": ".goose/out/rc3-r03-stats-registry-source-20261017/command.json",
+      "sha256": "08e9d7d9f4117f11e35bc2b9062f65dd200d341b4c1e1612686111944ca433ab"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-stats-registry-source-20261017/source.xml",
+      "sha256": "1286274b4b4d659a03af7fcf4954061827e0f6952bade8845d2d258e9dd49ca5"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/session/stats_current.py",
+      "sha256": "235fed12d202ce10d4e09fe52b3fc1d3d47cb60b21fb685aa303e63616977c41"
+    },
+    {
+      "path": "dsh/session/projections.py",
+      "sha256": "35ee4c87aa4897b6b9d3a9a475c9c1e8942e06067e3fdcbbe7cfbddb27587290"
+    },
+    {
+      "path": "tests/test_session_stats_current.py",
+      "sha256": "d82a6cb87b45e4d6329c6d926af5801f69dc4e857d7398eaa90fd51ad8349c62"
+    },
+    {
+      "path": "tests/test_session_projection_registry.py",
+      "sha256": "3e4c00b2b7fe49b07b48a5a58694006dc6f4dff2429c8b0a602db99ee2dd2928"
+    }
+  ],
+  "coverage": [
+    "Attempt-first-token survives retries; embedded final stream fallback; cancellation and duplicate step boundaries; exact usage outputTokens including fractional values; prototype/empty tool IDs; strict state/wire and nested stripping.",
+    "Actual current Agent creates embedded stream and final stats; real JSONL read, cold replay, open-step checkpoint/tail replay, checkpoint restore and plugin unmount/remount.",
+    "Fix validated integral JSON float positions before Python range/slice in projection restore/drive; regression for hydrate and late float-seq notifications."
+  ],
+  "limitations": [
+    "Candidate provider; current production composition and pin remain rc1/v0. Not full regression or release qualification."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-stats-native-20261017: test read header from wrong DTO.",
+    ".goose/out/rc3-r03-stats-qualified-native-20261017: actual projection numeric position failure retained."
+  ],
+  "retention": "Successful short pytest workspaces auto-pruned; unresolved observations retained. No Portable build."
+}

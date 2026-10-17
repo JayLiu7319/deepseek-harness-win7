@@ -347,3 +347,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R07-C2 — 代理安装、真实传输与子进程
 
 从启动快照在首个插件前安装策略，嵌套/临时直连/失败启动/正常shutdown恢复原策略、opener与环境。urllib普通调用、独立acquisition opener、LLM/MCP流、OTel requests消费者复用matcher；HTTP绝对URI转发、HTTPS CONNECT及HTTPS代理内TLS保留逐跳证书验证与凭据分隔。子进程恢复用户原配置，对未声明协议补解析结果并保持loopback绕过；不支持的SOCKS留给其他工具并不添加会导致Node启动失败的flag。Windows IPv6拒绝可能迟到，流式连接250ms后并行尝试下一地址、关闭败选socket。64组实际配对、231项原生通过，包含12种真实路由、证书拒绝、隧道TLS取消、LLM文本、实际子进程及启动/失败恢复。原版安装24通过，子进程套件7通过/1Windows大小写独立性断言失败，未改原版或声称全套通过。初轮120s中断及地址/短期限夹具/文本delta断言失败分别保留。回执 migration/candidates/rc3/http-proxy-install-current-checks.json。成功短夹具自动清理，约179.08GiB可用；生产当前组合、原版浏览器/Desktop和统一资格仍待完成。
+
+### R03-L — 嵌入流 Session 统计
+
+候选统计消费者改用assistant/attempt和最终assistant/message的嵌入流，保留重试首token，取消步骤按step/end计数；精确处理outputTokens、小数、空/prototype工具ID及持久化状态/视图边界。67组实际配对、224项原生和44项未改原版测试通过。真实Agent写入JSONL后冷重放、步骤中间checkpoint续算及卸载重挂已验证，并修复磁盘合法整数以float解码时投影range/slice失败；先验证整数域再转换索引。初轮测试DTO错误和实际数值故障记录保留，成功短夹具自动清理。回执`migration/candidates/rc3/session-stats-current-checks.json`；尚未切换生产pin或完成统一发布验收。
