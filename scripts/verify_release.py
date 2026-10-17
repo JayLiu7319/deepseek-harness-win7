@@ -858,7 +858,7 @@ REQUIRED_REGRESSION = {
         *{'test_jsonl_sharing_consumer_lanes_are_mandatory[' + damage + ']' for damage in ('omit', 'skip', 'duplicate', 'failure')},
         *{'test_extracted_read_requires_source_assets_and_complete_observations[' + damage + ']' for damage in (
             'missing', 'source-missing', 'source-changed', 'module-missing', 'module-changed', 'assets-missing',
-            'asset-changed', 'root', 'python', 'executable', 'tail', 'duplicate', 'outcome', 'late-return', 'signal', 'queue', 'legacy')},
+            'asset-changed', 'root', 'python', 'executable', 'tail', 'duplicate', 'outcome', 'after-read-result', 'signal', 'queue', 'legacy')},
         *{'test_read_consumer_lanes_are_mandatory[' + damage + ']' for damage in ('omit', 'skip', 'duplicate', 'failure')},
         *{'test_extracted_initial_requires_source_assets_and_complete_observations[' + damage + ']' for damage in (
             'missing', 'source-missing', 'source-changed', 'module-missing', 'module-changed', 'assets-missing',

@@ -107,6 +107,17 @@ def prune_completed_gate_test(request):
         prune_finished_test_folder(ROOT / '.goose/out', workspace, folder)
 
 
+def test_clean_and_explicit_dirty_receipts_have_distinct_acceptance(tmp_path):
+    # Validate the shared fixture before exercising its damage controls.
+    archive, candidate, report = extracted_receipt(tmp_path)
+    path = tmp_path / 'receipt.json'
+    path.write_text(json.dumps(report), encoding='utf-8')
+    assert GATE.validate_extracted(path, archive, candidate) == report
+    candidate['worktree_dirty'] = report['provenance']['worktree_dirty'] = True
+    path.write_text(json.dumps(report), encoding='utf-8')
+    assert GATE.validate_extracted(path, archive, candidate) == report
+
+
 @pytest.mark.parametrize('damage', ['none', 'omit', 'skip', 'duplicate', 'failure'])
 def test_actual_pytest_unicode_lane_identity_remains_mandatory(tmp_path, monkeypatch, damage):
     child = tmp_path / 'unicode-child'
@@ -853,7 +864,7 @@ def read_runtime_fixture():
 
 @pytest.mark.parametrize('damage', ['missing', 'source-missing', 'source-changed', 'module-missing',
     'module-changed', 'assets-missing', 'asset-changed', 'root', 'python', 'executable', 'tail', 'duplicate',
-    'outcome', 'late-return', 'signal', 'queue', 'legacy'])
+    'outcome', 'after-read-result', 'signal', 'queue', 'legacy'])
 def test_extracted_read_requires_source_assets_and_complete_observations(tmp_path, damage):
     archive, candidate, report = extracted_receipt(tmp_path)
     runtime = report['persistenceRead']
@@ -864,9 +875,9 @@ def test_extracted_read_requires_source_assets_and_complete_observations(tmp_pat
     elif damage == 'source-changed':
         candidate['persistence_read_observations_sha256'] = '0' * 64
     elif damage == 'module-missing':
-        del runtime['modules']['dsh/session/coordinator.py']
+        del runtime['modules']['dsh/session/jsonl_handle.py']
     elif damage == 'module-changed':
-        runtime['modules']['dsh/session/coordinator.py'] = '0' * 64
+        runtime['modules']['dsh/session/jsonl_handle.py'] = '0' * 64
     elif damage == 'assets-missing':
         del runtime['assets']['dsh/session/bin/zstd/dsh_zstd.dll']
     elif damage == 'asset-changed':
@@ -883,8 +894,10 @@ def test_extracted_read_requires_source_assets_and_complete_observations(tmp_pat
         runtime['rows'][-1] = copy.deepcopy(runtime['rows'][0])
     elif damage == 'outcome':
         runtime['rows'][0]['accepted'] = False
-    elif damage == 'late-return':
-        del next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')['error']
+    elif damage == 'after-read-result':
+        row = next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')
+        assert row['accepted'] is True and row['aborted'] is True
+        del row['value']
     elif damage == 'signal':
         next(row for row in runtime['rows'] if row['name'] == 'jsonl-none/abort/after-read')['calls'][0]['signalForwarded'] = False
     elif damage == 'queue':
@@ -2277,7 +2290,7 @@ def extracted_receipt(tmp_path):
     report['pythonDirectory'] = dict(root=str(tmp_path), module=str(tmp_path / 'dsh/boot/python_directory_mutation.py'),
         python='3.8.10', platform='win32', observations=copy.deepcopy(expected_python_directory))
     manifest = json.loads((ROOT / 'dsh/session/bin/sqlite3.json').read_text(encoding='utf-8'))
-    report['queryEngine'] = dict(root=str(tmp_path), moduleFile=str(tmp_path / 'dsh/session/query_engine.py'),
+    report['queryEngine'] = dict(root=str(tmp_path), moduleFile=str(tmp_path / 'dsh/session/query_current.py'),
         python='3.8.10', sqliteVersion=manifest['version'], sqliteSourceId=manifest['source_id'],
         sqliteDllSha256=manifest['dll_sha256'], manifest=manifest, observations=expected_query_engine())
     unicode = copy.deepcopy(unicode_runtime_fixture())
@@ -2934,16 +2947,6 @@ def test_extracted_runtime_and_browser_receipt_is_bound_to_the_candidate(tmp_pat
     path.write_text(json.dumps(report), encoding='utf-8')
     with pytest.raises(RuntimeError):
         GATE.validate_extracted(path, archive, candidate)
-
-
-def test_clean_and_explicit_dirty_receipts_have_distinct_acceptance(tmp_path):
-    archive, candidate, report = extracted_receipt(tmp_path)
-    path = tmp_path / 'receipt.json'
-    path.write_text(json.dumps(report), encoding='utf-8')
-    assert GATE.validate_extracted(path, archive, candidate) == report
-    candidate['worktree_dirty'] = report['provenance']['worktree_dirty'] = True
-    path.write_text(json.dumps(report), encoding='utf-8')
-    assert GATE.validate_extracted(path, archive, candidate) == report
 
 
 def test_failure_replaces_previous_success_with_nonpublishable_diagnostics(tmp_path, monkeypatch):

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-AC-current-release-receipt-controls",
+  "status": "targeted-checks-passed",
+  "tested_worktree_parent": "e037ebcba12614a78a932bc06a758b497af2ca2e",
+  "verification_inputs": {
+    "tests/test_current_release_gate.py": "53e8dd031c9daa9a7ee81f79d33fffdf4b20e478b5b96b0823703661f19bc878",
+    "tests/test_persistence_read_consumers.py": "e11747af4a09a41e9c422bc7df922d7175d7b6c075fc4c91bc8953570067f7d3",
+    "tests/test_release_collection.py": "4cfbf0604c771f1b6a295235c619a745fb06e59f88b15f2275dfcf4fbae1eca8",
+    "scripts/persistence_read_oracle.py": "e03b469e55a8be83db280b9e603a597bdd46e47fb6687f245aac262fd631ccea",
+    "scripts/verify_release.py": "7f3dc542226dcd045b411ff4eb56694e930f90e258c71f14efdfc5f8b46bb2bb"
+  },
+  "verification": {
+    "passed": 1579,
+    "failed": 0,
+    "seconds": 1677.68,
+    "exit_code": 0,
+    "scope": "Complete extracted release receipt positive and damage controls, actual current persistence Source/native reads and real full-collection identity checks."
+  },
+  "collection": {
+    "collected": 19347,
+    "required_lanes": 3933,
+    "result": "collection-valid"
+  },
+  "archives": [
+    {
+      "path": "migration/evidence/artifacts/RC3-GATE-CONTROLS-20261017.zip",
+      "bytes": 535414,
+      "sha256": "853b34ddd2d27ec8b4d6c05a46af925a50cb3dd8addfbd9c522f511994023325",
+      "members": 18
+    },
+    {
+      "path": "migration/evidence/artifacts/RC3-GATE-DIAGNOSTICS-20261017-916E.zip",
+      "bytes": 5336358,
+      "sha256": "dabe629c84169d2931da110de50dfd61d71f6292944a102a2158e4d05fc10a6f",
+      "members": 185
+    }
+  ],
+  "retained_failures": [
+    {
+      "candidate": "916e1279fd84e1c5270a170de48ca077bbf7e2c3",
+      "kind": "single complete release gate attempt stopped at first Python failure",
+      "passed": 4490,
+      "failed": 1,
+      "skipped": 1,
+      "seconds": 1355.75,
+      "exit_code": 1,
+      "qualified": false
+    },
+    {
+      "kind": "initial targeted complete receipt and persistence controls",
+      "passed": 1411,
+      "failed": 163,
+      "seconds": 1867.49,
+      "exit_code": 1,
+      "causes": {
+        "stale_query_engine_fixture_identity": 162,
+        "stale_after_read_error_assumption": 1
+      }
+    }
+  ],
+  "changes": [
+    "Damage controls target actual current jsonl_handle.py instead of retired coordinator.py.",
+    "Abort after a completed backend read keeps the actual Source/native shared-frozen value; the control removes that value and requires rejection. Its parameter identity changes to after-read-result in both pytest and the mandatory gate manifest.",
+    "The positive shared query-engine receipt identifies query_current.py; the existing positive receipt test now runs before negative controls."
+  ],
+  "limitations": [
+    "Targeted qualification only. A fresh frozen clean candidate must independently complete the entire release gate. Earlier failed gates remain failed.",
+    "The exact retained916e x64 ZIP is e3b486bdac69429574bd064b9a17790a04095add8bc9e46ef63928fdce3d806e; no passing release status is assigned.",
+    "Separate packaged916e desktop observations remain bound to that candidate; administrator installation and deferred physical Win7 execution remain untested."
+  ]
+}
