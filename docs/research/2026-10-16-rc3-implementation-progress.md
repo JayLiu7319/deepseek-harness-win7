@@ -494,3 +494,6 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ### R11-K — 原版 Source 配置预检
 
 21 组配置首轮 20 组通过，持久化组两个用例的原版相对夹具路径因 cwd 错误失败。为该组 fork 增加 Source cwd setup，并将已移除的 preparations/write-behind 选择更新为当前 storage-contract、admission、generation、lease 与迁移测试，原版测试文件不变。扩展后 13 文件、436 通过、10 跳过；其中 9 项是原版跳过，新增 1 项仅在实际文件 symlink 探测遇到 EPERM 时跳过精确命名的 collision 测试，其他探测错误仍失败。前后完整日志见 `migration/candidates/rc3/source-configs-current-checks.json`。这仍是定向预检，不拼接成统一发行通过。
+### R11-L — 当前原生 workflow bundle 与发行 ZIP 选择
+
+使用固定 Node22/esbuild 和干净 rc3 Source 重建原生 workflow bundle，生成资源、完整输入 provenance 及运行时清单哈希协调切换。实际 Source/native session child RPC、持有进程、Host、取消、解析和资源篡改等 123 项通过。发行门禁不再硬编码 v0.1.2 ZIP，改从 canonical Portable builder 的 VERSION 派生，直接路径身份检查通过。归档见 `migration/candidates/rc3/native-workflow-current-checks.json`；此阶段没有把旧 Portable 重标为新候选。

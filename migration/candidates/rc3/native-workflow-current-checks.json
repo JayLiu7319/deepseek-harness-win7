@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-L-native-workflow",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-NATIVE-WORKFLOW-20261017.zip",
+    "bytes": 20892,
+    "sha256": "68c962dcbac99cc0e36108c70571f60e4c2ff8426a8262f6dcd92ebfbb812ede",
+    "members": [
+      {
+        "path": "rc3-native-workflow-20261017-a/build-provenance.json",
+        "bytes": 20439,
+        "sha256": "082b65d965e04142a4dcf9ba8db48d84fbe850b015f29908a663816137cf0ea3"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/CORDIS-LICENSE",
+        "bytes": 1071,
+        "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/COSMOKIT-LICENSE",
+        "bytes": 1071,
+        "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/driver.js",
+        "bytes": 970,
+        "sha256": "c654b2304f2bbd1143b038394b3bf17f099484435ea99bf24d32bad595889e97"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/error-stack.js",
+        "bytes": 716,
+        "sha256": "7be209e48673472e6d14b9cff3d7fee4ac90a624378e9a6e49364f101f2d858b"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/SOURCE-LICENSE",
+        "bytes": 1065,
+        "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/source.js",
+        "bytes": 42657,
+        "sha256": "0c6bd1e8d63fcf87f5524437d3847f0a759321002b9b3b70c06900d09a10ce21"
+      },
+      {
+        "path": "rc3-native-workflow-20261017-a/workflow.json",
+        "bytes": 715,
+        "sha256": "4398368f929de9a87789b1491ec24f4614d7326f62f8c02685bf7574922e3740"
+      },
+      {
+        "path": "rc3-release-version-20261017/results.xml",
+        "bytes": 370,
+        "sha256": "8cb3e5274ddbc7b2131a4da3f89aed5dc1ebc92560ab096c96e4e6301811b29a"
+      },
+      {
+        "path": "rc3-workflow-consumers-20261017-a/results.xml",
+        "bytes": 19463,
+        "sha256": "52b0abf666edd22b17524de0833e14a0e676b425d0ddb60d3191bc7dda27750e"
+      }
+    ]
+  },
+  "inputs": {
+    "scripts/build_workflow.mjs": "eab9e1029a6ec4cde5d8d95bbcbdf3d0b7609a8e6f2f919f878998f95b8fa77c",
+    "dsh/javascript/runtime.py": "acc01617d3757e008d9b0f0b0b3615a51d7ac9c30fa194fc2ddd3960364d1362",
+    "scripts/verify_release.py": "592a5725dd3f9e4cc5dfaebabd71128c884af614596cae7f3e4b8426cc9ecef6",
+    "tests/test_release_archive_version.py": "a323019d880f727f91166d37454e57fcd0ac98e381c1652db22cd1c43ad74e67",
+    "dsh/javascript/workflow/build-provenance.json": "082b65d965e04142a4dcf9ba8db48d84fbe850b015f29908a663816137cf0ea3",
+    "dsh/javascript/workflow/CORDIS-LICENSE": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7",
+    "dsh/javascript/workflow/COSMOKIT-LICENSE": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7",
+    "dsh/javascript/workflow/driver.js": "c654b2304f2bbd1143b038394b3bf17f099484435ea99bf24d32bad595889e97",
+    "dsh/javascript/workflow/error-stack.js": "7be209e48673472e6d14b9cff3d7fee4ac90a624378e9a6e49364f101f2d858b",
+    "dsh/javascript/workflow/SOURCE-LICENSE": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+    "dsh/javascript/workflow/source.js": "0c6bd1e8d63fcf87f5524437d3847f0a759321002b9b3b70c06900d09a10ce21",
+    "dsh/javascript/workflow/workflow.json": "4398368f929de9a87789b1491ec24f4614d7326f62f8c02685bf7574922e3740"
+  },
+  "pythonConsumers": 124,
+  "scope": [
+    "Rebuilt native workflow Source algorithms from clean rc3 with exact pinned Node/esbuild and reviewed aliases; all generated resources/provenance and runtime manifest guard advanced together.",
+    "123 actual Source/native session child RPC, retained process, host, cancellation, parser and resource corruption checks passed.",
+    "Release archive path now derives from canonical Portable builder version, with direct path identity regression."
+  ],
+  "limitations": [
+    "No complete release or newly built Portable acceptance inferred."
+  ]
+}

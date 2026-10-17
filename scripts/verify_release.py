@@ -104,7 +104,8 @@ from scripts.llm_metadata_oracle import validate_runtime as validate_llm_metadat
 from scripts.process_artifact_retention import prune_previous_regressions, prune_finished_focus_runs, expire_finished_manifests, prune_completed_regression
 from scripts.process_artifact_retention import prune_preflight_copies, prune_previous_preflight_copies
 NODE_VERSION = 'v22.22.2'
-PORTABLE_ARCHIVE = 'dist/dsh-win7-portable-v0.1.2.zip'
+from scripts.build_portable import VERSION as PORTABLE_VERSION
+PORTABLE_ARCHIVE = 'dist/dsh-win7-portable-v' + PORTABLE_VERSION + '.zip'
 PAIRED_DRIVERS = (
     'agent_factory', 'agent_config', 'session_recovery', 'session_live',
     'session_prepared', 'session_storage', 'session_projection', 'deepseek',
