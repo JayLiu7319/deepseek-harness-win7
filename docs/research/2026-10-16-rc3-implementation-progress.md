@@ -551,3 +551,9 @@ b0fff893 的统一门禁在 Python 首个过期 Web 镜像清单处停止，145�
 Web boot 测试改用实际 canonical profile，按活动 Loader 行与原版声明检查客户端图，包含目录选择器运行时挂载的行。反馈协议用拥有的 v3 JSONL handle 录入和读取，原版七次协议交换保持精确；已存在项目时空 sessionId 的实际 Source 路径错误也保留。持久化查找顺序补齐为先遍历项目、再编码 id，缺失/空根目录仍返回未找到。
 
 夹具支持校验最高版本、连续父子角色、文件名与 header 一致、明确历史 generation 与 coverage，并采用当前 system/message 和工具 schema bulk 清理。实际未改 Source manifest41项通过，版本文件9组 Source/Python匹配；定向 Host/持久化80项、镜像/夹具/前端来源70项通过。此前三轮失败及一次收集拒绝原样保留，见 [有限回执](../../migration/candidates/rc3/web-source-current-checks.json)。这些结果不替代下一干净候选的统一门禁。
+
+### R11-R / R10-I — b0 候选有限解压与 x86 打包验证
+
+固定 b0fff893 的同一 x64 Portable，3条引擎和7条路由组合在实际解压环境与 Source 完整匹配。x86 Portable 的13步实际32位运行旅程通过；短输出路径构建的 Standard/AIO 安装包分别115,438,126与423,796,730字节，精确SHA及构建输入已登记。实际打包 Electron22/Chrome108 客户端完成原版无Node renderer、内置Python设置RPC、流订阅取消、真实第二实例退出和主实例正常关闭，未观察到页面异常。
+
+首次 x86 NSIS 构建在260字符路径处失败，原失败原样保留，短输出路径复验成功。b0 统一门禁仍为145通过/1失败，不能将这些独立有限结果拼成完整发行通过。当前宿主为Windows10.0.26200，未执行管理员安装、系统前置组件安装/重启或Win7真机验证。见 [固定候选有限回执](../../migration/candidates/rc3/b0ff-finite-current-checks.json)。9ab3e1dd 的新资格独立运行；前检缺少5个Source构建中间输入的运行在测试体之前中止，补齐来源核验后使用新目录重新冻结。

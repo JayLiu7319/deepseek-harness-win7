@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "product_commit": "b0fff89396ca8ddc87019f723a539cfc2057c664",
+  "status": "finite-only-full-gate-failed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-B0FFF893-FINITE-20261017.zip",
+    "bytes": 11277352,
+    "sha256": "77d4dc393a9eead544ccb3bc834525672e9b92db4c02702f559d9bd859cd29dc",
+    "members": 109
+  },
+  "contracts": {
+    "engine_composition": {
+      "status": "matched",
+      "productCommit": "b0fff89396ca8ddc87019f723a539cfc2057c664",
+      "sourceCommit": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "scope": "Three complete actual canonical workflow/model, workflow/cancel and two-round Ralph compositions; local adapters only. No full Node API, SDK/plugin delivery, arbitrary race schedules or whole-parent certification."
+    },
+    "route_execution": {
+      "status": "matched",
+      "productCommit": "b0fff89396ca8ddc87019f723a539cfc2057c664",
+      "sourceCommit": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+      "scope": "Seven complete canonical selected child routes with local adapters; no paid calls. No background/completed-prefix fork, arbitrary graph ABI or whole-parent certification."
+    }
+  },
+  "desktop": {
+    "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe": {
+      "path": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32b0\\dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423796730,
+      "sha256": "06f333c2da57c302c91a553017ee813767bf97f96bb733da8302ea6f479dacd9"
+    },
+    "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe": {
+      "path": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-engine-qualification\\deepseek-harness-win7\\.goose\\out\\d32b0\\dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115438126,
+      "sha256": "e6016aa07e0842bca7b8a8b6b361959ff5cd23fe401c489eae1fcf74217cc229"
+    },
+    "build_seconds": 670.0229067802429,
+    "gui": [
+      "original-packaged-renderer-without-node",
+      "packaged-python-settings-rpc",
+      "packaged-stream-baseline-and-cancellation",
+      "actual-single-instance-ownership",
+      "packaged-graceful-shutdown"
+    ]
+  },
+  "limitations": [
+    "The unified b0 gate failed after145 passing cases at the obsolete Web source mirror inventory. It is not release acceptance; the repaired9ab3 candidate is qualified separately.",
+    "Actual x86 packaged GUI ran on Windows10.0.26200, Electron22/Chrome108 with bundled32-bit Python3.8.10. No elevated installer execution, Windows servicing/reboot or physical Win7 acceptance is claimed.",
+    "The first long output path desktop attempt failed NSIS MAX_PATH; its diagnostics remain failed. The short path attempt built both editions."
+  ]
+}
