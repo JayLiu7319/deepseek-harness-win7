@@ -9,7 +9,8 @@ import time
 import zipfile
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit, urlunsplit
-from urllib.request import HTTPRedirectHandler, Request, build_opener
+from urllib.request import HTTPRedirectHandler, Request
+from dsh.host.http_proxy import build_opener
 
 from dsh.boot.python_plugins import MAX_BYTES
 

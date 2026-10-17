@@ -50,6 +50,8 @@ def main():
             raise ValueError('Empty or duplicate corpus cases')
         inputs = [corpus, ROOT/'scripts/session_format_oracle.py',
             ROOT/'scripts/oracles/session_format_python.py', ROOT/'scripts/oracles/session_format_source.mts']
+        if any(case.get('kind') == 'http-proxy-install-current' for case in cases):
+            inputs.extend([ROOT/'scripts/oracles/http_proxy_install_current_python.py', ROOT/'scripts/oracles/http_proxy_install_current_source.mts'])
         if any(case.get('kind') == 'http-proxy-current' for case in cases):
             inputs.extend([ROOT/'scripts/oracles/http_proxy_current_python.py', ROOT/'scripts/oracles/http_proxy_current_source.mts'])
         if any(case.get('kind') == 'boot-layers-current' for case in cases):

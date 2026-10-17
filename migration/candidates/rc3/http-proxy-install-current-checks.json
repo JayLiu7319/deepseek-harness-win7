@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-C2-process-proxy-transport-and-child-egress",
+  "status": "targeted-native-passed-source-environment-failure-retained",
+  "paired": {
+    "matched": 64,
+    "report": {
+      "path": ".goose/out/rc3-r07-http-proxy-install-final-paired-20261017/report.json",
+      "sha256": "63e9a7a63b8ce8a63d82c520b7dfaf8139498d08102e52bee14783cdd10d61d7"
+    },
+    "corpus": {
+      "path": "scripts/oracles/http_proxy_install_current_cases.json",
+      "sha256": "fc6ad1b9f6abbcfbdec6a69e125bff1249426f4999c9580738462e3262156969"
+    }
+  },
+  "native": {
+    "passed": 231,
+    "command": {
+      "path": ".goose/out/rc3-r07-http-proxy-install-expanded-native-20261017/command.json",
+      "sha256": "f779098a6d2f832bd1c72aaa1adc5e12bf386d5ae00adcde972aa7c3dc618183"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-http-proxy-install-expanded-native-20261017/pytest.xml",
+      "sha256": "0aa87af53a3e4ae0394d989b027c7a9652bfbfb4cb1bb1fa384dbbd933e3f7c6"
+    }
+  },
+  "source": {
+    "install": {
+      "passed": 24,
+      "command": {
+        "path": ".goose/out/rc3-r07-http-proxy-install-source-20261017/command.json",
+        "sha256": "fc38268575e28b4e37da701b3315b4b58940235f1312dad3aab1e7cb66830dd0"
+      },
+      "xml": {
+        "path": ".goose/out/rc3-r07-http-proxy-install-source-20261017/source.xml",
+        "sha256": "859d2602d38266c6528db7f97525167b84de85c1b444e072a66cd13edfdbd530"
+      }
+    },
+    "subprocess_egress": {
+      "passed": 7,
+      "failed": 1,
+      "command": {
+        "path": ".goose/out/rc3-r07-http-proxy-egress-source-20261017/command.json",
+        "sha256": "666676e6cfefb70a235420d4373bec1d4452735de0a997f18b4ee5d98c4d192e"
+      },
+      "xml": {
+        "path": ".goose/out/rc3-r07-http-proxy-egress-source-20261017/source.xml",
+        "sha256": "ae31bd310e1f40be7ae370f5aef9d6c7af615084ce46f1008d25a3ce19034dd3"
+      },
+      "failure": "egress.spec.ts:134 requires child.HTTPS_PROXY undefined after setting https_proxy, incompatible with native Windows case-insensitive environment. Both actual Node child routing tests pass. Original unchanged failure retained; no whole-suite success claimed."
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/http_proxy.py",
+      "sha256": "307e4e0432d838ad9f6cf300dc1c06dcc9c804f69d4ff4a0a989dec431fceccd"
+    },
+    {
+      "path": "dsh/host/http_proxy_transport.py",
+      "sha256": "a923f011cdac36819f47a8996bbdbe7e002d8c8f557a322f350d676648f4664c"
+    },
+    {
+      "path": "dsh/llm/http_stream.py",
+      "sha256": "4ad4ae90e9a962fe22c58706bc2a1ed8ff1d3539e27be7a89804083e5c0da15d"
+    },
+    {
+      "path": "dsh/subprocess/service.py",
+      "sha256": "760ab94dfc84a3780e949ba37a69f91b2f5fbfe49e4608b57986654f0eb735cd"
+    },
+    {
+      "path": "dsh/boot/profile_boot.py",
+      "sha256": "6dd3d604e15ca8d2d8b9ad00d50e3306bb74a4ebded8417bdb8e514cd7f1dab0"
+    },
+    {
+      "path": "dsh/boot/python_plugin_acquisition.py",
+      "sha256": "36b7e6b23c09375a44488d85f486411821a03ec8716bba26edd0c4cea09f87d7"
+    },
+    {
+      "path": "dsh/session/telemetry.py",
+      "sha256": "6a78ff473bcf9bd74baa7cb3e1c3ccf06d2cb774d99ecacaafb794a2382894c1"
+    }
+  ],
+  "scope": [
+    "Install from launcher snapshot before first plugin; nested installs/direct window restore exact prior policy/opener/environment. Shutdown and failed boot restore. Stable route captures retain admitted sockets through policy disposal.",
+    "urllib plain consumers, explicitly built acquisition opener, owned streaming LLM/MCP transport and owned requests OTel Session use the same matcher. Python direct policy installs an explicit urllib opener to override ambient OS/library proxy lookup; this is the native transport adaptation to Node fetch direct defaults.",
+    "Actual 12 HTTP/HTTPS proxy/target/consumer combinations pass, with trusted nested TLS, origin/proxy credential separation, HTTPS-proxy certificate rejection even for HTTP target, loopback direct and admitted read after disposal. CONNECT and nested-origin TLS stalls retain original idle/cancellation owner.",
+    "Real LLM SSE produces proxied text and real Python child inherits ALL_PROXY resolution/NO_PROXY/Node flag without credentials. Explicit child overlays remain after scrub. 64 original/native install/child semantic observations compare Windows folded child names.",
+    "Streaming connect races resolved addresses at 250ms stagger and closes losing sockets. Native localhost IPv6 can stall before refusal; monitoring select exception alone did not fix it. Positive hostname proxy routes and original HTTP/TLS/DNS cancellation regressions pass.",
+    "Initial 120s native run incomplete and retained, with no final XML/count; initial x-stop 68passed/1failed and later 77passed/1failed diagnose address-family and over-short localhost stall fixture. Next 79passed/1failed was a text-delta assertion fixture error; final fresh expanded run passes all 231. Reconstructible successful short workspaces auto-pruned; no Portable rebuilt;179.08GiB free."
+  ],
+  "remaining": [
+    "Original Windows subprocess expectation remains disclosed. Current provider/preset/descriptor composition, baseline pins, untouched-browser/Desktop and unified release qualification remain open."
+  ]
+}

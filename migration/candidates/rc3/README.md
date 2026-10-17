@@ -120,3 +120,5 @@ R07-A: [explicit profile initialization](profile-init-current-checks.json):47 ac
 R07-B: [home proxy admission and inserted filesystem paths](boot-layers-current-checks.json):37 actual pairs,199 selected native and76 unchanged Source tests pass. Actual local plugin loading and credentials/LLM/boot consumers are covered. Outbound proxy transport and current composition remain open.
 
 R07-C1: [outbound proxy policy](http-proxy-policy-current-checks.json):129 actual pairs,169 selected native and65 unchanged Source tests pass, including actual Source undici matcher parity. Candidate pure routing is covered; installation, real native transport and child integration remain open.
+
+R07-C2: [process proxy transport and child egress](http-proxy-install-current-checks.json):64 actual pairs and231 selected native tests pass. Source install24pass; subprocess egress7pass/1Windows case-fold expectation failure retained. Actual HTTP/TLS forwarding, nested TLS verification/cancellation, LLM, child and boot restoration are covered. Current composition and release qualification remain open.

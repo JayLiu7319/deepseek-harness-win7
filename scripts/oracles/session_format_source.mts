@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='http-proxy-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='http-proxy-install-current'
+    ? await (await import('./http_proxy_install_current_source.mts')).httpProxyInstallCase(resolve(sourceArg),test)
+    : test.kind==='http-proxy-current'
     ? await (await import('./http_proxy_current_source.mts')).httpProxyCase(resolve(sourceArg),test)
     : test.kind==='boot-layers-current'
     ? await (await import('./boot_layers_current_source.mts')).bootLayersCase(resolve(sourceArg),test)

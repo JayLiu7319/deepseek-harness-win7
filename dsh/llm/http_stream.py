@@ -89,8 +89,8 @@ def open_stream(request, signal=None, idle_timeout_ms=300000, on_activity=None, 
     def wait_socket(sock, write=False):
         while True:
             check()
-            ready = select.select([] if write else [sock], [sock] if write else [], [], 0.02)
-            if ready[1 if write else 0]:
+            ready = select.select([] if write else [sock], [sock] if write else [], [sock], 0.02)
+            if ready[1 if write else 0] or ready[2]:
                 return
 
     def connect_socket(address, timeout=None, source_address=None):
@@ -122,30 +122,56 @@ def open_stream(request, signal=None, idle_timeout_ms=300000, on_activity=None, 
         if isinstance(addresses, Exception):
             raise addresses
         last_error = None
-        for family, kind, protocol, _, target in addresses:
-            check()
-            sock = socket.socket(family, kind, protocol)
-            try:
-                sock.setblocking(False)
-                if source_address:
-                    sock.bind(source_address)
-                result = sock.connect_ex(target)
-                if result not in (0, errno.EINPROGRESS, errno.EWOULDBLOCK, errno.EALREADY, 10035, 10036, 10037):
-                    raise OSError(result, "connection failed")
-                if result:
-                    wait_socket(sock, write=True)
+        pending = []
+        remaining = iter(addresses)
+        exhausted, next_attempt = False, 0.0
+        winner = None
+        try:
+            while not exhausted or pending:
+                check()
+                if not exhausted and (not pending or time.monotonic() >= next_attempt):
+                    try:
+                        family, kind, protocol, _, target = next(remaining)
+                    except StopIteration:
+                        exhausted = True
+                    else:
+                        sock = socket.socket(family, kind, protocol)
+                        try:
+                            sock.setblocking(False)
+                            if source_address:
+                                sock.bind(source_address)
+                            result = sock.connect_ex(target)
+                            if result == 0:
+                                winner = sock
+                                return winner
+                            if result not in (errno.EINPROGRESS, errno.EWOULDBLOCK, errno.EALREADY, 10035, 10036, 10037):
+                                raise OSError(result, "connection failed")
+                            pending.append(sock)
+                            # Do not let one unreachable address family consume
+                            # the whole request deadline before trying the next.
+                            next_attempt = time.monotonic() + .25
+                        except OSError as error:
+                            sock.close()
+                            last_error = error
+                            continue
+                if not pending:
+                    continue
+                _, writable, exceptional = select.select([], pending, pending, .02)
+                for sock in set(writable + exceptional):
                     failure = sock.getsockopt(socket.SOL_SOCKET, socket.SO_ERROR)
-                    if failure:
-                        raise OSError(failure, "connection failed")
-                return sock
-            except BaseException as error:
-                sock.close()
-                if not isinstance(error, OSError):
-                    raise
-                last_error = error
-        raise last_error or OSError("DNS returned no connection addresses")
+                    if not failure:
+                        winner = sock
+                        return winner
+                    last_error = OSError(failure, "connection failed")
+                    pending.remove(sock)
+                    sock.close()
+            raise last_error or OSError("DNS returned no connection addresses")
+        finally:
+            for sock in pending:
+                if sock is not winner:
+                    sock.close()
 
-    def factory(connection_type):
+    def factory(connection_type, proxy=None):
         class CheckedRaw(io.RawIOBase):
             def __init__(self, sock):
                 self._sock = sock
@@ -191,7 +217,20 @@ def open_stream(request, signal=None, idle_timeout_ms=300000, on_activity=None, 
                 super().__init__(*args, **kwargs)
                 self._create_connection = connect_socket
 
+            def putrequest(self, method, url, *args, **kwargs):
+                from dsh.host.http_proxy_transport import proxy_request_target, proxy_authorization
+                forwarded = proxy is not None and connection_type is http.client.HTTPConnection
+                super().putrequest(method, proxy_request_target(self, url) if forwarded else url, *args, **kwargs)
+                authorization = proxy_authorization(proxy) if forwarded else None
+                if authorization is not None:
+                    self.putheader('Proxy-Authorization', authorization)
+
             def connect(self):
+                if proxy is not None:
+                    from dsh.host.http_proxy_transport import connect_proxy
+                    connect_proxy(self, proxy, 'https' if connection_type is http.client.HTTPSConnection else 'http',
+                                  context=getattr(self, '_context', None), wait=wait_socket, check=check)
+                    return
                 http.client.HTTPConnection.connect(self)
                 if connection_type is http.client.HTTPSConnection:
                     hostname = self._tunnel_host or self.host
@@ -240,11 +279,15 @@ def open_stream(request, signal=None, idle_timeout_ms=300000, on_activity=None, 
 
     class Http(urllib.request.HTTPHandler):
         def http_open(self, req):
-            return self.do_open(factory(http.client.HTTPConnection), req)
+            from dsh.host.http_proxy import proxy_route_for
+            route = proxy_route_for(req.full_url)
+            return self.do_open(factory(http.client.HTTPConnection, route.get('proxy')), req)
 
     class Https(urllib.request.HTTPSHandler):
         def https_open(self, req):
-            return self.do_open(factory(http.client.HTTPSConnection), req,
+            from dsh.host.http_proxy import proxy_route_for
+            route = proxy_route_for(req.full_url)
+            return self.do_open(factory(http.client.HTTPSConnection, route.get('proxy')), req,
                                 context=self._context, check_hostname=self._check_hostname)
 
     def shutdown_socket():
@@ -306,7 +349,8 @@ def open_stream(request, signal=None, idle_timeout_ms=300000, on_activity=None, 
         state.update(reading=True, since=time.monotonic())
         try:
             redirect = _FetchRedirectHandler() if redirect_policy == 'follow' else _RejectRedirectHandler()
-            response = urllib.request.build_opener(Http(), Https(), redirect).open(request, timeout=idle_timeout_ms / 1000)
+            from dsh.host.http_proxy import proxy_handler
+            response = urllib.request.build_opener(proxy_handler(), Http(), Https(), redirect).open(request, timeout=idle_timeout_ms / 1000)
         except urllib.error.HTTPError as error:
             response = state["response"] = error
             if raise_http_errors:

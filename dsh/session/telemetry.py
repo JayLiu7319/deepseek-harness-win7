@@ -49,6 +49,8 @@ class OpenTelemetrySessionBackend(Service):
         # SDK naming/units differ between Node and Python; reject unhandled
         # options instead of silently pretending to pass them through.
         options = dict(endpoint=url.geturl())
+        from dsh.host.http_proxy import requests_session
+        options['session'] = requests_session()
         for key, value in exporter.items():
             if key == 'timeoutMillis':
                 options['timeout'] = value / 1000

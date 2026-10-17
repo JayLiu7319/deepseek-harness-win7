@@ -261,7 +261,16 @@ async def _run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
         environment = load_layered_env(NAME)
     args = options.get("args", [])
 
-    composed = await compose_profile(profile_name, patch_files, dsh_home=dsh_home)
+    from dsh.host.http_proxy import install_proxy_from_environment
+    dispose_proxy = await install_proxy_from_environment(environment, lambda message: sys.stderr.write(NAME + ': ' + message + '\n'))
+    holder = options.get('_python_profile_context')
+    if holder is not None:
+        holder['dispose_proxy'] = dispose_proxy
+    try:
+        composed = await compose_profile(profile_name, patch_files, dsh_home=dsh_home)
+    except BaseException:
+        await dispose_proxy()
+        raise
     app: Dict[str, Any] = {"current": None}
     app_ready = create_app_ready()
 
@@ -277,13 +286,16 @@ async def _run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
                 signal.signal(signal.SIGINT, old_sigint)
         except (ValueError, OSError, AttributeError):
             pass
-        curr = app.get("current")
-        if curr is not None and hasattr(curr, "fiber"):
-            await curr.serial('app/stopping')
-            await curr.fiber.dispose()
-            # A script bridge can already own the root teardown; join it here so
-            # the CLI exits only after the whole tree settled.
-            await curr.fiber.await_settled()
+        try:
+            curr = app.get("current")
+            if curr is not None and hasattr(curr, "fiber"):
+                await curr.serial('app/stopping')
+                await curr.fiber.dispose()
+                # A script bridge can already own the root teardown; join it here so
+                # the CLI exits only after the whole tree settled.
+                await curr.fiber.await_settled()
+        finally:
+            await dispose_proxy()
 
     shutdown = create_process_shutdown(_dispose_app)
     signal_shutdown = SignalShutdown()
@@ -417,10 +429,14 @@ async def run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
                 await ctx.fiber.await_settled()
         finally:
             try:
-                if dependencies is not None:
-                    dependencies.close()
+                if holder.get('dispose_proxy') is not None:
+                    await holder['dispose_proxy']()
             finally:
-                lease.close()
+                try:
+                    if dependencies is not None:
+                        dependencies.close()
+                finally:
+                    lease.close()
         raise
 
 

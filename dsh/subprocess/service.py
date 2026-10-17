@@ -34,6 +34,15 @@ def scrubbed_parent_env() -> Dict[str, str]:
             if key.upper().startswith(DSH_ENV_PREFIX):
                 continue
             env[key] = value
+    from dsh.host.http_proxy import proxy_environment_for_child
+    overlay = proxy_environment_for_child()
+    # Apply removals case-insensitively on Windows before adding explicit names.
+    for key, value in overlay.items():
+        for current in list(env):
+            if current == key or (os.name == 'nt' and current.upper() == key.upper()):
+                del env[current]
+        if value is not None:
+            env[key] = value
     return env
 
 
