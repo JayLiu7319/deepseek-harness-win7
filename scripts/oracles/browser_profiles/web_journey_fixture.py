@@ -37,10 +37,10 @@ class FixturePlugin(Plugin):
                 else:
                     user = next(message for message in reversed(options['messages']) if message['role'] == 'user'
                         and any(block['type'] == 'text' and block['text'].strip() in ('WEB_PLAN', 'WEB_TOOL', 'WEB_QUESTION',
-                            'WEB_APPROVAL', 'WEB_CANCEL', 'WEB_CORDIS', 'WEB_REOPEN') for block in message['content']))
+                            'WEB_APPROVAL', 'WEB_CANCEL', 'WEB_CORDIS', 'WEB_REOPEN', 'WEB_DELIVER_FRESH', 'WEB_DELIVER_COLD') for block in message['content']))
                     prompt = ''.join(block['text'] for block in user['content'] if block['type'] == 'text')
                     scenario = next(name for name in ('WEB_PLAN', 'WEB_TOOL', 'WEB_QUESTION', 'WEB_APPROVAL',
-                        'WEB_CANCEL', 'WEB_CORDIS', 'WEB_REOPEN') if name in prompt)
+                        'WEB_CANCEL', 'WEB_CORDIS', 'WEB_REOPEN', 'WEB_DELIVER_FRESH', 'WEB_DELIVER_COLD') if name in prompt)
                     call = self.calls.get(user['id'], 0) + 1
                     self.calls[user['id']] = call
                     if scenario == 'WEB_CANCEL':
@@ -77,6 +77,9 @@ class FixturePlugin(Plugin):
                                     dict(label='Reject', description='Return a rejection.')])])
                         elif scenario == 'WEB_CORDIS':
                             tool, arguments = 'cordis_inspect_self', {}
+                        elif scenario.startswith('WEB_DELIVER_'):
+                            tool, arguments = 'present', dict(files=[dict(path='rc3-delivery-' + scenario.rsplit('_', 1)[1].lower() + '.md',
+                                description='Controlled current source delivery')])
                         else:
                             tool = 'pwsh'
                             command = 'Write-Output WEB_TOOL_ROUND_TRIP'

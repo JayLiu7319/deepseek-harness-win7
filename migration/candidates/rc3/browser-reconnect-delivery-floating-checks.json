@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R08-E-reconnect-delivery-floating",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R08-RECONNECT-DELIVERY-FLOAT-20261017.zip",
+    "bytes": 57576545,
+    "sha256": "7e1cdbd08840603c44dba0c37bd023d9dc9373323837c339b10fb19d646dc163",
+    "members": [
+      {
+        "path": "rc3-r08-reconnect-108-native-20261017-a/cold.documents.png",
+        "bytes": 84782,
+        "sha256": "d6fc6d197a3cbe6323146b5c6a3008fc36b51d4603a3151fc6f83f26c9385b0b"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-native-20261017-a/cold.host.json",
+        "bytes": 6840506,
+        "sha256": "3ec9cd193c2f272193fc0ab38b494a6327928888e7207b5d8fe4d80b21627e2a"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-native-20261017-a/fresh.documents.png",
+        "bytes": 80487,
+        "sha256": "94534e1eabce7a2d4fd675e39b569503ffcb0c515208d13d6a3ded74beb6b062"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-native-20261017-a/fresh.host.json",
+        "bytes": 13448370,
+        "sha256": "d771f79725eff611d565f2b5df467b3a6d737c4ccb1d54d8bf5c55d5d0365512"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-native-20261017-a/report.json",
+        "bytes": 54136768,
+        "sha256": "7b04af1a3a12488ba17dafbc91e93cd7e8e2abf396286dd6a1f9433c485e9db2"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-source-20261017-a/cold.documents.png",
+        "bytes": 84953,
+        "sha256": "9b278751e881de09c3d09ea642389e34ded808bd54c33a6bd89385a391eff5e7"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-source-20261017-a/cold.host.json",
+        "bytes": 5112331,
+        "sha256": "d393360e7e7ed1ec494d2a720bbfc928a48623274424535cacbb62223fbe62ea"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-source-20261017-a/fresh.documents.png",
+        "bytes": 80650,
+        "sha256": "ff72c8bcccaada3288081bd16466b43372c487f7c12a0a5afc9620fa01a4e5b5"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-source-20261017-a/fresh.host.json",
+        "bytes": 11935606,
+        "sha256": "ae87eb856c21003b7c3ced7bab5479258a2060e0a57f2d1dc5636e7524701cc0"
+      },
+      {
+        "path": "rc3-r08-reconnect-108-source-20261017-a/report.json",
+        "bytes": 47702305,
+        "sha256": "610f5b1251d4e654dc052b785a1cade28d745aefe6fa800707250acea1c1f7ab"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-native-20261017-b/cold.documents.png",
+        "bytes": 78503,
+        "sha256": "486f30801a10cd139ab69f340ca0618f8d29205b5894bedba58ed559675a7b2a"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-native-20261017-b/cold.host.json",
+        "bytes": 6113830,
+        "sha256": "16fb5259b08c31c5f92c1d3417563bef91c0964887d0ca13c9ae00a10e166b23"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-native-20261017-b/fresh.documents.png",
+        "bytes": 74990,
+        "sha256": "7c5060a62b0667239612e94f7ca4429b6f7c527548f56fcafec4cefe2283aa5a"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-native-20261017-b/fresh.host.json",
+        "bytes": 16806266,
+        "sha256": "d43271747b14986791b8b9883f1ed5e042ffd2c21d30eb756301877a6b22ec55"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-native-20261017-b/report.json",
+        "bytes": 59652386,
+        "sha256": "97d7437397adb53899b38eeb60cce654e2d15701ea53ae7138616032239af0ac"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-source-20261017-a/cold.documents.png",
+        "bytes": 78461,
+        "sha256": "e8a5ace18b13d04fcdcdafdb01c9bd2b31190265b40c5bd9473e5296eb6a7196"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-source-20261017-a/cold.host.json",
+        "bytes": 4939890,
+        "sha256": "c454676c64c582ed58517b73d42c199274f1fcafe12589c9f441d3bf5e2213c9"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-source-20261017-a/fresh.documents.png",
+        "bytes": 74968,
+        "sha256": "8b58d2d01c1aea4c29e945d326e2d7c2a006a5f7bf5ca813ed5102152c17f35c"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-source-20261017-a/fresh.host.json",
+        "bytes": 14949959,
+        "sha256": "50ad87bd07dbd9d9f74c1351ac4271d8df49999b97a9db5a42484d36390fb327"
+      },
+      {
+        "path": "rc3-r08-reconnect-modern-source-20261017-a/report.json",
+        "bytes": 54157299,
+        "sha256": "a7e0a3ed1e9e58d4fb86c241cd862b911f7f370aa9110f8c2d10e0d633ad3936"
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "output": "rc3-r08-reconnect-108-native-20261017-a",
+      "side": "native",
+      "browser": "HeadlessChrome/108.0.5359.0",
+      "phases": [
+        {
+          "name": "fresh",
+          "reconnect": {
+            "fault": {
+              "commandId": 29,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "41772.75"
+            ],
+            "newConnection": {
+              "closed": [
+                "41772.75"
+              ],
+              "opened": "41772.118"
+            },
+            "resumedSeq": 101,
+            "previousSeq": 88
+          },
+          "delivery": "RC3 delivery refreshed fresh",
+          "floating": "float/move/resize/dock preserves tab identity"
+        },
+        {
+          "name": "cold",
+          "reconnect": {
+            "fault": {
+              "commandId": 12,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "41772.75",
+              "41772.118",
+              "18108.75"
+            ],
+            "newConnection": {
+              "closed": [
+                "18108.75"
+              ],
+              "opened": "18108.109"
+            },
+            "resumedSeq": 144,
+            "previousSeq": 131
+          },
+          "delivery": "RC3 delivery refreshed cold",
+          "floating": "float/move/resize/dock preserves tab identity"
+        }
+      ],
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "output": "rc3-r08-reconnect-108-source-20261017-a",
+      "side": "source",
+      "browser": "HeadlessChrome/108.0.5359.0",
+      "phases": [
+        {
+          "name": "fresh",
+          "reconnect": {
+            "fault": {
+              "commandId": 32,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "27804.75"
+            ],
+            "newConnection": {
+              "closed": [
+                "27804.75"
+              ],
+              "opened": "27804.118"
+            },
+            "resumedSeq": 101,
+            "previousSeq": 88
+          },
+          "delivery": "RC3 delivery refreshed fresh",
+          "floating": "float/move/resize/dock preserves tab identity"
+        },
+        {
+          "name": "cold",
+          "reconnect": {
+            "fault": {
+              "commandId": 12,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "27804.75",
+              "27804.118",
+              "21816.75"
+            ],
+            "newConnection": {
+              "closed": [
+                "21816.75"
+              ],
+              "opened": "21816.109"
+            },
+            "resumedSeq": 144,
+            "previousSeq": 131
+          },
+          "delivery": "RC3 delivery refreshed cold",
+          "floating": "float/move/resize/dock preserves tab identity"
+        }
+      ],
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "output": "rc3-r08-reconnect-modern-native-20261017-b",
+      "side": "native",
+      "browser": "Edg/155.0.4283.45",
+      "phases": [
+        {
+          "name": "fresh",
+          "reconnect": {
+            "fault": {
+              "commandId": 38,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "28612.76"
+            ],
+            "newConnection": {
+              "closed": [
+                "28612.76"
+              ],
+              "opened": "28612.121"
+            },
+            "resumedSeq": 101,
+            "previousSeq": 88
+          },
+          "delivery": "RC3 delivery refreshed fresh",
+          "floating": "float/move/resize/dock preserves tab identity"
+        },
+        {
+          "name": "cold",
+          "reconnect": {
+            "fault": {
+              "commandId": 16,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "28612.76",
+              "28612.121",
+              "11104.76"
+            ],
+            "newConnection": {
+              "closed": [
+                "11104.76"
+              ],
+              "opened": "11104.112"
+            },
+            "resumedSeq": 144,
+            "previousSeq": 131
+          },
+          "delivery": "RC3 delivery refreshed cold",
+          "floating": "float/move/resize/dock preserves tab identity"
+        }
+      ],
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    },
+    {
+      "output": "rc3-r08-reconnect-modern-source-20261017-a",
+      "side": "source",
+      "browser": "Edg/155.0.4283.45",
+      "phases": [
+        {
+          "name": "fresh",
+          "reconnect": {
+            "fault": {
+              "commandId": 34,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "42108.76"
+            ],
+            "newConnection": {
+              "closed": [
+                "42108.76"
+              ],
+              "opened": "42108.121"
+            },
+            "resumedSeq": 101,
+            "previousSeq": 88
+          },
+          "delivery": "RC3 delivery refreshed fresh",
+          "floating": "float/move/resize/dock preserves tab identity"
+        },
+        {
+          "name": "cold",
+          "reconnect": {
+            "fault": {
+              "commandId": 12,
+              "kind": "abort-upgraded-sockets",
+              "count": 1
+            },
+            "prior": [
+              "42108.76",
+              "42108.121",
+              "38028.76"
+            ],
+            "newConnection": {
+              "closed": [
+                "38028.76"
+              ],
+              "opened": "38028.112"
+            },
+            "resumedSeq": 144,
+            "previousSeq": 131
+          },
+          "delivery": "RC3 delivery refreshed cold",
+          "floating": "float/move/resize/dock preserves tab identity"
+        }
+      ],
+      "cleanup": {
+        "browserProfile": "removed after both physical browser/Host exits"
+      }
+    }
+  ],
+  "diagnostics": [
+    "The first modern-native cold run froze an unattached session baseline and rejected after hydration. Its raw failure remains in .goose/out/rc3-r08-reconnect-modern-native-20261017-a. Added an attached/idle barrier before every composer submission; the new modern-native b run passed. Other three actual completed runs already retained consistent before/after histories and newly completed post-reconnect sequences.",
+    "Earlier delivery-before-document observer order failure remains in rc3-r08-delivery-108-native-20261017-a; no frontend bytes changed."
+  ],
+  "limits": [
+    "Standard preset fresh/cold original browser journeys; not a unified release receipt.",
+    "Source Chromium108 explicitly loads the same host capability adapter; this does not certify unadapted Source on108.",
+    "Physical Win7, Desktop installer execution and complete migration qualification remain pending."
+  ]
+}

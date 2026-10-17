@@ -424,6 +424,12 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 按用户授权从微软下载9个固定输入：x86/x64的SSU、SHA-2、D3DCompiler47、WMF5.1，以及共用.NET4.7.2安装器。二进制保存在仓库外，版本化清单固定官方URL、尺寸、SHA256与WMF内层成员；支持按架构下载、复验和仅提取已核验MSU，不执行安装。8项下载/暂存负例与正例通过；初轮测试夹具误放源码边界内，6项失败独立保留，修正夹具后通过。8个MSU共2949个服务目录的微软签名有效，.NET安装器签名有效；该检查不能代替实际补丁适用性和重启验收。见 [有限回执](../../migration/candidates/rc3/windows-prerequisites-current-checks.json)。AIO按实际依赖先处理SSU/SHA-2及所需重启，再处理D3D/.NET/WMF；不照抄原评估中的示意顺序。安装包、x86运行时和完整发行资格继续实施。
 
+### R08-E — 实际断线重连、交付文件与浮窗
+
+四条 Standard 旅程（现代浏览器/Chromium108 × Source/Python）均完成 fresh/cold。直接中断实际宿主升级后的 WebSocket，原版客户端重新取得101握手；会话header及历史保持一致，后续真实工具调用产生新序列并回到原界面。真实present工具发布文件后修改磁盘内容，原版卡片打开当前字节；可信鼠标拖动验证浮窗移动、缩放和归位保留tab身份。原版前端字节未改，108 Source显式使用相同宿主适配。
+
+现代Python首轮冷观察在会话加载前取得空基线，旧回答可能提前满足完成条件，后续严格历史断言拒绝。已增加发送前attached/idle屏障，新鲜b旅程通过；原失败保留，其余三条实际观察均有一致历史和新完成序列。有限报告、宿主观察与截图逐成员核验归档，成功浏览器profile自动清理。见 [有限回执](../../migration/candidates/rc3/browser-reconnect-delivery-floating-checks.json)。这不替代Desktop安装执行或统一发行资格。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

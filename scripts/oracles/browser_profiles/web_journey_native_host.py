@@ -188,6 +188,17 @@ async def main():
                     record['snapshots'].append(value)
                 record.setdefault('snapshotReads', []).append(dict(commandId=request['id'], index=len(record['snapshots']) - 1))
                 answer(dict(id=request['id'], ok=True, value=value))
+            elif command == 'disconnect':
+                # Inject a transport failure at the owned server socket, without
+                # touching application state or replacing any Remote response.
+                sockets = list(ctx.get('webServer')._upgraded_sockets)
+                if not sockets:
+                    raise RuntimeError('No live upgraded browser sockets to disconnect')
+                for writer in sockets:
+                    writer.transport.abort()
+                fault = dict(commandId=request['id'], kind='abort-upgraded-sockets', count=len(sockets))
+                record.setdefault('transportFaults', []).append(fault)
+                answer(dict(id=request['id'], ok=True, value=fault))
             elif command == 'shutdown':
                 session = ctx.get('sessions').get(session_id) if session_id is not None else None
                 if session is not None:
@@ -197,7 +208,7 @@ async def main():
                 answer(dict(id=request['id'], ok=True, value=None))
                 break
             else:
-                raise ValueError('Unknown read-only browser fixture command')
+                raise ValueError('Unknown controlled browser fixture command')
     except Exception as error:
         record['failure'] = dict(name=type(error).__name__, message=str(error))
         raise

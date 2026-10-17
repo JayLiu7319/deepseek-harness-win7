@@ -125,5 +125,31 @@ export async function documentJourney({cdp,click,until,state,output,phase}){
   await until(()=>shown('[data-sidebar-right-open]'),'sidebar reopens');
   assert.equal(await cdp.evaluate(`document.querySelectorAll('[data-sidebar-right-panel] [data-dockkit-pane]').length`),2);
   observed.dock.push('collapse/reopen preserves split');
+  const drag=async(from,to)=>{
+    await cdp.call('Input.dispatchMouseEvent',{type:'mouseMoved',...from});
+    await cdp.call('Input.dispatchMouseEvent',{type:'mousePressed',...from,button:'left',buttons:1,clickCount:1});
+    for(const fraction of [0.2,0.5,1])await cdp.call('Input.dispatchMouseEvent',{type:'mouseMoved',
+      x:from.x+(to.x-from.x)*fraction,y:from.y+(to.y-from.y)*fraction,button:'left',buttons:1});
+    await cdp.call('Input.dispatchMouseEvent',{type:'mouseReleased',...to,button:'left',clickCount:1});
+  };
+  const rectangle=selector=>cdp.evaluate(`(()=>{const n=document.querySelector(${JSON.stringify(selector)});if(!n)return false;const r=n.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}})()`);
+  const titlePoint=await cdp.evaluate(`(()=>{const title=[...document.querySelectorAll('[data-sidebar-right-panel] [data-dockkit-tab-title]')].find(n=>n.textContent==='journey.md');title.scrollIntoView({block:'nearest'});const r=title.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()`);
+  await drag(titlePoint,{x:100,y:250});
+  observed.float=await until(async()=>{
+    const rect=await rectangle('[data-dockkit-float]');
+    const title=await cdp.evaluate(`document.querySelector('[data-dockkit-float-title]')?.textContent`);
+    return rect&&title?.includes('journey.md')&&{rect,title};
+  },'trusted drag floats original document');
+  const grip=await rectangle('[data-dockkit-float-grip]');
+  await drag({x:grip.x+40,y:grip.y+grip.height/2},{x:grip.x+100,y:grip.y+grip.height/2+40});
+  observed.floatMoved=await until(async()=>{const rect=await rectangle('[data-dockkit-float]');return rect&&rect.x>observed.float.rect.x+30&&rect.y>observed.float.rect.y+20&&rect;},'floating document moves');
+  const handle=await rectangle('[data-dockkit-float-resize]');
+  await drag({x:handle.x+handle.width/2,y:handle.y+handle.height/2},
+    {x:handle.x+handle.width/2+70,y:handle.y+handle.height/2+40});
+  observed.floatResized=await until(async()=>{const rect=await rectangle('[data-dockkit-float]');return rect&&rect.width>observed.floatMoved.width+30&&rect.height>observed.floatMoved.height+20&&rect;},'floating document resizes');
+  await click(cdp,'[data-dockkit-float-dock]');
+  await until(()=>cdp.evaluate(`!document.querySelector('[data-dockkit-float]')&&[...document.querySelectorAll('[data-sidebar-right-panel] [data-dockkit-tab-title]')].some(n=>n.textContent==='journey.md')`),'floating document docks back');
+  assert.equal(await cdp.evaluate(`Array.from(document.querySelectorAll('${tab}')).find(n=>n.textContent.includes('journey.md'))?.getAttribute('data-dockkit-tab')`),markdownId);
+  observed.dock.push('float/move/resize/dock preserves tab identity');
   observed.passed=true;
 }

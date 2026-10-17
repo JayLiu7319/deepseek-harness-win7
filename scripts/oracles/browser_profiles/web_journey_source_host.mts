@@ -145,6 +145,14 @@ try{
       if(record.lastSnapshot!==serialized){record.snapshots.push(value);record.lastSnapshot=serialized}
       ;(record.snapshotReads??=[]).push({commandId:request.id,index:record.snapshots.length-1})
       answer({id:request.id,ok:true,value})
+    }else if(request.command==='disconnect'){
+      // The same owned socket failure as native; all domain services remain real.
+      const sockets=[...(ctx.get('webServer') as any).upgradedSockets] as any[]
+      if(!sockets.length)throw new Error('No live upgraded browser sockets to disconnect')
+      for(const socket of sockets)socket.destroy()
+      const fault={commandId:request.id,kind:'abort-upgraded-sockets',count:sockets.length}
+      ;(record.transportFaults??=[]).push(fault)
+      answer({id:request.id,ok:true,value:fault})
     }else if(request.command==='shutdown'){
       const session=sessionId===undefined?undefined:ctx.get('sessions').get(sessionId)
       if(session)await ctx.get('sessions').flush(session)
@@ -152,7 +160,7 @@ try{
       answer({id:request.id,ok:true,value:null})
       requestedShutdown=true
       break
-    }else throw new Error('Unknown read-only browser fixture command')
+    }else throw new Error('Unknown controlled browser fixture command')
   }
   if(!requestedShutdown)throw new Error('Browser fixture controller closed before owned shutdown')
 }catch(error:any){

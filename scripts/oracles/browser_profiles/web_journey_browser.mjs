@@ -292,6 +292,10 @@ async function phase(name){
     }
     const submissions=new Map();
     const submit=async scenario=>{
+      // A cold row click hydrates asynchronously. Freeze a real attached idle
+      // baseline before sending, so an older matching answer cannot satisfy it.
+      await until(async()=>{const value=await snapshot();return value.attached&&value.agentStatus==='idle';},
+        'selected session attached and idle before '+scenario);
       await click(cdp,'[data-composer-input][contenteditable="true"]');
       await cdp.call('Input.dispatchKeyEvent',{type:'keyDown',key:'End',code:'End',windowsVirtualKeyCode:35});
       await cdp.call('Input.dispatchKeyEvent',{type:'keyUp',key:'End',code:'End',windowsVirtualKeyCode:35});
@@ -342,7 +346,46 @@ async function phase(name){
       }
       await complete(scenario);
     }
+    if(options['rc3-reconnect']==='true'){
+      const before=await snapshot(),start=report.wire.length;
+      const prior=report.wire.filter(row=>row.method==='Network.webSocketHandshakeResponseReceived'
+        &&row.params.response.status===101).map(row=>row.params.requestId);
+      assert.ok(prior.length,'The actual browser must have an established WebSocket');
+      state.reconnect={fault:await command('disconnect'),prior};
+      state.reconnect.newConnection=await until(()=>{
+        const wire=report.wire.slice(start);
+        const closed=wire.filter(row=>row.method==='Network.webSocketClosed'&&prior.includes(row.params.requestId));
+        const opened=wire.find(row=>row.method==='Network.webSocketHandshakeResponseReceived'
+          &&row.params.response.status===101&&!prior.includes(row.params.requestId));
+        return closed.length&&opened&&{closed:closed.map(row=>row.params.requestId),opened:opened.params.requestId};
+      },'original client reconnects after physical socket loss');
+      const recovered=await snapshot();
+      assert.deepEqual(recovered.header,before.header,'Reconnect retains the selected session');
+      assert.deepEqual(recovered.events,before.events,'Transport recovery does not mutate durable history');
+      await submit('WEB_REOPEN');
+      const resumed=await complete('WEB_REOPEN');
+      state.reconnect.resumedSeq=resumed.events.at(-1).seq;
+      state.reconnect.previousSeq=before.events.at(-1).seq;
+      assert.ok(state.reconnect.resumedSeq>state.reconnect.previousSeq);
+      await until(()=>cdp.evaluate('document.body.innerText.includes("WEB_REOPEN_FINAL")'),'reconnected original UI receives model/tool completion');
+    }
     if(options['rc3-documents']==='true')await documentJourney({cdp,click,until,state,output,phase:name});
+    if(options['rc3-deliveries']==='true'){
+      assert.notEqual(options.preset,'minimal','The original Minimal preset does not expose present');
+      const filename='rc3-delivery-'+name+'.md',path=join(resolve(options.workspace),filename);
+      await writeFile(path,'# RC3 delivery original '+name+'\n','utf8');
+      const scenario='WEB_DELIVER_'+name.toUpperCase();
+      await submit(scenario);const delivered=await complete(scenario);
+      const presented=delivered.events.findLast(event=>event.type==='deliverables/presented'&&event.data.files.some(file=>file.path===filename));
+      assert.ok(presented,'The actual present tool must append a durable delivery');
+      state.delivery={presented};
+      await writeFile(path,'# RC3 delivery refreshed '+name+'\n','utf8');
+      await click(cdp,'[data-presented-file] button[title$="'+filename+'"]');
+      const heading='[data-document-preview][data-textpreview-url$="/'+filename+'"] [data-document-markdown] h1';
+      state.delivery.heading=await until(()=>cdp.evaluate(`document.querySelector(${JSON.stringify(heading)})?.textContent===${JSON.stringify('RC3 delivery refreshed '+name)}&&document.querySelector(${JSON.stringify(heading)}).textContent`),'presented file reads current source bytes');
+      state.delivery.card=await cdp.evaluate(`Array.from(document.querySelectorAll('[data-presented-file]')).find(n=>n.textContent.includes(${JSON.stringify(filename)}))?.textContent`);
+      assert.ok(state.delivery.card.includes('Controlled current source delivery'));
+    }
     if(options['rc3-application']==='true')await applicationJourney({cdp,click,until,state,phase:name,snapshot,submit,complete,workspace:resolve(options.workspace),runDir:resolve(options['run-dir'])});
     state.cssMixAdapter=await cdp.evaluate("JSON.parse(JSON.stringify(window[Symbol.for('deepseek-win7.host.color-mix')]?.current?.facts??null))");
     state.cssMixPalette=await cdp.evaluate(String.raw`(()=>{const n=document.querySelector('[class*=trajectory]')??document.querySelector('[class*=Trajectory]')??document.body;const s=getComputedStyle(n);return Object.fromEntries([...new Set([...document.querySelectorAll('style')].flatMap(t=>[...t.textContent.matchAll(/var\((--[^,)]+)/g)].map(m=>m[1])))].filter(k=>k.startsWith('--dsw-')||k.startsWith('--trajectory-')).map(k=>[k,s.getPropertyValue(k).trim()]));})()`);

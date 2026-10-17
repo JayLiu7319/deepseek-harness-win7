@@ -27,10 +27,10 @@ export function apply(ctx:Context){
         text='Controlled browser journey'
       }else{
         const user=options.messages.findLast((message:any)=>message.role==='user'&&message.content.some((block:any)=>
-          block.type==='text'&&['WEB_PLAN','WEB_TOOL','WEB_QUESTION','WEB_APPROVAL','WEB_CANCEL','WEB_CORDIS','WEB_REOPEN'].includes(block.text.trim())))
+          block.type==='text'&&['WEB_PLAN','WEB_TOOL','WEB_QUESTION','WEB_APPROVAL','WEB_CANCEL','WEB_CORDIS','WEB_REOPEN','WEB_DELIVER_FRESH','WEB_DELIVER_COLD'].includes(block.text.trim())))
         if(!user)throw new Error('Controlled browser turn has no actual user scenario')
         const prompt=user.content.filter((block:any)=>block.type==='text').map((block:any)=>block.text).join('')
-        const scenario=['WEB_PLAN','WEB_TOOL','WEB_QUESTION','WEB_APPROVAL','WEB_CANCEL','WEB_CORDIS','WEB_REOPEN'].find(name=>prompt.includes(name))
+        const scenario=['WEB_PLAN','WEB_TOOL','WEB_QUESTION','WEB_APPROVAL','WEB_CANCEL','WEB_CORDIS','WEB_REOPEN','WEB_DELIVER_FRESH','WEB_DELIVER_COLD'].find(name=>prompt.includes(name))
         if(!scenario)throw new Error('Unexpected controlled browser prompt')
         const call=(this.calls.get(user.id)??0)+1
         this.calls.set(user.id,call)
@@ -66,6 +66,8 @@ export function apply(ctx:Context){
           }else if(scenario==='WEB_CORDIS'){
             tool='cordis_inspect_self'
             argumentsValue={}
+          }else if(scenario.startsWith('WEB_DELIVER_')){
+            tool='present';argumentsValue={files:[{path:'rc3-delivery-'+scenario.split('_').at(-1).toLowerCase()+'.md',description:'Controlled current source delivery'}]}
           }else{
             tool='pwsh'
             let command='Write-Output WEB_TOOL_ROUND_TRIP'
