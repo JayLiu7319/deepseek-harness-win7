@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "platform": "Windows 7 SP1",
+  "observed": "2026-10-17",
+  "installationExecuted": false,
+  "inputs": [
+    {
+      "id": "d3d-x64",
+      "architecture": "x64",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2017/05/windows6.1-kb4019990-x64_35cc310e81ef23439ba0ec1f11d7b71dd34adfe5.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4019990",
+      "bytes": 2873529,
+      "sha256": "4ee562192cf21716f3c38cac3c2b17ef73b76708001d8a075d31df0996f0c6b3",
+      "filename": "windows6.1-kb4019990-x64_35cc310e81ef23439ba0ec1f11d7b71dd34adfe5.msu",
+      "catalogSha1": "35cc310e81ef23439ba0ec1f11d7b71dd34adfe5"
+    },
+    {
+      "id": "d3d-x86",
+      "architecture": "x86",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/updt/2017/05/windows6.1-kb4019990-x86_1365fb557d5e5917cbf59b507eac066ad89ea3f7.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4019990",
+      "bytes": 1424481,
+      "sha256": "62101125e4619575a55a4ff63d049debd33e04b485b6616058862c525050e210",
+      "filename": "windows6.1-kb4019990-x86_1365fb557d5e5917cbf59b507eac066ad89ea3f7.msu",
+      "catalogSha1": "1365fb557d5e5917cbf59b507eac066ad89ea3f7"
+    },
+    {
+      "id": "net472",
+      "architecture": "x86-x64",
+      "url": "https://download.microsoft.com/download/f/3/a/f3a6af84-da23-40a5-8d1c-49cc10c8e76f/NDP472-KB4054530-x86-x64-AllOS-ENU.exe",
+      "source": "https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-offline-installer",
+      "bytes": 83970736,
+      "sha256": "84ea476eb3a03ab878c14b160495f071dd29f9e5d031e713623ee8635638355f",
+      "filename": "NDP472-KB4054530-x86-x64-AllOS-ENU.exe"
+    },
+    {
+      "id": "sha2-x64",
+      "architecture": "x64",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2019/09/windows6.1-kb4474419-v3-x64_b5614c6cea5cb4e198717789633dca16308ef79c.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4474419",
+      "bytes": 55853327,
+      "sha256": "99312df792b376f02e25607d2eb3355725c47d124d8da253193195515fe90213",
+      "filename": "windows6.1-kb4474419-v3-x64_b5614c6cea5cb4e198717789633dca16308ef79c.msu",
+      "catalogSha1": "b5614c6cea5cb4e198717789633dca16308ef79c"
+    },
+    {
+      "id": "sha2-x86",
+      "architecture": "x86",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2019/09/windows6.1-kb4474419-v3-x86_0f687d50402790f340087c576886501b3223bec6.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4474419",
+      "bytes": 35919018,
+      "sha256": "8cf49fc7ac61e0b217859313a96337b149ab41b3307eb0d9529615142ea34c6c",
+      "filename": "windows6.1-kb4474419-v3-x86_0f687d50402790f340087c576886501b3223bec6.msu",
+      "catalogSha1": "0f687d50402790f340087c576886501b3223bec6"
+    },
+    {
+      "id": "ssu-x64",
+      "architecture": "x64",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4490628",
+      "bytes": 9543846,
+      "sha256": "8075f6d889bcb27be6f52ed47081675e5bb8a5390f2f5bfe4ec27a2bb70cbf5e",
+      "filename": "windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu",
+      "catalogSha1": "d3de52d6987f7c8bdc2c015dca69eac96047c76e"
+    },
+    {
+      "id": "ssu-x86",
+      "architecture": "x86",
+      "url": "https://catalog.s.download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu",
+      "source": "https://www.catalog.update.microsoft.com/Search.aspx?q=KB4490628",
+      "bytes": 4217422,
+      "sha256": "b86849fda570f906012992a033f6342373c00a3b3ec0089780eabb084a9a0182",
+      "filename": "windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu",
+      "catalogSha1": "3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992"
+    },
+    {
+      "id": "wmf-x64",
+      "architecture": "x64",
+      "url": "https://download.microsoft.com/download/6/f/5/6f5ff66c-6775-42b0-86c4-47d41f2da187/Win7AndW2K8R2-KB3191566-x64.zip",
+      "source": "https://www.microsoft.com/en-us/download/details.aspx?id=54616",
+      "bytes": 68076477,
+      "sha256": "f383c34aa65332662a17d95409a2ddedadceda74427e35d05024cd0a6a2fa647",
+      "filename": "Win7AndW2K8R2-KB3191566-x64.zip",
+      "members": [
+        {
+          "filename": "Install-WMF5.1.ps1",
+          "bytes": 16648,
+          "sha256": "398af07eab3db84c9918aba83045d3b710c3976f0a65ff81c13809ba99d3b447"
+        },
+        {
+          "filename": "Win7AndW2K8R2-KB3191566-x64.msu",
+          "bytes": 68054745,
+          "sha256": "c51abfc65dff5f6858c0b9f6420caa0c166df7a6d8b484f8a3c68ea99f0032b0"
+        }
+      ]
+    },
+    {
+      "id": "wmf-x86",
+      "architecture": "x86",
+      "url": "https://download.microsoft.com/download/6/f/5/6f5ff66c-6775-42b0-86c4-47d41f2da187/Win7-KB3191566-x86.zip",
+      "source": "https://www.microsoft.com/en-us/download/details.aspx?id=54616",
+      "bytes": 44821734,
+      "sha256": "eb7e2c4ce2c6cb24206474a6cb8610d9f4bd3a9301f1cd8963b4ff64e529f563",
+      "filename": "Win7-KB3191566-x86.zip",
+      "members": [
+        {
+          "filename": "Install-WMF5.1.ps1",
+          "bytes": 16648,
+          "sha256": "398af07eab3db84c9918aba83045d3b710c3976f0a65ff81c13809ba99d3b447"
+        },
+        {
+          "filename": "Win7-KB3191566-x86.msu",
+          "bytes": 44807068,
+          "sha256": "4575c47bedf732c7a215a5dd9e184ac2f06f10c0f23fcef38eec96b0ff3bd121"
+        }
+      ]
+    }
+  ]
+}

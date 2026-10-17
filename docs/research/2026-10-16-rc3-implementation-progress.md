@@ -416,6 +416,10 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 
 实际Electron22.3.27/Chromium108.0.5359.215验证原版主页面、管理IPC、设置RPC、持续流取消、安装、损坏升级的自动回退、移除及重连baseline。两个窗口均保持sandbox/contextIsolation/webSecurity并关闭Node。切换Host期间3条预期control stream网络错误原样保留，稳定阶段零错误。首次慢失败定位为逐UI卸载反复生成大型source map，已复用相同activation revision的不可变产物；后续收到真实import拒绝而非就绪超时。41项组合/消费者、48项事务/重建/HMR定向检查通过。实际内置Node16另验证9项管道行为，包括2MiB上传、12路交错HEAD、取消、无悬挂请求、强制清理venv子进程树后重新取得配置锁和EOF正常退出。见 [有限回执](../../migration/candidates/rc3/desktop-carrier-current-checks.json)。安装包、更新集成、x86及物理Win7资格继续实施；成功短夹具自动清理，失败观察留存，未运行统一发行门禁。
 
+### R10-C — 官方离线前置组件
+
+按用户授权从微软下载9个固定输入：x86/x64的SSU、SHA-2、D3DCompiler47、WMF5.1，以及共用.NET4.7.2安装器。二进制保存在仓库外，版本化清单固定官方URL、尺寸、SHA256与WMF内层成员；支持按架构下载、复验和仅提取已核验MSU，不执行安装。8项下载/暂存负例与正例通过；初轮测试夹具误放源码边界内，6项失败独立保留，修正夹具后通过。8个MSU共2949个服务目录的微软签名有效，.NET安装器签名有效；该检查不能代替实际补丁适用性和重启验收。见 [有限回执](../../migration/candidates/rc3/windows-prerequisites-current-checks.json)。AIO按实际依赖先处理SSU/SHA-2及所需重启，再处理D3D/.NET/WMF；不照抄原评估中的示意顺序。安装包、x86运行时和完整发行资格继续实施。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。
