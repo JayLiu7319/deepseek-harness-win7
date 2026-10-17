@@ -128,3 +128,5 @@ R03-L: [embedded-stream Session stats](session-stats-current-checks.json):67 act
 R03-M: [feedback-only telemetry](telemetry-current-checks.json):72 actual coordinator pairs,116 selected native and74 unchanged Source tests pass. Real SDK collector covers canonical own feedback, inherited/fake-event rejection, stored cold history and no-op mutations. Current production composition and release qualification remain open.
 
 R03-N: [generation-scoped DeepSeek log upload](session-log-current-checks.json):41 actual pairs,100 selected native and44 unchanged Source tests pass. Exact raw DTO/provenance, format-gated watermarks, real Agent HTTP 2xx acceptance and JSONL cold cursor rebuild are covered. Production composition and release qualification remain open.
+
+R07-D: [live-frame headless consumer](headless-current-checks.json):28 actual runner pairs,43 selected native and19 unchanged Source tests pass. Actual current Agent completion/cancellation, v3 disk flush and subscription release are covered; production activation remains open.

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-D-live-frame-headless-consumer",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 28,
+    "report": {
+      "path": ".goose/out/rc3-r07-headless-qualified-paired-20261017/report.json",
+      "sha256": "2bdc26b3d2995459162ff67149529502184a375766db1f1898fef4a6b4c17b9b"
+    },
+    "corpus": {
+      "path": "scripts/oracles/headless_current_cases.json",
+      "sha256": "3bc054094334f616d5e7c6aee5ac2c7309f771ebbd301e72a4ecf9dcac89ee96"
+    }
+  },
+  "native": {
+    "passed": 43,
+    "command": {
+      "path": ".goose/out/rc3-r07-headless-qualified-native-20261017/command.json",
+      "sha256": "9affa7d2426bb702ebd981fd48d9c6e38a35e36c1fa8924ee49dd0e4f312e246"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-headless-qualified-native-20261017/pytest.xml",
+      "sha256": "7152fd6072d891857ac60a67773679dad44f8f9b07c76b057ff8368d0955d566"
+    }
+  },
+  "source": {
+    "passed": 19,
+    "command": {
+      "path": ".goose/out/rc3-r07-headless-source-20261017/command.json",
+      "sha256": "2adc635525f27986a3f3b901d4159d01e8051b047395b491ee24fcbfe9e97af4"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-headless-source-20261017/source.xml",
+      "sha256": "e7e002b39a7eb2fb0e0b2272def50db982a460fcf46e0fd374e4ce7647d17b39"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/bundle/headless/current.py",
+      "sha256": "bacd8d892765a73b4173e70e23b0b10503d02e383dfac2fd28a4f24de5cb9cb8"
+    },
+    {
+      "path": "dsh/bundle/headless/runner.py",
+      "sha256": "495db288294e0bc082f60fd80a2074808195a7a37627f1fedc33083146693d74"
+    },
+    {
+      "path": "tests/test_headless_current.py",
+      "sha256": "5a315f1c4c5f6f020056fdd6fd706c59d1282665d5745eb696a3d7363c21b65b"
+    }
+  ],
+  "coverage": [
+    "Source actual runner against independently scripted live frames/durable log: all separator types, newline boundaries, retry, foreign Agent, missing event, errors, aborted/no-end intervals and final non-empty text.",
+    "Current actual Agent emits reasoning through live frames, completes/cancels, flushes v3 JSONL before exit, releases exact-subject subscription; readiness owns startup.",
+    "Common headless hooks retain old runtime behavior; existing launcher HTTP/editor/retry and startup regressions pass. Prompt creates identified user message before dispatch."
+  ],
+  "limitations": [
+    "Current headless candidate not yet selected by production registry; legacy launcher regressions are only regression evidence, not rc3 production activation.",
+    "Python appReady startup/disposal remains the existing launcher adaptation; no release acceptance."
+  ],
+  "diagnostics": [
+    "Initial actor generator syntax/duplicate corpus IDs refused before execution; retained.",
+    "First actual cancellation test expected cancelled rather than canonical aborted; corrected assertion; initial failure retained."
+  ],
+  "retention": "Successful short pytest workspaces auto-pruned; original failure/log/XML preserved. No Portable build."
+}

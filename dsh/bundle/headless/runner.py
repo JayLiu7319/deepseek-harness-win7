@@ -6,6 +6,7 @@ import uuid
 
 from dsh.cordis.plugin import Plugin
 from dsh.core.model_selection import ModelSelection, ModelSelectionRef, install_model_selection
+from dsh.llm.message import create_user_message
 
 
 def summarize(events, first_seq):
@@ -31,13 +32,52 @@ class HeadlessRunnerPlugin(Plugin):
     id = "headless-runner"
     inject = ["agentDefaultModel", "agents", "sessions"]
 
+    def stream_reasoning(self, ctx, agent):
+        line = {"open": False, "newline": True, "started": False}
+
+        def close_line():
+            if line["open"] and not line["newline"]:
+                sys.stderr.write("\n")
+            line["open"], line["newline"] = False, True
+
+        def observe(session, event):
+            if session is not agent.session:
+                return
+            if event["type"] == "turn/start":
+                close_line()
+                line["started"] = True
+            if not line["started"] or event["type"] != "assistant/chunk":
+                return
+            chunk = event["data"]["chunk"]
+            if chunk["type"] == "reasoning-delta" and chunk.get("text"):
+                if not line["open"]:
+                    sys.stderr.write("dsh: reasoning:\n")
+                sys.stderr.write(chunk["text"])
+                sys.stderr.flush()
+                line["open"], line["newline"] = True, chunk["text"].endswith("\n")
+            elif chunk["type"] not in ("usage", "reasoning-delta"):
+                if chunk.get("blockType") != "reasoning" and chunk.get("block", {}).get("type") != "reasoning":
+                    close_line()
+
+        return ctx.on("session/event", observe), close_line
+
+    async def create_agent(self, ctx, selected, setup):
+        return await ctx.get("agents").create("session-" + str(uuid.uuid4()), options=selected,
+            meta={"cwd": os.getcwd()}, setup=setup)
+
+    def summarize(self, session, first_seq):
+        return summarize(session.events, first_seq)
+
+    def validate_task(self, task):
+        if not isinstance(task, str) or not task.strip():
+            raise ValueError("headless-runner requires a task")
+
     def apply(self, ctx):
         exit_fn, ready = ctx.get("appExit"), ctx.get("appReady")
         if exit_fn is None or ready is None:
             raise RuntimeError("headless-runner requires launcher appExit and appReady")
         task_text = self.config.get("task")
-        if not isinstance(task_text, str) or not task_text.strip():
-            raise ValueError("headless-runner requires a task")
+        self.validate_task(task_text)
         active = [None]
 
         async def run():
@@ -48,47 +88,19 @@ class HeadlessRunnerPlugin(Plugin):
                     selection = ModelSelection(selected["provider"], selected["model"], selected.get("reasoningEffort"))
                     install_model_selection(agent_ctx, ModelSelectionRef(selection))
 
-                handle = await ctx.get("agents").create(
-                    "session-" + str(uuid.uuid4()), options=selected,
-                    meta={"cwd": os.getcwd()}, setup=setup)
+                handle = await self.create_agent(ctx, selected, setup)
                 agent = handle.agent
                 await agent.when_idle()
                 first_seq = agent.session.seq
-                line = {"open": False, "newline": True, "started": False}
-
-                def close_line():
-                    if line["open"] and not line["newline"]:
-                        sys.stderr.write("\n")
-                    line["open"], line["newline"] = False, True
-
-                def observe(session, event):
-                    if session is not agent.session:
-                        return
-                    if event["type"] == "turn/start":
-                        close_line()
-                        line["started"] = True
-                    if not line["started"] or event["type"] != "assistant/chunk":
-                        return
-                    chunk = event["data"]["chunk"]
-                    if chunk["type"] == "reasoning-delta" and chunk.get("text"):
-                        if not line["open"]:
-                            sys.stderr.write("dsh: reasoning:\n")
-                        sys.stderr.write(chunk["text"])
-                        sys.stderr.flush()
-                        line["open"], line["newline"] = True, chunk["text"].endswith("\n")
-                    elif chunk["type"] not in ("usage", "reasoning-delta"):
-                        if chunk.get("blockType") != "reasoning" and chunk.get("block", {}).get("type") != "reasoning":
-                            close_line()
-
-                stop = ctx.on("session/event", observe)
+                stop, close_line = self.stream_reasoning(ctx, agent)
                 try:
-                    agent.followup({"role": "user", "content": [{"type": "text", "text": task_text}], "source": {"kind": "user"}})
+                    agent.followup(create_user_message({"content": [{"type": "text", "text": task_text}], "source": {"kind": "user"}}))
                     await agent.when_idle()
                 finally:
                     stop()
                     close_line()
                 await ctx.get("sessions").flush(agent.session)
-                text, reason = summarize(agent.session.events, first_seq)
+                text, reason = self.summarize(agent.session, first_seq)
                 sys.stdout.write(text + "\n")
                 if reason and reason.get("kind") == "error":
                     error = reason["error"]

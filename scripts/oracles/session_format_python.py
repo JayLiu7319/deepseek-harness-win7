@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'session-log-current':
+        if case['kind'] == 'headless-current':
+            from scripts.oracles.headless_current_python import execute as headless_execute
+            value = headless_execute(case)
+        elif case['kind'] == 'session-log-current':
             from scripts.oracles.session_log_current_python import execute as session_log_execute
             value = session_log_execute(case, decode)
         elif case['kind'] == 'telemetry-current':

@@ -359,3 +359,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R03-N — 按格式代际增量上传
 
 DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视为v0，旧格式错误水位不污染v3进度；wire保留格式版本、seedLength、surface/provenance及未知ignorable元数据。41组原版配对、100项原生和44项原版测试通过。真实当前Agent两次HTTP请求验证2xx接受回调、精确suffix和JSONL冷恢复游标；seeded header/system替换修正夹具后有明确成功断言，未将配对拒绝冒充成功。回执`migration/candidates/rc3/session-log-current-checks.json`保留诊断，上传仍为opt-in、默认关闭；生产组装和统一资格尚待完成。成功短夹具自动清理，约179GiB磁盘可用。
+
+### R07-D — Headless实时帧消费者
+
+候选headless从agent/assistant-stream读取本Agent的reasoning，start/end和非reasoning块关闭行，重试重新开启标题；最终非空回答/退出状态只取运行区间持久日志，缺失序号拒绝。28组实际原版runner配对、43项原生和19项原版测试通过，包含真实当前Agent完成/取消、v3 JSONL在退出前flush及监听释放。公共hook重构后的既有HTTP编辑器/重试/startup回归通过，不能据此声称rc.3生产启动已验收。Python appReady为现有启动适配；回执`migration/candidates/rc3/headless-current-checks.json`保留初轮夹具/取消枚举诊断，成功短夹具自动清理。

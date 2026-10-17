@@ -1,0 +1,2216 @@
+[
+  {
+    "case": "headless/separator/0/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "usage"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreasontail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/0/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "usage"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/1/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-start",
+            "blockType": "reasoning"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreasontail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/1/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-start",
+            "blockType": "reasoning"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/2/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-end",
+            "block": {
+              "type": "reasoning",
+              "text": "reasoning"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreasontail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/2/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-end",
+            "block": {
+              "type": "reasoning",
+              "text": "reasoning"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/3/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-start",
+            "blockType": "text"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/3/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-start",
+            "blockType": "text"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/4/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-end",
+            "block": {
+              "type": "text",
+              "text": "answer"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/4/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "block-end",
+            "block": {
+              "type": "text",
+              "text": "answer"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/5/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "a"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/5/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "text-delta",
+            "index": 1,
+            "text": "a"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/6/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 1,
+            "argumentsDelta": "{}"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/6/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "tool-call-delta",
+            "index": 1,
+            "argumentsDelta": "{}"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/7/False",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/separator/7/True",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "reason\n"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "finish",
+            "reason": {
+              "kind": "stop"
+            }
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "tail"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nreason\ndsh: reasoning:\ntail\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/no-frames",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/blank-delta",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": ""
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/foreign",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "foreign"
+          }
+        },
+        "foreign": true
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/unfinished",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "unfinished"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nunfinished\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/retry",
+    "kind": "headless-current",
+    "frames": [
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "attempt1"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      },
+      {
+        "frame": {
+          "type": "start"
+        }
+      },
+      {
+        "frame": {
+          "type": "chunk",
+          "chunk": {
+            "type": "reasoning-delta",
+            "index": 0,
+            "text": "attempt2"
+          }
+        }
+      },
+      {
+        "frame": {
+          "type": "end"
+        }
+      }
+    ],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "dsh: reasoning:\nattempt1\ndsh: reasoning:\nattempt2\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/empty",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/last-text",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "before"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "first"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": ""
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "last"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 0,
+      "out": "last\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/error",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "error",
+            "error": {
+              "code": "ERROR",
+              "message": "bad"
+            }
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 1,
+      "out": "\n",
+      "err": "dsh: ERROR: bad\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/cancelled",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "aborted"
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 1,
+      "out": "\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/no-end",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "unfinished"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "expected": {
+      "code": 1,
+      "out": "unfinished\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/missing",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "missing": 1,
+    "expected": {
+      "code": 1,
+      "out": "",
+      "err": "dsh: headless summary cannot read seq 1 below captured length 3\n",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  },
+  {
+    "case": "headless/empty-task",
+    "kind": "headless-current",
+    "frames": [],
+    "events": [
+      {
+        "type": "turn/start",
+        "time": 100,
+        "data": {
+          "turn": 1
+        }
+      },
+      {
+        "type": "assistant/message",
+        "time": 100,
+        "data": {
+          "message": {
+            "content": [
+              {
+                "type": "text",
+                "text": "answer"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "turn/end",
+        "time": 100,
+        "data": {
+          "reason": {
+            "kind": "completed"
+          }
+        }
+      }
+    ],
+    "task": "",
+    "expected": {
+      "code": 0,
+      "out": "answer\n",
+      "err": "",
+      "order": [
+        "prompt",
+        "flush",
+        "exit"
+      ],
+      "options": [
+        {
+          "provider": "mock",
+          "model": "model"
+        }
+      ]
+    }
+  }
+]
