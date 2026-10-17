@@ -385,7 +385,10 @@ def execute(case):
 
 def observe(case):
     try:
-        if case['kind'] == 'workspace-current':
+        if case['kind'] == 'open-in-app-current':
+            from scripts.oracles.open_in_app_current_python import execute as open_in_app_execute
+            value = open_in_app_execute(case)
+        elif case['kind'] == 'workspace-current':
             from scripts.oracles.workspace_current_python import execute as workspace_execute
             value = workspace_execute(case)
         elif case['kind'] == 'present-open-current':

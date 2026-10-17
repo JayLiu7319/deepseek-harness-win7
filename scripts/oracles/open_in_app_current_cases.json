@@ -1,0 +1,4047 @@
+[
+  {
+    "case": "catalog",
+    "kind": "open-in-app-current",
+    "operation": "catalog",
+    "expected": [
+      {
+        "id": "finder",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "fixed",
+                "launch": {
+                  "kind": "shell-open"
+                },
+                "iconPath": "/System/Library/CoreServices/Finder.app"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "explorer",
+        "platforms": {
+          "win32": {
+            "locators": [
+              {
+                "kind": "fixed",
+                "launch": {
+                  "kind": "shell-open"
+                },
+                "iconPath": "${SystemRoot}/explorer.exe"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "filemanager",
+        "platforms": {
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "xdg-open",
+                "args": [],
+                "requiresDesktop": true
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cursor",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Cursor.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "Cursor.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Cursor",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${LOCALAPPDATA}/Programs/cursor/Cursor.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "cursor",
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "vscode",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Visual Studio Code.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "Code.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Microsoft Visual Studio Code",
+                "relativeLauncher": "Code.exe",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${LOCALAPPDATA}/Programs/Microsoft VS Code/Code.exe",
+                  "${ProgramFiles}/Microsoft VS Code/Code.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "code",
+                "args": []
+              }
+            ],
+            "desktopId": "code"
+          }
+        }
+      },
+      {
+        "id": "vscodeinsiders",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Visual Studio Code - Insiders.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "Code - Insiders.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Microsoft Visual Studio Code Insiders",
+                "relativeLauncher": "Code - Insiders.exe",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${LOCALAPPDATA}/Programs/Microsoft VS Code Insiders/Code - Insiders.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "code-insiders",
+                "args": []
+              }
+            ],
+            "desktopId": "code-insiders"
+          }
+        }
+      },
+      {
+        "id": "windsurf",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Windsurf.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "Windsurf.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Windsurf",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${LOCALAPPDATA}/Programs/Windsurf/Windsurf.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "windsurf",
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "zed",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Zed.app",
+                  "Zed Preview.app"
+                ]
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "zed",
+                "args": []
+              },
+              {
+                "kind": "desktop",
+                "desktopId": "dev.zed.Zed",
+                "args": []
+              }
+            ],
+            "desktopId": "dev.zed.Zed"
+          }
+        }
+      },
+      {
+        "id": "sublimetext",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Sublime Text.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "sublime_text.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Sublime Text",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${ProgramFiles}/Sublime Text/sublime_text.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "subl",
+                "args": []
+              }
+            ],
+            "desktopId": "sublime_text"
+          }
+        }
+      },
+      {
+        "id": "xcode",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "xcode"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "androidstudio",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Android Studio.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Android Studio",
+                "relativeLauncher": "bin/studio64.exe",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${ProgramFiles}/Android/Android Studio/bin/studio64.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "studio",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/studio",
+                  "/opt/android-studio/bin/studio.sh"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "intellij",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "IntelliJ IDEA.app",
+                  "IntelliJ IDEA Ultimate.app",
+                  "IntelliJ IDEA CE.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "IntelliJ IDEA",
+                "relativeLauncher": "bin/idea64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "IntelliJ IDEA",
+                "relativeLauncher": "bin/idea64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "idea",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/idea"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "pycharm",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "PyCharm.app",
+                  "PyCharm Professional.app",
+                  "PyCharm CE.app",
+                  "PyCharm Community.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "PyCharm",
+                "relativeLauncher": "bin/pycharm64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "PyCharm",
+                "relativeLauncher": "bin/pycharm64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "pycharm",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/pycharm"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "webstorm",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "WebStorm.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "WebStorm",
+                "relativeLauncher": "bin/webstorm64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "WebStorm",
+                "relativeLauncher": "bin/webstorm64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "webstorm",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/webstorm"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "phpstorm",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "PhpStorm.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "PhpStorm",
+                "relativeLauncher": "bin/phpstorm64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "PhpStorm",
+                "relativeLauncher": "bin/phpstorm64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "phpstorm",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/phpstorm"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "goland",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "GoLand.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "GoLand",
+                "relativeLauncher": "bin/goland64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "GoLand",
+                "relativeLauncher": "bin/goland64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "goland",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/goland"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "rider",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Rider.app",
+                  "JetBrains Rider.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "Rider",
+                "relativeLauncher": "bin/rider64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Rider",
+                "relativeLauncher": "bin/rider64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "rider",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/rider"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "rustrover",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "RustRover.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "scan",
+                "root": "${ProgramFiles}/JetBrains",
+                "namePrefix": "RustRover",
+                "relativeLauncher": "bin/rustrover64.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "RustRover",
+                "relativeLauncher": "bin/rustrover64.exe",
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "rustrover",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "~/.local/share/JetBrains/Toolbox/scripts/rustrover"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "fork",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Fork.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Fork",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${LOCALAPPDATA}/Fork/Fork.exe"
+                ],
+                "args": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "sourcetree",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Sourcetree.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "github",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "GitHub Desktop.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "github-desktop",
+                "root": "${LOCALAPPDATA}/GitHubDesktop"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "tower",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Tower.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "gitkraken",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "GitKraken.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "smartgit",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "SmartGit.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "sublimemerge",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Sublime Merge.app"
+                ]
+              }
+            ]
+          },
+          "win32": {
+            "locators": [
+              {
+                "kind": "app-paths",
+                "exe": "sublime_merge.exe",
+                "args": []
+              },
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Sublime Merge",
+                "args": []
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${ProgramFiles}/Sublime Merge/sublime_merge.exe"
+                ],
+                "args": []
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "smerge",
+                "args": []
+              }
+            ],
+            "desktopId": "sublime_merge"
+          }
+        }
+      },
+      {
+        "id": "ghostty",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Ghostty.app"
+                ]
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "ghostty",
+                "args": [
+                  "--working-directory={path}"
+                ]
+              },
+              {
+                "kind": "desktop",
+                "desktopId": "com.mitchellh.ghostty",
+                "args": [
+                  "--working-directory={path}"
+                ]
+              }
+            ],
+            "desktopId": "com.mitchellh.ghostty"
+          }
+        }
+      },
+      {
+        "id": "warp",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "Warp.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "iterm",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "iTerm.app"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "kitty",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "app",
+                "fsNames": [
+                  "kitty.app"
+                ]
+              }
+            ]
+          },
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "kitty",
+                "args": [
+                  "--directory"
+                ]
+              },
+              {
+                "kind": "desktop",
+                "desktopId": "kitty",
+                "args": [
+                  "--directory"
+                ]
+              }
+            ],
+            "desktopId": "kitty"
+          }
+        }
+      },
+      {
+        "id": "terminal",
+        "platforms": {
+          "darwin": {
+            "locators": [
+              {
+                "kind": "fixed",
+                "launch": {
+                  "kind": "argv",
+                  "command": "open",
+                  "args": [
+                    "-a",
+                    "Terminal"
+                  ]
+                },
+                "iconPath": "/System/Applications/Utilities/Terminal.app"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "windowsterminal",
+        "platforms": {
+          "win32": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "wt",
+                "args": [
+                  "-d"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "gitbash",
+        "platforms": {
+          "win32": {
+            "locators": [
+              {
+                "kind": "install-record",
+                "displayNamePrefix": "Git version",
+                "relativeLauncher": "git-bash.exe",
+                "args": [
+                  "--cd={path}"
+                ]
+              },
+              {
+                "kind": "file",
+                "candidates": [
+                  "${ProgramFiles}/Git/git-bash.exe"
+                ],
+                "args": [
+                  "--cd={path}"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "gnometerminal",
+        "platforms": {
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "gnome-terminal",
+                "args": [
+                  "--working-directory={path}"
+                ]
+              },
+              {
+                "kind": "desktop",
+                "desktopId": "org.gnome.Terminal",
+                "args": [
+                  "--working-directory={path}"
+                ]
+              }
+            ],
+            "desktopId": "org.gnome.Terminal"
+          }
+        }
+      },
+      {
+        "id": "konsole",
+        "platforms": {
+          "linux": {
+            "locators": [
+              {
+                "kind": "cli",
+                "name": "konsole",
+                "args": [
+                  "--workdir"
+                ]
+              },
+              {
+                "kind": "desktop",
+                "desktopId": "org.kde.konsole",
+                "args": [
+                  "--workdir"
+                ]
+              }
+            ],
+            "desktopId": "org.kde.konsole"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "case": "exec-0",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "",
+    "expected": null
+  },
+  {
+    "case": "exec-1",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "code --new-window",
+    "expected": "code"
+  },
+  {
+    "case": "exec-2",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\"C:/Program Files/editor.exe\" %F",
+    "expected": "C:/Program Files/editor.exe"
+  },
+  {
+    "case": "exec-3",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\"\" bare",
+    "expected": "\"\""
+  },
+  {
+    "case": "exec-4",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": " leading",
+    "expected": null
+  },
+  {
+    "case": "exec-5",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\ufeffeditor",
+    "expected": null
+  },
+  {
+    "case": "exec-6",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\u0085editor",
+    "expected": "\u0085editor"
+  },
+  {
+    "case": "exec-7",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "one\u0085two",
+    "expected": "one\u0085two"
+  },
+  {
+    "case": "exec-8",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "'not-shell-quoted' arg",
+    "expected": "'not-shell-quoted'"
+  },
+  {
+    "case": "exec-9",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\"unterminated",
+    "expected": "\"unterminated"
+  },
+  {
+    "case": "exec-10",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "text": "\tcode",
+    "expected": null
+  },
+  {
+    "case": "exec-absent",
+    "kind": "open-in-app-current",
+    "operation": "exec",
+    "expected": null
+  },
+  {
+    "case": "desktop-0",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "",
+    "expected": {}
+  },
+  {
+    "case": "desktop-1",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "Exec=ignored\n[Desktop Entry]\nExec=one %F\nIcon=art\nTryExec=check\n[Other]\nExec=ignored",
+    "expected": {
+      "exec": "one %F",
+      "icon": "art",
+      "tryExec": "check"
+    }
+  },
+  {
+    "case": "desktop-2",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "[Desktop Entry]\r\n Exec = one=two \r\nExec=last\r\nTryExec=\r\nIcon=\ufefflogo\ufeff",
+    "expected": {
+      "exec": "last",
+      "tryExec": "",
+      "icon": "logo"
+    }
+  },
+  {
+    "case": "desktop-3",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "[desktop entry]\nExec=no",
+    "expected": {}
+  },
+  {
+    "case": "desktop-4",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "[Desktop Entry]\n#Exec=no\n[Desktop Action Other]\nIcon=no",
+    "expected": {}
+  },
+  {
+    "case": "desktop-5",
+    "kind": "open-in-app-current",
+    "operation": "desktop",
+    "text": "[Desktop Entry]\nExec=\u0085odd\u0085\n[Desktop Entry]\nTryExec=ok",
+    "expected": {
+      "exec": "\u0085odd\u0085",
+      "tryExec": "ok"
+    }
+  },
+  {
+    "case": "expand-0",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": ""
+  },
+  {
+    "case": "expand-1",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${ROOT}/editor",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "R/editor"
+  },
+  {
+    "case": "expand-2",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${EMPTY}/editor",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "/editor"
+  },
+  {
+    "case": "expand-3",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${MISSING}/editor",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": null
+  },
+  {
+    "case": "expand-4",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${ROOT}${MISSING}",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": null
+  },
+  {
+    "case": "expand-5",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "~/Applications/App.app",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "HOME\\Applications\\App.app"
+  },
+  {
+    "case": "expand-6",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "~\\App",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "~\\App"
+  },
+  {
+    "case": "expand-7",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${ROOT}/../x",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "R/../x"
+  },
+  {
+    "case": "expand-8",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "${}/literal",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "${}/literal"
+  },
+  {
+    "case": "expand-9",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "%ROOT%",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "%ROOT%"
+  },
+  {
+    "case": "expand-10",
+    "kind": "open-in-app-current",
+    "operation": "expand",
+    "text": "\ufeff~/file",
+    "env": {
+      "ROOT": "R",
+      "EMPTY": ""
+    },
+    "expected": "\ufeff~/file"
+  },
+  {
+    "case": "xdg-0",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {},
+    "expected": [
+      "HOME\\.local\\share",
+      "/usr/local/share",
+      "/usr/share"
+    ]
+  },
+  {
+    "case": "xdg-1",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {
+      "XDG_DATA_HOME": "",
+      "XDG_DATA_DIRS": ""
+    },
+    "expected": [
+      ""
+    ]
+  },
+  {
+    "case": "xdg-2",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {
+      "XDG_DATA_HOME": "data",
+      "XDG_DATA_DIRS": "one::two:"
+    },
+    "expected": [
+      "data",
+      "one",
+      "two"
+    ]
+  },
+  {
+    "case": "xdg-3",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {
+      "XDG_DATA_DIRS": "C:/one:D:/two"
+    },
+    "expected": [
+      "HOME\\.local\\share",
+      "C",
+      "/one",
+      "D",
+      "/two"
+    ]
+  },
+  {
+    "case": "xdg-4",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {
+      "XDG_DATA_HOME": "\ufeff"
+    },
+    "expected": [
+      "\ufeff",
+      "/usr/local/share",
+      "/usr/share"
+    ]
+  },
+  {
+    "case": "xdg-5",
+    "kind": "open-in-app-current",
+    "operation": "xdg",
+    "env": {
+      "XDG_DATA_DIRS": " : "
+    },
+    "expected": [
+      "HOME\\.local\\share",
+      " ",
+      " "
+    ]
+  },
+  {
+    "case": "registry-parser",
+    "kind": "open-in-app-current",
+    "operation": "registry",
+    "text": "    (Default) REG_SZ orphan\nHKEY_CURRENT_USER\\App\\one.exe\r\n    (\u9ed8\u8ba4)    REG_EXPAND_SZ    \"%ROOT%/one.exe\"  \r\n    Path    REG_SZ    A B C\r\n    Value    REG_DWORD    0x1\r\nHKEY_CURRENT_USER\\App\\two.exe\n    (Standard)    REG_SZ    two.exe\nHKEY_CURRENT_USER\\App\\one.exe\n    (Default)    REG_SZ    replacement\n",
+    "expected": [
+      [
+        "HKEY_CURRENT_USER\\App\\one.exe",
+        [
+          [
+            "(Default)",
+            "replacement"
+          ]
+        ]
+      ],
+      [
+        "HKEY_CURRENT_USER\\App\\two.exe",
+        [
+          [
+            "(Default)",
+            "two.exe"
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "case": "registry-blank-values",
+    "kind": "open-in-app-current",
+    "operation": "registry",
+    "text": "HKCU\\one\n    (Default)    REG_SZ    \n    File name    REG_SZ    one\n    (Not default)    REG_SZ    value\n    Name REG_MULTI_SZ ignored\n",
+    "expected": [
+      [
+        "HKCU\\one",
+        [
+          [
+            "(Default)",
+            "value"
+          ],
+          [
+            "File name",
+            "one"
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "case": "numeric-collation-0",
+    "kind": "open-in-app-current",
+    "operation": "versions",
+    "values": [
+      "app-2024.1.9",
+      "app-2024.1.10",
+      "app-2023.9"
+    ],
+    "expected": [
+      "app-2024.1.10",
+      "app-2024.1.9",
+      "app-2023.9"
+    ]
+  },
+  {
+    "case": "numeric-collation-1",
+    "kind": "open-in-app-current",
+    "operation": "versions",
+    "values": [
+      "app-02",
+      "app-2",
+      "app-10",
+      "app-1"
+    ],
+    "expected": [
+      "app-10",
+      "app-02",
+      "app-2",
+      "app-1"
+    ]
+  },
+  {
+    "case": "numeric-collation-2",
+    "kind": "open-in-app-current",
+    "operation": "versions",
+    "values": [
+      "app-a",
+      "app-A",
+      "app-\u00e1",
+      "app-_",
+      "app--"
+    ],
+    "expected": [
+      "app-\u00e1",
+      "app-A",
+      "app-a",
+      "app--",
+      "app-_"
+    ]
+  },
+  {
+    "case": "numeric-collation-3",
+    "kind": "open-in-app-current",
+    "operation": "versions",
+    "values": [
+      "app-\uff12",
+      "app-\u0661\u0660",
+      "app-3"
+    ],
+    "expected": [
+      "app-\u0661\u0660",
+      "app-3",
+      "app-\uff12"
+    ]
+  },
+  {
+    "case": "numeric-collation-4",
+    "kind": "open-in-app-current",
+    "operation": "versions",
+    "values": [
+      "app-1.10",
+      "app-1.2",
+      "app-1.01",
+      "app-1.1"
+    ],
+    "expected": [
+      "app-1.10",
+      "app-1.2",
+      "app-1.01",
+      "app-1.1"
+    ]
+  },
+  {
+    "case": "launch-launched-launched",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "launched",
+      "launched"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-launched-failed",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "launched",
+      "failed"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-launched-missing",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "launched",
+      "missing"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-failed-launched",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "failed",
+      "launched"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-failed-failed",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "failed",
+      "failed"
+    ],
+    "expected": {
+      "outcome": "failed",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-failed-missing",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "failed",
+      "missing"
+    ],
+    "expected": {
+      "outcome": "missing",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-missing-launched",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "missing",
+      "launched"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-missing-failed",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "missing",
+      "failed"
+    ],
+    "expected": {
+      "outcome": "missing",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-missing-missing",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "C:/work space/a';$(literal)",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "primary",
+        "args": [
+          "--cd={path}/{path}"
+        ],
+        "env": {
+          "EXPLICIT_SECRET": "adapter"
+        },
+        "windowsHide": true
+      },
+      "fallbackLaunch": {
+        "kind": "argv",
+        "command": "fallback",
+        "args": [
+          "open"
+        ]
+      }
+    },
+    "outcomes": [
+      "missing",
+      "missing"
+    ],
+    "expected": {
+      "outcome": "missing",
+      "calls": [
+        {
+          "command": "primary",
+          "args": [
+            "--cd=C:/work space/a';$(literal)/C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123,
+            "env": {
+              "EXPLICIT_SECRET": "adapter"
+            },
+            "windowsHide": true
+          }
+        },
+        {
+          "command": "fallback",
+          "args": [
+            "open",
+            "C:/work space/a';$(literal)"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-single-launched",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "/one two",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "editor",
+        "args": []
+      }
+    },
+    "outcomes": [
+      "launched"
+    ],
+    "expected": {
+      "outcome": "launched",
+      "calls": [
+        {
+          "command": "editor",
+          "args": [
+            "/one two"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-single-failed",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "/one two",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "editor",
+        "args": []
+      }
+    },
+    "outcomes": [
+      "failed"
+    ],
+    "expected": {
+      "outcome": "failed",
+      "calls": [
+        {
+          "command": "editor",
+          "args": [
+            "/one two"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "launch-single-missing",
+    "kind": "open-in-app-current",
+    "operation": "launch",
+    "path": "/one two",
+    "resolved": {
+      "launch": {
+        "kind": "argv",
+        "command": "editor",
+        "args": []
+      }
+    },
+    "outcomes": [
+      "missing"
+    ],
+    "expected": {
+      "outcome": "missing",
+      "calls": [
+        {
+          "command": "editor",
+          "args": [
+            "/one two"
+          ],
+          "options": {
+            "watchMs": 123
+          }
+        }
+      ]
+    }
+  },
+  {
+    "case": "fixed-icon-present",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "fixed",
+              "launch": {
+                "kind": "shell-open"
+              },
+              "iconPath": "${SystemRoot}/explorer.exe"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "env": {
+      "SystemRoot": "C:/Windows"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "shell-open"
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "C:/Windows/explorer.exe"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "fixed-icon-unset",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "fixed",
+              "launch": {
+                "kind": "shell-open"
+              },
+              "iconPath": "${SystemRoot}/explorer.exe"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "shell-open"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "mac-app-priority",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "app",
+              "fsNames": [
+                "Absent.app",
+                "First.app",
+                "Second.app"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "directories": [
+      "apps/First.app",
+      "apps/Second.app"
+    ],
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/First.app"
+          ]
+        },
+        "icon": {
+          "kind": "app-bundle",
+          "path": "$ROOT/apps/First.app"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "mac-app-absent",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "app",
+              "fsNames": [
+                "Absent.app"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "xcode",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "xcode"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "directories": [
+      "apps/Xcode Beta.app"
+    ],
+    "commands": {
+      "xcode-select": "$ROOT/apps/Xcode Beta.app/Contents/Developer\n"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "xed",
+          "args": []
+        },
+        "fallbackLaunch": {
+          "kind": "argv",
+          "command": "open",
+          "args": [
+            "-a",
+            "$ROOT/apps/Xcode Beta.app"
+          ]
+        },
+        "icon": {
+          "kind": "app-bundle",
+          "path": "$ROOT/apps/Xcode Beta.app"
+        }
+      },
+      "calls": [
+        {
+          "command": "xcode-select",
+          "args": [
+            "-p"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "xcode-invalid",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "xcode"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "directories": [
+      "apps/no-app"
+    ],
+    "commands": {
+      "xcode-select": "$ROOT/apps/no-app/Contents/Developer\n"
+    },
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "command": "xcode-select",
+          "args": [
+            "-p"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "xcode-command-failed",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "xcode"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "command": "xcode-select",
+          "args": [
+            "-p"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-win32-False-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-win32-False-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/editor"
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-win32-True-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-win32-True-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/editor"
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-darwin-False-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-darwin-False-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-darwin-True-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-darwin-True-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "darwin": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "darwin",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-linux-False-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-linux-False-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "cli-linux-True-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "cli-linux-True-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "cli-freebsd-False-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "freebsd": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "freebsd",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "cli-freebsd-False-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "freebsd": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": false
+            }
+          ]
+        }
+      }
+    },
+    "platform": "freebsd",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "cli-freebsd-True-False",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "freebsd": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "freebsd",
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "cli-freebsd-True-True",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "freebsd": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [
+                "--new"
+              ],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "freebsd",
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "linux-desktop-visible",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": [],
+              "requiresDesktop": true
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "env": {
+      "DISPLAY": ":1"
+    },
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": []
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor"
+        }
+      ]
+    }
+  },
+  {
+    "case": "file-fallback",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "file",
+              "candidates": [
+                "${MISSING}/absent",
+                "$ROOT/missing",
+                "$ROOT/dir",
+                "$ROOT/tool.exe",
+                "$ROOT/other.exe"
+              ],
+              "args": [
+                "."
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "files": {
+      "tool.exe": "",
+      "other.exe": ""
+    },
+    "directories": [
+      "dir"
+    ],
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/tool.exe",
+          "args": [
+            "."
+          ]
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/tool.exe"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "file-none",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "file",
+              "candidates": [
+                "$ROOT/missing",
+                "$ROOT/dir"
+              ],
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "directories": [
+      "dir"
+    ],
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "scan-newest-valid",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "scan",
+              "root": "$ROOT/install",
+              "namePrefix": "IDE ",
+              "relativeLauncher": "bin/app.exe",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "files": {
+      "install/IDE 2024.1.9/bin/app.exe": "",
+      "install/IDE 2024.1.10/bin/app.exe": "",
+      "install/IDE 2025.1/no.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/install/IDE 2024.1.10/bin/app.exe",
+          "args": []
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/install/IDE 2024.1.10/bin/app.exe"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "scan-missing",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "scan",
+              "root": "$ROOT/none",
+              "namePrefix": "IDE",
+              "relativeLauncher": "app.exe",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "github-version",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "github-desktop",
+              "root": "$ROOT/GitHub"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "files": {
+      "GitHub/app-2.9/GitHubDesktop.exe": "",
+      "GitHub/app-2.9/resources/app/cli.js": "",
+      "GitHub/app-2.10/GitHubDesktop.exe": "",
+      "GitHub/app-2.10/resources/app/cli.js": "",
+      "GitHub/app-3.0/GitHubDesktop.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/GitHub/app-2.10/GitHubDesktop.exe",
+          "args": [
+            "$ROOT/GitHub/app-2.10/resources/app/cli.js",
+            "open"
+          ],
+          "env": {
+            "ELECTRON_RUN_AS_NODE": "1"
+          },
+          "windowsHide": true
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/GitHub/app-2.10/GitHubDesktop.exe"
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "github-missing-pair",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "github-desktop",
+              "root": "$ROOT/GitHub"
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "files": {
+      "GitHub/app-3.0/GitHubDesktop.exe": ""
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "registry-view-precedence",
+    "kind": "open-in-app-current",
+    "operation": "registry-view",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "env": {
+      "APP_HOME": "$ROOT/install"
+    },
+    "expected": {
+      "result": {
+        "appPaths": [
+          [
+            "editor.exe",
+            "$ROOT/user.exe"
+          ]
+        ],
+        "installRecords": [
+          {
+            "displayName": "Tool Personal",
+            "installLocation": "\"%APP_HOME%\"",
+            "displayIcon": "\"$ROOT/icon.exe\",-2"
+          },
+          {
+            "displayName": "Tool Other",
+            "displayIcon": "\"$ROOT/fallback.exe\",0"
+          }
+        ]
+      },
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "app-paths",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "app-paths",
+              "exe": "editor.EXE",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "env": {
+      "APP_HOME": "$ROOT/install"
+    },
+    "files": {
+      "user.exe": "",
+      "machine.exe": "",
+      "install/bin/app.exe": "",
+      "icon.exe": "",
+      "fallback.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/user.exe",
+          "args": []
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/user.exe"
+        }
+      },
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "install-relative",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "install-record",
+              "displayNamePrefix": "Tool",
+              "relativeLauncher": "bin/app.exe",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "env": {
+      "APP_HOME": "$ROOT/install"
+    },
+    "files": {
+      "user.exe": "",
+      "machine.exe": "",
+      "install/bin/app.exe": "",
+      "icon.exe": "",
+      "fallback.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/install/bin/app.exe",
+          "args": []
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/install/bin/app.exe"
+        }
+      },
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "install-icon",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "install-record",
+              "displayNamePrefix": "Tool",
+              "relativeLauncher": "missing.exe",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "env": {
+      "APP_HOME": "$ROOT/install"
+    },
+    "files": {
+      "user.exe": "",
+      "machine.exe": "",
+      "install/bin/app.exe": "",
+      "icon.exe": "",
+      "fallback.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/icon.exe",
+          "args": []
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/icon.exe"
+        }
+      },
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "install-later-record",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "install-record",
+              "displayNamePrefix": "Tool",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "env": {
+      "APP_HOME": "$ROOT/install"
+    },
+    "files": {
+      "user.exe": "",
+      "machine.exe": "",
+      "install/bin/app.exe": "",
+      "fallback.exe": ""
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/fallback.exe",
+          "args": []
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/fallback.exe"
+        }
+      },
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "registry-no-files",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "app-paths",
+              "exe": "editor.exe",
+              "args": []
+            },
+            {
+              "kind": "install-record",
+              "displayNamePrefix": "Tool",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "commands": {
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKCU\\App\\EDITOR.EXE\n    (\u9ed8\u8ba4) REG_SZ \"$ROOT/user.exe\"\nHKCU\\App\\missing.exe\n    (Default) REG_EXPAND_SZ %UNSET%/missing.exe\n",
+      "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths": "HKLM\\App\\editor.exe\n    (Default) REG_SZ \"$ROOT/machine.exe\"\n",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKCU\\Uninstall\\tool\n    DisplayName REG_SZ Tool Personal\n    InstallLocation REG_EXPAND_SZ \"%APP_HOME%\"\n    DisplayIcon REG_SZ \"$ROOT/icon.exe\",-2\n",
+      "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall": "HKLM\\Uninstall\\fallback\n    DisplayName REG_SZ Tool Other\n    DisplayIcon REG_SZ \"$ROOT/fallback.exe\",0\n"
+    },
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKCU/Software/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        },
+        {
+          "command": "reg.exe",
+          "args": [
+            "query",
+            "HKLM/SOFTWARE/WOW6432Node/Microsoft/Windows/CurrentVersion/Uninstall",
+            "/s"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "case": "desktop-tryexec",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "desktop",
+              "desktopId": "test",
+              "args": [
+                "--new"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nExec=wrong %F\nTryExec=right",
+      "tool.exe": ""
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "executables": {
+      "right": "$ROOT/right"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/right",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": [
+        {
+          "resolve": "right"
+        }
+      ]
+    }
+  },
+  {
+    "case": "desktop-exec",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "desktop",
+              "desktopId": "test",
+              "args": [
+                "--new"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nExec=\"editor cli\" %F",
+      "tool.exe": ""
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "executables": {
+      "editor cli": "$ROOT/editor"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/editor",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": [
+        {
+          "resolve": "editor cli"
+        }
+      ]
+    }
+  },
+  {
+    "case": "desktop-empty-tryexec",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "desktop",
+              "desktopId": "test",
+              "args": [
+                "--new"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nExec=right\nTryExec=",
+      "tool.exe": ""
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "executables": {
+      "right": "$ROOT/right"
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "desktop-missing",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "desktop",
+              "desktopId": "test",
+              "args": [
+                "--new"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nExec=absent",
+      "tool.exe": ""
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "executables": {},
+    "expected": {
+      "result": null,
+      "calls": [
+        {
+          "resolve": "absent"
+        }
+      ]
+    }
+  },
+  {
+    "case": "desktop-absolute",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "linux": {
+          "locators": [
+            {
+              "kind": "desktop",
+              "desktopId": "test",
+              "args": [
+                "--new"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "linux",
+    "files": {
+      "data/applications/test.desktop": "[Desktop Entry]\nTryExec=$ROOT/tool.exe",
+      "tool.exe": ""
+    },
+    "env": {
+      "XDG_DATA_HOME": "$ROOT/data",
+      "XDG_DATA_DIRS": ""
+    },
+    "executables": {},
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/tool.exe",
+          "args": [
+            "--new"
+          ]
+        }
+      },
+      "calls": []
+    }
+  },
+  {
+    "case": "locator-order",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "file",
+              "candidates": [
+                "$ROOT/none"
+              ],
+              "args": []
+            },
+            {
+              "kind": "cli",
+              "name": "first",
+              "args": [
+                "first"
+              ]
+            },
+            {
+              "kind": "cli",
+              "name": "second",
+              "args": [
+                "second"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "executables": {
+      "first": "$ROOT/first",
+      "second": "$ROOT/second"
+    },
+    "expected": {
+      "result": {
+        "launch": {
+          "kind": "argv",
+          "command": "$ROOT/first",
+          "args": [
+            "first"
+          ]
+        },
+        "icon": {
+          "kind": "executable",
+          "path": "$ROOT/first"
+        }
+      },
+      "calls": [
+        {
+          "resolve": "first"
+        }
+      ]
+    }
+  },
+  {
+    "case": "ssh-no-probe",
+    "kind": "open-in-app-current",
+    "operation": "resolve",
+    "app": {
+      "id": "test",
+      "platforms": {
+        "win32": {
+          "locators": [
+            {
+              "kind": "cli",
+              "name": "editor",
+              "args": []
+            }
+          ]
+        }
+      }
+    },
+    "platform": "win32",
+    "ssh": true,
+    "executables": {
+      "editor": "$ROOT/editor"
+    },
+    "expected": {
+      "result": null,
+      "calls": []
+    }
+  },
+  {
+    "case": "all-ssh-no-probe",
+    "kind": "open-in-app-current",
+    "operation": "all",
+    "ssh": true,
+    "expected": {
+      "result": [],
+      "calls": []
+    }
+  },
+  {
+    "case": "all-unknown-platform",
+    "kind": "open-in-app-current",
+    "operation": "all",
+    "platform": "freebsd",
+    "expected": {
+      "result": [],
+      "calls": []
+    }
+  }
+]

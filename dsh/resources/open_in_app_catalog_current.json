@@ -1,0 +1,1083 @@
+[
+  {
+    "id": "finder",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "fixed",
+            "launch": {
+              "kind": "shell-open"
+            },
+            "iconPath": "/System/Library/CoreServices/Finder.app"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "explorer",
+    "platforms": {
+      "win32": {
+        "locators": [
+          {
+            "kind": "fixed",
+            "launch": {
+              "kind": "shell-open"
+            },
+            "iconPath": "${SystemRoot}/explorer.exe"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "filemanager",
+    "platforms": {
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "xdg-open",
+            "args": [],
+            "requiresDesktop": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cursor",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Cursor.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "Cursor.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Cursor",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${LOCALAPPDATA}/Programs/cursor/Cursor.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "cursor",
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "vscode",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Visual Studio Code.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "Code.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Microsoft Visual Studio Code",
+            "relativeLauncher": "Code.exe",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${LOCALAPPDATA}/Programs/Microsoft VS Code/Code.exe",
+              "${ProgramFiles}/Microsoft VS Code/Code.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "code",
+            "args": []
+          }
+        ],
+        "desktopId": "code"
+      }
+    }
+  },
+  {
+    "id": "vscodeinsiders",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Visual Studio Code - Insiders.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "Code - Insiders.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Microsoft Visual Studio Code Insiders",
+            "relativeLauncher": "Code - Insiders.exe",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${LOCALAPPDATA}/Programs/Microsoft VS Code Insiders/Code - Insiders.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "code-insiders",
+            "args": []
+          }
+        ],
+        "desktopId": "code-insiders"
+      }
+    }
+  },
+  {
+    "id": "windsurf",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Windsurf.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "Windsurf.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Windsurf",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${LOCALAPPDATA}/Programs/Windsurf/Windsurf.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "windsurf",
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "zed",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Zed.app",
+              "Zed Preview.app"
+            ]
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "zed",
+            "args": []
+          },
+          {
+            "kind": "desktop",
+            "desktopId": "dev.zed.Zed",
+            "args": []
+          }
+        ],
+        "desktopId": "dev.zed.Zed"
+      }
+    }
+  },
+  {
+    "id": "sublimetext",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Sublime Text.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "sublime_text.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Sublime Text",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${ProgramFiles}/Sublime Text/sublime_text.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "subl",
+            "args": []
+          }
+        ],
+        "desktopId": "sublime_text"
+      }
+    }
+  },
+  {
+    "id": "xcode",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "xcode"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "androidstudio",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Android Studio.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Android Studio",
+            "relativeLauncher": "bin/studio64.exe",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${ProgramFiles}/Android/Android Studio/bin/studio64.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "studio",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/studio",
+              "/opt/android-studio/bin/studio.sh"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "intellij",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "IntelliJ IDEA.app",
+              "IntelliJ IDEA Ultimate.app",
+              "IntelliJ IDEA CE.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "IntelliJ IDEA",
+            "relativeLauncher": "bin/idea64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "IntelliJ IDEA",
+            "relativeLauncher": "bin/idea64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "idea",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/idea"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "pycharm",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "PyCharm.app",
+              "PyCharm Professional.app",
+              "PyCharm CE.app",
+              "PyCharm Community.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "PyCharm",
+            "relativeLauncher": "bin/pycharm64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "PyCharm",
+            "relativeLauncher": "bin/pycharm64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "pycharm",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/pycharm"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "webstorm",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "WebStorm.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "WebStorm",
+            "relativeLauncher": "bin/webstorm64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "WebStorm",
+            "relativeLauncher": "bin/webstorm64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "webstorm",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/webstorm"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "phpstorm",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "PhpStorm.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "PhpStorm",
+            "relativeLauncher": "bin/phpstorm64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "PhpStorm",
+            "relativeLauncher": "bin/phpstorm64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "phpstorm",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/phpstorm"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "goland",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "GoLand.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "GoLand",
+            "relativeLauncher": "bin/goland64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "GoLand",
+            "relativeLauncher": "bin/goland64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "goland",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/goland"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "rider",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Rider.app",
+              "JetBrains Rider.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "Rider",
+            "relativeLauncher": "bin/rider64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Rider",
+            "relativeLauncher": "bin/rider64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "rider",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/rider"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "rustrover",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "RustRover.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "scan",
+            "root": "${ProgramFiles}/JetBrains",
+            "namePrefix": "RustRover",
+            "relativeLauncher": "bin/rustrover64.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "RustRover",
+            "relativeLauncher": "bin/rustrover64.exe",
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "rustrover",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "~/.local/share/JetBrains/Toolbox/scripts/rustrover"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "fork",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Fork.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Fork",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${LOCALAPPDATA}/Fork/Fork.exe"
+            ],
+            "args": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sourcetree",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Sourcetree.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "github",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "GitHub Desktop.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "github-desktop",
+            "root": "${LOCALAPPDATA}/GitHubDesktop"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "tower",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Tower.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "gitkraken",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "GitKraken.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "smartgit",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "SmartGit.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sublimemerge",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Sublime Merge.app"
+            ]
+          }
+        ]
+      },
+      "win32": {
+        "locators": [
+          {
+            "kind": "app-paths",
+            "exe": "sublime_merge.exe",
+            "args": []
+          },
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Sublime Merge",
+            "args": []
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${ProgramFiles}/Sublime Merge/sublime_merge.exe"
+            ],
+            "args": []
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "smerge",
+            "args": []
+          }
+        ],
+        "desktopId": "sublime_merge"
+      }
+    }
+  },
+  {
+    "id": "ghostty",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Ghostty.app"
+            ]
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "ghostty",
+            "args": [
+              "--working-directory={path}"
+            ]
+          },
+          {
+            "kind": "desktop",
+            "desktopId": "com.mitchellh.ghostty",
+            "args": [
+              "--working-directory={path}"
+            ]
+          }
+        ],
+        "desktopId": "com.mitchellh.ghostty"
+      }
+    }
+  },
+  {
+    "id": "warp",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "Warp.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "iterm",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "iTerm.app"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "kitty",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "app",
+            "fsNames": [
+              "kitty.app"
+            ]
+          }
+        ]
+      },
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "kitty",
+            "args": [
+              "--directory"
+            ]
+          },
+          {
+            "kind": "desktop",
+            "desktopId": "kitty",
+            "args": [
+              "--directory"
+            ]
+          }
+        ],
+        "desktopId": "kitty"
+      }
+    }
+  },
+  {
+    "id": "terminal",
+    "platforms": {
+      "darwin": {
+        "locators": [
+          {
+            "kind": "fixed",
+            "launch": {
+              "kind": "argv",
+              "command": "open",
+              "args": [
+                "-a",
+                "Terminal"
+              ]
+            },
+            "iconPath": "/System/Applications/Utilities/Terminal.app"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "windowsterminal",
+    "platforms": {
+      "win32": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "wt",
+            "args": [
+              "-d"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "gitbash",
+    "platforms": {
+      "win32": {
+        "locators": [
+          {
+            "kind": "install-record",
+            "displayNamePrefix": "Git version",
+            "relativeLauncher": "git-bash.exe",
+            "args": [
+              "--cd={path}"
+            ]
+          },
+          {
+            "kind": "file",
+            "candidates": [
+              "${ProgramFiles}/Git/git-bash.exe"
+            ],
+            "args": [
+              "--cd={path}"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "gnometerminal",
+    "platforms": {
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "gnome-terminal",
+            "args": [
+              "--working-directory={path}"
+            ]
+          },
+          {
+            "kind": "desktop",
+            "desktopId": "org.gnome.Terminal",
+            "args": [
+              "--working-directory={path}"
+            ]
+          }
+        ],
+        "desktopId": "org.gnome.Terminal"
+      }
+    }
+  },
+  {
+    "id": "konsole",
+    "platforms": {
+      "linux": {
+        "locators": [
+          {
+            "kind": "cli",
+            "name": "konsole",
+            "args": [
+              "--workdir"
+            ]
+          },
+          {
+            "kind": "desktop",
+            "desktopId": "org.kde.konsole",
+            "args": [
+              "--workdir"
+            ]
+          }
+        ],
+        "desktopId": "org.kde.konsole"
+      }
+    }
+  }
+]

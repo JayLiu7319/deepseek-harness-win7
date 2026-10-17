@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R09-B-open-in-app-resolution",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 100,
+    "report": {
+      "path": ".goose/out/rc3-r09-open-app-resolver-qualified-20261017/report.json",
+      "sha256": "e5543c4e31ba2973b361f606a2cf8cd080b2dd610dfe0595be733fbe343cb0e4"
+    },
+    "corpus": {
+      "path": "scripts/oracles/open_in_app_current_cases.json",
+      "sha256": "1523b6f5b024abb7fb8f1880e6385648a8f63beb0ee4c017c9f6b8113f59737e"
+    }
+  },
+  "native": {
+    "passed": 192,
+    "command": {
+      "path": ".goose/out/rc3-r09-open-app-resolver-native-final-20261017/command.json",
+      "sha256": "43b66e725bce9b2fd5d0b9d2a2e81b031576624b1365c2d0202f3139cfa748e3"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-open-app-resolver-native-final-20261017/pytest.xml",
+      "sha256": "cbc0018a5f10d19d64d9e545389c11138d9b8b287b8ad8eb628f643bd190c74f"
+    }
+  },
+  "source": {
+    "passed": 38,
+    "suites": 2,
+    "command": {
+      "path": ".goose/out/rc3-r09-open-app-resolver-source-20261017/command.json",
+      "sha256": "6eef5bfab680c14597be94e55e9faea697ceea6c3947ca9a1f7a1b2e9aef89c2"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r09-open-app-resolver-source-20261017/source.xml",
+      "sha256": "37aab62809c58a6ad49ed0b19a0710c1d67f3068afb94731f8df2a4b9d767258"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/host/open_in_app_resolver_current.py",
+      "sha256": "d63061687124772615087e54b198c85cc6b463582465621eb5a4e54bcc9fff18"
+    },
+    {
+      "path": "dsh/resources/open_in_app_catalog_current.json",
+      "sha256": "a54acdd22590539b78e41c090f240bb6c971da9d5e6c2d41bcfe2e3b62bb3481"
+    },
+    {
+      "path": "scripts/oracles/export_open_in_app_catalog.mts",
+      "sha256": "69730d7b4b364967e5709d8dd8584f072aad65e96ad0f70be1ab27c27bb15c91"
+    }
+  ],
+  "scope": [
+    "Unchanged Source catalog exported as data; verified ordered fixed/app/xcode/cli/file/version scan/registry/GitHub/XDG resolution, one shared lazy registry pass, SSH and unavailable platforms, numeric English ICU78.2 collation.",
+    "Launch parameter substitution, fallback and missing executable classification; actual detached Python child survives parent exit, keeps literal argv, receives scrubbed parent environment plus explicit adapter entries and no stdio pipes. Early failures and per-command abort deadlines checked.",
+    "Two initial diagnostic directories retained: one actor tuple path normalization mismatch, one pytest invocation named a nonexistent consumer; corrected qualified pair and native run are separate."
+  ],
+  "remaining": [
+    "Authenticated route assembly and icon extraction.",
+    "Current composition, unchanged browser and actual desktop/Portable qualification."
+  ]
+}

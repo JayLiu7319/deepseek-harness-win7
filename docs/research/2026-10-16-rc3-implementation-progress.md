@@ -319,3 +319,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R06-F — 工作区快照与路径
 
 候选工作区注册器从persistence snapshot提取header，接通bootstrap、懒刷新、archive及冷domain重开；不打开事件正文。完整路径准入在realpath前拒绝相对路径、Windows当前驱动相对路径，根目录默认标题保留根拼写。110组原版配对（105跨平台路径事实、5个真实domain/registry旅程）和222项原生测试通过；原版51通过、2符号链接EPERM失败。实际当前Agent/持久化冷会话的启动索引、后到会话归属/归档刷新、存储重开和根目录标题已验证。原版资源、Dockkit、右Sidebar、文件树、文档预览的host入口均为空函数，其浏览器部分保留R08原样导入；不新增Python替代浏览器实现。详情见 `migration/candidates/rc3/workspace-current-checks.json`。当前生产基线和全量验收尚未推进。
+
+### R09-B — 外部应用解析与独立启动
+
+原样导出rc.3应用目录，按平台核验bundle、PATH、文件、版本目录、注册表及XDG入口；一次解析共享懒注册表，SSH不探测，版本名复用固定ICU数字排序。启动器传递字面argv、过滤继承凭据并叠加显式adapter环境；只观察早期失败，真实子进程在宿主退出后继续运行。100组实际配对、192项原生和38项原版测试通过，包含真实目录、独立父子进程、超时信号、fallback/ENOENT。初轮记录器路径归一化和测试命令错误保留。详见 `migration/candidates/rc3/open-in-app-resolver-current-checks.json`；鉴权路由、图标、生产组装和Desktop资格仍待完成。成功短测试夹具自动清理，磁盘约179GiB可用。
