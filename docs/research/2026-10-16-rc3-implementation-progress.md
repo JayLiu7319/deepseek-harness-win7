@@ -367,3 +367,7 @@ DeepSeek日志上传候选按Session格式过滤接受水位，缺失版本视�
 ### R04-J — 当前逻辑日志导出
 
 组合验证发现旧导出仍依赖raw artifact，已新增通过只读handle重建canonical v3 JSONL的候选实现；仅不存在返回404，读取失败关闭handle且不泄漏宿主路径。后代按深度顺序flush/读取，图片及通用文件跨日志去重，嵌入式assistant流中的附件也进入ZIP。27组原版配对、112项原生和45项未改原版测试通过，包含真实Agent的live/cold日志及附件ZIP内容、GET/HEAD、卸载和取消/关闭消费者后的资源释放。ZIP压缩器保留Python标准库适配，不能比较压缩字节身份。回执`migration/candidates/rc3/log-export-current-checks.json`；生产pin尚未切换，继续组合验证。成功短夹具自动清理，失败诊断保留。
+
+### R03-O — 工作区指令与提交边界
+
+候选指令插件迁移到当前 Inbox、fs provider 和步骤投影；基线身份使用原版数字序列化，空候选数组保留，逐文件 UTF-8 上限在流中执行。同目录不可用候选回滚整组观察，不用暂时读取失败撤销已授权指令。40 组原版配对、47 项原生通过，包含真实当前 Agent 读取嵌套文件后在 step/end 之后发布指令、再次修改、卸载及冷 v3 日志。原版套件 151 通过、3 项符号链接创建 EPERM、1 跳过，诊断完整保留；初轮 schema 测试误把结果对象当异常已修正。Win7 Minimal 编辑器作为明确保留工具参与文件触达。回执 `migration/candidates/rc3/instructions-current-checks.json`；生产映射、前端 pin 和统一资格仍未签收。成功短夹具自动清理。

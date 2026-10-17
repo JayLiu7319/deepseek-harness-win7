@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R03-O-workspace-instructions",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 40,
+    "report": {
+      "path": ".goose/out/rc3-r03-instructions-final-paired-20261017/report.json",
+      "sha256": "a50467a568e36835472bca37e786380b2566a8081b10a1582f51ebf94dd77c10"
+    },
+    "corpus": {
+      "path": "scripts/oracles/instructions_current_cases.json",
+      "sha256": "2b8418b9c18bc329ac333e1aec58ae7f9cc2b86fc286d8a86f0c911027182383"
+    }
+  },
+  "native": {
+    "passed": 47,
+    "command": {
+      "path": ".goose/out/rc3-r03-instructions-native-20261017-c/command.json",
+      "sha256": "d1cdb55247294f5ecc7cb8ca929a46ba9c7ecfc7ba7f95ce0c8934600b38e084"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-instructions-native-20261017-c/results.xml",
+      "sha256": "2d9db2e14058647452b0581df8b3b3b9f056c01af53e75b291e9c6515b44445a"
+    }
+  },
+  "source": {
+    "passed": 151,
+    "failed": 3,
+    "skipped": 1,
+    "failures": "Unchanged Source symlink creation raises EPERM before behavioral assertions.",
+    "command": {
+      "path": ".goose/out/rc3-r03-instructions-source-20261017/command.json",
+      "sha256": "1960db14dd7b125092c32ca30138d05707c5e74351b9c12b336a2e75c1f3ad87"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r03-instructions-source-20261017/results.xml",
+      "sha256": "11c29f6c4f54180c2cf587776e750b1e17eaf24067d228df5c57d14ffdf79608"
+    }
+  },
+  "implementation": [
+    {
+      "path": "dsh/context/instructions_current.py",
+      "sha256": "13aeadd2958d205c1094bce1c6d0d27c49196ad439c34a2ca7f15b2d67021206"
+    },
+    {
+      "path": "tests/test_instructions_current.py",
+      "sha256": "1aa0663072452a15da9d22db59cae6266572896f2bffd1ac75e8a95b9577a983"
+    }
+  ],
+  "coverage": [
+    "Baseline identity, empty candidate arrays, UTF-8 budgets and streamed per-file caps; cached versions and unavailable sibling rollback.",
+    "Actual current Agent filesystem tool, nested instruction authority only after durable step commit, updated files, unload, cold v3 JSONL.",
+    "Projection cancellation, pending inbox reuse, rejected/empty steps and nested execution commits."
+  ],
+  "limitations": [
+    "Production pin and frontend remain rc.1; staged candidate bindings are not release acceptance.",
+    "Win7 Minimal str_replace_editor is an accepted additional file-touch tool.",
+    "Source symlink permission failures remain recorded; no complete Source pass claimed."
+  ],
+  "diagnostics": [
+    ".goose/out/rc3-r03-instructions-native-20261017-b",
+    ".goose/out/rc3-r03-instructions-paired-20261017-a"
+  ]
+}

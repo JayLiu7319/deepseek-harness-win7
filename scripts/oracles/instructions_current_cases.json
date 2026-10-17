@@ -1,0 +1,4122 @@
+[
+  {
+    "case": "instructions/baseline",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/empty",
+    "kind": "instructions-current",
+    "files": {},
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/global",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "home/AGENTS.md": {
+        "content": "global instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: $DSH_HOME/AGENTS.md\n\nglobal instruction\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "user-global\u0000AGENTS.md",
+                    "path": "$DSH_HOME/AGENTS.md",
+                    "digest": "a9cd210c6d7ab7d42d194ca50af41ae88ff196ba"
+                  },
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "home\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "home\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/nested",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "cwd": "project/sub",
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n\nInstructions from: sub\\AGENTS.md\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"..\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  },
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-0",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 0
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget--1",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": -1
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-1",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 1
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "W"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":1,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": []
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-80",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 80
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Workspace instruction budget 80 bytes: truncated AGENTS.md from 16 to 0 bytes"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":80,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": []
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-300",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 300
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nWorkspace instruction budget 300 bytes: truncated AGENTS.md from 16 to 16 bytes\n\nWorkspace instructions were omitted or truncated to fit the configured byte budget.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":300,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-500",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 500
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":500,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-1000",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 1000
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":1000,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-1000.0",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 1000.0
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":1000,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/budget-1000.5",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxBytes": 1000.5
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":1000.5,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/empty-config-instructionFileCandidates",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "instructionFileCandidates": []
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/empty-config-localInstructionFileCandidates",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "localInstructionFileCandidates": []
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/empty-config-projectRootMarkers",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "projectRootMarkers": []
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/local-dedup",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/CLAUDE.md": {
+        "content": " root instruction "
+      },
+      "project/AGENTS.local.md": {
+        "content": "local instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n\nInstructions from: AGENTS.local.md\n\nlocal instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  },
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.local.md",
+                    "path": "AGENTS.local.md",
+                    "digest": "b65f971e115770f23bc7f09d26637e386d08376b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\CLAUDE.md",
+          "project\\AGENTS.local.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\CLAUDE.md",
+          "project\\AGENTS.local.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/replace",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction",
+        "version": "v1"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": {
+            "content": "changed"
+          }
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nUpdated instructions from: AGENTS.md\n\nThis file changed after it was loaded. Use the following content instead of the previously loaded instructions from this file.\n\nchanged\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "replace",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "37c6c57bedf4305ef41249c1794760b5cb8fad17"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/remove",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction",
+        "version": "v1"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": null
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nInstructions removed: AGENTS.md\n\nThe previously loaded instructions from this file no longer apply.\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "remove",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/unavailable",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction",
+        "version": "v1"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": {
+            "statError": "metadata denied"
+          }
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/read-failure",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction",
+        "version": "v1"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": {
+            "content": "changed",
+            "readError": "read denied"
+          }
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/same-version",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction",
+        "version": "v1"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": {
+            "content": "changed",
+            "version": "v1"
+          }
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/marker-resolveError-FS_DENIED",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "resolveError": "marker inaccessible",
+        "code": "FS_DENIED"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "error": "marker inaccessible",
+        "pending": [],
+        "reads": []
+      },
+      {
+        "error": "marker inaccessible",
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/marker-resolveError-FS_NOT_FOUND",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "resolveError": "marker inaccessible",
+        "code": "FS_NOT_FOUND"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/marker-statError-FS_DENIED",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "statError": "marker inaccessible",
+        "code": "FS_DENIED"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "error": "marker inaccessible",
+        "pending": [],
+        "reads": []
+      },
+      {
+        "error": "marker inaccessible",
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/marker-statError-FS_NOT_FOUND",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "statError": "marker inaccessible",
+        "code": "FS_NOT_FOUND"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/pending-reject",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step",
+        "reject": true
+      },
+      {
+        "op": "step",
+        "reject": true
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "reject",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+              }
+            ],
+            "source": {
+              "kind": "agent-instructions",
+              "form": "instructions",
+              "baseline": true,
+              "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+              "changes": [
+                {
+                  "action": "set",
+                  "scope": ".\u0000AGENTS.md",
+                  "path": "AGENTS.md",
+                  "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                }
+              ]
+            },
+            "role": "user"
+          }
+        ],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "reject",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+              }
+            ],
+            "source": {
+              "kind": "agent-instructions",
+              "form": "instructions",
+              "baseline": true,
+              "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+              "changes": [
+                {
+                  "action": "set",
+                  "scope": ".\u0000AGENTS.md",
+                  "path": "AGENTS.md",
+                  "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                }
+              ]
+            },
+            "role": "user"
+          }
+        ],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/pending-empty",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step",
+        "empty": true
+      },
+      {
+        "op": "step",
+        "empty": true
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": []
+        },
+        "pending": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+              }
+            ],
+            "source": {
+              "kind": "agent-instructions",
+              "form": "instructions",
+              "baseline": true,
+              "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+              "changes": [
+                {
+                  "action": "set",
+                  "scope": ".\u0000AGENTS.md",
+                  "path": "AGENTS.md",
+                  "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                }
+              ]
+            },
+            "role": "user"
+          }
+        ],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": []
+        },
+        "pending": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+              }
+            ],
+            "source": {
+              "kind": "agent-instructions",
+              "form": "instructions",
+              "baseline": true,
+              "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+              "changes": [
+                {
+                  "action": "set",
+                  "scope": ".\u0000AGENTS.md",
+                  "path": "AGENTS.md",
+                  "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                }
+              ]
+            },
+            "role": "user"
+          }
+        ],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/touch-read",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "name": "read"
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/touch-write",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "name": "write"
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/touch-edit",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "name": "edit"
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/touch-ignored",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "name": "ignored"
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/step-transaction-False",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step-open"
+      },
+      {
+        "op": "touch",
+        "error": false
+      },
+      {
+        "op": "step-end"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/step-transaction-True",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step-open"
+      },
+      {
+        "op": "touch",
+        "error": true
+      },
+      {
+        "op": "step-end"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/nested-execution-False",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "token": "inner",
+        "parent": "outer"
+      },
+      {
+        "op": "touch",
+        "token": "outer",
+        "name": "ignored",
+        "error": false
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/nested-execution-True",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/sub/AGENTS.md": {
+        "content": "nested instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "touch",
+        "token": "inner",
+        "parent": "outer"
+      },
+      {
+        "op": "touch",
+        "token": "outer",
+        "name": "ignored",
+        "error": true
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nAdditional instructions from: sub\\AGENTS.md\n\nThese instructions apply to work under `sub`. Use them as guidance when relevant; more specific instructions take precedence. They do not override system, developer, or direct user instructions.\n\nnested instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": "sub\u0000AGENTS.md",
+                    "path": "sub\\AGENTS.md",
+                    "digest": "ea275f1db1062c6d8301480612e059a145b0430b"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\sub\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/oversize-stream",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "small",
+        "omitSize": true,
+        "chunks": [
+          "1234",
+          "5678"
+        ]
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxSourceBytes": 5
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/oversize-metadata",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "config": {
+      "maxSourceBytes": 3
+    },
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": []
+      }
+    ]
+  },
+  {
+    "case": "instructions/unavailable-sibling-rollback",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      },
+      "project/CLAUDE.md": {
+        "content": "second"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/AGENTS.md": {
+            "content": "new"
+          },
+          "project/CLAUDE.md": {
+            "statError": "unavailable"
+          }
+        }
+      },
+      {
+        "op": "step"
+      },
+      {
+        "op": "files",
+        "values": {
+          "project/CLAUDE.md": {
+            "content": "second"
+          }
+        }
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n\nInstructions from: CLAUDE.md\n\nsecond\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  },
+                  {
+                    "action": "set",
+                    "scope": ".\u0000CLAUDE.md",
+                    "path": "CLAUDE.md",
+                    "digest": "352f7829a2384b001cc12b0c2613c756454a1f6a"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\CLAUDE.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\CLAUDE.md",
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nUpdated instructions from: AGENTS.md\n\nThis file changed after it was loaded. Use the following content instead of the previously loaded instructions from this file.\n\nnew\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "changes": [
+                  {
+                    "action": "replace",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "c2a6b03f190dfb2b4aa91f8af8d477a9bc3401dc"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md",
+          "project\\CLAUDE.md",
+          "project\\AGENTS.md",
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "instructions/disposed",
+    "kind": "instructions-current",
+    "files": {
+      "project/.git": {
+        "type": "directory"
+      },
+      "project/AGENTS.md": {
+        "content": "root instruction"
+      }
+    },
+    "actions": [
+      {
+        "op": "step"
+      },
+      {
+        "op": "dispose"
+      },
+      {
+        "op": "step"
+      }
+    ],
+    "expected": [
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "<system-reminder>\nThe following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.\n\nInstructions from: AGENTS.md\n\nroot instruction\n</system-reminder>"
+                }
+              ],
+              "source": {
+                "kind": "agent-instructions",
+                "form": "instructions",
+                "baseline": true,
+                "baselineIdentity": "{\"projectRoot\":\"\",\"projectRootMarkers\":[\".git\"],\"maxBytes\":65536,\"maxSourceBytes\":1048576,\"instructionFileCandidates\":[\"AGENTS.md\",\"CLAUDE.md\"],\"localInstructionFileCandidates\":[\"AGENTS.local.md\",\"CLAUDE.local.md\"]}",
+                "changes": [
+                  {
+                    "action": "set",
+                    "scope": ".\u0000AGENTS.md",
+                    "path": "AGENTS.md",
+                    "digest": "444764829c26ba321a43f223bd4583c1f0d768ea"
+                  }
+                ]
+              },
+              "role": "user"
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      },
+      {
+        "decision": {
+          "kind": "proceed",
+          "messages": [
+            {
+              "role": "user",
+              "source": {
+                "kind": "user"
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "task"
+                }
+              ]
+            }
+          ]
+        },
+        "pending": [],
+        "reads": [
+          "project\\AGENTS.md"
+        ]
+      }
+    ]
+  }
+]
