@@ -16,6 +16,8 @@ opens its separate plugin manager. The Windows tray keeps the main window
 available after closing it; Quit releases the Host and profile lease. Both
 renderers use context isolation, sandboxing and disabled Node integration.
 Only the owned top-level `dsh-app://shell` frame may invoke management IPC.
+The owned app frame has separate environment/guide IPC. The preload does not
+request these services while the main window temporarily displays `about:blank`.
 
 Desktop uses the existing Python plugin ABI and accepts local folders or ZIP
 packages. The original manager renderer is retained verbatim; its served input
@@ -37,9 +39,21 @@ Windows child process tree, including a development venv redirector.
 `scripts/build_desktop_inputs.mjs` reproduces the codec, locale, transport and
 manager renderer from the clean pinned rc.3 Source checkout. The generated
 `source-input.json` records every source/output hash. Development verification
-uses `--test-output <fresh-directory>`; packaged applications reject all
+uses `scripts/run_desktop_smoke.py --output <fresh-directory>` (optionally
+`--limited-shell`); its parent owns the process through shutdown and keeps logs
+in a regular file. Do not detach a GUI test with inherited temporary pipes.
+The shell tolerates only `EPIPE` on inherited stdout/stderr when its launching
+terminal closes; other stream errors remain errors. Packaged applications reject all
 development overrides. The smoke entry verifies real RPC/streaming, renderer
 isolation and actual plugin rollback. Expected control-stream errors during
 Host replacement remain separately recorded, followed by a fresh baseline
 check. Installer, update/release integration, x86 and physical Win7 acceptance
 are separate milestones.
+
+Standard installation may continue with a limited environment. Its finish page
+and a dismissible first-launch notice point to the local `win7-setup.html` guide.
+Build the separate x86/x64 prerequisite ZIP with
+`scripts/build_windows_upgrade.py --external-prereq-dir <verified-inputs> --output-dir <fresh-directory>`.
+This ZIP contains Microsoft prerequisites and the explicit administrator entry
+`upgrade-win7.bat`; it does not add x86 application runtime support. AIO embeds
+the matching prerequisite set. Neither builder executes the system installers.

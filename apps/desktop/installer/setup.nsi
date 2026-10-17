@@ -14,6 +14,7 @@ ShowInstDetails show
 ShowUninstDetails show
 Var PrereqLog
 Var Generation
+Var PrereqLimited
 !ifndef MAX_INSTALL_ROOT
   !define MAX_INSTALL_ROOT 100
 !endif
@@ -21,6 +22,10 @@ Var Generation
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_TEXT "DeepSeek Harness was installed. Start it from the Start menu. Your settings and sessions stay in your DSH_HOME."
+!define MUI_FINISHPAGE_SHOWREADME "$Generation\resources\app\win7-setup.html"
+!define MUI_FINISHPAGE_SHOWREADME_TEXT "View Windows 7 offline setup guide"
+!define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
+!define MUI_PAGE_CUSTOMFUNCTION_SHOW ShowEnvironmentGuidance
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
@@ -56,6 +61,12 @@ Function ValidateInstallDirectory
 FunctionEnd
 Function .onVerifyInstDir
   Call ValidateInstallDirectory
+FunctionEnd
+
+Function ShowEnvironmentGuidance
+  ${If} $PrereqLimited == 1
+    MessageBox MB_ICONINFORMATION "The application is installed. Windows prerequisites were left unchanged. For improved terminal and automation compatibility, extract the separately distributed dsh-win7-offline-upgrade.zip and follow its guide, or use AIO. You can also open the local guide from this page."
+  ${EndIf}
 FunctionEnd
 
 Section "Desktop" SEC_DESKTOP
@@ -95,6 +106,11 @@ Section "Desktop" SEC_DESKTOP
     reboot_later:
     SetErrorLevel 3010
     Abort
+!if "${EDITION}" == "standard"
+  ${ElseIf} $0 == 2
+    StrCpy $PrereqLimited 1
+    DetailPrint "Installing Standard with reduced environment capabilities; no system updates executed. Log: $PrereqLog"
+!endif
   ${ElseIf} $0 != 0
     MessageBox MB_ICONSTOP "Prerequisites are unavailable or installation failed. Windows 7 needs SSU KB4490628, SHA-2 KB4474419, D3DCompiler47 KB4019990, .NET 4.7.2 and PowerShell 5.1. WMF 3.0 must first be removed using Microsoft guidance. Standard users can use the AIO installer. Log: $PrereqLog"
     SetErrorLevel 1

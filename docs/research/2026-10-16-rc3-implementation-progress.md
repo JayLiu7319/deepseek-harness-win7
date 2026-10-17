@@ -447,3 +447,11 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。
+
+### R10-E — Standard 指引、独立离线升级包与实测断管修复
+
+Standard 缺少现代前置环境时允许安装，完成页提供本地指南；主应用只在合法主页面请求环境信息，显示可关闭提示并由可信点击打开隔离指南窗口。独立离线 ZIP 含 x86/x64 微软组件、管理员入口及重启后再次运行的同一策略，共用 .NET 仅存一份；实际构建306,681,597字节，逐成员复验后清理390,634,908字节暂存副本。x86补丁不等于x86应用运行时。
+
+用户发现测试客户端主进程 EPIPE 弹窗。原测试实例已按精确 PID 树关闭；Electron 向启动端已关闭的日志管道输出警告会抛出此错误。启动最早阶段仅处理 stdout/stderr 的 EPIPE，其他 I/O 错误继续抛出；新测试启动器持有进程、保存普通文件日志并在期限内回收。真实内置 Node16 同时关闭两个父管道后确实捕获 EPIPE 并继续运行。完整 Electron 旅程通过提示/指南/关闭、原版 RPC/流、插件安装、损坏升级回滚、移除和重连，退出码0，稳定阶段零 renderer 错误。14项相关回归及27项离线包/前置策略/卸载测试通过。初轮空白页 IPC 警告、观察器45秒期限早于实际回滚完成的失败与用户截图均原样保存；没有将其重标为成功。
+
+见 [有限回执](../../migration/candidates/rc3/desktop-guidance-epipe-current-checks.json)。新NSIS分支已用小型夹具编译，完整安装包待稳定候选再构建；未执行管理员安装、系统补丁或物理Win7验收，更新集成及剩余统一迁移继续实施。

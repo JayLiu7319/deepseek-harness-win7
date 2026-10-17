@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R10-E-Standard-guidance-offline-upgrade-and-EPIPE",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R10-DESKTOP-GUIDANCE-EPIPE-20261017.zip",
+    "bytes": 275445,
+    "sha256": "028f05fa4584a2d062b4f242d7c7890700e40be28d85003044b42956252dde2a",
+    "members": [
+      {
+        "path": "rc3-desktop-epipe-contract-20261017/results.xml",
+        "bytes": 2051,
+        "sha256": "d790bf2566576b1eab63f54dc073d5c06c13c18768bb189e266f402996d8b58e"
+      },
+      {
+        "path": "rc3-desktop-guidance-offline-contract-20261017/results.xml",
+        "bytes": 4063,
+        "sha256": "d846644b2850561235ee671bb68520f375da30ba35dfa0b96750b3eff6138d08"
+      },
+      {
+        "path": "rc3-desktop-epipe-observation-20261017/run.json",
+        "bytes": 953,
+        "sha256": "a817e16be2420925fe92aaebd4a19ec34122da7886e0bea0f95252861275be31"
+      },
+      {
+        "path": "rc3-desktop-epipe-observation-20261017/stdout.log",
+        "bytes": 293,
+        "sha256": "ee8ebaff9c25b442479c2b3df856045ff694f756e61c5f6286218c28bfa45602"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-b-owned-stop.json",
+        "bytes": 493,
+        "sha256": "9f4534903e2170670fcbbaa0381064718604a2d94dc6765fa40a62b51f0e5266"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-c/runner.json",
+        "bytes": 967,
+        "sha256": "c06633ba207f64f5f5ff0428f5c59ffcd5d2c44f51d08efdcf04cca8bc8c76aa"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-c/desktop.log",
+        "bytes": 3151,
+        "sha256": "35213c770215bda464546e4e7ca3e4c7a26a1348d0817884b0d24a94b3699e6c"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-c/observations/report.json",
+        "bytes": 77748,
+        "sha256": "9825cf524b98c6bfa9af8b2827ea21d865dde21bb03d596a14d126736af48471"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-d/runner.json",
+        "bytes": 966,
+        "sha256": "e2e19d5aabd20561be897f044b6cdf9f72e6234d335d4931aab309f6d4e3e1d9"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-d/desktop.log",
+        "bytes": 1586,
+        "sha256": "ab7586fcc2b3fa631090dc17e9409a75b58d71c7daa8ef32e7b3151dcd472464"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-d/observations/report.json",
+        "bytes": 75819,
+        "sha256": "ca543b4fd352ccff90e2029e703faa9f2f97b9ff67b2328271e51c3a8d49ff8e"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-e/runner.json",
+        "bytes": 878,
+        "sha256": "d71be8814fbb91ba122b312583db6f4240dfae0a2e8ba21ba9d8d3fcf879cbdc"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-e/desktop.log",
+        "bytes": 901,
+        "sha256": "6c80a929ed866aa27d162a94fc71c86d0385e694f39552524e32880f22051189"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-e/observations/report.json",
+        "bytes": 76537,
+        "sha256": "9472a1a6dfb16896cbf3213cbe4a05c3731af8cd2e6ba5b20507f0dd793a7f2b"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-e/observations/main.png",
+        "bytes": 101275,
+        "sha256": "b12a946d9b6928fcd4b692d87c199cf48b3a6cb7f57ac455782632f0be6e6d3a"
+      },
+      {
+        "path": "rc3-desktop-guidance-20261017-e/observations/plugin-manager.png",
+        "bytes": 46555,
+        "sha256": "3cdbe45ee4f2cd709668ffd630ae5993dcb2982ea24fb5b8a68f0f48bbd42a55"
+      },
+      {
+        "path": "rc3-win7-offline-upgrade-20261017-a/offline-upgrade-build.json",
+        "bytes": 2703,
+        "sha256": "faa49cda057f0b94d511ea888fe661a642105efed0a53a1360539a4808fa6d69"
+      },
+      {
+        "path": "rc3-desktop-guidance-nsis-20261017/standard.log",
+        "bytes": 2170,
+        "sha256": "195774bf4232338790e7fe960a705392a0f9666f261e7624817196deab6c9b62"
+      },
+      {
+        "path": "rc3-desktop-guidance-nsis-20261017/aio.log",
+        "bytes": 2333,
+        "sha256": "be1231bdddcd359836484e050b2d405a23c5d9f7501ba295dbb51a0b70588e32"
+      },
+      {
+        "path": "rc3-desktop-epipe-observation-20261017/reported-error.png",
+        "bytes": 120071,
+        "sha256": "b8c1f0db8d1b8c745b9c5692864d92e5835e17f0a682596278634fddb0573126"
+      }
+    ]
+  },
+  "inputs": {
+    "apps/desktop/environment.cjs": "065a008a9a3716edf593fffd5d2b73ca70562d1f0bd7b31a7d7bbf68af297a10",
+    "apps/desktop/home.cjs": "7e3437f0dbea27548cec015fcc567e1a217a289432b45902e962341ce0713033",
+    "apps/desktop/host-process.cjs": "ce26757c9c2b2618843b72c74dc9c6035d6914aa0c4c6010b2ecc95b39732a23",
+    "apps/desktop/installer/setup.nsi": "94ca4c1f7902cf49bfc1c33b04ff5dfc480af3da2e5bccb64d77821f455a0632",
+    "apps/desktop/installer/upgrade-win7.bat": "e0e02757c70f6b56b943f73d8d4cbb9bb8fd91654beeea3b87478c22a9cb4871",
+    "apps/desktop/installer/upgrade-win7.ps1": "5e5af73dd1a2016f6fa3da2516c31c1e0c59cc805b86af0445e5eb0dd112d134",
+    "apps/desktop/locale.cjs": "c447748305078e603279c81220cc6b031a4344cccb7734217aae6bc5e4dc8958",
+    "apps/desktop/main.cjs": "81663af123f55bc1713a4dee7156a66386c351f169ff6e6d6e9c0e2e99f27bce",
+    "apps/desktop/preload-app.cjs": "bc84b40e61ecb221c3b52b2a998a72c8f85821d0016b503ca00cfca0777b0377",
+    "apps/desktop/preload.cjs": "5b7e69d361a5a531bdb98856775b51b50094f1de0f9c7c0f410110a0cc0b7c00",
+    "apps/desktop/project-manager.cjs": "d4edb53ed5f21c07c725ba812134fd4f25bec34943729878c7d2464737508ae1",
+    "apps/desktop/smoke-test.cjs": "f170a69538b3245bb89d9b0a8fe18700855e6dc25f03d663931006fe6e9f3174",
+    "apps/desktop/stdio.cjs": "f5d3dbedb6e4a06bb620ce0f944f98711255dc4cfb9ad182b4edb44daf2c66d9",
+    "apps/desktop/win7-setup.html": "876109453f0de510e634c455067ebe8d3a1a9f25384591b74ead5864a91d2dc1",
+    "apps/desktop/wire.cjs": "ee1d386cdc98b6aa3f91b331e0fb19f81784d2652cd17a5b6141f55e1a865379",
+    "scripts/build_desktop.py": "792f452834d4478f36a6950c69da74b2f3c4fad5fd5801e3ef8dc8aa911b8c24",
+    "scripts/build_windows_upgrade.py": "473f745c78cc8e304f9c67bb952cfc83b672662d51ebceb68b0ae4852253ff13",
+    "scripts/oracles/desktop_stdio_current.cjs": "577e4147ab94347fdc4a755ce9345f52dcb69b1da05c9ae0b656bd11a55485e1",
+    "scripts/run_desktop_smoke.py": "b7a9c7be48586bfec96ae7bcaaef4308b7f9970fc4b73af631447237fd1b0280",
+    "tests/test_desktop_stdio.py": "d5aff5a71bf6b1ded727bc7adfd2beac8e20277cbddb9fad2af9870000e63e5a",
+    "tests/test_windows_upgrade_package.py": "b3eaf9cbe79579aba389f7b096bcd838187426e3ffee3ac890ac66e99b61d3a3"
+  },
+  "verification": [
+    {
+      "command": "python -m pytest tests/test_desktop_stdio.py tests/test_desktop_health_transaction.py tests/test_desktop_runtime_current.py",
+      "exitCode": 0,
+      "passed": 14
+    },
+    {
+      "command": "python -m pytest tests/test_windows_upgrade_package.py tests/test_desktop_prerequisite_flow.py tests/test_desktop_packaging.py",
+      "exitCode": 0,
+      "passed": 27
+    },
+    {
+      "command": "python scripts/run_desktop_smoke.py --output .goose/out/rc3-desktop-guidance-20261017-e --limited-shell",
+      "exitCode": 0,
+      "scope": "Actual Electron22/Node16/Python3.8 notice, trusted guide click, dismissal, original application, RPC, cancellation, install, broken upgrade rollback, remove, fresh baseline and isolation"
+    },
+    {
+      "command": "Electron Node16 scripts/oracles/desktop_stdio_current.cjs <Electron22>",
+      "exitCode": 0,
+      "scope": "Both actual closed parent pipes emit EPIPE, process continues; unrelated EIO is rethrown"
+    }
+  ],
+  "offlineUpgrade": {
+    "schema": 1,
+    "status": "built",
+    "architecture": "both",
+    "installationExecuted": false,
+    "artifact": {
+      "path": "dsh-win7-offline-upgrade.zip",
+      "bytes": 306681597,
+      "sha256": "c27466e6814afd5fcf9bd235bb146fc87a4820188483a5d695fb0c9c97addc1f"
+    },
+    "members": [
+      {
+        "path": "microsoft-inputs.json",
+        "bytes": 5911,
+        "sha256": "aeaf99c37c787eb74f848eac9fe89a077fda13f9d1b982f788df8b4281fd290b"
+      },
+      {
+        "path": "prerequisites.ps1",
+        "bytes": 5079,
+        "sha256": "9f1a79216e06dfc28423932f0947ab11b0752fea5ad239bb1292ee7fcb3db87f"
+      },
+      {
+        "path": "prerequisites/d3d-x64.msu",
+        "bytes": 2873529,
+        "sha256": "4ee562192cf21716f3c38cac3c2b17ef73b76708001d8a075d31df0996f0c6b3"
+      },
+      {
+        "path": "prerequisites/d3d-x86.msu",
+        "bytes": 1424481,
+        "sha256": "62101125e4619575a55a4ff63d049debd33e04b485b6616058862c525050e210"
+      },
+      {
+        "path": "prerequisites/net472.exe",
+        "bytes": 83970736,
+        "sha256": "84ea476eb3a03ab878c14b160495f071dd29f9e5d031e713623ee8635638355f"
+      },
+      {
+        "path": "prerequisites/sha2-x64.msu",
+        "bytes": 55853327,
+        "sha256": "99312df792b376f02e25607d2eb3355725c47d124d8da253193195515fe90213"
+      },
+      {
+        "path": "prerequisites/sha2-x86.msu",
+        "bytes": 35919018,
+        "sha256": "8cf49fc7ac61e0b217859313a96337b149ab41b3307eb0d9529615142ea34c6c"
+      },
+      {
+        "path": "prerequisites/ssu-x64.msu",
+        "bytes": 9543846,
+        "sha256": "8075f6d889bcb27be6f52ed47081675e5bb8a5390f2f5bfe4ec27a2bb70cbf5e"
+      },
+      {
+        "path": "prerequisites/ssu-x86.msu",
+        "bytes": 4217422,
+        "sha256": "b86849fda570f906012992a033f6342373c00a3b3ec0089780eabb084a9a0182"
+      },
+      {
+        "path": "prerequisites/wmf-x64.msu",
+        "bytes": 68054745,
+        "sha256": "c51abfc65dff5f6858c0b9f6420caa0c166df7a6d8b484f8a3c68ea99f0032b0"
+      },
+      {
+        "path": "prerequisites/wmf-x86.msu",
+        "bytes": 44807068,
+        "sha256": "4575c47bedf732c7a215a5dd9e184ac2f06f10c0f23fcef38eec96b0ff3bd121"
+      },
+      {
+        "path": "upgrade-win7.bat",
+        "bytes": 527,
+        "sha256": "e0e02757c70f6b56b943f73d8d4cbb9bb8fd91654beeea3b87478c22a9cb4871"
+      },
+      {
+        "path": "upgrade-win7.ps1",
+        "bytes": 1066,
+        "sha256": "5e5af73dd1a2016f6fa3da2516c31c1e0c59cc805b86af0445e5eb0dd112d134"
+      },
+      {
+        "path": "win7-setup.html",
+        "bytes": 3134,
+        "sha256": "876109453f0de510e634c455067ebe8d3a1a9f25384591b74ead5864a91d2dc1"
+      }
+    ],
+    "cleanup": {
+      "stagedCopies": 10,
+      "bytes": 390634908,
+      "archiveVerified": true
+    }
+  },
+  "limitations": [
+    "System installers and elevated NSIS installations were not executed.",
+    "Updated Standard finish-page and AIO branches compiled with fixture payload only; complete installers need a fresh stable build.",
+    "x86 prerequisite payload does not provide x86 application runtime support.",
+    "EPIPE screenshot, initial IPC warnings and premature 45-second observer deadline failures remain preserved.",
+    "Three expected control-stream network errors during host replacement are retained; stable renderer errors are empty.",
+    "No physical Win7 qualification or unified release gate."
+  ]
+}

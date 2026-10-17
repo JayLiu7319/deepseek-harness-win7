@@ -181,7 +181,7 @@ def build(args):
         for source in sorted((ROOT / 'apps/desktop').glob('*.cjs')):
             if source.name != 'smoke-test.cjs':
                 shutil.copyfile(str(source), str(application / source.name))
-        for filename in ('package.json', 'tray.png', 'source-input.json'):
+        for filename in ('package.json', 'tray.png', 'source-input.json', 'win7-setup.html'):
             shutil.copyfile(str(ROOT / 'apps/desktop' / filename), str(application / filename))
         shutil.copytree(str(ROOT / 'apps/desktop/renderer'), str(application / 'renderer'))
         harness = unpacked / 'resources/harness'

@@ -1,4 +1,5 @@
 'use strict';
+require('./stdio.cjs').protectStdio();
 const {app,BrowserWindow,protocol,ipcMain,Menu,Tray,nativeImage,dialog}=require('electron');
 const {join,resolve,extname}=require('node:path');
 const {readFile}=require('node:fs/promises');
@@ -6,6 +7,7 @@ const {Readable}=require('node:stream');
 const {DesktopProjectManager}=require('./project-manager.cjs');
 const {resolveDesktopLocale}=require('./locale.cjs');
 const {desktopHome}=require('./home.cjs');
+const {desktopEnvironment}=require('./environment.cjs');
 
 protocol.registerSchemesAsPrivileged([{scheme:'dsh-app',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:false,stream:true}}]);
 const development=!app.isPackaged;
@@ -15,7 +17,7 @@ const root=development?resolve(option('--root')??join(__dirname,'../..')):join(p
 const home=desktopHome(development&&option('--home')||process.env.DSH_HOME,app.getPath('home'));
 app.setPath('userData',join(home,'desktop','electron'));
 const primary=app.requestSingleInstanceLock();
-let mainWindow,pluginWindow,manager,tray,stopping=false,allowQuit=false;
+let mainWindow,pluginWindow,guideWindow,manager,tray,stopping=false,allowQuit=false;
 function focus(){
   if(!app.isReady())return;
   if(!mainWindow||mainWindow.isDestroyed())mainWindow=createWindow(false);
@@ -24,10 +26,10 @@ function focus(){
 if(!primary)app.quit();
 else app.on('second-instance',focus);
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml'};
-function assertSender(event){
+function assertSender(event,hosts=['shell']){
   const frame=event.senderFrame;
   const url=frame&&new URL(frame.url);
-  if(!frame||frame!==event.sender.mainFrame||url.protocol!=='dsh-app:'||url.host!=='shell'||url.username||url.password)throw new Error('Desktop IPC from unowned renderer');
+  if(!frame||frame!==event.sender.mainFrame||url.protocol!=='dsh-app:'||!hosts.includes(url.host)||url.username||url.password)throw new Error('Desktop IPC from unowned renderer');
 }
 function createWindow(shell){
   const window=new BrowserWindow({width:shell?900:1280,height:shell?620:840,minWidth:880,minHeight:600,show:false,
@@ -42,15 +44,22 @@ function createWindow(shell){
   return window;
 }
 function openPlugins(){if(pluginWindow&&!pluginWindow.isDestroyed()){pluginWindow.show();pluginWindow.focus();}else pluginWindow=createWindow(true);}
+function openGuide(){
+  if(guideWindow&&!guideWindow.isDestroyed()){guideWindow.show();guideWindow.focus();return;}
+  guideWindow=new BrowserWindow({width:920,height:760,title:'Windows 7 offline setup',webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true}});
+  guideWindow.webContents.setWindowOpenHandler(()=>({action:'deny'}));
+  guideWindow.webContents.on('will-navigate',(event,url)=>{if(url!=='dsh-app://shell/win7-setup.html')event.preventDefault();});
+  guideWindow.loadURL('dsh-app://shell/win7-setup.html').catch(error=>console.error(error));
+}
 async function resource(request){
   const url=new URL(request.url);
   if(url.protocol!=='dsh-app:'||!['app','shell'].includes(url.hostname))return {status:403,headers:[],body:Readable.from([])};
   if(url.hostname==='shell'){
     if(!['GET','HEAD'].includes(request.method))return {status:405,headers:[],body:Readable.from([])};
     let path;try{path=decodeURIComponent(url.pathname);}catch{return {status:400,headers:[],body:Readable.from([])};}
-    const allowed=['/plugin-manager.html','/plugin-manager.js','/plugin-manager.css'];
+    const allowed=['/plugin-manager.html','/plugin-manager.js','/plugin-manager.css','/win7-setup.html'];
     if(!allowed.includes(path))return {status:404,headers:[],body:Readable.from([])};
-    let bytes=await readFile(join(__dirname,'renderer',path.slice(1)));
+    let bytes=await readFile(join(__dirname,path==='/win7-setup.html'?'':'renderer',path.slice(1)));
     if(path==='/plugin-manager.html')bytes=Buffer.from(bytes.toString('utf8').replace('placeholder="@scope/plugin@1.2.3"','placeholder="C:\\plugins\\package.zip"'));
     return {status:200,headers:[['content-type',mime[extname(path)]??'application/octet-stream']],body:Readable.from(request.method==='HEAD'?[]:[bytes])};
   }
@@ -77,6 +86,10 @@ async function main(){
     },error=>{console.error(error);callback({statusCode:500,data:Readable.from(['Desktop request failed'])});});
   });
   const locale=resolveDesktopLocale(app.getLocale());
+  const environment=development&&option('--test-output')&&option('--test-limited-shell')==='true'
+    ?{limitedShell:true,status:'limited'}:await desktopEnvironment();
+  ipcMain.handle('dsh-desktop:environment-get',event=>{assertSender(event,['app']);return {...environment,locale:locale.id};});
+  ipcMain.handle('dsh-desktop:setup-guide',event=>{assertSender(event,['app','shell']);openGuide();});
   locale.messages={...locale.messages,
     pluginManagerDescription:locale.id==='zh-CN'?'安装本地 Python 插件文件夹或 ZIP 包，仅作用于桌面端。':'Install a local Python plugin folder or ZIP package in Desktop.',
     npmPackage:locale.id==='zh-CN'?'插件文件夹或 ZIP 路径':'Plugin folder or ZIP path',
@@ -105,7 +118,7 @@ async function main(){
     {type:'separator'},{label:locale.id==='zh-CN'?'退出':'Quit',click:()=>app.quit()}]));
   app.on('activate',focus);
   if(development&&option('--test-output'))await require('./smoke-test.cjs').run({app,mainWindow,openPlugins,
-    pluginWindow:()=>pluginWindow,manager,output:resolve(option('--test-output'))});
+    pluginWindow:()=>pluginWindow,guideWindow:()=>guideWindow,environment,manager,output:resolve(option('--test-output'))});
 }
 app.on('window-all-closed',()=>{});
 app.on('before-quit',event=>{

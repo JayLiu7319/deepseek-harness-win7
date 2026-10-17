@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Windows 7 离线环境升级 / Offline setup</title>
+<style>body{font:17px/1.65 "Segoe UI",sans-serif;max-width:850px;margin:40px auto;padding:0 24px;color:#202631}h1,h2{line-height:1.3}code{background:#eef1f5;padding:2px 5px}li{margin:12px 0}.note{padding:16px;background:#eef5ff;border-left:4px solid #4074d7}a{color:#205cb8}</style>
+<h1>Windows 7 离线环境升级</h1>
+<p class="note">Standard 版不会修改 Windows 系统组件。基础界面可继续使用；PowerShell 5.1 和 .NET 4.7.2 可改善终端与自动化兼容性。升级 Windows 组件可能需要重启。</p>
+<ol>
+<li>确认系统已安装 Windows 7 SP1。保存工作，并退出 DeepSeek Harness 主窗口和托盘图标。</li>
+<li>将同级分发的 <code>dsh-win7-offline-upgrade.zip</code> 完整解压到本地普通文件夹。不要直接从 ZIP 内运行脚本。</li>
+<li>右键 <code>upgrade-win7.bat</code>，选择“以管理员身份运行”。脚本自动选择当前系统的 x86/x64 补丁，只安装缺失组件。</li>
+<li>处理顺序为 SSU KB4490628 → SHA-2 KB4474419 → D3DCompiler47 KB4019990 → .NET 4.7.2 → WMF 5.1。若提示需要重启，请重启后再次运行同一脚本；未完成重启前不会继续后续补丁。</li>
+<li>如果原有 WMF 3.0，请先依照微软说明移除该版本。未知安装错误会停止升级，保留日志，不自动卸载系统组件。</li>
+<li>完成后重新启动 DeepSeek Harness。AIO 安装包提供同一组件链，也可作为替代入口；需要重启时，重启后再次运行安装包。</li>
+</ol>
+<p>日志位置由脚本输出，默认保存在临时目录。你的 <code>DSH_HOME</code> 设置、插件和会话不会参与系统升级。</p>
+<h2>Offline setup in English</h2>
+<p>Standard installs the application without changing Windows components. Extract the separately distributed <code>dsh-win7-offline-upgrade.zip</code>, then right-click <code>upgrade-win7.bat</code> and choose Run as administrator. Save your work first. The script selects x86/x64, skips installed packages and stops before the next package when a restart is required. Restart Windows and run the same script again to continue. Remove WMF 3.0 following Microsoft guidance before installing WMF 5.1. Unknown failures stop the chain and retain the log.</p>
+<p>The same prerequisites are available in the AIO installer. This upgrade changes Windows components and does not replace your application settings or sessions.</p>
+<h2>微软原始下载记录 / Microsoft sources</h2>
+<ul><li><a href="https://www.catalog.update.microsoft.com/Search.aspx?q=KB4490628">SSU KB4490628</a></li>
+<li><a href="https://www.catalog.update.microsoft.com/Search.aspx?q=KB4474419">SHA-2 KB4474419</a></li>
+<li><a href="https://www.catalog.update.microsoft.com/Search.aspx?q=KB4019990">D3DCompiler47 KB4019990</a></li>
+<li><a href="https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-offline-installer">.NET Framework 4.7.2</a></li></ul>
+</html>
