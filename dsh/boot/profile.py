@@ -929,7 +929,17 @@ def load_profile(
             )
         init_profile(profile_dir, template["bundles"], template["patchReload"])
 
-    manifest = normalize_shipped_profile(name, profile_dir, read_profile_manifest(bin_name, profile_dir))
+    normalize_shipped_profile(name, profile_dir, read_profile_manifest(bin_name, profile_dir))
+    return load_profile_directory(bin_name, profile_dir, install_anchor, opts)
+
+
+def load_profile_directory(bin_name, dir_path, install_anchor, options=None):
+    """Load an application-owned profile package without shared-home lookup."""
+    from dsh.boot.app_boot import load_overlay_patches
+    opts = options or {}
+    profile_dir = dir_path
+    manifest_path = os.path.join(profile_dir, 'package.json')
+    manifest = read_profile_manifest(bin_name, profile_dir)
     bundles = manifest.get("dsh", {}).get("profile", {}).get("bundles", [])
     raw_reload = manifest.get("dsh", {}).get("profile", {}).get("patchReload")
     if raw_reload is not None and raw_reload not in ("live", "startup"):
@@ -956,7 +966,7 @@ def load_profile(
         user_patches = load_overlay_patches(bin_name, user_patch_path)
 
     return Profile(
-        name=name,
+        name=os.path.basename(os.path.normpath(profile_dir)),
         dir_path=profile_dir,
         layers=layers,
         patch_path=user_patch_path,
@@ -1002,6 +1012,7 @@ readProfileManifest = read_profile_manifest
 writeProfileManifest = write_profile_manifest
 resolveBundleDir = resolve_bundle_dir
 loadProfile = load_profile
+loadProfileDirectory = load_profile_directory
 composeEntries = compose_entries
 healProfilesModuleFallback = heal_profiles_module_fallback
 healProfileModuleFallback = heal_profile_module_fallback

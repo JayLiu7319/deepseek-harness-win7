@@ -11,6 +11,8 @@ Compatible with Python 3.8.10 and Windows 7 SP1.
 
 import copy
 import os
+import json
+import shutil
 import sys
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set
 
@@ -30,6 +32,9 @@ from dsh.boot.profile import (
     heal_profiles_module_fallback,
     PROFILE_PATCH_FILENAME,
     Profile,
+    PROFILE_TEMPLATES,
+    resolve_profile_dir,
+    init_profile,
 )
 from dsh.boot.cmdline import provide_cmdline, AppReady
 from dsh.boot.process_shutdown import create_process_shutdown, ProcessShutdown
@@ -106,8 +111,45 @@ def resolve_telemetry_patch(disabled_env: Optional[str], has_row: bool) -> Optio
     return {"id": TELEMETRY_ROW_ID, "disabled": True}
 
 
-def prepare_profile(name: str, user_layer: bool = True, dsh_home: Optional[str] = None) -> Profile:
+def initialize_profile_from_default(name, from_default_profile, home=None):
+    """Exclusively claim a new profile, copying only shipped template metadata."""
+    profiles_root = os.path.abspath(os.path.join(home or resolve_dsh_home(), 'profiles'))
+    directory = os.path.abspath(resolve_profile_dir(name, home))
+    if os.path.dirname(directory) != profiles_root or os.path.basename(directory) != name:
+        raise ValueError('dsh: invalid profile initialization target')
+    template = PROFILE_TEMPLATES.get(from_default_profile)
+    if template is None:
+        expected = ', '.join(json.dumps(value, ensure_ascii=False) for value in sorted(PROFILE_TEMPLATES))
+        raise RuntimeError('dsh: unknown default profile %s; expected one of %s' % (json.dumps(from_default_profile, ensure_ascii=False), expected))
+    if name in PROFILE_TEMPLATES:
+        raise RuntimeError('dsh: profile %s is shipped and cannot be a custom profile target; omit --from-default-profile to use it' % json.dumps(name, ensure_ascii=False))
+    os.makedirs(os.path.dirname(directory), exist_ok=True)
+    try:
+        os.mkdir(directory)
+    except FileExistsError:
+        manifest = os.path.join(directory, 'package.json')
+        if os.path.exists(manifest):
+            raise RuntimeError('dsh: profile %s already exists at %s; omit --from-default-profile to use it' % (json.dumps(name, ensure_ascii=False), manifest))
+        raise RuntimeError('dsh: profile directory %s already exists; choose an unused profile name' % directory)
+    try:
+        init_profile(directory, template['bundles'], template['patchReload'])
+    except BaseException as error:
+        # Only the exact directory exclusively claimed above is removable.
+        if os.path.dirname(os.path.abspath(directory)) != profiles_root or os.path.basename(directory) != name:
+            raise RuntimeError('profile cleanup target changed') from error
+        try:
+            shutil.rmtree(directory)
+        except BaseException as cleanup_error:
+            aggregate = RuntimeError('dsh: profile initialization failed and %s could not be removed' % directory)
+            aggregate.errors = [error, cleanup_error]
+            raise aggregate from error
+        raise
+
+
+def prepare_profile(name: str, user_layer: bool = True, dsh_home: Optional[str] = None, from_default_profile=None) -> Profile:
     """Load a resolved profile for `name` and rewrite the empty root config."""
+    if from_default_profile is not None:
+        initialize_profile_from_default(name, from_default_profile, dsh_home)
     profile = load_profile(NAME, name, INSTALL_ANCHOR, home=dsh_home, options={"userLayer": user_layer})
     root_path = os.path.join(profile.dir, PROFILE_ROOT_FILENAME)
     try:
@@ -172,9 +214,10 @@ async def compose_profile(
     name: str,
     patch_files: Sequence[str] = (),
     dsh_home: Optional[str] = None,
+    from_default_profile=None,
 ) -> ComposedProfile:
     """Load `name` and compose its effective patch stack."""
-    profile = prepare_profile(name, dsh_home=dsh_home)
+    profile = prepare_profile(name, dsh_home=dsh_home, from_default_profile=from_default_profile)
     await heal_profiles_module_fallback({"installAnchor": INSTALL_ANCHOR, "profile": profile})
 
     home_patches = load_optional_patches(NAME, home_patch_path(dsh_home)) or []
@@ -351,7 +394,10 @@ async def run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
     from dsh.boot.profile_lease import ProfileLease
     from dsh.boot.python_plugins import JOURNAL, recover
 
-    directory = resolve_profile_dir(options["profile"], options.get("dshHome", options.get("dsh_home")))
+    home = options.get("dshHome", options.get("dsh_home"))
+    if options.get('fromDefaultProfile') is not None:
+        initialize_profile_from_default(options['profile'], options['fromDefaultProfile'], home)
+    directory = resolve_profile_dir(options["profile"], home)
     if os.path.isfile(os.path.join(directory, JOURNAL)):
         with ProfileLease(directory, exclusive=True):
             recover(directory)
@@ -383,5 +429,6 @@ createAppReady = create_app_ready
 homePatchPath = home_patch_path
 resolveTelemetryPatch = resolve_telemetry_patch
 prepareProfile = prepare_profile
+initializeProfileFromDefault = initialize_profile_from_default
 composeProfile = compose_profile
 runProfile = run_profile

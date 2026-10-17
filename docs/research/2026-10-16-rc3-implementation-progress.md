@@ -331,3 +331,7 @@ Candidate workspaceFiles implements stat/list/read/readBytes/readAll/readRelated
 ### R09-D — MCP分页循环与代际保留
 
 候选MCP provider对tools/list重复cursor立即拒绝；当前页重复工具优先报错，fetch失败不处置上一代注册。15组配对、115项原生和107项原版测试通过。实际当前插件通知循环后旧工具仍能调用，后续合法通知正常换代；真实stdio服务重复cursor只被请求两次，错误不挂起并回收进程。现有HTTP、图片、ACP创建/撤销消费者同时通过。初轮actor依赖/输出/service及配置夹具错误保留；回执 `migration/candidates/rc3/mcp-current-checks.json`。生产映射和统一验收仍待完成。
+
+### R07-A — 显式初始化自定义profile
+
+启动器新增 --from-default-profile，仅从发布模板复制bundle列表与reload策略；独占创建目录，拒绝已有manifest或残留目录，不复制本地依赖和用户patch。失败只清理本次独占目录，清理失败保留两项错误。desktop保留为应用管理profile，独立loadProfileDirectory供应用加载。47组实际配对、67项原生和22项原版测试通过，覆盖两个真实进程竞争、启动/配置导出及参数边界。配对将模板表限定为原版五项以比较准确诊断，产品八项模板另行实测，不冒充原版增加了三预设。初轮启动测试遗漏waitForExit=False导致中断，原日志保留且不推断计数；修正后设置明确期限通过。回执 migration/candidates/rc3/profile-init-current-checks.json。生产组装、其余启动增量、pin推进和统一验收仍待完成。

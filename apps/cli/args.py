@@ -15,6 +15,7 @@ dsh: boot a DeepSeek Harness profile — an ordered stack of plugin-bundle patch
 Options:
   -V, --version              output the version number
   --profile <name>           the profile under $DSH_HOME/profiles to boot
+  --from-default-profile <name> initialize a new custom profile from a shipped profile template
   --patch <path>             extra patch-list overlay applied after the profile layer (repeatable)
   --dump-config              print the composed profile tree and exit
   --dump-default-config      print the profile tree without its user layer or --patch overlays and exit
@@ -56,6 +57,11 @@ def _version(version: str) -> None:
     sys.exit(0)
 
 
+def _reject_desktop(profile):
+    if profile.lower() == 'desktop':
+        _error('profile "desktop" is managed exclusively by the Electron application')
+
+
 def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
     """
     Parse launcher argv matching parseDshArgs in TS.
@@ -84,6 +90,7 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
     # Owns: --profile <name>, --patch <path>, --dump-config, --dump-default-config
     # Ends at first token it does NOT own.
     profile: Optional[str] = None
+    from_default_profile = None
     patches: List[str] = []
     dump_config = False
     dump_default_config = False
@@ -102,6 +109,17 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
             continue
         elif tok.startswith("--profile="):
             profile = tok[len("--profile="):]
+            i += 1
+            continue
+
+        if tok == '--from-default-profile':
+            if i + 1 >= n:
+                _error('--from-default-profile needs a name')
+            from_default_profile = argv[i + 1]
+            i += 2
+            continue
+        elif tok.startswith('--from-default-profile='):
+            from_default_profile = tok[len('--from-default-profile='):]
             i += 1
             continue
 
@@ -135,9 +153,11 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
     # If stopped at subcommand 'web' or 'plugin', check rejectParentOptions
     if i < n and argv[i] in ("web", "plugin"):
         sub = argv[i]
-        _error(f"{sub} takes none of parent --profile, --patch, --dump-config, or --dump-default-config")
+        _error(f"{sub} takes none of parent --profile, --from-default-profile, --patch, --dump-config, or --dump-default-config")
 
     leftover = list(argv[i:])
+    if leftover[:1] == ['--']:
+        leftover = leftover[1:]
 
     if profile is None:
         if any(a in ("-h", "--help") for a in leftover):
@@ -146,9 +166,13 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
 
     if profile == "":
         _error("--profile needs a name")
+    _reject_desktop(profile)
 
     if any(p == "" for p in patches):
         _error("--patch needs a path")
+    if from_default_profile == '':
+        _error('--from-default-profile needs a name')
+    initialization = {} if from_default_profile is None else dict(fromDefaultProfile=from_default_profile)
 
     if not dump_config and not dump_default_config:
         return {
@@ -156,6 +180,7 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
             "profile": profile,
             "patches": patches,
             "args": leftover,
+            **initialization,
         }
 
     if dump_config and dump_default_config:
@@ -173,6 +198,7 @@ def parse_dsh_args(argv: List[str], version: str = "1.2.3") -> Dict[str, Any]:
         "profile": profile,
         "defaultOnly": default_only,
         "patches": patches,
+        **initialization,
     }
 
 
@@ -210,6 +236,8 @@ def _parse_web_command(argv: List[str], version: str) -> Dict[str, Any]:
         break
 
     leftover = list(argv[i:])
+    if leftover[:1] == ['--']:
+        leftover = leftover[1:]
 
     if any(p == "" for p in patches):
         _error("--patch needs a path")
@@ -268,6 +296,7 @@ def _parse_plugin_command(argv: List[str], version: str) -> Dict[str, Any]:
         _error("--profile <name> is required")
     if profile == "":
         _error("--profile needs a name")
+    _reject_desktop(profile)
     if not args:
         _error("plugin needs pnpm arguments to forward (e.g. add <package>)")
 

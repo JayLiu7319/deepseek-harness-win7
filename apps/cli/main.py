@@ -17,7 +17,7 @@ def main():
     try:
         invocation = parse_dsh_args(sys.argv[1:], __version__)
         if invocation["mode"] == "dump-config":
-            sys.stdout.write(run_dump_config(invocation["profile"], invocation["defaultOnly"], invocation["patches"]))
+            sys.stdout.write(run_dump_config(invocation["profile"], invocation["defaultOnly"], invocation["patches"], from_default_profile=invocation.get('fromDefaultProfile')))
             return
         if invocation["mode"] == "plugin":
             from apps.cli.plugin import run_plugin
@@ -25,6 +25,7 @@ def main():
         result = asyncio.run(run_profile({
             "environment": load_layered_env("dsh"),
             "profile": invocation["profile"],
+            "fromDefaultProfile": invocation.get('fromDefaultProfile'),
             "patchFiles": invocation["patches"],
             "args": invocation["args"],
         }))

@@ -114,3 +114,5 @@ R09-B: [verified external application launches](open-in-app-resolver-current-che
 R09-C: [authenticated external-app routes/icons](open-in-app-host-current-checks.json):80 actual pairs,321 selected native and25 unchanged Source tests pass. Actual HTTP pre-body auth/bounded chunks, stale launcher refresh/removal, icon cache and real Windows PNG extraction/temp cleanup are covered. Current profile/frontend/desktop qualification remains open.
 
 R09-D: [MCP cursor rejection](mcp-current-checks.json):15 actual pairs,115 selected native and107 unchanged Source tests pass. Repeated-cursor precedence, retained generation, later successful notification swap and real stdio bounded startup/process closure are covered. Current profile activation remains open.
+
+R07-A: [explicit profile initialization](profile-init-current-checks.json):47 actual pairs,67 selected native and22 unchanged Source tests pass. Exclusive two-process creation, failure cleanup, shipped-template metadata and actual boot/dump consumers are covered. Product retains three extra presets; current provider composition and production promotion remain open.

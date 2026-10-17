@@ -1,0 +1,897 @@
+[
+  {
+    "case": "args-0",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "web"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "fromDefaultProfile": "web",
+        "patches": [],
+        "args": []
+      }
+    }
+  },
+  {
+    "case": "args-1",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--from-default-profile=web",
+      "--profile=rescue"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "fromDefaultProfile": "web",
+        "patches": [],
+        "args": []
+      }
+    }
+  },
+  {
+    "case": "args-2",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "headless",
+      "--patch",
+      "extra.yml",
+      "task"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "fromDefaultProfile": "headless",
+        "patches": [
+          "extra.yml"
+        ],
+        "args": [
+          "task"
+        ]
+      }
+    }
+  },
+  {
+    "case": "args-3",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "web",
+      "--dump-config"
+    ],
+    "expected": {
+      "value": {
+        "mode": "dump-config",
+        "profile": "rescue",
+        "fromDefaultProfile": "web",
+        "defaultOnly": false,
+        "patches": []
+      }
+    }
+  },
+  {
+    "case": "args-4",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--dump-default-config",
+      "--from-default-profile=web"
+    ],
+    "expected": {
+      "value": {
+        "mode": "dump-config",
+        "profile": "rescue",
+        "fromDefaultProfile": "web",
+        "defaultOnly": true,
+        "patches": []
+      }
+    }
+  },
+  {
+    "case": "args-5",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--resume",
+      "abc",
+      "--from-default-profile",
+      "web"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "patches": [],
+        "args": [
+          "--resume",
+          "abc",
+          "--from-default-profile",
+          "web"
+        ]
+      }
+    }
+  },
+  {
+    "case": "args-6",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "web",
+      "--from-default-profile",
+      "web"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "web",
+        "patches": [],
+        "args": [
+          "--from-default-profile",
+          "web"
+        ]
+      }
+    }
+  },
+  {
+    "case": "args-7",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile="
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-8",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-9",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--from-default-profile",
+      "web"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-10",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--from-default-profile",
+      "web",
+      "plugin",
+      "--profile",
+      "rescue",
+      "add",
+      "x"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-11",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--from-default-profile",
+      "web",
+      "web"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-12",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "desktop"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-13",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "Desktop",
+      "--dump-config"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-14",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "DESKTOP"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-15",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "plugin",
+      "--profile",
+      "Desktop",
+      "add",
+      "x"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-16",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "plugin",
+      "--profile",
+      "normal",
+      "add",
+      "x"
+    ],
+    "expected": {
+      "value": {
+        "mode": "plugin",
+        "profile": "normal",
+        "args": [
+          "add",
+          "x"
+        ]
+      }
+    }
+  },
+  {
+    "case": "args-17",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "web",
+      "--dump-config",
+      "task"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-18",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "web",
+      "--dump-default-config",
+      "--patch",
+      "x"
+    ],
+    "expected": {
+      "exit": 1
+    }
+  },
+  {
+    "case": "args-19",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--from-default-profile",
+      "web",
+      "--from-default-profile",
+      "sdk"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "fromDefaultProfile": "sdk",
+        "patches": [],
+        "args": []
+      }
+    }
+  },
+  {
+    "case": "args-20",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "web",
+      "--help"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "web",
+        "patches": [],
+        "args": [
+          "--help"
+        ]
+      }
+    }
+  },
+  {
+    "case": "args-21",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "web",
+      "--dump-config"
+    ],
+    "expected": {
+      "value": {
+        "mode": "dump-config",
+        "profile": "web",
+        "defaultOnly": false,
+        "patches": []
+      }
+    }
+  },
+  {
+    "case": "args-22",
+    "kind": "profile-init-current",
+    "operation": "args",
+    "argv": [
+      "--profile",
+      "rescue",
+      "--",
+      "--from-default-profile",
+      "web"
+    ],
+    "expected": {
+      "value": {
+        "mode": "profile",
+        "profile": "rescue",
+        "patches": [],
+        "args": [
+          "--from-default-profile",
+          "web"
+        ]
+      }
+    }
+  },
+  {
+    "case": "initialize-acp",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "acp",
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-base",
+              "@deepseek-ai/dsh-acp-app"
+            ],
+            "patchReload": "startup"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "initialize-web",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "web",
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-base",
+              "@deepseek-ai/dsh-web-app"
+            ],
+            "patchReload": "live"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "initialize-headless",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "headless",
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-base",
+              "@deepseek-ai/dsh-headless"
+            ],
+            "patchReload": "startup"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "initialize-sdk",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "sdk",
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-base",
+              "@deepseek-ai/dsh-sdk-app"
+            ],
+            "patchReload": "startup"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "initialize-sdk-minimal",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "sdk-minimal",
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-sdk-minimal"
+            ],
+            "patchReload": "startup"
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "reserved-acp",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "acp",
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"acp\" is shipped and cannot be a custom profile target; omit --from-default-profile to use it"
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "reserved-web",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "web",
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"web\" is shipped and cannot be a custom profile target; omit --from-default-profile to use it"
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "reserved-headless",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "headless",
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"headless\" is shipped and cannot be a custom profile target; omit --from-default-profile to use it"
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "reserved-sdk",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "sdk",
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"sdk\" is shipped and cannot be a custom profile target; omit --from-default-profile to use it"
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "reserved-sdk-minimal",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "sdk-minimal",
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"sdk-minimal\" is shipped and cannot be a custom profile target; omit --from-default-profile to use it"
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "unknown-unknown",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "unknown",
+    "expected": {
+      "outcome": {
+        "error": "dsh: unknown default profile \"unknown\"; expected one of \"acp\", \"headless\", \"sdk\", \"sdk-minimal\", \"web\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "unknown-toString",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "toString",
+    "expected": {
+      "outcome": {
+        "error": "dsh: unknown default profile \"toString\"; expected one of \"acp\", \"headless\", \"sdk\", \"sdk-minimal\", \"web\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "unknown-constructor",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "template": "constructor",
+    "expected": {
+      "outcome": {
+        "error": "dsh: unknown default profile \"constructor\"; expected one of \"acp\", \"headless\", \"sdk\", \"sdk-minimal\", \"web\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-36",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-37",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "..",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"..\""
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-38",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "node_modules",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"node_modules\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-39",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "../outside",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"../outside\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-40",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "a/b",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"a/b\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "invalid-41",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "name": "a\\b",
+    "expected": {
+      "outcome": {
+        "error": "dsh: invalid profile name \"a//b\""
+      },
+      "exists": false,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "existing-manifest",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "files": {
+      "profiles/rescue/package.json": "{\"name\":\"old\",\"private\":true,\"dependencies\":{\"private\":\"1\"}}",
+      "profiles/rescue/cordis.patch.yml": "- id: user\n  disabled: true\n"
+    },
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"rescue\" already exists at $HOME/profiles/rescue/package.json; omit --from-default-profile to use it"
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json"
+      ],
+      "manifest": {
+        "name": "old",
+        "private": true,
+        "dependencies": {
+          "private": "1"
+        }
+      }
+    }
+  },
+  {
+    "case": "existing-invalid-manifest",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "files": {
+      "profiles/rescue/package.json": "broken json"
+    },
+    "invalidManifest": true,
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile \"rescue\" already exists at $HOME/profiles/rescue/package.json; omit --from-default-profile to use it"
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "package.json"
+      ],
+      "manifest": null
+    }
+  },
+  {
+    "case": "existing-empty-directory",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "existingDirectory": true,
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile directory $HOME/profiles/rescue already exists; choose an unused profile name"
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [],
+      "manifest": null
+    }
+  },
+  {
+    "case": "residual-directory",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "files": {
+      "profiles/rescue/cordis.patch.yml": "- id: user\n"
+    },
+    "expected": {
+      "outcome": {
+        "error": "dsh: profile directory $HOME/profiles/rescue already exists; choose an unused profile name"
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml"
+      ],
+      "manifest": null
+    }
+  },
+  {
+    "case": "no-copy-local-profile",
+    "kind": "profile-init-current",
+    "operation": "init",
+    "files": {
+      "profiles/web/package.json": "{\"name\":\"local\",\"dependencies\":{\"local\":\"1\"},\"dsh\":{\"profile\":{\"bundles\":[\"local\"]}}}",
+      "profiles/web/cordis.patch.yml": "- id: local-only\n"
+    },
+    "expected": {
+      "outcome": {
+        "ok": true
+      },
+      "exists": true,
+      "beforePreserved": true,
+      "files": [
+        "cordis.patch.yml",
+        "package.json",
+        "pnpm-workspace.yaml"
+      ],
+      "manifest": {
+        "name": "dsh-profile-rescue",
+        "private": true,
+        "dependencies": {},
+        "dsh": {
+          "profile": {
+            "bundles": [
+              "@deepseek-ai/dsh-base",
+              "@deepseek-ai/dsh-web-app"
+            ],
+            "patchReload": "live"
+          }
+        }
+      }
+    }
+  }
+]

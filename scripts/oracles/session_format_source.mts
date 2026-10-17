@@ -262,7 +262,9 @@ function execute(test: any): any {
 const corpus = JSON.parse(readFileSync(resolve(corpusArg), 'utf8'))
 const result = []
 for (const test of corpus) {
-  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='mcp-current'
+  try { result.push({ case: test.case, outcome: 'value', value: test.kind==='profile-init-current'
+    ? await (await import('./profile_init_current_source.mts')).profileInitCase(resolve(sourceArg),test)
+    : test.kind==='mcp-current'
     ? await (await import('./mcp_current_source.mts')).mcpCurrentCase(resolve(sourceArg),test)
     : test.kind==='open-in-app-host-current'
     ? await (await import('./open_in_app_host_current_source.mts')).openInAppHostCase(resolve(sourceArg),test)

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R07-A-explicit-profile-initialization",
+  "status": "targeted-passed",
+  "paired": {
+    "matched": 47,
+    "report": {
+      "path": ".goose/out/rc3-r07-profile-init-final-paired-20261017/report.json",
+      "sha256": "08036473b05a622f6ec5625ca984648bd4cab17f70cb74f939b3e644f15f9f16"
+    },
+    "corpus": {
+      "path": "scripts/oracles/profile_init_current_cases.json",
+      "sha256": "9921251993f0b0ff8670fb8de489e25fb8f02d9a9ab973639934dfb0f95a4e9e"
+    }
+  },
+  "native": {
+    "passed": 67,
+    "command": {
+      "path": ".goose/out/rc3-r07-profile-init-native-final-20261017/command.json",
+      "sha256": "1556ac69ce17e79d9681228ab49f8c3c15e1b70855eee6e0f8a87264201adbbc"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-profile-init-native-final-20261017/pytest.xml",
+      "sha256": "f475dd5061c0e1f339ab6b4fe3421be748dd205993cbc964e806c7c41cd68fd8"
+    }
+  },
+  "source": {
+    "passed": 22,
+    "command": {
+      "path": ".goose/out/rc3-r07-profile-init-source-20261017/command.json",
+      "sha256": "9af87d0ea03bc363cf3c56b8908ee7f11a5b807e6c07da74dd032477513a5508"
+    },
+    "xml": {
+      "path": ".goose/out/rc3-r07-profile-init-source-20261017/source.xml",
+      "sha256": "26c639b32cd1670dcc8f78893daf30a41ece66840d3f10d896bc98068dd07ba7"
+    }
+  },
+  "implementation": [
+    {
+      "path": "apps/cli/args.py",
+      "sha256": "512719117a49e47af9190d5072ec9c633a5dd40eaef6a6c6ae4a82e42c284c13"
+    },
+    {
+      "path": "apps/cli/main.py",
+      "sha256": "2738f52e6d8f8b6fba65cd85377c110a0450e4e60a82cffe12a772aa9fda0936"
+    },
+    {
+      "path": "dsh/boot/profile_boot.py",
+      "sha256": "ea3eda3339c296784b706c388fb1b2d02365742fc4fb0d0d8598c484bda10c30"
+    },
+    {
+      "path": "dsh/boot/profile.py",
+      "sha256": "6ecaaf7aacbd76fe98b4369377d0aa5e3a9e622054daa150d0fc5811976e7843"
+    },
+    {
+      "path": "dsh/boot/app_boot.py",
+      "sha256": "f2c79515155fb2e39619ee694a6b33d5f12a6158b93bb19d996d6f03908f3db1"
+    },
+    {
+      "path": "dsh/boot/dump_config.py",
+      "sha256": "37824b087f8471e2098921e71fc0900ada4ab926f4db996ae3418bd542f3c77a"
+    }
+  ],
+  "scope": [
+    "Exclusive custom profile directory claim, template-only metadata copy, residual/existing directory refusal, initialization failure cleanup and retained cleanup failure diagnostics. Actual two-process race has exactly one creator.",
+    "Root launcher prefix owns --from-default-profile and --; web alias forwards app arguments. Desktop profile is application-owned. Actual run_profile and dump_config consumers covered.",
+    "The paired actor restricts the template table to five unchanged Source keys solely to compare exact unknown-template diagnostics. Product retains eight templates, including Minimal/Standard/Creative adaptations; all eight checked independently.",
+    "Initial interrupted native run retained with command/log and no final XML: new test omitted waitForExit=False; corrected test uses explicit non-blocking boot plus bounded timeout. No completed count inferred for interrupted run."
+  ],
+  "remaining": [
+    "Canonical current provider composition, proxy boot and preset deltas, target baseline promotion and unified release qualification."
+  ]
+}

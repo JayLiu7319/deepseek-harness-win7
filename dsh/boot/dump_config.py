@@ -26,11 +26,12 @@ def run_dump_config(
     default_only: bool,
     patches: Sequence[str] = (),
     dsh_home: Optional[str] = None,
+    from_default_profile=None,
 ) -> str:
     """
     Print a profile composition with comments naming each source file and patch layer.
     """
-    loaded = prepare_profile(profile, not default_only, dsh_home=dsh_home)
+    loaded = prepare_profile(profile, not default_only, dsh_home=dsh_home, from_default_profile=from_default_profile)
     layers = [
         {"label": layer.packageName, "patches": layer.patches}
         for layer in loaded.layers

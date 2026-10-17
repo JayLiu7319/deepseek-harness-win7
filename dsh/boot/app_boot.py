@@ -53,6 +53,8 @@ from dsh.boot.profile import (
     resolveBundleDir,
     load_profile,
     loadProfile,
+    load_profile_directory,
+    loadProfileDirectory,
     compose_entries,
     composeEntries,
     heal_profiles_module_fallback,
