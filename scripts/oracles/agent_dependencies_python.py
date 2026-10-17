@@ -14,13 +14,13 @@ ROOT = options.root.resolve()
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
 from dsh.cordis.fiber import FiberState
-from dsh.core.agent import AgentPlugin
+from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
 from dsh.session.projections import SessionProjectionsPlugin
-from dsh.core.agent_loop import AgentLoopPlugin
-from dsh.core.session import SessionPlugin
-from dsh.core.system_prompt import SystemPrompt
+from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
 from dsh.core.tools import ToolsPlugin
-from dsh.llm.llm_service import LlmRuntime
+from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
 
 
 SERVICES = ('agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections')

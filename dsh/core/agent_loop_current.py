@@ -9,8 +9,13 @@ class CurrentAgentLoopService(CurrentAgentLifecycleService):
     async def _publish_preparation(self, tx, preparation, options, setup, source):
         session = preparation.session
         tx.assert_live()
-        tx.agent = ReactLoopAgent(self.ctx, session, options)
-        tx.scope = tx.agent.scope
+        runtime_ctx = self._runtime['ctx']
+        def lifecycle():
+            tx.agent = ReactLoopAgent(runtime_ctx, session, options)
+            tx.scope = tx.agent.scope
+            yield tx.scope.raw_dispose
+            yield tx.owner_dispose
+        runtime_ctx.effect(lifecycle, label='agentLoop.lifecycle(%s)' % session.id)
         if setup is not None:
             result = await tx.race(lambda: self._invoke_setup(setup, tx.agent))
             commit = getattr(result, 'commit', None)
@@ -19,7 +24,7 @@ class CurrentAgentLoopService(CurrentAgentLifecycleService):
         tx.assert_live()
         await self._before_publish(tx, session)
         tx.assert_live()
-        sessions, agents = tx.agent.ctx.get('sessions'), self.ctx.get('agents')
+        sessions, agents = tx.agent.ctx.get('sessions'), runtime_ctx.get('agents')
         tx.detach_session = sessions.enter(session)
         tx.detach_agent = agents.enter(tx.agent, owner=tx.parent_agent)
         sessions.announce(session)
@@ -27,7 +32,7 @@ class CurrentAgentLoopService(CurrentAgentLifecycleService):
         agents.announce(tx.agent)
         tx.assert_live()
         # send() already starts this machine, including from this notification.
-        emit_agent_event(self.ctx, tx.agent, 'agent/session-start', dict(source=source))
+        emit_agent_event(runtime_ctx, tx.agent, 'agent/session-start', dict(source=source))
         tx.assert_live()
         return AgentHandle(tx.agent, tx.dispose)
 

@@ -448,6 +448,10 @@ ClientModules始终以inject子上下文绑定WebServer，覆盖提供端先装�
 
 保留81组原观察范围，实际挂载当前Python Agent/Session/Prompt/LLM，等待当前Source async factory，并通过canonical factory分配用户消息。新增system消息UUID按同一类型及跨字段关联规则验证；重试观察两侧显式提供同一墙钟，所有新stream时间戳仍严格比较，事件循环和HTTP期限保持真实。请求、系统文本、来源、错误、工具标识和事件均未删减。完整配对匹配，114项消费者通过，新增时间戳及system来源漂移拒绝。前三次闭包、夹具ID和未控制墙钟的失败原始数据独立保留。见 [有限回执](../../migration/candidates/rc3/canonical-llm-current-checks.json)。其余历史门禁观察器继续迁移，未运行统一发行门禁。
 
+### R11-D — Agent 依赖卸载与身份作用域
+
+当前提供端在依赖卸载时曾先释放身份作用域，随后异步取消访问已退休的 inbox。现按原版保存不参与调用方追踪的工厂依赖上下文，以真实绑定 disposer 纳入组合 effect，并在所有者清理进入前执行取消前缀，等待机器收尾再释放作用域。重复释放共享同一完成状态。六类依赖分别覆盖空闲、流式生成、注销、旧工厂拒绝及恢复后创建；122项相关回归通过，43组当前 Source/native 生命周期观察完全匹配。原失败逐轮保留；见 [有限回执](../../migration/candidates/rc3/agent-dependency-lifetime-current-checks.json)。这不是统一发行资格。
+
 ### R07-E — 协调候选组合
 
 新增集中候选映射和五个原版空apply的browser包host half，不改变正式注册表。冻结独立原版rc.3 manifests、bundles、presets与official前端，通过canonical run_profile加载全部候选provider；当前观察156 entries/129 active，其余显式禁用，client图由实际加载解析为53行，不设固定包数断言。严格生成的Typert描述符驱动Minimal/Standard/PTC创建、选模型、真实对话完成和v3 flush；第二个Standard轮次引用Minimal并提交持久上下文。输入前后SHA及原版干净pin均核验。初轮环境、旧export/instructions与模型接口缺口逐项修复，失败原始观察保留。回执 `migration/candidates/rc3/composition-current-checks.json`。正式两工具Minimal/Creative、前端导入、台账/pin、浏览器与发行资格仍待完成；成功短测试夹具自动清理，约177GiB可用。

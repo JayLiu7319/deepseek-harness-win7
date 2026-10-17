@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-D-Agent-dependency-lifetime",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-AGENT-DEPENDENCY-LIFETIME-20261017.zip",
+    "bytes": 493367,
+    "sha256": "f2098dfe4d18171f695d3b9730cf7e32116b48b0dcd61fcee715a834c49472c0",
+    "members": [
+      {
+        "path": "rc3-agent-scope-lifetime-20261017-c/results.xml",
+        "bytes": 17442,
+        "sha256": "7f457d0826b26beebda7c206b6d23c74ff168792b8b6f7331769055f88f9f38b"
+      },
+      {
+        "path": "rc3-agent-scope-paired-20261017/agent_dependencies.json",
+        "bytes": 138,
+        "sha256": "10ba50cc14236e934260bad4d65667d9cf3d46e36e35cf847c9cfb8947d69d1f"
+      },
+      {
+        "path": "rc3-agent-scope-paired-20261017/agent_dependencies.native.json",
+        "bytes": 26509,
+        "sha256": "af514d616fff7cfb9a1cf2c6fbf96a87ec4d8344b082a376c5116331375a5b39"
+      },
+      {
+        "path": "rc3-agent-scope-paired-20261017/agent_dependencies.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-agent-scope-paired-20261017/agent_dependencies.source.json",
+        "bytes": 1492433,
+        "sha256": "600020112136ed4ea615a617de5277de397cf2e70950fe196212559d761edcfc"
+      },
+      {
+        "path": "rc3-agent-scope-paired-20261017/agent_dependencies.source.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "cases": 43,
+  "pythonConsumers": 122,
+  "inputs": {
+    "dsh/core/agent_lifecycle_current.py": "d2ae784e81fbc1be9673a8b6d9e5a5b21ce7e0ed3dc5fe288f598ec29b46ef51",
+    "dsh/core/agent_loop_current.py": "75f4e74238d0e8f228141bb6d8db68e1c334d812f6543bf12b6c4c321c7840bf",
+    "dsh/core/scope.py": "5eae41532a8598b3e1f9973b4890c857b2e5e832c3a367fffcfbe974ed447238",
+    "tests/test_agent_machine_current.py": "7e4e7f3599a0f68d655a8a49051a9f8b45d48cfc24c316df93ce914bfa49a06b",
+    "scripts/agent_dependencies_oracle.py": "65b614ecf6ff3093a1ce3c89bb33aac31b7a5194dac911da96d29f38300a0468",
+    "scripts/oracles/agent_dependencies_python.py": "5aec1e53c0472060ad5ea45ee6e58cd61416baa4734256b0a7bd8fdd92bd1c69",
+    "scripts/oracles/agent_dependencies_source.mts": "6509e906177bc47b2c962d60d46f3756a9da0a7b0471209c7ae454533730bbef"
+  },
+  "scope": [
+    "Freeze factory dependency context outside caller tracing.",
+    "Adopt the actual bound scope disposer and cancel/drain machine before disposing its identity scope.",
+    "Memoize disposal before entering its eager cancellation prefix; repeated callers share completion.",
+    "All six required providers: idle and streaming unload, registry/session detachment, retired factory rejection and restored creation."
+  ],
+  "failuresRetained": [
+    "rc3-r11-values-20261017-a through d: previous observer and inactive-scope failures retained independently.",
+    "rc3-agent-scope-lifetime-20261017-a: invalid test selection; not a successful run."
+  ],
+  "limitations": [
+    "Targeted finite contract; unified release qualification remains pending."
+  ]
+}

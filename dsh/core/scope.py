@@ -165,10 +165,9 @@ def create_scope(ctx: Context, key: Any, options_or_parent: Optional[Any] = None
             if inspect.isawaitable(fiber.inertia):
                 await fiber.inertia
 
-    def raw_dispose() -> Any:
-        return fiber.dispose()
-
-    return Scope(ctx=scoped, raw_dispose=raw_dispose, fiber_dispose=dispose)
+    # Preserve the bound Fiber method so a composite effect can adopt its
+    # existing registration rather than independently unloading the scope.
+    return Scope(ctx=scoped, raw_dispose=fiber.dispose, fiber_dispose=dispose)
 
 
 def scope_of(ctx: Context) -> Optional[Any]:

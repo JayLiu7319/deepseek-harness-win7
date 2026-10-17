@@ -167,6 +167,57 @@ async def test_disposal_cancels_active_stream_drains_closing_events_before_detac
     finally:await ctx.fiber.dispose()
 
 
+@pytest.mark.parametrize('service', ['agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections'])
+@pytest.mark.parametrize('active', [False, True], ids=['idle', 'streaming'])
+@pytest.mark.asyncio
+async def test_dependency_loss_drains_machine_before_identity_scope_disposal(service, active):
+    ctx = Context()
+    providers = dict(agents=CurrentAgentPlugin, sessions=CurrentSessionPlugin,
+                     llm=CurrentLlmRuntime, tools=ToolsPlugin,
+                     systemPrompt=CurrentSystemPrompt, sessionProjections=SessionProjectionsPlugin)
+    fibers = {name: await ctx.plugin(plugin) for name, plugin in providers.items()}
+    loop = await ctx.plugin(CurrentAgentLoopPlugin, dict(agents=[]))
+    entered, closed = asyncio.Event(), asyncio.Event()
+
+    async def stream(request):
+        try:
+            yield dict(type='block-start', index=0, blockType='text')
+            yield dict(type='text-delta', index=0, text='partial')
+            entered.set()
+            await request['signal'].wait_aborted()
+            request['signal'].throwIfAborted()
+        finally:
+            closed.set()
+
+    registry, sessions = ctx.get('agents'), ctx.get('sessions')
+    factory = ctx.get('agentLoop')
+    ctx.get('llm').registerAdapter(['hanging'], SimpleNamespace(stream=stream))
+    handle = await registry.create(dict(sessionId='dependency-loss', options=dict(provider='hanging', model='model')))
+    try:
+        if active:
+            handle.agent.followup(message('wake'))
+            await asyncio.wait_for(entered.wait(), 2)
+        await asyncio.wait_for(fibers[service].dispose(), 2)
+        assert ctx.get('agentLoop') is None
+        assert registry.get('dependency-loss') is None
+        assert sessions.get('dependency-loss') is None
+        if active:
+            assert closed.is_set()
+            assert handle.agent.session.events[-1]['type'] == 'turn/end'
+        # The caller can release its handle again after the owner has retired.
+        await asyncio.wait_for(handle.dispose(), 2)
+        with pytest.raises(RuntimeError, match='inactive context'):
+            await factory.create_agent('retired')
+        await ctx.plugin(providers[service])
+        assert ctx.get('agentLoop') is not factory
+        replacement = await ctx.get('agents').create(session_id='replacement')
+        await replacement.dispose()
+    finally:
+        await handle.dispose()
+        await loop.dispose()
+        await ctx.fiber.dispose()
+
+
 @pytest.mark.asyncio
 async def test_request_is_frozen_marked_and_replayable_with_exact_signal_identity():
     ctx=await mount();handle=await create(ctx,'request');requests=[];initiators=[]

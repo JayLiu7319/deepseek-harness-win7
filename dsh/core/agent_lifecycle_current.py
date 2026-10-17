@@ -8,6 +8,7 @@ import inspect
 import uuid
 
 from dsh.cordis.errors import AggregateError
+from dsh.cordis.awaiting import resume_coroutine
 from dsh.core.agent_factory import FactoryTransaction
 from dsh.core.agent_loop import AgentLoopService, AgentLoopPlugin
 from dsh.core.configured_agents import ConfiguredStartup
@@ -21,6 +22,30 @@ class CurrentFactoryTransaction(FactoryTransaction):
     def __init__(self,*args,**kwargs):
         self.stored=None
         super().__init__(*args,**kwargs)
+
+    def dispose(self, owner_triggered=False):
+        if self.disposing is None:
+            self.controller.abort(RuntimeError('agent "%s" disposed' % self.sid))
+            completion = self.disposing = asyncio.get_running_loop().create_future()
+            operation = self._dispose(owner_triggered)
+            # JS async disposal cancels the machine before yielding to owner
+            # cleanup. Enter that prefix before the composite drops its scope.
+            try:
+                awaited = operation.send(None)
+            except StopIteration as stop:
+                completion.set_result(stop.value)
+            except BaseException as error:
+                completion.set_exception(error)
+            else:
+                task = asyncio.create_task(resume_coroutine(operation, awaited))
+                def settled(job):
+                    if job.cancelled():completion.cancel()
+                    elif job.exception() is not None:completion.set_exception(job.exception())
+                    else:completion.set_result(job.result())
+                task.add_done_callback(settled)
+        async def observe():
+            return await asyncio.shield(self.disposing)
+        return observe()
 
     async def _dispose(self,owner_triggered):
         failures=[]
@@ -74,6 +99,10 @@ class CurrentConfiguredStartup(ConfiguredStartup):
 class CurrentAgentLifecycleService(AgentLoopService):
     def __init__(self,ctx,config=None):
         super().__init__(ctx,config)
+        # Like Source's runtime holder, keep the factory's dependency context
+        # outside Cordis caller tracing. A registry caller must not own the
+        # machine scope that the factory must drain during dependency loss.
+        self._runtime = dict(ctx=ctx)
         self._configured=CurrentConfiguredStartup(self)
 
     async def _before_publish(self,tx,session):
@@ -109,12 +138,13 @@ class CurrentAgentLifecycleService(AgentLoopService):
     async def create_agent(self,session_id=None,options=None,meta=None,setup=None,seed=None,signal=None,
                            owner_ctx=None,inherited_event_count=UNDEFINED,parent_agent=None):
         sid=session_id if session_id is not None else 'session-'+uuid.uuid4().hex[:8]
+        sessions = self._runtime['ctx'].sessions
         tx=CurrentFactoryTransaction(self,owner_ctx or self.ctx,sid,signal)
         tx.parent_agent=parent_agent
         wrapper=asyncio.get_running_loop().create_future();self._wrappers.add(wrapper)
         preparation=None
         try:
-            preparation=SessionPreparation.create(self.ctx.get('sessions').prepare(sid,
+            preparation=SessionPreparation.create(sessions.prepare(sid,
                 seed=seed,meta=meta,inheritedEventCount=inherited_event_count))
             tx.stored=await tx.race(lambda:self.createStoredSession(preparation.session,signal),
                                    lambda late:None if late is None else late['handle'].close())

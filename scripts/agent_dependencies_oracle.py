@@ -10,12 +10,13 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_COMMIT = 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
+SOURCE_COMMIT = 'a4c74a91e06b00fe0b0937bde982170c526cc842'
 SERVICES = ('agents', 'sessions', 'llm', 'tools', 'systemPrompt', 'sessionProjections')
 NAMES = ('initial-missing',) + tuple('provide-' + name for name in ('systemPrompt', 'tools', 'llm', 'agents', 'sessions', 'sessionProjections')) + tuple(name + '/' + phase for name in SERVICES for phase in ('before-loss', 'after-loss', 'retired-factory', 'restored', 'restored-create', 'final-disposal'))
 OBSERVER_INPUTS = ('scripts/agent_dependencies_oracle.py', 'scripts/oracles/agent_dependencies_source.mts', 'scripts/oracles/agent_dependencies_python.py', 'scripts/agent_dependencies_cases.py') + ('scripts/import_paths.py',)
 REQUIRED_IMPORTS = {'dsh/core/tools.py', 'dsh/core/system_prompt/__init__.py', 'dsh/core/agent_loop.py', 'dsh/core/agent.py', 'dsh/core/session/session.py', 'dsh/core/tool_calls.py', 'dsh/llm/message.py', 'dsh/llm/llm_service.py', 'dsh/cordis/context.py',
                     'dsh/core/abort.py', 'dsh/llm/error.py'}
+REQUIRED_IMPORTS.update({'dsh/core/agent_loop_current.py', 'dsh/llm/runtime_current.py', 'dsh/core/session/current_session.py', 'dsh/core/agent_current.py', 'dsh/core/system_prompt/current.py'})
 
 
 def digest(path):
