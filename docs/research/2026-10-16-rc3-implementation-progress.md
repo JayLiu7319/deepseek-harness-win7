@@ -527,3 +527,7 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 干净fec7候选的两条完整观察均严格拒绝：子会话最终checkpoint仍等待flush，写句柄已开始关闭。Python适配现按Session跟踪已接纳的缓存写入，退出先等待自己的写入，再关闭拥有的writer；暂停flush的真实回归验证该边界，并确认无关Session的写入不会阻塞退出。未过滤警告或吞掉持久化失败。动态inject尚未激活时就开始子Agent的首个请求，另导致file-reference提示和模型选择工具缺失；当前in-process调用补齐原版Promise等待边界，首次请求完整继承组合。
 
 当前3条引擎和7条路由开发旅程已完整匹配，165项相关回归通过。比较器扩展v3历史内system消息的UUID关联及精确实现目录文字归一，catalog childId只在等于已登记子身份时归一；其余请求、提示词、工具顺序及事件仍完整比较。present字段说明和list_agents的steering说明按实际原版补齐。见 [有限回执](../../migration/candidates/rc3/engine-route-targeted-checks.json)。此批尚未取得新干净提交及实际解压Portable资格；此前失败与中间诊断不重标。
+
+### R10-H — 干净 Windows 检出的生成字节
+
+固定 f0db 候选的桌面构建前检发现，新增的原版更新协调器缺少 Git 字节保留规则，干净 Windows 检出将 LF 转为 CRLF，严格哈希校验因此拒绝。补充该生成文件的 `-text` 属性，未修改生成内容或原版来源哈希。实际 Git checkout filter 与全部桌面 Source/generated 输入匹配，打包与实际 Node16 更新器消费者15项通过。见 [有限回执](../../migration/candidates/rc3/desktop-checkout-bytes-checks.json)。下一稳定提交重新冻结，原 f0db 的有限观察仍保留自身身份。

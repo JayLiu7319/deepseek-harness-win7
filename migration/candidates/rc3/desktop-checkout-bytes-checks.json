@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "targeted-passed",
+  "targetUpstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "productBase": "f0dbf3fd8a9eec72bc598e0cd244afe168c3eadf",
+  "change": "Preserve generated Desktop update-coordinator bytes through Windows Git checkout",
+  "artifact": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-CHECKOUT-BYTES-20261017.zip",
+    "bytes": 1217,
+    "sha256": "51db38c92d32b448403da56fe3134fc9495a79533edb94e932b1e72a7fe301ea"
+  },
+  "checks": {
+    "checkoutFilter": "matched",
+    "allDesktopSourceInputs": "matched",
+    "pytestPassed": 15,
+    "command": ".venv/Scripts/python.exe -m pytest tests/test_desktop_packaging.py tests/test_desktop_updates.py -q --junitxml=.goose/out/rc3-desktop-checkout-bytes-20261017-a/results.xml"
+  },
+  "releaseQualified": false,
+  "installationExecuted": false
+}
