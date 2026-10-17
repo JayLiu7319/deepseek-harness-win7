@@ -14,7 +14,7 @@ from scripts.verify_portable import sharing_receipts
 
 ROOT = Path(__file__).resolve().parents[1]
 DAMAGES = ('header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order',
-    'root', 'python', 'executable', 'module', 'bytes')
+    'revision', 'root', 'python', 'executable', 'module', 'bytes')
 
 
 def damage_observations(runtime, damage):
@@ -27,6 +27,8 @@ def damage_observations(runtime, damage):
         observed['raw']['content'] += 'foreign'
     elif damage == 'filename':
         observed['raw']['filename'] = 'foreign'
+    elif damage == 'revision':
+        observed['listed'][0]['revision'] = 'foreign'
     elif damage == 'tail':
         runtime['rows'].pop()
     elif damage == 'duplicate':
@@ -38,15 +40,75 @@ def damage_observations(runtime, damage):
 
 
 @pytest.fixture(scope='module')
-def actual_pair(tmp_path_factory):
+def actual_pair_paths(tmp_path_factory):
     output = tmp_path_factory.mktemp('jsonl-sharing-pair') / 'paired.json'
     completed = subprocess.run([sys.executable, str(ROOT / 'scripts/jsonl_sharing_oracle.py'),
         '--output', str(output)], cwd=str(ROOT), capture_output=True, timeout=180)
     assert completed.returncode == 0, completed.stdout + completed.stderr + output.read_bytes()
     report = json.loads(output.read_text(encoding='utf-8'))
     assert report['status'] == 'matched' and report['cases'] == 4
-    return (json.loads(output.with_suffix('.source.json').read_text(encoding='utf-8')),
-        json.loads(output.with_suffix('.native.json').read_text(encoding='utf-8')))
+    return output.with_suffix('.source.json'), output.with_suffix('.native.json')
+
+
+@pytest.fixture(scope='module')
+def actual_pair(actual_pair_paths):
+    return tuple(json.loads(path.read_text(encoding='utf-8')) for path in actual_pair_paths)
+
+
+def fixture_snapshot(receipt):
+    workspace = receipt.with_suffix('.workspace')
+    return {path.relative_to(workspace).as_posix(): (path.read_bytes(), path.stat().st_ino,
+        path.stat().st_size, path.stat().st_mtime_ns, path.stat().st_ctime_ns)
+        for path in workspace.rglob('*') if path.is_file()}
+
+
+def test_reused_physical_fixtures_keep_complete_revisions_and_bytes(actual_pair_paths, actual_pair, tmp_path):
+    source_path, native_path = actual_pair_paths
+    before = fixture_snapshot(native_path)
+    output = tmp_path / 'reused.json'
+    completed = subprocess.run([sys.executable, '-I', str(ROOT / 'scripts/oracles/jsonl_sharing_python.py'),
+        '--root', str(ROOT), '--output', str(output), '--fixtures-from', str(native_path)],
+        cwd=str(tmp_path), env=dict(os.environ, PATH=''), capture_output=True, timeout=60)
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert completed.stderr == b''
+    runtime = json.loads(output.read_text(encoding='utf-8'))
+    oracle.validate_runtime(runtime, ROOT, oracle.identity(actual_pair[0]), actual_pair[1]['modules'])
+    assert runtime['rows'] == actual_pair[1]['rows']
+    assert fixture_snapshot(native_path) == before
+    assert sharing_receipts(str(source_path), str(native_path), tmp_path / 'unused.json')[3] == native_path
+
+
+def test_reused_fixtures_reject_changed_revision_without_rewriting_data(actual_pair_paths, tmp_path):
+    native_path = actual_pair_paths[1]
+    original = native_path.read_bytes()
+    report = json.loads(original)
+    damage_observations(report, 'revision')
+    before = fixture_snapshot(native_path)
+    try:
+        native_path.write_text(json.dumps(report), encoding='utf-8')
+        output = tmp_path / 'rejected.json'
+        completed = subprocess.run([sys.executable, '-I', str(ROOT / 'scripts/oracles/jsonl_sharing_python.py'),
+            '--root', str(ROOT), '--output', str(output), '--fixtures-from', str(native_path)],
+            cwd=str(tmp_path), capture_output=True, timeout=60)
+        assert completed.returncode != 0
+        assert b'complete observations changed' in completed.stderr
+        assert not output.exists()
+        assert fixture_snapshot(native_path) == before
+    finally:
+        native_path.write_bytes(original)
+
+
+def test_reused_fixtures_require_original_workspace(actual_pair, tmp_path):
+    receipt = tmp_path / 'missing.native.json'
+    receipt.write_text(json.dumps(actual_pair[1]), encoding='utf-8')
+    output = tmp_path / 'rejected.json'
+    completed = subprocess.run([sys.executable, '-I', str(ROOT / 'scripts/oracles/jsonl_sharing_python.py'),
+        '--root', str(ROOT), '--output', str(output), '--fixtures-from', str(receipt)],
+        cwd=str(tmp_path), capture_output=True, timeout=60)
+    assert completed.returncode != 0
+    assert b'physical JSONL sharing fixtures missing' in completed.stderr
+    assert not output.exists()
+    assert not receipt.with_suffix('.workspace').exists()
 
 
 @pytest.mark.parametrize('name', oracle.NAMES)

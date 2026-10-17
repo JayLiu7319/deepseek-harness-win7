@@ -1357,7 +1357,7 @@ def sharing_runtime_fixture():
 
 
 @pytest.mark.parametrize('damage', ('missing', 'source-missing', 'source-changed', 'module-missing',
-    'module-changed', 'root', 'python', 'executable', 'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order'))
+    'module-changed', 'root', 'python', 'executable', 'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order', 'revision'))
 def test_extracted_jsonl_sharing_requires_complete_values_and_runtime(tmp_path, damage):
     archive, candidate, report = extracted_receipt(tmp_path)
     runtime = report['jsonlSharing']

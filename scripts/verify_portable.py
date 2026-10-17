@@ -361,7 +361,7 @@ def sharing_receipts(source, native, output):
     expected = sharing_identity(json.loads(source.read_text(encoding='utf-8')))
     runtime = json.loads(native.read_text(encoding='utf-8'))
     validate_jsonl_sharing(runtime, ROOT, expected, runtime['modules'])
-    return source, expected, runtime['modules']
+    return source, expected, runtime['modules'], native
 
 
 def canonical_llm_receipts(source, native, output):
@@ -964,7 +964,7 @@ def main(argv=None):
         report['sessionNumberSourceSha256'] = digest(number_source)
         read_source, read_digest, read_modules, read_assets = read_receipts(args.read_source, args.read_native, output)
         report['persistenceReadSourceSha256'] = digest(read_source)
-        sharing_source, sharing_digest, sharing_modules = sharing_receipts(args.sharing_source, args.sharing_native, output)
+        sharing_source, sharing_digest, sharing_modules, sharing_native = sharing_receipts(args.sharing_source, args.sharing_native, output)
         report['jsonlSharingSourceSha256'] = digest(sharing_source)
         canonical_llm_source, canonical_llm_digest, canonical_llm_modules = canonical_llm_receipts(args.canonical_llm_source, args.canonical_llm_native, output)
         report['canonicalLlmSourceSha256'] = digest(canonical_llm_source)
@@ -1480,7 +1480,8 @@ def main(argv=None):
             report['persistenceRead'] = read_report
             sharing_path = workspace / 'jsonl-sharing.json'
             sharing_result = subprocess.run([str(portable / 'python.exe'), '-I', '-u',
-                str(ROOT / 'scripts/oracles/jsonl_sharing_python.py'), '--root', str(portable), '--output', str(sharing_path)],
+                str(ROOT / 'scripts/oracles/jsonl_sharing_python.py'), '--root', str(portable), '--output', str(sharing_path),
+                '--fixtures-from', str(sharing_native)],
                 cwd=str(workspace), env=env, capture_output=True, encoding='utf-8', errors='replace', timeout=60)
             output.with_suffix('.jsonl-sharing.log').write_text(sharing_result.stdout + '\nSTDERR:\n' + sharing_result.stderr, encoding='utf-8')
             if sharing_result.returncode or sharing_result.stderr or not sharing_path.is_file():

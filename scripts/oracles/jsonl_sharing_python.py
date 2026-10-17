@@ -15,10 +15,24 @@ async def main():
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--source-observer', action='store_true')
+    parser.add_argument('--fixtures-from', type=Path)
     options = parser.parse_args()
     root, output = options.root.resolve(), options.output.resolve()
     workspace = output.with_suffix('.workspace')
-    if output.exists() or workspace.exists():
+    expected_rows = None
+    if options.fixtures_from:
+        # Revisions identify physical files. A second reader must use the
+        # original files, without opening a writer or recreating their bytes.
+        if options.source_observer:
+            raise ValueError('Fixture reuse cannot produce new Source observations')
+        receipt = options.fixtures_from.resolve()
+        expected_rows = json.loads(receipt.read_text(encoding='utf-8'))['rows']
+        if tuple(row['name'] for row in expected_rows) != ('none/delete', 'none/write', 'zstd/delete', 'zstd/write'):
+            raise ValueError('Complete ordered JSONL sharing fixtures required')
+        workspace = receipt.with_suffix('.workspace')
+        if not all((workspace / name.replace('/', '-')).is_dir() for name in ('none/delete', 'none/write', 'zstd/delete', 'zstd/write')):
+            raise ValueError('Original physical JSONL sharing fixtures missing')
+    if output.exists() or (not options.fixtures_from and workspace.exists()):
         raise ValueError('Fresh JSONL sharing outputs required')
     if os.name != 'nt' or sys.version_info[:3] != (3, 8, 10):
         raise ValueError('Actual Windows Python3.8.10 required')
@@ -28,7 +42,8 @@ async def main():
     from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin as JsonlSessionPersistencePlugin
     from dsh.session.file_revision import _windows_api
     from dsh.session.file_io import open_shared_read
-    workspace.mkdir()
+    if not options.fixtures_from:
+        workspace.mkdir()
     rows = []
     api, _, HandleInformation, _ = _windows_api()
     for compression in ('none', 'zstd'):
@@ -39,8 +54,9 @@ async def main():
             await ctx.plugin(JsonlSessionPersistencePlugin, dict(root=str(workspace / (compression + '-' + access)), compression=compression))
             provider = ctx.get('sessionPersistence')
             meta = dict(id='sharing-session',version=3,createdAt=1,isSeeded=False)
-            writer = await provider.create(meta)
-            await writer.append([dict(type='session/end-seed', seq=0, time=1, data={})])
+            if not options.fixtures_from:
+                writer = await provider.create(meta)
+                await writer.append([dict(type='session/end-seed', seq=0, time=1, data={})])
             path = provider.locate(meta)
             absolute = '\\\\?\\' + os.path.abspath(path)
             handle = api.CreateFileW(absolute, 0x80010000 if access == 'delete' else 0xC0000000, 7, None, 3, 0x80, None)
@@ -79,6 +95,8 @@ async def main():
                 await ctx.fiber.dispose()
                 if not closed:
                     raise ctypes.WinError(ctypes.get_last_error())
+    if expected_rows is not None and rows != expected_rows:
+        raise ValueError('Reused JSONL sharing fixtures or complete observations changed')
     modules = {}
     for name, module in sorted(sys.modules.items()):
         path = getattr(module, '__file__', None)

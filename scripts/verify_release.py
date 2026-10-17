@@ -430,13 +430,16 @@ REQUIRED_REGRESSION = {
     'test_jsonl_sharing_consumers': {
         *{'test_actual_original_and_native_jsonl_shared_readers_match[' + name + ']' for name in SHARING_NAMES},
         *{'test_jsonl_sharing_receipt_requires_complete_values_and_runtime[' + damage + ']' for damage in (
-            'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order', 'root', 'python', 'executable', 'module', 'bytes')},
+            'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order', 'revision', 'root', 'python', 'executable', 'module', 'bytes')},
         *{'test_jsonl_sharing_source_identity_is_required[' + damage + ']' for damage in ('pin', 'node', 'inputs', 'bytes')},
         *{'test_portable_jsonl_sharing_refuses_partial_receipts[' + side + ']' for side in ('source', 'native')},
         'test_real_exclusive_holder_remains_a_sharing_error',
         'test_reader_close_releases_actual_handle_for_exclusive_owner',
         'test_missing_shared_reader_stays_file_not_found',
         'test_shared_reader_handles_long_owned_paths',
+        'test_reused_physical_fixtures_keep_complete_revisions_and_bytes',
+        'test_reused_fixtures_reject_changed_revision_without_rewriting_data',
+        'test_reused_fixtures_require_original_workspace',
     },
     'test_deepseek_capture_consumers': {
         *{'test_actual_deepseek_capture_matches_source[' + name + ']' for name in DEEPSEEK_CAPTURE_NAMES},
@@ -854,7 +857,7 @@ REQUIRED_REGRESSION = {
         *{'test_canonical_llm_consumer_lanes_are_mandatory[' + damage + ']' for damage in ('omit','skip','duplicate','failure')},
         *{'test_extracted_jsonl_sharing_requires_complete_values_and_runtime[' + damage + ']' for damage in (
             'missing', 'source-missing', 'source-changed', 'module-missing', 'module-changed', 'root', 'python', 'executable',
-            'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order')},
+            'header', 'event', 'raw', 'filename', 'tail', 'duplicate', 'order', 'revision')},
         *{'test_jsonl_sharing_consumer_lanes_are_mandatory[' + damage + ']' for damage in ('omit', 'skip', 'duplicate', 'failure')},
         *{'test_extracted_read_requires_source_assets_and_complete_observations[' + damage + ']' for damage in (
             'missing', 'source-missing', 'source-changed', 'module-missing', 'module-changed', 'assets-missing',
