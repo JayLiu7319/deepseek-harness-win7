@@ -36,7 +36,7 @@ def canonical(rows, side='native'):
                 counters[kind]+=1
         def collect(value):
             if isinstance(value,dict):
-                if value.get('role') in ('user','assistant','tool') and 'id' in value:
+                if value.get('role') in ('system','user','assistant','tool') and 'id' in value:
                     register(value['id'],'message')
                 if 'retryId' in value:
                     register(value['retryId'],'retry')

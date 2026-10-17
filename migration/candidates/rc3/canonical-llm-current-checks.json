@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-C-canonical-LLM-current-providers",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-R11-CANONICAL-LLM-20261017.zip",
+    "bytes": 103320,
+    "sha256": "481bda0dc9770348d91b84551ff5ebc139f49f2715b73c52c7efefc3cc085bea",
+    "members": [
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.auxiliary.source.json",
+        "bytes": 1282,
+        "sha256": "b1f1478e8c5e0fd5f040e62802e18a906cb05af541abdaa73a92b86be0e9b51b"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.boundary.source.json",
+        "bytes": 8481,
+        "sha256": "03f8703583c2393399d5d04a321614e26f2ce1afcc957bca95485adc28c8ba33"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.failure.source.json",
+        "bytes": 18946,
+        "sha256": "220216fe04f16ae2acddb7037a3261e562a90de02baae4246e469bde7630c422"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.iterator.source.json",
+        "bytes": 1992,
+        "sha256": "168705002cdd77384c446bff1b854b11f62646a025f734d5cdaa1c36bee057f3"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.json",
+        "bytes": 22863,
+        "sha256": "6193d42aae781ad2262bb95a158a0be24e18d92017ce59b7ad5a26e3ab17dd3a"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.auxiliary.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.auxiliary.native.json",
+        "bytes": 13557,
+        "sha256": "87fe4f0afdc082ffcbbb629b061c91bcd36696a3a7b7503a149867a5eb74c9c4"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.boundary.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.boundary.native.json",
+        "bytes": 19862,
+        "sha256": "14b7cbfb00a169491947c0d5fb42e04011b098cf60610275b550ea088e9d82d8"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.failure.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.failure.native.json",
+        "bytes": 30764,
+        "sha256": "cebd0201785ad3eaa306f843759f3a055478c7afb8cd5702a121e608230ae1ea"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.iterator.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.iterator.native.json",
+        "bytes": 13005,
+        "sha256": "6c4ee603612561c7529e6ced9d149f744278a9420ca879e8d94ffc49531ab724"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.json",
+        "bytes": 314873,
+        "sha256": "dd1e56c9cd3f5b72d3cb9674cca8d74ef58a21ad74f7a5c3589ee5a02978863f"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.retry.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.native.retry.native.json",
+        "bytes": 91465,
+        "sha256": "c056112a8860c8554785ab78eaacb0837e2826c652733a09cb12e7c2f3bd08aa"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.retry.source.json",
+        "bytes": 67538,
+        "sha256": "8998e7b7ab360d77d69b248c79f4c4d56eb0dce21f797adeed52fa44ff1d3cda"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.source.json",
+        "bytes": 112576,
+        "sha256": "5819f0aab554e764a0394519ec0d7778742be9a0761950af7f81b93122f61e8e"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-20261017-d/report.source.log",
+        "bytes": 236,
+        "sha256": "2b251062c7355e1c2d4d1795c10a65e60655dd05352a447ce45b5ff09b54267b"
+      },
+      {
+        "path": "rc3-r11-canonical-llm-consumers-20261017/results.xml",
+        "bytes": 18209,
+        "sha256": "9d3b7073fbbb4eae40af5fabf70b4ee230a591c941a790db9fd79095b14e0ece"
+      }
+    ]
+  },
+  "cases": 81,
+  "pythonConsumers": 114,
+  "observationSha256": "0046853edeaab625ca30baef0bcd2c5be900092fd114d235a7d9e5f263fe8461",
+  "scope": [
+    "Actual current Source async Agent factory and Python CurrentAgent/Session/Prompt/LLM.",
+    "All original retry, auxiliary, failure, boundary and iterator rows retained.",
+    "Both retry observers receive wall clock 1728000000000; every serialized stream time/time0 stays in the comparison. Event loop and HTTP deadlines remain real.",
+    "Generated system-message UUIDs receive the same typed, correlated identity validation as user/assistant messages. Literal system text/source and timestamp drift are rejected by consumers."
+  ],
+  "failuresRetained": [
+    "rc3-r11-canonical-llm-20261017-a: fixed provider closure missing new imports",
+    "rc3-r11-canonical-llm-20261017-b: fixture supplied a nonallocated user ID",
+    "rc3-r11-canonical-llm-20261017-c: new system identities and uncontrolled stream wall clocks differed; complete raw rows and 46 value differences retained"
+  ],
+  "limitations": [
+    "Finite paired contract; remaining legacy gate observers and unified release qualification still pending."
+  ]
+}

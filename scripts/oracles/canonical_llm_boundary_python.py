@@ -9,7 +9,7 @@ import sys
 
 async def observe(name):
     from dsh.cordis.context import Context
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     ctx = Context()
     await ctx.plugin(LlmRuntime)
     service = ctx.get('llm')

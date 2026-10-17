@@ -1,5 +1,5 @@
 import Rc1SessionProjections from '@deepseek-ai/dsh-session-projection'
-import { expect, it } from 'vitest'
+import { expect, it, vi } from 'vitest'
 import { createServer } from 'node:http'
 import { writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
@@ -13,7 +13,7 @@ import * as Retry from '../../reference/packages/llm/llm-retry/src/index.ts'
 
 it('records complete real AgentLoop provider retry research', async () => {
   const sourceCommit = execFileSync('git', ['-C','reference','rev-parse','HEAD'], {encoding:'utf8'}).trim()
-  expect(sourceCommit).toBe('a66e4702047846cdaa10c66c9d3df3951f5ea70d')
+  expect(sourceCommit).toBe('a4c74a91e06b00fe0b0937bde982170c526cc842')
   expect(execFileSync('git', ['-C','reference','status','--porcelain'], {encoding:'utf8'}).trim()).toBe('')
   expect(process.version).toBe('v22.22.2')
   const rows = []
@@ -50,7 +50,9 @@ await ctx.plugin(AgentLoop,{agents:[]})
     if (name === 'partial-tool') ctx.tools.register({name:'danger',description:'Observe accepted execution',parameters:{type:'object',properties:{},additionalProperties:false},
       output:{schema:{type:'object',properties:{executed:{type:'boolean'}},required:['executed'],additionalProperties:false},render:()=>[{type:'text',text:'executed'}]},
       execute:async()=>{executed.push('danger');return {executed:true}}})
-    const agent = ctx.agentLoop.create(SessionId('retry-session'),{provider:'deepseek-official',model:'model', ...(name === 'disabled-thinking' ? {reasoningEffort:'high' as any}:{})})
+    // Supply the same wall clock to both observers; preserve every stream timestamp.
+    const clock = vi.spyOn(Date,'now').mockReturnValue(1728000000000)
+    const agent = await ctx.agentLoop.create(SessionId('retry-session'),{provider:'deepseek-official',model:'model', ...(name === 'disabled-thinking' ? {reasoningEffort:'high' as any}:{})})
     if (name === 'cancel-backoff') ctx.on('session/event',(session,event)=>{if(session === agent.session && event.type === 'llm/retry') agent.cancel({kind:'user'})})
     try {
       agent.followup(createUserMessage({content:[{type:'text',text:'retry request'}],source:{kind:'user'}}))
@@ -61,6 +63,7 @@ await ctx.plugin(AgentLoop,{agents:[]})
       expect(executed).toEqual(name === 'partial-tool' ? ['danger']:[])
       rows.push({name,requests,executed,events:agent.session.snapshotEvents().map(event=>({type:event.type,data:event.data})),messages:agent.session.deriveMessages()})
     } finally {
+      clock.mockRestore()
       await ctx.fiber.dispose()
       server.closeAllConnections()
       await new Promise<void>(resolve=>server.close(()=>resolve()))

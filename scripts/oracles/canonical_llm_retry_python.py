@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 import sys
 import threading
+from types import SimpleNamespace
+from unittest.mock import patch
 
 
 NAMES = ('recover', 'exhaust', 'unauthorized', 'retry-after', 'empty', 'partial-eof', 'disabled-thinking', 'partial-tool', 'cancel-backoff')
@@ -16,13 +18,13 @@ async def observe(name):
     from dsh.cordis.context import Context
     from dsh.cordis.environment import LaunchEnvironmentSnapshot
     from dsh.session.projections import SessionProjectionRegistry
-    from dsh.core.agent_loop import AgentLoopPlugin
-    from dsh.core.agent import AgentPlugin
-    from dsh.core.session import SessionPlugin
+    from dsh.core.agent_loop_current import CurrentAgentLoopPlugin as AgentLoopPlugin
+    from dsh.core.agent_current import CurrentAgentPlugin as AgentPlugin
+    from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
     from dsh.core.agent import AgentOptions
     from dsh.core.tools import ToolsPlugin
-    from dsh.core.system_prompt import SystemPrompt
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.core.system_prompt.current import CurrentSystemPrompt as SystemPrompt
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     from dsh.llm.llm_deepseek import DeepSeekAdapter
     from dsh.llm.llm_retry import LLMRetryPlugin
     requests, executed = [], []
@@ -85,7 +87,8 @@ async def observe(name):
     if name == 'cancel-backoff':
         ctx.on('session/event', lambda session, event: parent.agent.cancel(dict(kind='user')) if session is parent.agent.session and event['type'] == 'llm/retry' else None)
     try:
-        parent.agent.followup('retry request')
+        from dsh.llm.message import create_user_message
+        parent.agent.followup(create_user_message(dict(content=[dict(type='text', text='retry request')], source=dict(kind='user'))))
         await asyncio.wait_for(parent.agent.when_idle(), 10)
         events = [dict(type=event['type'], data=copy.deepcopy(event['data'])) for event in parent.agent.session.events]
         expected = dict(recover=2, exhaust=3, unauthorized=1, empty=2, **{'retry-after':1, 'partial-eof':1, 'disabled-thinking':0, 'partial-tool':3, 'cancel-backoff':1})
@@ -109,7 +112,10 @@ def main():
     arguments = parser.parse_args()
     root = arguments.root.resolve()
     sys.path.insert(0, str(root))
-    rows = [asyncio.run(observe(name)) for name in NAMES]
+    # Replace this provider's clock reference, leaving loop/HTTP deadlines real.
+    import dsh.core.assistant_stream_current as stream_provider
+    with patch.object(stream_provider, 'time', SimpleNamespace(time=lambda:1728000000)):
+        rows = [asyncio.run(observe(name)) for name in NAMES]
     modules = {}
     for name, module in sorted(sys.modules.items()):
         path = getattr(module, '__file__', None)

@@ -52,7 +52,7 @@ def failure(name):
 
 async def observe(name, phase):
     from dsh.cordis.context import Context
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     ctx = Context()
     await ctx.plugin(LlmRuntime)
     error = failure(name)
@@ -86,7 +86,7 @@ async def observe(name, phase):
 
 async def observe_ownership(name):
     from dsh.cordis.context import Context
-    from dsh.llm.llm_service import LlmRuntime
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     ctx = Context()
     await ctx.plugin(LlmRuntime)
     closed = []

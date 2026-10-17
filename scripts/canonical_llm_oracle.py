@@ -643,9 +643,19 @@ SOURCE_INPUTS = {
 GROUP_MODULES['retry'] += ['dsh/core/session/lineage.py', 'dsh/core/turn_boundary.py']
 GROUP_MODULES['auxiliary'] += ['dsh/core/session/lineage.py']
 
+# Fixed current-provider import closure, observed by the rc3 child processes.
+GROUP_MODULES['retry'] += ['dsh/cordis/text.py', 'dsh/core/agent_current.py', 'dsh/core/agent_dispatch_current.py', 'dsh/core/agent_lifecycle_current.py', 'dsh/core/agent_loop_current.py', 'dsh/core/assistant_stream_current.py', 'dsh/core/inbox_current.py', 'dsh/core/react_loop_current.py', 'dsh/core/runtime_context_current.py', 'dsh/core/session/current.py', 'dsh/core/session/current_request_header.py', 'dsh/core/session/current_session.py', 'dsh/core/session/current_surface.py', 'dsh/core/session/current_vocabulary.py', 'dsh/core/system_prompt/current.py', 'dsh/host/__init__.py', 'dsh/host/client_modules/__init__.py', 'dsh/host/client_modules/registry.py', 'dsh/host/directory_picker/__init__.py', 'dsh/host/directory_picker/auto.py', 'dsh/host/directory_picker/base.py', 'dsh/host/directory_picker/browse.py', 'dsh/host/directory_picker/directory_picker.py', 'dsh/host/directory_picker/native.py', 'dsh/host/frontend_static/__init__.py', 'dsh/host/frontend_static/frontend_static.py', 'dsh/host/http_proxy.py', 'dsh/host/http_proxy_policy.py', 'dsh/host/http_proxy_transport.py', 'dsh/host/native_command.py', 'dsh/host/plugin_inventory/__init__.py', 'dsh/host/plugin_inventory/plugin_inventory.py', 'dsh/host/plugin_inventory/types.py', 'dsh/host/webserver/__init__.py', 'dsh/host/webserver/injections.py', 'dsh/host/webserver/socket_server.py', 'dsh/host/webserver/webserver.py', 'dsh/llm/assembler.py', 'dsh/llm/assistant_stream.py', 'dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py', 'dsh/session/format/__init__.py', 'dsh/session/format/catalog.py', 'dsh/session/format/chain.py', 'dsh/session/format/error.py', 'dsh/session/format/filename.py', 'dsh/session/format/json.py', 'dsh/session/format_v0_to_v1/__init__.py', 'dsh/session/format_v0_to_v1/codec.py', 'dsh/session/format_v0_to_v1/migration.py', 'dsh/session/format_v0_to_v1/payload.py', 'dsh/session/format_v0_to_v1/relationships.py', 'dsh/session/format_v0_to_v1/validation.py', 'dsh/session/format_v1_to_v2/__init__.py', 'dsh/session/format_v1_to_v2/codec.py', 'dsh/session/format_v1_to_v2/migration.py', 'dsh/session/format_v1_to_v2/validation.py', 'dsh/session/format_v2_to_v3/__init__.py', 'dsh/session/format_v2_to_v3/codec.py', 'dsh/session/format_v2_to_v3/migration.py', 'dsh/session/format_v2_to_v3/payload.py', 'dsh/session/format_v2_to_v3/references.py', 'dsh/session/format_v2_to_v3/validation.py', 'dsh/subprocess/__init__.py', 'dsh/subprocess/collector.py', 'dsh/subprocess/local.py', 'dsh/subprocess/service.py', 'dsh/subprocess/types.py']
+GROUP_MODULES['auxiliary'] += ['dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py']
+GROUP_MODULES['failure'] += ['dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py']
+GROUP_MODULES['boundary'] += ['dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py']
+GROUP_MODULES['iterator'] += ['dsh/llm/file_content_current.py', 'dsh/llm/runtime_current.py']
+
 REQUIRED_MODULES = {'dsh/llm/llm_service.py', 'dsh/llm/adapter_failure.py',
     'dsh/core/agent_loop.py', 'dsh/compaction/native_summary.py', 'dsh/cordis/context.py',
-    'dsh/llm/llm_deepseek.py', 'dsh/llm/llm_retry.py', 'dsh/core/session/session.py'}
+    'dsh/llm/llm_deepseek.py', 'dsh/llm/llm_retry.py', 'dsh/core/session/session.py',
+    'dsh/llm/runtime_current.py', 'dsh/core/agent_loop_current.py',
+    'dsh/core/react_loop_current.py', 'dsh/core/agent_current.py',
+    'dsh/core/session/current_session.py', 'dsh/core/system_prompt/current.py'}
 
 
 def digest(path):

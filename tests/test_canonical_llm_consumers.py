@@ -14,7 +14,7 @@ from scripts.canonical_llm_values import observation_digest as value_digest
 
 ROOT = Path(__file__).resolve().parents[1]
 VALUE_DAMAGES = ('request', 'event', 'tool-id', 'message-form', 'message-split', 'message-cross-fixture',
-    'retry-form', 'retry-split', 'retry-cross-fixture', 'tail', 'duplicate', 'order', 'type')
+    'retry-form', 'retry-split', 'retry-cross-fixture', 'stream-time', 'system-source', 'tail', 'duplicate', 'order', 'type')
 RUNTIME_DAMAGES = ('root', 'python', 'executable', 'module', 'bytes', 'group-missing', 'group-rows',
     'group-root', 'group-executable', 'group-module')
 
@@ -56,6 +56,11 @@ def damage_observations(runtime, damage):
         else:
             owner = next(row for row in rows if row['name'] == 'retry/exhaust')
             next(event['data'] for event in owner['events'] if event['type'] == 'llm/retry')['retryId'] = selected['retryId']
+    elif damage == 'stream-time':
+        selected = next(event for event in rows[0]['events'] if event['data'].get('stream'))
+        selected['data']['stream'][0]['time'] += 1
+    elif damage == 'system-source':
+        rows[0]['messages'][0]['source']['plugin'] = '@foreign/system-prompt'
     elif damage == 'tail':
         rows.pop()
     elif damage == 'duplicate':

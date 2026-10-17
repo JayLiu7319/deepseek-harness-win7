@@ -9,7 +9,8 @@ from types import SimpleNamespace
 
 async def observe(name):
     from dsh.cordis.context import Context
-    from dsh.llm.llm_service import LlmRuntime, LlmError
+    from dsh.llm.llm_service import LlmError
+    from dsh.llm.runtime_current import CurrentLlmRuntime as LlmRuntime
     from dsh.core.session import Session
     from dsh.compaction.native_summary import summarize
     from dsh.compaction.compaction_basic.config import resolve_config
