@@ -490,3 +490,7 @@ SDK 当前转发持久化事实，不再转发旧 assistant/chunk。取消测试
 ### R11-J — 相邻合同与原能力观察器
 
 保留原能力观察器的 21 类观察，转到当前 v3 Session/JSONL/persona。旧 chunkDecode 输入由 released-v1 迁移 codec 解码，chunkPack 的 2/3/1025/float 全部原输入改由当前 accumulator 压缩；不再导入已经移除的 chunk-rows。配对一致，并新增当前提供端缺失及类别缺失的拒绝检查。相邻九组消费者初轮 451 通过、1 个新增断言误用了 checkpoint 的 state 字段；修正为实际 val 字段后能力模块 28 项通过。原 XML 与修正后独立 XML 均保留，见 `migration/candidates/rc3/adjacent-contracts-current-checks.json`。原生 workflow bundle 的重建另作一阶段。
+
+### R11-K — 原版 Source 配置预检
+
+21 组配置首轮 20 组通过，持久化组两个用例的原版相对夹具路径因 cwd 错误失败。为该组 fork 增加 Source cwd setup，并将已移除的 preparations/write-behind 选择更新为当前 storage-contract、admission、generation、lease 与迁移测试，原版测试文件不变。扩展后 13 文件、436 通过、10 跳过；其中 9 项是原版跳过，新增 1 项仅在实际文件 symlink 探测遇到 EPERM 时跳过精确命名的 collision 测试，其他探测错误仍失败。前后完整日志见 `migration/candidates/rc3/source-configs-current-checks.json`。这仍是定向预检，不拼接成统一发行通过。

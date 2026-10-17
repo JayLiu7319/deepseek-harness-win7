@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-K-source-configurations",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-SOURCE-CONFIGS-20261017.zip",
+    "bytes": 10954,
+    "sha256": "18fea592d80df0271cb5fb863a41b7fec207d88f4eb0058c6df09ed9197904d4",
+    "members": [
+      {
+        "path": "rc3-source-configs-20261017-a/acp-app.log",
+        "bytes": 235,
+        "sha256": "35304699b05dbfb68e764b9f8a7f2c0a329823de9391c2664a40db0f0c892f1d"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/acp.log",
+        "bytes": 243,
+        "sha256": "b9834e6acde360826a8fac7df375bff78e2776666c10e657da20d6c39f3396b2"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/agent-lifecycle.log",
+        "bytes": 252,
+        "sha256": "134a7beec594b6bc7b8c89a846f9419208a1d0531429b20144eb3af20816ee1f"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/consumers.log",
+        "bytes": 238,
+        "sha256": "800284049368f77f43abd4f658044c1401316d7946282a22b931dd5a6baf338b"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/deepseek-source.log",
+        "bytes": 244,
+        "sha256": "c956fd6f0d0031b89ad194923522e49d31e99727b1605abd1e83da8a8d1e8337"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/jsonl-provider-source.log",
+        "bytes": 238,
+        "sha256": "ed3912877842c090036ee48efdf8fdd3eda3509b60fa3005722a9a087e972ed4"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/llm-public-source.log",
+        "bytes": 242,
+        "sha256": "4b2aad6239d9119e933c31ba14279ec9f6f3025700d9e4fe9208ed7bfb4c3617"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/mcp.log",
+        "bytes": 240,
+        "sha256": "11498b18b7140977ac50754096d16712e79505aae07b8ca4681c12f5572d69c6"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/plan-source.log",
+        "bytes": 238,
+        "sha256": "96a0a0d873f75f085224e7975b05fcd7d020869b7d19a4cc6f551235ddbf3286"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/query-engine-source.log",
+        "bytes": 407,
+        "sha256": "8de315c73b8f4186ba653ed146618ff23e91d9d1bb78e36b2cb674b2b2040079"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/rc1-subagent.log",
+        "bytes": 256,
+        "sha256": "625f0e69b9341e6d77f45517b8514dbcd1fdd30d12ca1df329b171a89f781b97"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/runner.json",
+        "bytes": 6595,
+        "sha256": "a2cd1343d6a5e2967d261f4f3064850506815f3137a62728432bf63996007999"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-corpus.log",
+        "bytes": 238,
+        "sha256": "1a13d153aef78c30f850bf968a5e2a19f01ee9fe593afe48d9512c53888f2a5f"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-observation.log",
+        "bytes": 237,
+        "sha256": "9079b8980aeec3f8ec8255ae74aeae5a2b89f9b7e5be05df7165c440736ae306"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-projection.log",
+        "bytes": 240,
+        "sha256": "9e8df5f1275d99de06f9584b59446bf98f74e4c8c38bfb7917f4e29dd0e031b7"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-recovery.log",
+        "bytes": 1736,
+        "sha256": "6d660b7f93f5d9d16728f710e1a6aa04fa149cd7901ae78c0d28d1caf5208f80"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-sqlite-query.log",
+        "bytes": 237,
+        "sha256": "2fa97a568df6c22013dcadc793ae2b5ca4af364500e51e9f5073eb2e5073196f"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/session-tools-source.log",
+        "bytes": 409,
+        "sha256": "7ccf8d3a5af677f284c94d1068288f1fdaed7c7f2b01f4134e521a6d53095f54"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/storage-cache.log",
+        "bytes": 238,
+        "sha256": "3cf1e6832608575e9bdc0b6d1d680d92c549977b714997dfa985b73cbae00ec9"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/subagent-acp.log",
+        "bytes": 516,
+        "sha256": "fb7b8637e18b30e514b3becb28f490859b5c6a96329176303decd4150b290dc5"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/tool-scheduler-source.log",
+        "bytes": 238,
+        "sha256": "f0396c58269e17ff9de80d8a9dff183187a7fdc9b42b4a8360170b8bdc046c79"
+      },
+      {
+        "path": "rc3-source-configs-20261017-a/web-search-deepseek-source.log",
+        "bytes": 238,
+        "sha256": "c6b9588d1ee151c08663a30ded48a35f0374bd5edc8649dd7cc12895ed7adcbc"
+      },
+      {
+        "path": "rc3-source-configs-20261017-b/runner.json",
+        "bytes": 268,
+        "sha256": "4a145d8b81f4da92246529970c56e02c3e553a33d11d1d75dfe722c227328e15"
+      },
+      {
+        "path": "rc3-source-configs-20261017-b/session-recovery.log",
+        "bytes": 1464,
+        "sha256": "a9ead13f88c600ddbef14ac2d2f9afb2ee34e4e9e4c44db50627e7320a42559c"
+      },
+      {
+        "path": "rc3-source-configs-20261017-c/runner.json",
+        "bytes": 269,
+        "sha256": "00fa1d3eeb1cbba3e73249bae982c3ed31f59d0dcc262783bdf141de54f74303"
+      },
+      {
+        "path": "rc3-source-configs-20261017-c/session-recovery.log",
+        "bytes": 388,
+        "sha256": "1f8a0d6df49ef2274023ba537c987a0c3547dcdb1af20cb1defb5f6c19c78ffc"
+      }
+    ]
+  },
+  "inputs": {
+    "scripts/oracles/vitest.session-recovery.config.mts": "823fb2b736bba9a538b403f36903f253d846b6299c0c3d425d75c316f552d293",
+    "scripts/oracles/source-working-directory.mts": "53b8a1398e62fe4424b1d7232c7410a7f0db8eda019a5ea5b67aaccd41446d6d"
+  },
+  "verification": [
+    "First 21 configuration batch: 20 passed, session-recovery failed two missing source-relative fixtures.",
+    "Expanded recovery group after Source cwd setup: 436 passed / 9 upstream skipped / 1 EPERM symlink-creation failure.",
+    "Final expanded recovery group: 13 files, 436 passed / 10 skipped; exact new skip guarded by an actual EPERM file-symlink privilege probe."
+  ],
+  "scope": [
+    "Original Source tests remain unmodified. Retired preparations/write-behind selections replaced by current storage-contract and ten current JSONL admission/generation/lease/migration suites.",
+    "Only the exact colliding-symlink test skips when actual Windows privilege probe reports EPERM; unexpected probe errors fail and unknown tests are not filtered."
+  ],
+  "limitations": [
+    "Targeted Source configurations, not a single unified release gate. Environment symlink skip remains explicit."
+  ]
+}
