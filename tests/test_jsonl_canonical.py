@@ -1,4 +1,5 @@
 import asyncio
+import json
 import threading
 import os
 from pathlib import Path
@@ -6,8 +7,8 @@ from pathlib import Path
 import pytest
 
 from dsh.cordis import Context
-from dsh.core.session import SessionHeader, SessionPlugin
-from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistencePlugin, JsonlSessionPersistence
+from dsh.core.session import SessionHeader
+from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
 from dsh.session.jsonl_store import JsonlStore, JsonlRollbackError
 from dsh.session.jsonl_format import encode_segment, project_key
 from dsh.session.jsonl_zstd import compress_frame, scan_frames, decompress_frame
@@ -47,31 +48,39 @@ async def test_long_session_paths_preserve_append_cold_read_and_public_location(
 @pytest.mark.asyncio
 async def test_canonical_registry_uses_lazy_default_checksummed_zstd(tmp_path):
     from dsh.boot.plugin_registry import resolve_harness_plugin
-    assert resolve_harness_plugin('@deepseek-ai/dsh-session-persistence-jsonl') is JsonlSessionPersistencePlugin
+    from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistencePlugin
+    plugin = resolve_harness_plugin('@deepseek-ai/dsh-session-persistence-jsonl')
+    assert plugin is CurrentJsonlSessionPersistencePlugin
     context = Context()
-    await context.plugin(SessionPlugin)
-    await context.plugin(JsonlSessionPersistencePlugin, dict(root=str(tmp_path / 'absent')))
+    await context.plugin(plugin, dict(root=str(tmp_path / 'absent')))
     provider = context.get('sessionPersistence')
     try:
         assert provider.compression == 'zstd'
         assert not Path(provider.root).exists()
-        metadata = SessionHeader('中文😀', created_at=1)
-        await provider.create(metadata)
+        metadata = dict(version=3, id='中文😀', createdAt=1, isSeeded=False)
+        writer = await provider.create(metadata)
         assert not Path(provider.root).exists()
-        await provider.append(metadata.id, events())
-        path = Path(provider.locate(metadata).path)
-        assert path.name == 'session.jsonl.zstd'
+        try:
+            await writer.append(events())
+            await writer.flush()
+        finally:
+            await writer.close()
+        path = Path(provider.locate(metadata))
+        assert path.name == 'session.v3.jsonl.zstd'
         buffer = path.read_bytes()
         frames = scan_frames(buffer)['frames']
         assert len(frames) == 2
         for frame in frames:
             assert buffer[frame['start'] + 4] & 4
             assert decompress_frame(buffer[frame['start']:frame['end']]).endswith(b'\n')
-        loaded = await provider.load(metadata.id)
-        assert loaded.events == events()
-        raw = await provider.read_raw(metadata.id)
-        assert raw['filename'] == 'session.jsonl'
-        assert raw['content'].count('\n') == 3
+        reader = await provider.open(metadata['id'], 'read')
+        try:
+            assert (await reader.read())['events'] == events()
+        finally:
+            await reader.close()
+        raw = b''.join(decompress_frame(buffer[frame['start']:frame['end']]) for frame in frames).decode('utf-8')
+        assert json.loads(raw.splitlines()[0])['version'] == 3
+        assert raw.count('\n') == 3
     finally:
         await context.fiber.dispose()
     assert context.get('sessionPersistence') is None

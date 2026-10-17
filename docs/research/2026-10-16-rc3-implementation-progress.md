@@ -599,3 +599,9 @@ dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信
 另外三个观察器的重复解释器校验改为委托共用判据；四条入口均覆盖已选外部开发解释器、外来解释器拒绝及产品自己的python.exe。实际Source/native消费者分别120、58、41、27项通过。该轮另有22项原生搜索夹具错误，保留263通过/22错误的整轮身份；不能称为整轮通过。
 
 真实冷进程的完整导入从114变为136项，新增的22项由当前原生目录/打开服务带入，清单逐项明确；模块路径和字节校验继续严格执行，测试不再重复固定数量。修正后的原生搜索39项及调用完整解压回执校验器的7项篡改消费者分别通过。先前回执诊断因该共同闭包错误掩盖后续用例而停止，原始失败及停止原因保留。见[有限回执](../../migration/candidates/rc3/observer-closure-current-checks.json)。427模块诊断仍使用自身75c候选继续，不将局部检查拼成全量资格。
+
+### R11-X — 当前 Headless 文件工具与 JSONL 句柄消费者
+
+真实HTTP旅程按当前默认组合调用read/file_path与deepseek-flash，检查实际工具结果及新进程冷恢复；显式自定义editor组合仍单独覆盖。三个pi-ai协议同样改用当前read，重试与持久化验证session.v3文件、version3 header和无退休chunk行。JSONL注册表测试真正挂载已解析的当前provider，拥有writer的append/flush/close和冷reader，保留惰性落盘及两个物理校验帧检查；其余显式历史provider测试不作为当前资格。
+
+最终23项通过。初轮36通过/3失败、第二轮100通过/2失败均原样保留；后者包含不适用于一次性任务的Minimal CLI实验和测试漏导入json，未修改产品去兼容这些错误调用。见[有限回执](../../migration/candidates/rc3/headless-jsonl-current-checks.json)。未把旧候选的诊断与这些定向检查合并为全量通过。

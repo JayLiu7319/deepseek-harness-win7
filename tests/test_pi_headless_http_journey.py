@@ -17,7 +17,7 @@ def test_headless_pi_provider_tool_result_replay_and_persistence(tmp_path, proto
     calls = []
     target = tmp_path / 'evidence.txt'
     target.write_text('PI-NATIVE-TOOL-EVIDENCE', encoding='utf-8')
-    arguments = dict(command='view', path=str(target))
+    arguments = dict(file_path=str(target))
     final = 'Native protocol journey complete.'
 
     class Handler(BaseHTTPRequestHandler):
@@ -32,14 +32,14 @@ def test_headless_pi_provider_tool_result_replay_and_persistence(tmp_path, proto
             use_tool = main and len(calls) == 1
             frames = []
             if not main or protocol == 'openai-completions':
-                delta = dict(tool_calls=[dict(index=0, id='call-read', type='function', function=dict(name='str_replace_editor', arguments=json.dumps(arguments)))]) if use_tool else dict(content=final if main else 'Inspect file')
+                delta = dict(tool_calls=[dict(index=0, id='call-read', type='function', function=dict(name='read', arguments=json.dumps(arguments)))]) if use_tool else dict(content=final if main else 'Inspect file')
                 frames = [dict(choices=[dict(delta=delta, finish_reason='tool_calls' if use_tool else 'stop')])]
             elif protocol == 'openai-responses':
-                item = dict(type='function_call', id='fc_read', call_id='call-read', name='str_replace_editor', arguments=json.dumps(arguments)) if use_tool else dict(type='message', id='msg_final', role='assistant', content=[dict(type='output_text', text=final)])
+                item = dict(type='function_call', id='fc_read', call_id='call-read', name='read', arguments=json.dumps(arguments)) if use_tool else dict(type='message', id='msg_final', role='assistant', content=[dict(type='output_text', text=final)])
                 frames = [dict(type='response.output_item.done', output_index=0, item=item),
                           dict(type='response.completed', response=dict(id='resp', status='completed'))]
             else:
-                block = dict(type='tool_use', id='call-read', name='str_replace_editor', input={}) if use_tool else dict(type='text', text=final)
+                block = dict(type='tool_use', id='call-read', name='read', input={}) if use_tool else dict(type='text', text=final)
                 frames = [dict(type='message_start', message=dict(id='msg', usage=dict(input_tokens=10))),
                           dict(type='content_block_start', index=0, content_block=block)]
                 if use_tool:
@@ -76,9 +76,10 @@ def test_headless_pi_provider_tool_result_replay_and_persistence(tmp_path, proto
         assert result.stdout.strip() == final
         assert len(calls) == 2
         assert 'PI-NATIVE-TOOL-EVIDENCE' in json.dumps(calls[1])
-        logs = list((tmp_path / 'home/sessions').rglob('session.jsonl.zstd'))
+        logs = list((tmp_path / 'home/sessions').rglob('session.v3.jsonl.zstd'))
         assert len(logs) == 1
         events = [json.loads(line) for line in read_jsonl_text(logs[0]).splitlines()]
+        assert events[0]['type'] == 'session' and events[0]['version'] == 3
         results = [event for event in events if event['type'] == 'tool/result']
         assert len(results) == 1 and 'PI-NATIVE-TOOL-EVIDENCE' in json.dumps(results)
         assert 'pi-ai' in json.dumps(events) and protocol in json.dumps(events)

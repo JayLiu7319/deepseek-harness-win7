@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-X-current-headless-and-jsonl-consumers",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-HEADLESS-JSONL-CONSUMERS-20261017.zip",
+    "bytes": 37859,
+    "sha256": "f89202ee191975ffe397588c465b53f60240b9b37debdba7167e37a530b1cad6",
+    "members": 20
+  },
+  "runs": [
+    {
+      "path": "rc3-headless-http-consumers-20261017-a",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "3",
+      "skipped": "0",
+      "tests": "39",
+      "time": "25.993",
+      "timestamp": "2026-10-17T18:48:44.560840+08:00",
+      "hostname": "起床困难户的rog"
+    },
+    {
+      "path": "rc3-headless-jsonl-consumers-20261017-b",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "2",
+      "skipped": "0",
+      "tests": "102",
+      "time": "29.413",
+      "timestamp": "2026-10-17T18:52:44.669801+08:00",
+      "hostname": "起床困难户的rog"
+    },
+    {
+      "path": "rc3-headless-jsonl-consumers-20261017-c",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "23",
+      "time": "27.318",
+      "timestamp": "2026-10-17T18:58:02.553564+08:00",
+      "hostname": "起床困难户的rog"
+    }
+  ],
+  "scope": [
+    "Default Headless/Standard/Creative HTTP tool journey uses the current read/file_path declaration and deepseek-flash alias, then verifies the actual tool result and a fresh-process cold continuation. The explicitly custom editor composition remains exercised separately.",
+    "All three pi-ai protocols carry current read tool results and persist actual v3 logs; retry tests assert current filename/header and absence of retired assistant/chunk rows.",
+    "The canonical registry checksum test mounts the resolved current JSONL provider, owns writer append/flush/close and cold reader/close, and checks lazy materialization plus two physical checksummed frames. Other explicitly mounted historical provider tests retain their own semantics."
+  ],
+  "limitations": [
+    "Initial36pass/3fail and100pass/2fail remain failures. The latter includes an invalid experimental Minimal CLI invocation and missing json test import; both corrected before the independent23pass run.",
+    "This is consumer migration; no producer API is weakened to accept old profile tools or persistence calls.",
+    "Full regression and same-candidate release qualification remain pending."
+  ]
+}

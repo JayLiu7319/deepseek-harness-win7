@@ -37,6 +37,8 @@ def test_headless_runner_http_tool_roundtrip_and_exit(tmp_path, truncated, defau
     source = tmp_path / "sample.txt"
     source.write_text("unique file evidence", encoding="utf-8")
     requests = []
+    tool_name = 'read' if default_profile else 'str_replace_editor'
+    arguments = dict(file_path=str(source)) if tool_name == 'read' else dict(command='view', path=str(source))
 
     class Handler(BaseHTTPRequestHandler):
         def do_POST(self):
@@ -47,7 +49,7 @@ def test_headless_runner_http_tool_roundtrip_and_exit(tmp_path, truncated, defau
                 delta, finish = {'content': 'Inspect test file'}, 'stop'
             elif len(requests) == 1:
                 delta = {"tool_calls": [{"index": 0, "id": "call-read", "type": "function", "function": {
-                    "name": "str_replace_editor", "arguments": json.dumps({"command": "view", "path": str(source)})}}]}
+                    "name": tool_name, "arguments": json.dumps(arguments)}}]}
                 finish = "tool_calls"
             else:
                 delta, finish = {"content": "The file contains unique file evidence."}, "stop"
@@ -87,10 +89,11 @@ def test_headless_runner_http_tool_roundtrip_and_exit(tmp_path, truncated, defau
                 assert cordis_tools == (['cordis_define', 'cordis_inspect_list', 'cordis_inspect_query',
                                         'cordis_inspect_self', 'cordis_run', 'cordis_stop', 'cordis_undefine']
                                        if default_profile == 'creative' else [])
-            assert requests[0]["model"] == ("deepseek-v4-flash" if default_profile else "chosen-model")
+            assert requests[0]["model"] == ("deepseek-flash" if default_profile else "chosen-model")
             if not default_profile:
                 assert "User selected persona" in requests[0]["messages"][0]["content"]
             assert requests[0]["tools"][0]["type"] == "function"
+            assert tool_name in [tool['function']['name'] for tool in requests[0]['tools']]
             results = [m for m in requests[1]["messages"] if m["role"] == "tool"]
             assert results[0]["tool_call_id"] == "call-read"
             assert "unique file evidence" in results[0]["content"]
