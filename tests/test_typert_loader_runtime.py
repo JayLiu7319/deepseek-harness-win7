@@ -1,5 +1,6 @@
 import asyncio
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -120,7 +121,20 @@ async def test_steady_state_broken_package_is_contained_and_local_package_wins(t
 
 def test_all_shipped_artifacts_are_executable_and_recursive_json_codec_rejects_non_json():
     paths = list(Path("packages").rglob("typert.host.js"))
-    assert len(paths) == 13
+    manifests = subprocess.check_output(['git', '-C', 'reference', 'ls-files', '--',
+        'packages/**/package.json'], encoding='utf-8').splitlines()
+    required = set()
+    for name in manifests:
+        # Match the pinned workspace's packages/*/* entries; nested generator fixtures are not products.
+        if len(Path(name).parts) != 4:
+            continue
+        source = Path('reference') / name
+        exports = json.loads(source.read_text(encoding='utf-8')).get('exports', {})
+        export = exports.get('./typert') if isinstance(exports, dict) else None
+        target = export.get('default') if isinstance(export, dict) else export
+        if isinstance(target, str) and target.endswith('/typert.host.js'):
+            required.add((Path(name).parent / target).relative_to('packages'))
+    assert paths and {p.relative_to('packages') for p in paths} == required
     manifests = {}
     for path in paths:
         manifest = read_generated_artifact(path)

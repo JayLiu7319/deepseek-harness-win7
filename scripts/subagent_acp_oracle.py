@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.oracles.subagent_acp_python import public_observation
 
 
-INPUTS = ['scripts/subagent_acp_oracle.py', 'scripts/subagent_acp_journey.py',
+INPUTS = ['dsh/subagent/acp_current.py', 'scripts/subagent_acp_oracle.py', 'scripts/subagent_acp_journey.py',
     'scripts/acp_permission_journey.py', 'scripts/acp_mcp_journey.py',
     'scripts/oracles/subagent_acp_python.py', 'scripts/oracles/subagent_acp.probe.spec.ts',
     'scripts/oracles/subagent_acp_peer.py', 'scripts/oracles/vitest.subagent-acp-probe.config.mts',
@@ -182,7 +182,7 @@ def validate_runtime(value, workspace):
                 raise ValueError('Unpublished subprocess ACP error shape differs')
             expected = {'crash-initialize': 'stage: initialize; category: process-exit; exit code: 11',
                 'missing-session': 'stage: new-session; category: protocol',
-                'spawn-failure': 'stage: process; category: process-start'}[row['name']]
+                'spawn-failure': 'stage: initialize; category: transport'}[row['name']]
             if canonical(observed['error']) != canonical({'name': 'AcpRunFailure',
                 'message': 'subagent-acp: Subagent failure (provider: ACP; ' + expected + ')'}):
                 raise ValueError('Unpublished subprocess ACP safe failure facts differ')

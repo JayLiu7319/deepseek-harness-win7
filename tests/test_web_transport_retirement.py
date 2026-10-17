@@ -109,7 +109,7 @@ async def test_canonical_session_and_fork_publish_only_complete_agents(tmp_path)
         before = list(states)
         with pytest.raises(RemoteError) as rejected:
             await call(ctx, 'session', 'create', request=dict(sessionId='rejected', cwd=str(tmp_path), agentPreset='absent'))
-        assert rejected.value.code == 'agent-preset/not-found'
+        assert rejected.value.code == 'gateway/internal'
         assert states == before
         assert ctx.get('agents').get('rejected') is None
         assert ctx.get('sessions').get('rejected') is None

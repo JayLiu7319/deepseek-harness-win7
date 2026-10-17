@@ -24,7 +24,7 @@ async def test_source_settings_schema_facts_survive_canonical_web_boot(tmp_path,
             assert base['streamIdleTimeoutMs'] == 300000
             assert base['fileExpiresAfterSeconds'] == 604800
             assert [model['id'] for model in base['models']] == [
-                'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-v4-flash-vision-exp']
+                'deepseek-flash', 'deepseek-v4-flash', 'deepseek-v4-pro', 'deepseek-v4-flash-vision-exp']
             assert 'baseURL' not in base
         elif case == 'shared-retry':
             # Source imports one exported RetryPolicySchema into both

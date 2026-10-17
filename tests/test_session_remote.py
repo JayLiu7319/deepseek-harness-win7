@@ -7,7 +7,7 @@ import yaml
 from dsh.boot.profile_boot import run_profile
 from dsh.typert.dispatch import RemoteDispatcher
 from dsh.core.abort import AbortController
-from dsh.session.query_engine import SqliteSessionQueryEngine
+from dsh.session.query_current import CurrentSqliteSessionQueryEngine as SqliteSessionQueryEngine
 
 
 @pytest.fixture
@@ -101,12 +101,15 @@ async def test_session_remote_create_follow_rename_resume(tmp_path, monkeypatch,
         import io
         import zipfile
         fetch = ctx.get('connection').create_shared_fetch_handler('/api').fetch
-        exported = await fetch(dict(path='/api/session.export', raw_url='/api/session.export?sessionId=' + created['sessionId'], method='GET', signal=NEVER_ABORTED))
+        exported = await fetch(dict(path='/api/session.export', url='http://localhost/api/session.export?sessionId=' + created['sessionId'], method='GET', signal=NEVER_ABORTED))
         assert exported['status'] == 200
         archive = b''.join([chunk async for chunk in exported['body']])
         with zipfile.ZipFile(io.BytesIO(archive)) as zipped:
-            raw = await ctx.get('sessionPersistence').read_raw(created['sessionId'])
-            assert zipped.read('session.jsonl') == raw['content'].encode('utf-8')
+            from dsh.session.log_export_current import read_session_log_text, SESSION_LOG_FILENAME
+            logical = await read_session_log_text(ctx.get('sessionPersistence'), created['sessionId'])
+            assert zipped.namelist() == [SESSION_LOG_FILENAME]
+            assert zipped.read(SESSION_LOG_FILENAME) == logical.encode('utf-8')
+            assert json.loads(logical.splitlines()[0])['version'] == 3
         await stream.aclose()
         listing = await call('list', _request={})
         assert created['sessionId'] in [row['sessionId'] for row in listing['items']]
@@ -122,7 +125,7 @@ async def test_session_remote_create_follow_rename_resume(tmp_path, monkeypatch,
         remote = RemoteDispatcher(ctx)
         listing = await remote.invoke(dict(namespace='session', method='list', args=dict(_request={})))
         assert created['sessionId'] in [row['sessionId'] for row in listing['items']]
-        await ctx.get('sessionController').agents.resolve(created['sessionId'])
+        await ctx.get('sessionController').agents.resolveAgent(created['sessionId'])
         restored = ctx.get('agents').get(created['sessionId'])
         assert any(e['type'] == 'assistant/message' and 'Verified browser reply' in json.dumps(e) for e in restored.session.events)
         searched = await remote.invoke(dict(namespace='session', method='search', args=dict(request=dict(query='Verified browser reply'))))

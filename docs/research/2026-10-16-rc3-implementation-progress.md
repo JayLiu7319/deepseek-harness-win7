@@ -619,3 +619,7 @@ FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，
 ### R11-AA — current Session read observers
 
 已将 corpus/list/read、event trace、filters、lineage、point observation、durable snapshots 和文本排序配对迁至 v3 Session 与显式只读句柄；原历史夹具保留独立使用。读取后的内存 lease 不继续占有后端，异常关闭次数、取消原因身份和快照变化仍严格比较。Python 可选观察属性缺失改为 AttributeError。定向56项及236项通过，文本观察7,883项逐项对照原版；中间54通过/13错误及原始输出保留。证据见 migration/candidates/rc3/session-readers-current-checks.json；完整回归和实际发行验收仍待稳定候选。
+
+### R11-AB — remaining consumers and process ownership
+
+子进程清理并发观察直接结果与进程范围；失败的所有权保留给退出兜底，仅成功确认的句柄移除。发布失败的进程句柄仍提供所请求的协议管道，当前 ACP 安全诊断与原版一致。实际配对及消费者38、27、119项通过；历史工具45项通过。Web 导出改为 v3 逻辑日志并验证冷恢复；旧 SQLite 正例补齐真实首步，保留非法时序拒绝。Typert 清单从固定原版 workspace 声明推导。Web 最终43通过/1旧清单失败之后，清单6项单独通过。未修改原版 subprocess 测试119通过/4失败/15跳过的日志保留；这些 Windows 测试/启动适配失败不算通过、不加入跳过名单。后台75c4566a部分诊断已结束，原始命令、范围、XML、日志、退出1和2718.625秒均封存，不能当作完整验收。证据见 migration/candidates/rc3/remaining-consumers-current-checks.json。

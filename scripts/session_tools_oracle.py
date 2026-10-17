@@ -19,7 +19,7 @@ NAMES = (['query-' + str(index) for index in range(6)] + ['timestamp-' + str(ind
          + [name for scenario in SCENARIOS for name in (scenario, scenario + '-metadata')]
          + ['failure-' + str(index) for index in range(18)] + ['config-' + str(index) for index in range(6)]
          + ['abort-false', 'abort-true', 'harness-error-kind'])
-INPUTS = MODULES + ['scripts/session_tools_oracle.py', 'scripts/oracles/session_tools_python.py',
+INPUTS = MODULES + ['dsh/core/session/current_session.py', 'scripts/session_tools_oracle.py', 'scripts/oracles/session_tools_python.py',
                    'scripts/oracles/session_tools.probe.spec.ts', 'scripts/oracles/vitest.session-tools-probe.config.mts',
                    'scripts/oracles/vitest.session-tools-source.config.mts', 'tests/test_session_tools.py',
                    'tests/test_session_tools_source.py', 'tests/test_session_tools_profile.py', 'dsh/boot/plugin_registry.py']

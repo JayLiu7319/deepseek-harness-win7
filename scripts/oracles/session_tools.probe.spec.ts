@@ -39,10 +39,10 @@ it('observes the actual optional tool consumer and its input contracts', async (
     await observe(`range-${index}`, () => toolInput.buildSessionFilters({query: 'q', created_at_from: range[0], created_at_to: range[1]}))
   }
   const records = [
-    {header: {id: 'caller', version: 2, createdAt: 10, cwd: '/work',isSeeded:false}, live: true, persisted: false},
-    {header: {id: 'a', version: 2, createdAt: 100, cwd: '/work', parentSession: 'hidden',isSeeded:false}, live: true, persisted: true},
-    {header: {id: 'b', version: 2, createdAt: 101, cwd: '/work',isSeeded:false}, live: false, persisted: true},
-    {header: {id: 'hidden', version: 2, createdAt: 102, cwd: '/outside',isSeeded:false}, live: true, persisted: false},
+    {header: {id: 'caller', version: 3, createdAt: 10, cwd: '/work',isSeeded:false}, live: true, persisted: false},
+    {header: {id: 'a', version: 3, createdAt: 100, cwd: '/work', parentSession: 'hidden',isSeeded:false}, live: true, persisted: true},
+    {header: {id: 'b', version: 3, createdAt: 101, cwd: '/work',isSeeded:false}, live: false, persisted: true},
+    {header: {id: 'hidden', version: 3, createdAt: 102, cwd: '/outside',isSeeded:false}, live: true, persisted: false},
   ]
   const definitions: any[] = [], sections: unknown[] = [], calls: unknown[] = [], warnings: string[] = []
   const controller = new AbortController()
@@ -108,7 +108,7 @@ it('observes the actual optional tool consumer and its input contracts', async (
     {type:'turn/start',seq:0,time:1,data:{turn:1}},
     {type:'user/message',seq:1,time:2,surfaceOp:'append',data:{id:'prior',role:'user',source:{kind:'user'},content:[{type:'text',text:'prior'}]}},
     {type:'step/start',seq:2,time:3,data:{turn:1,step:1}},
-  ] as any, {...records[0].header,version:0})
+  ] as any, {...records[0].header,version:3})
   const execution: any = {signal, agent: {session: caller}}
   for (const [name, toolName, args] of [
     ['empty', 'session_search', {query: 'q'}], ['pages', 'session_search', {query: 'q'}],

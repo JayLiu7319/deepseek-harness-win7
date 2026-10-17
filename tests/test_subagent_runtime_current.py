@@ -82,7 +82,10 @@ async def test_final_flush_race_rechecks_new_work_and_captures_latest_epoch(tmp_
         await service._deliver_prompt(parent.agent,'worker',[dict(type='text',text='during flush')],dict(kind='user'),AbortController().signal,'queue')
         child=ctx.get('agents').get('worker');await child.whenIdle()
         assert [e['data']['turn'] for e in child.session.events if e['type']=='turn/end']==[1,2]
-        release.set();await closed(ctx,'worker');await parent.agent.whenIdle()
+        release.set();await closed(ctx,'worker')
+        # Registry detach precedes terminal notification; observe settlement before the parent idle cut.
+        await eventually(lambda: len(seen)==1)
+        await parent.agent.whenIdle()
         assert len(seen)==1 and seen[0]['stopReason']=='completed'
         observed=await ctx.get('sessionQuery').observeSession('worker')
         try:assert len([e for e in observed.events if e['type']=='turn/end'])==2

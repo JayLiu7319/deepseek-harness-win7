@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "stage": "R11-AB-current-remaining-consumers",
+  "status": "targeted-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-REMAINING-CONSUMERS-20261017.zip",
+    "bytes": 2557767,
+    "sha256": "3dcd19ce3e8a826147c916a28b989deae64033456257e796f0900203a6029523",
+    "members": 124
+  },
+  "inputSha256": {
+    "dsh/subprocess/local.py": "489b2535bcb2a7319dc6a8fad26d0128344c07bf35bd081c612bc0ee276d0a44",
+    "scripts/oracles/session_tools.probe.spec.ts": "ca4b98d93509ca394518f6df3dec7f5b1c3b3f64c84b1d51336716c9e28902b9",
+    "scripts/oracles/session_tools_python.py": "ccb966372d27dc9fcfd2939423709c859efe038c749022dda61fe632733d4784",
+    "scripts/oracles/subagent_acp.probe.spec.ts": "407e03ca06c5009c14527461047b3de48ea46b688308b47829b3d2742e4aa1c9",
+    "scripts/oracles/subagent_acp_python.py": "5d90da621c4a7be7052d3ba8eec3790bc21a98e3aa4b91dc686663a0ff8260e4",
+    "scripts/session_snapshots_oracle.py": "f5ae08152089ca47e2914ec314fed2ab4c9508b7ef175956a95c2059389e7994",
+    "scripts/session_tools_oracle.py": "547d457a58d14e1eecb693dc055d22203aef11b8aefa38b1155bc3e97182ec67",
+    "scripts/subagent_acp_oracle.py": "c15f670b6fe97b2ad9f7da4f24cce332c2e425a7c55635df689fa655923ca6dd",
+    "scripts/subprocess_ownership_oracle.py": "14633aae9a0969aa563385f9e2c2c7499c8be84505068104d383a568b63ba546",
+    "tests/test_session_remote.py": "f6c32c93c3a7f0176c699f3395fc061de0edc92b35bbb6724f23eda63736186c",
+    "tests/test_session_tools_profile.py": "76186db59b5d7ca465f28c5ce30fd3fea5b4c4ed057aea3785b479ab75915695",
+    "tests/test_sqlite_remote.py": "9bd9c5049177487ce84dffa62dfd03d7ee9769e652f6fdda93ccee6e4494f155",
+    "tests/test_subagent_acp_observer.py": "ef928546c3122e476679a0889f334754e03252dff1f711b1f363d3857c4e7378",
+    "tests/test_subagent_acp_source.py": "e424151a3026a9baae534432109444e75753d2fae545ffaf02d42933776b3d3a",
+    "tests/test_subagent_runtime_current.py": "6d1a2b1c4ab92f4bc7744906dd4afae5072dd67c4e4645e8c8051303632da4e5",
+    "tests/test_subprocess_local_upstream_parity.py": "89498958b105d4f48b2de518e999b35cfda8e087052e4388f18fe3f1da16f061",
+    "tests/test_tool_result_pruner.py": "12799d33e786b02ecf457e2a7a81ec948110e065d3e7d2b1e265b855156430c8",
+    "tests/test_typert_loader_runtime.py": "d45f9f24577dfeb886a70b9af6e056e3eadd8a7309e617c9d985f8bc4743dcbe",
+    "tests/test_upstream_delta.py": "6503b55a956aea461afe932057f17bad2a184c14cd6fee78de390e47036ed132",
+    "tests/test_web_search_deepseek.py": "34b09aaf751e9761185540bf0d478fc1f51d3a6653e3945c5991aff306ee8390",
+    "tests/test_web_settings_inventory.py": "7108a1d7edb67f1c5c1e0f5d703bd27335ea20d4e75d0ef08b9fae210938f3c1",
+    "tests/test_web_transport_retirement.py": "7540e054c24bf0ae08b7ccbd98ede7168ed81ec87dca2ff768cfcb5c5c1b3684"
+  },
+  "verification": [
+    {
+      "passed": 45,
+      "seconds": 12.22,
+      "scope": "Actual Source/native optional history tools and two real current profiles with cold restart."
+    },
+    {
+      "passed": 38,
+      "seconds": 6.57,
+      "scope": "Actual four Source/native subprocess ownership cuts; direct-pending managed-range failure and related local tests."
+    },
+    {
+      "passed": 27,
+      "seconds": 15.79,
+      "scope": "Actual 22 ACP Source/native runs, six configs and historical subprocess/ACP regression."
+    },
+    {
+      "passed": 119,
+      "seconds": 27.53,
+      "scope": "ACP profile/child/model chain, cancellation, teardown pairs and actual physical process trees."
+    },
+    {
+      "passed": 148,
+      "failed": 8,
+      "seconds": 213.42,
+      "scope": "Initial current Web/remote/manifest/pin consumers; retained failures."
+    },
+    {
+      "passed": 43,
+      "failed": 1,
+      "seconds": 109.45,
+      "scope": "Remote export/cold restart and legacy SQLite current migration passed; manifest fixture scope failed."
+    },
+    {
+      "passed": 6,
+      "seconds": 1.19,
+      "scope": "Corrected original workspace manifest-derived Typert inventory and recursive codecs."
+    }
+  ],
+  "paired_receipts": [
+    "rc3-acp-current-oracle-20261017-d/paired.json",
+    "rc3-subprocess-current-oracle-20261017-d/paired.json"
+  ],
+  "diagnostic": {
+    "candidate": "75c4566a",
+    "kind": "partial remainder diagnostic, not complete qualification",
+    "seconds": 2718.625,
+    "exit_code": 1,
+    "tests": 13665,
+    "failures": 72,
+    "errors": 289,
+    "skipped": 5
+  },
+  "limitations": [
+    "Unmodified Source subprocess configuration records 119 pass/4 failures/15 skips. The four Windows startup/test-adapter/negative-PID failures are retained; no Source file or skip configuration was modified. This selected Source run is not a passing gate.",
+    "The diagnostic had no frozen inputs.json; its 18 preflight failures are missing diagnostic-owner inputs, not product acceptance evidence.",
+    "Current range ownership retains failed handles and removes only confirmed settled handles. Pending direct results cannot hide managed-range observation failure.",
+    "A failed launch still publishes requested protocol pipe objects; current ACP classifies its asynchronous rejection as initialize/transport, preserving safe diagnostics.",
+    "Legacy SQLite fixture now contains an actual first step before its surface; unsupported chronology remains refused by the current migration catalog.",
+    "Historical release-delta target is kept historical while ownership follows the current pinned graph.",
+    "Full regression and exact packaged release qualification pending."
+  ]
+}

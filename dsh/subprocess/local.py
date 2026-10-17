@@ -8,6 +8,7 @@ import asyncio
 import atexit
 import concurrent.futures.thread
 import json
+import io
 import math
 import os
 import select
@@ -227,9 +228,11 @@ class LocalSubprocessHandle(SubprocessHandle):
             loop = asyncio.get_event_loop()
             self.done = loop.create_future()
             self.done.set_exception(e)
-            self.stdin = None
-            self.stdout = None
-            self.stderr = None
+            # A published handle still exposes requested protocol pipes when
+            # launch fails; its direct result owns the asynchronous rejection.
+            self.stdin = io.BytesIO() if stdin_mode == 'pipe' else None
+            self.stdout = io.BytesIO() if stdout_mode == 'pipe' else None
+            self.stderr = io.BytesIO() if stderr_mode == 'pipe' else None
             self.collected = SubprocessCollectedOutputs()
             self._tree_exit_observed = True
             self._abort_task = None
@@ -520,21 +523,33 @@ class LocalSubprocessRuntime(SubprocessRuntime):
             handle.terminate()
         waits = []
         for handle in handles:
-            async def wait_handle(current=handle):
+            async def consume_done(current=handle):
                 try:
-                    await current.done
+                    await asyncio.shield(current.done)
                 except Exception:
                     pass
-                await current.wait_for_exit()
-            waits.append(wait_handle())
+            # Observe direct result and managed range concurrently. A failed
+            # range observation must remain visible even if done never settles.
+            done = asyncio.ensure_future(consume_done())
+            exited = asyncio.ensure_future(handle.wait_for_exit())
+            async def wait_handle(current=handle, direct=done, managed=exited):
+                try:
+                    await asyncio.gather(direct, managed)
+                finally:
+                    if managed.done() and not managed.cancelled() and managed.exception() is not None:
+                        direct.cancel()
+                        await asyncio.gather(direct, return_exceptions=True)
+                self.live.discard(current)
+            waits.append(asyncio.ensure_future(wait_handle()))
         for terminal in terminals:
-            waits.append(asyncio.ensure_future(terminal.terminate()))
+            async def wait_terminal(current=terminal):
+                await current.terminate()
+                self.terminals.discard(current)
+            waits.append(asyncio.ensure_future(wait_terminal()))
         outcomes = await asyncio.gather(*waits, return_exceptions=True) if waits else []
         failures = [outcome for outcome in outcomes if isinstance(outcome, BaseException)]
         if failures:
             self._terminate_all()
-        self.live.clear()
-        self.terminals.clear()
         if len(failures) == 1:
             raise failures[0]
         if failures:

@@ -7,7 +7,8 @@ import subprocess
 import sys
 from types import SimpleNamespace
 
-from dsh.subagent.acp import CONFIG, SubagentAcp
+from dsh.subagent.acp import CONFIG
+from dsh.subagent.acp_current import CurrentSubagentAcp as SubagentAcp
 from scripts.oracles.subagent_acp_python import native_observations, public_observation
 
 

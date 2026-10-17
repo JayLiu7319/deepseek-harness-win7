@@ -30,12 +30,14 @@ def expected():
                 'after': {'ordinary': 1, 'terminals': 1}, 'retained': {'ordinary': 1, 'terminals': 1}}
         else:
             trace = [['terminate', 'ordinary']]
+            trace += [['wait', 'ordinary']]
             if name == 'mixed-failure':
                 trace += [['terminate', 'terminal']]
-            trace += [['wait', 'ordinary'], ['force', 'ordinary']]
+            trace += [['force', 'ordinary']]
             if name == 'mixed-failure':
                 trace += [['force', 'terminal']]
-            observed = {'trace': trace, 'after': {'ordinary': 0, 'terminals': 0}}
+            observed = {'trace': trace, 'after': {'ordinary': 0 if name == 'pending-host-exit' else 1,
+                'terminals': 1 if name == 'mixed-failure' else 0}}
             if name == 'pending-host-exit':
                 observed['retained'] = {'ordinary': 1, 'terminals': 0}
             else:

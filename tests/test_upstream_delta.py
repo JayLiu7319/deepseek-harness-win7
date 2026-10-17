@@ -158,11 +158,13 @@ def test_actual_pinned_source_parent_delta_is_readonly_and_source_qualified():
     before, original = delta.source_state(repository), inventory.read_bytes()
     report = delta.observe(repository, inventory, '5a69ba1cdd6e5e2167d614e690fe0eb925c017bf',
         'a66e4702047846cdaa10c66c9d3df3951f5ea70d')
-    assert report['source_pin'] == report['target_commit'] == before['head']
+    assert report['source_pin'] == before['head']
+    assert report['target_commit'] == 'a66e4702047846cdaa10c66c9d3df3951f5ea70d'
     assert len(report['changes']) == 252
     assert all(row['status'] == 'M' and row['after'].endswith('package.json') for row in report['changes'])
     assert len(report['package_impact']['direct']) == 252
-    assert len(report['package_impact']['transitive']) == 1
+    # Ownership follows the current pinned manifest graph, even for this historical release delta.
+    assert len(report['package_impact']['transitive']) == 20
     assert delta.source_state(repository) == before
     assert inventory.read_bytes() == original
 

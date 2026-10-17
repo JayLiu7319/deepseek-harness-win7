@@ -97,7 +97,7 @@ async def test_terminal_allocation_honors_preaborted_signal():
 
 
 @pytest.mark.asyncio
-async def test_dispose_all_settles_and_clears_ownership_on_wait_failure():
+async def test_dispose_all_settles_and_retains_failed_ownership():
     runtime = LocalSubprocessRuntime(Context())
     loop = asyncio.get_event_loop()
 
@@ -128,8 +128,9 @@ async def test_dispose_all_settles_and_clears_ownership_on_wait_failure():
         await runtime._dispose_managed_processes()
 
     assert failed.terminated and settled.terminated
-    assert failed.force_terminated and settled.force_terminated
-    assert runtime.live == set()
+    assert failed.force_terminated and not settled.force_terminated
+    assert runtime.live == {failed}
+    runtime.live.clear()
 
 
 def test_default_spill_directory_is_process_private():
@@ -254,3 +255,32 @@ async def test_terminal_ownership_survives_top_level_exit_until_quiescence():
             handle._proc.stdin.close()
         if handle.output is not None:
             handle.output.close()
+
+
+@pytest.mark.asyncio
+async def test_managed_range_failure_is_observed_while_direct_result_is_pending():
+    ctx = Context()
+    runtime = LocalSubprocessRuntime(ctx)
+    loop = asyncio.get_running_loop()
+    failure = RuntimeError('unreadable managed range')
+    class Handle:
+        done = loop.create_future()
+        forced = False
+        def terminate(self):
+            pass
+        def terminate_for_host_exit(self):
+            self.forced = True
+        async def wait_for_exit(self):
+            raise failure
+    handle = Handle()
+    runtime.live.add(handle)
+    try:
+        with pytest.raises(RuntimeError) as rejected:
+            await asyncio.wait_for(runtime._dispose_managed_processes(), 1)
+        assert rejected.value is failure
+        assert handle.forced and runtime.live == {handle}
+        assert not handle.done.done()
+    finally:
+        runtime.live.clear()
+        handle.done.cancel()
+        await ctx.fiber.dispose()

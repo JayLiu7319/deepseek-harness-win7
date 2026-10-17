@@ -177,7 +177,8 @@ async def test_dependency_injection_and_reversible_provider():
 @pytest.mark.asyncio
 async def test_real_flat_yaml_loader_composition(tmp_path):
     path = tmp_path / 'cordis.yml'
-    path.write_text("- name: '@deepseek-ai/dsh-token-meter'\n"
+    path.write_text("- name: '@deepseek-ai/dsh-session-projection'\n"
+                    "- name: '@deepseek-ai/dsh-token-meter'\n"
                     "- name: '@deepseek-ai/dsh-compaction-tool-result-pruner'\n"
                     '  config:\n    thresholdChars: 100\n    headChars: 20\n    tailChars: 10\n', encoding='utf-8')
     ctx = Context()

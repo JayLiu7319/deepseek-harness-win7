@@ -19,7 +19,7 @@ def negative_fixture(workspace):
         if name in ('crash-initialize', 'missing-session', 'spawn-failure'):
             detail = {'crash-initialize': 'stage: initialize; category: process-exit; exit code: 11',
                 'missing-session': 'stage: new-session; category: protocol',
-                'spawn-failure': 'stage: process; category: process-start'}[name]
+                'spawn-failure': 'stage: initialize; category: transport'}[name]
             observed.update(error={'name': 'AcpRunFailure', 'message':
                 'subagent-acp: Subagent failure (provider: ACP; ' + detail + ')'}, errorCount=1)
         else:

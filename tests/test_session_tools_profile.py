@@ -8,6 +8,8 @@ from dsh.boot.profile import init_profile
 from dsh.boot.profile_boot import run_profile
 from dsh.core.abort import AbortController
 from dsh.core.session import SessionHeader
+from dsh.core.agent import AgentOptions
+from dsh.llm.message import create_user_message
 from dsh.core.tools import ToolExecutionInput
 from test_e2e_core_spine_strict_parity import StrictMockLlmAdapter
 
@@ -42,10 +44,15 @@ async def test_optional_profile_model_tools_next_request_and_cold_restart(tmp_pa
     handle = None
     try:
         for identity, workspace in [('prior', '/work'), ('hidden', '/outside')]:
-            await storage.create(SessionHeader(identity, created_at=1, cwd=workspace))
-            await storage.append(identity, [event])
-        handle = await context.get('agent_loop').create_agent('caller', meta=dict(cwd='/work'))
-        handle.agent.followup('Find the prior needle and read its exact event.')
+            writer = await storage.create(SessionHeader(identity, version=3, created_at=1, cwd=workspace))
+            try:
+                await writer.append([event])
+                await writer.flush()
+            finally:
+                await writer.close()
+        model = AgentOptions(provider=adapter.provider, model=adapter.model)
+        handle = await context.get('agent_loop').create_agent('caller', options=model, meta=dict(cwd='/work'))
+        handle.agent.followup(create_user_message(dict(content=[dict(type='text', text='Find the prior needle and read its exact event.')], source=dict(kind='user'))))
         await handle.agent.when_idle()
         assert len(adapter.requests) == 6
         expected = {'session_search', 'session_event_search', 'session_trace', 'session_event_trace', 'session_event_read'}
@@ -68,14 +75,14 @@ async def test_optional_profile_model_tools_next_request_and_cold_restart(tmp_pa
     continuation = StrictMockLlmAdapter([dict(text='Recovered durable needle payload.')])
     fresh.get('llm').responses.extend(continuation.responses)
     continuation = fresh.get('llm')
-    restored = await fresh.get('agent_loop').resume('caller')
+    restored = await fresh.get('agent_loop').resume('caller', options=model)
     try:
         invocation = ToolExecutionInput('restart', 'session_search', dict(query='needle'), agent=restored.agent,
                                        signal=AbortController().signal)
         result = await fresh.get('tools').execute(invocation)
         assert not result.is_error and 'durable needle payload' in result.value and 'hidden' not in result.value
         assert fresh.get('sessions').get('prior') is None
-        restored.agent.followup('What did the exact read find?')
+        restored.agent.followup(create_user_message(dict(content=[dict(type='text', text='What did the exact read find?')], source=dict(kind='user'))))
         await restored.agent.when_idle()
         assert 'durable needle payload' in json.dumps(continuation.requests)
     finally:

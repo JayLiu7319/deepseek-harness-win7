@@ -2,7 +2,7 @@ import asyncio
 import hashlib
 from dsh.core.session import SessionHeader
 from dsh.session.sqlite_legacy_reader import LegacySqliteSessionReader
-from dsh.session.persistence_jsonl_canonical import JsonlSessionPersistence
+from dsh.session.jsonl_backend_current import CurrentJsonlSessionPersistence as JsonlSessionPersistence
 import json
 
 import pytest
@@ -24,10 +24,12 @@ async def test_legacy_sqlite_export_remote_model_fork_search_and_cold_restart(tm
     await writer.create(SessionHeader('legacy-history', created_at=1, cwd=str(tmp_path)))
     await writer.append('legacy-history', [
         dict(type='turn/start', seq=0, time=1, data=dict(turn=1)),
-        dict(type='user/message', seq=1, time=2, surfaceOp='append', data=dict(
+        dict(type='step/start', seq=1, time=2, data=dict(turn=1, step=1)),
+        dict(type='user/message', seq=2, time=3, surfaceOp='append', data=dict(
             id='legacy-message', role='user', source=dict(kind='user'),
             content=[dict(type='text', text='Legacy history remains searchable')])),
-        dict(type='turn/end', seq=2, time=3, data=dict(turn=1, reason=dict(kind='completed'))),
+        dict(type='step/end', seq=3, time=4, data=dict(turn=1, step=1)),
+        dict(type='turn/end', seq=4, time=5, data=dict(turn=1, reason=dict(kind='completed'))),
     ])
     await writer.close()
     original = hashlib.sha256(database.read_bytes()).hexdigest()
@@ -85,7 +87,7 @@ async def test_legacy_sqlite_export_remote_model_fork_search_and_cold_restart(tm
         remote = RemoteDispatcher(fresh)
         results = await remote.invoke(dict(namespace='session', method='search', args=dict(request=dict(query='Verified browser reply'))))
         assert {row['sessionId'] for row in results['items']} == {created['sessionId'], forked['sessionId']}
-        await fresh.get('sessionController').agents.resolve(created['sessionId'])
+        await fresh.get('sessionController').agents.resolveAgent(created['sessionId'])
         legacy = await remote.invoke(dict(namespace='session', method='search', args=dict(request=dict(query='Legacy history'))))
         assert legacy['items'][0]['sessionId'] == 'legacy-history'
         assert hashlib.sha256(database.read_bytes()).hexdigest() == original

@@ -9,7 +9,8 @@ from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from dsh.cordis import Context
-from dsh.subagent.acp import AcpProvider, CONFIG, SubagentAcp
+from dsh.subagent.acp import CONFIG
+from dsh.subagent.acp_current import CurrentAcpProvider as AcpProvider, CurrentSubagentAcp as SubagentAcp
 from dsh.subprocess.local import LocalSubprocessRuntime
 
 

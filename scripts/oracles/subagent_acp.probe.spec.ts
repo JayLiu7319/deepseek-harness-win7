@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { spawn } from 'node:child_process'
 import { expect, it } from 'vitest'
 import { startAcpRun } from '../../reference/packages/subagent/subagent-acp/src/run.ts'
 import * as backend from '../../reference/packages/subagent/subagent-acp/src/index.ts'
@@ -40,10 +41,13 @@ it('observes actual original ACP subprocess runs and safe failure facts', async 
     const controller = new AbortController()
     const errors: Error[] = []
     let child: any
+    let pid: number | undefined
     const spec = {command: scenario.command ?? process.env.SUBAGENT_ACP_PYTHON!,
       args: [process.env.SUBAGENT_ACP_PEER!], cwd: workspace, permission: scenario.policy ?? 'reject',
       env: {...scenario.env, PROBE_RECORD: record}, disposeEofGraceMs: 150, disposeGraceMs: 100,
-      spawn: (spawnSpec: any) => (child = spawnSubprocess(spawnSpec)), onError: (error: Error) => {errors.push(error)}}
+      spawn: (spawnSpec: any) => (child = spawnSubprocess(spawnSpec, {
+        spawn: ((...args: any[]) => {const process = (spawn as any)(...args); pid = process.pid; return process}) as any,
+      })), onError: (error: Error) => {errors.push(error)}}
     const observations: any = {}
     let run: any
     try {
@@ -71,10 +75,10 @@ it('observes actual original ACP subprocess runs and safe failure facts', async 
       if (run) await run.dispose()
     }
     observations.quiescent = await child.waitForExit()
-    observations.exitCode = child.pid <= 0 ? null : (await child.done).exitCode
+    observations.exitCode = pid === undefined ? null : (await child.done).exitCode
     observations.errorCount = errors.length
     observations.records = existsSync(record) ? readFileSync(record, 'utf8').trim().split('\n').map(line => JSON.parse(line)) : []
-    observations.spawned = child.pid > 0
+    observations.spawned = pid !== undefined
     observations.flushed = scenario.name === 'flush' ? existsSync(scenario.env.PROBE_FLUSH) : false
     rows.push({name: scenario.name, scenario, observations})
     expect(observations.quiescent).toBe(true)
