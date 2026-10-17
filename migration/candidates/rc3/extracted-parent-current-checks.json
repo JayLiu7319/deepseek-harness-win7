@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
+  "stage": "R11-AI",
+  "status": "bounded-diagnostics-passed",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-EXTRACTED-PARENT-20261018.zip",
+    "bytes": 73609957,
+    "sha256": "3bc487013d8846cf4d4ec750cb39cb8e4e0fbd3cb3a426365dcce31231d57fa6",
+    "members": 16
+  },
+  "tested_zip": {
+    "sha256": "f2450ae96d69250f2c18216d2ebc9149c6f3618d23d6796827ab7f900b438c7b",
+    "bytes": 106549838,
+    "retained_in": "RC3-228CFACC-PATH-FAILURE-20261018.zip/failed-candidate.zip"
+  },
+  "paired": {
+    "drivers": 82,
+    "exit_codes": "all0",
+    "seconds": 792.14,
+    "capabilities_seconds": 67.25,
+    "legacy_reader_seconds": 2.313
+  },
+  "extracted": {
+    "initial_standalone_exit": 0,
+    "initial_standalone_seconds": 475.188,
+    "initial_parent": "rejected four exact revision differences because temporary standalone CLI omitted existing --sharing-source/--sharing-native flags; complete observations retained",
+    "corrected_standalone_exit": 0,
+    "corrected_standalone_seconds": 453.172,
+    "corrected_parent": "passed unchanged real parent validator using the exact same selected Source/native receipts",
+    "sdk_and_fs": "Fresh producers avoid consumed SDK phase and already-cleaned FS fixtures",
+    "browser108": "all3 original presets fresh/cold six phases",
+    "cordis": "actual raw and existing bounded acceptance passed"
+  },
+  "cancelled_full_b": "Stopped before regression after independent parent diagnostic rejection. Official release CLI already supplied both sharing receipt flags; no product, fixture or comparator changed.",
+  "cleanup": {
+    "files": 14,
+    "bytes": 526960355,
+    "kind": "verified completed Desktop prerequisite staging copies; originals/installers/runtime/observations retained"
+  },
+  "limitations": [
+    "No unified acceptance assembled from these pieces.",
+    "Fresh single complete qualification-c is running independently.",
+    "No administrator installation, patching, reboot, real cloud provider or deferred Win7 execution."
+  ]
+}
