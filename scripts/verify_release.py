@@ -1428,6 +1428,7 @@ REQUIRED_REGRESSION = {
                          'parser', 'native-invasion', 'prior-owner') for browser in ('native108', 'modern')},
     },
     'test_browser108_gate': {
+        'test_zip_bound_browser_uses_runtime_composed_adapter_and_rejects_fragment',
         'test_all_fixed_observer_resources_are_required',
         *{'test_profile_reference_and_history_require_actual_observations[' + damage + ']'
           for damage in ('reference-candidates', 'reference-chip', 'reference-body', 'history-count',

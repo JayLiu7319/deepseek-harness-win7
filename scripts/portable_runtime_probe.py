@@ -30,6 +30,11 @@ def send(value):
     print('PORTABLE_PROBE ' + json.dumps(value, ensure_ascii=True), flush=True)
 
 
+def browser_compatibility_digest():
+    from dsh.host.browser_compat.plugin import SCRIPT
+    return hashlib.sha256(SCRIPT.encode('utf-8')).hexdigest()
+
+
 def identity(architecture='x64'):
     import dsh
     root = Path(sys.executable).resolve().parent
@@ -46,7 +51,8 @@ def identity(architecture='x64'):
         require(resolved is None or Path(resolved).resolve().parent == root, 'external runtime available: ' + name)
     sys.dont_write_bytecode = True
     return dict(version=list(sys.version_info[:3]), platform=sys.platform,
-                executable=str(sys.executable), paths=list(sys.path), dsh=dsh.__file__)
+                executable=str(sys.executable), paths=list(sys.path), dsh=dsh.__file__,
+                browserCompatibilitySha256=browser_compatibility_digest())
 
 
 def project(workspace, version, prefix):

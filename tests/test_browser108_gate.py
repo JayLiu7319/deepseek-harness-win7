@@ -23,6 +23,24 @@ def valid(tmp_path):
     return report, archive
 
 
+def test_zip_bound_browser_uses_runtime_composed_adapter_and_rejects_fragment(tmp_path):
+    from scripts.portable_runtime_probe import browser_compatibility_digest
+    from dsh.host.browser_compat.plugin import SCRIPT
+    import hashlib
+    report, archive = valid(tmp_path)
+    actual = browser_compatibility_digest()
+    assert actual == hashlib.sha256(SCRIPT.encode('utf-8')).hexdigest()
+    fragment = gate.digest(gate.ROOT / 'dsh/host/browser_compat/compat.js')
+    assert actual != fragment
+    report['compatibilitySha256'] = actual
+    gate.validate_observation(report, archive, actual)
+    with pytest.raises(ValueError, match='incomplete or changed'):
+        gate.validate_observation(report, archive, fragment)
+    report['compatibilitySha256'] = fragment
+    with pytest.raises(ValueError, match='incomplete or changed'):
+        gate.validate_observation(report, archive, actual)
+
+
 @pytest.mark.parametrize('damage', ['absent', 'version', 'revision', 'binary', 'ua', 'adapter', 'zip',
                                   'exception', 'console', 'late', 'already-patched', 'timeout', 'host', 'missing-step'])
 def test_zip_bound_observer_rejects_damage_after_valid_baseline(tmp_path, damage):

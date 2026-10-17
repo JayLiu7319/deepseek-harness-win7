@@ -1652,7 +1652,7 @@ def main(argv=None):
                 report['browser108'] = json.loads(browser108_report.read_text(encoding='utf-8')) if browser108_report.is_file() else {}
                 if observed108.returncode:
                     raise RuntimeError('Extracted Chromium 108 journey failed; see ' + str(browser108_report))
-                validate_observation(report['browser108'], archive, digest(portable / 'dsh/host/browser_compat/compat.js'),
+                validate_observation(report['browser108'], archive, report['runtime']['identity']['browserCompatibilitySha256'],
                     report.get('browser108NoticeInput'), report.get('browser'), browser_report if args.browser else None)
                 report['browser108InputSha256'] = identity108['input_sha256']
                 report['browser108ProfileJourneys'] = {}
@@ -1675,7 +1675,7 @@ def main(argv=None):
                         raise RuntimeError('Extracted Chromium 108 profile journey failed: ' + preset)
                     report['browser108ProfileJourneys'][preset] = json.loads(journey_path.read_text(encoding='utf-8'))
                 validate_profile_journeys(report['browser108ProfileJourneys'], archive,
-                    digest(portable / 'dsh/host/browser_compat/compat.js'), portable)
+                    report['runtime']['identity']['browserCompatibilitySha256'], portable)
                 validate_input(args.browser108)
         if not args.fs_values_source and not args.fs_values_native:
             from scripts.fs_fixture_workspace import cleanup as cleanup_fs_fixtures
