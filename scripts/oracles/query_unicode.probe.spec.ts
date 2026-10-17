@@ -20,8 +20,14 @@ it('observes original Unicode collation, fingerprints and actual cursor boundari
   for (const [name, pair] of [['nfc',['é','e\u0301']], ['zero-width',['ab','a\u200bb']], ['soft-hyphen',['ab','a\u00adb']], ['word-joiner',['ab','a\u2060b']], ['canonical-order',['a\u0315\u0300','\u00e0\u0315']]] as const) {
     const ctx = new Context()
     await ctx.plugin(SessionStore)
-    const entries = pair.map((cwd,index)=>({header:{id:index?'beta':'alpha',version:0,createdAt:1,cwd,isSeeded:false},events:[{type:'user/message',seq:0,time:1,surfaceOp:'append',data:{id:'message-0',role:'user',content:[{type:'text',text:'needle'}],source:{kind:'user'}}}]}))
-    ctx.provide('sessionPersistence',{listSnapshots:async()=>entries.map(entry=>({header:entry.header,revision:'1'})),inspect:async(id:string)=>{const entry=entries.find(entry=>entry.header.id===id)!;return {meta:entry.header,events:entry.events,inheritedEventCount:0}}} as any)
+    const entries = pair.map((cwd,index)=>({header:{id:index?'beta':'alpha',version:3,createdAt:1,cwd,isSeeded:false},events:[{type:'user/message',seq:0,time:1,surfaceOp:'append',data:{id:'message-0',role:'user',content:[{type:'text',text:'needle'}],source:{kind:'user'}}}]}))
+    ctx.provide('sessionPersistence',{list:async()=>entries.map(entry=>({header:structuredClone(entry.header),revision:'1'})),
+      open:async(id:string,mode:string)=>{
+        if(mode!=='read')throw Error('observer only allows cold reads')
+        const entry=structuredClone(entries.find(entry=>entry.header.id===id)!)
+        return {header:entry.header,inheritedEventCount:0,
+          read:async()=>({events:entry.events,eventState:'detached'}),close:async()=>{}}
+      }} as any)
     const query = new SqliteSessionQueryEngine(ctx,{path:':memory:',openAt:'first-search',defaultLimit:1,maxLimit:2})
     try {
       const request={query:'needle',sessionFilters:[{kind:'cwd',values:[...pair]}],limit:1} as any

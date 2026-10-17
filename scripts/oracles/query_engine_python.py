@@ -16,8 +16,10 @@ sys.path.insert(0, str(ROOT))
 
 from dsh.cordis.context import Context
 from dsh.core.abort import AbortController
-from dsh.core.session import SessionHeader, SessionPlugin
-from dsh.session.query_engine import SqliteSessionQueryEngine
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
+from dsh.session.query_current import CurrentSqliteSessionQueryEngine as SqliteSessionQueryEngine
+from types import SimpleNamespace
 from dsh.session.sqlite_database import _library
 
 
@@ -37,22 +39,27 @@ async def main():
         rows.append(dict(name=name, observed=observed))
     context = Context()
     await context.plugin(SessionPlugin)
-    entries = dict(alpha=dict(header=SessionHeader('alpha', created_at=1), revision='1', events=[event('needle needle')]),
-                   beta=dict(header=SessionHeader('beta', created_at=1), revision='2', events=[event('needle')]))
+    entries = dict(alpha=dict(header=SessionHeader('alpha', version=3, created_at=1), revision='1', events=[event('needle needle')]),
+                   beta=dict(header=SessionHeader('beta', version=3, created_at=1), revision='2', events=[event('needle')]))
     class Persistence:
         inspected = 0
         snapshots = 0
         unstable = 0
-        async def listSnapshots(self, signal=None):
+        async def list(self, options=None):
             self.snapshots += 1
             if self.unstable > 0:
                 entries['alpha']['revision'] = str(100+self.snapshots)
                 self.unstable -= 1
             return [dict(header=copy.deepcopy(entry['header']), revision=entry['revision']) for entry in entries.values()]
-        async def inspect(self, session_id, signal=None):
+        async def open(self, session_id, mode, options=None):
+            assert mode == 'read'
             self.inspected += 1
-            entry = entries[session_id]
-            return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']), inheritedEventCount=0)
+            entry = copy.deepcopy(entries[session_id])
+            async def read(start=0, options=None):
+                return dict(events=entry['events'][start:], eventState='detached')
+            async def close():
+                pass
+            return SimpleNamespace(header=entry['header'], inheritedEventCount=0, read=read, close=close)
     persistence = Persistence()
     provider = context.provide('sessionPersistence', persistence)
     query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='first-search', defaultLimit=1, maxLimit=2))
@@ -112,7 +119,7 @@ async def main():
     finally:
         await query.close()
         await context.fiber.dispose()
-    import dsh.session.query_engine as implementation
+    import dsh.session.query_current as implementation
     library = _library()
     manifest = json.loads((ROOT / 'dsh/session/bin/sqlite3.json').read_text(encoding='utf-8'))
     report = dict(observations=rows, root=str(ROOT), moduleFile=str(Path(implementation.__file__).resolve()),

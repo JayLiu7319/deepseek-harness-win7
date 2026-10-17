@@ -11,7 +11,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 INPUTS = ['scripts/query_unicode_oracle.py', 'scripts/oracles/query_unicode_python.py',
           'scripts/oracles/query_unicode.probe.spec.ts', 'scripts/oracles/vitest.query-unicode-probe.config.mts',
-          'dsh/session/icu_collation.py', 'dsh/session/query_engine.py', 'dsh/session/query_requests.py',
+          'dsh/session/icu_collation.py', 'dsh/session/query_engine.py', 'dsh/session/query_current.py',
+          'dsh/session/cold_read.py', 'dsh/core/session/current_session.py', 'dsh/session/query_requests.py',
           'dsh/session/query_schema.py', 'dsh/session/sqlite_database.py', 'dsh/cordis/json_text.py',
           'scripts/build_icu.py', 'reference/packages/session-query/session-query-sqlite/src/query.ts',
           'reference/packages/session-query/session-query-sqlite/src/index.ts']

@@ -611,3 +611,7 @@ dd4b8ba8 的两种架构 Standard/AIO 均构建成功，各有九项内置通信
 自定义 profile 恢复旅程改为显式模型、有身份的用户消息及拥有的持久化句柄；仅 LLM 使用当前 prepareCall/stream 测试替身。缓存观察器两侧改用当前 v3 Session、v7 完整格式身份，九种真实 JSON domain 场景仍严格比较解析异常身份、prepared 回退、应用切分和磁盘字节语义；21项消费者与未改 Source 的25项缓存测试通过。
 
 真实 Web profile 的四个存活会话退出稳定复现缓存关闭/writer关闭竞争。当前 Agent 工厂在 app/stopping 阶段先排空其拥有的事务，让最终写入仍能使用活跃提供端，再进入并发卸载。171项 Agent/投影/持久化/冷恢复回归通过，实际原版浏览器的会话级导出插件23步升级、回退与移除旅程通过，Host退出0且无缓存、renderer或console错误。原始失败和中间初始化失败均保留，见[有限回执](../../migration/candidates/rc3/profile-cache-lifecycle-current-checks.json)。最终安装包和单次统一资格仍待完成。
+
+### R11-Z — 当前查询观察器与示例构建回执
+
+FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，两侧均实际使用当前引擎，完整排序、revision、游标和2034项Unicode观察仍严格比较。ICU拒绝测试只复制本架构的根文件，不把新增x86子目录当文件；示例插件通过原构建器更新当前Host协议回执，浏览器源码不改。107项通过、1项因未指定浏览器跳过，实际浏览器检查独立列在R11-Y，不合并计数。原始配对、XML与冻结输入见[有限回执](../../migration/candidates/rc3/query-observers-current-checks.json)；未晋升统一资格。

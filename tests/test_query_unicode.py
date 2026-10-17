@@ -91,7 +91,7 @@ def test_changed_manifest_refused_before_loading(tmp_path, monkeypatch, field, v
 @pytest.mark.parametrize('name', ['dsh_icudt78.dll', 'dsh_icuuc78.dll', 'dsh_icuin78.dll', 'ICU-LICENSE', 'LLVM-LICENSE.txt'])
 def test_missing_runtime_or_license_refused_before_loading(tmp_path, monkeypatch, name):
     for asset in ASSETS.iterdir():
-        if asset.name != name:
+        if asset.is_file() and asset.name != name:
             shutil.copy2(str(asset), str(tmp_path / asset.name))
     monkeypatch.setattr(icu_collation.ctypes, 'CDLL', lambda *args, **kwargs: pytest.fail('must refuse before loading'))
     with pytest.raises(FileNotFoundError):
@@ -100,7 +100,8 @@ def test_missing_runtime_or_license_refused_before_loading(tmp_path, monkeypatch
 
 def test_corrupt_private_library_refused_before_loading(tmp_path, monkeypatch):
     for asset in ASSETS.iterdir():
-        shutil.copy2(str(asset), str(tmp_path / asset.name))
+        if asset.is_file():
+            shutil.copy2(str(asset), str(tmp_path / asset.name))
     (tmp_path / 'dsh_icudt78.dll').write_bytes(b'changed')
     monkeypatch.setattr(icu_collation.ctypes, 'CDLL', lambda *args, **kwargs: pytest.fail('must refuse before loading'))
     with pytest.raises(RuntimeError, match='hash differs'):

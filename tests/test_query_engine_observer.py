@@ -40,7 +40,7 @@ def test_query_engine_observer_refuses_changed_rank_and_hidden_provider():
 def test_query_engine_runtime_refuses_foreign_or_incomplete_provenance(field, replacement):
     root = Path(__file__).resolve().parents[1]
     manifest = json.loads((root / 'dsh/session/bin/sqlite3.json').read_text(encoding='utf-8'))
-    report = dict(root=str(root), moduleFile=str(root / 'dsh/session/query_engine.py'),
+    report = dict(root=str(root), moduleFile=str(root / 'dsh/session/query_current.py'),
                   python='3.8.10', sqliteVersion=manifest['version'], sqliteSourceId=manifest['source_id'],
                   sqliteDllSha256=manifest['dll_sha256'], manifest=manifest, observations=expected())
     validate_runtime(report, root)

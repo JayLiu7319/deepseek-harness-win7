@@ -14,10 +14,13 @@ arguments = parser.parse_args()
 ROOT = arguments.root.resolve()
 sys.path.insert(0, str(ROOT))
 from dsh.cordis.context import Context
-from dsh.core.session import SessionHeader, SessionPlugin
+from dsh.core.session import SessionHeader
+from dsh.core.session.current_session import CurrentSessionPlugin as SessionPlugin
 from dsh.session import icu_collation
 from dsh.session.icu_collation import IcuCollator
-from dsh.session.query_engine import normalized_identity, SqliteSessionQueryEngine
+from dsh.session.query_engine import normalized_identity
+from dsh.session.query_current import CurrentSqliteSessionQueryEngine as SqliteSessionQueryEngine
+from types import SimpleNamespace
 
 
 VALUES = ['', 'a', 'A', 'á', 'a\u0301', 'ä', 'z', '中', '文', '阿', '😀', '🐍', '\ud800', '\udc00', 'a\0b', 'ab', 'a\u200bb', 'a\u00adb', '10', '2', '-', '_', 'é', 'e\u0301', 'Å', 'å', 'Ａ', 'ａ', 'ß', 'ss', 'İ', 'i', 'ı', '💻', '👩\u200d💻', '👩💻', '\u034f', '\u2060', 'a\u0315\u0300', 'a\u0300\u0315', '\u00e0\u0315', 'a\u0300\u034f\u0315', 'a\u2060b']
@@ -47,16 +50,21 @@ async def observe():
     for name, values in pairs:
         context = Context()
         await context.plugin(SessionPlugin)
-        entries = [dict(header=SessionHeader('beta' if index else 'alpha', created_at=1, cwd=cwd),
+        entries = [dict(header=SessionHeader('beta' if index else 'alpha', version=3, created_at=1, cwd=cwd),
                         events=[dict(type='user/message', seq=0, time=1, surfaceOp='append',
                                      data=dict(id='message-0', role='user', content=[dict(type='text', text='needle')],
                                                source=dict(kind='user')))]) for index, cwd in enumerate(values)]
         class Persistence:
-            async def listSnapshots(self, signal=None):
+            async def list(self, options=None):
                 return [dict(header=copy.deepcopy(entry['header']), revision='1') for entry in entries]
-            async def inspect(self, session_id, signal=None):
-                entry = next(entry for entry in entries if entry['header'].id == session_id)
-                return dict(meta=copy.deepcopy(entry['header']), events=copy.deepcopy(entry['events']), inheritedEventCount=0)
+            async def open(self, session_id, mode, options=None):
+                assert mode == 'read'
+                entry = copy.deepcopy(next(entry for entry in entries if entry['header'].id == session_id))
+                async def read(start=0, options=None):
+                    return dict(events=entry['events'][start:], eventState='detached')
+                async def close():
+                    pass
+                return SimpleNamespace(header=entry['header'], inheritedEventCount=0, read=read, close=close)
         context.provide('sessionPersistence', Persistence())
         query = SqliteSessionQueryEngine(context, dict(path=':memory:', openAt='first-search', defaultLimit=1, maxLimit=2))
         try:

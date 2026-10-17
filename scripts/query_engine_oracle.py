@@ -14,7 +14,8 @@ INPUTS = [
     'scripts/query_engine_oracle.py', 'scripts/oracles/query_engine_python.py',
     'scripts/oracles/query_engine.probe.spec.ts', 'scripts/oracles/query_engine_expected.json',
     'scripts/oracles/vitest.query-engine-probe.config.mts',
-    'dsh/session/query_engine.py', 'dsh/session/query_requests.py', 'dsh/session/query_schema.py',
+    'dsh/session/query_engine.py', 'dsh/session/query_current.py', 'dsh/session/cold_read.py',
+    'dsh/core/session/current_session.py', 'dsh/session/query_requests.py', 'dsh/session/query_schema.py',
     'dsh/session/sqlite_database.py', 'dsh/session/bin/sqlite3.dll', 'dsh/session/session_query.py',
     'dsh/session/tracing.py', 'dsh/session/corpus.py',
     'reference/packages/session-query/session-query-sqlite/src/index.ts',
@@ -46,7 +47,7 @@ def validate_runtime(report, root=None):
     expected_root = Path(root if root is not None else report.get('root', '')).resolve()
     manifest = json.loads((ROOT / 'dsh/session/bin/sqlite3.json').read_text(encoding='utf-8'))
     if (report.get('root') != str(expected_root)
-            or report.get('moduleFile') != str(expected_root / 'dsh/session/query_engine.py')
+            or report.get('moduleFile') != str(expected_root / 'dsh/session/query_current.py')
             or report.get('python') != '3.8.10'
             or report.get('sqliteVersion') != manifest['version']
             or report.get('sqliteSourceId') != manifest['source_id']
