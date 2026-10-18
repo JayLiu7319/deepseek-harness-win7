@@ -15,6 +15,12 @@ The application owns `$DSH_HOME/profiles/desktop` (default `~/.dsh`). Ctrl+,
 opens its separate plugin manager. The Windows tray keeps the main window
 available after closing it; Quit releases the Host and profile lease. Both
 renderers use context isolation, sandboxing and disabled Node integration.
+On upgrade, an unchanged default session configuration preserves a purely
+plaintext `$DSH_HOME/sessions` directory as `compression: none` in memory.
+An empty directory still uses zstd. Explicit compression settings, custom roots
+and mixed-encoding refusal retain the canonical backend policy. Startup does
+not convert, remove or downgrade historical generations, or rewrite user patches.
+Unsupported newer generations remain unreadable by this version.
 Only the owned top-level `dsh-app://shell` frame may invoke management IPC.
 The owned app frame has separate environment/guide IPC. The preload does not
 request these services while the main window temporarily displays `about:blank`.

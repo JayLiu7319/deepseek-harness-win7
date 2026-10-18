@@ -19,9 +19,9 @@ const root=development?resolve(option('--root')??join(__dirname,'../..')):join(p
 const home=desktopHome(development&&option('--home')||process.env.DSH_HOME,app.getPath('home'));
 app.setPath('userData',join(home,'desktop','electron'));
 const primary=app.requestSingleInstanceLock();
-let mainWindow,pluginWindow,guideWindow,manager,tray,stopping=false,allowQuit=false;
+let mainWindow,pluginWindow,guideWindow,manager,tray,stopping=false,allowQuit=false,shellReady=false;
 function focus(){
-  if(!app.isReady())return;
+  if(!app.isReady()||!shellReady||stopping)return;
   if(!mainWindow||mainWindow.isDestroyed())mainWindow=createWindow(false);
   if(mainWindow.isMinimized())mainWindow.restore();mainWindow.show();mainWindow.focus();
 }
@@ -54,6 +54,7 @@ function openGuide(){
   guideWindow.loadURL('dsh-app://shell/win7-setup.html').catch(error=>console.error(error));
 }
 async function resource(request){
+  if(stopping)return {status:503,headers:[],body:Readable.from([])};
   const url=new URL(request.url);
   if(url.protocol!=='dsh-app:'||!['app','shell'].includes(url.hostname))return {status:403,headers:[],body:Readable.from([])};
   if(url.hostname==='shell'){
@@ -85,7 +86,10 @@ async function main(){
     resource(request).then(response=>{
       const headers={};for(const [name,value] of response.headers){if(headers[name])headers[name]=[].concat(headers[name],value);else headers[name]=value;}
       callback({statusCode:response.status,headers,data:response.body});
-    },error=>{console.error(error);callback({statusCode:500,data:Readable.from(['Desktop request failed'])});});
+    },error=>{
+      if(stopping&&error.message==='Desktop Host is stopping'){callback({statusCode:503,data:Readable.from([])});return;}
+      console.error(error);callback({statusCode:500,data:Readable.from(['Desktop request failed'])});
+    });
   });
   const locale=resolveDesktopLocale(app.getLocale());
   const environment=development&&option('--test-output')&&option('--test-limited-shell')==='true'
@@ -142,6 +146,7 @@ async function main(){
     {label:locale.messages.pluginsMenu,accelerator:'CmdOrCtrl+,',click:openPlugins},
     {label:locale.messages.checkUpdatesMenu,click:()=>{void checkAndPrompt(true);}},{type:'separator'},
     {label:locale.id==='zh-CN'?'退出':'Quit',click:()=>app.quit()}]}]));
+  shellReady=true;
   mainWindow=createWindow(false);
   const icon=nativeImage.createFromPath(join(__dirname,'tray.png'));
   if(icon.isEmpty())throw new Error('Desktop tray image is missing or invalid');
@@ -167,6 +172,6 @@ app.on('before-quit',event=>{
 });
 if(primary)app.whenReady().then(main).catch(async error=>{
   console.error(error);
-  if(!development||!option('--test-output'))dialog.showErrorBox('DeepSeek Harness',error.message);
+  if(!development||!option('--test-output'))dialog.showErrorBox(resolveDesktopLocale(app.getLocale()).messages.startupFailed,error.message);
   await manager?.close().catch(()=>{});allowQuit=true;app.exit(1);
 });

@@ -151,6 +151,8 @@ async def run_desktop_host(profile_dir, environment=None, patches=None):
         if os.environ.get('DSH_TELEMETRY_DISABLED'):
             rows.append(dict(id='session-telemetry-otel', disabled=True))
         rows += patches or []
+        from dsh.host.desktop.session_compatibility import preserve_default_session_encoding
+        rows = await asyncio.get_running_loop().run_in_executor(None, preserve_default_session_encoding, rows)
         root_config = directory / 'desktop.cordis.yml'
         root_config.write_text('# Desktop composition root; user overrides belong in cordis.patch.yml.\n[]\n', encoding='utf-8')
         def prepare(host):
