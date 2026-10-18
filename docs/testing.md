@@ -60,6 +60,16 @@ FS公共值配对的物理夹具由 `scripts/fs_fixture_workspace.py` 分配到�
 
 原始 JSON/Host 输出、解压副本、正式 ZIP、写入中的证据 JSON 与 Git LFS 缓存会同时占空间。前检按实际观测峰值准备余量，不能只计算最终 ZIP 大小；前检不足就暂停写入，不重复耗尽磁盘。NTFS 压缩只能减少物理占用，所有普通读取字节与 SHA 必须保持。退休已封存原始观察的散装重复副本时，须先核对正式归档身份、成员完整性、逐项尺寸/SHA并记录 archive/member；失败/截断字节和原退出码在归档中原样保留。独立有限合同可复用同候选、同输入、同包的已完成独立子进程原始证据，缺失旅程单独补验；原外层失败仍是失败，不能拼成新的完整通过。台账应用采用可靠空间前检；失败准备记录只有在未引用且可逐字节重建时才能回退，原失败文件/日志和已完成审查继续保留。
 
+## Desktop 安装与真实服务的独立检查
+
+`scripts/verify_desktop_lifecycle.py --plan <json> --node <pinned-node> --output <fresh-directory>` 消费实际 Standard/AIO 安装器；plan 的 `lanes` 每项包含 `id`、绝对 `installer` 路径和可选的绝对 `previous` 安装器路径。观察器发起一次 UAC，在隔离安装目录执行管理员安装/覆盖升级、发布失败回滚、普通用户 GUI fresh/cold 和卸载。原机器注册表及开始菜单快捷方式先备份，最终恢复；不把真实用户历史传给安装器。历史专用测试目录清理必须显式列入 `cleanupRoots`，只清理已核验清单和空目录，遇到未知文件保留并报错。
+
+真实服务检查显式启用并提供仓库外凭据文件：`scripts/verify_live_provider.py` 验证 canonical CLI/工具/独立进程恢复，`scripts/verify_live_desktop_provider.py` 验证实际原版 Desktop 输入框、真实读文件工具与冷启动上下文。后者接受 `--executable`、`--node`、`--credentials-file`、`--output`；仅开发观察增加 `--development-python`。两者只发送生成的探针文档，凭据只进入子进程环境；含私有 home 的原始运行目录不整体归档。实际 provider 检查不代替离线回归，开发外壳结果也不代替精确包内程序结果。
+
+`scripts/oracles/desktop_visual_matrix.mjs` 比较固定原版 renderer 在 Electron22/44、两种 locale/主题和三种模拟缩放下的 120 份视图。两侧使用同一 Python Host；明确排除上游 npm Host、原生 OS DPI 和所有系统弹窗逐像素资格。闭合 `details` 的内部控件按实际不可见处理，不能仅依靠 Chromium108 返回的内部矩形计入可见控件。保留原图、控件顺序、尺寸、焦点与弹窗状态，以及浏览器原生控件的度量差异。
+
+内网更新演练和真实发布分开，见[部署与验证说明](desktop-lan-updates.md)。没有长期密钥/服务器地址时，不把本机 HTTPS 夹具标成已发布通道。
+
 ## 当前 CI 的边界
 
 当前 `.github/workflows/verify.yml` 仍在 PR、手工调用及发布复用时执行完整发行门禁，整体job期限为180分钟；先准备固定Chromium108观察器，与现代浏览器共同传入发行入口。完整入口新增同ZIP包内Python的108三预设fresh/cold功能旅程和输入/模块/缺lane拒绝；这不替代其他realm/CSS审计或Win7认证。`.github/workflows/release.yml` 的发布依赖同一验收产物和精确ZIP散列，不另行重建。

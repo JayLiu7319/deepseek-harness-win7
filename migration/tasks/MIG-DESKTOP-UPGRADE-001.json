@@ -1,6 +1,6 @@
 {
   "id": "MIG-DESKTOP-UPGRADE-001",
-  "goal": "Repair existing-home Windows Desktop startup and audit upstream desktop visual boundaries.",
+  "goal": "Complete rc.3 existing-data migration, Windows Desktop distribution and bounded upstream design qualification outside deferred Win7 validation.",
   "kind": "implementation",
   "state": "review",
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
@@ -8,9 +8,11 @@
   "requires": [],
   "provides": [],
   "acceptance": [
-    "Existing plaintext and zstd default homes boot and cold-open without changing predecessor bytes; explicit and mixed encoding conflicts remain errors.",
-    "Actual current Windows installed application recovers with a backed-up explicit matching profile; repaired x64 Standard payload has independent real GUI checks.",
-    "Compare original frontend and Desktop renderer bytes, observe actual Electron22 styling, and disclose all deliberate or unverified differences."
+    "Canonical Standard, Creative, Web and Desktop preserve default plaintext/zstd history; Minimal keeps its explicit configuration. Actual old contents, first v3 writes, exclusive ownership and cold recovery preserve predecessor bytes and timestamps; explicit/custom/mixed policies remain documented.",
+    "One clean frozen candidate passes scripts/verify_release.py with its exact x64 archive. The same candidate provides independently verified x86 Portable and x86/x64 Standard/AIO installers plus the separate offline prerequisite ZIP.",
+    "Actual administrator fresh installation and previous-generation covering upgrades validate registry, shortcuts, generation preservation, forced publication rollback, normal-user GUI fresh/cold and uninstall/user-file preservation; original machine publication is restored.",
+    "Pinned original renderers are checked on Electron22/44 across locale, theme and simulated scale; deliberate Win7 distribution behavior, native control metrics and observer limits are explicitly disclosed.",
+    "Actual provider messages/read tool/cold recovery pass through CLI and original Desktop UI. Local independent HTTPS/Ed25519/private-CA download and rejection checks bind the real installers consumed by administrator verification. Operator LAN deployment and Win7 machine qualification remain explicitly deferred by user."
   ],
   "evidence_ids": [],
   "expected_paths": [
@@ -26,9 +28,9 @@
     "Electron44 versus Electron22 pixel parity has not been qualified.",
     "x86 Standard/AIO and x64 AIO repair packages, cross-surface legacy content/resume and real provider/update journeys remain separate acceptance work."
   ],
-  "next_action": "Review targeted repair receipt; execute administrator lifecycle and cross-surface old-data/content journeys, propagate other repair packages, then qualify a frozen candidate and the Desktop visual matrix.",
+  "next_action": "Finish running frozen-candidate complete gate, four actual administrator installer lanes and package-bound service journeys; bind exact receipts before integration.",
   "conflicts_with": [],
   "owner": "codex/desktop-upgrade",
-  "candidate_commit": "0cfbd91b0c35bd9866b52b89c822988a07200018",
+  "candidate_commit": "f0e5402eba25310ba9911df3bed3e9e6d493edd0",
   "targeted_record": "migration/candidates/rc3/desktop-upgrade-current-checks.json"
 }
