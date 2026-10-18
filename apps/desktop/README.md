@@ -89,6 +89,9 @@ with exactly `schemaVersion: 1`, `channel: "win7-electron22"`, an HTTPS
 `manifestUrl` and a PEM Ed25519 `publicKey`. Without it, checks return idle. This
 channel must belong to the Win7 distribution; upstream Electron44 feeds are
 incompatible. No update channel or signing key is generated or published by a build.
+For a private CA, the optional `caCertificate` field holds a PEM CA chain (up to
+8192 bytes); it applies to feed, redirect and installer requests while retaining
+hostname verification. See [the LAN deployment guide](../../docs/desktop-lan-updates.md).
 
 The release envelope contains base64 `payload` and Ed25519 `signature` over the
 exact payload bytes. The signed payload binds version, architecture, Electron,

@@ -89,8 +89,7 @@ async def test_empty_home_still_defaults_to_zstd(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('surface', ['standard', 'creative', 'web', 'desktop'])
-@pytest.mark.parametrize('compression', ['none', 'zstd'])
+@pytest.mark.parametrize('surface,compression', [(surface, encoding) for surface in ('standard', 'creative', 'web', 'desktop') for encoding in ('none', 'zstd')] + [('minimal', 'none')])
 async def test_shared_home_content_resume_migration_and_surface_cold_open(tmp_path, monkeypatch, surface, compression):
     from dsh.boot.profile_boot import run_profile
     from dsh.core.session.json import UNDEFINED
@@ -107,7 +106,7 @@ async def test_shared_home_content_resume_migration_and_surface_cold_open(tmp_pa
     old.write_bytes(compress_frame(first + b'\n') + compress_frame(body) if compression == 'zstd' else data)
     before = old.read_bytes(), old.stat().st_mtime_ns
     overlay = tmp_path / 'observe.yml'
-    overlay.write_text('- id: headless-startup\n  disabled: true\n- id: headless-runner\n  disabled: true\n', encoding='utf-8')
+    overlay.write_text('- id: headless-startup\n  disabled: true\n- id: headless-runner\n  disabled: true\n- id: sdk-app-startup\n  disabled: true\n- id: sdk-jsonrpc-server\n  disabled: true\n', encoding='utf-8')
     for cold in (False, True):
         if surface == 'desktop':
             result = await run_desktop_host(home / 'profiles/desktop')
@@ -146,3 +145,39 @@ async def test_shared_home_content_resume_migration_and_surface_cold_open(tmp_pa
             else:
                 result['shutdown'].shutdown(0)
                 await result['shutdown'].wait()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('surface', ['standard', 'web', 'desktop'])
+async def test_explicit_custom_root_recovers_a_mixed_default_without_touching_it(tmp_path, monkeypatch, surface):
+    from dsh.boot.profile_boot import run_profile
+    import yaml
+    home = tmp_path / 'home'
+    monkeypatch.setenv('DSH_HOME', str(home))
+    monkeypatch.setenv('DSH_TELEMETRY_DISABLED', '1')
+    originals = [history(home, 'none'), history(home, 'zstd', 3, 'other-session')]
+    before = [(path.read_bytes(), path.stat().st_mtime_ns) for path in originals]
+    custom = tmp_path / 'independent-home'
+    history(custom, 'none', identity='custom-session')
+    patches = [dict(id='headless-startup', disabled=True), dict(id='headless-runner', disabled=True),
+               dict(id='session-persistence-jsonl', config=dict(root=str(custom / 'sessions'), compression='none'))]
+    if surface == 'desktop':
+        result = await run_desktop_host(home / 'profiles/desktop', patches=patches)
+        ctx = result.ctx
+    else:
+        overlay = tmp_path / 'explicit.yml'
+        overlay.write_text(yaml.safe_dump(patches), encoding='utf-8')
+        result = await run_profile(dict(profile=surface, dshHome=str(home), patchFiles=[str(overlay)],
+            args=['--no-open', '--port', '0'] if surface == 'web' else [], waitForExit=False))
+        ctx = result['ctx']
+    try:
+        store = ctx.get('sessionPersistence')
+        assert store.root == str(custom / 'sessions') and store.compression == 'none'
+        assert [row['header']['id'] for row in await store.list()] == ['custom-session']
+        assert [(path.read_bytes(), path.stat().st_mtime_ns) for path in originals] == before
+    finally:
+        if surface == 'desktop':
+            await result.close()
+        else:
+            result['shutdown'].shutdown(0)
+            await result['shutdown'].wait()
