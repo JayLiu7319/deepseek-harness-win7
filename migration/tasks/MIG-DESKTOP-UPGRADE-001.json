@@ -23,14 +23,12 @@
     "migration/candidates/rc3"
   ],
   "open_findings": [
-    "Repaired installer administrator upgrade/install/uninstall remains unobserved; user-installed previous package startup is separately observed.",
-    "Full unified qualification has not been rerun for this repaired candidate; earlier228cfacc receipts retain exact old identity.",
-    "Electron44 versus Electron22 pixel parity has not been qualified.",
-    "x86 Standard/AIO and x64 AIO repair packages, cross-surface legacy content/resume and real provider/update journeys remain separate acceptance work."
+    "Clean6cbcbf1c complete gate is running; failedf0e5402e SDK import-closure attempt and historical228cfacc qualification retain exact identities.",
+    "Six new-candidate actual administrator lanes and final package-bound provider/update receipts must complete before integration; bounded visual matrix and shared history checks have separate completed observations."
   ],
-  "next_action": "Finish running frozen-candidate complete gate, four actual administrator installer lanes and package-bound service journeys; bind exact receipts before integration.",
+  "next_action": "Finish clean6cbcbf1c complete gate, six actual administrator installer lanes and package-bound service journeys; bind exact receipts before integration. Win7 and actual operator LAN deployment are deferred by user.",
   "conflicts_with": [],
   "owner": "codex/desktop-upgrade",
-  "candidate_commit": "f0e5402eba25310ba9911df3bed3e9e6d493edd0",
+  "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
   "targeted_record": "migration/candidates/rc3/desktop-upgrade-current-checks.json"
 }

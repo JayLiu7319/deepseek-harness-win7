@@ -25,11 +25,11 @@
   "qualification_evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
   "desktop_followup": {
     "task": "MIG-DESKTOP-UPGRADE-001",
-    "candidate_commit": "0cfbd91b0c35bd9866b52b89c822988a07200018",
+    "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
     "status": "review",
     "existing_installed_win11": "recovered-with-backed-up-explicit-none-profile",
-    "repair_validation": "104-targeted-tests-plus-x64-packaged-fresh9-cold9-passed",
-    "unified_qualification": "not-run-for-repair",
+    "repair_validation": "shared-history-and-installation-targeted-plus1581-sdk-release-consumer-checks-passed; bounded120-view-renderer-comparison-completed",
+    "unified_qualification": "clean6cbcbf1c-complete-gate-in-progress-not-accepted",
     "record": "migration/candidates/rc3/desktop-upgrade-current-checks.json"
   }
 }
