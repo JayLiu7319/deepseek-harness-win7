@@ -726,3 +726,11 @@ FTS及Unicode真实配对改为当前v3 Session和公开list/open只读句柄，
 MIG-RC3-ALIGNMENT-001按本次证据集成，当前生产目标为rc.3。8项现行精确Source例外和C58语言调度差异继续保留，已被rc.3修复的token-meter例外保持退休，其他历史失败保持原身份。Win7真机及浏览器按用户决定延期，管理员安装、真实云provider和全部297项/任意插件ABI仍未认证，accepted_upstream保持null。本轮完成的是约定的当前Windows迁移资格，没有发布远程Release。
 
 记录更新选择台账、链接、SHA与diff验证，不重复运行已通过的完整门禁。`migration.py check`、`ready`和`status --write`分别退出0，生成任务明确显示integrated/current acceptance，正式回执为passed/current。六份交付副本逐个SHA核对后放入 `dist/dsh-v0.1.5-rc.3-228cfacc-qualified/`，附manifest和SHA256SUMS；不是重建或远程发布。核验原始日志、封存恢复及精确复制清单见[最终记录检查](../../migration/candidates/rc3/qualification-current-checks.json)。
+
+### R11-AK — Desktop剩余工作最终收口
+
+针对用户实际安装版启动失败，公共历史兼容、事务安装发布、Electron22强调色及私有CA支持已完成。前一f0e5402e完整门禁在SDK严格导入清单处失败（4,156通过/1失败/1跳过）；修正三场景清单后1,581定向项通过，释放951份已核验合成副本11,226,262,205字节。冻结`6cbcbf1c`仅比f0更改该验证清单，新鲜单次完整门禁最终通过：Python 19,367 通过/6 跳过、21 组固定 Source、82 个配对驱动及实际解压 Portable/现代和108浏览器验收全部通过。
+
+同候选双架构Portable及四份桌面安装器、独立离线组件ZIP均保留精确SHA。六组管理员全新安装/旧版覆盖升级、故障回滚、普通用户fresh/cold和卸载保留用户文件通过，原注册表/两快捷方式独立核对恢复。实际包内CLI两架构及x64原版Desktop输入框的真实消息/读工具/冷恢复通过；双架构本地HTTPS私有CA、Ed25519、真实下载及篡改拒绝通过，同份Standard下载已实际安装。
+
+Electron22/44原版renderer120视图及60对控件比较通过，主应用最大0.01043701171875 CSS px、插件原生表单最大2 CSS px；同一Python Host和模拟缩放的边界明确。Win7真机/补丁重启与后续实际内网服务器部署由用户延期，八项精确Source例外/C58/任意ABI范围不变。MIG-DESKTOP-UPGRADE-001按[新正式回执](../../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)集成；七份精确字节复制至`dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/`，没有重建或远程发布。后续文档/台账提交不改变冻结资格身份。

@@ -1,5 +1,7 @@
 # rc.3 候选评估区
 
+2026-10-18 最终收口：冻结候选 **`6cbcbf1c`** 的新鲜单次完整门禁通过：Python 19,367 通过/6 跳过、21 组固定 Source、82 个配对驱动及实际解压 Portable/现代和108浏览器验收全部通过。同候选x86实际解压、四份桌面安装器、六组管理员生命周期、包内真实服务和本地HTTPS/私有CA/签名下载安装均通过；原系统注册表与快捷方式独立核对恢复。120视图/60对原版renderer比较通过，原生控件最多2 CSS px差异及Win7分发行为明确披露。`MIG-DESKTOP-UPGRADE-001`已集成，七份精确产物已复制交付，见[正式回执](../../evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)和[完成检查](desktop-completion-current-checks.json)。仅Win7真机/系统补丁重启与用户后续实际内网服务器部署延期；八项精确Source例外、C58及任意插件ABI范围保持，`accepted_upstream`仍为null。以下较早228cfacc、0cfbd91b与“尚未完成”说明均保留当时身份，不代表本轮最终状态。
+
 2026-10-18 安装升级跟进：`0cfbd91b` 修复 Desktop 既有明文目录启动；104项定向测试、x64包内旧数据启动/冷启动各9项通过。参见[定向检查](desktop-upgrade-current-checks.json)和[样式/剩余任务](../../../docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md)。这不是新完整资格，旧228cfacc回执不重标；跟进任务保持review。
 
 日期：2026-10-16。目标 `dsh-v0.1.5-rc.3` / `a4c74a91e06b00fe0b0937bde982170c526cc842`；差分起点为当前活动rc.1 / `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。

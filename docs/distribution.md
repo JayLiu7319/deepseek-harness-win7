@@ -2,9 +2,11 @@
 
 产品目标为 dsh-v0.1.5-rc.3，Python3.8.10、Windows7 SP1 及以上；桌面壳固定 Electron22.3.27。当前资格以迁移台账中绑定的提交、SHA 和回执为准。现代 Windows 上的运行结果不能代替 Win7 实机、系统补丁和重启验收。
 
+当前精确交付位于 [dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified](../dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/)，包含两份 Portable、四份 Standard/AIO 安装器和独立离线组件 ZIP，附 SHA256SUMS 与 manifest。这些文件从已验证源逐字节复制，没有重建。包内文档保留构建时的冻结快照；当前验收状态以外层manifest、本说明和正式回执为准。x64 单次完整门禁、x86 独立包内验收和六组实际管理员安装生命周期分别保留范围；查看[正式回执](../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)。本轮没有远程发布 Release，也没有安装 Win7 系统补丁。
+
 ## 用户升级与数据
 
-候选 `f0e5402e` 在默认会话配置没有显式压缩选项时，让 canonical CLI/Web 和 Desktop 共用默认目录的历史编码保留策略：已有单一明文历史沿用 `none`，新目录继续使用 zstd。Minimal 本身显式使用 none，继续遵循其配置。自定义根目录和显式配置须选择匹配的 `compression: none` 或 `zstd`，混合编码不自动转换。若旧程序因该冲突无法启动，按[会话升级与恢复指南](session-upgrade-recovery.md)备份配置并选择匹配后端；本轮新候选的实际验收状态见[完成记录](research/2026-10-18-desktop-completion-validation.md)。
+合格候选 `6cbcbf1c` 在默认会话配置没有显式压缩选项时，让 canonical CLI/Web 和 Desktop 共用默认目录的历史编码保留策略：已有单一明文历史沿用 `none`，新目录继续使用 zstd。Minimal 本身显式使用 none，继续遵循其配置。自定义根目录和显式配置须选择匹配的 `compression: none` 或 `zstd`，混合编码不自动转换。若旧程序因该冲突无法启动，按[会话升级与恢复指南](session-upgrade-recovery.md)备份配置并选择匹配后端；本轮新候选的实际验收状态见[完成记录](research/2026-10-18-desktop-completion-validation.md)。
 
 升级前退出主窗口和托盘，备份整个 DSH_HOME，以及 patch 配置到其他位置的 Session 存储根目录。未设置 DSH_HOME 时使用用户目录下的 `.dsh`。保留升级前程序，先用备份副本试运行；不要让新旧程序同时打开同一存储。
 
