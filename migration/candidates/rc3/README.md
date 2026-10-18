@@ -1,5 +1,7 @@
 # rc.3 候选评估区
 
+2026-10-18 安装升级跟进：`0cfbd91b` 修复 Desktop 既有明文目录启动；104项定向测试、x64包内旧数据启动/冷启动各9项通过。参见[定向检查](desktop-upgrade-current-checks.json)和[样式/剩余任务](../../../docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md)。这不是新完整资格，旧228cfacc回执不重标；跟进任务保持review。
+
 日期：2026-10-16。目标 `dsh-v0.1.5-rc.3` / `a4c74a91e06b00fe0b0937bde982170c526cc842`；差分起点为当前活动rc.1 / `a66e4702047846cdaa10c66c9d3df3951f5ea70d`。
 
 2026-10-18 R11-AJ：候选 `228cfacc` 的单次完整当前 Windows 门禁 c 已通过，精确 x64 ZIP 为 `cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6`。Python19,347通过/6跳过、21组固定Source、82个配对及实际解压/浏览器验收通过；x86/x64桌面保留各自精确构建、GUI与关闭父管道后的插件窗口观察。见 [正式资格回执](../../evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json) 和 [分阶段记录](../../../docs/research/2026-10-16-rc3-implementation-progress.md)。Win7真机延期，管理员安装和真实云provider尚未验证；清单不认证全部297项或任意插件ABI。以下逐项记录保留当时状态。

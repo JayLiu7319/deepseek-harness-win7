@@ -4,9 +4,11 @@
 
 [README.md](README.md) | [AGENTS.md](AGENTS.md)
 
+2026-10-18 安装升级补充：已有明文会话目录会使旧 Desktop 默认 zstd 配置启动失败。本机已通过备份后配置恢复，新修复候选 `0cfbd91b` 已完成104项定向测试及x64包内旧数据启动/冷启动检查；新的管理员安装流程和完整候选资格尚未执行。桌面样式并非全部像素/行为等价，详见[修复与剩余任务](docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md)。以下完整资格仍只指原 `228cfacc` 候选。
+
 当前上游目标为 **dsh-v0.1.5-rc.3**（`a4c74a91e06b00fe0b0937bde982170c526cc842`），产品版本为 **0.1.5-rc.3**。生产组合、Session v3、原版前端和 Electron22 桌面宿主已迁移；干净候选 `228cfacc` 的单次完整当前 Windows 门禁已通过：Python 19,347通过/6项既有环境跳过、21组固定 Source、82个配对及实际解压 Portable/现代和108浏览器检查通过。x86/x64 Standard、AIO 另有包内桌面与关闭父管道后插件窗口实测。Win7 真机按用户决定延期，管理员安装及真实云 provider 尚未验证；完整上游 parity 和任意插件 ABI 仍未认证。见 [正式回执](migration/evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json)、[迁移台账](migration/README.md) 和 [分阶段记录](docs/research/2026-10-16-rc3-implementation-progress.md)。旧资格和后续记录提交各自保留身份。
 
-规范 JSONL 默认写 `session.v3.jsonl.zstd`；明文配置写 `session.v3.jsonl`，逻辑导出仍为 `session.jsonl`。历史代际只读时在内存转换，写打开时验证并发布新代际，保留旧文件。已有明文根目录须显式配置 `compression: none`；同一根目录不能混用两种压缩格式。升级前停止应用并备份整个 DSH_HOME 及自定义存储根目录；rc.1 不能读取新写的 v3 历史，回退应恢复升级前的完整备份，不能仅换回旧程序。旧私有 SQLite 仍由显式只读 reader 导出。见 [分发与升级说明](docs/distribution.md)。
+规范 JSONL 默认写 `session.v3.jsonl.zstd`；明文配置写 `session.v3.jsonl`，逻辑导出仍为 `session.jsonl`。历史代际只读时在内存转换，写打开时验证并发布新代际，保留旧文件。已有明文根目录可显式配置 `compression: none`；修复后的 Desktop 会对未自定义的默认目录沿用纯明文编码，其他入口仍须匹配配置。同一根目录不能混用两种压缩格式。升级前停止应用并备份整个 DSH_HOME 及自定义存储根目录；rc.1 不能读取新写的 v3 历史，回退应恢复升级前的完整备份，不能仅换回旧程序。旧私有 SQLite 仍由显式只读 reader 导出。见 [分发与升级说明](docs/distribution.md)。
 
 > Web 核心链路已通过原版前端与本地模拟模型验收（创建工作区、对话、工具执行、恢复、反馈、分支、导出）；完整上游 parity、真实模型和 Win7 真机验收仍未完成。见 [Web 验收记录](docs/research/2026-09-29-web-usable-baseline.md)。历史审查见 [当前状态审查](docs/research/2026-09-28-current-state-mvp-audit.md) 和 [入口切换实施记录](docs/research/2026-09-28-canonical-entry-progress.md)。CLI 已统一到正式 profile 入口，旧 CLI 分流不再保留。
 

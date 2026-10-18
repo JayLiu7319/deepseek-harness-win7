@@ -1,0 +1,34 @@
+{
+  "id": "MIG-DESKTOP-UPGRADE-001",
+  "goal": "Repair existing-home Windows Desktop startup and audit upstream desktop visual boundaries.",
+  "kind": "implementation",
+  "state": "review",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "base_product": "228cfacca1eeb0936268077b5cec244363359705",
+  "requires": [],
+  "provides": [],
+  "acceptance": [
+    "Existing plaintext and zstd default homes boot and cold-open without changing predecessor bytes; explicit and mixed encoding conflicts remain errors.",
+    "Actual current Windows installed application recovers with a backed-up explicit matching profile; repaired x64 Standard payload has independent real GUI checks.",
+    "Compare original frontend and Desktop renderer bytes, observe actual Electron22 styling, and disclose all deliberate or unverified differences."
+  ],
+  "evidence_ids": [],
+  "expected_paths": [
+    "apps/desktop",
+    "dsh/host/desktop",
+    "tests/test_desktop_session_upgrade.py",
+    "docs/research",
+    "migration/candidates/rc3"
+  ],
+  "open_findings": [
+    "Repaired installer administrator upgrade/install/uninstall remains unobserved; user-installed previous package startup is separately observed.",
+    "Full unified qualification has not been rerun for this repaired candidate; earlier228cfacc receipts retain exact old identity.",
+    "Electron44 versus Electron22 pixel parity has not been qualified.",
+    "x86 Standard/AIO and x64 AIO repair packages, cross-surface legacy content/resume and real provider/update journeys remain separate acceptance work."
+  ],
+  "next_action": "Review targeted repair receipt; execute administrator lifecycle and cross-surface old-data/content journeys, propagate other repair packages, then qualify a frozen candidate and the Desktop visual matrix.",
+  "conflicts_with": [],
+  "owner": "codex/desktop-upgrade",
+  "candidate_commit": "0cfbd91b0c35bd9866b52b89c822988a07200018",
+  "targeted_record": "migration/candidates/rc3/desktop-upgrade-current-checks.json"
+}

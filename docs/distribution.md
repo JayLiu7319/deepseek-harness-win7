@@ -4,6 +4,8 @@
 
 ## 用户升级与数据
 
+Desktop 修复候选 `0cfbd91b` 在默认会话配置没有显式压缩选项时，自动沿用默认目录已有的单一明文编码；新目录仍使用 zstd。自定义根目录、其他入口及显式配置仍须选择匹配的 `compression: none` 或 `zstd`，混合编码不自动转换。若旧 Desktop 因该冲突无法启动，可以备份桌面 profile patch 后设置完整的匹配配置；本次修复与未完成的实际安装/视觉验收见[跟进审查](research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md)。
+
 升级前退出主窗口和托盘，备份整个 DSH_HOME，以及 patch 配置到其他位置的 Session 存储根目录。未设置 DSH_HOME 时使用用户目录下的 `.dsh`。保留升级前程序，先用备份副本试运行；不要让新旧程序同时打开同一存储。
 
 新程序按原版目录布局写 v3 JSONL。旧日志只读时转换而不发布，写打开才验证并发布 `session.v3.jsonl.zstd`（或显式明文配置下的 `session.v3.jsonl`），旧代际保留。更高/损坏代际不会静默回退到旧文件。压缩和明文必须使用匹配的配置及独立根目录，不能通过改后缀转换。旧私有 SQLite 可通过既有只读导出入口迁出，不是当前 canonical 存储。

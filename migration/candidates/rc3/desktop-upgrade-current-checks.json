@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "scope": "Targeted installed Desktop startup repair and design audit; not unified release acceptance",
+  "candidate_commit": "0cfbd91b0c35bd9866b52b89c822988a07200018",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "source_checkout": "Five pre-existing EOL-only files disclosed in byte audit; not a clean qualification checkout.",
+  "complete_release_qualified": false,
+  "administrator_installation_executed": false,
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-UPGRADE-20261018-0CFBD91B.zip",
+    "bytes": 615494,
+    "sha256": "4fced40975cd2fb2eab6b7359340e8fe7950a0be19b5256c77be93b4a48ea337",
+    "members": 35
+  },
+  "installer": {
+    "path": "dist/dsh-v0.1.5-rc.3-desktop-upgrade-0cfbd91b-targeted/dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+    "bytes": 126346594,
+    "sha256": "1ab360e62e23ef0119dada3906ff8cdd97255e373e2a10133bb86d307e7b5f8a",
+    "generation": "0.1.5-rc.3-40f529b0edee"
+  },
+  "verification": {
+    "python": {
+      "passed": 104,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 58.51
+    },
+    "actual_installed_previous_package": {
+      "checks": 6,
+      "result": "passed-after-backed-up-profile-repair",
+      "known_shutdown_log_retained": true
+    },
+    "actual_packaged": {
+      "fresh_checks": 9,
+      "cold_checks": 9,
+      "renderer_errors": 0,
+      "session_bytes_and_mtimes_unchanged": true
+    },
+    "pipe_preflight": {
+      "checks": 9,
+      "result": "passed"
+    },
+    "style_inputs": {
+      "original_frontend_files": 234,
+      "original_desktop_renderer_files": 3,
+      "verified_source_inputs": 7
+    },
+    "build": {
+      "exit_code": 0,
+      "seconds": 909.258
+    }
+  },
+  "visual_limitations": [
+    "No Electron44 pixel comparison.",
+    "Electron22 AccentColor is unsupported; observed system-button fallback is not pixel-qualified against Electron44.",
+    "Tray, close-to-tray, Python plugin inputs and offline setup/update UI differ by design."
+  ],
+  "remaining_tasks": [
+    "New installer administrator install/upgrade/uninstall/rollback.",
+    "Cross-surface old-data workflows and actual legacy content open/resume.",
+    "x86 Standard/AIO and x64 AIO repair builds.",
+    "New frozen-candidate complete qualification.",
+    "Visual matrix, real provider/update journeys and deferred physical Win7."
+  ]
+}
