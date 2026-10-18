@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 /** External CDP observer: run the actual packaged executable with its own Python. */
 import assert from 'node:assert/strict';
 import {spawn,execFile} from 'node:child_process';
-import {mkdir,writeFile,readFile,readdir,lstat} from 'node:fs/promises';
+import {mkdir,writeFile,readFile,readdir,lstat,rename} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
 import {credentialFreeEnvironment,deferProviderOnboarding} from '../browser_onboarding.mjs';
 
@@ -14,11 +14,16 @@ const output=resolve(options.output),executable=resolve(options.executable);
 const development=Boolean(options['development-root']);
 assert.equal(Boolean(options['development-python']),development,'Development root and interpreter must be explicit together');
 await mkdir(output);
+if(options['prepared-home'])await rename(resolve(options['prepared-home']),join(output,'home'));
 const report={status:'running',mode:development?'development':'packaged',checks:[],errors:[],consoleErrors:[],stderr:'',timeline:[]};
 let phase='startup';
 function enter(value){phase=value;report.timeline.push({phase,time:new Date().toISOString()});}
 function observation(value){return {phase,time:new Date().toISOString(),value};}
 const env={...credentialFreeEnvironment(process.env),DSH_HOME:options.home?resolve(options.home):join(output,'home'),PYTHONDONTWRITEBYTECODE:'1'};
+if(options['live-provider']){
+ assert.ok(process.env.DEEPSEEK_API_KEY&&options.workspace,'Explicit live-provider key and owned workspace required');
+ env.DEEPSEEK_API_KEY=process.env.DEEPSEEK_API_KEY;
+}
 const launchArgs=development?[join(resolve(options['development-root']),'apps/desktop'),'--root',resolve(options['development-root']),
   '--python',resolve(options['development-python']),'--home',env.DSH_HOME]:[];
 
@@ -95,10 +100,43 @@ try{
     await until(()=>cdp.evaluate(`!document.querySelector(${JSON.stringify(notice)})`),'first-use notice acknowledged');
     report.checks.push('original-first-use-notice-acknowledged');
   }
-  await deferProviderOnboarding(cdp,until,true);
+  await deferProviderOnboarding(cdp,until,!options['live-provider']);
   report.renderer=await cdp.evaluate(`({url:location.href,node:typeof process,require:typeof require,transport:window.__DSH_TRANSPORT__?.ownsHost,text:document.body.innerText.slice(0,4000)})`);
   assert.equal(report.renderer.node,'undefined');assert.equal(report.renderer.require,'undefined');
   assert.equal(report.renderer.transport,true);report.checks.push('original-packaged-renderer-without-node');
+  if(options['live-provider']){
+   enter('real-provider');
+   const rpc=async(method,args)=>cdp.evaluate(`(async()=>{const response=await fetch('/api/'+${JSON.stringify(method)},{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'client-request',rpcId:'live-provider',method:${JSON.stringify(method)},payload:{args:{request:${JSON.stringify(args)}}}})});return response.json()})()`);
+   const click=async selector=>{
+    const point=await until(()=>cdp.evaluate(`(()=>{const n=document.querySelector(${JSON.stringify(selector)});if(!n||n.disabled)return false;const b=n.getBoundingClientRect();return b.width&&b.height&&n.contains(document.elementFromPoint(b.x+b.width/2,b.y+b.height/2))&&{x:b.x+b.width/2,y:b.y+b.height/2}})()`),'live original control '+selector);
+    await cdp.call('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',clickCount:1});
+    await cdp.call('Input.dispatchMouseEvent',{type:'mouseReleased',...point,button:'left',clickCount:1});
+   };
+   if(!options.home){
+    const workspace=await rpc('workspace/create',{path:resolve(options.workspace)});assert.equal(workspace.result.ok,true,JSON.stringify(workspace));
+   }
+   const row='[role="treeitem"][class*="sessionRow"]';
+   await until(()=>cdp.evaluate(`!!document.querySelector('[role="treeitem"][class*="projectRow"]')`),'live workspace row');
+   if(!options.home){
+    const hover=await cdp.evaluate(`(()=>{const b=document.querySelector('[class*="projectRow"]').getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()`);
+    await cdp.call('Input.dispatchMouseEvent',{type:'mouseMoved',...hover});
+    await click('[class*="projectRow"] [class*="rowActions"] > button');
+   }
+   else{
+    if(await cdp.evaluate(`!!document.querySelector('[role="treeitem"][class*="projectRow"][aria-expanded="false"]')`))
+     await click('[role="treeitem"][class*="projectRow"][aria-expanded="false"]');
+    await click(row);
+   }
+   const composer='[data-composer-input][contenteditable="true"]';
+   await click(composer);
+   const expected=options['live-provider']+(options.home?'_COLD':'');
+   const prompt=options.home?'Recall the exact complete text from the document you read in the previous turn. Append _COLD to it and reply only with the result. Do not call tools.':
+    'Read this generated test document using the read tool: '+join(resolve(options.workspace),'probe.txt')+'. Reply only with its complete text. Do not write files or call other tools.';
+   await cdp.call('Input.insertText',{text:prompt});
+   await click('[data-composer-card] button[aria-label="Send message"], [data-composer-card] button[aria-label="发送消息"]');
+   report.liveProvider=await until(()=>cdp.evaluate(`(()=>{const rows=[...document.querySelectorAll('[data-chat-flow-kind="assistant-step"]')];const answer=rows.find(n=>n.textContent.includes(${JSON.stringify(expected)}));return answer&&!document.querySelector('[data-composer-card] button[aria-label="Stop generating"], [data-composer-card] button[aria-label="停止生成"]')&&{answer:answer.textContent}})()`),'real provider answer in original Desktop UI',150000);
+   report.checks.push(options.home?'real-provider-desktop-cold-context-resume':'real-provider-desktop-message-and-read-tool');
+  }
   enter('settings');report.settings=await cdp.evaluate(`(async()=>{const response=await fetch('/api/settings/describe',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'client-request',rpcId:'packaged',method:'settings/describe',payload:{args:{}}})});return response.json()})()`);
   assert.equal(report.settings.result.ok,true);assert.ok(report.settings.result.value.namespaces.length);report.checks.push('packaged-python-settings-rpc');
   enter('stream');report.baseline=await cdp.evaluate(`(async()=>{const abort=new AbortController();const response=await fetch('/.dsh/remote-stream',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({endpoint:'workspace/follow',payload:{args:{}}}),signal:abort.signal});const reader=response.body.getReader();let text='';while(!text.includes('\\n')){const next=await reader.read();if(next.done)throw new Error('premature workspace EOF');text+=new TextDecoder().decode(next.value)}abort.abort();return JSON.parse(text.split('\\n')[0])})()`);
@@ -133,7 +171,10 @@ try{
   shellSocket.close();mainSocket.close();
   enter('closing');try{await cdp.call('Browser.close');}catch(error){if(socket.readyState!==3)throw error;}
   await until(()=>child.exitCode!==null,'packaged application graceful quit',20000);
-  assert.equal(child.exitCode,0);report.checks.push('packaged-graceful-shutdown');assert.ok(!report.stderr.includes('Error: Desktop Host is stopping'));assert.deepEqual(await historySnapshot(),originalHistory);report.checks.push('session-bytes-and-mtimes-unchanged');
+  assert.equal(child.exitCode,0);report.checks.push('packaged-graceful-shutdown');assert.ok(!report.stderr.includes('Error: Desktop Host is stopping'));
+  const finalHistory=await historySnapshot();
+  if(options['live-provider']){assert.notDeepEqual(finalHistory,originalHistory);report.historyAfter=finalHistory.map(([file,bytes,mtimeMs,sha256])=>({file,bytes,mtimeMs,sha256}));report.checks.push('real-provider-durable-session-growth');}
+  else{assert.deepEqual(finalHistory,originalHistory);report.checks.push('session-bytes-and-mtimes-unchanged');}
   enter('closed');assert.deepEqual(report.errors,[]);assert.deepEqual(report.consoleErrors,[]);
   report.checks.push('complete-observed-lifecycle-without-renderer-errors');
   if(development)report.checks=report.checks.map(value=>value.replace('packaged','development'));
@@ -145,6 +186,7 @@ finally{
     await until(()=>child.exitCode!==null,'owned packaged tree terminated',15000).catch(error=>{report.cleanupFailure=String(error);});
   }
   cdp?.socket.close();
-  await writeFile(join(output,'report.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});
+  const serialized=JSON.stringify(report,null,2).split(process.env.DEEPSEEK_API_KEY||'__absent_secret__').join('[REDACTED]');
+  await writeFile(join(output,'report.json'),serialized+'\n',{flag:'wx'});
   console.log(JSON.stringify({status:report.status,checks:report.checks,failure:report.failure}));
 }
