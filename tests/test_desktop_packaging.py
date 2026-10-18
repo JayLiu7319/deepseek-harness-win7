@@ -146,6 +146,30 @@ def test_installer_registers_and_uninstalls_its_generated_uninstaller(installed)
     assert not generation.exists()
 
 
+def test_extraction_rollback_only_removes_selected_owned_generation(installed):
+    root, previous = installed
+    failed = previous.with_name('0.1.5-rc.3-' + 'b' * 12)
+    failed.mkdir()
+    owned = b'partially extracted product'
+    (failed / 'app.exe').write_bytes(owned)
+    (failed / 'dsh-owned-files.tsv').write_text(
+        hashlib.sha256(owned).hexdigest() + '\tapp.exe\n' + '0' * 64 + '\tnot-yet-extracted.dll\n', encoding='utf-8')
+    (failed / 'user-notes.txt').write_bytes(b'preserve unknown data')
+    before = (previous / 'app.exe').read_bytes()
+    result = invoke_cleanup(root, '-RemoveGeneration', str(failed))
+    assert result.returncode == 0, result.stdout
+    assert (previous / 'app.exe').read_bytes() == before
+    assert not (failed / 'app.exe').exists()
+    assert (failed / 'user-notes.txt').read_bytes() == b'preserve unknown data'
+
+
+def test_extraction_rollback_rejects_an_outside_generation(installed, tmp_path):
+    root, previous = installed
+    result = invoke_cleanup(root, '-RemoveGeneration', str(tmp_path / 'outside'))
+    assert result.returncode == 1, result.stdout
+    assert (previous / 'app.exe').exists()
+
+
 @pytest.mark.parametrize('linked_root', [False, True])
 def test_uninstall_rejects_junctions_without_removing_external_bytes(installed, tmp_path, linked_root):
     if os.name != 'nt':

@@ -40,21 +40,32 @@ Var PrereqLimited
 !insertmacro MUI_UNPAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
 
+!macro ClaimInstaller
+  System::Call 'kernel32::CreateMutexW(p 0, i 0, w "Global\DeepSeekHarnessWin7Installer") p .r0 ?e'
+  Pop $1
+  ${If} $1 == 183
+    MessageBox MB_ICONSTOP "Another DeepSeek Harness installer or uninstaller is running." /SD IDOK
+    SetErrorLevel 4
+    Abort
+  ${EndIf}
+!macroend
+
 Function .onInit
+  !insertmacro ClaimInstaller
   ${IfNot} ${AtLeastWin7}
-    MessageBox MB_ICONSTOP "Windows 7 SP1 or later is required."
+    MessageBox MB_ICONSTOP "Windows 7 SP1 or later is required." /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}
   ${If} ${IsWin7}
   ${AndIfNot} ${AtLeastServicePack} 1
-    MessageBox MB_ICONSTOP "Windows 7 Service Pack 1 is required."
+    MessageBox MB_ICONSTOP "Windows 7 Service Pack 1 is required." /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}
 !if "${ARCHITECTURE}" == "x64"
   ${IfNot} ${RunningX64}
-    MessageBox MB_ICONSTOP "This package requires x64 Windows."
+    MessageBox MB_ICONSTOP "This package requires x64 Windows." /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}
@@ -69,7 +80,7 @@ FunctionEnd
 Function ValidateInstallDirectory
   StrLen $0 $INSTDIR
   ${If} $0 > ${MAX_INSTALL_ROOT}
-    MessageBox MB_ICONSTOP "Choose a shorter installation folder. This Win7 package allows at most ${MAX_INSTALL_ROOT} characters before its version directory."
+    MessageBox MB_ICONSTOP "Choose a shorter installation folder. This Win7 package allows at most ${MAX_INSTALL_ROOT} characters before its version directory." /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}
@@ -80,7 +91,7 @@ FunctionEnd
 
 Function ShowEnvironmentGuidance
   ${If} $PrereqLimited == 1
-    MessageBox MB_ICONINFORMATION "The application is installed. Windows prerequisites were left unchanged. For improved terminal and automation compatibility, extract the separately distributed dsh-win7-offline-upgrade.zip and follow its guide, or use AIO. You can also open the local guide from this page."
+    MessageBox MB_ICONINFORMATION "The application is installed. Windows prerequisites were left unchanged. For improved terminal and automation compatibility, extract the separately distributed dsh-win7-offline-upgrade.zip and follow its guide, or use AIO. You can also open the local guide from this page." /SD IDOK
   ${EndIf}
 FunctionEnd
 
@@ -90,19 +101,20 @@ Section "Desktop" SEC_DESKTOP
   SetOutPath "$PLUGINSDIR"
   File /oname=prerequisites.ps1 "${POLICY}"
   File /oname=uninstall-files.ps1 "${CLEANUP}"
+  File /oname=publish-installation.ps1 "${PUBLICATION}"
   GetTempFileName $PrereqLog
   ${DisableX64FSRedirection}
   nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -CheckOnly'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 != 0
-    MessageBox MB_ICONSTOP "Close all DeepSeek Harness windows and quit its tray icon, then run setup again. No running application will be terminated."
+    MessageBox MB_ICONSTOP "Close all DeepSeek Harness windows and quit its tray icon, then run setup again. No running application will be terminated." /SD IDOK
     SetErrorLevel 4
     Abort
   ${EndIf}
 !if "${EDITION}" == "aio"
   IfSilent consent_done
-  MessageBox MB_OKCANCEL|MB_ICONINFORMATION "AIO will install missing Microsoft prerequisites on Windows 7. It may require restarting and running this installer again before the application can be installed." IDOK consent_done
+  MessageBox MB_OKCANCEL|MB_ICONINFORMATION "AIO will install missing Microsoft prerequisites on Windows 7. It may require restarting and running this installer again before the application can be installed." /SD IDOK IDOK consent_done
     SetErrorLevel 1
     Abort
   consent_done:
@@ -116,7 +128,7 @@ Section "Desktop" SEC_DESKTOP
   ${If} $0 == 3010
     DetailPrint "Servicing restart required. Log: $PrereqLog"
     IfSilent reboot_later
-    MessageBox MB_YESNO|MB_ICONINFORMATION "Windows must restart. Run this installer again after restarting to continue. Restart now?" IDNO reboot_later
+    MessageBox MB_YESNO|MB_ICONINFORMATION "Windows must restart. Run this installer again after restarting to continue. Restart now?" /SD IDNO IDNO reboot_later
     Reboot
     reboot_later:
     SetErrorLevel 3010
@@ -127,7 +139,7 @@ Section "Desktop" SEC_DESKTOP
     DetailPrint "Installing Standard with reduced environment capabilities; no system updates executed. Log: $PrereqLog"
 !endif
   ${ElseIf} $0 != 0
-    MessageBox MB_ICONSTOP "Prerequisites are unavailable or installation failed. Windows 7 needs SSU KB4490628, SHA-2 KB4474419, D3DCompiler47 KB4019990, .NET 4.7.2 and PowerShell 5.1. WMF 3.0 must first be removed using Microsoft guidance. Standard users can use the AIO installer. Log: $PrereqLog"
+    MessageBox MB_ICONSTOP "Prerequisites are unavailable or installation failed. Windows 7 needs SSU KB4490628, SHA-2 KB4474419, D3DCompiler47 KB4019990, .NET 4.7.2 and PowerShell 5.1. WMF 3.0 must first be removed using Microsoft guidance. Standard users can use the AIO installer. Log: $PrereqLog" /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}
@@ -135,6 +147,9 @@ Section "Desktop" SEC_DESKTOP
   IfFileExists "$Generation\*" generation_exists
   SetOutPath "$Generation"
   ClearErrors
+  # Publish the inventory before extraction, so interrupted extraction can
+  # remove verified product bytes without touching any earlier generation.
+  File /oname=dsh-owned-files.tsv "${PAYLOAD}\dsh-owned-files.tsv"
   File /r "${PAYLOAD}\*"
   IfErrors install_failed
   WriteUninstaller "$Generation\uninstall.exe"
@@ -146,30 +161,35 @@ Section "Desktop" SEC_DESKTOP
   ${If} $0 != 0
     Goto install_failed
   ${EndIf}
-  SetShellVarContext all
-  CreateDirectory "$SMPROGRAMS\DeepSeek Harness"
-  CreateShortCut "$SMPROGRAMS\DeepSeek Harness\DeepSeek Harness.lnk" "$Generation\DeepSeek Harness.exe"
-  CreateShortCut "$SMPROGRAMS\DeepSeek Harness\Uninstall.lnk" "$Generation\uninstall.exe"
-  WriteRegStr HKLM "Software\DeepSeekHarnessWin7" "InstallLocation" "$INSTDIR"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "DisplayName" "DeepSeek Harness"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "DisplayVersion" "${VERSION}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "InstallLocation" "$INSTDIR"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "UninstallString" '$\"$Generation\uninstall.exe$\"'
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "NoModify" 1
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\DeepSeekHarnessWin7" "NoRepair" 1
+  ${DisableX64FSRedirection}
+  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\publish-installation.ps1" -InstallDirectory "$INSTDIR" -Generation "$Generation" -Version "${VERSION}"'
+  Pop $0
+  ${EnableX64FSRedirection}
+  ${If} $0 == 5
+    MessageBox MB_ICONSTOP "Installation registration could not be restored. Application generations were preserved for inspection." /SD IDOK
+    SetErrorLevel 5
+    Abort
+  ${ElseIf} $0 != 0
+    Goto install_failed
+  ${EndIf}
   Goto done
   generation_exists:
-    MessageBox MB_ICONINFORMATION "This exact application generation already exists. Start the installed application or uninstall it before reinstalling."
+    MessageBox MB_ICONINFORMATION "This exact application generation already exists. Start the installed application or uninstall it before reinstalling." /SD IDOK
     SetErrorLevel 1
     Abort
   install_failed:
-    MessageBox MB_ICONSTOP "Application extraction failed. Previous generations and user data have been preserved."
+    ${DisableX64FSRedirection}
+    nsExec::ExecToLog /TIMEOUT=180000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -RemoveGeneration "$Generation"'
+    Pop $0
+    ${EnableX64FSRedirection}
+    MessageBox MB_ICONSTOP "Application extraction failed. Verified new-generation files were rolled back; previous generations and user data have been preserved. Modified or unknown files remain for inspection." /SD IDOK
     SetErrorLevel 1
     Abort
   done:
 SectionEnd
 
 Function un.onInit
+  !insertmacro ClaimInstaller
   ${If} ${RunningX64}
     SetRegView 64
   ${Else}
@@ -187,7 +207,7 @@ Section "Uninstall"
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 != 0
-    MessageBox MB_ICONSTOP "Quit DeepSeek Harness first. Uninstall stopped; files and user data were preserved."
+    MessageBox MB_ICONSTOP "Quit DeepSeek Harness first. Uninstall stopped; files and user data were preserved." /SD IDOK
     SetErrorLevel 1
     Abort
   ${EndIf}

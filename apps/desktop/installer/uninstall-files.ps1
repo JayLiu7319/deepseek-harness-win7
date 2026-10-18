@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][string]$InstallDirectory, [switch]$CheckOnly, [string]$RegisterGeneration)
+param([Parameter(Mandatory=$true)][string]$InstallDirectory, [switch]$CheckOnly, [string]$RegisterGeneration, [string]$RemoveGeneration)
 $ErrorActionPreference='Stop'
 function Test-PlainPath([string]$Path,[string]$Boundary) {
   $item=Get-Item -LiteralPath $Path -Force
@@ -33,7 +33,13 @@ try {
   $versions=[IO.Path]::Combine($root,'versions')
   if (![IO.Directory]::Exists($versions)) { exit 0 }
   Test-PlainPath $versions $root
-  foreach($version in Get-ChildItem -LiteralPath $versions -Force) {
+  $selected=Get-ChildItem -LiteralPath $versions -Force
+  if ($RemoveGeneration) {
+    $requested=[IO.Path]::GetFullPath($RemoveGeneration).TrimEnd('\')
+    if ([IO.Path]::GetDirectoryName($requested) -ne $versions -or [IO.Path]::GetFileName($requested) -notmatch '^0\.[0-9]+\.[0-9]+[-.a-zA-Z0-9]*-[a-f0-9]{12}$') { throw 'Invalid rollback generation' }
+    $selected=@($selected | Where-Object {$_.FullName -eq $requested})
+  }
+  foreach($version in $selected) {
     if (!$version.PSIsContainer -or $version.Name -notmatch '^0\.[0-9]+\.[0-9]+[-.a-zA-Z0-9]*-[a-f0-9]{12}$') { continue }
     $generation=$version.FullName
     Test-PlainPath $generation $root

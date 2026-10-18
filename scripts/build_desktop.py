@@ -162,7 +162,7 @@ def build(args):
         # validation executes after extracting the exact Electron runtime below.
         json.loads(update_bytes.decode('utf-8'))
     installer_inputs = {name: (ROOT / 'apps/desktop/installer' / name).read_bytes()
-                        for name in ('setup.nsi','prerequisites.ps1','uninstall-files.ps1')}
+                        for name in ('setup.nsi','prerequisites.ps1','uninstall-files.ps1','publish-installation.ps1')}
     verify_file(args.electron_archive, tools['electron'])
     verify_file(args.nsis_archive, tools['nsis'])
     if 'aio' in editions:
@@ -259,7 +259,7 @@ def build(args):
             definitions = dict(VERSION=VERSION,EDITION=edition,ARCHITECTURE=architecture,OUTPUT=output / filename,
                                GENERATION=generation,PAYLOAD=unpacked,
                                POLICY=frozen / 'prerequisites.ps1',
-                               CLEANUP=frozen / 'uninstall-files.ps1',MAX_INSTALL_ROOT=max_root,
+                               CLEANUP=frozen / 'uninstall-files.ps1',PUBLICATION=frozen / 'publish-installation.ps1',MAX_INSTALL_ROOT=max_root,
                                PREREQUISITES=output / 'prerequisites')
             command = [str(compiler), '/V3'] + ['/D' + name + '=' + nsis_define(value) for name, value in definitions.items()]
             command.append(str(frozen / 'setup.nsi'))
