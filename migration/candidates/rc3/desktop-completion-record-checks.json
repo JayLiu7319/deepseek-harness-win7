@@ -1,0 +1,245 @@
+{
+  "status": "passed",
+  "scope": "Final record/delivery verification only; not a new product qualification or new full test run",
+  "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+  "evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+  "sealed": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.zip",
+    "bytes": 361024774,
+    "sha256": "422a05115518200f191bbbac52f523b47708acd2a7e6d7c64e97c618ff78fc96",
+    "members": 10,
+    "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "archive_sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+    "administrator_output": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-admin-6cbcbf1c-20261018-a",
+    "seal_recovery": {
+      "status": "passed",
+      "scope": "Completed carrier CRC, inventory, all member SHA and original staged bytes verified; only failed final rename retried. Original seal exit 1 remains retained.",
+      "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+      "original_failure": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\completion-seal.log",
+      "sha256": "422a05115518200f191bbbac52f523b47708acd2a7e6d7c64e97c618ff78fc96",
+      "verified_members": 10,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "renamed"
+        }
+      ],
+      "bytes": 361024774
+    }
+  },
+  "delivery_directory": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dist\\dsh-v0.1.5-rc.3-6cbcbf1c-qualified",
+  "verified_artifacts": 7,
+  "newly_added_local_links": [
+    {
+      "document": "README.md",
+      "link": "dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/"
+    },
+    {
+      "document": "README.md",
+      "link": "docs/research/2026-10-18-desktop-completion-validation.md"
+    },
+    {
+      "document": "README.md",
+      "link": "migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "docs/distribution.md",
+      "link": "../dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/"
+    },
+    {
+      "document": "docs/distribution.md",
+      "link": "../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md",
+      "link": "../../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md",
+      "link": "2026-10-18-desktop-completion-validation.md"
+    },
+    {
+      "document": "docs/research/2026-10-16-dsh-v0.1.5-rc3-desktop-distribution-evaluation.md",
+      "link": "2026-10-18-desktop-completion-validation.md"
+    },
+    {
+      "document": "migration/README.md",
+      "link": "candidates/rc3/desktop-completion-current-checks.json"
+    },
+    {
+      "document": "migration/README.md",
+      "link": "evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "migration/candidates/rc3/README.md",
+      "link": "../../evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "migration/candidates/rc3/README.md",
+      "link": "desktop-completion-current-checks.json"
+    },
+    {
+      "document": "docs/research/2026-10-18-desktop-completion-validation.md",
+      "link": "../../dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/"
+    },
+    {
+      "document": "docs/research/2026-10-18-desktop-completion-validation.md",
+      "link": "../../migration/candidates/rc3/desktop-completion-current-checks.json"
+    },
+    {
+      "document": "docs/research/2026-10-18-desktop-completion-validation.md",
+      "link": "../../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    },
+    {
+      "document": "docs/research/2026-10-16-rc3-implementation-progress.md",
+      "link": "../../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json"
+    }
+  ],
+  "unchanged_contract_revision_and_invariants": true,
+  "protected_preexisting_changes": [
+    {
+      "path": "dsh/core/session/session.py",
+      "sha256": "7797ebd745e063b9f0f99c4477273c8f7c4b006cf1a22e536aae50ec7cafe449"
+    },
+    {
+      "path": "dsh/subagent/in_process.py",
+      "sha256": "a6692cae8ae309eea87c0f59e0af634da615f398fb1cf2cec64bf81c5cb7272b"
+    },
+    {
+      "path": "scripts/oracles/fs_values_diff_python.py",
+      "sha256": "09ed32de35be06811c51753a5f93879ff9116de5fc461e3bc62c7dc573eb45f6"
+    },
+    {
+      "path": "scripts/oracles/fs_values_escalation_python.py",
+      "sha256": "ddf84d0a910ef2aeaba4b13c02d646fc7be219be6e94db4da9ad6bf059882114"
+    },
+    {
+      "path": "scripts/oracles/fs_values_window_python.py",
+      "sha256": "95c38e0b63509eab0f4968a02bc33fbc572f116ce4304a237c555c17fdcdaa26"
+    }
+  ],
+  "migration_steps": [
+    {
+      "step": "migration-check",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "check"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "migration-ready",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "ready"
+      ],
+      "exitCode": 0
+    },
+    {
+      "step": "migration-status",
+      "command": [
+        "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+        "scripts/migration.py",
+        "status",
+        "--write"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "complete_gate_counts": {
+    "collected": 19373,
+    "passed": 19367,
+    "skipped": 6
+  },
+  "candidate_ancestry": {
+    "join_commit": "6315e3e5",
+    "scope": "Merge connects exact qualified 6cbcbf1c as ancestor; merge tree equals first-parent tree, no product or document content changed by merge.",
+    "original_failure": "migration: Command '['git', '-C', 'C:\\\\Users\\\\czh86\\\\Documents\\\\Codex\\\\deepseek-harness-win7', 'merge-base', '--is-ancestor', '6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0', 'HEAD']' returned non-zero exit status 1.\n"
+  },
+  "seal_recovery": {
+    "report": {
+      "status": "passed",
+      "scope": "Completed carrier CRC, inventory, all member SHA and original staged bytes verified; only failed final rename retried. Original seal exit 1 remains retained.",
+      "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+      "original_failure": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\completion-seal.log",
+      "sha256": "422a05115518200f191bbbac52f523b47708acd2a7e6d7c64e97c618ff78fc96",
+      "verified_members": 10,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "renamed"
+        }
+      ],
+      "bytes": 361024774
+    },
+    "original_failure": {
+      "stage": "failed",
+      "completed": [
+        {
+          "step": "seal",
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            ".goose\\out\\rc3-completion-preparation-20261018-b\\finalize.py",
+            "seal"
+          ],
+          "exitCode": 1
+        }
+      ],
+      "failure": "seal failed; retain diagnostics and stop before dependent work"
+    },
+    "original_diagnostic": "Traceback (most recent call last):\n  File \".goose\\out\\rc3-completion-preparation-20261018-b\\finalize.py\", line 266, in <module>\n    {'seal': seal, 'deliver': deliver}[sys.argv[1]]()\n  File \".goose\\out\\rc3-completion-preparation-20261018-b\\finalize.py\", line 204, in seal\n    inventory = package(stage, destination)\n  File \"C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\package_release_diagnostics.py\", line 193, in package\n    partial.rename(destination)\n  File \"C:\\Users\\czh86\\AppData\\Roaming\\uv\\python\\cpython-3.8.10-windows-x86_64-none\\lib\\pathlib.py\", line 1359, in rename\n    self._accessor.rename(self, target)\nPermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\\\Users\\\\czh86\\\\Documents\\\\Codex\\\\deepseek-harness-win7\\\\migration\\\\evidence\\\\artifacts\\\\RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.zip.partial' -> 'C:\\\\Users\\\\czh86\\\\Documents\\\\Codex\\\\deepseek-harness-win7\\\\migration\\\\evidence\\\\artifacts\\\\RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.zip'\n",
+    "verifier_source": "\"\"\"Verify completed carrier bytes and recover only its failed Windows rename.\"\"\"\nimport hashlib\nimport json\nimport time\nimport zipfile\nfrom finalize import ROOT, HERE, CANDIDATE, read, write, sha\n\nold = read(HERE/'completion-seal-original-failure.json')\nassert old['stage'] == 'failed' and old['completed'][0]['step'] == 'seal'\nassert old['completed'][0]['exitCode'] == 1\ndestination = ROOT/'migration/evidence/artifacts/RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.zip'\npartial = destination.with_name(destination.name+'.partial')\nassert partial.is_file() and not destination.exists()\nbefore = sha(partial)\nstage = HERE/'sealed-inputs'\nwith zipfile.ZipFile(str(partial)) as archive:\n    assert archive.testzip() is None\n    inventory = json.loads(archive.read('_diagnostics_inventory.json').decode('utf-8'))\n    assert len(archive.namelist()) == len(set(archive.namelist()))\n    files = [r for r in inventory['members'] if r['kind'] == 'file']\n    assert len(files) == 10 and len(inventory['members']) == 10\n    assert set(archive.namelist()) == {r['path'] for r in files}|{'_diagnostics_inventory.json'}\n    for row in files:\n        member = archive.read(row['path'])\n        assert len(member) == row['bytes']\n        assert hashlib.sha256(member).hexdigest() == row['sha256'] == sha(stage/row['path'])\ndel archive\nattempts = []\nfor attempt in range(1, 13):\n    assert not destination.exists()\n    try:\n        partial.rename(destination)\n        attempts.append(dict(attempt=attempt,result='renamed'))\n        break\n    except PermissionError as error:\n        attempts.append(dict(attempt=attempt,result=str(error)))\n        if attempt == 12:\n            raise\n        time.sleep(2)\nassert sha(destination) == before\nreport = dict(status='passed',scope='Completed carrier CRC, inventory, all member SHA and original staged bytes verified; only failed final rename retried. Original seal exit 1 remains retained.',\n    candidate=CANDIDATE,original_failure=str(HERE/'completion-seal.log'),sha256=before,\n    verified_members=len(files),attempts=attempts,bytes=destination.stat().st_size)\nwrite(HERE/'seal-recovery.json',report)\nmanifest = read(stage/'manifest.json')\nwrite(HERE/'sealed.json',dict(path=destination.relative_to(ROOT).as_posix(),bytes=destination.stat().st_size,\n    sha256=before,members=len(inventory['members']),candidate=CANDIDATE,\n    archive_sha256=manifest['archive_sha256'],\n    administrator_output=read(HERE/'administrator-selection.json')['output'],seal_recovery=report))\nprint(json.dumps(report))\n",
+    "verifier_sha256": "97c52ae45844a32aa78ecf763a5bb5f7e56dffb565d44b7ed3baa88876e03998",
+    "resume_source": "\"\"\"Resume dependent steps after independently checked carrier rename recovery.\"\"\"\nimport os\nimport subprocess\nfrom finalize import ROOT, HERE, read, write\n\nenv = dict(os.environ)\nenv['PATH'] = r'C:/Users/czh86/AppData/Local/Volta/tools/image/node/22.22.2;' + env['PATH']\nenv['GIT_OPTIONAL_LOCKS'] = '0'\npython = str(ROOT/'.venv/Scripts/python.exe')\nold = read(HERE/'completion-stage.json')\nassert old['stage'] == 'failed' and len(old['completed']) == 1\nassert not (HERE/'completion-seal-original-failure.json').exists()\nwrite(HERE/'completion-seal-original-failure.json',old)\nsteps = []\ncommands = [\n    ('seal-recovery',[python,str(HERE/'recover-seal.py')]),\n    ('deliver',[python,str(HERE/'finalize.py'),'deliver']),\n    ('record',[python,str(HERE/'record.py')]),\n    ('docs',[python,str(HERE/'finish-docs.py')]),\n    ('migration-check',[python,'scripts/migration.py','check']),\n    ('migration-ready',[python,'scripts/migration.py','ready']),\n    ('migration-status',[python,'scripts/migration.py','status','--write'])]\ntry:\n    for name, command in commands:\n        write(HERE/'completion-stage.json',dict(stage=name,completed=steps))\n        with (HERE/('completion-'+name+'.log')).open('wb') as log:\n            result = subprocess.run(command,cwd=str(ROOT),env=env,stdout=log,stderr=subprocess.STDOUT,timeout=2400)\n        steps.append(dict(step=name,command=command,exitCode=result.returncode))\n        assert result.returncode == 0, name+' failed'\n    write(HERE/'completion-stage.json',dict(stage='ready-for-review',completed=steps))\nexcept Exception as error:\n    write(HERE/'completion-stage.json',dict(stage='failed',completed=steps,failure=str(error)))\n    raise\n"
+  },
+  "record_tail_recovery": {
+    "report": {
+      "status": "passed",
+      "scope": "All record writes verified after the recovery tail final print failed due missing json import; no writes repeated and original failures retained.",
+      "new_receipt": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+      "retained_historical_artifacts": 3,
+      "original_failures": [
+        "completion-record.log",
+        "completion-record-recovery.log"
+      ]
+    },
+    "original_failure": {
+      "stage": "failed",
+      "completed": [
+        {
+          "step": "seal-recovery",
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\recover-seal.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "step": "deliver",
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\finalize.py",
+            "deliver"
+          ],
+          "exitCode": 0
+        },
+        {
+          "step": "record",
+          "command": [
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.venv\\Scripts\\python.exe",
+            "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\record.py"
+          ],
+          "exitCode": 1
+        }
+      ],
+      "failure": "record failed"
+    },
+    "original_diagnostic": "Traceback (most recent call last):\n  File \"C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\record.py\", line 163, in <module>\n    main()\n  File \"C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\record.py\", line 105, in main\n    assert len(previous['artifacts']) == 1\nAssertionError\n",
+    "verifier_source": "\"\"\"Resume only unexecuted record tail, keeping already-written exact receipts.\"\"\"\nimport ast\nfrom pathlib import Path\nfrom finalize import ROOT, ISO, OUT, HERE, GATE, CANDIDATE, read, write, sha\n\nEVIDENCE = 'RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C'\nreceipt = read(ROOT/('migration/evidence/'+EVIDENCE+'.json'))\nassert receipt['product_commit'] == CANDIDATE and receipt['result'] == 'passed'\nsummary = read(GATE/'summary.json')\nassert summary['result'] == 'passed' and summary['publishable'] is True\ntask = read(ROOT/'migration/tasks/MIG-DESKTOP-UPGRADE-001.json')\nassert task['state'] == 'integrated' and task['integrated_commit'] == CANDIDATE\nrecord_path = ROOT/'migration/candidates/rc3/desktop-completion-current-checks.json'\nassert sha(record_path) == next(row['sha256'] for row in receipt['inputs'] if row['path'] == record_path.relative_to(ROOT).as_posix())\ncounts = receipt['qualification']['counts']\ntree = ast.parse((HERE/'record.py').read_text(encoding='utf-8'))\nmain = next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name == 'main')\nstart = next(i for i,node in enumerate(main.body) if isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id == 'baseline_path' for t in node.targets))\nassert read(ROOT/'migration/baseline.json')['product_commit'] == '228cfacca1eeb0936268077b5cec244363359705'\ntail = ast.Module(body=main.body[start:],type_ignores=[])\nexec(compile(ast.fix_missing_locations(tail),str(HERE/'record.py')+':unexecuted-tail','exec'),globals())\nwrite(HERE/'record-tail-recovery.json',dict(status='passed',scope='Only previously unexecuted record tail resumed after old receipt artifact-count assumption; product qualification and existing new receipt bytes unchanged.',\n    new_receipt=EVIDENCE,primary_historical_artifact='migration/evidence/artifacts/RC3-QUALIFICATION-20261018-228CFACC.zip',retained_historical_artifacts=3))\n",
+    "resumed_record_source": "\"\"\"Integrate only completed, sealed, exact-candidate observations.\"\"\"\nfrom pathlib import Path\nimport json\nimport platform\nimport re\nimport sys\nimport xml.etree.ElementTree as ET\n\nfrom finalize import ROOT, ISO, OUT, HERE, GATE, CANDIDATE, read, write, sha, prerequisites\nsys.path.insert(0, str(ROOT))\nfrom scripts.migration import acceptance_digest\n\nEVIDENCE = 'RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C'\nTARGET = 'a4c74a91e06b00fe0b0937bde982170c526cc842'\n\n\ndef main():\n    summary, admin_root = prerequisites()\n    sealed = read(HERE / 'sealed.json')\n    assert sha(ROOT / sealed['path']) == sealed['sha256']\n    delivery = read(HERE / 'delivered.json')\n    assert sha(Path(delivery['index']['path'])) == delivery['index']['sha256']\n    for row in delivery['artifacts']:\n        assert sha(Path(delivery['directory']) / row['path']) == row['sha256']\n    cases = list(ET.parse(str(GATE / 'pytest.xml')).getroot().iter('testcase'))\n    assert not any(case.find('failure') is not None or case.find('error') is not None for case in cases)\n    skipped = sum(case.find('skipped') is not None for case in cases)\n    counts = dict(collected=len(cases), passed=len(cases)-skipped, skipped=skipped)\n    configurations = []\n    for path in sorted(GATE.glob('official-*.log')):\n        text = re.sub(r'\\x1b\\[[0-9;]*m', '', path.read_text(encoding='utf-8', errors='replace'))\n        match = re.search(r'Tests\\s+(\\d+) passed(?:\\s*\\|\\s*(\\d+) skipped)?', text)\n        assert match, path\n        configurations.append(dict(config=path.stem[len('official-'):], passed=int(match.group(1)), skipped=int(match.group(2) or 0)))\n    assert len(configurations) == 21\n    paired = [key for key in summary['receipts'] if key.endswith('-paired')]\n    assert len(paired) == 82\n    task_path = ROOT / 'migration/tasks/MIG-DESKTOP-UPGRADE-001.json'\n    task = read(task_path)\n    current = dict(candidate_commit=CANDIDATE, target_upstream=TARGET,\n        qualification_evidence=EVIDENCE, archive=sealed, delivery=delivery,\n        complete_gate=dict(summary=str(GATE / 'summary.json'), counts=counts,\n                           archive_sha256=summary['archive_sha256'], source_configurations=21, paired_drivers=82),\n        x86_extracted=read(OUT / 'e86b/report.json'), x64_modern_presets=read(OUT / 'e64b/report.json'),\n        administrator=read(admin_root / 'report.json'), independent_restoration=read(admin_root / 'independent-restoration.json'),\n        package_services=read(HERE / 'post-build-report.json'),\n        closed_parent_pipes=read(HERE / 'closed-pipes-report.json'),\n        build_retention=read(HERE / 'build-retention.json'),\n        desktop_portable_build_input=dict(original_archive=read(HERE / 'failed-c-portable.json'),\n            qualified_archive_sha256=summary['archive_sha256'],\n            payload_equivalence=dict(status='passed', members=len(read(HERE / 'archive-payload-equivalence.json')['members']),\n                manifest_sha256=sha(HERE / 'archive-payload-equivalence.json'),\n                sealed_location='independent-observations.zip/preparation/archive-payload-equivalence.json'),\n            scope='Desktop and independently named observations keep the earlier exact archive identity; all uncompressed files match the final same-candidate archive.'),\n        visual=read(OUT / 'desktop-visual-comparison-20261018-b/report.json'),\n        visual_source_identity=dict(observed_product='f0e5402eba25310ba9911df3bed3e9e6d493edd0',\n             qualified_product=CANDIDATE, sole_change='scripts/sdk_profile_imports.json; no application or renderer source changes',\n             matrix='desktop-visual-matrix-20261018-h', original_failed_matrix='desktop-visual-matrix-20261018-g'),\n        limitations=read(HERE / 'sealed-inputs/manifest.json')['limitations'])\n    record_path = ROOT / 'migration/candidates/rc3/desktop-completion-current-checks.json'\n    assert not record_path.exists()\n    write(record_path, current)\n    inputs = read(HERE / 'prepared-live-inputs.json')\n    included = {row['path'] for row in inputs}\n    observers = read(HERE / 'input-equivalence.json')['externalObserverExclusions'] + ['scripts/verify_live_desktop_provider.py']\n    for name in observers + ['migration/candidates/rc3/desktop-completion-current-checks.json']:\n        if name not in included:\n            inputs.append(dict(path=name, sha256=sha(ROOT / name), scope='Independent external observer or exact-candidate receipt; original gate snapshot unchanged'))\n    receipt = dict(id=EVIDENCE, task_id=task['id'], kind='acceptance', result='passed', validity='current',\n        exit_code=0, acceptance_digest=acceptance_digest(task), target_upstream=TARGET, product_commit=CANDIDATE,\n        contract_revisions={}, inputs=inputs, artifacts=[dict(path=sealed['path'], sha256=sealed['sha256'])],\n        commands=[\n            '.venv/Scripts/python.exe scripts/verify_release.py --browser \"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe\" --browser108 \"C:/Users/czh86/Documents/Codex/deepseek-harness-win7/.goose/tools/chromium-1058931/chrome-win/chrome.exe\" --output-dir .goose/out/rc3-release-gate-6cbcbf1c-20261018-d',\n            '.venv/Scripts/python.exe .goose/out/rc3-completion-preparation-20261018-b/recover-seal.py',\n            '.venv/Scripts/python.exe .goose/out/rc3-completion-preparation-20261018-b/finalize.py deliver'],\n        environment=dict(python=sys.version, os=sys.platform, windows=platform.platform(), cwd=str(ISO), node=summary['node'], browser=summary['browser']),\n        qualification=dict(counts=counts, regression=summary['regression'], source_configurations=21, paired_drivers=82,\n            source_config_results=configurations, source_execution_totals=dict(passed=sum(r['passed'] for r in configurations), skipped=sum(r['skipped'] for r in configurations)),\n            frozen_inputs=len(read(GATE / 'inputs.json')), input_manifest_sha256=summary['input_manifest_sha256'],\n            seal_recovery=sealed['seal_recovery'],\n            archive_sha256=summary['archive_sha256'], scope=summary['scope'],\n            x86='Separate actual extracted runtime plus modern/108 minimal/standard/cordis fresh/cold; not full x86 Python regression.',\n            desktop='Both architectures Standard fresh and old-generation covering upgrade plus AIO fresh: six actual administrator lanes, normal-user GUI fresh/cold, publication rollback, uninstall/user-file preservation and independent machine restoration.',\n            closed_parent_pipes='Both new packaged architectures survive explicit main-process stdout/stderr writes and actual plugin-window RPC after parent-pipe closure.',\n            provider='Actual packaged CLI both architectures and original x64 packaged Desktop composer/tool/cold context resume.',\n            updates='Local independent HTTPS/private-CA/Ed25519/signature/download and actual changed-byte PowerShell refusal; same verified Standard downloads consumed by administrator installation. Operator server deferred.',\n            visual='120 original-renderer views, 60 matching visible-control/focus/dialog/disclosure pairs; main max 0.01043701171875 CSS px, overall native form max 2 CSS px. Same Python Host, selected views and simulated scale.',\n            record_only_exclusions=read(HERE / 'input-equivalence.json')['recordOnlyExclusions'],\n            external_observer_exclusions=read(HERE / 'input-equivalence.json')['externalObserverExclusions'],\n            limitations=current['limitations'],\n            note='One complete clean gate binds exact new Portable. Independent observations retain their own identities; prior failed gates are not promoted or combined. Raw snapshot remains authoritative; qualified_sha256 discloses only CRLF/LF equivalence. Later observer/record commits are not newly qualified product candidates.'))\n    destination = ROOT / ('migration/evidence/' + EVIDENCE + '.json')\n    assert not destination.exists()\n    write(destination, receipt)\n    task.update(state='integrated', evidence_ids=[EVIDENCE], open_findings=[], candidate_commit=CANDIDATE,\n                integrated_commit=CANDIDATE, targeted_record=record_path.relative_to(ROOT).as_posix(),\n                next_action='Completed outside user-deferred physical Win7 and operator LAN deployment. Retain exact seven delivery artifacts, independently sealed observations and protected machine/history backups.')\n    write(task_path, task)\n    baseline_path = ROOT / 'migration/baseline.json'\n    baseline = read(baseline_path)\n    historical = baseline['historical_qualifications']\n    previous_evidence = baseline['qualification_evidence']\n    if not any(row['evidence_id'] == previous_evidence for row in historical):\n        previous = read(ROOT / ('migration/evidence/' + previous_evidence + '.json'))\n        primary = [row for row in previous['artifacts'] if row['path'] == 'migration/evidence/artifacts/RC3-QUALIFICATION-20261018-228CFACC.zip']\n        assert len(primary) == 1\n        historical.append(dict(evidence_id=previous_evidence, product_commit=previous['product_commit'],\n            artifact=primary[0]['path'], archive_sha256=primary[0]['sha256'], supporting_artifacts=previous['artifacts']))\n    baseline.update(product_commit=CANDIDATE, recorded_at='2026-10-18', qualification_evidence=EVIDENCE,\n        scope='rc.3 migration and Desktop completion: one clean current Windows x64 release gate, separate extracted x86 and six administrator lanes, real provider and local signed private-CA update rehearsal. Physical Win7/operator LAN deployment deferred, bounded Source exceptions remain.')\n    baseline['platform_validation'].update(python38='rc3-complete-current-windows-passed',\n        portable='rc3-exact-x64-complete-gate-and-x86-extracted-modern108-passed',\n        desktop='rc3-x86-x64-standard-fresh-upgrade-and-aio-fresh-administrator-lifecycle-passed',\n        real_provider='actual-packaged-cli-both-architectures-and-x64-desktop-ui-tool-cold-resume-passed',\n        operator_lan_updates='local-https-private-ca-signed-download-install-rehearsed-server-deferred-by-user')\n    baseline['desktop_followup'].update(candidate_commit=CANDIDATE, status='integrated',\n        repair_validation='shared-history targeted checks plus package-bound provider/GUI/admin and bounded visual matrix',\n        unified_qualification=EVIDENCE, record=record_path.relative_to(ROOT).as_posix())\n    assert baseline['accepted_upstream'] is None\n    write(baseline_path, baseline)\n    alignment_path = ROOT / 'migration/tasks/MIG-RC3-ALIGNMENT-001.json'\n    alignment = read(alignment_path)\n    alignment['next_action'] = 'Historical 228cfacc exact qualification retained. Desktop/history follow-up completed separately by MIG-DESKTOP-UPGRADE-001 and its 6cbcbf1c receipt; Win7 and actual operator LAN deployment deferred by user.'\n    write(alignment_path, alignment)\n    matrix_path = ROOT / 'migration/rc3-capabilities.json'\n    matrix = read(matrix_path)\n    old_matrix = dict(matrix['qualification'])\n    assert old_matrix['unified_candidate'] == '228cfacca1eeb0936268077b5cec244363359705'\n    matrix['qualification']['historical_unified_qualifications'] = [old_matrix]\n    matrix['qualification'].update(unified='passed-6cbcbf1c-single-clean-gate-d', unified_evidence=EVIDENCE,\n        unified_candidate=CANDIDATE,\n        last_failed_candidate=CANDIDATE,\n        diagnostic_candidate=CANDIDATE,\n        last_failed_run='rc3-release-gate-6cbcbf1c-20261018-c; dependency-junction stack identity; retained as failed',\n        desktop_installation='six-actual-administrator-standard-fresh-upgrade-aio-fresh-and-uninstall-passed',\n        real_cloud_providers='actual-deepseek-packaged-cli-both-architectures-and-x64-original-desktop-tool-cold-resume-passed; other-providers-not-certified',\n        operator_lan_updates='local-private-ca-signature-download-and-same-installer-installation-passed; operator-server-deferred-by-user',\n        completion_record=record_path.relative_to(ROOT).as_posix(),\n        desktop_packaged_runtime='both-architectures-six-actual-administrator-lanes-and-normal-user-fresh-cold-passed',\n        archive_sha256=summary['archive_sha256'])\n    write(matrix_path, matrix)\n    contract_path = ROOT / 'migration/contracts/CON-RC3-SHARED.json'\n    contract = read(contract_path)\n    # Qualification facts are record metadata; invariants and revision stay exact.\n    contract['historical_qualification_boundary'] = dict(\n        product_commit='228cfacca1eeb0936268077b5cec244363359705',\n        evidence='RUN-RC3-QUALIFICATION-20261018-228CFACC',\n        boundary=contract['qualification_boundary'])\n    contract['qualification_candidate'] = CANDIDATE\n    contract['qualification_evidence'] = EVIDENCE\n    contract['qualification_boundary'] = [\n        'Physical Win7/browser-on-Win7 and system prerequisite installation/reboot deferred by user.',\n        'Six actual administrator installer lanes and independent restoration passed on current Win11; this does not qualify Win7 installation.',\n        'Actual DeepSeek CLI on both packaged architectures and original x64 Desktop message/tool/cold recovery passed; other providers and arbitrary plugin ABI/all297-manifest parity are not certified.',\n        'Local independent HTTPS/private-CA/Ed25519/download and same-byte installer actual installation passed; operator LAN publication deferred until user infrastructure is available.',\n        'Selected fixed Source configurations and explicit bounded exceptions; historical raw failing suites retain their failed identity.'\n    ]\n    write(contract_path, contract)\n    write(HERE / 'recorded.json', dict(evidence=EVIDENCE, candidate=CANDIDATE, counts=counts, source_configurations=21, paired=82))\n    print(json.dumps(dict(evidence=EVIDENCE, counts=counts)))\n\n\nif __name__ == '__main__':\n    main()\n",
+    "tail_print_diagnostic": "Traceback (most recent call last):\n  File \"C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\resume-record.py\", line 21, in <module>\n    exec(compile(ast.fix_missing_locations(tail),str(HERE/'record.py')+':unexecuted-tail','exec'),globals())\n  File \"C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\record.py:unexecuted-tail\", line 160, in <module>\nNameError: name 'json' is not defined\n",
+    "postcondition_verifier": "\"\"\"Verify already committed record writes after the final diagnostic print failed.\"\"\"\nfrom finalize import ROOT,HERE,GATE,CANDIDATE,read,write,sha\nfrom scripts.migration import acceptance_digest\n\nevidence='RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C'\nreceipt=read(ROOT/('migration/evidence/'+evidence+'.json'))\ntask=read(ROOT/'migration/tasks/MIG-DESKTOP-UPGRADE-001.json')\nbaseline=read(ROOT/'migration/baseline.json')\ncontract=read(ROOT/'migration/contracts/CON-RC3-SHARED.json')\nmatrix=read(ROOT/'migration/rc3-capabilities.json')\nassert receipt['product_commit']==task['integrated_commit']==baseline['product_commit']==contract['qualification_candidate']==matrix['qualification']['unified_candidate']==CANDIDATE\nassert receipt['result']=='passed' and task['state']=='integrated' and not task['open_findings']\nassert receipt['acceptance_digest']==acceptance_digest(task)\nassert baseline['accepted_upstream'] is None\nassert baseline['qualification_evidence']==contract['qualification_evidence']==matrix['qualification']['unified_evidence']==evidence\nprevious=next(r for r in baseline['historical_qualifications'] if r['evidence_id']=='RUN-RC3-QUALIFICATION-20261018-228CFACC')\nassert len(previous['supporting_artifacts'])==3\nassert previous['supporting_artifacts']==read(ROOT/'migration/evidence/RUN-RC3-QUALIFICATION-20261018-228CFACC.json')['artifacts']\nrecorded=read(HERE/'recorded.json')\nassert recorded['counts']==receipt['qualification']['counts'] and recorded['evidence']==evidence\npath=ROOT/'migration/candidates/rc3/desktop-completion-current-checks.json'\nassert sha(path)==next(r['sha256'] for r in receipt['inputs'] if r['path']==path.relative_to(ROOT).as_posix())\nassert contract['revision']==1 and len(contract['invariants'])==4\nwrite(HERE/'record-tail-recovery.json',dict(status='passed',scope='All record writes verified after the recovery tail final print failed due missing json import; no writes repeated and original failures retained.',\n    new_receipt=evidence,retained_historical_artifacts=3,original_failures=['completion-record.log','completion-record-recovery.log']))\nprint('All written record states, exact receipt bytes, prior three artifacts and acceptance digest verified.')\n"
+  }
+}

@@ -46,10 +46,10 @@
     "Desktop follows the specified Electron22/Python3.8 Win7 carrier and separate Standard/AIO prerequisite policy."
   ],
   "qualification": {
-    "unified": "passed-228cfacc-single-clean-gate-c",
-    "desktop_installation": "not-executed",
+    "unified": "passed-6cbcbf1c-single-clean-gate-d",
+    "desktop_installation": "six-actual-administrator-standard-fresh-upgrade-aio-fresh-and-uninstall-passed",
     "win7": "deferred-by-user",
-    "real_cloud_providers": "not-verified",
+    "real_cloud_providers": "actual-deepseek-packaged-cli-both-architectures-and-x64-original-desktop-tool-cold-resume-passed; other-providers-not-certified",
     "finite_receipts": [
       "migration/candidates/rc3/9ab3-finite-current-checks.json",
       "migration/candidates/rc3/loader-consumers-current-checks.json",
@@ -68,12 +68,47 @@
       "migration/candidates/rc3/extracted-parent-current-checks.json",
       "migration/candidates/rc3/desktop-cc4-current-checks.json"
     ],
-    "unified_candidate": "228cfacca1eeb0936268077b5cec244363359705",
-    "last_failed_candidate": "228cfacca1eeb0936268077b5cec244363359705",
-    "diagnostic_candidate": "228cfacca1eeb0936268077b5cec244363359705",
-    "unified_evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
-    "desktop_packaged_runtime": "x86-and-x64-passed-including-closed-pipes-plugin-window",
-    "archive_sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6"
+    "unified_candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "last_failed_candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "diagnostic_candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "unified_evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+    "desktop_packaged_runtime": "both-architectures-six-actual-administrator-lanes-and-normal-user-fresh-cold-passed",
+    "archive_sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+    "historical_unified_qualifications": [
+      {
+        "unified": "passed-228cfacc-single-clean-gate-c",
+        "desktop_installation": "not-executed",
+        "win7": "deferred-by-user",
+        "real_cloud_providers": "not-verified",
+        "finite_receipts": [
+          "migration/candidates/rc3/9ab3-finite-current-checks.json",
+          "migration/candidates/rc3/loader-consumers-current-checks.json",
+          "migration/candidates/rc3/dd4b-finite-current-checks.json",
+          "migration/candidates/rc3/desktop-916e-current-checks.json",
+          "migration/candidates/rc3/gate-controls-current-checks.json",
+          "migration/candidates/rc3/desktop-1446-current-checks.json",
+          "migration/candidates/rc3/ptc-events-current-checks.json",
+          "migration/candidates/rc3/desktop-6873-current-checks.json",
+          "migration/candidates/rc3/plugin-window-pipes-current-checks.json",
+          "migration/candidates/rc3/handle-observers-current-checks.json",
+          "migration/candidates/rc3/isolated-readers-current-checks.json",
+          "migration/candidates/rc3/extracted-repairs-current-checks.json",
+          "migration/candidates/rc3/desktop-228cfacc-current-checks.json",
+          "migration/candidates/rc3/path-failure-current-checks.json",
+          "migration/candidates/rc3/extracted-parent-current-checks.json",
+          "migration/candidates/rc3/desktop-cc4-current-checks.json"
+        ],
+        "unified_candidate": "228cfacca1eeb0936268077b5cec244363359705",
+        "last_failed_candidate": "228cfacca1eeb0936268077b5cec244363359705",
+        "diagnostic_candidate": "228cfacca1eeb0936268077b5cec244363359705",
+        "unified_evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
+        "desktop_packaged_runtime": "x86-and-x64-passed-including-closed-pipes-plugin-window",
+        "archive_sha256": "cc4bbac0233dc6867ee56553169e741a2fce3edc66705d4adb2d5bc198f973c6"
+      }
+    ],
+    "last_failed_run": "rc3-release-gate-6cbcbf1c-20261018-c; dependency-junction stack identity; retained as failed",
+    "operator_lan_updates": "local-private-ca-signature-download-and-same-installer-installation-passed; operator-server-deferred-by-user",
+    "completion_record": "migration/candidates/rc3/desktop-completion-current-checks.json"
   },
   "manifests": [
     {

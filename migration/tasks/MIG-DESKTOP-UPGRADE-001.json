@@ -2,7 +2,7 @@
   "id": "MIG-DESKTOP-UPGRADE-001",
   "goal": "Complete rc.3 existing-data migration, Windows Desktop distribution and bounded upstream design qualification outside deferred Win7 validation.",
   "kind": "implementation",
-  "state": "review",
+  "state": "integrated",
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "base_product": "228cfacca1eeb0936268077b5cec244363359705",
   "requires": [],
@@ -14,7 +14,9 @@
     "Pinned original renderers are checked on Electron22/44 across locale, theme and simulated scale; deliberate Win7 distribution behavior, native control metrics and observer limits are explicitly disclosed.",
     "Actual provider messages/read tool/cold recovery pass through CLI and original Desktop UI. Local independent HTTPS/Ed25519/private-CA download and rejection checks bind the real installers consumed by administrator verification. Operator LAN deployment and Win7 machine qualification remain explicitly deferred by user."
   ],
-  "evidence_ids": [],
+  "evidence_ids": [
+    "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C"
+  ],
   "expected_paths": [
     "apps/desktop",
     "dsh/host/desktop",
@@ -22,12 +24,11 @@
     "docs/research",
     "migration/candidates/rc3"
   ],
-  "open_findings": [
-    "After physical local dependency isolation, all 82 paired drivers, actual extracted runtime/browser consumers, unchanged parent validator and before/after frozen-input checks passed independently. Clean 6cbcbf1c complete gate d is now running; failed c remains failed. Six administrator lanes, exact downloaded installer identity and independent machine restoration retain separately passed observations."
-  ],
-  "next_action": "Finish the independent stable-candidate complete gate d, compare all Portable member bytes against original Desktop build input, then seal exact receipts and seven delivery artifacts before integration. Win7 and actual operator LAN deployment remain user-deferred.",
+  "open_findings": [],
+  "next_action": "Completed outside user-deferred physical Win7 and operator LAN deployment. Retain exact seven delivery artifacts, independently sealed observations and protected machine/history backups.",
   "conflicts_with": [],
   "owner": "codex/desktop-upgrade",
   "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
-  "targeted_record": "migration/candidates/rc3/desktop-upgrade-current-checks.json"
+  "targeted_record": "migration/candidates/rc3/desktop-completion-current-checks.json",
+  "integrated_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0"
 }

@@ -29,9 +29,22 @@
   "cancellation": "Observer abort settles promptly while owned provider work drains and disposes exactly once.",
   "adaptation": "Python 3.8.10 and Win7 platform implementations; original React/TSX/CSS resources stay unchanged, Desktop uses Electron 22.3.27 per specified research.",
   "qualification_boundary": [
-    "Physical Win7/browser-on-Win7 deferred by user.",
-    "Administrator installation, system updates and reboot not executed.",
-    "Real cloud providers and arbitrary plugin ABI / all297-manifest parity are not certified.",
+    "Physical Win7/browser-on-Win7 and system prerequisite installation/reboot deferred by user.",
+    "Six actual administrator installer lanes and independent restoration passed on current Win11; this does not qualify Win7 installation.",
+    "Actual DeepSeek CLI on both packaged architectures and original x64 Desktop message/tool/cold recovery passed; other providers and arbitrary plugin ABI/all297-manifest parity are not certified.",
+    "Local independent HTTPS/private-CA/Ed25519/download and same-byte installer actual installation passed; operator LAN publication deferred until user infrastructure is available.",
     "Selected fixed Source configurations and explicit bounded exceptions; historical raw failing suites retain their failed identity."
-  ]
+  ],
+  "historical_qualification_boundary": {
+    "product_commit": "228cfacca1eeb0936268077b5cec244363359705",
+    "evidence": "RUN-RC3-QUALIFICATION-20261018-228CFACC",
+    "boundary": [
+      "Physical Win7/browser-on-Win7 deferred by user.",
+      "Administrator installation, system updates and reboot not executed.",
+      "Real cloud providers and arbitrary plugin ABI / all297-manifest parity are not certified.",
+      "Selected fixed Source configurations and explicit bounded exceptions; historical raw failing suites retain their failed identity."
+    ]
+  },
+  "qualification_candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+  "qualification_evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C"
 }

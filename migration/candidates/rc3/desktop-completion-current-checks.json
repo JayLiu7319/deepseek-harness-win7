@@ -1,0 +1,1335 @@
+{
+  "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "qualification_evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+  "archive": {
+    "path": "migration/evidence/artifacts/RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.zip",
+    "bytes": 361024774,
+    "sha256": "422a05115518200f191bbbac52f523b47708acd2a7e6d7c64e97c618ff78fc96",
+    "members": 10,
+    "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "archive_sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+    "administrator_output": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-admin-6cbcbf1c-20261018-a",
+    "seal_recovery": {
+      "status": "passed",
+      "scope": "Completed carrier CRC, inventory, all member SHA and original staged bytes verified; only failed final rename retried. Original seal exit 1 remains retained.",
+      "candidate": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+      "original_failure": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\completion-seal.log",
+      "sha256": "422a05115518200f191bbbac52f523b47708acd2a7e6d7c64e97c618ff78fc96",
+      "verified_members": 10,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "renamed"
+        }
+      ],
+      "bytes": 361024774
+    }
+  },
+  "delivery": {
+    "directory": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dist\\dsh-v0.1.5-rc.3-6cbcbf1c-qualified",
+    "artifacts": [
+      {
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\dist\\dsh-win7-portable-v0.1.5-rc.3.zip",
+        "sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+        "scope": "x64 complete release gate",
+        "path": "dsh-win7-portable-v0.1.5-rc.3.zip",
+        "bytes": 106551699
+      },
+      {
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3p86b\\dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+        "sha256": "894f7bab4bb4958bdfcdb17895e615a80b9cc195993629035ae59dbbbd967b6a",
+        "scope": "x86 separate actual extracted runtime and modern/108 three-preset fresh/cold",
+        "path": "dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+        "bytes": 94596022
+      },
+      {
+        "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+        "bytes": 126308349,
+        "sha256": "706c29b0f603e2b21f5123e068aa3b7abab6ff73ab448fd3e03ce481dd99f185",
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3d64b\\dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+        "scope": "x64 actual administrator and installed normal-user fresh/cold GUI"
+      },
+      {
+        "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+        "bytes": 349246261,
+        "sha256": "eb43cda8855be997c62f9302db28c3100995f8747a105af8df3bae3dcd5a0757",
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3d64b\\dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+        "scope": "x64 actual administrator and installed normal-user fresh/cold GUI"
+      },
+      {
+        "path": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+        "bytes": 115432568,
+        "sha256": "cb2257ffc895617686de6c858a71508f0f3ddb376bf8252dda8d3747fb3bbd00",
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3d86b\\dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+        "scope": "x86 actual administrator and installed normal-user fresh/cold GUI"
+      },
+      {
+        "path": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+        "bytes": 423792806,
+        "sha256": "f89c3468245952606b0141f8d62bcb4a11404f96498df073eec6086961014a7c",
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3d86b\\dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+        "scope": "x86 actual administrator and installed normal-user fresh/cold GUI"
+      },
+      {
+        "path": "dsh-win7-offline-upgrade.zip",
+        "bytes": 306681769,
+        "sha256": "6f57ea5fb44c58035db41eecea44ebdeb3bab1362a71945e97898e95d33f020f",
+        "source": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3offlinea\\dsh-win7-offline-upgrade.zip",
+        "scope": "Signed Microsoft inputs and CRC/SHA-verified ZIP; no system patch installation"
+      }
+    ],
+    "index": {
+      "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\dist\\README.txt",
+      "sha256": "da34464965266d8a3102a1dc50523589dd48d197288d4d966872ebefbc0d9bbb"
+    }
+  },
+  "complete_gate": {
+    "summary": "C:\\Users\\czh86\\.codex\\worktrees\\rc3-desktop-completion\\deepseek-harness-win7\\.goose\\out\\rc3-release-gate-6cbcbf1c-20261018-d\\summary.json",
+    "counts": {
+      "collected": 19373,
+      "passed": 19367,
+      "skipped": 6
+    },
+    "archive_sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+    "source_configurations": 21,
+    "paired_drivers": 82
+  },
+  "x86_extracted": {
+    "status": "passed",
+    "archiveSha256": "894f7bab4bb4958bdfcdb17895e615a80b9cc195993629035ae59dbbbd967b6a",
+    "scope": "Actual extracted x86 Portable runtime and modern/108 three-preset fresh/cold browser journeys on Win11; separate from x64 complete release gate",
+    "phases": [
+      {
+        "name": "runtime",
+        "exitCode": 0,
+        "seconds": 51.328
+      },
+      {
+        "name": "modern-minimal",
+        "exitCode": 0,
+        "seconds": 65.453
+      },
+      {
+        "name": "modern-standard",
+        "exitCode": 0,
+        "seconds": 43.422
+      },
+      {
+        "name": "modern-cordis",
+        "exitCode": 0,
+        "seconds": 45.515
+      },
+      {
+        "name": "108-minimal",
+        "exitCode": 0,
+        "seconds": 116.531
+      },
+      {
+        "name": "108-standard",
+        "exitCode": 0,
+        "seconds": 45.922
+      },
+      {
+        "name": "108-cordis",
+        "exitCode": 0,
+        "seconds": 45.281
+      }
+    ]
+  },
+  "x64_modern_presets": {
+    "status": "passed",
+    "archiveSha256": "b2a5802782f4ac26720d5db057e94a6468fe5f31e5e749372045c2f031e809cf",
+    "scope": "Additional exact x64 extracted archive modern browser three-preset fresh/cold journeys; full-gate modern base and 108 qualification stay separate",
+    "phases": [
+      {
+        "name": "modern-minimal",
+        "exitCode": 0,
+        "seconds": 79.516
+      },
+      {
+        "name": "modern-standard",
+        "exitCode": 0,
+        "seconds": 40.25
+      },
+      {
+        "name": "modern-cordis",
+        "exitCode": 0,
+        "seconds": 41.672
+      }
+    ]
+  },
+  "administrator": {
+    "status": "passed",
+    "lanes": [
+      {
+        "id": "x64-standard-fresh",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 12.234
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 10.516
+          }
+        ]
+      },
+      {
+        "id": "x64-standard-upgrade",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 11.969
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 10.485
+          }
+        ]
+      },
+      {
+        "id": "x64-aio-fresh",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 15.016
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 10.609
+          }
+        ]
+      },
+      {
+        "id": "x86-standard-fresh",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 14.672
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 11.953
+          }
+        ]
+      },
+      {
+        "id": "x86-standard-upgrade",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 14.141
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 11.843
+          }
+        ]
+      },
+      {
+        "id": "x86-aio-fresh",
+        "gui": [
+          {
+            "phase": "fresh",
+            "exitCode": 0,
+            "seconds": 14.5
+          },
+          {
+            "phase": "cold",
+            "exitCode": 0,
+            "seconds": 11.953
+          }
+        ]
+      }
+    ],
+    "administrator": {
+      "lanes": [
+        {
+          "checks": [
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x64-standard-fresh",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-10734843",
+          "status": "passed"
+        },
+        {
+          "checks": [
+            "actual-previous-installer",
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x64-standard-upgrade",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-e9ffbcc5",
+          "status": "passed"
+        },
+        {
+          "checks": [
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x64-aio-fresh",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-4dfca3c0",
+          "status": "passed"
+        },
+        {
+          "checks": [
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x86-standard-fresh",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-38d7e661",
+          "status": "passed"
+        },
+        {
+          "checks": [
+            "actual-previous-installer",
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x86-standard-upgrade",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-0bfe2513",
+          "status": "passed"
+        },
+        {
+          "checks": [
+            "real-administrator-install-registry-shortcuts-and-upgrade",
+            "actual-publication-failure-restores-registry-and-exact-shortcuts",
+            "normal-user-installed-payload-fresh-and-cold",
+            "actual-uninstall-preserves-user-file-and-removes-owned-products"
+          ],
+          "id": "x86-aio-fresh",
+          "emptyInstallDirectoriesRetained": 1,
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-4b3fff3a",
+          "status": "passed"
+        }
+      ],
+      "status": "passed",
+      "fixtureCleanup": [
+        {
+          "status": "removed-verified-owned-QA-products",
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-926816ea"
+        },
+        {
+          "status": "removed-verified-owned-QA-products",
+          "root": "C:\\Users\\czh86\\AppData\\Local\\Temp\\dsh-life-076890f3"
+        }
+      ],
+      "restored": true
+    }
+  },
+  "independent_restoration": {
+    "status": "passed",
+    "scope": "Independent normal-user read-only registry exports and shortcut hashes after privileged restoration",
+    "checks": [
+      {
+        "kind": "registry",
+        "key": "HKLM\\Software\\DeepSeekHarnessWin7",
+        "sha256": "af3add54006f5f8744204140fe21e11bc30320d82d6fd540ef229b901f98ff05"
+      },
+      {
+        "kind": "registry",
+        "key": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\DeepSeekHarnessWin7",
+        "sha256": "62b9f37afd24dae903c0e70ba4fc7acffd3c5e046320dde5f8dba594df87a0e1"
+      },
+      {
+        "kind": "shortcut",
+        "name": "DeepSeek Harness.lnk",
+        "sha256": "7a9942e5db1cac851aa48c3becd4225eac2ca2cb9753c25f4db4ef13dee3c18e"
+      },
+      {
+        "kind": "shortcut",
+        "name": "Uninstall.lnk",
+        "sha256": "d5d6825b58428aacb51f0b34fd937a3eade69e0906d463d8d9ddc62ed6b6d940"
+      }
+    ]
+  },
+  "package_services": {
+    "status": "passed",
+    "steps": [
+      {
+        "name": "update-x64",
+        "exitCode": 0
+      },
+      {
+        "name": "live-cli-x64",
+        "exitCode": 0
+      },
+      {
+        "name": "live-desktop-x64",
+        "exitCode": 0
+      },
+      {
+        "name": "update-x86",
+        "exitCode": 0
+      },
+      {
+        "name": "live-cli-x86",
+        "exitCode": 0
+      }
+    ]
+  },
+  "closed_parent_pipes": {
+    "status": "passed",
+    "source": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\scripts\\oracles\\desktop_upgrade_current.mjs",
+    "source_sha256": "b2e6b695a8ac7e66d7d9329ba7ac8cb89eb217f715cf9ac79084eea6129c34a3",
+    "observer_sha256": "ca87aa028b97e4b367aa2a1d97fe763b58482e19d2ae4cf51549edb606806f68",
+    "steps": [
+      {
+        "architecture": "x64",
+        "output": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-closed-pipes-x64-6cbcbf1c-20261018-a",
+        "exitCode": 0,
+        "checks": [
+          "second-instance-during-host-startup",
+          "original-first-use-notice-acknowledged",
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-single-instance-ownership",
+          "explicit-main-stdout-stderr-after-parent-pipe-closure",
+          "localized-native-menu-and-original-plugin-manager-light-dark",
+          "actual-plugin-window-rpc-after-parent-pipe-closure",
+          "packaged-graceful-shutdown",
+          "session-bytes-and-mtimes-unchanged",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ]
+      },
+      {
+        "architecture": "x86",
+        "output": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-closed-pipes-x86-6cbcbf1c-20261018-a",
+        "exitCode": 0,
+        "checks": [
+          "second-instance-during-host-startup",
+          "original-first-use-notice-acknowledged",
+          "original-packaged-renderer-without-node",
+          "packaged-python-settings-rpc",
+          "packaged-stream-baseline-and-cancellation",
+          "actual-single-instance-ownership",
+          "explicit-main-stdout-stderr-after-parent-pipe-closure",
+          "localized-native-menu-and-original-plugin-manager-light-dark",
+          "actual-plugin-window-rpc-after-parent-pipe-closure",
+          "packaged-graceful-shutdown",
+          "session-bytes-and-mtimes-unchanged",
+          "complete-observed-lifecycle-without-renderer-errors"
+        ]
+      }
+    ]
+  },
+  "build_retention": {
+    "status": "passed",
+    "builds": [
+      {
+        "build": "rc3d64b",
+        "files": 5,
+        "bytes": 220296183
+      },
+      {
+        "build": "rc3d86b",
+        "files": 9,
+        "bytes": 306664172
+      }
+    ]
+  },
+  "desktop_portable_build_input": {
+    "original_archive": {
+      "path": "C:\\Users\\czh86\\Documents\\Codex\\deepseek-harness-win7\\.goose\\out\\rc3-completion-preparation-20261018-b\\failed-c-original-x64-portable.zip",
+      "sha256": "b2a5802782f4ac26720d5db057e94a6468fe5f31e5e749372045c2f031e809cf",
+      "bytes": 106551699
+    },
+    "qualified_archive_sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+    "payload_equivalence": {
+      "status": "passed",
+      "members": 15579,
+      "manifest_sha256": "908b142ce470479bfa0414e5b3448e0478c9c366791a859d6a06acb80e0e5b88",
+      "sealed_location": "independent-observations.zip/preparation/archive-payload-equivalence.json"
+    },
+    "scope": "Desktop and independently named observations keep the earlier exact archive identity; all uncompressed files match the final same-candidate archive."
+  },
+  "visual": {
+    "scope": "Actual visible control geometry and captured focus/dialog state; excludes native OS DPI and upstream npm Host",
+    "pairedViews": 60,
+    "allControlOrdersMatch": true,
+    "maxRectDeltaCssPx": 2.0,
+    "mainApplicationMaxDelta": 0.01043701171875,
+    "rows": [
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.66668701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.66668701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.0104217529296875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 2.0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.66668701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.66668701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.0104217529296875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "en",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 2.0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.0104217529296875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "light",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.01043701171875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1.25,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "main",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "settings",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "models",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "model-editor",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 0.0104217529296875,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      },
+      {
+        "locale": "zh",
+        "page": "plugins",
+        "theme": "dark",
+        "scale": 1.5,
+        "sameControlOrder": true,
+        "maxRectDeltaCssPx": 1.3333320617675781,
+        "focusEqual": true,
+        "dialogsEqual": true,
+        "disclosuresEqual": true,
+        "overflow22": false,
+        "overflow44": false,
+        "buttonColorsEqual": true
+      }
+    ]
+  },
+  "visual_source_identity": {
+    "observed_product": "f0e5402eba25310ba9911df3bed3e9e6d493edd0",
+    "qualified_product": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+    "sole_change": "scripts/sdk_profile_imports.json; no application or renderer source changes",
+    "matrix": "desktop-visual-matrix-20261018-h",
+    "original_failed_matrix": "desktop-visual-matrix-20261018-g"
+  },
+  "limitations": [
+    "Physical Win7 and system patch/reboot validation deferred by user.",
+    "Operator LAN server publication awaits user infrastructure; local HTTPS/private-CA/signature/download and the same installer actual installation are covered.",
+    "Original renderer comparison uses the Python Host, simulated scale and selected views; not upstream npm Host or arbitrary plugin ABI/pixel equality."
+  ]
+}

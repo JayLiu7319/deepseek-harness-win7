@@ -28,7 +28,7 @@
     "migration"
   ],
   "open_findings": [],
-  "next_action": "Retain exact qualified candidate and separate Desktop artifacts. Win7/admin installation and real cloud validation remain outside this completed current Windows qualification.",
+  "next_action": "Historical 228cfacc exact qualification retained. Desktop/history follow-up completed separately by MIG-DESKTOP-UPGRADE-001 and its 6cbcbf1c receipt; Win7 and actual operator LAN deployment deferred by user.",
   "conflicts_with": [],
   "owner": "codex/rc3-migration",
   "candidate_commit": "228cfacca1eeb0936268077b5cec244363359705",
