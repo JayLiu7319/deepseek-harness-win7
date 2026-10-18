@@ -19,5 +19,6 @@ def test_actual_node16_signed_update_and_coordinator(tmp_path):
     assert not result.stderr
     report = json.loads(result.stdout)
     assert report['status'] == 'qualified'
-    assert len(report['checks']) == 35
+    assert len(report['checks']) == 37
+    assert {'reject-invalid-private-CA-configuration', 'actual-explicit-private-CA-through-HTTPS-redirect'}.issubset(report['checks'])
     assert report['installationExecuted'] is False

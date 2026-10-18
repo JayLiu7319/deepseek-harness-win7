@@ -60,10 +60,12 @@ async function resource(request){
   if(url.hostname==='shell'){
     if(!['GET','HEAD'].includes(request.method))return {status:405,headers:[],body:Readable.from([])};
     let path;try{path=decodeURIComponent(url.pathname);}catch{return {status:400,headers:[],body:Readable.from([])};}
-    const allowed=['/plugin-manager.html','/plugin-manager.js','/plugin-manager.css','/win7-setup.html'];
+    const allowed=['/plugin-manager.html','/plugin-manager.js','/plugin-manager.css','/plugin-manager-compat.css','/win7-setup.html'];
     if(!allowed.includes(path))return {status:404,headers:[],body:Readable.from([])};
     let bytes=await readFile(join(__dirname,path==='/win7-setup.html'?'':'renderer',path.slice(1)));
-    if(path==='/plugin-manager.html')bytes=Buffer.from(bytes.toString('utf8').replace('placeholder="@scope/plugin@1.2.3"','placeholder="C:\\plugins\\package.zip"'));
+    if(path==='/plugin-manager.html')bytes=Buffer.from(bytes.toString('utf8')
+      .replace('placeholder="@scope/plugin@1.2.3"','placeholder="C:\\plugins\\package.zip"')
+      .replace('</head>','<link rel="stylesheet" href="plugin-manager-compat.css">\n</head>'));
     return {status:200,headers:[['content-type',mime[extname(path)]??'application/octet-stream']],body:Readable.from(request.method==='HEAD'?[]:[bytes])};
   }
   const headers=Object.entries(request.headers??{});

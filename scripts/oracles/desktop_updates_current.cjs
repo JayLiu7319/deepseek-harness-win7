@@ -49,6 +49,8 @@ async function main(){
   assert.throws(()=>signedRelease(Buffer.from(JSON.stringify(tampered)),config,'0.1.5-rc.3'));checks.push('reject-signature');
   assert.throws(()=>configuration({...config,manifestUrl:'https://user:password@example.invalid/feed'}));
   assert.throws(()=>configuration({...config,publicKey:crypto.generateKeyPairSync('rsa',{modulusLength:2048}).publicKey.export({format:'pem',type:'spki'})}));checks.push('reject-channel-configuration');
+  for(const caCertificate of ['',null,'C:\\private-ca.pem','not a certificate','x'.repeat(8193)])assert.throws(()=>configuration({...config,caCertificate}));
+  checks.push('reject-invalid-private-CA-configuration');
   const directory=await fs.mkdtemp(join(tmpdir(),'dsh-update-observer-'));
   try{
     let requests=0,launched;
@@ -119,6 +121,11 @@ async function main(){
     try{
       const network=new Win7Updater({config:{...config,manifestUrl:base+'/redirect'},currentVersion:'0.1.5-rc.3',temp:directory});
       await assert.rejects(network.checkForUpdates(),/self signed certificate/);checks.push('https-reject-untrusted-certificate');
+      const caCertificate=await fs.readFile(join(fixture,'localhost-cert.pem'),'utf8');
+      const intranet=new Win7Updater({config:{...config,manifestUrl:base+'/redirect',caCertificate},currentVersion:'0.1.5-rc.3',temp:directory});
+      assert.equal((await intranet.checkForUpdates()).isUpdateAvailable,true);await intranet.downloadUpdate();
+      assert.deepEqual(await fs.readFile(intranet.download.file),data);
+      await fs.unlink(intranet.download.file);await fs.rmdir(require('node:path').dirname(intranet.download.file));checks.push('actual-explicit-private-CA-through-HTTPS-redirect');
       https.globalAgent.options.ca=await fs.readFile(join(fixture,'localhost-cert.pem'));
       assert.equal((await network.checkForUpdates()).isUpdateAvailable,true);await network.downloadUpdate();
       assert.deepEqual(await fs.readFile(network.download.file),data);

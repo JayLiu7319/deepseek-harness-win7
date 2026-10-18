@@ -1,0 +1,21 @@
+/* Blink 108 does not implement AccentColor/AccentColorText. Match Blink 152's
+   default accent without changing the pinned upstream stylesheet. */
+@supports not (background: AccentColor) {
+  button {
+    background: #0075ff;
+    color: #fff;
+  }
+
+  button.quiet,
+  li button {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  @media (forced-colors: active) {
+    button {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 'use strict';
 const https=require('node:https');
-const {createHash,createPublicKey,verify}=require('node:crypto');
+const {createHash,createPublicKey,verify,X509Certificate}=require('node:crypto');
+const {createSecureContext}=require('node:tls');
 const {mkdtemp,open,unlink,rmdir,readFile,writeFile}=require('node:fs/promises');
 const {join}=require('node:path');
 const {spawn}=require('node:child_process');
@@ -19,10 +20,19 @@ function version(value){
 }
 function newer(left,right){const a=version(left),b=version(right);for(let i=0;i<a.length;i++){if(a[i]!==b[i])return a[i]>b[i];}return false;}
 function configuration(value){
-  if(!exact(value,['schemaVersion','channel','manifestUrl','publicKey'])||value.schemaVersion!==1||value.channel!=='win7-electron22')throw new Error('Invalid Win7 updater configuration');
+  const customCA=value&&Object.prototype.hasOwnProperty.call(value,'caCertificate');
+  if(!exact(value,['schemaVersion','channel','manifestUrl','publicKey',...(customCA?['caCertificate']:[])])||value.schemaVersion!==1||value.channel!=='win7-electron22')throw new Error('Invalid Win7 updater configuration');
   url(value.manifestUrl);
   const key=createPublicKey(value.publicKey);
   if(key.asymmetricKeyType!=='ed25519')throw new Error('Win7 updater requires an Ed25519 public key');
+  if(customCA){
+    const pem=value.caCertificate;
+    if(typeof pem!=='string'||Buffer.byteLength(pem)>8192)throw new Error('Invalid Win7 updater CA certificate');
+    const certificates=pem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/g);
+    if(!certificates?.length||certificates.join('').replace(/\s/g,'')!==pem.replace(/\s/g,''))throw new Error('Invalid Win7 updater CA certificate');
+    for(const certificate of certificates)new X509Certificate(certificate);
+    createSecureContext({ca:pem});
+  }
   return value;
 }
 function runtimeArchitecture(){return process.arch==='ia32'?'x86':process.arch;}
@@ -46,14 +56,14 @@ function signedRelease(bytes,config,current,now=Date.now(),architecture=runtimeA
   if(decodeURIComponent(url(artifact.url).pathname.split('/').pop())!=='dsh-desktop-standard-setup-v'+release.version+'-'+architecture+'.exe')throw new Error('Win7 installer filename differs');
   return newer(release.version,current)?release:undefined;
 }
-function response(address,redirects=0){
+function response(address,redirects=0,ca){
   url(address);
   return new Promise((resolve,reject)=>{
-    const request=https.get(address,{headers:{'user-agent':'DeepSeek-Harness-Win7-Updater','accept-encoding':'identity'}},incoming=>{
+    const request=https.get(address,{...(ca?{ca}:{}),headers:{'user-agent':'DeepSeek-Harness-Win7-Updater','accept-encoding':'identity'}},incoming=>{
       if([301,302,303,307,308].includes(incoming.statusCode)){
         incoming.resume();if(redirects>=5||!incoming.headers.location)return reject(new Error('Update redirect limit or destination missing'));
         let next;try{next=url(new URL(incoming.headers.location,address).href).href;}catch(error){reject(error);return;}
-        resolve(response(next,redirects+1));return;
+        resolve(response(next,redirects+1,ca));return;
       }
       if(incoming.statusCode!==200||incoming.headers['content-encoding']&&incoming.headers['content-encoding']!=='identity'){
         incoming.resume();reject(new Error('Update HTTP response differs'));return;
@@ -64,8 +74,8 @@ function response(address,redirects=0){
     request.on('error',reject);
   });
 }
-async function transfer(address,limit,sink){
-  const incoming=await response(address);let total=0;
+async function transfer(address,limit,sink,ca){
+  const incoming=await response(address,0,ca);let total=0;
   const timer=setTimeout(()=>incoming.destroy(new Error('Update transfer deadline')),600000);
   try{
     for await(const chunk of incoming){total+=chunk.length;if(total>limit)throw new Error('Update response exceeds its byte limit');await sink(chunk);}
@@ -85,9 +95,9 @@ function installerHandoff(installer,sha256,parentPid,log,installRoot,releaseVers
   return {binary,args:['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-EncodedCommand',Buffer.from(script,'utf16le').toString('base64')]};
 }
 class Win7Updater {
-  constructor({config,currentVersion,installRoot,temp=tmpdir(),fetch=transfer,launch=spawn,quit=()=>{},onError=()=>{}}){
+  constructor({config,currentVersion,installRoot,temp=tmpdir(),fetch,launch=spawn,quit=()=>{},onError=()=>{}}){
     this.config=config&&configuration(config);this.currentVersion=currentVersion;this.temp=temp;
-    this.fetch=fetch;this.launch=launch;this.quit=quit;this.release=undefined;this.download=undefined;
+    this.fetch=fetch||((address,limit,sink)=>transfer(address,limit,sink,this.config?.caCertificate));this.launch=launch;this.quit=quit;this.release=undefined;this.download=undefined;
     this.autoDownload=false;this.autoInstallOnAppQuit=false;
     this.installRoot=installRoot;this.onError=onError;
   }
