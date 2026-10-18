@@ -37,7 +37,7 @@ def main():
         return "'" + str(value).replace("'", "''") + "'"
     script = ROOT / 'scripts/verify_desktop_installation.ps1'
     parameters = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + str(script) + '" -Plan "' + str(frozen) + '"'
-    command = "$p=Start-Process -FilePath powershell.exe -Verb RunAs -WindowStyle Hidden -PassThru -ArgumentList " + literal(parameters) + ';$p.WaitForExit();exit $p.ExitCode'
+    command = "$ErrorActionPreference='Stop';try{$p=Start-Process -FilePath powershell.exe -Verb RunAs -WindowStyle Hidden -PassThru -ArgumentList " + literal(parameters) + ';$p.WaitForExit();exit $p.ExitCode}catch{[Console]::Error.WriteLine($_.Exception.Message);exit 1}'
     elevated = subprocess.Popen(['powershell.exe', '-NoProfile', '-NonInteractive', '-Command', command],
                                 stdout=(output / 'uac.stdout.log').open('wb'), stderr=(output / 'uac.stderr.log').open('wb'))
     report = dict(status='running', lanes=[])
