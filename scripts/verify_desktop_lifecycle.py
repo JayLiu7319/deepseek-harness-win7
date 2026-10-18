@@ -27,7 +27,8 @@ def main():
             if lane.get(name):
                 path = Path(lane[name])
                 assert path.is_absolute() and path.is_file(), name
-    plan.update(output=str(output), publication=str(ROOT / 'apps/desktop/installer/publish-installation.ps1'))
+    plan.update(output=str(output), publication=str(ROOT / 'apps/desktop/installer/publish-installation.ps1'),
+                cleanupScript=str(ROOT / 'apps/desktop/installer/uninstall-files.ps1'))
     frozen = output / 'administrator-plan.json'
     frozen.write_text(json.dumps(plan, indent=2) + '\n', encoding='utf-8')
     # Escape PowerShell literals; executable arguments are separately quoted for

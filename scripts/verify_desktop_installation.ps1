@@ -62,6 +62,22 @@ function Collect-EmptyDirectories([string]$Path,[Collections.Generic.List[string
 try {
   $principal=New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
   if(!$principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)){throw 'Administrator token required'}
+  $report.fixtureCleanup=@()
+  foreach($path in $configuration.cleanupRoots) {
+    $path=[IO.Path]::GetFullPath($path)
+    if([IO.Path]::GetDirectoryName($path).TrimEnd('\') -ne [IO.Path]::GetTempPath().TrimEnd('\') -or [IO.Path]::GetFileName($path) -notmatch '^dsh-life-[0-9a-f]{8}$') {throw 'Historical QA cleanup boundary differs'}
+    if(![IO.Directory]::Exists($path)){continue}
+    & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $configuration.cleanupScript -InstallDirectory $path *> (Join-Path $output ('historical-'+[IO.Path]::GetFileName($path)+'.log'))
+    if($LASTEXITCODE -ne 0){throw 'Historical QA inventory cleanup refused'}
+    $probe=Join-Path $path 'user-preservation-probe.txt'
+    if([IO.File]::Exists($probe)) {
+      if([IO.File]::ReadAllText($probe,[Text.Encoding]::UTF8) -ne 'owned user preservation probe'){throw 'Historical QA probe changed; preserving it'}
+      [IO.File]::Delete($probe)
+    }
+    $empty=New-Object 'Collections.Generic.List[string]';Collect-EmptyDirectories $path $empty
+    foreach($directory in $empty){[IO.Directory]::Delete($directory,$false)}
+    $report.fixtureCleanup+=,@{root=$path;status='removed-verified-owned-QA-products'}
+  }
   $initialRoot=Installed-Root
   for($index=0;$index -lt $keys.Count;$index++) {
     $path=Join-Path $output ('registry-before-'+$index+'.reg')
