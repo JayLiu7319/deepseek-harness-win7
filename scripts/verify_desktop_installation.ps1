@@ -136,8 +136,13 @@ try {
     $state.checks+=,'normal-user-installed-payload-fresh-and-cold'
     $uninstaller=Join-Path ([IO.Path]::GetDirectoryName($executable)) 'uninstall.exe'
     $process=Start-Process -FilePath $uninstaller -ArgumentList '/S' -PassThru -WindowStyle Hidden
+    if(!$process.WaitForExit(300000)){throw 'Uninstaller process completion deadline'}
     $deadline=[DateTime]::UtcNow.AddMinutes(5)
-    while((Installed-Root) -eq $root) {if([DateTime]::UtcNow -gt $deadline){throw 'Uninstaller completion deadline'};Start-Sleep -Milliseconds 200}
+    while((Installed-Root) -eq $root -or [IO.File]::Exists($executable) -or
+          [IO.File]::Exists((Join-Path $menu 'DeepSeek Harness.lnk')) -or [IO.File]::Exists((Join-Path $menu 'Uninstall.lnk'))) {
+      if([DateTime]::UtcNow -gt $deadline){throw 'Uninstaller completion deadline'}
+      Start-Sleep -Milliseconds 200
+    }
     if(![IO.File]::Exists($sentinel)){throw 'Uninstaller removed user data'}
     if([IO.File]::Exists($executable) -or ($previous -and [IO.File]::Exists((Join-Path $previous.FullName 'DeepSeek Harness.exe')))){throw 'Uninstaller retained owned executables'}
     foreach($name in @('DeepSeek Harness.lnk','Uninstall.lnk')){if([IO.File]::Exists((Join-Path $menu $name))){throw 'Uninstaller retained shortcut'}}
@@ -146,7 +151,7 @@ try {
     # Record those retained directories, then remove only verified empty test
     # fixture directories in child-first order. Unknown files/reparse abort.
     $empty=New-Object 'Collections.Generic.List[string]'
-    Collect-EmptyDirectories $root $empty
+    if([IO.Directory]::Exists($root)){Collect-EmptyDirectories $root $empty}
     $state.emptyInstallDirectoriesRetained=$empty.Count
     foreach($path in $empty){[IO.Directory]::Delete($path,$false)}
     $state.checks+=,'actual-uninstall-preserves-user-file-and-removes-owned-products'
