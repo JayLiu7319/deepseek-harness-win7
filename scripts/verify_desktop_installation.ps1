@@ -44,7 +44,9 @@ function Snapshot-Publication {
   $state=@{}
   foreach($path in $keys) {
     $key=[Microsoft.Win32.Registry]::LocalMachine.OpenSubKey($path.Substring(5));$values=@{}
-    try {if($key){foreach($name in ($key.GetValueNames() | Sort-Object)){$values[$name]=$key.GetValue($name)}}}finally{if($key){$key.Close()}}
+    try {if($key){foreach($name in ($key.GetValueNames() | Sort-Object)){
+      $values[$name]=@{kind=$key.GetValueKind($name).ToString();value=$key.GetValue($name,$null,[Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames)}
+    }}}finally{if($key){$key.Close()}}
     $state[$path]=$values
   }
   foreach($name in @('DeepSeek Harness.lnk','Uninstall.lnk')){$state[$name]=Digest (Join-Path $menu $name)}
