@@ -6,7 +6,7 @@ import pytest
 
 from dsh.host.desktop.runtime import run_desktop_host
 from dsh.core.abort import AbortController
-from dsh.host.desktop.session_compatibility import preserve_default_session_encoding
+from dsh.boot.session_compatibility import preserve_default_session_encoding
 from dsh.session.jsonl_current import generationLogPath
 from dsh.session.jsonl_zstd import compress_frame
 
@@ -86,3 +86,63 @@ async def test_empty_home_still_defaults_to_zstd(tmp_path, monkeypatch):
         assert runtime.ctx.get('sessionPersistence').compression == 'zstd'
     finally:
         await runtime.close()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('surface', ['standard', 'creative', 'web', 'desktop'])
+@pytest.mark.parametrize('compression', ['none', 'zstd'])
+async def test_shared_home_content_resume_migration_and_surface_cold_open(tmp_path, monkeypatch, surface, compression):
+    from dsh.boot.profile_boot import run_profile
+    from dsh.core.session.json import UNDEFINED
+    from dsh.session.persistence import SessionAlreadyOwnedError
+    home = tmp_path / 'shared-home'
+    monkeypatch.setenv('DSH_HOME', str(home))
+    monkeypatch.setenv('DSH_TELEMETRY_DISABLED', '1')
+    cases = json.loads((Path(__file__).resolve().parents[1] / 'scripts/oracles/session_generation_cases.json').read_text(encoding='utf-8'))
+    case = next(row for row in cases if row['case'] == 'generation/none/v0/publish')
+    old = Path(generationLogPath(str(home / 'sessions'), UNDEFINED, 'generation', 0, compression))
+    old.parent.mkdir(parents=True)
+    data = case['raw'].encode('utf-8')
+    first, body = data.split(b'\n', 1)
+    old.write_bytes(compress_frame(first + b'\n') + compress_frame(body) if compression == 'zstd' else data)
+    before = old.read_bytes(), old.stat().st_mtime_ns
+    overlay = tmp_path / 'observe.yml'
+    overlay.write_text('- id: headless-startup\n  disabled: true\n- id: headless-runner\n  disabled: true\n', encoding='utf-8')
+    for cold in (False, True):
+        if surface == 'desktop':
+            result = await run_desktop_host(home / 'profiles/desktop')
+            ctx = result.ctx
+        else:
+            result = await run_profile(dict(profile=surface, dshHome=str(home), patchFiles=[str(overlay)],
+                args=['--no-open', '--port', '0'] if surface == 'web' else [], waitForExit=False))
+            ctx = result['ctx']
+        try:
+            store = ctx.get('sessionPersistence')
+            assert store.compression == compression
+            reader = await store.open('generation', 'read')
+            artifact = await reader.read()
+            assert (await store.stat('generation'))['header']['version'] == 3
+            assert any(event['type'] == 'system/message' for event in artifact['events'])
+            await reader.close()
+            current = Path(generationLogPath(store.root, UNDEFINED, 'generation', 3, compression))
+            if not cold:
+                assert not current.exists(), 'reading legacy content must not publish migration'
+                writer = await store.open('generation', 'write')
+                try:
+                    with pytest.raises(SessionAlreadyOwnedError):
+                        await store.open('generation', 'write')
+                    count = len(artifact['events'])
+                    await writer.append([dict(type='turn/start', seq=count, time=20, data=dict(turn=2))])
+                finally:
+                    await writer.close()
+                assert current.is_file()
+            else:
+                assert artifact['events'][-1]['data']['turn'] == 2
+                assert artifact['events'][-1]['type'] == 'turn/start'
+            assert (old.read_bytes(), old.stat().st_mtime_ns) == before
+        finally:
+            if surface == 'desktop':
+                await result.close()
+            else:
+                result['shutdown'].shutdown(0)
+                await result['shutdown'].wait()

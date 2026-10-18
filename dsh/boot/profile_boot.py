@@ -10,6 +10,7 @@ Compatible with Python 3.8.10 and Windows 7 SP1.
 """
 
 import copy
+import asyncio
 import os
 import json
 import shutil
@@ -347,13 +348,15 @@ async def _run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
 
     root_config = os.path.join(composed.profile.dir, PROFILE_ROOT_FILENAME)
 
+    from dsh.boot.session_compatibility import preserve_default_session_encoding
+
     def compose_live() -> List[Dict[str, Any]]:
-        return admit_historical_persona_patches([
+        return preserve_default_session_encoding(admit_historical_persona_patches([
             *composed.bundle_patches,
             *(load_optional_patches(NAME, composed.profile.patch_path) or []),
             *(load_optional_patches(NAME, home_patch_path()) or []),
             *composed.overlays,
-        ])
+        ]), dsh_home)
 
     def host_setup(host_ctx: Context) -> None:
         app["current"] = host_ctx
@@ -391,7 +394,8 @@ async def _run_profile(options: Dict[str, Any]) -> Dict[str, Any]:
             "ready": app_ready["service"],
         })
 
-    all_patch_rows = copy.deepcopy(composed.all_patches())
+    all_patch_rows = await asyncio.get_running_loop().run_in_executor(
+        None, preserve_default_session_encoding, copy.deepcopy(composed.all_patches()), dsh_home)
     ctx = await boot(NAME, root_config, all_patch_rows, host_setup)
     app["current"] = ctx
 

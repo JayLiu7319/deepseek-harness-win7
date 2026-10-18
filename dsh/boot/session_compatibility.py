@@ -1,4 +1,4 @@
-"""Preserve the encoding of an existing default Desktop session directory.
+"""Preserve the encoding of an existing default session directory.
 
 This is an application upgrade policy, not a persistence format migration.
 Explicit user configuration and the backend's mixed-encoding guard still win.
@@ -46,7 +46,7 @@ def _encodings(root):
     return found
 
 
-def preserve_default_session_encoding(patches):
+def preserve_default_session_encoding(patches, home=None):
     """Return a detached patch list; never edit a user config or session file."""
     entries = compose_entries([patches])
     for entry in entries:
@@ -58,7 +58,7 @@ def preserve_default_session_encoding(patches):
                 or config.get('root') != {'__jsExpr': "dshHomePath('sessions')"}
                 or 'compression' in config):
             continue
-        if _encodings(os.path.join(resolve_dsh_home(), 'sessions')) == {'none'}:
+        if _encodings(os.path.join(home or resolve_dsh_home(), 'sessions')) == {'none'}:
             # Cordis replaces the entire config: retain every effective field.
             return list(patches) + [dict(id=entry['id'], config=dict(config, compression='none'))]
     return list(patches)

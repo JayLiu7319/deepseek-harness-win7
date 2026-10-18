@@ -66,3 +66,10 @@
 | 持续披露 | 上游例外及范围外 ABI | 保留既有 8 项精确 Source 例外和 C58 调度差异；297 项清单不是全部插件/任意调度的证明，`accepted_upstream` 仍为 null |
 
 任务登记为 `MIG-DESKTOP-UPGRADE-001`，与既有精确候选资格分开。测试日志、原始失败、真实用户观察和保护备份保留；可重建合成结果采用现有 pytest 自动保留策略，不批量删除 `.goose/out`。
+
+
+## 5. 后续实施：跨入口旧历史
+
+公共 `dsh.boot.session_compatibility` 现在供 canonical profile 启动/热重载和 Desktop 共用。只保留未显式设置压缩、使用默认根目录且只有明文历史的配置；后端编码冲突合同不变。Standard、Creative、Web、Desktop 的 none/zstd 实际服务读取、v0→v3 恢复追加、独占写句柄和冷打开已覆盖，旧文件字节和 mtime 保持不变。Minimal 本身显式使用 none，继续遵循其配置。
+
+定向集合 96 项通过（119.58 秒），输出 `.goose/out/desktop-completion-20261018-b`。前一次 8 项新增夹具失败保留在 `...-a`：读取头使用了错误接口，zstd 历史夹具没有将首行独立分帧；修正夹具后通过。此结果不替代新候选统一门禁。
