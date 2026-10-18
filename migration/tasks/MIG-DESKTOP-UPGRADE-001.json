@@ -23,9 +23,9 @@
     "migration/candidates/rc3"
   ],
   "open_findings": [
-    "Clean 6cbcbf1c full gate c failed at Cordis runner Source fixture identity after Python 19367 passed/6 skipped and 21 Source configurations passed. Six stack locations resolved through a shared oracle dependency junction into the old checkout; physical local dependency copying and direct paired/extracted checks are pending. Six administrator lanes and independent machine restoration remain separately passed."
+    "After physical local dependency isolation, all 82 paired drivers, actual extracted runtime/browser consumers, unchanged parent validator and before/after frozen-input checks passed independently. Clean 6cbcbf1c complete gate d is now running; failed c remains failed. Six administrator lanes, exact downloaded installer identity and independent machine restoration retain separately passed observations."
   ],
-  "next_action": "Verify physical local dependency hashes, all paired contracts and actual extracted direct consumers, then schedule a new stable-candidate single complete gate. Preserve failed c identity; no product or comparison-contract change. Win7 and operator LAN deployment remain user-deferred.",
+  "next_action": "Finish the independent stable-candidate complete gate d, compare all Portable member bytes against original Desktop build input, then seal exact receipts and seven delivery artifacts before integration. Win7 and actual operator LAN deployment remain user-deferred.",
   "conflicts_with": [],
   "owner": "codex/desktop-upgrade",
   "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
