@@ -75493,8 +75493,10 @@
     },
     {
       "path": "migration/candidates/rc3/desktop-completion-current-checks.json",
-      "sha256": "29951af3c835637ab296290f2e1bcaff37ca8e525f0c9737025f2344b50daeeb",
-      "scope": "Independent external observer or exact-candidate receipt; original gate snapshot unchanged"
+      "sha256": "71e60d0c65add2c17ca10ab894e858df9b456354b61441e275dbead9eab7fa52",
+      "scope": "Independent external observer or exact-candidate receipt; original gate snapshot unchanged",
+      "observed_windows_crlf_sha256": "29951af3c835637ab296290f2e1bcaff37ca8e525f0c9737025f2344b50daeeb",
+      "equivalence": "Record-only JSON normalized to required migration/** LF checkout; JSON value and qualified product/archive inputs unchanged."
     }
   ],
   "artifacts": [
