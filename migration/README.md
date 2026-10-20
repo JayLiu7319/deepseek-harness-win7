@@ -1,5 +1,7 @@
 # 持续对齐记录
 
+2026-10-20 发布收口：用户确认此前交付的普通离线导入包已完成 Win7 测试、未观察到问题，并授权发布本版。见[直接反馈与授权](evidence/HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C.json)和[v0.1.5-rc.3 发布说明](../docs/releases/v0.1.5-rc.3.md)。产品继续绑定 `6cbcbf1c` 和原七份发行字节，既有完整门禁回执不改写；用户未提供的架构、补丁/重启和浏览器矩阵不作推断。内网更新服务器部署继续独立延期，`accepted_upstream` 仍为 null。下文 Win7 延期叙述为当时历史状态。
+
 2026-10-18 最终收口：冻结候选 **`6cbcbf1c`** 的新鲜单次完整门禁通过：Python 19,367 通过/6 跳过、21 组固定 Source、82 个配对驱动及实际解压 Portable/现代和108浏览器验收全部通过。同候选x86实际解压、四份桌面安装器、六组管理员生命周期、包内真实服务和本地HTTPS/私有CA/签名下载安装均通过；原系统注册表与快捷方式独立核对恢复。120视图/60对原版renderer比较通过，原生控件最多2 CSS px差异及Win7分发行为明确披露。`MIG-DESKTOP-UPGRADE-001`已集成，七份精确产物已复制交付，见[正式回执](evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)和[完成检查](candidates/rc3/desktop-completion-current-checks.json)。仅Win7真机/系统补丁重启与用户后续实际内网服务器部署延期；八项精确Source例外、C58及任意插件ABI范围保持，`accepted_upstream`仍为null。以下较早228cfacc、0cfbd91b与“尚未完成”说明均保留当时身份，不代表本轮最终状态。
 
 2026-10-18 安装升级跟进：用户实际安装的x64 Standard因已有明文会话目录与默认zstd冲突而启动失败；本机配置已备份并恢复运行。修复候选 `0cfbd91b` 的104项定向回归、包内旧数据启动/冷启动各9项及Source资源核对通过，新安装器已独立交付。`MIG-DESKTOP-UPGRADE-001`保持review：管理员安装/升级/卸载、跨入口旧数据旅程、新稳定候选完整资格、其他架构修复包和Electron44视觉矩阵仍待完成。旧 `228cfacc` 回执不认证新修复；详见[本次审查与剩余工作](../docs/research/2026-10-18-desktop-installed-upgrade-and-parity-audit.md)及[定向检查](candidates/rc3/desktop-upgrade-current-checks.json)。

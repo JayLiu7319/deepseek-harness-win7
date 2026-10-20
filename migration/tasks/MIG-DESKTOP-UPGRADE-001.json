@@ -25,7 +25,7 @@
     "migration/candidates/rc3"
   ],
   "open_findings": [],
-  "next_action": "Completed outside user-deferred physical Win7 and operator LAN deployment. Retain exact seven delivery artifacts, independently sealed observations and protected machine/history backups.",
+  "next_action": "Completed automated scope; user reported Win7 import testing without observed issues and authorized release on 2026-10-20 (HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C). Retain exact seven delivery artifacts, independently sealed observations and protected machine/history backups; operator LAN update deployment awaits infrastructure.",
   "conflicts_with": [],
   "owner": "codex/desktop-upgrade",
   "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",

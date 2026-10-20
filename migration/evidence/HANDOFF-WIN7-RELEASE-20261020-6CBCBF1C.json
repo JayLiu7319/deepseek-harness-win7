@@ -1,0 +1,35 @@
+{
+  "id": "HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "product_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+  "kind": "human-approval",
+  "result": "passed",
+  "validity": "current",
+  "commands": [
+    "Direct user report of completed imported Win7 testing and explicit authorization to release this version; no new automated Win7 test execution by the agent."
+  ],
+  "environment": {
+    "os": "Windows 7, reported by user; edition, SP/build and architecture not supplied",
+    "llm": "User previously stated that an internal LLM API service is available; no per-provider results supplied"
+  },
+  "contract_revisions": {},
+  "artifacts": [],
+  "reported_at": "2026-10-20",
+  "report": {
+    "source": "Direct human user message in the current conversation",
+    "verbatim": "已经完成了导入win7测试，没有观察到问题，进行这版的release",
+    "decision": "Release the existing v0.1.5-rc.3 artifacts following user Win7 import testing with no observed problems",
+    "binding": "The normal offline import bundle delivered in the immediately preceding task; no separate asset hashes or test logs returned by the user",
+    "import_bundle": {
+      "filename": "dsh-v0.1.5-rc.3-win7-import-6cbcbf1c.zip",
+      "bytes": 1522617026,
+      "sha256": "0863ad756f8ec98609e6074d5293216924ff2c42b2f868f8dfb99ee5bf263286"
+    },
+    "limitations": [
+      "The user did not provide a per-architecture, installer, system-patch/reboot, terminal or browser test matrix.",
+      "This records human observations and release authorization, not an independently executed or complete automated Win7 qualification.",
+      "Existing bounded Source/ABI differences and deferred operator LAN update publication remain unchanged."
+    ]
+  },
+  "scope": "User-reported Win7 acceptance of the delivered import bundle and authorization to publish its unchanged seven v0.1.5-rc.3 release artifacts. Existing exact automated receipts retain their own candidate and scope."
+}

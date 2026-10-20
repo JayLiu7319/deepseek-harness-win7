@@ -2,7 +2,7 @@
 
 产品目标为 dsh-v0.1.5-rc.3，Python3.8.10、Windows7 SP1 及以上；桌面壳固定 Electron22.3.27。当前资格以迁移台账中绑定的提交、SHA 和回执为准。现代 Windows 上的运行结果不能代替 Win7 实机、系统补丁和重启验收。
 
-当前精确交付位于 [dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified](../dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/)，包含两份 Portable、四份 Standard/AIO 安装器和独立离线组件 ZIP，附 SHA256SUMS 与 manifest。这些文件从已验证源逐字节复制，没有重建。包内文档保留构建时的冻结快照；当前验收状态以外层manifest、本说明和正式回执为准。x64 单次完整门禁、x86 独立包内验收和六组实际管理员安装生命周期分别保留范围；查看[正式回执](../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)。本轮没有远程发布 Release，也没有安装 Win7 系统补丁。
+当前精确交付位于 [v0.1.5-rc.3 Release](https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.5-rc.3) 和本机 [dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified](../dist/dsh-v0.1.5-rc.3-6cbcbf1c-qualified/)，包含两份 Portable、四份 Standard/AIO 安装器和独立离线组件 ZIP，附 SHA256SUMS 与 manifest。这些文件从已验证源逐字节复制，没有重建。包内文档保留构建时的冻结快照；当前验收状态以[发布说明](releases/v0.1.5-rc.3.md)和正式回执为准。x64 单次完整门禁、x86 独立包内验收和六组实际管理员安装生命周期分别保留范围；查看[正式回执](../migration/evidence/RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C.json)。2026-10-20 用户确认已完成导入 Win7 测试、未观察到问题并授权发布；[反馈记录](../migration/evidence/HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C.json)不补造未提供的系统补丁/重启、架构和浏览器逐项结果。
 
 ## 用户升级与数据
 

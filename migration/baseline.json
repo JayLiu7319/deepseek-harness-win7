@@ -4,14 +4,14 @@
   "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
   "accepted_upstream": null,
   "observed_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
-  "recorded_at": "2026-10-18",
-  "scope": "rc.3 migration and Desktop completion: one clean current Windows x64 release gate, separate extracted x86 and six administrator lanes, real provider and local signed private-CA update rehearsal. Physical Win7/operator LAN deployment deferred, bounded Source exceptions remain.",
+  "recorded_at": "2026-10-20",
+  "scope": "rc.3 migration and Desktop completion: one clean current Windows x64 release gate, separate extracted x86 and six administrator lanes, real provider and local signed private-CA update rehearsal. User reports successful Win7 import testing and authorizes release; no per-matrix logs supplied. Operator LAN deployment deferred, bounded Source exceptions remain.",
   "platform_validation": {
     "python38": "rc3-complete-current-windows-passed",
-    "win7": "deferred-by-user",
+    "win7": "user-reported-import-test-no-observed-problems-20261020",
     "portable": "rc3-exact-x64-complete-gate-and-x86-extracted-modern108-passed",
     "real_provider": "actual-packaged-cli-both-architectures-and-x64-desktop-ui-tool-cold-resume-passed",
-    "browser_on_win7": "deferred-by-user",
+    "browser_on_win7": "not-separately-specified-in-user-win7-report",
     "desktop": "rc3-x86-x64-standard-fresh-upgrade-and-aio-fresh-administrator-lifecycle-passed",
     "operator_lan_updates": "local-https-private-ca-signed-download-install-rehearsed-server-deferred-by-user"
   },
@@ -44,6 +44,7 @@
     }
   ],
   "qualification_evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+  "win7_release_authorization": "HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C",
   "desktop_followup": {
     "task": "MIG-DESKTOP-UPGRADE-001",
     "candidate_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
