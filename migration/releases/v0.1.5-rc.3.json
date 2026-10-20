@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "tag": "v0.1.5-rc.3",
+  "product_commit": "6cbcbf1c678b5f95d9498450fb6b5047c99d1bd0",
+  "target_upstream": "a4c74a91e06b00fe0b0937bde982170c526cc842",
+  "status": "published",
+  "prerelease": true,
+  "release_id": 418294557,
+  "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/tag/v0.1.5-rc.3",
+  "published_at": "2026-10-20T11:01:55Z",
+  "recorded_at": "2026-10-20",
+  "qualification_evidence": "RUN-RC3-DESKTOP-COMPLETION-20261018-6CBCBF1C",
+  "win7_user_report": "HANDOFF-WIN7-RELEASE-20261020-6CBCBF1C",
+  "verification": {
+    "local": "Seven unchanged original release artifacts: exact size and SHA-256 matched frozen qualified manifest before upload; no rebuild.",
+    "remote": "Exact inventory, uploaded state, size and GitHub-computed SHA-256 digest matched all ten assets before and after publication.",
+    "public_metadata_download_sha256": [
+      "release-manifest.json",
+      "release-verification.json",
+      "SHA256SUMS.txt"
+    ],
+    "git_tag": "Remote tag verified at the original qualified product commit; documentation commits do not retag the candidate.",
+    "documentation": "Changed local links, JSON syntax, diff checks and migration check/ready/status validation passed.",
+    "workflow": "Legacy x64-only rebuild workflow disabled only around exact tag creation, then restored active before asset upload/publication.",
+    "protected_files": "Five pre-existing local EOL modifications preserved byte-for-byte and excluded from release record commits."
+  },
+  "assets": [
+    {
+      "name": "dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 349246261,
+      "sha256": "eb43cda8855be997c62f9302db28c3100995f8747a105af8df3bae3dcd5a0757",
+      "asset_id": 659070591,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-desktop-aio-setup-v0.1.5-rc.3-x64.exe"
+    },
+    {
+      "name": "dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 423792806,
+      "sha256": "f89c3468245952606b0141f8d62bcb4a11404f96498df073eec6086961014a7c",
+      "asset_id": 659072652,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-desktop-aio-setup-v0.1.5-rc.3-x86.exe"
+    },
+    {
+      "name": "dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe",
+      "bytes": 126308349,
+      "sha256": "706c29b0f603e2b21f5123e068aa3b7abab6ff73ab448fd3e03ce481dd99f185",
+      "asset_id": 659070596,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-desktop-standard-setup-v0.1.5-rc.3-x64.exe"
+    },
+    {
+      "name": "dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe",
+      "bytes": 115432568,
+      "sha256": "cb2257ffc895617686de6c858a71508f0f3ddb376bf8252dda8d3747fb3bbd00",
+      "asset_id": 659070592,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-desktop-standard-setup-v0.1.5-rc.3-x86.exe"
+    },
+    {
+      "name": "dsh-win7-offline-upgrade.zip",
+      "bytes": 306681769,
+      "sha256": "6f57ea5fb44c58035db41eecea44ebdeb3bab1362a71945e97898e95d33f020f",
+      "asset_id": 659075223,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-win7-offline-upgrade.zip"
+    },
+    {
+      "name": "dsh-win7-portable-v0.1.5-rc.3-x86.zip",
+      "bytes": 94596022,
+      "sha256": "894f7bab4bb4958bdfcdb17895e615a80b9cc195993629035ae59dbbbd967b6a",
+      "asset_id": 659070593,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-win7-portable-v0.1.5-rc.3-x86.zip"
+    },
+    {
+      "name": "dsh-win7-portable-v0.1.5-rc.3.zip",
+      "bytes": 106551699,
+      "sha256": "7fc3523f98b3f2055e8eb725f83e8768fcea0f399d5b073b3bb8fb966566db76",
+      "asset_id": 659070619,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/dsh-win7-portable-v0.1.5-rc.3.zip"
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 2067,
+      "sha256": "368c8e66a29c2486b4b6d3f2b9e86a53c29af2bb956038cc272126687eb98f79",
+      "asset_id": 659075886,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/release-manifest.json"
+    },
+    {
+      "name": "release-verification.json",
+      "bytes": 2220,
+      "sha256": "80c5ed8970f4b7ff5654c88809d67ccce9f9b73d8cc85a068ff7c6e821424cc7",
+      "asset_id": 659075949,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/release-verification.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 930,
+      "sha256": "79381ed5d2de060d46123125fc9f5f6f3d047df16c78abefc742e6f3d14ffe60",
+      "asset_id": 659076006,
+      "url": "https://github.com/czh869452912/deepseek-harness-win7/releases/download/v0.1.5-rc.3/SHA256SUMS.txt"
+    }
+  ],
+  "scope": "User reported completed imported Win7 testing with no observed problems; no per-matrix results inferred. Existing exact automated receipts and bounded parity limits remain unchanged. Operator LAN automatic update deployment remains separate."
+}
