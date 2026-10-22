@@ -48,6 +48,12 @@ def test_nsis_powershell_calls_do_not_read_the_nsexec_stdin_pipe():
     assert all('powershell.exe' in line and ' -InputFormat None ' in line for line in lines)
 
 
+def test_installer_scripts_avoid_net4_only_dispose():
+    # PowerShell 2.0 runs on .NET 3.5, where HashAlgorithm has no public Dispose().
+    for path in (ROOT / 'apps/desktop/installer').glob('*.ps1'):
+        assert '.Dispose()' not in path.read_text(encoding='utf-8'), path.name
+
+
 def test_desktop_copies_complete_reviewed_package_closure_not_build_fixtures(tmp_path, monkeypatch):
     source=tmp_path / 'source'
     portable=tmp_path / 'portable'
