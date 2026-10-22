@@ -39,6 +39,15 @@ def test_nsis_define_preserves_literal_dollar_and_rejects_quotes():
             nsis_define(value)
 
 
+def test_nsis_powershell_calls_do_not_read_the_nsexec_stdin_pipe():
+    # Windows 7 PowerShell 2.0 under nsExec fails with "Access to the path is
+    # denied" before running any script unless stdin input is disabled.
+    lines = [line for line in (ROOT / 'apps/desktop/installer/setup.nsi').read_text(encoding='utf-8').splitlines()
+             if 'nsExec::' in line]
+    assert len(lines) == 6
+    assert all('powershell.exe' in line and ' -InputFormat None ' in line for line in lines)
+
+
 def test_desktop_copies_complete_reviewed_package_closure_not_build_fixtures(tmp_path, monkeypatch):
     source=tmp_path / 'source'
     portable=tmp_path / 'portable'

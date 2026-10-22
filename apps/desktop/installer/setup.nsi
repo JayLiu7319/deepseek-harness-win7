@@ -104,10 +104,11 @@ Section "Desktop" SEC_DESKTOP
   File /oname=publish-installation.ps1 "${PUBLICATION}"
   GetTempFileName $PrereqLog
   ${DisableX64FSRedirection}
-  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -CheckOnly'
+  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -CheckOnly'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 != 0
+    DetailPrint "Installation check exited with $0."
     MessageBox MB_ICONSTOP "Close all DeepSeek Harness windows and quit its tray icon, then run setup again. No running application will be terminated." /SD IDOK
     SetErrorLevel 4
     Abort
@@ -122,7 +123,7 @@ Section "Desktop" SEC_DESKTOP
   File /r "${PREREQUISITES}\*"
 !endif
   ${DisableX64FSRedirection}
-  nsExec::ExecToLog /TIMEOUT=1850000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\prerequisites.ps1" -Edition ${EDITION} -Payload "$PLUGINSDIR\prereq" -LogPath "$PrereqLog"'
+  nsExec::ExecToLog /TIMEOUT=1850000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\prerequisites.ps1" -Edition ${EDITION} -Payload "$PLUGINSDIR\prereq" -LogPath "$PrereqLog"'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 == 3010
@@ -155,14 +156,14 @@ Section "Desktop" SEC_DESKTOP
   WriteUninstaller "$Generation\uninstall.exe"
   IfErrors install_failed
   ${DisableX64FSRedirection}
-  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -RegisterGeneration "$Generation"'
+  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -RegisterGeneration "$Generation"'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 != 0
     Goto install_failed
   ${EndIf}
   ${DisableX64FSRedirection}
-  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\publish-installation.ps1" -InstallDirectory "$INSTDIR" -Generation "$Generation" -Version "${VERSION}"'
+  nsExec::ExecToLog /TIMEOUT=60000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\publish-installation.ps1" -InstallDirectory "$INSTDIR" -Generation "$Generation" -Version "${VERSION}"'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 == 5
@@ -179,7 +180,7 @@ Section "Desktop" SEC_DESKTOP
     Abort
   install_failed:
     ${DisableX64FSRedirection}
-    nsExec::ExecToLog /TIMEOUT=180000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -RemoveGeneration "$Generation"'
+    nsExec::ExecToLog /TIMEOUT=180000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR" -RemoveGeneration "$Generation"'
     Pop $0
     ${EnableX64FSRedirection}
     MessageBox MB_ICONSTOP "Application extraction failed. Verified new-generation files were rolled back; previous generations and user data have been preserved. Modified or unknown files remain for inspection." /SD IDOK
@@ -203,7 +204,7 @@ Section "Uninstall"
   SetOutPath "$PLUGINSDIR"
   File /oname=uninstall-files.ps1 "${CLEANUP}"
   ${DisableX64FSRedirection}
-  nsExec::ExecToLog /TIMEOUT=180000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR"'
+  nsExec::ExecToLog /TIMEOUT=180000 '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -File "$PLUGINSDIR\uninstall-files.ps1" -InstallDirectory "$INSTDIR"'
   Pop $0
   ${EnableX64FSRedirection}
   ${If} $0 != 0
